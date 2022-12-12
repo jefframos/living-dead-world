@@ -1,8 +1,8 @@
 {
     "default": [
-        "image/particles/particles.json",
-        "image/pattern/pattern.json",
         "image/pattern2/pattern2.json",
+        "image/pattern/pattern.json",
+        "image/particles/particles.json",
         "image/parts/parts.json",
         "image/partsf/partsf.json",
         "image/partsh/partsh.json",

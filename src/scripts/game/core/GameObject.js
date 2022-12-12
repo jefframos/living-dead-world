@@ -1,4 +1,5 @@
 import Transform from "./Transform";
+import * as signals from 'signals';
 
 export default class GameObject {
     constructor() {
@@ -7,8 +8,11 @@ export default class GameObject {
         this.enabled = true;
         this.parent = null;
 
+        this.gameObjectDestroyed = new signals.Signal();
+
     }
     addChild(gameObject) {
+        gameObject.engineID = ++this.objectCounter;
         gameObject.setParent(this)
         this.children.push(gameObject);
     }
@@ -17,6 +21,18 @@ export default class GameObject {
     }
     onRender() {
 
+    }
+    /**
+     * @param {number} value
+     */
+    set x(value) {
+        this.transform.position.x = value
+    }
+    /**
+     * @param {number} value
+     */
+    set y(value) {
+        this.transform.position.y = value
     }
     update(delta) {
         this.children.forEach(element => {
@@ -33,12 +49,17 @@ export default class GameObject {
         this.enabled = false;
 
     }
-    removeChild(child) {
-        for (let index = 0; index < this.children.length; index++) {
-            if (this.children[index] == child) {
-                this.children.splice(index, 1);
-            }
+    destroy(){
+        this.gameObjectDestroyed.dispatch(this);
+
+        if(this.parent){
+            console.log('destroy')
+            this.parent.removeChild(this)
         }
+    }
+    removeChild(child) {
+        var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(child.engineID);
+        this.children.splice(elementPos, 1)
     }
     setParent(newParent) {
         if (this.parent && this.parent != newParent) {

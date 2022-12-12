@@ -24,4 +24,19 @@ export default class PhysicsEntity extends GameObject {
         this.transform.position.x = this.body.position.x;
         this.transform.position.y = this.body.position.y;
     }
+    
+    /**
+     * @param {number} value
+     */
+    set x(value) {
+        Matter.Body.setPosition(this.body, {x:value, y:this.body.position.y})
+        this.transform.position.x = this.body.position.x;
+    }
+    /**
+     * @param {number} value
+     */
+    set y(value) {
+        Matter.Body.setPosition(this.body, {x:this.body.position.x, y:value})
+        this.transform.position.y = this.body.position.y;
+    }
 }

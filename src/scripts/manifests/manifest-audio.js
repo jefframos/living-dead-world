@@ -24,12 +24,12 @@ const assets = [
 	"url":"assets/audio\\Cartoon-Mouth-Sound-18.mp3"
 	},
 	{
-	"id":"Cartoon-Mouth-Sound-20",
-	"url":"assets/audio\\Cartoon-Mouth-Sound-20.mp3"
-	},
-	{
 	"id":"coins_04",
 	"url":"assets/audio\\coins_04.mp3"
+	},
+	{
+	"id":"Cartoon-Mouth-Sound-20",
+	"url":"assets/audio\\Cartoon-Mouth-Sound-20.mp3"
 	},
 	{
 	"id":"dropTile",
@@ -64,28 +64,32 @@ const assets = [
 	"url":"assets/audio\\item.mp3"
 	},
 	{
-	"id":"kill",
-	"url":"assets/audio\\kill.mp3"
-	},
-	{
 	"id":"magic",
 	"url":"assets/audio\\magic.mp3"
+	},
+	{
+	"id":"kill",
+	"url":"assets/audio\\kill.mp3"
 	},
 	{
 	"id":"Musical-Beep-Loop-02",
 	"url":"assets/audio\\Musical-Beep-Loop-02.mp3"
 	},
 	{
-	"id":"Ping-Slide-Down",
-	"url":"assets/audio\\Ping-Slide-Down.mp3"
-	},
-	{
 	"id":"place",
 	"url":"assets/audio\\place.mp3"
 	},
 	{
+	"id":"Ping-Slide-Down",
+	"url":"assets/audio\\Ping-Slide-Down.mp3"
+	},
+	{
 	"id":"place2",
 	"url":"assets/audio\\place2.mp3"
+	},
+	{
+	"id":"place3",
+	"url":"assets/audio\\place3.mp3"
 	},
 	{
 	"id":"Pop-Low-Pitch-Up-02",
@@ -96,10 +100,6 @@ const assets = [
 	"url":"assets/audio\\Pop-Musical.mp3"
 	},
 	{
-	"id":"place3",
-	"url":"assets/audio\\place3.mp3"
-	},
-	{
 	"id":"Pop-Tone",
 	"url":"assets/audio\\Pop-Tone.mp3"
 	},
@@ -108,24 +108,24 @@ const assets = [
 	"url":"assets/audio\\pop.mp3"
 	},
 	{
-	"id":"shoosh",
-	"url":"assets/audio\\shoosh.mp3"
-	},
-	{
 	"id":"pop2",
 	"url":"assets/audio\\pop2.mp3"
+	},
+	{
+	"id":"shoosh",
+	"url":"assets/audio\\shoosh.mp3"
 	},
 	{
 	"id":"SneakySnitch",
 	"url":"assets/audio\\SneakySnitch.mp3"
 	},
 	{
-	"id":"Synth-Appear-01",
-	"url":"assets/audio\\Synth-Appear-01.mp3"
-	},
-	{
 	"id":"Tap-01",
 	"url":"assets/audio\\Tap-01.mp3"
+	},
+	{
+	"id":"Synth-Appear-01",
+	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
 	"id":"teleport",

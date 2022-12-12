@@ -1,17 +1,24 @@
 export default class Engine {
     constructor() {
         this.gameObjects = []
+        this.objectCounter = 0;
     }
     addGameObject(gameObject) {
         gameObject.engine = this;
+        gameObject.engineID = ++this.objectCounter;
+        gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
         this.gameObjects.push(gameObject);
 
         return gameObject;
     }
     destroyGameObject(gameObject) {
-
+        gameObject.destroy()
     }
-    findByType(type){
+    wipeGameObject(gameObject) {
+        var elementPos = this.gameObjects.map(function (x) { return x.engineID; }).indexOf(gameObject.engineID);
+        this.gameObjects.splice(elementPos, 1)
+    }
+    findByType(type) {
         let elementFound = null
 
         for (let index = 0; index < this.gameObjects.length; index++) {
