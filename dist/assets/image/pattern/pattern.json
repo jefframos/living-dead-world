@@ -1,0 +1,20 @@
+{"frames": {
+
+"tiledStars.png":
+{
+	"frame": {"x":1,"y":1,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "pattern.png",
+	"format": "RGBA8888",
+	"size": {"w":258,"h":258},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:3dab4a2f0cb46d684a022d5a8ef8f613:f01c2ede2ad6ba2f45f8dc5c1637ca34:df33f26ecbbb8b6297526de363462989$"
+}
+}

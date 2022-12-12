@@ -1,0 +1,14 @@
+{
+    "default": [
+        "image/particles/particles.json",
+        "image/pattern/pattern.json",
+        "image/pattern2/pattern2.json",
+        "image/parts/parts.json",
+        "image/partsf/partsf.json",
+        "image/partsh/partsh.json",
+        "image/background2/background2.json",
+        "image/portraits/portraits.json",
+        "image/background/background.json",
+        "image/ui/ui.json"
+    ]
+}

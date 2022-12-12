@@ -1,0 +1,136 @@
+{"frames": {
+
+"backPinePatch1.png":
+{
+	"frame": {"x":1444,"y":1742,"w":203,"h":294},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":203,"h":294},
+	"sourceSize": {"w":207,"h":294}
+},
+"backPinePatch2.png":
+{
+	"frame": {"x":1649,"y":1616,"w":191,"h":295},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":191,"h":295},
+	"sourceSize": {"w":194,"h":295}
+},
+"base-terrain.png":
+{
+	"frame": {"x":1,"y":1,"w":1113,"h":799},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":1113,"h":799},
+	"sourceSize": {"w":1116,"h":802}
+},
+"bottomPatch.png":
+{
+	"frame": {"x":1842,"y":1616,"w":178,"h":209},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":178,"h":209},
+	"sourceSize": {"w":181,"h":213}
+},
+"castleBase.png":
+{
+	"frame": {"x":534,"y":802,"w":993,"h":547},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":993,"h":547},
+	"sourceSize": {"w":997,"h":550}
+},
+"fbase.png":
+{
+	"frame": {"x":1116,"y":1,"w":886,"h":575},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":886,"h":575},
+	"sourceSize": {"w":889,"h":575}
+},
+"frightPatch.png":
+{
+	"frame": {"x":534,"y":1797,"w":242,"h":908},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":91,"y":115,"w":242,"h":908},
+	"sourceSize": {"w":333,"h":1023}
+},
+"leftPatch.png":
+{
+	"frame": {"x":1083,"y":830,"w":308,"h":908},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":123,"w":308,"h":908},
+	"sourceSize": {"w":403,"h":1033}
+},
+"moon.png":
+{
+	"frame": {"x":1646,"y":830,"w":386,"h":401},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":39,"y":32,"w":386,"h":401},
+	"sourceSize": {"w":469,"h":469}
+},
+"pineSidePatch.png":
+{
+	"frame": {"x":1,"y":802,"w":531,"h":1085},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":531,"h":1085},
+	"sourceSize": {"w":537,"h":1085}
+},
+"rightPatch.png":
+{
+	"frame": {"x":1116,"y":578,"w":250,"h":909},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":91,"y":115,"w":250,"h":909},
+	"sourceSize": {"w":343,"h":1027}
+},
+"rightPatchCliff.png":
+{
+	"frame": {"x":1393,"y":830,"w":251,"h":910},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":66,"y":115,"w":251,"h":910},
+	"sourceSize": {"w":320,"h":1027}
+},
+"skullLight1.png":
+{
+	"frame": {"x":222,"y":1889,"w":125,"h":219},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":12,"w":125,"h":219},
+	"sourceSize": {"w":148,"h":231}
+},
+"skullLight2.png":
+{
+	"frame": {"x":1,"y":1889,"w":139,"h":219},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":12,"w":139,"h":219},
+	"sourceSize": {"w":153,"h":231}
+},
+"sun.png":
+{
+	"frame": {"x":1646,"y":1233,"w":368,"h":381},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":45,"y":38,"w":368,"h":381},
+	"sourceSize": {"w":464,"h":461}
+}},
+"animations": {
+	"backPinePatch": ["backPinePatch1.png","backPinePatch2.png"],
+	"skullLight": ["skullLight1.png","skullLight2.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "background.png",
+	"format": "RGBA8888",
+	"size": {"w":2033,"h":2040},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:8251ff37c7b6e9cbe2ca57bd51132a46:771d0c755c5918860b17e1171fd04e54:2ba65c328dea799e4d80739630892abf$"
+}
+}
