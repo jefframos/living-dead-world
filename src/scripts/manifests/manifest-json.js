@@ -8,16 +8,16 @@ const assets = [
 	"url":"assets/json\\baseGameConfigFairy.json"
 	},
 	{
-	"id":"fairies",
-	"url":"assets/json\\fairies.json"
+	"id":"baseGameConfigMonster",
+	"url":"assets/json\\baseGameConfigMonster.json"
 	},
 	{
 	"id":"baseGameConfigHumans",
 	"url":"assets/json\\baseGameConfigHumans.json"
 	},
 	{
-	"id":"baseGameConfigMonster",
-	"url":"assets/json\\baseGameConfigMonster.json"
+	"id":"fairies",
+	"url":"assets/json\\fairies.json"
 	},
 	{
 	"id":"humans",
@@ -52,20 +52,20 @@ const assets = [
 	"url":"assets/json\\localization_KO.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"modifyers",

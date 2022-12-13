@@ -17,6 +17,8 @@ export default class Bullet extends PhysicsEntity {
 
         this.body.collisionFilter.group = 0
         this.body.collisionFilter.mask = 1 | 2
+
+        this.span = 1
     }
     shoot(ang) {
         this.physics.velocity.x = Math.cos(ang) * this.speed
@@ -32,9 +34,14 @@ export default class Bullet extends PhysicsEntity {
     start() {
         this.physicsModule = this.engine.findByType(PhysicsModule)
     }
-
+    
     update(delta) {
         super.update(delta)
+        
+        this.span -= delta
+        if(this.span <= 0){            
+            this.physicsModule.removeAgent(this);
+        }
         this.view.x = this.transform.position.x
         this.view.y = this.transform.position.y
     }

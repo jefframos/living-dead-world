@@ -73261,14 +73261,14 @@ var assets = [{
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
-	"id": "fairies",
-	"url": "assets/json\\fairies.json"
+	"id": "baseGameConfigMonster",
+	"url": "assets/json\\baseGameConfigMonster.json"
 }, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
 }, {
-	"id": "baseGameConfigMonster",
-	"url": "assets/json\\baseGameConfigMonster.json"
+	"id": "fairies",
+	"url": "assets/json\\fairies.json"
 }, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
@@ -73294,17 +73294,17 @@ var assets = [{
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
@@ -76310,6 +76310,8 @@ var Bullet = function (_PhysicsEntity) {
 
         _this.body.collisionFilter.group = 0;
         _this.body.collisionFilter.mask = 1 | 2;
+
+        _this.span = 1;
         return _this;
     }
 
@@ -76337,6 +76339,11 @@ var Bullet = function (_PhysicsEntity) {
         key: "update",
         value: function update(delta) {
             (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "update", this).call(this, delta);
+
+            this.span -= delta;
+            if (this.span <= 0) {
+                this.physicsModule.removeAgent(this);
+            }
             this.view.x = this.transform.position.x;
             this.view.y = this.transform.position.y;
         }
