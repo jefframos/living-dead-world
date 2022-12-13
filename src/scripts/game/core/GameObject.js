@@ -12,8 +12,9 @@ export default class GameObject {
 
     }
     addChild(gameObject) {
-        gameObject.engineID = ++this.objectCounter;
+        gameObject.engineID = ++window.objectCounter;
         gameObject.setParent(this)
+        gameObject.start();
         this.children.push(gameObject);
     }
     start() {
@@ -53,7 +54,6 @@ export default class GameObject {
         this.gameObjectDestroyed.dispatch(this);
 
         if(this.parent){
-            console.log('destroy')
             this.parent.removeChild(this)
         }
     }

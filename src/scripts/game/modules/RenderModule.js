@@ -1,15 +1,22 @@
 
 import GameObject from "../core/GameObject";
 import GameAgent from "./GameAgent";
+import PhysicsEntity from "./PhysicsEntity";
 import PhysicsModule from "./PhysicsModule";
 import StaticPhysicObject from "./StaticPhysicObject";
 
 export default class RenderModule extends GameObject {
-    constructor(container) {
+    constructor(container, shadowsContainer, debugContainer) {
         super();
 
         this.container = container;
-        this.views = [];
+        this.debugContainer = debugContainer;
+        this.shadowsContainer = shadowsContainer;
+
+        this.renderStats = {
+            totalRenderEntities: 0
+        }
+        window.GUI.add(this.renderStats, 'totalRenderEntities').listen();
     }
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
@@ -19,12 +26,9 @@ export default class RenderModule extends GameObject {
         entities.forEach(element => {
             let view
 
-            if (element instanceof GameAgent) {
+             if (element instanceof GameAgent) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 view = element.view;
-                view.anchor.set(0.5)
-                view.width = element.body.circleRadius * 2
-                view.height = element.body.circleRadius * 2
             } else if (element instanceof StaticPhysicObject) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
 
@@ -37,10 +41,13 @@ export default class RenderModule extends GameObject {
 
                 view = element.view;
                 view.anchor.set(0.5)
+                view.tint = 0
                 view.width = bounds.width
                 view.height = bounds.height
-            }
-            else if (element.type == 'circle') {
+            }else if (element instanceof PhysicsEntity) {
+                element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
+                view = element.view;
+            }  else if (element.type == 'circle') {
                 view = new PIXI.Sprite.from('new_item')
                 view.anchor.set(0.5)
                 view.width = element.body.circleRadius * 2
@@ -58,8 +65,15 @@ export default class RenderModule extends GameObject {
                 view.height = bounds.height
             }
 
+            if (element.debug) {
+                this.debugContainer.addChild(element.debug)
+            }
+
+            if (element.shadow) {
+                this.shadowsContainer.addChild(element.shadow)
+            }
+
             this.container.addChild(view)
-            this.views.push(view)
 
         });
 
@@ -71,8 +85,23 @@ export default class RenderModule extends GameObject {
 
         var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(element.engineID);
         this.children.splice(elementPos, 1)
+
+        if (element.debug) {
+            this.debugContainer.removeChild(element.debug)
+        }
+
+        if (element.shadow) {
+            this.shadowsContainer.removeChild(element.shadow)
+        }
     }
     onRender() {
         if (!this.physics) return
+
+        this.container.children.sort(function (a, b) {
+            if (a.y == b.y) return a.x - b.x;
+            return a.y - b.y;
+        });
+
+        this.renderStats.totalRenderEntities = this.container.children.length;
     }
 }

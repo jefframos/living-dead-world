@@ -1,11 +1,11 @@
 export default class Engine {
     constructor() {
         this.gameObjects = []
-        this.objectCounter = 0;
+        window.objectCounter = 0;
     }
     addGameObject(gameObject) {
         gameObject.engine = this;
-        gameObject.engineID = ++this.objectCounter;
+        gameObject.engineID = ++window.objectCounter;
         gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
         this.gameObjects.push(gameObject);
 

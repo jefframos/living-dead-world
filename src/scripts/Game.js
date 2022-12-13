@@ -6,9 +6,9 @@ export default class Game {
     constructor(config, screenManager) {
         this.screenManager = screenManager;
 
-        if(!window.isMobile){
-            config.width *=1.1
-            config.height *=1.1
+        if (!window.isMobile) {
+            config.width *= 1.1
+            config.height *= 1.1
         }
 
         const Renderer = (config.webgl) ? PIXI.autoDetectRenderer : PIXI.CanvasRenderer;
@@ -25,7 +25,7 @@ export default class Game {
             height: config.height,
             resolution: Math.max(window.devicePixelRatio, 2),
             antialias: false,
-            backgroundColor:0x3B296D
+            backgroundColor: 0x151510
         });
         document.body.appendChild(window.renderer.view);
 
@@ -48,25 +48,24 @@ export default class Game {
             bottomRight: { x: 0, y: 0 },
         }
 
-       
         this.makeLoader();
         this.resize()
     }
-    makeLoader(){
+    makeLoader() {
         this.loaderContainer = new PIXI.Container()
-        let backLoader = new PIXI.Graphics().beginFill(0).drawRect(0,0,300,30)
-        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0,0,300,30)
+        let backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, 0, 300, 30)
+        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0, 0, 300, 30)
         this.loaderContainer.addChild(backLoader)
         this.loaderContainer.addChild(this.fillLoader)
-        this.logo = new PIXI.Sprite.from('logoTransparent.png')
-        this.logo.anchor.set(0.5)
         this.fillLoader.scale.x = 0
-        this.logo.x = 150
-        this.logo.y = -200
-        this.loaderContainer.addChild(this.logo)
+        // this.logo = new PIXI.Sprite.from('logoTransparent.png')
+        // this.logo.anchor.set(0.5)
+        // this.logo.x = 150
+        // this.logo.y = -200
+        // this.loaderContainer.addChild(this.logo)
         this.stage.addChild(this.loaderContainer);
     }
-    updateLoader(progress){
+    updateLoader(progress) {
         this.fillLoader.scale.x = progress / 100
         this.resize()
     }
@@ -162,15 +161,15 @@ export default class Game {
 
         //element.scale.set(min)
 
-        if(this.loaderContainer && this.loaderContainer.parent){
+        if (this.loaderContainer && this.loaderContainer.parent) {
             let newScaleX = newSize.width / this.innerResolution.width
             this.loaderContainer.scale.x = newScaleX//this.ratio
             let newScaleY = newSize.height / this.innerResolution.height
             this.loaderContainer.scale.y = newScaleY//this.ratio
 
-        
-            this.loaderContainer.x =  this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150* newScaleX
-            this.loaderContainer.y = config.height/2 + 50
+
+            this.loaderContainer.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+            this.loaderContainer.y = config.height / 2 + 50
 
 
         }

@@ -10,6 +10,9 @@ import RenderModule from '../modules/RenderModule';
 import GameAgent from '../modules/GameAgent';
 
 import * as dat from 'dat.gui';
+import StandardZombie from '../entity/StandardZombie';
+import Player from '../entity/Player';
+import InputModule from '../modules/InputModule';
 
 
 export default class GameScreen extends Screen {
@@ -30,22 +33,28 @@ export default class GameScreen extends Screen {
 
         this.labelText = new PIXI.Text('MAIN SCREEN')
         this.container.addChild(this.labelText)
+        //this.particleContainer = new PIXI.ParticleContainer();
 
-        this.particleContainer = new PIXI.ParticleContainer();
-        this.particleContainer.maxSize = 2000
-        this.container.addChild(this.particleContainer)
+        this.debugContainer = new PIXI.Container();
+        this.shadowContainer = new PIXI.ParticleContainer();
+        this.entitiesContainer = new PIXI.Container();
+
+        this.container.addChild(this.shadowContainer)
+        this.container.addChild(this.entitiesContainer)
+        this.container.addChild(this.debugContainer)
 
 
         this.gameEngine = new Engine();
         this.physics = this.gameEngine.addGameObject(new PhysicsModule())
         this.camera = this.gameEngine.addGameObject(new CameraModule())
-        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.particleContainer))
+        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.entitiesContainer, this.shadowContainer, this.debugContainer))
+        this.inputModule = this.gameEngine.addGameObject(new InputModule())
 
 
         this.debug = {
             removeRandomPiece: () => {
 
-                for (let index = 0; index < 500; index++) {
+                for (let index = 0; index < 100; index++) {
                     setTimeout(() => {                        
                         this.physics.destroyRandom(2);
                     }, 5 * index);
@@ -53,7 +62,7 @@ export default class GameScreen extends Screen {
                 }
             },
             addRandomPiece: () => {
-                for (let index = 0; index < 500; index++) {
+                for (let index = 0; index < 100; index++) {
                     setTimeout(() => {                        
                         this.addRandomAgents(1);
                     }, 5 * index);
@@ -61,10 +70,8 @@ export default class GameScreen extends Screen {
                 }
             }
         }
-        const gui = new dat.GUI({ closed: false });
-        gui.add(this.debug, 'removeRandomPiece');
-        gui.add(this.debug, 'addRandomPiece');
-
+        window.GUI.add(this.debug, 'removeRandomPiece');
+        window.GUI.add(this.debug, 'addRandomPiece');
     }
 
     onAdded() {
@@ -73,7 +80,7 @@ export default class GameScreen extends Screen {
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            let agent = new GameAgent();
+            let agent = new StandardZombie();
             agent.x = Math.random() * (config.width - 50) + 25
             agent.y = Math.random() * (100 - 50) + 25
             this.physics.addAgent(agent)
@@ -86,19 +93,24 @@ export default class GameScreen extends Screen {
 
         this.gameEngine.start();
 
-        this.physics.staticRect(config.width / 2, 0, config.width, 60, { isStatic: true });
-        this.physics.staticRect(config.width / 2, config.height, config.width, 60, { isStatic: true });
-        this.physics.staticRect(-20, config.height / 2, 30, config.height, { isStatic: true });
-        this.physics.staticRect(config.width, config.height / 2, 30, config.height, { isStatic: true });
-
-
-
-        for (let index = 0; index < 1500; index++) {
-            let agent = new GameAgent();
+                
+        for (let index = 0; index < 10; index++) {
+            let agent = new StandardZombie();
             agent.x = Math.random() * (config.width - 50) + 25
             agent.y = Math.random() * (config.height - 50) + 25
             this.physics.addAgent(agent)
         }
+
+
+        let player = new Player();
+        player.x =(config.width/2)
+        player.y =(config.height/2)
+        this.physics.addAgent(player)
+
+        this.physics.staticRect(config.width / 2, 0, config.width, 60, { isStatic: true });
+        this.physics.staticRect(config.width / 2, config.height, config.width, 60, { isStatic: true });
+        this.physics.staticRect(-20, config.height / 2, 30, config.height, { isStatic: true });
+        this.physics.staticRect(config.width, config.height / 2, 30, config.height, { isStatic: true });
 
     }
     update(delta) { 

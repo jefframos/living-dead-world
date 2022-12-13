@@ -168,6 +168,14 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":113,"h":80},
 	"sourceSize": {"w":113,"h":80}
 },
+"debugRound.png":
+{
+	"frame": {"x":1110,"y":1317,"w":29,"h":29},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":29},
+	"sourceSize": {"w":29,"h":29}
+},
 "fast-f.png":
 {
 	"frame": {"x":1665,"y":1556,"w":44,"h":20},
@@ -306,7 +314,7 @@
 },
 "icon_increase.png":
 {
-	"frame": {"x":1110,"y":1317,"w":29,"h":29},
+	"frame": {"x":1671,"y":960,"w":29,"h":29},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":29,"h":29},
@@ -829,6 +837,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1702,"h":1781},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4d853813168daea78e19b718213cd4c1:92dca006b0f8b0eacb05459e596dfca5:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e2451568a47195e63b6c64f69f6d32fe:bf81c811a0dc434e68b332c6263d72ec:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

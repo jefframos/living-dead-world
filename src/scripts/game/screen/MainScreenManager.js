@@ -10,6 +10,13 @@ export default class MainScreenManager extends ScreenManager {
     constructor() {
         super();
 
+
+        this.settings = {
+            fps:60
+          }
+        window.GUI = new dat.GUI({ closed: false });        
+        window.GUI.add(this.settings, 'fps',1,120).listen();
+        
         this.backgroundContainer = new PIXI.Container();
         this.addChild(this.backgroundContainer);
         this.setChildIndex(this.backgroundContainer, 0);
@@ -59,11 +66,7 @@ export default class MainScreenManager extends ScreenManager {
 
         // this.screenTransition.x = config.width/2;
 
-        this.settings = {
-            fps:60
-          }
-        const gui = new dat.GUI({ closed: false });        
-        gui.add(this.settings, 'fps',1,120).listen();
+       
 
     }
     addCoinsParticles(pos, quant = 5, customData = {}) {
