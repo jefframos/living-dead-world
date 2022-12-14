@@ -1,6 +1,8 @@
-import Matter from "matter-js";
+import Engine from "../core/Engine";
 import GameAgent from "../modules/GameAgent";
 import InputModule from "../modules/InputModule";
+import Layer from "../core/Layer";
+import Matter from "matter-js";
 import PhysicsEntity from "../modules/PhysicsEntity";
 import PhysicsModule from "../modules/PhysicsModule";
 
@@ -12,24 +14,25 @@ export default class Bullet extends PhysicsEntity {
         this.view.anchor.set(0.5)
         this.view.scale.set(5 / this.view.width * 2)
         this.speed = 30
+        
+        this.body.collisionFilter.group = 2
+        this.body.collisionFilter.mask = 3
 
-
-
-        this.body.collisionFilter.group = 0
-        this.body.collisionFilter.mask = 1 | 2
 
         this.span = 1
+
+        this.layerCategory = Layer.Bullet
+        this.layerMask = Layer.Enemy
     }
     shoot(ang) {
         this.physics.velocity.x = Math.cos(ang) * this.speed
         this.physics.velocity.y = Math.sin(ang) * this.speed
     }
     collisionEnter(collided) {
-        console.log(collided.body.isStatic)
         if(!collided.body.isStatic){
-            this.physicsModule.removeAgent(collided);
+            collided.destroy();
         }
-        this.physicsModule.removeAgent(this);
+        this.destroy()
     }
     start() {
         this.physicsModule = this.engine.findByType(PhysicsModule)
@@ -40,9 +43,9 @@ export default class Bullet extends PhysicsEntity {
         
         this.span -= delta
         if(this.span <= 0){            
-            this.physicsModule.removeAgent(this);
+            this.destroy()
         }
         this.view.x = this.transform.position.x
-        this.view.y = this.transform.position.y
+        this.view.y = this.transform.position.y - 30
     }
 }

@@ -1,8 +1,7 @@
-import Matter from "matter-js";
-import GameObject from "../core/GameObject";
 import * as signals from 'signals';
-import PhysicsEntity from "./PhysicsEntity";
-import StaticPhysicObject from "./StaticPhysicObject";
+
+import GameObject from "../core/GameObject";
+import Matter from "matter-js";
 
 export default class InputModule extends GameObject {
     constructor() {

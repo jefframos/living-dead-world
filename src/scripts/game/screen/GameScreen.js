@@ -1,19 +1,19 @@
 import * as PIXI from 'pixi.js';
+import * as dat from 'dat.gui';
+
+import CameraModule from '../modules/CameraModule';
+import Engine from '../core/Engine';
+import GameAgent from '../modules/GameAgent';
+import InputModule from '../modules/InputModule';
+import Matter from 'matter-js';
+import PhysicsModule from '../modules/PhysicsModule';
+import Player from '../entity/Player';
+import RenderModule from '../modules/RenderModule';
 import Screen from '../../screenManager/Screen'
 import Signals from 'signals';
-import Matter from 'matter-js';
-import config from '../../config';
-import Engine from '../core/Engine';
-import PhysicsModule from '../modules/PhysicsModule';
-import CameraModule from '../modules/CameraModule';
-import RenderModule from '../modules/RenderModule';
-import GameAgent from '../modules/GameAgent';
-
-import * as dat from 'dat.gui';
 import StandardZombie from '../entity/StandardZombie';
-import Player from '../entity/Player';
-import InputModule from '../modules/InputModule';
-
+import StaticPhysicObject from '../entity/StaticPhysicObject';
+import config from '../../config';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -45,7 +45,7 @@ export default class GameScreen extends Screen {
 
 
         this.gameEngine = new Engine();
-        this.physics = this.gameEngine.addGameObject(new PhysicsModule())
+        this.physics = this.gameEngine.physics
         this.camera = this.gameEngine.addGameObject(new CameraModule())
         this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.entitiesContainer, this.shadowContainer, this.debugContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule())
@@ -54,9 +54,9 @@ export default class GameScreen extends Screen {
         this.debug = {
             removeRandomPiece: () => {
 
-                for (let index = 0; index < 100; index++) {
+                for (let index = 0; index < 50; index++) {
                     setTimeout(() => {                        
-                        this.physics.destroyRandom(2);
+                        this.destroyRandom(1);
                     }, 5 * index);
                     
                 }
@@ -78,12 +78,18 @@ export default class GameScreen extends Screen {
 
 
     }
+    destroyRandom(quant) {
+        for (let index = 0; index < quant; index++) {
+            if(this.gameEngine.gameObjects.length <= 0) continue;            
+            this.gameEngine.destroyGameObject(this.gameEngine.gameObjects[this.gameEngine.gameObjects.length - 1])
+        }
+    }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
             let agent = new StandardZombie();
             agent.x = Math.random() * (config.width - 50) + 25
             agent.y = Math.random() * (100 - 50) + 25
-            this.physics.addAgent(agent)
+            this.gameEngine.addGameObject(agent)
         }
     }
     build(param) {
@@ -98,19 +104,22 @@ export default class GameScreen extends Screen {
             let agent = new StandardZombie();
             agent.x = Math.random() * (config.width - 50) + 25
             agent.y = Math.random() * (config.height - 50) + 25
-            this.physics.addAgent(agent)
+            this.gameEngine.addGameObject(agent)
         }
 
 
         let player = new Player();
         player.x =(config.width/2)
         player.y =(config.height/2)
-        this.physics.addAgent(player)
-
-        this.physics.staticRect(config.width / 2, 0, config.width, 60, { isStatic: true });
-        this.physics.staticRect(config.width / 2, config.height, config.width, 60, { isStatic: true });
-        this.physics.staticRect(-20, config.height / 2, 30, config.height, { isStatic: true });
-        this.physics.staticRect(config.width, config.height / 2, 30, config.height, { isStatic: true });
+        this.gameEngine.addGameObject(player)
+        let wall1 = new StaticPhysicObject(config.width / 2, 0, config.width, 60, { isStatic: true });
+        let wall2 = new StaticPhysicObject(config.width / 2, config.height, config.width, 60, { isStatic: true });
+        let wall3 = new StaticPhysicObject(-20, config.height / 2, 30, config.height, { isStatic: true });
+        let wall4 = new StaticPhysicObject(config.width, config.height / 2, 30, config.height, { isStatic: true });
+        this.gameEngine.addGameObject(wall1)
+        this.gameEngine.addGameObject(wall2)
+        this.gameEngine.addGameObject(wall3)
+        this.gameEngine.addGameObject(wall4)
 
     }
     update(delta) { 

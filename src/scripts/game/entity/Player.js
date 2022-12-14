@@ -1,8 +1,9 @@
-import Matter from "matter-js";
+import Bullet from "./Bullet";
 import GameAgent from "../modules/GameAgent";
 import InputModule from "../modules/InputModule";
+import Layer from "../core/Layer";
+import Matter from "matter-js";
 import PhysicsModule from "../modules/PhysicsModule";
-import Bullet from "./Bullet";
 
 export default class Player extends GameAgent {
     constructor() {
@@ -29,12 +30,14 @@ export default class Player extends GameAgent {
 
         this.speed = 2
 
-        this.shootTimer = 2
+        this.shootTimer = 0.2
 
-        this.latestDirection = 0
+        this.latestDirection = -Math.PI / 2
 
-        this.body.collisionFilter.group = 0
-        this.body.collisionFilter.mask = 2
+        this.layerCategory = Layer.Player
+        this.layerMask = Layer.Environment | Layer.Enemy
+
+        console.log("POOLING ASAP")
     }
     start() {
         this.input = this.engine.findByType(InputModule)
@@ -45,12 +48,12 @@ export default class Player extends GameAgent {
         //this.physicsModule.removeAgent(collided);
     }
     shoot() {
-        this.shootTimer = 1;
+        this.shootTimer = 0.5;
 
         let bullet = new Bullet();
         bullet.x = this.transform.position.x
         bullet.y = this.transform.position.y
-        this.physicsModule.addAgent(bullet)
+        this.engine.addGameObject(bullet)
 
         bullet.shoot(this.latestDirection)
     }

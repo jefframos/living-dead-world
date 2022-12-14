@@ -1,5 +1,5 @@
-import Matter from "matter-js";
 import GameObject from "../core/GameObject";
+import Matter from "matter-js";
 import PhysicsProperties from "../core/PhysicsProperties";
 
 export default class PhysicsEntity extends GameObject {
@@ -51,6 +51,15 @@ export default class PhysicsEntity extends GameObject {
         }
     }
 
+    set layerMask(value){
+        this.body.collisionFilter.mask = value;
+    }
+    set layerGroup(value){
+        this.body.collisionFilter.group = value;
+    }
+    set layerCategory(value){
+        this.body.collisionFilter.category = value;
+    }
     /**
      * @param {number} value
      */

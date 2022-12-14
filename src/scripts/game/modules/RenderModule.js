@@ -1,9 +1,8 @@
-
-import GameObject from "../core/GameObject";
 import GameAgent from "./GameAgent";
+import GameObject from "../core/GameObject";
 import PhysicsEntity from "./PhysicsEntity";
 import PhysicsModule from "./PhysicsModule";
-import StaticPhysicObject from "./StaticPhysicObject";
+import StaticPhysicObject from "../entity/StaticPhysicObject";
 
 export default class RenderModule extends GameObject {
     constructor(container, shadowsContainer, debugContainer) {
@@ -12,7 +11,6 @@ export default class RenderModule extends GameObject {
         this.container = container;
         this.debugContainer = debugContainer;
         this.shadowsContainer = shadowsContainer;
-
         this.renderStats = {
             totalRenderEntities: 0
         }

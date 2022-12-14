@@ -1,4 +1,5 @@
 import GameAgent from "../modules/GameAgent";
+import Layer from "../core/Layer";
 
 export default class StandardZombie extends GameAgent {
     constructor() {
@@ -24,8 +25,8 @@ export default class StandardZombie extends GameAgent {
 
         this.injectAnimations(animations);
 
-        this.body.collisionFilter.group = 2
-        this.body.collisionFilter.mask = 1
+        this.layerCategory = Layer.Enemy
+        this.layerMask = Layer.Environment | Layer.Player | Layer.Bullet
     }
     update(delta) {
         this.timer += delta * (this.speed)

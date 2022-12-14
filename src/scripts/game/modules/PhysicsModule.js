@@ -1,8 +1,7 @@
-import Matter from "matter-js";
-import GameObject from "../core/GameObject";
 import * as signals from 'signals';
-import PhysicsEntity from "./PhysicsEntity";
-import StaticPhysicObject from "./StaticPhysicObject";
+
+import GameObject from "../core/GameObject";
+import Matter from "matter-js";
 
 export default class PhysicsModule extends GameObject {
     constructor() {
@@ -31,18 +30,17 @@ export default class PhysicsModule extends GameObject {
         Matter.Events.on(this.physicsEngine, 'collisionStart', (event) => {
             event.pairs.forEach((collision) => {
                 var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
-                var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
                 if (elementPosA >= 0) {
-                    this.collisionList[0].collisionEnter(collision.bodyB.gameObject)
+                    this.collisionList[elementPosA].collisionEnter(collision.bodyB.gameObject)
                 }
+                var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
                 if (elementPosB >= 0) {
-                    this.collisionList[0].collisionEnter(collision.bodyA.gameObject)
+                    this.collisionList[elementPosB].collisionEnter(collision.bodyA.gameObject)
                 }
             });
         });
     }
     addPhysicBody(physicBody) {
-        this.engine.addGameObject(physicBody);
         this.addChild(physicBody)
         if (physicBody.collisionEnter) {
             this.collisionList.push(physicBody);
@@ -57,27 +55,8 @@ export default class PhysicsModule extends GameObject {
             this.removeAgent(this.nonStaticList[this.nonStaticList.length - 1]);
         }
     }
-    addRect(x, y, width, height, isStatic = false) {
-
-        let physicBody = new PhysicsEntity()
-        physicBody.buildRect(x, y, width, height, { isStatic: isStatic })
-        this.addPhysicBody(physicBody)
-
-    }
-    addCircle(x, y, radius, isStatic = false) {
-
-        let physicBody = new PhysicsEntity()
-        physicBody.buildCircle(x, y, radius, { isStatic: isStatic })
-        this.addPhysicBody(physicBody)
-
-    }
-    staticRect(x, y, width, height, isStatic = false) {
-        let staticObject = new StaticPhysicObject(x, y, width, height)
-        this.addPhysicBody(staticObject)
-    }
+    
     removeAgent(agent) {
-        agent.destroy();
-
         var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(agent.engineID);
         this.nonStaticList.splice(elementPos, 1)
 
