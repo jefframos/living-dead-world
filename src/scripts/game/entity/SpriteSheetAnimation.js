@@ -9,7 +9,13 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
         this.currentLayerID = 0;
         this.animationState = {}
     }
-
+    reset() {
+        this.currentLayer = null;
+        this.currentState = null;
+        this.init = false;
+        this.currentLayerID = 0;
+        this.animationState = {}
+    }
     addLayer(state, spriteName, totalFramesRange = { min: 0, max: 1 }, time = 0.1) {
         let animLayer = {
             currentAnimationTime: 0,
@@ -39,12 +45,12 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
         this.currentState = state;
     }
     play(state) {
-        if(this.currentState == state) return;
+        if (this.currentState == state) return;
         this.currentState = state;
         this.setLayer(this.currentLayerID)
     }
     setLayer(id) {
-        if(id >= 0){
+        if (id >= 0) {
             this.currentLayerID = id;
         }
         this.currentAnimation = this.animationState[this.currentState].layers[this.currentLayerID];
@@ -70,7 +76,7 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
         this.updateAnimation(delta);
     }
 
-    get currentFrame(){
+    get currentFrame() {
         return this.currentAnimation.currentFrame;
     }
 }

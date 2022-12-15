@@ -3,6 +3,7 @@ import GameObject from "../core/GameObject";
 import PhysicsEntity from "./PhysicsEntity";
 import PhysicsModule from "./PhysicsModule";
 import StaticPhysicObject from "../entity/StaticPhysicObject";
+import Engine from "../core/Engine";
 
 export default class RenderModule extends GameObject {
     constructor(container, shadowsContainer, debugContainer) {
@@ -24,7 +25,7 @@ export default class RenderModule extends GameObject {
         entities.forEach(element => {
             let view
 
-             if (element instanceof GameAgent) {
+            if (element instanceof GameAgent) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 view = element.view;
             } else if (element instanceof StaticPhysicObject) {
@@ -42,10 +43,10 @@ export default class RenderModule extends GameObject {
                 view.tint = 0
                 view.width = bounds.width
                 view.height = bounds.height
-            }else if (element instanceof PhysicsEntity) {
+            } else if (element instanceof PhysicsEntity) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 view = element.view;
-            }  else if (element.type == 'circle') {
+            } else if (element.type == 'circle') {
                 view = new PIXI.Sprite.from('new_item')
                 view.anchor.set(0.5)
                 view.width = element.body.circleRadius * 2
@@ -71,6 +72,9 @@ export default class RenderModule extends GameObject {
                 this.shadowsContainer.addChild(element.shadow)
             }
 
+            if (!view.viewOffset) {
+                view.viewOffset = { x: 0, y: 0 }
+            }
             this.container.addChild(view)
 
         });
@@ -81,8 +85,8 @@ export default class RenderModule extends GameObject {
             this.container.removeChild(element.view)
         }
 
-        var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(element.engineID);
-        this.children.splice(elementPos, 1)
+
+        Engine.RemoveFromListById(this.children, element)
 
         if (element.debug) {
             this.debugContainer.removeChild(element.debug)
@@ -96,8 +100,8 @@ export default class RenderModule extends GameObject {
         if (!this.physics) return
 
         this.container.children.sort(function (a, b) {
-            if (a.y == b.y) return a.x - b.x;
-            return a.y - b.y;
+            if (a.y + a.viewOffset.y == b.y + b.viewOffset.y) return a.x - b.x;
+            return (a.y + a.viewOffset.y == b.y + b.viewOffset.y);
         });
 
         this.renderStats.totalRenderEntities = this.container.children.length;

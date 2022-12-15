@@ -3,7 +3,11 @@ import config from './config';
 import utils from './utils';
 
 export default class Game {
+    static GlobalScale = {x:1, y:1}
+    static GlobalContainerPosition = {x:0, y:0}
     constructor(config, screenManager) {
+        Game.GlobalScale = {x:1, y:1}
+        Game.GlobalContainerPosition = {x:0, y:0}
         this.screenManager = screenManager;
 
         if (!window.isMobile) {
@@ -179,6 +183,11 @@ export default class Game {
             //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
             //  let min = Math.min(sclX, sclY);
             // this.screenManager.scale.set(min)
+
+
+
+
+
             let newScaleX = newSize.width / this.innerResolution.width
             this.screenManager.scale.x = newScaleX//this.ratio
             let newScaleY = newSize.height / this.innerResolution.height
@@ -192,6 +201,17 @@ export default class Game {
             // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
             // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
 
+
+            Game.GlobalScale.x = config.width / this.innerResolution.width
+            Game.GlobalScale.y =  config.height / this.innerResolution.height
+
+            Game.GlobalContainerPosition.x = this.screenManager.x
+            Game.GlobalContainerPosition.y = this.screenManager.y
+            
+
+
+
+            
             // 	//console.log(window.appScale)
             window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
 

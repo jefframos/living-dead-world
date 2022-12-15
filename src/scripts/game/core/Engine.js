@@ -1,32 +1,63 @@
 import PhysicsModule from "../modules/PhysicsModule";
+import GameObject from "./GameObject";
 
 export default class Engine {
-
     constructor() {
         this.gameObjects = []
+        this.parentGameObject = new GameObject();
         this.physics = this.addGameObject(new PhysicsModule())
-
-        window.objectCounter = 0;
+    }
+    static RemoveFromListById(list, gameObject){
+        for (let index = 0; index < list.length; index++) {
+            const element = list[index];
+            if(element.engineID == gameObject.engineID){
+                list.splice(index, 1)
+                break
+            }
+            
+        }
+    }
+    poolGameObject(constructor, rebuild){
+        let element = GameObject.Pool.getElement(constructor)
+        element.engine = this;
+        if(rebuild){
+            element.build();
+        }
+        element.enable()
+        return this.addGameObject(element);
+    }
+    poolAtRandomPosition(constructor, rebuild, bounds){
+        let element = GameObject.Pool.getElement(constructor)
+        element.engine = this;
+        if(rebuild){
+            element.build();
+        }
+        element.enable()
+        element.x = Math.random() * (bounds.maxX - bounds.minX) + bounds.minX
+        element.y = Math.random() * (bounds.maxY - bounds.minY) + bounds.minY
+        return this.addGameObject(element);
     }
     addGameObject(gameObject) {
         gameObject.engine = this;
-        gameObject.engineID = ++window.objectCounter;
         gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
 
-        if(gameObject.body){
-            this.physics.addAgent(gameObject)
-        }
+        
         this.gameObjects.push(gameObject);
-
+        this.parentGameObject.addChild(gameObject)
+        
+        // if(gameObject.body){
+        //     this.physics.addAgent(gameObject)
+        // }
+        
         return gameObject;
     }
     destroyGameObject(gameObject) {
         gameObject.destroy()
     }
     wipeGameObject(gameObject) {
-        var elementPos = this.gameObjects.map(function (x) { return x.engineID; }).indexOf(gameObject.engineID);
-        this.gameObjects.splice(elementPos, 1)
 
+        Engine.RemoveFromListById(this.gameObjects, gameObject)
+  
         if(gameObject.body){
             this.physics.removeAgent(gameObject)
         }

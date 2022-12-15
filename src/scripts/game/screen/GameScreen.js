@@ -14,6 +14,12 @@ import Signals from 'signals';
 import StandardZombie from '../entity/StandardZombie';
 import StaticPhysicObject from '../entity/StaticPhysicObject';
 import config from '../../config';
+import GameObject from '../core/GameObject';
+import Game from '../../Game'
+import TouchAxisInput from '../modules/TouchAxisInput';
+
+import UIButton1 from '../ui/UIButton1';
+import UIList from '../ui/uiElements/UIList';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -51,27 +57,86 @@ export default class GameScreen extends Screen {
         this.inputModule = this.gameEngine.addGameObject(new InputModule())
 
 
+        console.log(this.inputModule.mouse)
+
         this.debug = {
             removeRandomPiece: () => {
 
+                //this.destroyRandom(1);
+
+                //return
                 for (let index = 0; index < 50; index++) {
-                    setTimeout(() => {                        
-                        this.destroyRandom(1);
+                    setTimeout(() => {
+                        this.destroyRandom(1)
                     }, 5 * index);
-                    
+
                 }
             },
             addRandomPiece: () => {
+                //this.addRandomAgents(1);
+
+                //return
                 for (let index = 0; index < 100; index++) {
-                    setTimeout(() => {                        
-                        this.addRandomAgents(1);
+                    setTimeout(() => {
+                        this.addRandomAgents(1)
                     }, 5 * index);
-                    
+
                 }
             }
         }
         window.GUI.add(this.debug, 'removeRandomPiece');
         window.GUI.add(this.debug, 'addRandomPiece');
+
+
+        window.GUI.close()
+        // this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
+        // this.addChild(this.zero)
+
+        this.touchAxisInput = new TouchAxisInput();
+
+        this.addChild(this.touchAxisInput)
+
+        this.touchAxisInput.x = config.width / 2
+        this.touchAxisInput.y = config.height - 200
+
+        
+        this.helperButtonList = new UIList();
+        this.helperButtonList.h = 200;
+        this.helperButtonList.w = 60;
+        this.speedUpToggle = new UIButton1(0x002299, 'fast_forward_icon', 0xFFFFFF, 60,60)
+        this.helperButtonList.addElement(this.speedUpToggle)
+        this.speedUpToggle.onClick.add(() => {
+            for (let index = 0; index < 100; index++) {
+                setTimeout(() => {
+                    this.addRandomAgents(1)
+                }, 5 * index);
+
+            }
+        })
+
+        this.removeEntities = new UIButton1(0x002299, 'icon_close', 0xFFFFFF, 60,60)
+        this.helperButtonList.addElement(this.removeEntities)
+        this.removeEntities.onClick.add(() => {
+            for (let index = 0; index < 100; index++) {
+                setTimeout(() => {
+                    this.destroyRandom(1)
+                }, 5 * index);
+
+            }
+        })
+
+        this.stats = new PIXI.Text('fps')
+        this.stats.style.fill = 0xFFFFFF
+        this.stats.style.fontSize = 14
+        this.stats.anchor.set(0.5)
+        this.helperButtonList.addElement(this.stats)
+
+        this.helperButtonList.updateVerticalList()
+        this.helperButtonList.x = 50
+        this.helperButtonList.y = 50
+
+        if(window.isMobile)
+        this.addChild(this.helperButtonList)
     }
 
     onAdded() {
@@ -80,16 +145,13 @@ export default class GameScreen extends Screen {
     }
     destroyRandom(quant) {
         for (let index = 0; index < quant; index++) {
-            if(this.gameEngine.gameObjects.length <= 0) continue;            
+            if (this.gameEngine.gameObjects.length <= 0) continue;
             this.gameEngine.destroyGameObject(this.gameEngine.gameObjects[this.gameEngine.gameObjects.length - 1])
         }
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            let agent = new StandardZombie();
-            agent.x = Math.random() * (config.width - 50) + 25
-            agent.y = Math.random() * (100 - 50) + 25
-            this.gameEngine.addGameObject(agent)
+            this.gameEngine.poolGameObject(StandardZombie, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25 )
         }
     }
     build(param) {
@@ -99,32 +161,49 @@ export default class GameScreen extends Screen {
 
         this.gameEngine.start();
 
-                
-        for (let index = 0; index < 10; index++) {
-            let agent = new StandardZombie();
-            agent.x = Math.random() * (config.width - 50) + 25
-            agent.y = Math.random() * (config.height - 50) + 25
-            this.gameEngine.addGameObject(agent)
+
+
+
+        
+        
+        let player = this.gameEngine.poolGameObject(Player, true).setPosition(config.width / 2, config.height / 2 )
+        
+        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
+        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
+        this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
+        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
+        
+        
+        this.gameEngine.poolGameObject(StandardZombie, true).setPosition(config.width / 2, config.height / 2 - 100 )
+        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        for (let index = 0; index < 100; index++) {
+            this.addRandomAgents(1)
         }
 
+        // console.log(GameObject.Pool.pool)
+        
+        // setTimeout(() => {
+        //     this.destroyRandom(50)
+        //     console.log(GameObject.Pool.pool)
+        // }, 100);
 
-        let player = new Player();
-        player.x =(config.width/2)
-        player.y =(config.height/2)
-        this.gameEngine.addGameObject(player)
-        let wall1 = new StaticPhysicObject(config.width / 2, 0, config.width, 60, { isStatic: true });
-        let wall2 = new StaticPhysicObject(config.width / 2, config.height, config.width, 60, { isStatic: true });
-        let wall3 = new StaticPhysicObject(-20, config.height / 2, 30, config.height, { isStatic: true });
-        let wall4 = new StaticPhysicObject(config.width, config.height / 2, 30, config.height, { isStatic: true });
-        this.gameEngine.addGameObject(wall1)
-        this.gameEngine.addGameObject(wall2)
-        this.gameEngine.addGameObject(wall3)
-        this.gameEngine.addGameObject(wall4)
+        // setTimeout(() => {
+        //     this.addRandomAgents(30)
+        //     console.log(GameObject.Pool.pool)
+        // }, 500);
 
     }
-    update(delta) { 
+    update(delta) {
         this.gameEngine.update(delta)
+        this.inputModule.touchAxisDown = this.touchAxisInput.dragging
+        if(this.touchAxisInput.dragging){
+            this.inputModule.direction = this.touchAxisInput.angle
+        }    
 
+        this.stats.text = window.FPS
     }
     transitionOut(nextScreen) {
         this.removeEvents();

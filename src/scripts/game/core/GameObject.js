@@ -1,27 +1,40 @@
 import Transform from "./Transform";
 import * as signals from 'signals';
+import Pool from "./Pool";
+
+
 
 export default class GameObject {
+    static Pool = new Pool();
+    static ObjectCounter = 0;
     constructor() {
+        this.engineID = ++GameObject.ObjectCounter;
         this.transform = new Transform();
         this.children = []
         this.enabled = true;
         this.parent = null;
 
         this.gameObjectDestroyed = new signals.Signal();
-
     }
+
     addChild(gameObject) {
-        gameObject.engineID = ++window.objectCounter;
         gameObject.setParent(this)
         gameObject.start();
         this.children.push(gameObject);
     }
+    reset() {
+        
+    }
+    build() {
+    }
     start() {
-
     }
     onRender() {
 
+    }
+    get forward(){
+        let rad = this.transform.angle // 180 * Math.PI
+        return {x:Math.cos(rad), y:Math.sin(rad)}
     }
     /**
      * @param {number} value
@@ -35,7 +48,12 @@ export default class GameObject {
     set y(value) {
         this.transform.position.y = value
     }
+    setPosition(x, y) {
+        this.x = x
+        this.y = y
+    }
     update(delta) {
+        //console.log(this.children.length)
         this.children.forEach(element => {
             if (element.enabled) {
                 element.update(delta);
@@ -50,16 +68,26 @@ export default class GameObject {
         this.enabled = false;
 
     }
-    destroy(){
+    destroy() {
         this.gameObjectDestroyed.dispatch(this);
 
-        if(this.parent){
+        if (this.parent) {
             this.parent.removeChild(this)
         }
+
+        this.disable();
+        GameObject.Pool.returnElement(this)
     }
     removeChild(child) {
-        var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(child.engineID);
-        this.children.splice(elementPos, 1)
+
+        for (let index = 0; index < this.children.length; index++) {
+            const element = this.children[index];
+            if(element.engineID == child.engineID){
+                this.children.splice(index, 1)
+                break
+            }
+            
+        }      
     }
     setParent(newParent) {
         if (this.parent && this.parent != newParent) {

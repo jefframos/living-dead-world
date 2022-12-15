@@ -2,6 +2,7 @@ import * as signals from 'signals';
 
 import GameObject from "../core/GameObject";
 import Matter from "matter-js";
+import Engine from '../core/Engine';
 
 export default class PhysicsModule extends GameObject {
     constructor() {
@@ -39,9 +40,9 @@ export default class PhysicsModule extends GameObject {
                 }
             });
         });
+       
     }
     addPhysicBody(physicBody) {
-        this.addChild(physicBody)
         if (physicBody.collisionEnter) {
             this.collisionList.push(physicBody);
         }
@@ -57,13 +58,9 @@ export default class PhysicsModule extends GameObject {
     }
     
     removeAgent(agent) {
-        var elementPos = this.children.map(function (x) { return x.engineID; }).indexOf(agent.engineID);
-        this.nonStaticList.splice(elementPos, 1)
+        Engine.RemoveFromListById(this.nonStaticList, agent)
 
-        var elementPosCollision = this.collisionList.map(function (x) { return x.engineID; }).indexOf(agent.engineID);
-        if(elementPosCollision >= 0){
-            this.collisionList.splice(elementPosCollision, 1)
-        }
+        Engine.RemoveFromListById(this.collisionList, agent)
 
         Matter.World.remove(this.physicsEngine.world, agent.body)
     }

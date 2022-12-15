@@ -5,8 +5,8 @@ import SpriteSheetAnimation from "../entity/SpriteSheetAnimation";
 import PhysicsEntity from "./PhysicsEntity";
 
 export default class GameAgent extends PhysicsEntity {
-    constructor(radius = 15, debug = false) {
-        super(radius, debug);       
+    constructor(debug = false) {
+        super(debug);       
 
         this.totalDirections = 6
 
@@ -19,12 +19,24 @@ export default class GameAgent extends PhysicsEntity {
         this.view = new SpriteSheetAnimation()
         this.view.anchor.set(0.5, 0.75)
 
+        if(debug){
+            this.setDebug(15)
+        }
+        
+    }
+    start(){
+        this.view.visible = true;
+    }
+    build(){
+        super.build();
+
+        this.view.reset();
         this.health = new Health();
-
-
         this.timer = Math.random()
-        this.speed = 0.5 * Math.random()
+        this.speed = 50 * Math.random()
         this.speedAdjust = 1;
+
+        
     }
     update(delta) {
         super.update(delta);
@@ -55,10 +67,15 @@ export default class GameAgent extends PhysicsEntity {
     }
     onRender() {
     }
-    calcFrame() {
-        if(this.physics.magnitude == 0) return -1;
+    destroy(){
+        super.destroy();
 
-        let ang = (this.physics.angle * 180 / Math.PI)
+        this.view.visible = false;
+    }
+    calcFrame() {
+        //aif(this.physics.magnitude == 0) return -1;
+
+        let ang = (this.transform.angle * 180 / Math.PI)
         if (ang <= 0) {
             ang += 360
         }

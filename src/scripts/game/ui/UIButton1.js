@@ -35,7 +35,7 @@ export default class UIButton1 extends PIXI.Container {
 		this.icon.tint = iconColor;
 		this.enabled = true;
 		
-		this.backShape = new PIXI.mesh.NineSlicePlane(
+		this.backShape = new PIXI.NineSlicePlane(
 			PIXI.Texture.from(texture), 0, 0, 0, 0)
 		this.backShape.width = width
 		this.backShape.height = height
@@ -154,9 +154,9 @@ export default class UIButton1 extends PIXI.Container {
 	click() {
 		if(!this.enabled) return
 		//this.backShape.scale.set(1)
-		SOUND_MANAGER.play('Tap-01', 0.1)
+		// SOUND_MANAGER.play('Tap-01', 0.1)
 		this.onClick.dispatch();
-		//window.SOUND_MANAGER.play('tap2', { volume: 0.5 })
+		// //window.SOUND_MANAGER.play('tap2', { volume: 0.5 })
 	}
 	updateTextColor(color) {
 		if (this.buttonLabel) {
