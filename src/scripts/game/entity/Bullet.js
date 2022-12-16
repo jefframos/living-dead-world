@@ -61,10 +61,10 @@ export default class Bullet extends PhysicsEntity {
         }else{
             if(collided.die){
                 collided.die()
+                this.engine.poolAtRandomPosition(StandardZombie, true, {minX:50, maxX: config.width, minY:50, maxY:200})
                 this.destroy()
             }else{
 
-                this.engine.poolAtRandomPosition(StandardZombie, true, {minX:50, maxX: config.width, minY:50, maxY:200})
                 collided.destroy();
             }
             //this.destroy()

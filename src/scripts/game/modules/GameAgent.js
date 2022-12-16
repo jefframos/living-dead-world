@@ -19,9 +19,9 @@ export default class GameAgent extends PhysicsEntity {
         this.view = new SpriteSheetAnimation()
         this.view.anchor.set(0.5, 0.5)
         this.view.animationFinish.add(this.onAnimationEnd.bind(this))
-        this.view.scale.set(1.5)
+       this.view.scale.set(0.8)
 
-        //this.viewOffset.y = 20;
+        this.viewOffset.y = 0;
 
         if (debug) {
             this.setDebug(15)
