@@ -33564,9 +33564,9 @@ var GameAgent = function (_PhysicsEntity) {
         _this.view = new _SpriteSheetAnimation2.default();
         _this.view.anchor.set(0.5, 0.5);
         _this.view.animationFinish.add(_this.onAnimationEnd.bind(_this));
-        _this.view.scale.set(1.5);
+        _this.view.scale.set(0.8);
 
-        //this.viewOffset.y = 20;
+        _this.viewOffset.y = 0;
 
         if (debug) {
             _this.setDebug(15);
@@ -73775,6 +73775,9 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
+	"id": "baseGameConfigHumans",
+	"url": "assets/json\\baseGameConfigHumans.json"
+}, {
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
@@ -73784,17 +73787,11 @@ var assets = [{
 	"id": "fairies",
 	"url": "assets/json\\fairies.json"
 }, {
-	"id": "baseGameConfigHumans",
-	"url": "assets/json\\baseGameConfigHumans.json"
-}, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
 }, {
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
-}, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
@@ -73808,29 +73805,32 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
+}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
-}, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "monsters",
-	"url": "assets/json\\monsters.json"
-}, {
 	"id": "resources",
 	"url": "assets/json\\resources.json"
+}, {
+	"id": "monsters",
+	"url": "assets/json\\monsters.json"
 }];
 
 exports.default = assets;
@@ -76573,10 +76573,10 @@ var Bullet = function (_PhysicsEntity) {
             } else {
                 if (collided.die) {
                     collided.die();
+                    this.engine.poolAtRandomPosition(_StandardZombie2.default, true, { minX: 50, maxX: _config2.default.width, minY: 50, maxY: 200 });
                     this.destroy();
                 } else {
 
-                    this.engine.poolAtRandomPosition(_StandardZombie2.default, true, { minX: 50, maxX: _config2.default.width, minY: 50, maxY: 200 });
                     collided.destroy();
                 }
                 //this.destroy()
