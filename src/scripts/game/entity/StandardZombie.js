@@ -6,6 +6,7 @@ export default class StandardZombie extends GameAgent {
         super();
         //this.setDebug(15)
 
+
     }
     build(radius = 15) {
         super.build();
@@ -26,25 +27,48 @@ export default class StandardZombie extends GameAgent {
                 frames: 5,
                 speed: 0.2
             },
+            {
+                id: 'Die',
+                name: 'zombieDying',
+                frames: 6,
+                speed: 0.2,
+                loop: false
+            },
         ]
 
         this.injectAnimations(animations);
-
+        this.body.isSensor = false;
         this.layerCategory = Layer.Enemy
         this.layerMask = Layer.Environment | Layer.Player | Layer.Bullet
     }
+    onAnimationEnd(animation, state) {
+        this.destroy()
+    }
+    die() {
+        this.body.isSensor = true;
+        this.view.play('Die')
+
+        this.dying = true;
+    }
     update(delta) {
-        this.timer += delta * (this.speed* delta * Math.random())
 
-        this.physics.velocity.x = Math.cos(this.timer) * this.speed * this.speedAdjust * delta
-        this.physics.velocity.y = Math.sin(this.timer) * this.speed * this.speedAdjust * delta
-        this.speedAdjust = Math.sin(this.view.currentFrame / 9 * Math.PI) + 0.1
+        if (!this.dying) {
+            this.timer += delta * (this.speed * delta * Math.random())
 
-        if (this.physics.magnitude > 0) {
-            this.view.play('Walk')
-        } else {
+            let dir = this.timer
+            this.physics.velocity.x = Math.cos(dir) * this.speed * this.speedAdjust * delta
+            this.physics.velocity.y = Math.sin(dir) * this.speed * this.speedAdjust * delta
+            this.speedAdjust = Math.sin(this.view.currentFrame / 9 * Math.PI) + 0.1
 
-            this.view.play('Idle')
+            if (this.physics.magnitude > 0) {
+                this.view.play('Walk')
+            } else {
+
+                this.view.play('Idle')
+            }
+        }else{
+            this.physics.velocity.x = 0
+            this.physics.velocity.y = 0
         }
 
         super.update(delta)

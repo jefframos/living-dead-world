@@ -41,10 +41,17 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.labelText)
         //this.particleContainer = new PIXI.ParticleContainer();
 
+        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 250, 250);
         this.debugContainer = new PIXI.Container();
         this.shadowContainer = new PIXI.ParticleContainer();
         this.entitiesContainer = new PIXI.Container();
 
+        this.baseContainer.anchor.set(0.5)
+        this.baseContainer.tileScale.set(0.5)
+        this.baseContainer.width = 5000
+        this.baseContainer.height = 5000
+        this.baseContainer.tint = 0x333333
+        this.container.addChild(this.baseContainer)
         this.container.addChild(this.shadowContainer)
         this.container.addChild(this.entitiesContainer)
         this.container.addChild(this.debugContainer)
@@ -99,11 +106,11 @@ export default class GameScreen extends Screen {
         this.touchAxisInput.x = config.width / 2
         this.touchAxisInput.y = config.height - 200
 
-        
+
         this.helperButtonList = new UIList();
         this.helperButtonList.h = 200;
         this.helperButtonList.w = 60;
-        this.speedUpToggle = new UIButton1(0x002299, 'fast_forward_icon', 0xFFFFFF, 60,60)
+        this.speedUpToggle = new UIButton1(0x002299, 'fast_forward_icon', 0xFFFFFF, 60, 60)
         this.helperButtonList.addElement(this.speedUpToggle)
         this.speedUpToggle.onClick.add(() => {
             for (let index = 0; index < 100; index++) {
@@ -114,7 +121,7 @@ export default class GameScreen extends Screen {
             }
         })
 
-        this.removeEntities = new UIButton1(0x002299, 'icon_close', 0xFFFFFF, 60,60)
+        this.removeEntities = new UIButton1(0x002299, 'icon_close', 0xFFFFFF, 60, 60)
         this.helperButtonList.addElement(this.removeEntities)
         this.removeEntities.onClick.add(() => {
             for (let index = 0; index < 100; index++) {
@@ -135,8 +142,10 @@ export default class GameScreen extends Screen {
         this.helperButtonList.x = 50
         this.helperButtonList.y = 50
 
-        if(window.isMobile)
-        this.addChild(this.helperButtonList)
+        if (window.isMobile)
+            this.addChild(this.helperButtonList)
+
+        this.container.scale.set(1)
     }
 
     onAdded() {
@@ -151,7 +160,7 @@ export default class GameScreen extends Screen {
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            this.gameEngine.poolGameObject(StandardZombie, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25 )
+            this.gameEngine.poolGameObject(StandardZombie, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
         }
     }
     build(param) {
@@ -164,17 +173,17 @@ export default class GameScreen extends Screen {
 
 
 
-        
-        
-        let player = this.gameEngine.poolGameObject(Player, true).setPosition(config.width / 2, config.height / 2 )
-        
+
+
+        this.player = this.gameEngine.poolGameObject(Player, true)
+        this.player.setPosition(config.width / 2, config.height / 2)
         this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
         this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
         this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
         this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
-        
-        
-        this.gameEngine.poolGameObject(StandardZombie, true).setPosition(config.width / 2, config.height / 2 - 100 )
+
+
+        this.gameEngine.poolGameObject(StandardZombie, true).setPosition(config.width / 2, config.height / 2 - 100)
         // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
@@ -184,7 +193,7 @@ export default class GameScreen extends Screen {
         }
 
         // console.log(GameObject.Pool.pool)
-        
+
         // setTimeout(() => {
         //     this.destroyRandom(50)
         //     console.log(GameObject.Pool.pool)
@@ -199,11 +208,15 @@ export default class GameScreen extends Screen {
     update(delta) {
         this.gameEngine.update(delta)
         this.inputModule.touchAxisDown = this.touchAxisInput.dragging
-        if(this.touchAxisInput.dragging){
+        if (this.touchAxisInput.dragging) {
             this.inputModule.direction = this.touchAxisInput.angle
-        }    
+        }
 
         this.stats.text = window.FPS
+        if (this.player) {
+            this.container.pivot.x = this.player.transform.position.x //- config.width / 2
+            this.container.pivot.y = this.player.transform.position.y //- config.height / 2
+        }
     }
     transitionOut(nextScreen) {
         this.removeEvents();
@@ -231,5 +244,9 @@ export default class GameScreen extends Screen {
         if (!resolution || !resolution.width || !resolution.height || !innerResolution) {
             //return;
         }
+
+
+        this.container.x = config.width / 2
+        this.container.y = config.height / 2
     }
 }

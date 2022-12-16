@@ -9,7 +9,7 @@ import Game from "../../Game";
 export default class Player extends GameAgent {
     constructor() {
         super();
-        //this.setDebug(15)
+        this.totalDirections = 8
         this.autoSetAngle = false;
     }
     build(radius = 15) {
@@ -32,6 +32,25 @@ export default class Player extends GameAgent {
                 frames: 10,
                 speed: 0.1
             },
+            {
+                id: 'Pistol_Run',
+                name: 'pistol_run',
+                frames: 10,
+                speed: 0.1
+            },
+            {
+                id: 'Pistol_Idle',
+                name: 'pistol_idle',
+                frames: 5,
+                speed: 0.1
+            },
+            {
+                id: 'Pistol_Shoot',
+                name: 'pistol_shoot',
+                frames: 5,
+                speed: 0.1,
+                loop: false
+            },
         ]
 
         this.injectAnimations(animations);
@@ -41,6 +60,14 @@ export default class Player extends GameAgent {
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.Environment | Layer.Enemy
+
+        this.view.play('Pistol_Idle')
+    }
+    onAnimationEnd(animation, state) {
+
+        if(state == 'Pistol_Shoot'){
+            this.view.play('Pistol_Idle')
+        }
     }
     start() {
         this.input = this.engine.findByType(InputModule)
@@ -51,35 +78,37 @@ export default class Player extends GameAgent {
         //this.physicsModule.removeAgent(collided);
     }
     shoot() {
-        this.shootTimer = 0.15;
+        //this.isShooting = true;
+
+        this.shootTimer = 0.85;
 
         let bullet = this.engine.poolGameObject(Bullet, true)
         let forw = this.forward;
 
-        //console.log(forw)
+        this.view.play('Pistol_Shoot')
 
-        bullet.setPosition(this.transform.position.x + forw.x * 20 + this.physics.velocity.x, this.transform.position.y + forw.y * 20 + this.physics.velocity.y);
-        bullet.shoot(this.transform.angle + Math.random() * 0.2 - 0.1, this.physics.magnitude)
+        let shootAngle = Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad ;
+        bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, this.transform.position.y + Math.sin(shootAngle) * 20 + this.physics.velocity.y);
+
+        bullet.shoot(shootAngle + Math.random() * 0.2 - 0.1, this.physics.magnitude)
     }
     update(delta) {
-        this.shootTimer -= delta;
-        if (this.shootTimer <= 0) {
-            this.shoot()
+        if(!this.isShooting){
+            
+            
+            this.shootTimer -= delta;
+            if (this.shootTimer <= 0) {
+                this.shoot()
+            }
         }
-        this.timer += delta * (this.speed)
+
         if (this.physics.magnitude > 0) {
-            this.view.play('Run')
-        } else {
-
-            this.view.play('Idle')
+            this.view.play('Pistol_Run')
+        } else if(!this.view.currentState == 'Pistol_Shoot'){
+            this.view.play('Pistol_Idle')
         }
 
-
-
-        //console.log(this.input.mouse)
-        //console.log(this.transform.angle * 180 / 3.14)
-
-        //console.log(Game.GlobalScale.x, this.input.mousePosition.x)
+        
         this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
         if (this.input.touchAxisDown) {
             this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta

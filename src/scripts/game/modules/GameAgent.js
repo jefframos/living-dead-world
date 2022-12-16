@@ -6,37 +6,45 @@ import PhysicsEntity from "./PhysicsEntity";
 
 export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
-        super(debug);       
+        super(debug);
 
         this.totalDirections = 6
-
+        this.dying = false;
         this.shadow = new PIXI.Sprite.from('shadow')
         this.shadow.anchor.set(0.5, 0.5)
         this.shadow.alpha = 0.1
         this.shadow.scale.set(30 / this.shadow.width)
-        this.shadow.scale.y = this.shadow.scale.x * 0.8
+        this.shadow.scale.y = this.shadow.scale.x * 0.6
 
         this.view = new SpriteSheetAnimation()
-        this.view.anchor.set(0.5, 0.75)
+        this.view.anchor.set(0.5, 0.5)
+        this.view.animationFinish.add(this.onAnimationEnd.bind(this))
+        this.view.scale.set(1.5)
 
-        if(debug){
+        //this.viewOffset.y = 20;
+
+        if (debug) {
             this.setDebug(15)
         }
-        
+
     }
-    start(){
+    onAnimationEnd(animation, state) { }
+    start() {
         this.view.visible = true;
     }
-    build(){
+    build() {
         super.build();
+
+        this.angleChunk = 360 / this.totalDirections;
+        this.angleChunkRad = Math.PI * 2 / this.totalDirections;
 
         this.view.reset();
         this.health = new Health();
         this.timer = Math.random()
-        this.speed = 50 * Math.random()
+        this.speed = 20 * Math.random() + 10
         this.speedAdjust = 1;
+        this.dying = false;
 
-        
     }
     update(delta) {
         super.update(delta);
@@ -55,10 +63,10 @@ export default class GameAgent extends PhysicsEntity {
             this.view.update(delta)
         }
     }
-    injectAnimations(animations){
+    injectAnimations(animations) {
         animations.forEach(element => {
             for (let index = this.totalDirections; index >= 1; index--) {
-                this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + index * 60 + '_', { min: 0, max: element.frames-1 }, element.speed)
+                this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + index * (360 / this.totalDirections) + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop)
             }
         });
 
@@ -67,7 +75,7 @@ export default class GameAgent extends PhysicsEntity {
     }
     onRender() {
     }
-    destroy(){
+    destroy() {
         super.destroy();
 
         this.view.visible = false;
@@ -75,7 +83,7 @@ export default class GameAgent extends PhysicsEntity {
     calcFrame() {
         //aif(this.physics.magnitude == 0) return -1;
 
-        let ang = (this.transform.angle * 180 / Math.PI)
+        let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
         if (ang <= 0) {
             ang += 360
         }

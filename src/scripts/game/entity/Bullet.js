@@ -12,6 +12,7 @@ export default class Bullet extends PhysicsEntity {
     constructor() {
         super();
         this.view = new PIXI.Sprite.from('shoot')
+        this.view.alpha = 0.2
         //this.setDebug(5)
     }
     build() {
@@ -20,7 +21,7 @@ export default class Bullet extends PhysicsEntity {
 
         this.view.anchor.set(0.5)
         this.view.scale.set(5 / this.view.width * 2 * this.view.scale.x)
-        this.speed = 150
+        this.speed = 250
 
         this.body.collisionFilter.group = 2
         this.body.collisionFilter.mask = 3
@@ -51,12 +52,21 @@ export default class Bullet extends PhysicsEntity {
         this.physics.velocity.y = 0
     }
     collisionEnter(collided) {
+        if(collided.body.isSensor){
+            return;
+        }
         if (collided.body.isStatic) {
             this.destroy()
 
         }else{
-            this.engine.poolAtRandomPosition(StandardZombie, true, {minX:50, maxX: config.width, minY:50, maxY:200})
-            collided.destroy();
+            if(collided.die){
+                collided.die()
+                this.destroy()
+            }else{
+
+                this.engine.poolAtRandomPosition(StandardZombie, true, {minX:50, maxX: config.width, minY:50, maxY:200})
+                collided.destroy();
+            }
             //this.destroy()
         }
     }
