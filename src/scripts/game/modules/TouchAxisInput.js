@@ -26,7 +26,7 @@ export default class TouchAxisInput extends PIXI.Container
         this.on('mousemove', this.onMouseMove.bind(this)).on('touchmove', this.onMouseMove.bind(this));
         this.on('mousedown', this.onMouseDown.bind(this)).on('touchstart', this.onMouseDown.bind(this));
         this.on('mouseup', this.onMouseUp.bind(this)).on('touchend', this.onMouseUp.bind(this));
-        this.on('mouseout', this.onMouseOutside.bind(this)).on('touchendoutside', this.onMouseOutside.bind(this));
+        this.on('mouseupoutside', this.onMouseOutside.bind(this)).on('touchendoutside', this.onMouseOutside.bind(this));
 
         this.onStartDrag = new Signals();
         this.onStopDrag = new Signals();
@@ -38,6 +38,9 @@ export default class TouchAxisInput extends PIXI.Container
     }
     testTouch(e)
     {
+        if(!this.dragging){
+            return false
+        }
         return this.touchID == e.data.identifier;
     }
     onMouseDown(e)
@@ -104,7 +107,7 @@ export default class TouchAxisInput extends PIXI.Container
         this.axis = [0, 0];
         this.currentPressed = [];
         this.dragging = false;
-        this.angle = null;
+        //this.angle = null;
         this.touchID = null;
         this.onStopDrag.dispatch(this);
         TweenLite.to(this.center, 0.5, { x: 0, y: 0, ease: Elastic.easeOut });

@@ -53,7 +53,7 @@ export default class Player extends GameAgent {
             },
         ]
 
-        this.injectAnimations(animations);
+        this.injectAnimations(animations, true);
 
         this.speed = 100
         this.shootTimer = 0.2
@@ -61,11 +61,13 @@ export default class Player extends GameAgent {
         this.layerCategory = Layer.Player
         this.layerMask = Layer.Environment | Layer.Enemy
 
+        this.view.scale.set(0.2)
+
         this.view.play('Pistol_Idle')
     }
     onAnimationEnd(animation, state) {
 
-        if(state == 'Pistol_Shoot'){
+        if (state == 'Pistol_Shoot') {
             this.view.play('Pistol_Idle')
         }
     }
@@ -87,15 +89,15 @@ export default class Player extends GameAgent {
 
         this.view.play('Pistol_Shoot')
 
-        let shootAngle = Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad ;
+        let shootAngle = Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
         bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, this.transform.position.y + Math.sin(shootAngle) * 20 + this.physics.velocity.y);
 
         bullet.shoot(shootAngle + Math.random() * 0.2 - 0.1, this.physics.magnitude)
     }
     update(delta) {
-        if(!this.isShooting){
-            
-            
+        if (!this.isShooting) {
+
+
             this.shootTimer -= delta;
             if (this.shootTimer <= 0) {
                 this.shoot()
@@ -104,11 +106,11 @@ export default class Player extends GameAgent {
 
         if (this.physics.magnitude > 0) {
             this.view.play('Pistol_Run')
-        } else if(!this.view.currentState == 'Pistol_Shoot'){
+        } else if (!this.view.currentState == 'Pistol_Shoot') {
             this.view.play('Pistol_Idle')
         }
 
-        
+
         this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
         if (this.input.touchAxisDown) {
             this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta
@@ -128,6 +130,8 @@ export default class Player extends GameAgent {
             this.physics.velocity.y = 0
         }
 
+
         super.update(delta)
     }
+
 }

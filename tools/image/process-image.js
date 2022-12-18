@@ -22,66 +22,66 @@ const imgRootPath = path.resolve(paths.source.image);
 const lowResScale = 0.5;
 
 let MANIFESTS = {
-	default:[]
+	default: []
 }
 
 
 const defaultSettings = {
-	manifest:false,
-	manifestFile:'default',
-	tps:false
+	manifest: false,
+	manifestFile: 'default',
+	tps: false
 }
 
-const getDirContent = function(mPath, mCallback) {
-	fs.readdir(mPath, (err, files)=> {
-		files = files.filter((fileName)=> {
+const getDirContent = function (mPath, mCallback) {
+	fs.readdir(mPath, (err, files) => {
+		files = files.filter((fileName) => {
 			return fileName.indexOf('DS_Store') == -1;
 		});
 
-		const dir = files.filter((fileName)=> {
+		const dir = files.filter((fileName) => {
 			const filePath = path.resolve(mPath, fileName);
 			return isDirectory(filePath);
 		});
 
-		files = files.filter((fileName)=> {
+		files = files.filter((fileName) => {
 			const filePath = path.resolve(mPath, fileName);
 			return !isDirectory(filePath);
 		});
 
-		mCallback(err, {files, dir});
+		mCallback(err, { files, dir });
 	});
 }
 
-const convertImage = function(mPath, mDestFolder, mFileName, mCallback) {
+const convertImage = function (mPath, mDestFolder, mFileName, mCallback) {
 	const pathHigh = path.resolve(mDestFolder, mFileName);
 	const pathLow = path.resolve(mDestFolder, mFileName.split('.').join('_mip.'));
 
 	console.log('convertImage'.rainbow);
 
-	fs.ensureDir(mDestFolder, (folderPath)=> {
-		im.identify(mPath, (err, features)=> {
-			if(err) {
+	fs.ensureDir(mDestFolder, (folderPath) => {
+		im.identify(mPath, (err, features) => {
+			if (err) {
 				console.log(err);
 			} else {
 				let count = 0;
 
 
 				const onDone = () => {
-					count ++;
+					count++;
 
-					if(count == 2 && mCallback) {
+					if (count == 2 && mCallback) {
 						mCallback();
 					}
 				}
 
-				resizeImage(mPath, pathHigh, features.width, onDone);				
+				resizeImage(mPath, pathHigh, features.width, onDone);
 				resizeImage(mPath, pathLow, features.width * lowResScale, onDone);
 			}
 		});
 	});
 }
 
-const processFolder = function(mPath, mSettings, mCallback) {
+const processFolder = function (mPath, mSettings, mCallback) {
 
 
 
@@ -89,15 +89,15 @@ const processFolder = function(mPath, mSettings, mCallback) {
 		//	get folder settings
 		const settings = getFolderSettings(mPath, imgRootPath);
 
-		if(settings.manifest) {
+		if (settings.manifest) {
 			settings.manifestFile = settings.outputFolderName;
 			MANIFESTS[settings.outputFolderName] = [];
 		}
-
-		if(settings.tps === undefined) {
+		settings.multipack = true;
+		if (settings.tps === undefined) {
 			settings.tps = mSettings.tps;
 		}
-		if(settings.manifest === undefined) {
+		if (settings.manifest === undefined) {
 			settings.manifest = mSettings.manifest;
 			settings.manifestFile = mSettings.manifestFile;
 		}
@@ -105,30 +105,60 @@ const processFolder = function(mPath, mSettings, mCallback) {
 		let outputPath = path.resolve(paths.destination.image);
 		outputPath = path.resolve(outputPath, settings.relativePath);
 
-		const { files, dir } = sources; 
+		const { files, dir } = sources;
 
-		if(settings.tps) {
-			console.log(`Generate texture pack : ${settings.path}`.grey );
+		if (settings.tps) {
+			console.log(`Generate texture pack : ${settings.path}`.grey);
 
-			texturepack(settings.path, settings.outputFolderName, outputPath, ()=> {
 
-				getTexturePackList(outputPath, (mList)=> {
-					mList.full.forEach((fileName)=> {
+			let scale = 1;
+
+			let scalePosition = settings.outputFolderName.indexOf('{s')
+			if (scalePosition >= 0) {
+				console.log(settings.outputFolderName[scalePosition + 2].red)
+
+				scale = settings.outputFolderName[scalePosition + 2]
+			}
+			texturepack(settings.path, settings.outputFolderName, outputPath, () => {
+
+				getTexturePackList(outputPath, (mList) => {
+					mList.full.forEach((fileName) => {
 						MANIFESTS[settings.manifestFile].push('image/' + settings.relativePath + '/' + fileName);
 					});
 
+					if (settings.outputFolderName.indexOf('{n}') >= 0) {
+						//console.log(settings.outputFolderName, settings.outputFolderName.indexOf('{n}') );
+
+						let tempFile = settings.outputFolderName.replace('{n}', '');
+						for (let index = 0; index < 20; index++) {
+							let file = 'image/' + tempFile + index + '/' + tempFile + index + '.json'
+
+
+							const element = file;
+							let s = element.replace('image/', '/')
+
+							if (fs.existsSync(path.resolve(paths.destination.image) + s)) {
+								MANIFESTS[settings.manifestFile].push(file);
+							} else {
+								break
+							}
+
+						}
+					}
+
 					mCallback();
+
 				});
-				
-			});
-			
+
+			}, scale);
+
 		} else {
 			// 	loop through sub folders
 			let finishCount = dir.length + files.length;
 
-			const onDone = function() {
+			const onDone = function () {
 				finishCount--;
-				if(finishCount == 0) {
+				if (finishCount == 0) {
 					mCallback();
 				}
 			}
@@ -136,47 +166,49 @@ const processFolder = function(mPath, mSettings, mCallback) {
 			dir.forEach((mFolderName) => {
 				const subPath = path.resolve(mPath, mFolderName);
 				processFolder(subPath, settings, onDone);
-			});	
+			});
 
-			files.forEach((fileName)=> {
-				if(checkExtension(fileName, ['png', 'jpg', 'gif'])) {
+			files.forEach((fileName) => {
+				if (checkExtension(fileName, ['png', 'jpg', 'gif'])) {
 					const filePath = path.resolve(settings.path, fileName);
 					const _outputPath = path.resolve(outputPath, fileName);
-					convertImage(filePath, outputPath, fileName, onDone);	
+					convertImage(filePath, outputPath, fileName, onDone);
 
 					MANIFESTS[settings.manifestFile].push('image/' + settings.relativePath + '/' + fileName);
 				} else {
 					onDone();
 				}
-				
+
 			});
 		}
-		
+
 	});
 
 }
 
-module.exports = function(mCallback) {
+module.exports = function (mCallback) {
 	const _output = path.resolve(paths.destination.image);
 
-	fs.emptyDir(_output, (err)=> {
-		folderNameCheck(imgRootPath, (mHasDupe)=> {
+	fs.emptyDir(_output, (err) => {
+		folderNameCheck(imgRootPath, (mHasDupe) => {
 
-			if(!mHasDupe) {
+			if (!mHasDupe) {
 				MANIFESTS = {
-					default:[]
+					default: []
 				}
 
 				console.log(MANIFESTS);
 				// return;
 				const settings = cloneObject(defaultSettings);
-				processFolder(imgRootPath, settings, ()=> {
+				processFolder(imgRootPath, settings, () => {
+
 					const json = JSON.stringify(MANIFESTS, null, 4);
 					const outputJsonPath = path.resolve(paths.manifest, 'manifest.json');
-					fs.writeFile(outputJsonPath, json, 'utf8', ()=> {
+
+					fs.writeFile(outputJsonPath, json, 'utf8', () => {
 						console.log('Manifest json file created --' + outputJsonPath);
 
-						if(mCallback) {
+						if (mCallback) {
 							mCallback();
 						}
 					});
@@ -185,7 +217,7 @@ module.exports = function(mCallback) {
 				console.log('Has dupe Folder names !');
 			}
 
-		});	
+		});
 	});
-	
+
 }

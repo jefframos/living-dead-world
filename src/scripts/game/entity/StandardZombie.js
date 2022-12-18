@@ -10,7 +10,7 @@ export default class StandardZombie extends GameAgent {
     }
     build(radius = 15) {
         super.build();
-
+        //this.view.scale.set(0.2)
         this.buildCircle(0, 0, 15);
 
         this.characterAnimationID = 'Zombie1';
@@ -36,10 +36,13 @@ export default class StandardZombie extends GameAgent {
             },
         ]
 
-        this.injectAnimations(animations);
+        this.injectAnimations(animations, true);
         this.body.isSensor = false;
         this.layerCategory = Layer.Enemy
         this.layerMask = Layer.Environment | Layer.Player | Layer.Bullet
+
+        this.view.scale.set(0.2)
+
     }
     onAnimationEnd(animation, state) {
         this.destroy()

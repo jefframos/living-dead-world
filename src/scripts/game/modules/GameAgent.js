@@ -19,7 +19,6 @@ export default class GameAgent extends PhysicsEntity {
         this.view = new SpriteSheetAnimation()
         this.view.anchor.set(0.5, 0.5)
         this.view.animationFinish.add(this.onAnimationEnd.bind(this))
-       this.view.scale.set(0.8)
 
         this.viewOffset.y = 0;
 
@@ -63,10 +62,11 @@ export default class GameAgent extends PhysicsEntity {
             this.view.update(delta)
         }
     }
-    injectAnimations(animations) {
+    injectAnimations(animations, flipped) {
         animations.forEach(element => {
             for (let index = this.totalDirections; index >= 1; index--) {
-                this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + index * (360 / this.totalDirections) + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop)
+                let angId = Math.round(index * ((flipped?180:360) / this.totalDirections))
+                this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop)
             }
         });
 
@@ -80,19 +80,41 @@ export default class GameAgent extends PhysicsEntity {
 
         this.view.visible = false;
     }
-    calcFrame() {
-        //aif(this.physics.magnitude == 0) return -1;
 
-        let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
-        if (ang <= 0) {
-            ang += 360
+    calcFrame() {
+        let ang = (this.transform.angle) * 180 / Math.PI + 90        
+        
+        if (ang < 0 || ang > 180) {
+            this.view.scale.x = -Math.abs(this.view.scale.x)
+        } else {
+            this.view.scale.x = Math.abs(this.view.scale.x)
         }
-        let layer = Math.round(ang / (360 / this.totalDirections)) + 1
+        
+        ang = Math.abs(ang)
+        if (ang > 180) {
+            ang = 180 - ang % 180
+        }
+        let layer = Math.floor(ang / (180 / this.totalDirections))
         if (layer < 0) {
             layer += this.totalDirections
         }
         layer %= this.totalDirections
-
         return layer;
     }
+
+    // calcFrame() {
+    //     //aif(this.physics.magnitude == 0) return -1;
+
+    //     let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
+    //     if (ang <= 0) {
+    //         ang += 360
+    //     }
+    //     let layer = Math.round(ang / (360 / this.totalDirections)) + 1
+    //     if (layer < 0) {
+    //         layer += this.totalDirections
+    //     }
+    //     layer %= this.totalDirections
+
+    //     return layer;
+    // }
 }

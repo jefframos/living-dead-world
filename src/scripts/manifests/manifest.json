@@ -3,6 +3,6 @@
         "image/texture/texture.json",
         "image/particles/particles.json",
         "image/ui/ui.json",
-        "image/entities1/entities1.json"
+        "image/entities1{s4}0/entities1{s4}0.json"
     ]
 }
