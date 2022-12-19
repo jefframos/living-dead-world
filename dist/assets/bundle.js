@@ -59012,7 +59012,6 @@ var BaseEnemy = function (_GameAgent) {
         key: "die",
         value: function die() {
             this.body.isSensor = true;
-            console.log("DIE");
             this.destroy();
         }
     }, {
@@ -73785,14 +73784,14 @@ var assets = [{
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
-	"id": "fairies",
-	"url": "assets/json\\fairies.json"
-}, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
 }, {
 	"id": "baseGameConfigMonster",
 	"url": "assets/json\\baseGameConfigMonster.json"
+}, {
+	"id": "fairies",
+	"url": "assets/json\\fairies.json"
 }, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
@@ -73800,17 +73799,17 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -73824,20 +73823,20 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
+	"id": "monsters",
+	"url": "assets/json\\monsters.json"
 }, {
 	"id": "resources",
 	"url": "assets/json\\resources.json"
-}, {
-	"id": "monsters",
-	"url": "assets/json\\monsters.json"
 }];
 
 exports.default = assets;
