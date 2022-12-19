@@ -98,10 +98,14 @@ export default class RenderModule extends GameObject {
     }
     onRender() {
         if (!this.physics) return
-
-        this.container.children.sort(function (a, b) {
-            if (a.y + a.viewOffset.y == b.y + b.viewOffset.y) return a.x - b.x;
-            return (a.y + a.viewOffset.y == b.y + b.viewOffset.y);
+        this.container.children.sort((a, b) => {
+            if (a.y < b.y) {
+                return -1;
+            } else if (a.y > b.y) {
+                return 1;
+            } else {
+                return 0;
+            }
         });
 
         this.renderStats.totalRenderEntities = this.container.children.length;

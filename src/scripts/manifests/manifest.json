@@ -2,7 +2,7 @@
     "default": [
         "image/particles/particles.json",
         "image/texture/texture.json",
-        "image/ui/ui.json",
-        "image/entities1{s4}0/entities1{s4}0.json"
+        "image/entities/entities.json",
+        "image/ui/ui.json"
     ]
 }

@@ -2,10 +2,8 @@ import * as PIXI from 'pixi.js';
 import utils from '../../utils';
 import Signals from 'signals';
 import { TweenLite, Elastic } from 'gsap';
-export default class TouchAxisInput extends PIXI.Container
-{
-    constructor()
-    {
+export default class TouchAxisInput extends PIXI.Container {
+    constructor() {
         super();
         this.axis = [0, 0];
         this.angle = null;
@@ -36,58 +34,54 @@ export default class TouchAxisInput extends PIXI.Container
         this.scale.set(this.mainScale);
         this.maxDist = (this.center.width * 2); //* this.mainScale;
     }
-    testTouch(e)
-    {
-        if(!this.dragging){
+    testTouch(e) {
+        if (!this.dragging) {
             return false
         }
         return this.touchID == e.data.identifier;
     }
-    onMouseDown(e)
-    {
+    onMouseDown(e) {
         const globalTouch = e.data.global;
         const global = this.getGlobalPosition();
 
         this.currentDistance = utils.distance(globalTouch.x, globalTouch.y, global.x, global.y);
-        if (this.currentDistance < this.maxDist)
-        {
+        if (this.currentDistance < this.maxDist) {
             this.touchID = e.data.identifier;
+            
             this.dragging = true;
+            if (this.currentDistance > 10) {
 
-            this.angle = this.getAngle(e);
-            const dist = this.getDist(e);
 
-            this.distN = dist / this.maxDist;
+                this.angle = this.getAngle(e);
+                const dist = this.getDist(e);
 
-            this.distN = Math.min(1, this.distN);
+                this.distN = dist / this.maxDist;
 
-            this.dist = this.maxDist * 0.5 * this.distN;
+                this.distN = Math.min(1, this.distN);
 
-            this.axis = [Math.cos(this.angle), Math.sin(this.angle)];
-            this.center.x = this.axis[0] * this.dist;
-            this.center.y = this.axis[1] * this.dist;
+                this.dist = this.maxDist * 0.5 * this.distN;
 
-            this.onStartDrag.dispatch(this);
-            TweenLite.killTweensOf(this.center);
+                this.axis = [Math.cos(this.angle), Math.sin(this.angle)];
+                this.center.x = this.axis[0] * this.dist;
+                this.center.y = this.axis[1] * this.dist;
+
+                this.onStartDrag.dispatch(this);
+                TweenLite.killTweensOf(this.center);
+            }
         }
-        else
-        {
+        else {
             this.dragging = false;
         }
     }
 
-    onMouseUp(e)
-    {
+    onMouseUp(e) {
         this.reset();
     }
-    onMouseOutside(e)
-    {
+    onMouseOutside(e) {
         this.reset();
     }
-    onMouseMove(e)
-    {
-        if (this.dragging)
-        {
+    onMouseMove(e) {
+        if (this.dragging) {
             this.angle = this.getAngle(e);
             const dist = this.getDist(e);
 
@@ -102,8 +96,7 @@ export default class TouchAxisInput extends PIXI.Container
             this.center.y = this.axis[1] * this.dist;
         }
     }
-    reset()
-    {
+    reset() {
         this.axis = [0, 0];
         this.currentPressed = [];
         this.dragging = false;
@@ -112,10 +105,8 @@ export default class TouchAxisInput extends PIXI.Container
         this.onStopDrag.dispatch(this);
         TweenLite.to(this.center, 0.5, { x: 0, y: 0, ease: Elastic.easeOut });
     }
-    getDist(e)
-    {
-        if (!this.testTouch(e))
-        {
+    getDist(e) {
+        if (!this.testTouch(e)) {
             return this.currentDistance / this.mainScale;
         }
         const globalTouch = e.data.global;
@@ -125,10 +116,8 @@ export default class TouchAxisInput extends PIXI.Container
 
         return this.currentDistance / this.mainScale;
     }
-    getAngle(e)
-    {
-        if (!this.testTouch(e))
-        {
+    getAngle(e) {
+        if (!this.testTouch(e)) {
             return this.angle;
         }
         const globalTouch = e.data.global;
@@ -136,8 +125,7 @@ export default class TouchAxisInput extends PIXI.Container
 
         return Math.atan2(globalTouch.y - global.y, globalTouch.x - global.x);
     }
-    update()
-    {
+    update() {
 
     }
 }

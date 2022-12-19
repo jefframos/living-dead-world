@@ -11,59 +11,62 @@ export default class Player extends GameAgent {
         super();
         this.totalDirections = 8
         this.autoSetAngle = false;
+        this.view = new PIXI.Sprite.from('tile_0085')
     }
     build(radius = 15) {
         super.build()
 
         this.buildCircle(0, 0, 15);
 
+        // this.characterAnimationID = 'Hero';
+        // let animations = [
+        //     {
+        //         id: 'Idle',
+        //         name: 'idle',
+        //         frames: 5,
+        //         speed: 0.2
+        //     },
+        //     {
+        //         id: 'Run',
+        //         name: 'running',
+        //         frames: 10,
+        //         speed: 0.1
+        //     },
+        //     {
+        //         id: 'Pistol_Run',
+        //         name: 'pistol_run',
+        //         frames: 10,
+        //         speed: 0.1
+        //     },
+        //     {
+        //         id: 'Pistol_Idle',
+        //         name: 'pistol_idle',
+        //         frames: 5,
+        //         speed: 0.1
+        //     },
+        //     {
+        //         id: 'Pistol_Shoot',
+        //         name: 'pistol_shoot',
+        //         frames: 5,
+        //         speed: 0.1,
+        //         loop: false
+        //     },
+        // ]
 
-        this.characterAnimationID = 'Hero';
-        let animations = [
-            {
-                id: 'Idle',
-                name: 'idle',
-                frames: 5,
-                speed: 0.2
-            },
-            {
-                id: 'Run',
-                name: 'running',
-                frames: 10,
-                speed: 0.1
-            },
-            {
-                id: 'Pistol_Run',
-                name: 'pistol_run',
-                frames: 10,
-                speed: 0.1
-            },
-            {
-                id: 'Pistol_Idle',
-                name: 'pistol_idle',
-                frames: 5,
-                speed: 0.1
-            },
-            {
-                id: 'Pistol_Shoot',
-                name: 'pistol_shoot',
-                frames: 5,
-                speed: 0.1,
-                loop: false
-            },
-        ]
-
-        this.injectAnimations(animations, true);
+        // this.injectAnimations(animations, true);
 
         this.speed = 100
-        this.shootTimer = 0.2
+
+        this.shootBaseTime = 0.2
+        this.shootTimer = 0.1
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.Environment | Layer.Enemy
 
-        this.view.scale.set(0.2)
+        this.view.anchor.set(0.5,1)
+        this.view.scale.set(2)
 
-        this.view.play('Pistol_Idle')
+        //this.view.play('Pistol_Idle')
     }
     onAnimationEnd(animation, state) {
 
@@ -82,14 +85,14 @@ export default class Player extends GameAgent {
     shoot() {
         //this.isShooting = true;
 
-        this.shootTimer = 0.85;
+        this.shootTimer =this.shootBaseTime;
 
         let bullet = this.engine.poolGameObject(Bullet, true)
         let forw = this.forward;
 
-        this.view.play('Pistol_Shoot')
+        //this.view.play('Pistol_Shoot')
 
-        let shootAngle = Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
+        let shootAngle = this.transform.angle//Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
         bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, this.transform.position.y + Math.sin(shootAngle) * 20 + this.physics.velocity.y);
 
         bullet.shoot(shootAngle + Math.random() * 0.2 - 0.1, this.physics.magnitude)
@@ -104,11 +107,11 @@ export default class Player extends GameAgent {
             }
         }
 
-        if (this.physics.magnitude > 0) {
-            this.view.play('Pistol_Run')
-        } else if (!this.view.currentState == 'Pistol_Shoot') {
-            this.view.play('Pistol_Idle')
-        }
+        // if (this.physics.magnitude > 0) {
+        //     this.view.play('Pistol_Run')
+        // } else if (!this.view.currentState == 'Pistol_Shoot') {
+        //     this.view.play('Pistol_Idle')
+        // }
 
 
         this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)

@@ -37,7 +37,9 @@ export default class GameAgent extends PhysicsEntity {
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
 
-        this.view.reset();
+        if(this.view && this.view.reset){
+            this.view.reset();
+        }
         this.health = new Health();
         this.timer = Math.random()
         this.speed = 20 * Math.random() + 10

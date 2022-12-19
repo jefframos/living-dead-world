@@ -11,7 +11,7 @@ import Player from '../entity/Player';
 import RenderModule from '../modules/RenderModule';
 import Screen from '../../screenManager/Screen'
 import Signals from 'signals';
-import StandardZombie from '../entity/StandardZombie';
+import BaseEnemy from '../entity/BaseEnemy';
 import StaticPhysicObject from '../entity/StaticPhysicObject';
 import config from '../../config';
 import GameObject from '../core/GameObject';
@@ -41,7 +41,7 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.labelText)
         //this.particleContainer = new PIXI.ParticleContainer();
 
-        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 250, 250);
+        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('tile_0049'), 16, 16);
         this.debugContainer = new PIXI.Container();
         this.shadowContainer = new PIXI.ParticleContainer();
         this.entitiesContainer = new PIXI.Container();
@@ -50,7 +50,7 @@ export default class GameScreen extends Screen {
         this.baseContainer.tileScale.set(0.5)
         this.baseContainer.width = 5000
         this.baseContainer.height = 5000
-        this.baseContainer.tint = 0x333333
+        //this.baseContainer.tint = 0x333333
         this.container.addChild(this.baseContainer)
         this.container.addChild(this.shadowContainer)
         this.container.addChild(this.entitiesContainer)
@@ -160,7 +160,7 @@ export default class GameScreen extends Screen {
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            this.gameEngine.poolGameObject(StandardZombie, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
+            this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
         }
     }
     build(param) {
@@ -177,19 +177,22 @@ export default class GameScreen extends Screen {
 
         this.player = this.gameEngine.poolGameObject(Player, true)
         this.player.setPosition(config.width / 2, config.height / 2)
-        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
-        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
-        this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
-        this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
+        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
+        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
+        // this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
+        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
 
 
-        this.gameEngine.poolGameObject(StandardZombie, true).setPosition(config.width / 2, config.height / 2 - 100)
-        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(StandardZombie, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // let a = this.gameEngine.poolGameObject(BaseEnemy, true)
+        // a.setPosition(config.width / 2, config.height / 2 - 100)
+        // console.log(a)
+       // this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(config.width / 2, config.height / 2 - 100)
+        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
+        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         for (let index = 0; index < 100; index++) {
-            this.addRandomAgents(1)
+           this.addRandomAgents(1)
         }
 
         // console.log(GameObject.Pool.pool)

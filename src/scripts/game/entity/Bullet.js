@@ -7,34 +7,36 @@ import PhysicsEntity from "../modules/PhysicsEntity";
 import PhysicsModule from "../modules/PhysicsModule";
 import StandardZombie from "./StandardZombie";
 import config from "../../config";
+import BaseEnemy from "./BaseEnemy";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
         super();
-        this.view = new PIXI.Sprite.from('shoot')
-        this.view.alpha = 0.2
-        //this.setDebug(5)
+        this.view = new PIXI.Sprite.from('tile_0103')
+        this.view.alpha = 1
+        //this.setDebug(15)
     }
     build() {
         super.build()
-        this.buildCircle(0, 0, 5)
+        this.buildCircle(0, 0, 15)
 
         this.view.anchor.set(0.5)
-        this.view.scale.set(5 / this.view.width * 2 * this.view.scale.x)
+        this.view.scale.set(1.5)
+        //this.view.scale.set(5 / this.view.width * 2 * this.view.scale.x)
         this.speed = 250
 
         this.body.collisionFilter.group = 2
         this.body.collisionFilter.mask = 3
 
 
-        this.lifeSpan = 4
+        this.lifeSpan = 0.5
 
         this.layerCategory = Layer.Bullet
         this.layerMask = Layer.Enemy | Layer.Environment
 
         this.body.isSensor = true
 
-        this.viewOffset.y = - 20;
+        this.viewOffset.y = - 5;
 
 
     }
@@ -46,7 +48,7 @@ export default class Bullet extends PhysicsEntity {
         this.angle = ang;
 
         this.speed += this.speed * magnitude * 0.5
-        this.view.rotation =  this.angle
+        this.view.rotation =  this.angle + Math.PI/2
 
         this.physics.velocity.x = 0
         this.physics.velocity.y = 0
@@ -61,8 +63,8 @@ export default class Bullet extends PhysicsEntity {
         }else{
             if(collided.die){
                 collided.die()
-                this.engine.poolAtRandomPosition(StandardZombie, true, {minX:50, maxX: config.width, minY:50, maxY:200})
-                this.destroy()
+                this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:200})
+                //this.destroy()
             }else{
 
                 collided.destroy();
@@ -88,6 +90,6 @@ export default class Bullet extends PhysicsEntity {
         this.view.visible = true;
 
 
-        this.view.rotation = this.transform.angle
+        this.view.rotation =  this.transform.angle + Math.PI/2
     }
 }
