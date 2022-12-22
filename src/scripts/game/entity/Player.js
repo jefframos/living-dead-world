@@ -76,7 +76,7 @@ export default class Player extends GameAgent {
         //this.view.play('Pistol_Idle')
     }
     onSensorTrigger(element){
-        console.log(element)
+        //console.log(element)
         
     }
     onAnimationEnd(animation, state) {
@@ -94,7 +94,7 @@ export default class Player extends GameAgent {
         //this.physicsModule.removeAgent(collided);
     }
     shoot() {
-        return
+        //return
         //this.isShooting = true;
 
         this.shootTimer =this.shootBaseTime;
@@ -103,8 +103,12 @@ export default class Player extends GameAgent {
         let forw = this.forward;
 
         //this.view.play('Pistol_Shoot')
-
         let shootAngle = this.transform.angle//Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
+
+        if(this.sensor.collisionList.length){
+            let first = this.sensor.collisionList[0].transform.position
+            shootAngle = Math.atan2(first.y - this.transform.position.y, first.x - this.transform.position.x)
+        }
         bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, this.transform.position.y + Math.sin(shootAngle) * 20 + this.physics.velocity.y);
 
         bullet.shoot(shootAngle + Math.random() * 0.2 - 0.1, this.physics.magnitude)

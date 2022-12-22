@@ -39,9 +39,9 @@ export default class Sensor extends PhysicsEntity {
     }
     update(delta) {
         super.update(delta)
-        // console.log(this.collisionList.length)
+        console.log(this.collisionList.length)
         if (this.collisionList.length) {
-            console.log(this.collisionList[0])
+        //    console.log(this.collisionList[0])
         }
     }
 }
