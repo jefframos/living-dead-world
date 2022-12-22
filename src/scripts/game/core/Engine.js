@@ -1,5 +1,5 @@
-import PhysicsModule from "../modules/PhysicsModule";
 import GameObject from "./GameObject";
+import PhysicsModule from "../modules/PhysicsModule";
 
 export default class Engine {
     constructor() {
@@ -40,14 +40,21 @@ export default class Engine {
     addGameObject(gameObject) {
         gameObject.engine = this;
         gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
+        gameObject.childAdded.add(this.addGameObject.bind(this))
 
-        
         this.gameObjects.push(gameObject);
         this.parentGameObject.addChild(gameObject)
         
-        // if(gameObject.body){
-        //     this.physics.addAgent(gameObject)
-        // }
+
+        for (let index = 0; index < gameObject.children.length; index++) {
+            const element = gameObject.children[index];
+            if(element instanceof GameObject){
+                element.engine = this;
+                console.log("CHILD ADD ", element)
+                //this.addGameObject(element)
+            }
+        }
+
         
         return gameObject;
     }

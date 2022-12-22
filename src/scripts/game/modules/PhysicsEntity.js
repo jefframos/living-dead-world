@@ -17,19 +17,20 @@ export default class PhysicsEntity extends GameObject {
     build() {
         this.physics = new PhysicsProperties();
     }
-    setDebug(radius = 15) {
+    setDebug(radius = 15, color = 0xFFFFFF) {
 
         //improve this debug to fit the body
         if (!this.debug) {
             this.debug = new PIXI.Sprite.from('debugRound')
             this.debug.anchor.set(0.5)
             this.debug.alpha = 0.1
+            this.debug.tint = color;
 
             this.label = new PIXI.Text('')
             this.label.anchor.set(0.5,-1)
             this.label.alpha = 5
 
-            this.label.style.fill = 0xFFFFFF;
+            this.label.style.fill = color;
             this.label.style.fontSize = 8
             this.debug.addChild(this.label)
 
@@ -64,6 +65,18 @@ export default class PhysicsEntity extends GameObject {
         return this.body
     }
     update(delta) {
+    
+       
+        
+        // if(this.parent){
+        //     this.x = this.parent.transform.position.x + this.transform.position.x
+        //     this.y = this.parent.transform.position.y + this.transform.position.y
+        //     //console.log(this.transform.position.x)
+        //     //this.transform.position.x = this.body.position.x +  this.transform.position.x;
+        //     //console.log(this.transform.position.x, this.parent.transform.position.x + this.transform.position.x)
+        //     //this.transform.position.x += this.parent.transform.position.x
+        // }else{
+        // }
         this.transform.position.x = this.body.position.x;
         this.transform.position.y = this.body.position.y;
 

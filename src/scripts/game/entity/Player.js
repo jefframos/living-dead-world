@@ -1,10 +1,11 @@
 import Bullet from "./Bullet";
+import Game from "../../Game";
 import GameAgent from "../modules/GameAgent";
 import InputModule from "../modules/InputModule";
 import Layer from "../core/Layer";
 import Matter from "matter-js";
 import PhysicsModule from "../modules/PhysicsModule";
-import Game from "../../Game";
+import Sensor from "../core/Sensor";
 
 export default class Player extends GameAgent {
     constructor() {
@@ -12,10 +13,16 @@ export default class Player extends GameAgent {
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.view = new PIXI.Sprite.from('tile_0085')
+        this.setDebug(15)
+
     }
     build(radius = 15) {
         super.build()
-
+        
+        this.sensor = this.engine.poolGameObject(Sensor, true)
+        this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
+        this.addChild(this.sensor)
+        //this.sensor.setPosition(200,200)
         this.buildCircle(0, 0, 15);
 
         // this.characterAnimationID = 'Hero';
@@ -61,12 +68,16 @@ export default class Player extends GameAgent {
         this.shootTimer = 0.1
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
-        this.layerMask = Layer.Environment | Layer.Enemy
+        this.layerMask = Layer.PlayerCollision
 
         this.view.anchor.set(0.5,1)
         this.view.scale.set(2)
 
         //this.view.play('Pistol_Idle')
+    }
+    onSensorTrigger(element){
+        console.log(element)
+        
     }
     onAnimationEnd(animation, state) {
 
@@ -83,6 +94,7 @@ export default class Player extends GameAgent {
         //this.physicsModule.removeAgent(collided);
     }
     shoot() {
+        return
         //this.isShooting = true;
 
         this.shootTimer =this.shootBaseTime;
@@ -113,6 +125,8 @@ export default class Player extends GameAgent {
         //     this.view.play('Pistol_Idle')
         // }
 
+        this.sensor.x = this.transform.position.x
+        this.sensor.y = this.transform.position.y
 
         this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
         if (this.input.touchAxisDown) {

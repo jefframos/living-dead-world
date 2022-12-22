@@ -1,25 +1,25 @@
 import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
+import BaseEnemy from '../entity/BaseEnemy';
 import CameraModule from '../modules/CameraModule';
 import Engine from '../core/Engine';
+import Game from '../../Game'
 import GameAgent from '../modules/GameAgent';
+import GameObject from '../core/GameObject';
 import InputModule from '../modules/InputModule';
 import Matter from 'matter-js';
 import PhysicsModule from '../modules/PhysicsModule';
 import Player from '../entity/Player';
 import RenderModule from '../modules/RenderModule';
 import Screen from '../../screenManager/Screen'
+import Sensor from '../core/Sensor';
 import Signals from 'signals';
-import BaseEnemy from '../entity/BaseEnemy';
 import StaticPhysicObject from '../entity/StaticPhysicObject';
-import config from '../../config';
-import GameObject from '../core/GameObject';
-import Game from '../../Game'
 import TouchAxisInput from '../modules/TouchAxisInput';
-
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
+import config from '../../config';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -177,6 +177,8 @@ export default class GameScreen extends Screen {
 
         this.player = this.gameEngine.poolGameObject(Player, true)
         this.player.setPosition(config.width / 2, config.height / 2)
+
+        //let sensor = this.gameEngine.poolGameObject(Sensor, true)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)

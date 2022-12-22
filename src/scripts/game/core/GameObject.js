@@ -1,8 +1,7 @@
-import Transform from "./Transform";
 import * as signals from 'signals';
+
 import Pool from "./Pool";
-
-
+import Transform from "./Transform";
 
 export default class GameObject {
     static Pool = new Pool();
@@ -15,15 +14,18 @@ export default class GameObject {
         this.parent = null;
 
         this.gameObjectDestroyed = new signals.Signal();
+        this.childAdded = new signals.Signal();
+        this.childRemoved = new signals.Signal();
     }
 
     addChild(gameObject) {
         gameObject.setParent(this)
         gameObject.start();
+        this.childAdded.dispatch(this)
         this.children.push(gameObject);
     }
     reset() {
-        
+
     }
     build() {
     }
@@ -32,9 +34,9 @@ export default class GameObject {
     onRender() {
 
     }
-    get forward(){
+    get forward() {
         let rad = this.transform.angle // 180 * Math.PI
-        return {x:Math.cos(rad), y:Math.sin(rad)}
+        return { x: Math.cos(rad), y: Math.sin(rad) }
     }
     /**
      * @param {number} value
@@ -75,6 +77,15 @@ export default class GameObject {
             this.parent.removeChild(this)
         }
 
+        if (this.children.length) {
+            for (let index = this.children.length - 1; index >= 0; index--) {
+                const element = this.children[index];
+                this.childRemoved.dispatch(element)
+                element.destroy();
+                this.children.splice(index, 1);
+            }
+        }
+
         this.disable();
         GameObject.Pool.returnElement(this)
     }
@@ -82,12 +93,12 @@ export default class GameObject {
 
         for (let index = 0; index < this.children.length; index++) {
             const element = this.children[index];
-            if(element.engineID == child.engineID){
+            if (element.engineID == child.engineID) {
                 this.children.splice(index, 1)
                 break
             }
-            
-        }      
+
+        }
     }
     setParent(newParent) {
         if (this.parent && this.parent != newParent) {

@@ -1,3 +1,4 @@
+import BaseEnemy from "./BaseEnemy";
 import Engine from "../core/Engine";
 import GameAgent from "../modules/GameAgent";
 import InputModule from "../modules/InputModule";
@@ -7,7 +8,6 @@ import PhysicsEntity from "../modules/PhysicsEntity";
 import PhysicsModule from "../modules/PhysicsModule";
 import StandardZombie from "./StandardZombie";
 import config from "../../config";
-import BaseEnemy from "./BaseEnemy";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -32,7 +32,7 @@ export default class Bullet extends PhysicsEntity {
         this.lifeSpan = 0.5
 
         this.layerCategory = Layer.Bullet
-        this.layerMask = Layer.Enemy | Layer.Environment
+        this.layerMask = Layer.BulletCollision
 
         this.body.isSensor = true
 

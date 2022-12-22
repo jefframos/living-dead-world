@@ -16,12 +16,12 @@ export default class BaseEnemy extends GameAgent {
 
         this.body.isSensor = false;
         this.layerCategory = Layer.Enemy
-        this.layerMask = Layer.Environment | Layer.Player | Layer.Bullet
+        this.layerMask = Layer.EnemyCollision
 
         this.view.anchor.set(0.5,1)
         this.view.scale.set(2,3)
 
-        this.speedAdjust = 1
+        this.speedAdjust = 0
     }
     die() {
         this.body.isSensor = true;

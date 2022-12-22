@@ -7,4 +7,8 @@ export default class Layer {
     static Enemy = 0b0011;
     static Environment = 0b0010;
     static Bullet = 0b0100;
+
+    static PlayerCollision = Layer.Environment | Layer.Default | Layer.Enemy
+    static EnemyCollision = Layer.Environment | Layer.Default | Layer.Player | Layer.Bullet
+    static BulletCollision = Layer.Environment | Layer.Default | Layer.Enemy
 }
