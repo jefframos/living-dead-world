@@ -37,11 +37,4 @@ export default class Sensor extends PhysicsEntity {
         }
         this.onTrigger.dispatch(collided)
     }
-    update(delta) {
-        super.update(delta)
-        console.log(this.collisionList.length)
-        if (this.collisionList.length) {
-        //    console.log(this.collisionList[0])
-        }
-    }
 }

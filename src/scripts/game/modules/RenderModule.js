@@ -4,6 +4,8 @@ import GameObject from "../core/GameObject";
 import PhysicsEntity from "./PhysicsEntity";
 import PhysicsModule from "./PhysicsModule";
 import StaticPhysicObject from "../entity/StaticPhysicObject";
+import config from "../../config";
+import glMat4 from "gl-mat4";
 
 export default class RenderModule extends GameObject {
     constructor(container, shadowsContainer, debugContainer) {
@@ -72,7 +74,7 @@ export default class RenderModule extends GameObject {
                 this.shadowsContainer.addChild(element.shadow)
             }
 
-            if(!view){
+            if (!view) {
                 return;
             }
             this.container.addChild(view)
@@ -110,7 +112,90 @@ export default class RenderModule extends GameObject {
                 return 0;
             }
         });
-
+        this.container.children.forEach(element => {
+            //this.transformSprite(element);
+        });
         this.renderStats.totalRenderEntities = this.container.children.length;
+
     }
+    transformSprite(sprite) {
+
+        let camM = [1, 0, 0, 0,
+            0, 1, 0, 0,
+            0, 0, 1, 0,
+            1, 1, 1, 0]
+        var projectionMatrix = this.perspective(Math.PI/4, config.width/config.height, 0.1, 10000)
+
+        var somePoint = [sprite.x, 0, sprite.y];
+        var projectedPoint = this.transformPoint(projectionMatrix, somePoint);
+        
+        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width;
+        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height;
+        
+        let test = this.point3d_to_screen(sprite, camM, projectionMatrix, config.width, config.height)
+
+        if(this.debugg === undefined){
+            this.debugg = 20
+        }
+
+        this.debugg --
+        if(this.debugg > 0){
+
+            console.log(test)
+        }
+
+        sprite.x = screenX
+        sprite.y = screenZ
+
+    }
+    transformPoint(m, v) {
+        var x = v[0];
+        var y = v[1];
+        var z = v[2];
+        var w = x * m[0 * 4 + 3] + y * m[1 * 4 + 3] + z * m[2 * 4 + 3] + m[3 * 4 + 3];
+        return [(x * m[0 * 4 + 0] + y * m[1 * 4 + 0] + z * m[2 * 4 + 0] + m[3 * 4 + 0]) / w,
+        (x * m[0 * 4 + 1] + y * m[1 * 4 + 1] + z * m[2 * 4 + 1] + m[3 * 4 + 1]) / w,
+        (x * m[0 * 4 + 2] + y * m[1 * 4 + 2] + z * m[2 * 4 + 2] + m[3 * 4 + 2]) / w];
+    }
+    perspective(fieldOfViewYInRadians, aspect, zNear, zFar, dst) {
+        dst = dst || new Float32Array(16);
+
+        var f = Math.tan(Math.PI * 0.5 - 0.5 * fieldOfViewYInRadians);
+        var rangeInv = 1.0 / (zNear - zFar);
+
+        dst[0] = f / aspect;
+        dst[1] = 0;
+        dst[2] = 0;
+        dst[3] = 0;
+
+        dst[4] = 0;
+        dst[5] = f;
+        dst[6] = 0;
+        dst[7] = 0;
+
+        dst[8] = 0;
+        dst[9] = 0;
+        dst[10] = (zNear + zFar) * rangeInv;
+        dst[11] = -1;
+
+        dst[12] = 0;
+        dst[13] = 0;
+        dst[14] = zNear * zFar * rangeInv * 2;
+        dst[15] = 0;
+
+        return dst;
+    }
+    point3d_to_screen(point, cameraWorldMatrix, projMatrix, screenWidth, screenHeight) {
+        var mat, p, x, y;
+        p = [point[0], point[1], point[2], 1];
+        mat = glMat4.create();
+        glMat4.invert(mat, cameraWorldMatrix);
+        glMat4.multiply(mat, projMatrix, mat);
+        vec4.transformMat4(p, p, mat);
+        //glMat4.perspective()
+        //glMat4.multiply
+        x = (p[0] / p[3] + 1) * 0.5 * screenWidth;
+        y = (1 - p[1] / p[3]) * 0.5 * screenHeight;
+        return [x, y];
+      }
 }
