@@ -41,10 +41,23 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.labelText)
         //this.particleContainer = new PIXI.ParticleContainer();
 
+// setTimeout(() => {
+    
+//     PIXI.BitmapFont.from('fredokaone', {
+//         fill: "#333333",
+//         fontFamily:'fredokaone',
+//         fontSize: 40,
+//         fontWeight: 'bold',
+//     });
+    
+    
+//     const text = new PIXI.BitmapText("Hello World", { fontName: 'fredokaone' });
+//     this.container.addChild(text)
+// }, 50);
+
+
         this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('tile_0049'), 16, 16);
-        this.debugContainer = new PIXI.Container();
-        this.shadowContainer = new PIXI.ParticleContainer();
-        this.entitiesContainer = new PIXI.Container();
+        this.gameplayContainer = new PIXI.Container();
 
         this.baseContainer.anchor.set(0.5)
         this.baseContainer.tileScale.set(0.5)
@@ -52,19 +65,15 @@ export default class GameScreen extends Screen {
         this.baseContainer.height = 5000
         //this.baseContainer.tint = 0x333333
         this.container.addChild(this.baseContainer)
-        this.container.addChild(this.shadowContainer)
-        this.container.addChild(this.entitiesContainer)
-        this.container.addChild(this.debugContainer)
+        this.container.addChild(this.gameplayContainer)
 
 
         this.gameEngine = new Engine();
         this.physics = this.gameEngine.physics
         this.camera = this.gameEngine.addGameObject(new CameraModule())
-        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.entitiesContainer, this.shadowContainer, this.debugContainer))
+        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule())
 
-
-        console.log(this.inputModule.mouse)
 
         this.debug = {
             removeRandomPiece: () => {
@@ -188,15 +197,19 @@ export default class GameScreen extends Screen {
         // let a = this.gameEngine.poolGameObject(BaseEnemy, true)
         // a.setPosition(config.width / 2, config.height / 2 - 100)
         // console.log(a)
-       // this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(config.width / 2, config.height / 2 - 100)
+        // this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(config.width / 2, config.height / 2 - 100)
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        for (let index = 0; index < 100; index++) {
-           this.addRandomAgents(1)
-        }
+        //this.addRandomAgents(1)
 
+        for (let index = 0; index < 100; index++) {
+            this.addRandomAgents(1)
+        }
+        for (let index = 0; index < 100; index++) {
+            this.addRandomAgents(1)
+        }
         // console.log(GameObject.Pool.pool)
 
         // setTimeout(() => {
@@ -213,14 +226,14 @@ export default class GameScreen extends Screen {
     update(delta) {
         this.gameEngine.update(delta)
         this.inputModule.touchAxisDown = this.touchAxisInput.dragging
-        if (this.touchAxisInput.dragging) {
-            this.inputModule.direction = this.touchAxisInput.angle
+        if (this.touchAxisInput.angle) {
         }
+        this.inputModule.direction = this.touchAxisInput.angle
 
         this.stats.text = window.FPS
         if (this.player) {
-            this.container.pivot.x = this.player.view.position.x //- config.width / 2
-            this.container.pivot.y = this.player.view.position.y //- config.height / 2
+            this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
+            this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
         }
     }
     transitionOut(nextScreen) {

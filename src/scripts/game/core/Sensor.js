@@ -7,17 +7,17 @@ export default class Sensor extends PhysicsEntity {
     constructor() {
         super();
        // this.view = new PIXI.Sprite.from('tile_0085')
-        //this.setDebug(80, 0xFF0000)
-
-        this.onTrigger = new signals.Signal();
-
-        this.collisionList = []
-
+       
+       this.onTrigger = new signals.Signal();
+       
+       this.collisionList = []
+       
     }
-    build() {
+    build(radius = 50) {
         super.build()
-        this.buildCircle(0, 0, 80)
-        this.body.isSensor = true;
+        //this.setDebug(radius, 0xFF0000)
+        this.buildCircle(0, 0, radius)
+        this.rigidBody.isSensor = true;
 
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision - Layer.Player

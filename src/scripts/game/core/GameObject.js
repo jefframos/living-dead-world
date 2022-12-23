@@ -12,15 +12,14 @@ export default class GameObject {
         this.children = []
         this.enabled = true;
         this.parent = null;
-
         this.gameObjectDestroyed = new signals.Signal();
         this.childAdded = new signals.Signal();
         this.childRemoved = new signals.Signal();
+        this.rigidbodyAdded = new signals.Signal();
     }
 
     addChild(gameObject) {
         gameObject.setParent(this)
-        gameObject.start();
         this.childAdded.dispatch(this)
         this.children.push(gameObject);
     }
@@ -64,11 +63,9 @@ export default class GameObject {
     }
     enable() {
         this.enabled = true;
-
     }
     disable() {
         this.enabled = false;
-
     }
     destroy() {
         this.gameObjectDestroyed.dispatch(this);
@@ -88,6 +85,16 @@ export default class GameObject {
 
         this.disable();
         GameObject.Pool.returnElement(this)
+    }
+    removeAllSignals(){
+        for (const key in this) {
+            if (Object.hasOwnProperty.call(this, key)) {
+                const element = this[key];
+                if(element instanceof signals.Signal){
+                    element.removeAll();
+                }
+            }
+        }
     }
     removeChild(child) {
 

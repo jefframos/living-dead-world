@@ -1,5 +1,6 @@
 import Matter from "matter-js";
 import GameObject from "../core/GameObject";
+import GameView from "../core/GameView";
 import Health from "../core/Health";
 import SpriteSheetAnimation from "../entity/SpriteSheetAnimation";
 import PhysicsEntity from "./PhysicsEntity";
@@ -8,6 +9,7 @@ export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
         super(debug);
 
+        this.gameView = new GameView(this)
         this.totalDirections = 6
         this.dying = false;
         this.shadow = new PIXI.Sprite.from('shadow')
@@ -16,11 +18,11 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.scale.set(30 / this.shadow.width)
         this.shadow.scale.y = this.shadow.scale.x * 0.6
 
-        this.view = new SpriteSheetAnimation()
-        this.view.anchor.set(0.5, 0.5)
-        this.view.animationFinish.add(this.onAnimationEnd.bind(this))
+        // this.view = new SpriteSheetAnimation()
+        // this.view.anchor.set(0.5, 0.5)
+        // this.view.animationFinish.add(this.onAnimationEnd.bind(this))
 
-        this.viewOffset.y = 0;
+        // this.viewOffset.y = 0;
 
         if (debug) {
             this.setDebug(15)
@@ -29,7 +31,7 @@ export default class GameAgent extends PhysicsEntity {
     }
     onAnimationEnd(animation, state) { }
     start() {
-        this.view.visible = true;
+        // this.view.visible = true;
     }
     build() {
         super.build();
@@ -37,9 +39,9 @@ export default class GameAgent extends PhysicsEntity {
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
 
-        if(this.view && this.view.reset){
-            this.view.reset();
-        }
+        // if(this.view && this.view.reset){
+        //     this.view.reset();
+        // }
         this.health = new Health();
         this.timer = Math.random()
         this.speed = 20 * Math.random() + 10
@@ -50,19 +52,18 @@ export default class GameAgent extends PhysicsEntity {
     update(delta) {
         super.update(delta);
 
-
-        this.view.x = this.transform.position.x
-        this.view.y = this.transform.position.y
+        this.gameView.update(delta)
+        
 
         this.shadow.x = this.transform.position.x
         this.shadow.y = this.transform.position.y
 
 
 
-        if (this.view.init) {
-            this.view.setLayer(this.calcFrame())
-            this.view.update(delta)
-        }
+        // if (this.view.init) {
+        //     this.view.setLayer(this.calcFrame())
+        //     this.view.update(delta)
+        // }
     }
     injectAnimations(animations, flipped) {
         animations.forEach(element => {
@@ -80,7 +81,7 @@ export default class GameAgent extends PhysicsEntity {
     destroy() {
         super.destroy();
 
-        this.view.visible = false;
+        //this.view.visible = false;
     }
 
     calcFrame() {

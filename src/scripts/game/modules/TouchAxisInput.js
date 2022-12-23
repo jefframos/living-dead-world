@@ -76,6 +76,7 @@ export default class TouchAxisInput extends PIXI.Container {
 
     onMouseUp(e) {
         this.reset();
+        console.log(this.angle)
     }
     onMouseOutside(e) {
         this.reset();

@@ -7,85 +7,43 @@ import Matter from "matter-js";
 import PhysicsModule from "../modules/PhysicsModule";
 import Sensor from "../core/Sensor";
 import utils from "../../utils";
+import RenderModule from "../modules/RenderModule";
 
 export default class Player extends GameAgent {
+    static MainPlayer = this;
     constructor() {
         super();
+        Player.MainPlayer = this;
         this.totalDirections = 8
         this.autoSetAngle = false;
-        this.view = new PIXI.Sprite.from('tile_0085')
+        this.gameView.layer = RenderModule.RenderLayers.Gameplay
+        this.gameView.view = new PIXI.Sprite.from('tile_0085')
         this.setDebug(15)
 
     }
     build(radius = 15) {
         super.build()
 
-        this.sensor = this.engine.poolGameObject(Sensor, true)
+        this.sensor = this.engine.poolGameObject(Sensor)
+        this.sensor.build(120)
         this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
-        //this.sensor.setPosition(200,200)
         this.buildCircle(0, 0, 15);
-
-        // this.characterAnimationID = 'Hero';
-        // let animations = [
-        //     {
-        //         id: 'Idle',
-        //         name: 'idle',
-        //         frames: 5,
-        //         speed: 0.2
-        //     },
-        //     {
-        //         id: 'Run',
-        //         name: 'running',
-        //         frames: 10,
-        //         speed: 0.1
-        //     },
-        //     {
-        //         id: 'Pistol_Run',
-        //         name: 'pistol_run',
-        //         frames: 10,
-        //         speed: 0.1
-        //     },
-        //     {
-        //         id: 'Pistol_Idle',
-        //         name: 'pistol_idle',
-        //         frames: 5,
-        //         speed: 0.1
-        //     },
-        //     {
-        //         id: 'Pistol_Shoot',
-        //         name: 'pistol_shoot',
-        //         frames: 5,
-        //         speed: 0.1,
-        //         loop: false
-        //     },
-        // ]
-
-        // this.injectAnimations(animations, true);
 
         this.speed = 100
 
-        this.shootBaseTime = 0.2
-        this.shootTimer = 0.1
+        this.shootBaseTime = 0.1
+        this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
-        this.view.anchor.set(0.5, 1)
-        this.view.scale.set(2)
+         this.gameView.view.anchor.set(0.5, 1)
+         this.gameView.view.scale.set(2)
 
         this.anchorOffset = 0
-        //this.view.play('Pistol_Idle')
     }
     onSensorTrigger(element) {
-        //console.log(element)
-
-    }
-    onAnimationEnd(animation, state) {
-
-        if (state == 'Pistol_Shoot') {
-            this.view.play('Pistol_Idle')
-        }
     }
     start() {
         this.input = this.engine.findByType(InputModule)
@@ -96,9 +54,6 @@ export default class Player extends GameAgent {
         //this.physicsModule.removeAgent(collided);
     }
     shoot() {
-        //return
-        //this.isShooting = true;
-
         this.shootTimer = this.shootBaseTime;
 
         let bullet = this.engine.poolGameObject(Bullet, true)
@@ -153,20 +108,14 @@ export default class Player extends GameAgent {
 
 
         } else {
-            this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
+            //this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
+            this.transform.angle = this.input.direction
             this.physics.velocity.x = 0
             this.physics.velocity.y = 0
 
-            this.view.anchor.y = utils.lerp(this.view.anchor.y, 1, 0.5)
         }
 
-        if (this.physics.magnitude > 0) {
-            this.anchorOffset += delta * 10;
-            this.anchorOffset %= Math.PI
-        } else {
-            this.anchorOffset = utils.lerp(this.anchorOffset, 0, 0.5)
-        }
-        this.view.anchor.y = 1 + Math.sin(this.anchorOffset) * 0.5
+       
         
         super.update(delta)
     }

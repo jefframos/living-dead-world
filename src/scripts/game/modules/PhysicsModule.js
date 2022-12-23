@@ -66,7 +66,9 @@ export default class PhysicsModule extends GameObject {
         if (physicBody.collisionEnter || physicBody.collisionExit) {
             this.collisionList.push(physicBody);
         }
-        Matter.Composite.add(this.physicsEngine.world, physicBody.body);
+        Matter.Composite.add(this.physicsEngine.world, physicBody.rigidBody);
+
+        //console.log('addPhysicBody')
         this.entityAdded.dispatch([physicBody])
     }
     destroyRandom(quant = 5) {
@@ -78,17 +80,18 @@ export default class PhysicsModule extends GameObject {
     }
     
     removeAgent(agent) {
+        //console.log("REMOVE AGENT")
         Engine.RemoveFromListById(this.nonStaticList, agent)
 
         Engine.RemoveFromListById(this.collisionList, agent)
 
-        Matter.World.remove(this.physicsEngine.world, agent.body)
+        Matter.World.remove(this.physicsEngine.world, agent.rigidBody)
     }
 
     addAgent(agent) {
         this.addPhysicBody(agent)
-
-        if (!agent.body.isStatic) {
+        //console.log("addAgent")
+        if (!agent.rigidBody.isStatic) {
             this.nonStaticList.push(agent)
         }
     }
@@ -98,7 +101,6 @@ export default class PhysicsModule extends GameObject {
             Matter.Engine.update(this.physicsEngine, delta);
         }
         this.physicsStats.totalPhysicsEntities = this.physicsEngine.detector.bodies.length
-
     }
 
 }

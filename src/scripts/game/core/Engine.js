@@ -6,6 +6,12 @@ export default class Engine {
         this.gameObjects = []
         this.parentGameObject = new GameObject();
         this.physics = this.addGameObject(new PhysicsModule())
+
+        this.engineStats = {
+            totalGameObjects: 0
+        }
+        window.GUI.add(this.engineStats, 'totalGameObjects').listen();
+
     }
     static RemoveFromListById(list, gameObject){
         for (let index = 0; index < list.length; index++) {
@@ -19,32 +25,44 @@ export default class Engine {
     }
     poolGameObject(constructor, rebuild){
         let element = GameObject.Pool.getElement(constructor)
+        if(element.removeAllSignals){
+            element.removeAllSignals();
+        }
+
         element.engine = this;
+        element.enable()
+        let go = this.addGameObject(element);
         if(rebuild){
             element.build();
         }
-        element.enable()
-        return this.addGameObject(element);
+        return go;
     }
     poolAtRandomPosition(constructor, rebuild, bounds){
         let element = GameObject.Pool.getElement(constructor)
         element.engine = this;
-        if(rebuild){
-            element.build();
-        }
+     
         element.enable()
-        element.x = Math.random() * (bounds.maxX - bounds.minX) + bounds.minX
-        element.y = Math.random() * (bounds.maxY - bounds.minY) + bounds.minY
-        return this.addGameObject(element);
+        let go = this.addGameObject(element);
+        if(rebuild){
+            go.build();
+        }
+        go.x = Math.random() * (bounds.maxX - bounds.minX) + bounds.minX
+        go.y = Math.random() * (bounds.maxY - bounds.minY) + bounds.minY
+        return go;
     }
     addGameObject(gameObject) {
         gameObject.engine = this;
+
         gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
         gameObject.childAdded.add(this.addGameObject.bind(this))
+        //gameObject.rigidbodyAdded.add(this.addRigidBody.bind(this))
 
         this.gameObjects.push(gameObject);
         this.parentGameObject.addChild(gameObject)
         
+        // if(gameObject.rigidBody){
+        //     this.addRigidBody(gameObject)
+        // }
 
         for (let index = 0; index < gameObject.children.length; index++) {
             const element = gameObject.children[index];
@@ -55,8 +73,11 @@ export default class Engine {
             }
         }
 
-        
+        gameObject.start()
         return gameObject;
+    }
+    addRigidBody(gameObject){
+        this.physics.addAgent(gameObject)
     }
     destroyGameObject(gameObject) {
         gameObject.destroy()
@@ -64,8 +85,8 @@ export default class Engine {
     wipeGameObject(gameObject) {
 
         Engine.RemoveFromListById(this.gameObjects, gameObject)
-  
-        if(gameObject.body){
+        
+        if(gameObject.rigidBody){
             this.physics.removeAgent(gameObject)
         }
     }
@@ -82,9 +103,9 @@ export default class Engine {
         return elementFound;
     }
     start() {
-        this.gameObjects.forEach(element => {
-            element.start();
-        })
+        // this.gameObjects.forEach(element => {
+        //     element.start();
+        // })
     }
 
     update(delta) {
@@ -99,6 +120,8 @@ export default class Engine {
                 element.onRender();
             }
         });
+
+        this.engineStats.totalGameObjects = this.gameObjects.length
     }
 
 }
