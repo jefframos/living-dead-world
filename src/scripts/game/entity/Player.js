@@ -6,6 +6,7 @@ import Layer from "../core/Layer";
 import Matter from "matter-js";
 import PhysicsModule from "../modules/PhysicsModule";
 import Sensor from "../core/Sensor";
+import utils from "../../utils";
 
 export default class Player extends GameAgent {
     constructor() {
@@ -18,7 +19,7 @@ export default class Player extends GameAgent {
     }
     build(radius = 15) {
         super.build()
-        
+
         this.sensor = this.engine.poolGameObject(Sensor, true)
         this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
@@ -70,14 +71,15 @@ export default class Player extends GameAgent {
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
-        this.view.anchor.set(0.5,1)
+        this.view.anchor.set(0.5, 1)
         this.view.scale.set(2)
 
+        this.anchorOffset = 0
         //this.view.play('Pistol_Idle')
     }
-    onSensorTrigger(element){
+    onSensorTrigger(element) {
         //console.log(element)
-        
+
     }
     onAnimationEnd(animation, state) {
 
@@ -97,7 +99,7 @@ export default class Player extends GameAgent {
         //return
         //this.isShooting = true;
 
-        this.shootTimer =this.shootBaseTime;
+        this.shootTimer = this.shootBaseTime;
 
         let bullet = this.engine.poolGameObject(Bullet, true)
         let forw = this.forward;
@@ -105,7 +107,7 @@ export default class Player extends GameAgent {
         //this.view.play('Pistol_Shoot')
         let shootAngle = this.transform.angle//Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
 
-        if(this.sensor.collisionList.length){
+        if (this.sensor.collisionList.length) {
             let first = this.sensor.collisionList[0].transform.position
             shootAngle = Math.atan2(first.y - this.transform.position.y, first.x - this.transform.position.x)
         }
@@ -129,6 +131,8 @@ export default class Player extends GameAgent {
         //     this.view.play('Pistol_Idle')
         // }
 
+
+
         this.sensor.x = this.transform.position.x
         this.sensor.y = this.transform.position.y
 
@@ -145,13 +149,25 @@ export default class Player extends GameAgent {
         } else if (this.input.magnitude > 0) {
             this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta
             this.physics.velocity.y = Math.sin(this.input.direction) * this.speed * delta
+
+
+
         } else {
             this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
             this.physics.velocity.x = 0
             this.physics.velocity.y = 0
+
+            this.view.anchor.y = utils.lerp(this.view.anchor.y, 1, 0.5)
         }
 
-
+        if (this.physics.magnitude > 0) {
+            this.anchorOffset += delta * 10;
+            this.anchorOffset %= Math.PI
+        } else {
+            this.anchorOffset = utils.lerp(this.anchorOffset, 0, 0.5)
+        }
+        this.view.anchor.y = 1 + Math.sin(this.anchorOffset) * 0.5
+        
         super.update(delta)
     }
 

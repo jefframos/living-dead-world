@@ -219,8 +219,8 @@ export default class GameScreen extends Screen {
 
         this.stats.text = window.FPS
         if (this.player) {
-            this.container.pivot.x = this.player.transform.position.x //- config.width / 2
-            this.container.pivot.y = this.player.transform.position.y //- config.height / 2
+            this.container.pivot.x = this.player.view.position.x //- config.width / 2
+            this.container.pivot.y = this.player.view.position.y //- config.height / 2
         }
     }
     transitionOut(nextScreen) {

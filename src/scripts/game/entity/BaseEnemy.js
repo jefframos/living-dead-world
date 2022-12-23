@@ -21,7 +21,7 @@ export default class BaseEnemy extends GameAgent {
         this.view.anchor.set(0.5,1)
         this.view.scale.set(2,3)
 
-        this.speedAdjust = 0
+        this.speedAdjust = 1
     }
     die() {
         this.body.isSensor = true;

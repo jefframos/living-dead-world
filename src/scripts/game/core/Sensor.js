@@ -6,8 +6,8 @@ import signals from "signals";
 export default class Sensor extends PhysicsEntity {
     constructor() {
         super();
-        this.view = new PIXI.Sprite.from('tile_0085')
-        this.setDebug(80, 0xFF0000)
+       // this.view = new PIXI.Sprite.from('tile_0085')
+        //this.setDebug(80, 0xFF0000)
 
         this.onTrigger = new signals.Signal();
 

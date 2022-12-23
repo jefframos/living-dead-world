@@ -18,6 +18,19 @@ export default class RenderModule extends GameObject {
             totalRenderEntities: 0
         }
         window.GUI.add(this.renderStats, 'totalRenderEntities').listen();
+
+        this.cam = {
+            x: 0, y: 250, z: 0, aspec: 1, fov: 5, near: 0, far: 200
+        }
+        window.GUI.add(this.renderStats, 'totalRenderEntities').listen();
+        for (const key in this.cam) {
+            if (Object.hasOwnProperty.call(this.cam, key)) {
+
+                window.GUI.add(this.cam, key).listen();
+
+
+            }
+        }
     }
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
@@ -30,6 +43,7 @@ export default class RenderModule extends GameObject {
             if (element instanceof GameAgent) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 view = element.view;
+
             } else if (element instanceof StaticPhysicObject) {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
 
@@ -77,6 +91,7 @@ export default class RenderModule extends GameObject {
             if (!view) {
                 return;
             }
+            view.gameObject = element;
             this.container.addChild(view)
             if (!view.viewOffset) {
                 view.viewOffset = { x: 0, y: 0 }
@@ -112,9 +127,13 @@ export default class RenderModule extends GameObject {
                 return 0;
             }
         });
-        this.container.children.forEach(element => {
-            //this.transformSprite(element);
-        });
+        // this.container.children.forEach(element => {
+        //     this.transformSprite(element);
+        //     if(element.gameObject.shadow){
+        //         element.gameObject.shadow.x = element.x
+        //         element.gameObject.shadow.y = element.y
+        //     }
+        // });
         this.renderStats.totalRenderEntities = this.container.children.length;
 
     }
@@ -123,29 +142,30 @@ export default class RenderModule extends GameObject {
         let camM = [1, 0, 0, 0,
             0, 1, 0, 0,
             0, 0, 1, 0,
-            1, 1, 1, 0]
-        var projectionMatrix = this.perspective(Math.PI/4, config.width/config.height, 0.1, 10000)
+            this.cam.x, this.cam.y, this.cam.z, 0]
+        var projectionMatrix = this.perspective(this.cam.fov, this.cam.aspec, this.cam.near, this.cam.far)
 
-        var somePoint = [sprite.x, 0, sprite.y];
+        var somePoint = [sprite.gameObject.transform.position.x+this.cam.x, this.cam.y, sprite.gameObject.transform.position.y+this.cam.z];
         var projectedPoint = this.transformPoint(projectionMatrix, somePoint);
-        
-        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width;
-        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height;
-        
-        let test = this.point3d_to_screen(sprite, camM, projectionMatrix, config.width, config.height)
 
-        if(this.debugg === undefined){
+        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width - config.width / 2;
+        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height + config.height / 2;
+
+        //let test = this.point3d_to_screen(sprite.gameObject.transform, camM, projectionMatrix, config.width, config.height)
+
+        if (this.debugg === undefined) {
             this.debugg = 20
         }
 
-        this.debugg --
-        if(this.debugg > 0){
+        this.debugg--
+        if (this.debugg > 0) {
 
-            console.log(test)
+            console.log(-projectedPoint[3]/1000)
         }
-
-        sprite.x = screenX
-        sprite.y = screenZ
+        
+        sprite.scale.set(-projectedPoint[3]/1000 * 3)
+        sprite.x = screenX//test[0]
+        sprite.y = screenZ//test[1]
 
     }
     transformPoint(m, v) {
@@ -155,7 +175,7 @@ export default class RenderModule extends GameObject {
         var w = x * m[0 * 4 + 3] + y * m[1 * 4 + 3] + z * m[2 * 4 + 3] + m[3 * 4 + 3];
         return [(x * m[0 * 4 + 0] + y * m[1 * 4 + 0] + z * m[2 * 4 + 0] + m[3 * 4 + 0]) / w,
         (x * m[0 * 4 + 1] + y * m[1 * 4 + 1] + z * m[2 * 4 + 1] + m[3 * 4 + 1]) / w,
-        (x * m[0 * 4 + 2] + y * m[1 * 4 + 2] + z * m[2 * 4 + 2] + m[3 * 4 + 2]) / w];
+        (x * m[0 * 4 + 2] + y * m[1 * 4 + 2] + z * m[2 * 4 + 2] + m[3 * 4 + 2]) / w, w];
     }
     perspective(fieldOfViewYInRadians, aspect, zNear, zFar, dst) {
         dst = dst || new Float32Array(16);
@@ -188,14 +208,12 @@ export default class RenderModule extends GameObject {
     point3d_to_screen(point, cameraWorldMatrix, projMatrix, screenWidth, screenHeight) {
         var mat, p, x, y;
         p = [point[0], point[1], point[2], 1];
-        mat = glMat4.create();
-        glMat4.invert(mat, cameraWorldMatrix);
-        glMat4.multiply(mat, projMatrix, mat);
+        mat = mat4.create();
+        mat4.invert(mat, cameraWorldMatrix);
+        mat4.mul(mat, projMatrix, mat);
         vec4.transformMat4(p, p, mat);
-        //glMat4.perspective()
-        //glMat4.multiply
         x = (p[0] / p[3] + 1) * 0.5 * screenWidth;
         y = (1 - p[1] / p[3]) * 0.5 * screenHeight;
         return [x, y];
-      }
+    }
 }

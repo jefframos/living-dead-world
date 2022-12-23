@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
-import ScreenManager from '../../screenManager/ScreenManager';
-import config from '../../config';
-import ScreenTransition from './ScreenTransition';
 import GameScreen from './GameScreen';
+import ScreenManager from '../../screenManager/ScreenManager';
+import ScreenTransition from './ScreenTransition';
+import config from '../../config';
 
 export default class MainScreenManager extends ScreenManager {
     constructor() {
