@@ -1,11 +1,11 @@
 import Engine from "../core/Engine";
 import GameAgent from "./GameAgent";
 import GameObject from "../core/GameObject";
+import Layer from "../core/Layer";
 import PhysicsEntity from "./PhysicsEntity";
 import PhysicsModule from "./PhysicsModule";
 import StaticPhysicObject from "../entity/StaticPhysicObject";
 import config from "../../config";
-import Layer from "../core/Layer";
 
 export default class RenderModule extends GameObject {
     static RenderLayers = {
@@ -19,6 +19,8 @@ export default class RenderModule extends GameObject {
         super();
 
         this.container = container;
+
+        this.views = [];
 
         this.layers = {};
         this.layersArray = [];
@@ -59,7 +61,7 @@ export default class RenderModule extends GameObject {
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 element.childAdded.add(this.newEntityAdded.bind(this))
 
-                this.layers[element.gameView.layer].addChild(element.gameView.view)
+                this.layers[element.gameView.layer].addGameView(element.gameView)
 
             }
             if (element.debug) {
@@ -74,7 +76,8 @@ export default class RenderModule extends GameObject {
     }
     elementDestroyed(element) {
         if (element.gameView) {
-            this.layers[element.gameView.layer].removeChild(element.gameView.view)
+            this.layers[element.gameView.layer].removeGameView(element.gameView)
+
         }
         //????????? why did i commented this?
         //Engine.RemoveFromListById(this.layers[element.gameView.layer].children, element.gameView.view)

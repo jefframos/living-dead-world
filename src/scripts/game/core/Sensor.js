@@ -19,8 +19,9 @@ export default class Sensor extends PhysicsEntity {
         this.buildCircle(0, 0, radius)
         this.rigidBody.isSensor = true;
 
-        this.layerCategory = Layer.Player
-        this.layerMask = Layer.PlayerCollision - Layer.Player
+        this.layerCategory = Layer.Sensor
+        this.layerMask = Layer.Enemy - Layer.Player// &! Layer.Environment
+        console.log("DOESNT WORK PROPERLY")
 
     }
     collisionExit(collided) {
@@ -29,7 +30,20 @@ export default class Sensor extends PhysicsEntity {
             this.collisionList.splice(collidedID, 1)
         }
     }
+    collisionStay(collided){
+        if(collided.rigidBody.isStatic) return
+        //console.log("STAY")
+        var collidedID = this.collisionList.map(function (x) { return x.engineID; }).indexOf(collided.engineID);
+        if (collidedID < 0) {
+            this.collisionList.push(collided)
+            this.onTrigger.dispatch(collided)
+        }
+
+        //console.log(this.collisionList.length)
+    }
     collisionEnter(collided) {
+        if(collided.rigidBody.isStatic) return
+        //console.log("Enter")
 
         var collidedID = this.collisionList.map(function (x) { return x.engineID; }).indexOf(collided.engineID);
         if (collidedID < 0) {

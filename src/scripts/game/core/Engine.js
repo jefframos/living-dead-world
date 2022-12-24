@@ -12,6 +12,8 @@ export default class Engine {
         }
         window.GUI.add(this.engineStats, 'totalGameObjects').listen();
 
+        this.started = false;
+
     }
     static RemoveFromListById(list, gameObject){
         for (let index = 0; index < list.length; index++) {
@@ -22,6 +24,11 @@ export default class Engine {
             }
             
         }
+    }
+    addCamera(camera){
+        this.camera = this.addGameObject(camera);
+
+        return this.camera;
     }
     poolGameObject(constructor, rebuild){
         let element = GameObject.Pool.getElement(constructor)
@@ -73,7 +80,10 @@ export default class Engine {
             }
         }
 
-        gameObject.start()
+        if(this.started){
+
+            gameObject.start()
+        }
         return gameObject;
     }
     addRigidBody(gameObject){
@@ -103,12 +113,19 @@ export default class Engine {
         return elementFound;
     }
     start() {
-        // this.gameObjects.forEach(element => {
-        //     element.start();
-        // })
+        if(this.started) {
+            return
+        }
+        this.started = true
+        this.gameObjects.forEach(element => {
+            element.start();
+        })
     }
 
     update(delta) {
+        if(!this.started) {
+            return
+        }
         this.gameObjects.forEach(element => {
             if (element.update && element.enabled) {
                 element.update(delta);

@@ -9,6 +9,7 @@ import GameAgent from '../modules/GameAgent';
 import GameObject from '../core/GameObject';
 import InputModule from '../modules/InputModule';
 import Matter from 'matter-js';
+import PerspectiveCamera from '../core/PerspectiveCamera';
 import PhysicsModule from '../modules/PhysicsModule';
 import Player from '../entity/Player';
 import RenderModule from '../modules/RenderModule';
@@ -41,19 +42,19 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.labelText)
         //this.particleContainer = new PIXI.ParticleContainer();
 
-// setTimeout(() => {
-    
-//     PIXI.BitmapFont.from('fredokaone', {
-//         fill: "#333333",
-//         fontFamily:'fredokaone',
-//         fontSize: 40,
-//         fontWeight: 'bold',
-//     });
-    
-    
-//     const text = new PIXI.BitmapText("Hello World", { fontName: 'fredokaone' });
-//     this.container.addChild(text)
-// }, 50);
+        // setTimeout(() => {
+
+        //     PIXI.BitmapFont.from('fredokaone', {
+        //         fill: "#333333",
+        //         fontFamily:'fredokaone',
+        //         fontSize: 40,
+        //         fontWeight: 'bold',
+        //     });
+
+
+        //     const text = new PIXI.BitmapText("Hello World", { fontName: 'fredokaone' });
+        //     this.container.addChild(text)
+        // }, 50);
 
 
         this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('tile_0049'), 16, 16);
@@ -70,10 +71,12 @@ export default class GameScreen extends Screen {
 
         this.gameEngine = new Engine();
         this.physics = this.gameEngine.physics
-        this.camera = this.gameEngine.addGameObject(new CameraModule())
         this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule())
+        this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
 
+        this.followPoint = { x: 0, y: 0 }
+        this.camera.setFollowPoint(this.followPoint)
 
         this.debug = {
             removeRandomPiece: () => {
@@ -103,11 +106,12 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'removeRandomPiece');
         window.GUI.add(this.debug, 'addRandomPiece');
 
-
         window.GUI.close()
+        
         // this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
         // this.addChild(this.zero)
 
+        //this should be on the input
         this.touchAxisInput = new TouchAxisInput();
 
         this.addChild(this.touchAxisInput)
@@ -180,6 +184,15 @@ export default class GameScreen extends Screen {
         this.gameEngine.start();
 
 
+        let i = 5
+        let j = 8
+        let chunkX = config.width / i
+        let chunkY = config.height / j
+        for (let index = 0; index <= i; index++) {
+            for (let indexj = 0; indexj <= j; indexj++) {
+                this.gameEngine.poolGameObject(StaticPhysicObject).build(chunkX * index, chunkY * indexj, 50, 50)
+            }
+        }
 
 
 
@@ -187,8 +200,8 @@ export default class GameScreen extends Screen {
         this.player = this.gameEngine.poolGameObject(Player, true)
         this.player.setPosition(config.width / 2, config.height / 2)
 
-        //let sensor = this.gameEngine.poolGameObject(Sensor, true)
-        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, 0, config.width, 60)
+console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
+
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
@@ -202,7 +215,7 @@ export default class GameScreen extends Screen {
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        //this.addRandomAgents(1)
+        this.addRandomAgents(1)
 
         for (let index = 0; index < 100; index++) {
             this.addRandomAgents(1)
@@ -232,8 +245,10 @@ export default class GameScreen extends Screen {
 
         this.stats.text = window.FPS
         if (this.player) {
-            this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
-            this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
+            this.followPoint.x = this.player.gameView.view.position.x
+            this.followPoint.y = this.player.gameView.view.position.y
+            //this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
+            //this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
         }
     }
     transitionOut(nextScreen) {

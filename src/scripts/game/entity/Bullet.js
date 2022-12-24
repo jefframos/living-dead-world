@@ -1,6 +1,7 @@
 import BaseEnemy from "./BaseEnemy";
 import Engine from "../core/Engine";
 import GameAgent from "../modules/GameAgent";
+import GameView from "../core/GameView";
 import InputModule from "../modules/InputModule";
 import Layer from "../core/Layer";
 import Matter from "matter-js";
@@ -8,7 +9,6 @@ import PhysicsEntity from "../modules/PhysicsEntity";
 import PhysicsModule from "../modules/PhysicsModule";
 import StandardZombie from "./StandardZombie";
 import config from "../../config";
-import GameView from "../core/GameView";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -66,8 +66,12 @@ export default class Bullet extends PhysicsEntity {
         }else{
             if(collided.die){
                 collided.die()
-                this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
-                this.destroy()
+                let enemy = this.engine.poolGameObject(BaseEnemy, true)
+                //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
+                let angle = Math.PI * 2 * Math.random();
+                enemy.x = this.transform.position.x+Math.cos(angle) * config.width
+                enemy.y = this.transform.position.y+Math.sin(angle) * config.height
+                //this.destroy()
             }else{
 
                 collided.destroy();

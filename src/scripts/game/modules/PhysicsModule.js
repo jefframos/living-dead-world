@@ -28,6 +28,22 @@ export default class PhysicsModule extends GameObject {
         }
         window.GUI.add(this.physicsStats, 'totalPhysicsEntities').listen();
 
+        Matter.Events.on(this.physicsEngine, 'collisionActive ', (event) => {
+            event.pairs.forEach((collision) => {
+                var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
+                if (elementPosA >= 0) {
+                    if(this.collisionList[elementPosA].collisionStay){
+                        this.collisionList[elementPosA].collisionStay(collision.bodyB.gameObject)
+                    }
+                }
+                var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
+                if (elementPosB >= 0) {
+                    if(this.collisionList[elementPosB].collisionStay){
+                        this.collisionList[elementPosB].collisionStay(collision.bodyA.gameObject)
+                    }
+                }
+            });
+        });
         Matter.Events.on(this.physicsEngine, 'collisionEnd', (event) => {
             event.pairs.forEach((collision) => {
                 var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
@@ -63,7 +79,7 @@ export default class PhysicsModule extends GameObject {
        
     }
     addPhysicBody(physicBody) {
-        if (physicBody.collisionEnter || physicBody.collisionExit) {
+        if (physicBody.collisionEnter || physicBody.collisionExit || physicBody.collisionStay) {
             this.collisionList.push(physicBody);
         }
         Matter.Composite.add(this.physicsEngine.world, physicBody.rigidBody);

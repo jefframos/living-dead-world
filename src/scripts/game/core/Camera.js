@@ -1,3 +1,12 @@
+import * as PIXI from 'pixi.js';
+
+import GameObject from './GameObject';
+
+export default class Camera extends GameObject{
+    constructor(){
+        super()
+    }
+}
 // transformSprite(sprite) {
 
 //     let camM = [1, 0, 0, 0,

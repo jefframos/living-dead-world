@@ -1,7 +1,7 @@
 import GameAgent from "../modules/GameAgent";
 import Layer from "../core/Layer";
-import RenderModule from "../modules/RenderModule";
 import Player from "./Player";
+import RenderModule from "../modules/RenderModule";
 
 export default class BaseEnemy extends GameAgent {
     constructor() {

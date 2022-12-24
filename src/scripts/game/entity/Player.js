@@ -5,9 +5,9 @@ import InputModule from "../modules/InputModule";
 import Layer from "../core/Layer";
 import Matter from "matter-js";
 import PhysicsModule from "../modules/PhysicsModule";
+import RenderModule from "../modules/RenderModule";
 import Sensor from "../core/Sensor";
 import utils from "../../utils";
-import RenderModule from "../modules/RenderModule";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -32,7 +32,7 @@ export default class Player extends GameAgent {
 
         this.speed = 100
 
-        this.shootBaseTime = 0.1
+        this.shootBaseTime = 0.2
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
@@ -62,8 +62,9 @@ export default class Player extends GameAgent {
         //this.view.play('Pistol_Shoot')
         let shootAngle = this.transform.angle//Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
 
+        //console.log(this.sensor.collisionList.length,this.sensor.collisionList[0])
         if (this.sensor.collisionList.length) {
-            let first = this.sensor.collisionList[0].transform.position
+            let first = this.sensor.collisionList[Math.floor(Math.random() * this.sensor.collisionList.length)].transform.position
             shootAngle = Math.atan2(first.y - this.transform.position.y, first.x - this.transform.position.x)
         }
         bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, this.transform.position.y + Math.sin(shootAngle) * 20 + this.physics.velocity.y);
