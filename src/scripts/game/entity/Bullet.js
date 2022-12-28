@@ -9,6 +9,7 @@ import PhysicsEntity from "../modules/PhysicsEntity";
 import PhysicsModule from "../modules/PhysicsModule";
 import StandardZombie from "./StandardZombie";
 import config from "../../config";
+import GameManager from "../manager/GameManager";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -65,8 +66,9 @@ export default class Bullet extends PhysicsEntity {
 
         }else{
             if(collided.die){
-                collided.die()
-                let enemy = this.engine.poolGameObject(BaseEnemy, true)
+                collided.damage(100)
+                
+                let enemy = GameManager.instance.addEntity(BaseEnemy, true)
                 //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
                 let angle = Math.PI * 2 * Math.random();
                 enemy.x = this.transform.position.x+Math.cos(angle) * config.width

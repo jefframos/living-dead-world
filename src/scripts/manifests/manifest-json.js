@@ -20,28 +20,28 @@ const assets = [
 	"url":"assets/json\\fairies.json"
 	},
 	{
-	"id":"localization_DE",
-	"url":"assets/json\\localization_DE.json"
-	},
-	{
 	"id":"humans",
 	"url":"assets/json\\humans.json"
 	},
 	{
-	"id":"localization_EN",
-	"url":"assets/json\\localization_EN.json"
+	"id":"localization_DE",
+	"url":"assets/json\\localization_DE.json"
 	},
 	{
 	"id":"localization_ES",
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_FR",
-	"url":"assets/json\\localization_FR.json"
+	"id":"localization_EN",
+	"url":"assets/json\\localization_EN.json"
 	},
 	{
 	"id":"localization_IT",
 	"url":"assets/json\\localization_IT.json"
+	},
+	{
+	"id":"localization_FR",
+	"url":"assets/json\\localization_FR.json"
 	},
 	{
 	"id":"localization_JA",
@@ -56,28 +56,28 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
 	},
 	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
 	},
 	{
-	"id":"monsters",
-	"url":"assets/json\\monsters.json"
-	},
-	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
-	"id":"resources",
-	"url":"assets/json\\resources.json"
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
+	},
+	{
+	"id":"monsters",
+	"url":"assets/json\\monsters.json"
+	},
+	{
+	"id":"resources",
+	"url":"assets/json\\resources.json"
 	}
 ];
 

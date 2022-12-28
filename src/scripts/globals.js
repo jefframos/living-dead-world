@@ -1,5 +1,6 @@
 import config from './config';
 import utils from './utils';
+import * as PIXI from 'pixi.js';
 
 window.alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 window.numberList = []

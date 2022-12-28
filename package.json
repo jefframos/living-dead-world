@@ -70,6 +70,9 @@
     "pixi.js": "^5.0.0-rc.3",
     "signals": "^1.0.0",
     "stats-js": "^1.0.1",
-    "tinify": "^1.5.0"
+    "tguesdon-island-generator": "^1.1.0",
+    "tinify": "^1.5.0",
+    "voronoi": "^1.0.0",
+    "voronoi-map": "^0.0.4"
   }
 }

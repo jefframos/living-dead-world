@@ -21,6 +21,9 @@ import TouchAxisInput from '../modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import config from '../../config';
+import GameManager from '../manager/GameManager';
+import EffectsManager from '../manager/EffectsManager';
+import WorldManager from '../manager/WorldManager';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -29,17 +32,6 @@ export default class GameScreen extends Screen {
         this.container = new PIXI.Container()
         this.addChild(this.container);
 
-        this.mapContainer = new PIXI.Container();
-        this.bottomUI = new PIXI.Container();
-        this.topUI = new PIXI.Container();
-
-        this.container.addChild(this.mapContainer)
-        this.container.addChild(this.topUI)
-        this.container.addChild(this.bottomUI)
-
-
-        this.labelText = new PIXI.Text('MAIN SCREEN')
-        this.container.addChild(this.labelText)
         //this.particleContainer = new PIXI.ParticleContainer();
 
         // setTimeout(() => {
@@ -51,14 +43,29 @@ export default class GameScreen extends Screen {
         //         fontWeight: 'bold',
         //     });
 
-
+        PIXI.BitmapFont.from('damage1', {
+            fontFamily: 'retro',
+            align: "center",
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            fontSize: 14,
+            dropShadowDistance: 3,
+            fill: "#ffcd1a",
+            fontWeight: "bold",
+            letterSpacing: 5,
+            strokeThickness: 3,
+            wordWrap: true,
+            wordWrapWidth: 300
+        });
         //     const text = new PIXI.BitmapText("Hello World", { fontName: 'fredokaone' });
         //     this.container.addChild(text)
         // }, 50);
-
+        // const text = new PIXI.BitmapText("150", { fontName: 'damage1' });
+        //     this.topUI.addChild(text)
 
         this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('tile_0049'), 16, 16);
         this.gameplayContainer = new PIXI.Container();
+        this.effectsContainer = new PIXI.Container();
 
         this.baseContainer.anchor.set(0.5)
         this.baseContainer.tileScale.set(0.5)
@@ -67,6 +74,11 @@ export default class GameScreen extends Screen {
         //this.baseContainer.tint = 0x333333
         this.container.addChild(this.baseContainer)
         this.container.addChild(this.gameplayContainer)
+        this.container.addChild(this.effectsContainer)
+
+        this.worldTestContainer = new PIXI.Container();
+        this.worldManager = new WorldManager(this.worldTestContainer)
+        this.addChild(this.worldTestContainer)
 
 
         this.gameEngine = new Engine();
@@ -74,9 +86,12 @@ export default class GameScreen extends Screen {
         this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule())
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
+        this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
 
         this.followPoint = { x: 0, y: 0 }
         this.camera.setFollowPoint(this.followPoint)
+
+        this.gameManager = new GameManager(this.gameEngine);
 
         this.debug = {
             removeRandomPiece: () => {
@@ -106,8 +121,8 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'removeRandomPiece');
         window.GUI.add(this.debug, 'addRandomPiece');
 
-        window.GUI.close()
-        
+        //window.GUI.close()
+
         // this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
         // this.addChild(this.zero)
 
@@ -155,8 +170,10 @@ export default class GameScreen extends Screen {
         this.helperButtonList.x = 50
         this.helperButtonList.y = 50
 
-        if (window.isMobile)
+        if (window.isMobile) {
+            window.GUI.close()
             this.addChild(this.helperButtonList)
+        }
 
         this.container.scale.set(1)
     }
@@ -173,7 +190,7 @@ export default class GameScreen extends Screen {
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
+            this.gameManager.addEntity(BaseEnemy, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
         }
     }
     build(param) {
@@ -190,17 +207,17 @@ export default class GameScreen extends Screen {
         let chunkY = config.height / j
         for (let index = 0; index <= i; index++) {
             for (let indexj = 0; indexj <= j; indexj++) {
-                this.gameEngine.poolGameObject(StaticPhysicObject).build(chunkX * index, chunkY * indexj, 50, 50)
+                this.gameManager.addEntity(StaticPhysicObject).build(chunkX * index, chunkY * indexj, 50, 50)
             }
         }
 
 
 
 
-        this.player = this.gameEngine.poolGameObject(Player, true)
+        this.player = this.gameManager.addEntity(Player, true)
         this.player.setPosition(config.width / 2, config.height / 2)
 
-console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
+        console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
         // this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)

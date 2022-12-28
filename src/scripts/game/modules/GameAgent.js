@@ -17,7 +17,9 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.alpha = 0.1
         this.shadow.scale.set(30 / this.shadow.width)
         this.shadow.scale.y = this.shadow.scale.x * 0.6
+        this.health = this.addComponent(Health)
 
+        this.health.gotKilled.add(this.die.bind(this))
         // this.view = new SpriteSheetAnimation()
         // this.view.anchor.set(0.5, 0.5)
         // this.view.animationFinish.add(this.onAnimationEnd.bind(this))
@@ -29,6 +31,13 @@ export default class GameAgent extends PhysicsEntity {
         }
 
     }
+    damage(value){
+        this.health.damage(value);
+    }
+    die() {
+        this.rigidBody.isSensor = true;
+        this.destroy()
+    }
     onAnimationEnd(animation, state) { }
     start() {
         // this.view.visible = true;
@@ -38,11 +47,6 @@ export default class GameAgent extends PhysicsEntity {
 
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
-
-        // if(this.view && this.view.reset){
-        //     this.view.reset();
-        // }
-        this.health = new Health();
         this.timer = Math.random()
         this.speed = 20 * Math.random() + 10
         this.speedAdjust = 1;

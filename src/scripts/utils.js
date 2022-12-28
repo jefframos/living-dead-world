@@ -142,6 +142,7 @@ export default
             if (list[id]) {
                 return list[id]
             }
+            console.log(renderer)
             let texture = renderer.renderer.generateTexture(content);
             let gridSprite = new PIXI.Sprite()
             gridSprite.setTexture(texture)
@@ -523,6 +524,28 @@ export default
                 return -1;
             }
             if (yA < yB) {
+                return 1;
+            }
+            return 0;
+        },
+        distSort(point, array){
+
+            array.forEach(element => {
+                element._playerDist = this.distance(element.transform.position.x,element.transform.position.y,point.x, point.y)
+            });
+
+            array.sort(this.playerDistCompare)
+        },
+        playerDistCompare(a, b) {
+            var yA = a._playerDist;
+            var yB = b._playerDist;
+            if (yA === yB) {
+                return 0;
+            }
+            if (yA < yB) {
+                return -1;
+            }
+            if (yA > yB) {
                 return 1;
             }
             return 0;

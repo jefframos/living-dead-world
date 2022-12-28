@@ -2,14 +2,18 @@ import * as signals from 'signals';
 
 import Pool from "./Pool";
 import Transform from "./Transform";
+import BaseComponent from "./BaseComponent";
 
-export default class GameObject {
+export default class GameObject extends BaseComponent {
     static Pool = new Pool();
     static ObjectCounter = 0;
     constructor() {
+        super();
+        this.gameObject = this;
         this.engineID = ++GameObject.ObjectCounter;
         this.transform = new Transform();
         this.children = []
+        this.components = [];
         this.enabled = true;
         this.parent = null;
         this.gameObjectDestroyed = new signals.Signal();
@@ -17,21 +21,33 @@ export default class GameObject {
         this.childRemoved = new signals.Signal();
         this.rigidbodyAdded = new signals.Signal();
     }
+    findComponent(type){
+        let elementFound = null
 
+        for (let index = 0; index < this.gameObjects.length; index++) {
+            const element = this.gameObjects[index];
+            if (element instanceof type) {
+                elementFound = element;
+                break
+            }
+        }
+        return elementFound;
+    }
+    addComponent(constructor) {
+        let element = GameObject.Pool.getElement(constructor)
+        this.components.push(element);
+        element.gameObject = this;
+
+        return element;
+    }
+    removeComponent(component) {
+        this.components = this.components.filter(item => item !== component)
+        GameObject.Pool.returnElement(component)
+    }
     addChild(gameObject) {
         gameObject.setParent(this)
         this.childAdded.dispatch(this)
         this.children.push(gameObject);
-    }
-    reset() {
-
-    }
-    build() {
-    }
-    start() {
-    }
-    onRender() {
-
     }
     get forward() {
         let rad = this.transform.angle // 180 * Math.PI
@@ -60,12 +76,24 @@ export default class GameObject {
                 element.update(delta);
             }
         });
+
+        this.components.forEach(element => {
+            if (element.enabled) {
+                element.update(delta);
+            }
+        });
     }
     enable() {
         this.enabled = true;
+        this.components.forEach(element => {
+            element.enable();
+        });
     }
     disable() {
         this.enabled = false;
+        this.components.forEach(element => {
+            element.disable();
+        });
     }
     destroy() {
         this.gameObjectDestroyed.dispatch(this);
@@ -82,15 +110,17 @@ export default class GameObject {
                 this.children.splice(index, 1);
             }
         }
-
+        this.components.forEach(element => {
+            element.destroy();
+        });
         this.disable();
         GameObject.Pool.returnElement(this)
     }
-    removeAllSignals(){
+    removeAllSignals() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
                 const element = this[key];
-                if(element instanceof signals.Signal){
+                if (element instanceof signals.Signal) {
                     element.removeAll();
                 }
             }

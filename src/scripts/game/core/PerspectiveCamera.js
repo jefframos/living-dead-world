@@ -20,39 +20,36 @@ export default class PerspectiveCamera extends Camera {
         }
     }
     start() {
-        console.log("START CAM")
         this.renderModule = this.engine.findByType(RenderModule);
     }
-    update(delta){
-if(this.followPoint){
-    if(utils.distance(this.renderModule.container.pivot.x,this.renderModule.container.pivot.y,this.followPoint.x, this.followPoint.y) > 30){
+    update(delta) {
+        if (this.followPoint) {
+            if (utils.distance(this.renderModule.container.pivot.x, this.renderModule.container.pivot.y, this.followPoint.x, this.followPoint.y) > 30) {
 
-        let angle = Math.atan2(this.renderModule.container.pivot.y - this.followPoint.y,
-            this.renderModule.container.pivot.x - this.followPoint.x)
+                let angle = Math.atan2(this.renderModule.container.pivot.y - this.followPoint.y,
+                    this.renderModule.container.pivot.x - this.followPoint.x)
 
-        //this.renderModule.container.pivot
-    }else{
-        
+                //this.renderModule.container.pivot
+            } else {
+
+            }
+            this.renderModule.container.pivot.x = utils.lerp(this.renderModule.container.pivot.x, this.followPoint.x, 0.1)
+            this.renderModule.container.pivot.y = utils.lerp(this.renderModule.container.pivot.y, this.followPoint.y, 0.1)
+        }
     }
-    this.renderModule.container.pivot.x = utils.lerp(this.renderModule.container.pivot.x,this.followPoint.x, 0.1)
-    this.renderModule.container.pivot.y = utils.lerp(this.renderModule.container.pivot.y,this.followPoint.y, 0.1)
-}
-    }
-    setFollowPoint(followPoint){
+    setFollowPoint(followPoint) {
         this.followPoint = followPoint;
     }
     onRender() {
-        //console.log(this.renderModule.layers[RenderModule.RenderLayers.Gameplay].children.length)
-
-        //console.log(this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews[0].cameraOffset.x)
-        // this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
-
-        //     this.transformView(element)
-        // });
+        this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
+            element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+            element.view.y = element.gameObject.transform.position.y + element.viewOffset.y
+            //this.transformView(element)
+        });
     }
 
     transformView(gameView) {
-//console.log(gameView.gameObject)
+        //console.log(gameView.gameObject)
         // let camM = [1, 0, 0, 0,
         //     0, 1, 0, 0,
         //     0, 0, 1, 0,
@@ -62,11 +59,11 @@ if(this.followPoint){
         var somePoint = [gameView.gameObject.transform.position.x + this.cam.x, this.cam.y, gameView.gameObject.transform.position.y + this.cam.z];
         var projectedPoint = this.transformPoint(projectionMatrix, somePoint);
 
-        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width*0.5 //- config.width / 2;
-        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height*0.5 //+ config.height / 2;
+        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width * 0.5 //- config.width / 2;
+        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height * 0.5 //+ config.height / 2;
 
-        gameView.cameraOffset.x = screenX-gameView.gameObject.transform.position.x //test[0]
-        gameView.cameraOffset.y = screenZ-gameView.gameObject.transform.position.y //test[0]
+        gameView.cameraOffset.x = screenX - gameView.gameObject.transform.position.x //test[0]
+        gameView.cameraOffset.y = screenZ - gameView.gameObject.transform.position.y //test[0]
 
     }
     transformPoint(m, v) {

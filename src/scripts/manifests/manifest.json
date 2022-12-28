@@ -1,7 +1,7 @@
 {
     "default": [
-        "image/particles/particles.json",
         "image/texture/texture.json",
+        "image/particles/particles.json",
         "image/entities/entities.json",
         "image/ui/ui.json"
     ]

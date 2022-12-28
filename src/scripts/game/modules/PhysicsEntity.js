@@ -71,17 +71,6 @@ export default class PhysicsEntity extends GameObject {
     }
     update(delta) {
     
-       
-        
-        // if(this.parent){
-        //     this.x = this.parent.transform.position.x + this.transform.position.x
-        //     this.y = this.parent.transform.position.y + this.transform.position.y
-        //     //console.log(this.transform.position.x)
-        //     //this.transform.position.x = this.rigidBody.position.x +  this.transform.position.x;
-        //     //console.log(this.transform.position.x, this.parent.transform.position.x + this.transform.position.x)
-        //     //this.transform.position.x += this.parent.transform.position.x
-        // }else{
-        // }
         this.transform.position.x = this.rigidBody.position.x;
         this.transform.position.y = this.rigidBody.position.y;
 
