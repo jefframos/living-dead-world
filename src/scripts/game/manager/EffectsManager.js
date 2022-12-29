@@ -9,7 +9,7 @@ export default class EffectsManager extends GameObject {
         this.gameContainer = gameContainer;
 
         this.labels = [];
-
+this.news = 0
         this.damageFontPool = [];
     }
 
@@ -19,9 +19,10 @@ export default class EffectsManager extends GameObject {
 
         this.effectsContainer.x = this.gameContainer.x
         this.effectsContainer.y = this.gameContainer.y
-
+        
+        //for (let index = 0; index < this.labels.length; index++) {
         for (let index = this.labels.length-1; index >=0; index--) {
-            this.labels[index].alpha -= delta;
+            this.labels[index].alpha -= delta * 2;
             if(this.labels[index].alpha <= 0){
                 this.damageFontPool.push(this.labels[index]);
                 this.labels.splice(index,1)
@@ -30,6 +31,7 @@ export default class EffectsManager extends GameObject {
         }
     }
     popDamage(entity, value) {
+       // console.log(entity.engineID)
         let text = this.getDamageFont()
         text.alpha = 1
         text.text = value
@@ -47,6 +49,7 @@ export default class EffectsManager extends GameObject {
             return element;
         }
         let newElement = new PIXI.BitmapText("150", { fontName: 'damage1' });
+        this.news++
         return newElement;
 
     }

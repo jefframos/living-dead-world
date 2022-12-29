@@ -1,3 +1,4 @@
+import * as signals from 'signals';
 
 export default class BaseComponent {
     constructor() {
@@ -12,4 +13,14 @@ export default class BaseComponent {
     start() { }
     onRender() { }
     destroy() { }
+    removeAllSignals() {
+        for (const key in this) {
+            if (Object.hasOwnProperty.call(this, key)) {
+                const element = this[key];
+                if (element instanceof signals.Signal) {
+                    element.removeAll();
+                }
+            }
+        }
+    }
 }

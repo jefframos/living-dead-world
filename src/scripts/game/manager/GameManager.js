@@ -19,6 +19,7 @@ export default class GameManager {
         this.gameplayEntities.push(entity);
 
         this.gameManagerStats.totalGameObjects = this.gameplayEntities.length
+        entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
         entity.gameObjectDestroyed.add(this.removeEntity.bind(this))
 
         this.registerEntity(entity)
@@ -26,6 +27,7 @@ export default class GameManager {
     }
     registerEntity(entity) {
         if (entity.health) {
+            entity.health.gotDamaged.removeAll()
             entity.health.gotDamaged.add(this.entityDamaged.bind(this))
             this.entityRegister.push();
         }

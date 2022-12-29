@@ -60,6 +60,7 @@
     "dat.gui": "^0.7.9",
     "ffmpeg": "0.0.4",
     "gl-mat4": "^1.2.0",
+    "graham-scan": "^0.0.0",
     "gsap": "^2.1.2",
     "howler": "^2.0.12",
     "imagemagick": "^0.1.3",

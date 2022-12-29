@@ -25,9 +25,9 @@ export default class BaseEnemy extends GameAgent {
 
         this.speedAdjust = 3
     }
-    die() {
-        this.rigidBody.isSensor = true;
-        this.destroy()
+    destroy(){
+        super.destroy();
+        this.removeAllSignals();
     }
     update(delta) {
 

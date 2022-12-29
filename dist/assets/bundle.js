@@ -17681,14 +17681,6 @@ exports.default = function get(object, property, receiver) {
 
 /***/ }),
 /* 12 */
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.5.3' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*jslint onevar:true, undef:true, newcap:true, regexp:true, bitwise:true, maxerr:50, indent:4, white:false, nomen:false, plusplus:false */
@@ -18140,6 +18132,14 @@ var __WEBPACK_AMD_DEFINE_RESULT__;/*jslint onevar:true, undef:true, newcap:true,
 
 
 /***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+var core = module.exports = { version: '2.5.3' };
+if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
+
+
+/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18170,7 +18170,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var signals = _interopRequireWildcard(_signals);
 
@@ -18307,21 +18307,10 @@ var GameObject = function (_BaseComponent) {
             }
             this.components.forEach(function (element) {
                 element.destroy();
+                //element.removeAllSignals();
             });
             this.disable();
             GameObject.Pool.returnElement(this);
-        }
-    }, {
-        key: "removeAllSignals",
-        value: function removeAllSignals() {
-            for (var key in this) {
-                if (Object.hasOwnProperty.call(this, key)) {
-                    var element = this[key];
-                    if (element instanceof signals.Signal) {
-                        element.removeAll();
-                    }
-                }
-            }
         }
     }, {
         key: "removeChild",
@@ -21742,7 +21731,7 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(18);
-var core = __webpack_require__(12);
+var core = __webpack_require__(13);
 var ctx = __webpack_require__(67);
 var hide = __webpack_require__(28);
 var PROTOTYPE = 'prototype';
@@ -33895,7 +33884,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var signals = _interopRequireWildcard(_signals);
 
@@ -36124,7 +36113,7 @@ exports.f = __webpack_require__(30);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(18);
-var core = __webpack_require__(12);
+var core = __webpack_require__(13);
 var LIBRARY = __webpack_require__(48);
 var wksExt = __webpack_require__(56);
 var defineProperty = __webpack_require__(21).f;
@@ -39080,7 +39069,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var signals = _interopRequireWildcard(_signals);
 
@@ -52141,7 +52130,7 @@ module.exports = { "default": __webpack_require__(175), __esModule: true };
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(20);
-var core = __webpack_require__(12);
+var core = __webpack_require__(13);
 var fails = __webpack_require__(35);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
@@ -54832,10 +54821,10 @@ var BaseEnemy = function (_GameAgent) {
             this.speedAdjust = 3;
         }
     }, {
-        key: "die",
-        value: function die() {
-            this.rigidBody.isSensor = true;
-            this.destroy();
+        key: "destroy",
+        value: function destroy() {
+            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "destroy", this).call(this);
+            this.removeAllSignals();
         }
     }, {
         key: "update",
@@ -54880,6 +54869,12 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _signals = __webpack_require__(12);
+
+var signals = _interopRequireWildcard(_signals);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var BaseComponent = function () {
@@ -54891,39 +54886,51 @@ var BaseComponent = function () {
     }
 
     (0, _createClass3.default)(BaseComponent, [{
-        key: "reset",
+        key: 'reset',
         value: function reset() {}
     }, {
-        key: "disable",
+        key: 'disable',
         value: function disable() {
             this.enabled = false;
         }
     }, {
-        key: "enable",
+        key: 'enable',
         value: function enable() {
             this.enabled = true;
         }
     }, {
-        key: "update",
+        key: 'update',
         value: function update() {}
     }, {
-        key: "build",
+        key: 'build',
         value: function build() {}
     }, {
-        key: "start",
+        key: 'start',
         value: function start() {}
     }, {
-        key: "onRender",
+        key: 'onRender',
         value: function onRender() {}
     }, {
-        key: "destroy",
+        key: 'destroy',
         value: function destroy() {}
+    }, {
+        key: 'removeAllSignals',
+        value: function removeAllSignals() {
+            for (var key in this) {
+                if (Object.hasOwnProperty.call(this, key)) {
+                    var element = this[key];
+                    if (element instanceof signals.Signal) {
+                        element.removeAll();
+                    }
+                }
+            }
+        }
     }]);
     return BaseComponent;
 }();
 
 exports.default = BaseComponent;
-module.exports = exports["default"];
+module.exports = exports['default'];
 
 /***/ }),
 /* 97 */
@@ -55285,6 +55292,7 @@ var GameManager = function () {
             this.gameplayEntities.push(entity);
 
             this.gameManagerStats.totalGameObjects = this.gameplayEntities.length;
+            entity.gameObjectDestroyed.remove(this.removeEntity.bind(this));
             entity.gameObjectDestroyed.add(this.removeEntity.bind(this));
 
             this.registerEntity(entity);
@@ -55294,6 +55302,7 @@ var GameManager = function () {
         key: "registerEntity",
         value: function registerEntity(entity) {
             if (entity.health) {
+                entity.health.gotDamaged.removeAll();
                 entity.health.gotDamaged.add(this.entityDamaged.bind(this));
                 this.entityRegister.push();
             }
@@ -55371,7 +55380,7 @@ var EffectsManager = function (_GameObject) {
         _this.gameContainer = gameContainer;
 
         _this.labels = [];
-
+        _this.news = 0;
         _this.damageFontPool = [];
         return _this;
     }
@@ -55385,8 +55394,9 @@ var EffectsManager = function (_GameObject) {
             this.effectsContainer.x = this.gameContainer.x;
             this.effectsContainer.y = this.gameContainer.y;
 
+            //for (let index = 0; index < this.labels.length; index++) {
             for (var index = this.labels.length - 1; index >= 0; index--) {
-                this.labels[index].alpha -= delta;
+                this.labels[index].alpha -= delta * 2;
                 if (this.labels[index].alpha <= 0) {
                     this.damageFontPool.push(this.labels[index]);
                     this.labels.splice(index, 1);
@@ -55396,6 +55406,7 @@ var EffectsManager = function (_GameObject) {
     }, {
         key: "popDamage",
         value: function popDamage(entity, value) {
+            // console.log(entity.engineID)
             var text = this.getDamageFont();
             text.alpha = 1;
             text.text = value;
@@ -55414,6 +55425,7 @@ var EffectsManager = function (_GameObject) {
                 return element;
             }
             var newElement = new PIXI.BitmapText("150", { fontName: 'damage1' });
+            this.news++;
             return newElement;
         }
     }]);
@@ -55470,7 +55482,7 @@ var _PhysicsEntity2 = __webpack_require__(38);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -60347,11 +60359,11 @@ var _MainScreenManager = __webpack_require__(193);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _LocalizationManager = __webpack_require__(221);
+var _LocalizationManager = __webpack_require__(223);
 
 var _LocalizationManager2 = _interopRequireDefault(_LocalizationManager);
 
@@ -60823,7 +60835,7 @@ exports.default = function (obj, key, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(113);
-var $Object = __webpack_require__(12).Object;
+var $Object = __webpack_require__(13).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
@@ -61119,7 +61131,7 @@ __webpack_require__(132);
 __webpack_require__(137);
 __webpack_require__(138);
 __webpack_require__(139);
-module.exports = __webpack_require__(12).Symbol;
+module.exports = __webpack_require__(13).Symbol;
 
 
 /***/ }),
@@ -61510,7 +61522,7 @@ module.exports = { "default": __webpack_require__(141), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(142);
-module.exports = __webpack_require__(12).Number.isNaN;
+module.exports = __webpack_require__(13).Number.isNaN;
 
 
 /***/ }),
@@ -70643,7 +70655,7 @@ module.exports = exports['default'];
 /* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(12);
+var core = __webpack_require__(13);
 var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
 module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
   return $JSON.stringify.apply($JSON, arguments);
@@ -70673,7 +70685,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -71458,7 +71470,7 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(179);
-module.exports = __webpack_require__(12).Object.getPrototypeOf;
+module.exports = __webpack_require__(13).Object.getPrototypeOf;
 
 
 /***/ }),
@@ -71487,7 +71499,7 @@ module.exports = { "default": __webpack_require__(181), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(182);
-module.exports = __webpack_require__(12).Object.setPrototypeOf;
+module.exports = __webpack_require__(13).Object.setPrototypeOf;
 
 
 /***/ }),
@@ -71541,7 +71553,7 @@ module.exports = { "default": __webpack_require__(185), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(186);
-var $Object = __webpack_require__(12).Object;
+var $Object = __webpack_require__(13).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
@@ -74946,17 +74958,17 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
+	"id": "fairies",
+	"url": "assets/json\\fairies.json"
+}, {
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
-}, {
-	"id": "baseGameConfigHumans",
-	"url": "assets/json\\baseGameConfigHumans.json"
 }, {
 	"id": "baseGameConfigMonster",
 	"url": "assets/json\\baseGameConfigMonster.json"
 }, {
-	"id": "fairies",
-	"url": "assets/json\\fairies.json"
+	"id": "baseGameConfigHumans",
+	"url": "assets/json\\baseGameConfigHumans.json"
 }, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
@@ -74964,26 +74976,32 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
+}, {
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "monsters",
+	"url": "assets/json\\monsters.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -74993,12 +75011,6 @@ var assets = [{
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
-}, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "monsters",
-	"url": "assets/json\\monsters.json"
 }, {
 	"id": "resources",
 	"url": "assets/json\\resources.json"
@@ -75293,7 +75305,7 @@ module.exports = exports["default"];
 /* 192 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/particles/particles.json","image/texture/texture.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ }),
 /* 193 */
@@ -75342,11 +75354,11 @@ var _GameScreen = __webpack_require__(197);
 
 var _GameScreen2 = _interopRequireDefault(_GameScreen);
 
-var _ScreenManager2 = __webpack_require__(219);
+var _ScreenManager2 = __webpack_require__(221);
 
 var _ScreenManager3 = _interopRequireDefault(_ScreenManager2);
 
-var _ScreenTransition = __webpack_require__(220);
+var _ScreenTransition = __webpack_require__(222);
 
 var _ScreenTransition2 = _interopRequireDefault(_ScreenTransition);
 
@@ -75543,7 +75555,7 @@ module.exports = { "default": __webpack_require__(195), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(196);
-var $Object = __webpack_require__(12).Object;
+var $Object = __webpack_require__(13).Object;
 module.exports = function getOwnPropertyDescriptor(it, key) {
   return $Object.getOwnPropertyDescriptor(it, key);
 };
@@ -75663,7 +75675,7 @@ var _Sensor = __webpack_require__(101);
 
 var _Sensor2 = _interopRequireDefault(_Sensor);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -76161,7 +76173,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -76244,7 +76256,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -77240,7 +77252,7 @@ var _utils = __webpack_require__(19);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var _signals2 = _interopRequireDefault(_signals);
 
@@ -78235,7 +78247,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _signals = __webpack_require__(13);
+var _signals = __webpack_require__(12);
 
 var signals = _interopRequireWildcard(_signals);
 
@@ -78791,7 +78803,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-        value: true
+    value: true
 });
 
 var _classCallCheck2 = __webpack_require__(0);
@@ -78812,60 +78824,148 @@ var _utils = __webpack_require__(19);
 
 var _utils2 = _interopRequireDefault(_utils);
 
+var _RandomGenerator = __webpack_require__(219);
+
+var _RandomGenerator2 = _interopRequireDefault(_RandomGenerator);
+
+var _grahamScan = __webpack_require__(220);
+
+var _grahamScan2 = _interopRequireDefault(_grahamScan);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var WorldManager = function () {
-        function WorldManager(container) {
-                (0, _classCallCheck3.default)(this, WorldManager);
+    function WorldManager(container) {
+        var _this = this;
 
-                WorldManager.instance = this;
-                this.container = container;
+        (0, _classCallCheck3.default)(this, WorldManager);
 
-                this.width = 50;
-                this.height = 50;
-                this.square = new PIXI.Graphics().beginFill(0).drawRect(0, 0, this.width, this.height);
-                //this.container.addChild(this.square)
+        WorldManager.instance = this;
+        this.container = container;
 
-                var island = (0, _tguesdonIslandGenerator.generate)(this.width, this.height);
-                //const voro = new voronoi()
-                var voronoi = new _voronoi2.default();
-                var bbox = { xl: 0, xr: 800, yt: 0, yb: 600 }; // xl is x-left, xr is x-right, yt is y-top, and yb is y-bottom
-                var sites = [{ x: 200, y: 200 }, { x: 50, y: 250 }, { x: 400, y: 100 /* , ... */ }];
+        this.width = 500;
+        this.height = 500;
+        // this.square = new PIXI.Graphics().beginFill(0).drawRect(0, 0, this.width, this.height)
+        // this.container.addChild(this.square)
 
-                // a 'vertex' is an object exhibiting 'x' and 'y' properties. The
-                // Voronoi object will add a unique 'voronoiId' property to all
-                // sites. The 'voronoiId' can be used as a key to lookup the associated cell
-                // in diagram.cells.
+        // const island = generate(this.width, this.height);
+        //const voro = new voronoi()
+        var voronoi = new _voronoi2.default();
+        var bbox = { xl: 0, xr: this.width, yt: 0, yb: this.height };
+        var sites = [];
 
-                var diagram = voronoi.compute(sites, bbox);
-                console.log(diagram);
+        this.randomGenerator = new _RandomGenerator2.default(Math.random());
 
-                ///https://www.npmjs.com/package/voronoi
+        var lines = 11;
+        var cols = 9;
+        var cellSize = { width: this.width / lines, height: this.height / cols };
+        for (var i = 0; i <= lines; i++) {
+            for (var j = 0; j <= cols; j++) {
+                var ang = Math.atan2(j - cols / 2, i - lines / 2);
 
-                // this.container.addChild(this.drawMap(island))
-                // this.container.scale.set(2)
+                var dist = _utils2.default.distance(i, j, cols / 2, lines / 2) / lines;
+                sites.push({
+                    x: cellSize.width * i + Math.cos(ang) * dist + (this.randomGenerator.random() * cellSize.width - cellSize.width / 2),
+                    y: cellSize.height * j + Math.sin(ang) * 50 + (this.randomGenerator.random() * cellSize.height - cellSize.height / 2) //* dist
+                });
+            }
         }
 
-        (0, _createClass3.default)(WorldManager, [{
-                key: "drawMap",
-                value: function drawMap(island) {
+        var diagram = voronoi.compute(sites, bbox);
+        ///https://www.npmjs.com/package/voronoi
+        //console.log(diagram)
+        this.cellsContainer = new PIXI.Container();
+        this.container.addChild(this.cellsContainer);
 
-                        var container = new PIXI.Container();
-                        var gr = new PIXI.Graphics();
-                        console.log(island.points);
-                        for (var x = 0; x < island.points.length; x++) {
-                                for (var y = 0; y < island.points[x].length; y++) {
-                                        var point = island.points[x][y];
-                                        //console.log
-                                        gr.beginFill(point.elevation > 0.25 ? 0xFFFFFF : 0, 1);
-                                        gr.drawRect(x, y, 1, 1);
-                                }
-                        }
-                        container.addChild(gr);
-                        return container; //utils.generateSpriteFromContainer('map',container,[])
+        this.numbersContainer = new PIXI.Container();
+        this.container.addChild(this.numbersContainer);
+
+        // this.container.addChild(this.drawMap(island))
+        // this.container.scale.set(2)
+        var done = false;
+
+        var count = 0;
+        diagram.cells.forEach(function (element) {
+            //console.log(element)
+            if (element.halfedges.length && element.site.x > 0 && element.site.y > 0 && element.site.x < _this.width && element.site.y < _this.height && !done) {
+
+                var mid = new PIXI.BitmapText(element.site.voronoiId.toString(), { fontName: 'damage1' });
+                mid.anchor.set(0.5);
+                mid.x = element.site.x;
+                mid.y = element.site.y;
+
+                //gr.lineTo(element.halfedges[0].edge.vb.x, element.halfedges[0].edge.vb.y)
+                var toAdd = [];
+                var onBounds = true;
+
+                var _loop = function _loop(index) {
+                    var edge = element.halfedges[index];
+
+                    var edgeA = { x: edge.edge.va.x, y: edge.edge.va.y };
+                    var edgeB = { x: edge.edge.vb.x, y: edge.edge.vb.y };
+
+                    toAdd = toAdd.filter(function (item) {
+                        return item.x !== edgeA.x && item.y !== edgeA.y;
+                    });
+                    toAdd.push(edgeA);
+
+                    toAdd = toAdd.filter(function (item) {
+                        return item.x !== edgeB.x && item.y !== edgeB.y;
+                    });
+                    toAdd.push(edgeB);
+
+                    if (onBounds) {
+                        onBounds = _this.onBounds(edge.edge.va);
+                    }
+                    if (onBounds) {
+                        onBounds = _this.onBounds(edge.edge.vb);
+                    }
+                };
+
+                for (var index = 0; index < element.halfedges.length; index++) {
+                    _loop(index);
                 }
-        }]);
-        return WorldManager;
+                if (onBounds) {
+                    console.log(element.site.voronoiId, element.getNeighborIds(), 'create my data to point to neibors and stuff');
+
+                    var gr = new PIXI.Graphics();
+                    gr.lineStyle(2, 0x999999);
+                    gr.beginFill(0x555555 * Math.random());
+
+                    var toScan = [];
+                    toAdd.forEach(function (v) {
+                        toScan.push([v.x, v.y]);
+                    });
+                    toScan = (0, _grahamScan2.default)(toScan);
+
+                    var toAdd2 = [];
+
+                    toScan.forEach(function (result) {
+                        toAdd2.push({ x: result[0], y: result[1] });
+                    });
+                    gr.moveTo(toAdd2[0].x, toAdd2[0].y);
+                    for (var v = 1; v < toAdd2.length; v++) {
+                        var vertex = toAdd2[v];
+                        gr.lineTo(vertex.x, vertex.y);
+                    }
+                    gr.lineTo(toAdd2[0].x, toAdd2[0].y);
+                    _this.cellsContainer.addChild(gr);
+                    _this.numbersContainer.addChild(mid);
+                    mid.scale.set(0.8);
+                }
+            }
+        });
+
+        this.container.visible = false;
+    }
+
+    (0, _createClass3.default)(WorldManager, [{
+        key: "onBounds",
+        value: function onBounds(edge) {
+            return edge.x > 0 && edge.x < this.width && edge.y > 0 && edge.y < this.height;
+        }
+    }]);
+    return WorldManager;
 }();
 
 exports.default = WorldManager;
@@ -81223,6 +81323,177 @@ if(true) module.exports = Voronoi;
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RandomGenerator = function () {
+    function RandomGenerator(seed) {
+        (0, _classCallCheck3.default)(this, RandomGenerator);
+
+        this.seedBase = seed;
+        this.seed = seed;
+        //console.log(seed)
+    }
+
+    (0, _createClass3.default)(RandomGenerator, [{
+        key: "reset",
+        value: function reset(newSeed) {
+            if (newSeed) {
+                this.seedBase = newSeed;
+            }
+            this.seed = this.seedBase;
+        }
+    }, {
+        key: "random",
+        value: function random() {
+            var x = Math.sin(this.seed++) * 10000;
+            return x - Math.floor(x);
+        }
+    }]);
+    return RandomGenerator;
+}();
+
+exports.default = RandomGenerator;
+module.exports = exports["default"];
+
+/***/ }),
+/* 220 */
+/***/ (function(module, exports) {
+
+module.exports = function(points) {
+
+	if (points.length < 3) { 
+		return points; 
+	}
+	
+	var minimum = function(Q) { 
+		// Find minimum y point (in case of tie select leftmost)         
+		// Sort by y coordinate to ease the left most finding
+		Q.sort(function(a,b) { 
+			return a[1] - b[1]; 
+		}); 
+
+		var y_min = 1000000; 
+		var smallest = 0; 
+		for(var i=0; i < Q.length; ++i) { 
+			var p = Q[i]; 
+			if (p[1] < y_min) { 
+				y_min = p[1]; 
+				smallest= i; 
+			} 
+			else if (p[1] == y_min) { // Select left most 
+				if (Q[i-1][0] > p[0]) {
+					smallest = i;
+				}
+			}
+		}
+		return smallest;
+	}
+
+	var distance = function(a, b) {
+		return (b[0] - a[0]) * (b[0] - a[0]) + (b[1] - a[1]) * (b[1] - a[1]);
+	}
+
+	var filter_equal_angles = function(p0, Q) {
+		// => If two points have same polar angle remove the closet to p0
+		// Distance can be calculated with vector length...
+		for(var i=1; i < Q.length; i++) { 
+			if (Q[i-1].polar == Q[i].polar) { 
+				var d1 = distance(p0, Q[i-1]); 
+				var d2 = distance(p0, Q[i]); 
+				if (d2 < d1) {
+					Q.splice(i, 1);
+				} else {
+					Q.splice(i-1, 1);
+				}
+			}
+		}
+	}
+
+	var cartesian_angle = function(x, y) {
+		if (x > 0 && y > 0)
+			return Math.atan( y / x);
+		else if (x < 0 && y > 0)
+			return Math.atan(-x / y) + Math.PI / 2;
+		else if (x < 0 && y < 0) 
+			return Math.atan( y / x) + Math.PI; 
+		else if (x > 0 && y < 0) 
+			return Math.atan(-x / y) + Math.PI / 2 + Math.PI; 
+		else if (x == 0 && y > 0)
+			return Math.PI / 2;
+		else if (x < 0 && y == 0) 
+			return Math.PI; 
+		else if (x == 0 && y < 0) 
+		return Math.PI / 2 + Math.PI; 
+		else return 0; 
+	} 
+
+	var calculate_angle = function(p1, p2) { 
+		return cartesian_angle(p2[0] - p1[0], p2[1] - p1[1]) 
+	}
+
+	var calculate_polar_angles = function(p0, Q) { 
+		for(var i=0; i < Q.length; i++) { 
+			Q[i].polar = calculate_angle(p0, Q[i]); 
+		}    
+	}
+	
+	// Three points are a counter-clockwise turn 
+	// if ccw > 0, clockwise if ccw < 0, and collinear if ccw = 0 
+	var ccw = function(p1, p2, p3) { 
+		return (p2[0] - p1[0])*(p3[1] - p1[1]) - (p2[1] - p1[1])*(p3[0] - p1[0]); 
+	} 
+
+	// Find minimum point 
+	var Q = points.slice(); // Make copy 
+	var minIndex = minimum(Q); 
+	var p0 = Q[minIndex]; 
+	Q.splice(minIndex, 1); // Remove p0 from Q
+    
+	// Sort by polar angle to p0              
+	calculate_polar_angles(p0, Q); 
+	Q.sort(function(a,b) { 
+		return a.polar - b.polar; 
+	});
+
+	// Remove all with same polar angle but the farthest. 
+    filter_equal_angles(p0, Q); 
+
+    // Graham scan 
+    var S = []; 
+    S.push(p0); 
+    S.push(Q[0]); 
+    S.push(Q[1]); 
+    for(var i=2; i < Q.length; ++i) { 
+		var pi = Q[i]; 
+		while(ccw(S[S.length - 2], S[S.length - 1], pi) <= 0) { 
+			S.pop(); 
+		} 
+		S.push(pi); 
+	}
+	
+	return S;
+}
+
+
+/***/ }),
+/* 221 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
@@ -81352,7 +81623,7 @@ exports.default = ScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 220 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81525,7 +81796,7 @@ exports.default = ScreenTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 221 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

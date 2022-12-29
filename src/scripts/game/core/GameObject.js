@@ -112,20 +112,12 @@ export default class GameObject extends BaseComponent {
         }
         this.components.forEach(element => {
             element.destroy();
+            //element.removeAllSignals();
         });
         this.disable();
         GameObject.Pool.returnElement(this)
     }
-    removeAllSignals() {
-        for (const key in this) {
-            if (Object.hasOwnProperty.call(this, key)) {
-                const element = this[key];
-                if (element instanceof signals.Signal) {
-                    element.removeAll();
-                }
-            }
-        }
-    }
+    
     removeChild(child) {
 
         for (let index = 0; index < this.children.length; index++) {
