@@ -162,16 +162,18 @@ export default class GameScreen extends Screen {
 
         this.stats = new PIXI.Text('fps')
         this.stats.style.fill = 0xFFFFFF
-        this.stats.style.fontSize = 14
-        this.stats.anchor.set(0.5)
+        this.stats.style.fontSize = 22
+        this.stats.style.align = 'left'
+        this.stats.anchor.set(1)
         this.helperButtonList.addElement(this.stats)
 
         this.helperButtonList.updateVerticalList()
-        this.helperButtonList.x = 50
-        this.helperButtonList.y = 50
+        this.helperButtonList.x = config.width - 50
+        this.helperButtonList.y = 80
 
         if (window.isMobile) {
             window.GUI.close()
+            window.GUI.hide()
             this.addChild(this.helperButtonList)
         }
 
@@ -190,7 +192,14 @@ export default class GameScreen extends Screen {
     }
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
-            this.gameManager.addEntity(BaseEnemy, true).setPosition(Math.random() * (config.width - 50) + 25, Math.random() * (config.height - 50) + 25)
+
+
+            let enemy = GameManager.instance.addEntity(BaseEnemy, true)
+            //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
+            let angle = Math.PI * 2 * Math.random();
+            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width
+            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height
+
         }
     }
     build(param) {
@@ -215,7 +224,16 @@ export default class GameScreen extends Screen {
 
 
         this.player = this.gameManager.addEntity(Player, true)
-        this.player.setPosition(config.width / 2, config.height / 2)
+
+        let firstNode = WorldManager.instance.getFirstNode();
+        console.log(firstNode.center.x)
+        this.player.setPosition(firstNode.center.x * WorldManager.instance.scale, firstNode.center.y * WorldManager.instance.scale)
+        
+        WorldManager.instance.setPlayer(this.player);
+        
+        setTimeout(() => {
+            this.camera.snapFollowPoint()
+        }, 1);
 
         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
@@ -232,14 +250,14 @@ export default class GameScreen extends Screen {
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        this.addRandomAgents(1)
+        //this.addRandomAgents(1)
 
-        for (let index = 0; index < 100; index++) {
-            this.addRandomAgents(1)
-        }
-        for (let index = 0; index < 100; index++) {
-            this.addRandomAgents(1)
-        }
+        // for (let index = 0; index < 100; index++) {
+        //     this.addRandomAgents(1)
+        // }
+        // for (let index = 0; index < 100; index++) {
+        //     this.addRandomAgents(1)
+        // }
         // console.log(GameObject.Pool.pool)
 
         // setTimeout(() => {
@@ -267,6 +285,8 @@ export default class GameScreen extends Screen {
             //this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
             //this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
         }
+
+        WorldManager.instance.update(delta);
     }
     transitionOut(nextScreen) {
         this.removeEvents();

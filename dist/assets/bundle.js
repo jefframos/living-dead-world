@@ -55200,7 +55200,10 @@ var Player = function (_GameAgent) {
 
                                 this.shootTimer -= delta;
                                 if (this.shootTimer <= 0) {
-                                        this.shoot();
+
+                                        if (this.sensor.collisionList.length) {
+                                                this.shoot();
+                                        }
                                 }
                         }
 
@@ -74958,17 +74961,17 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "fairies",
-	"url": "assets/json\\fairies.json"
-}, {
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
-	"id": "baseGameConfigMonster",
-	"url": "assets/json\\baseGameConfigMonster.json"
-}, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
+}, {
+	"id": "fairies",
+	"url": "assets/json\\fairies.json"
+}, {
+	"id": "baseGameConfigMonster",
+	"url": "assets/json\\baseGameConfigMonster.json"
 }, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
@@ -74979,14 +74982,11 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -74994,26 +74994,29 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
-}, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "monsters",
-	"url": "assets/json\\monsters.json"
-}, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
+}, {
+	"id": "monsters",
+	"url": "assets/json\\monsters.json"
+}, {
 	"id": "resources",
 	"url": "assets/json\\resources.json"
+}, {
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }];
 
 exports.default = assets;
@@ -75305,7 +75308,7 @@ module.exports = exports["default"];
 /* 192 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/particles/particles.json","image/texture/texture.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ }),
 /* 193 */
@@ -75850,16 +75853,18 @@ var GameScreen = function (_Screen) {
 
                 _this.stats = new PIXI.Text('fps');
                 _this.stats.style.fill = 0xFFFFFF;
-                _this.stats.style.fontSize = 14;
-                _this.stats.anchor.set(0.5);
+                _this.stats.style.fontSize = 22;
+                _this.stats.style.align = 'left';
+                _this.stats.anchor.set(1);
                 _this.helperButtonList.addElement(_this.stats);
 
                 _this.helperButtonList.updateVerticalList();
-                _this.helperButtonList.x = 50;
-                _this.helperButtonList.y = 50;
+                _this.helperButtonList.x = _config2.default.width - 50;
+                _this.helperButtonList.y = 80;
 
                 if (window.isMobile) {
                         window.GUI.close();
+                        window.GUI.hide();
                         _this.addChild(_this.helperButtonList);
                 }
 
@@ -75882,12 +75887,19 @@ var GameScreen = function (_Screen) {
                 key: 'addRandomAgents',
                 value: function addRandomAgents(quant) {
                         for (var index = 0; index < quant; index++) {
-                                this.gameManager.addEntity(_BaseEnemy2.default, true).setPosition(Math.random() * (_config2.default.width - 50) + 25, Math.random() * (_config2.default.height - 50) + 25);
+
+                                var enemy = _GameManager2.default.instance.addEntity(_BaseEnemy2.default, true);
+                                //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
+                                var angle = Math.PI * 2 * Math.random();
+                                enemy.x = this.player.transform.position.x + Math.cos(angle) * _config2.default.width;
+                                enemy.y = this.player.transform.position.y + Math.sin(angle) * _config2.default.height;
                         }
                 }
         }, {
                 key: 'build',
                 value: function build(param) {
+                        var _this2 = this;
+
                         (0, _get3.default)(GameScreen.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameScreen.prototype), 'build', this).call(this);
                         this.addEvents();
 
@@ -75904,7 +75916,16 @@ var GameScreen = function (_Screen) {
                         }
 
                         this.player = this.gameManager.addEntity(_Player2.default, true);
-                        this.player.setPosition(_config2.default.width / 2, _config2.default.height / 2);
+
+                        var firstNode = _WorldManager2.default.instance.getFirstNode();
+                        console.log(firstNode.center.x);
+                        this.player.setPosition(firstNode.center.x * _WorldManager2.default.instance.scale, firstNode.center.y * _WorldManager2.default.instance.scale);
+
+                        _WorldManager2.default.instance.setPlayer(this.player);
+
+                        setTimeout(function () {
+                                _this2.camera.snapFollowPoint();
+                        }, 1);
 
                         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island");
 
@@ -75921,14 +75942,14 @@ var GameScreen = function (_Screen) {
                         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
                         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
                         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-                        this.addRandomAgents(1);
+                        //this.addRandomAgents(1)
 
-                        for (var _index = 0; _index < 100; _index++) {
-                                this.addRandomAgents(1);
-                        }
-                        for (var _index2 = 0; _index2 < 100; _index2++) {
-                                this.addRandomAgents(1);
-                        }
+                        // for (let index = 0; index < 100; index++) {
+                        //     this.addRandomAgents(1)
+                        // }
+                        // for (let index = 0; index < 100; index++) {
+                        //     this.addRandomAgents(1)
+                        // }
                         // console.log(GameObject.Pool.pool)
 
                         // setTimeout(() => {
@@ -75956,6 +75977,8 @@ var GameScreen = function (_Screen) {
                                 //this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
                                 //this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
                         }
+
+                        _WorldManager2.default.instance.update(delta);
                 }
         }, {
                 key: 'transitionOut',
@@ -76856,6 +76879,12 @@ var PerspectiveCamera = function (_Camera) {
         key: 'setFollowPoint',
         value: function setFollowPoint(followPoint) {
             this.followPoint = followPoint;
+        }
+    }, {
+        key: 'snapFollowPoint',
+        value: function snapFollowPoint() {
+            this.renderModule.container.pivot.x = this.followPoint.x;
+            this.renderModule.container.pivot.y = this.followPoint.y;
         }
     }, {
         key: 'onRender',
@@ -78842,22 +78871,32 @@ var WorldManager = function () {
 
         WorldManager.instance = this;
         this.container = container;
+        this.container.scale.set(0.35);
+        this.width = 800;
+        this.height = 800;
+        this.gameWorld = {
+            scale: 20,
+            width: this.width,
+            height: this.height
+        };
+        this.gameWorld.width = this.width * this.gameWorld.scale;
+        this.gameWorld.height = this.height * this.gameWorld.scale;
 
-        this.width = 500;
-        this.height = 500;
-        // this.square = new PIXI.Graphics().beginFill(0).drawRect(0, 0, this.width, this.height)
-        // this.container.addChild(this.square)
+        this.playerInWorld = { x: 0, y: 0 };
 
-        // const island = generate(this.width, this.height);
-        //const voro = new voronoi()
         var voronoi = new _voronoi2.default();
         var bbox = { xl: 0, xr: this.width, yt: 0, yb: this.height };
         var sites = [];
 
-        this.randomGenerator = new _RandomGenerator2.default(Math.random());
+        this.worldStats = {
+            seed: Math.round(Math.random() * 50000)
+        };
+        window.GUI.add(this.worldStats, 'seed').listen();
 
-        var lines = 11;
-        var cols = 9;
+        this.randomGenerator = new _RandomGenerator2.default(this.worldStats.seed);
+
+        var lines = 35;
+        var cols = 23;
         var cellSize = { width: this.width / lines, height: this.height / cols };
         for (var i = 0; i <= lines; i++) {
             for (var j = 0; j <= cols; j++) {
@@ -78865,11 +78904,15 @@ var WorldManager = function () {
 
                 var dist = _utils2.default.distance(i, j, cols / 2, lines / 2) / lines;
                 sites.push({
-                    x: cellSize.width * i + Math.cos(ang) * dist + (this.randomGenerator.random() * cellSize.width - cellSize.width / 2),
-                    y: cellSize.height * j + Math.sin(ang) * 50 + (this.randomGenerator.random() * cellSize.height - cellSize.height / 2) //* dist
+                    x: cellSize.width * i + Math.cos(ang) * 70 * dist + (this.randomGenerator.random() * cellSize.width - cellSize.width / 2),
+                    y: cellSize.height * j + Math.sin(ang) * 70 * dist + (this.randomGenerator.random() * cellSize.height - cellSize.height / 2) //* dist
                 });
             }
         }
+        sites.push({
+            x: cellSize.width * lines / 2,
+            y: cellSize.height * cols / 2
+        });
 
         var diagram = voronoi.compute(sites, bbox);
         ///https://www.npmjs.com/package/voronoi
@@ -78879,22 +78922,17 @@ var WorldManager = function () {
 
         this.numbersContainer = new PIXI.Container();
         this.container.addChild(this.numbersContainer);
+        this.busyTiles = [];
 
-        // this.container.addChild(this.drawMap(island))
-        // this.container.scale.set(2)
-        var done = false;
-
-        var count = 0;
+        this.currentWorldData = {
+            cells: []
+        };
         diagram.cells.forEach(function (element) {
-            //console.log(element)
-            if (element.halfedges.length && element.site.x > 0 && element.site.y > 0 && element.site.x < _this.width && element.site.y < _this.height && !done) {
-
+            if (element.halfedges.length) {
                 var mid = new PIXI.BitmapText(element.site.voronoiId.toString(), { fontName: 'damage1' });
                 mid.anchor.set(0.5);
                 mid.x = element.site.x;
                 mid.y = element.site.y;
-
-                //gr.lineTo(element.halfedges[0].edge.vb.x, element.halfedges[0].edge.vb.y)
                 var toAdd = [];
                 var onBounds = true;
 
@@ -78926,43 +78964,385 @@ var WorldManager = function () {
                     _loop(index);
                 }
                 if (onBounds) {
-                    console.log(element.site.voronoiId, element.getNeighborIds(), 'create my data to point to neibors and stuff');
-
-                    var gr = new PIXI.Graphics();
-                    gr.lineStyle(2, 0x999999);
-                    gr.beginFill(0x555555 * Math.random());
-
                     var toScan = [];
                     toAdd.forEach(function (v) {
                         toScan.push([v.x, v.y]);
                     });
                     toScan = (0, _grahamScan2.default)(toScan);
 
-                    var toAdd2 = [];
+                    var polygonPoints = [];
 
                     toScan.forEach(function (result) {
-                        toAdd2.push({ x: result[0], y: result[1] });
+                        polygonPoints.push({ x: result[0], y: result[1] });
                     });
-                    gr.moveTo(toAdd2[0].x, toAdd2[0].y);
-                    for (var v = 1; v < toAdd2.length; v++) {
-                        var vertex = toAdd2[v];
-                        gr.lineTo(vertex.x, vertex.y);
-                    }
-                    gr.lineTo(toAdd2[0].x, toAdd2[0].y);
-                    _this.cellsContainer.addChild(gr);
-                    _this.numbersContainer.addChild(mid);
+
+                    var center = _this.findCenter(toScan);
+                    mid.x = center[0];
+                    mid.y = center[1];
+                    //this.numbersContainer.addChild(mid)
                     mid.scale.set(0.8);
+                    _this.busyTiles.push(-1);
+                    _this.currentWorldData.cells.push({
+                        id: element.site.voronoiId,
+                        isHole: false,
+                        view: null, //wrong
+                        numberView: mid, //wrong
+                        color: 0,
+                        neighborsOld: element.getNeighborIds(),
+                        neighbors: [],
+                        pointsArray: toScan,
+                        points: polygonPoints,
+                        center: { x: center[0], y: center[1] }
+                    });
                 }
             }
         });
 
-        this.container.visible = false;
+        var idAccum = 0;
+        this.currentWorldData.cells.forEach(function (element) {
+            var currentID = element.id;
+
+            _this.currentWorldData.cells.forEach(function (others) {
+                for (var index = 0; index < others.neighborsOld.length; index++) {
+                    if (others.neighborsOld[index] == currentID) {
+                        others.neighbors.push(idAccum);
+                    }
+                }
+            });
+
+            element.id = idAccum;
+            element.numberView.text = idAccum;
+            idAccum++;
+        });
+
+        this.playerOnMap = new PIXI.Sprite.from('icon_increase');
+        this.playerOnMap.anchor.set(0.5);
+        this.container.addChild(this.playerOnMap);
+
+        this.currentPlayerCell = 0;
+
+        this.colors = {
+            boss: 0xFF0000,
+            bossArround: 0xaa3333,
+            srhine: 0xaa33FF,
+            srhineAdj: 0xee33FF
+            ////////FIND BOSS
+        };this.bossCell = this.findCellByPosition([this.width / 2, this.height / 2]);
+        this.busyTiles[this.bossCell.id] = 10;
+        this.applyColorToCell(this.bossCell, this.colors.boss);
+        this.bossCell.neighbors.forEach(function (element) {
+            _this.busyTiles[element] = 10;
+            _this.applyColorToCell(_this.currentWorldData.cells[element], _this.colors.bossArround);
+        });
+        this.shrines = [];
+        var startAngle = Math.PI * 2 * this.randomGenerator.random();
+        var totalShrines = 4;
+        for (var index = 0; index < totalShrines; index++) {
+            var shrine = this.findCellByPosition([this.width / 2 + Math.cos(startAngle) * this.width / 4, this.height / 2 + Math.sin(startAngle) * this.height / 4]);
+            if (!shrine) continue;
+            this.busyTiles[shrine.id] = 10;
+
+            this.applyColorToCell(shrine, this.colors.srhine);
+            startAngle += Math.PI * 2 / totalShrines + this.randomGenerator.random() * 0.1;
+            this.shrines.push(shrine);
+        }
+
+        this.biomes = {
+            denseForest: {
+                weight: 3,
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'forest'
+            },
+            forest: {
+                weight: 3,
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 2,
+                endPropagationNode: 'grassland'
+            },
+            grassland: {
+                weight: 2,
+                coreColor: 0x108907,
+                adjColor: 0x91ce7a,
+                adjFreq: 1,
+                propagation: 2
+            },
+            deepLake: {
+                weight: 8,
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'lake'
+
+            },
+            lake: {
+                weight: 1,
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 1,
+                endPropagationNode: 'marsh'
+            },
+            mountain: {
+                weight: 5,
+                coreColor: 0xaaaaaa,
+                adjColor: 0x555555,
+                adjFreq: 1,
+                propagation: 1
+            },
+            desert: {
+                weight: 1,
+                coreColor: 0xEAA56C,
+                adjColor: 0xEAA5aa,
+                adjFreq: 1,
+                propagation: 1
+            },
+            marsh: {
+                weight: 4,
+                coreColor: 0xEAA56C,
+                adjColor: 0x107260,
+                adjFreq: 1,
+                propagation: 1
+            }
+        };
+        this.mapBuildData = [{
+            total: Math.floor(lines * 0.5),
+            biome: this.biomes.denseForest,
+            cells: []
+        }, {
+            total: Math.floor(lines * 0.25),
+            biome: this.biomes.deepLake,
+            cells: []
+        }, {
+            total: Math.floor(lines * 0.25),
+            biome: this.biomes.mountain,
+            cells: []
+        }];
+        this.mapBuildData.forEach(function (element) {
+            element.panic = 0;
+            var biome = element.biome;
+            while (element.cells.length < element.total) {
+                var cellID = Math.floor(_this.currentWorldData.cells.length * _this.randomGenerator.random());
+
+                element.panic++;
+                if (element.panic > 100) {
+                    break;
+                }
+
+                if (_this.busyTiles[cellID] > biome.weight) continue;
+                var cell = _this.currentWorldData.cells[cellID];
+                if (!cell) continue;
+
+                element.cells.push(cell);
+                _this.applyColorToCell(cell, biome.coreColor);
+                _this.busyTiles[cellID] = biome.weight;
+                _this.applyNeighbors(cell, biome, biome.propagation);
+            }
+        });
+
+        //this close gaps
+        for (var _index = 0; _index < 3; _index++) {
+            this.currentWorldData.cells.forEach(function (element) {
+                if (_this.busyTiles[element.id] >= 0) {
+                    _this.drawCell(element);
+                } else {
+                    element.isHole = true;
+                }
+            });
+            this.findIsolated();
+        }
     }
 
     (0, _createClass3.default)(WorldManager, [{
+        key: "drawCell",
+        value: function drawCell(cell) {
+            var gr = new PIXI.Graphics();
+            gr.lineStyle(1, 0x999999);
+            gr.beginFill(0xffffff);
+            gr.tint = cell.color;
+
+            gr.moveTo(cell.points[0].x, cell.points[0].y);
+            for (var v = 1; v < cell.points.length; v++) {
+                var vertex = cell.points[v];
+                gr.lineTo(vertex.x, vertex.y);
+            }
+            gr.lineTo(cell.points[0].x, cell.points[0].y);
+            this.cellsContainer.addChild(gr);
+            cell.view = gr;
+        }
+    }, {
+        key: "findIsolated",
+        value: function findIsolated() {
+            var _this2 = this;
+
+            this.currentWorldData.cells.forEach(function (cell) {
+
+                if (!cell.isHole) {
+                    var isSurounded = false;
+
+                    cell.neighbors.forEach(function (neighbor) {
+                        if (!isSurounded && !_this2.currentWorldData.cells[neighbor].isHole) {
+                            isSurounded = true;
+                        }
+                    });
+                    if (!isSurounded) {
+                        _this2.applyNeighbors(cell, _this2.biomes.marsh, 1);
+                    }
+                }
+            });
+        }
+    }, {
+        key: "applyNeighbors",
+        value: function applyNeighbors(cell, element) {
+            var _this3 = this;
+
+            var propagation = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1;
+
+            if (propagation < 0) return;
+            cell.neighbors.forEach(function (neighbor) {
+                if (_this3.busyTiles[neighbor] < element.weight && _this3.randomGenerator.random() < element.adjFreq) {
+
+                    _this3.busyTiles[neighbor] = element.weight;
+                    _this3.applyColorToCell(_this3.currentWorldData.cells[neighbor], element.adjColor);
+
+                    if (propagation > 0) {
+                        _this3.applyNeighbors(_this3.currentWorldData.cells[neighbor], element, propagation - 1);
+                    } else if (propagation == 0 && element.endPropagationNode) {
+                        _this3.applyNeighbors(_this3.currentWorldData.cells[neighbor], _this3.biomes[element.endPropagationNode], _this3.biomes[element.endPropagationNode].propagation);
+                    }
+                }
+            });
+        }
+    }, {
+        key: "applyColorToCell",
+        value: function applyColorToCell(cell, color) {
+            cell.color = color;
+            if (cell.view) {
+                cell.view.tint = cell.color;
+            }
+        }
+    }, {
+        key: "findCenter",
+        value: function findCenter(arr) {
+            var x = arr.map(function (a) {
+                return a[0];
+            });
+            var y = arr.map(function (a) {
+                return a[1];
+            });
+            var minX = Math.min.apply(null, x);
+            var maxX = Math.max.apply(null, x);
+            var minY = Math.min.apply(null, y);
+            var maxY = Math.max.apply(null, y);
+            return [(minX + maxX) / 2, (minY + maxY) / 2];
+        }
+    }, {
+        key: "inside",
+        value: function inside(point, vs) {
+            var x = point[0],
+                y = point[1];
+
+            var inside = false;
+            for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+                var xi = vs[i][0],
+                    yi = vs[i][1];
+                var xj = vs[j][0],
+                    yj = vs[j][1];
+
+                var intersect = yi > y != yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi;
+                if (intersect) inside = !inside;
+            }
+
+            return inside;
+        }
+    }, {
+        key: "findCellByPosition",
+        value: function findCellByPosition(point) {
+            for (var index = 0; index < this.currentWorldData.cells.length; index++) {
+                var cellPoints = this.currentWorldData.cells[index].pointsArray;
+                if (this.inside(point, cellPoints)) {
+                    return this.currentWorldData.cells[index];
+                }
+            }
+        }
+    }, {
         key: "onBounds",
         value: function onBounds(edge) {
             return edge.x > 0 && edge.x < this.width && edge.y > 0 && edge.y < this.height;
+        }
+    }, {
+        key: "getFirstNode",
+        value: function getFirstNode() {
+            for (var index = 0; index < this.currentWorldData.cells.length; index++) {
+                var element = this.currentWorldData.cells[index];
+                if (element.isHole) continue;
+                this.currentPlayerCell = index;
+                break;
+            }
+            return this.currentWorldData.cells[this.currentPlayerCell];
+        }
+    }, {
+        key: "setPlayer",
+        value: function setPlayer(player) {
+            this.player = player;
+            this.playerInWorld.x = this.player.transform.position.x / this.gameWorld.scale;
+            this.playerInWorld.y = this.player.transform.position.y / this.gameWorld.scale;
+        }
+    }, {
+        key: "findPlayerCell",
+        value: function findPlayerCell() {
+            var current = this.currentWorldData.cells[this.currentPlayerCell];
+            var playerArrayPosition = [this.playerInWorld.x, this.playerInWorld.y];
+            if (this.inside(playerArrayPosition, current.pointsArray)) {
+                return this.currentPlayerCell;
+            } else {
+                for (var index = 0; index < current.neighbors.length; index++) {
+                    var neighborId = current.neighbors[index];
+                    var neighbor = this.currentWorldData.cells[neighborId];
+                    if (this.inside(playerArrayPosition, neighbor.pointsArray)) {
+                        if (this.currentWorldData.cells[this.currentPlayerCell].view) {}
+                        this.currentWorldData.cells[this.currentPlayerCell].view.tint = this.currentWorldData.cells[this.currentPlayerCell].color;
+                        return neighborId;
+                    }
+                }
+            }
+            //this means is outside of the bounds
+            return this.currentPlayerCell;
+        }
+    }, {
+        key: "setCurrentPlayerCell",
+        value: function setCurrentPlayerCell(id) {
+            this.currentPlayerCell = id;
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            if (!this.player) {
+                return;
+            }
+
+            this.currentPlayerCell = this.findPlayerCell();
+            if (this.currentWorldData.cells[this.currentPlayerCell].view) {
+                this.currentWorldData.cells[this.currentPlayerCell].view.tint = 0xFFFFFF;
+            }
+
+            this.playerInWorld.x = this.player.transform.position.x / this.gameWorld.scale;
+            this.playerInWorld.y = this.player.transform.position.y / this.gameWorld.scale;
+
+            this.playerOnMap.rotation = this.player.transform.angle + Math.PI / 2;
+
+            this.playerOnMap.x = this.playerInWorld.x;
+            this.playerOnMap.y = this.playerInWorld.y;
+        }
+    }, {
+        key: "scale",
+        get: function get() {
+            return this.gameWorld.scale;
         }
     }]);
     return WorldManager;

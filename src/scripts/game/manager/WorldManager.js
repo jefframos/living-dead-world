@@ -6,25 +6,36 @@ import RandomGenerator from "../core/RandomGenerator";
 import grahamScan from "graham-scan";
 export default class WorldManager {
     static instance;
+
     constructor(container) {
         WorldManager.instance = this;
         this.container = container;
+        this.container.scale.set(0.35)
+        this.width = 800
+        this.height = 800
+        this.gameWorld = {
+            scale: 20,
+            width: this.width,
+            height: this.height,
+        }
+        this.gameWorld.width = this.width * this.gameWorld.scale
+        this.gameWorld.height = this.height * this.gameWorld.scale
 
-        this.width = 500
-        this.height = 500
-        // this.square = new PIXI.Graphics().beginFill(0).drawRect(0, 0, this.width, this.height)
-        // this.container.addChild(this.square)
+        this.playerInWorld = { x: 0, y: 0 }
 
-        // const island = generate(this.width, this.height);
-        //const voro = new voronoi()
         var voronoi = new Voronoi();
         var bbox = { xl: 0, xr: this.width, yt: 0, yb: this.height };
         var sites = []
 
-        this.randomGenerator = new RandomGenerator(Math.random());
+        this.worldStats = {
+            seed: Math.round(Math.random() * 50000)
+        }
+        window.GUI.add(this.worldStats, 'seed').listen();
 
-        let lines = 11
-        let cols = 9
+        this.randomGenerator = new RandomGenerator(this.worldStats.seed);
+
+        let lines = 35
+        let cols = 23
         let cellSize = { width: this.width / lines, height: this.height / cols }
         for (let i = 0; i <= lines; i++) {
             for (let j = 0; j <= cols; j++) {
@@ -32,12 +43,15 @@ export default class WorldManager {
 
                 let dist = utils.distance(i, j, cols / 2, lines / 2) / lines
                 sites.push({
-                    x: (cellSize.width) * i + Math.cos(ang) * dist + (this.randomGenerator.random() * cellSize.width - cellSize.width / 2),
-                    y: (cellSize.height) * j + Math.sin(ang) * 50 + (this.randomGenerator.random() * cellSize.height - cellSize.height / 2)//* dist
+                    x: (cellSize.width) * i + Math.cos(ang) * 70 * dist + (this.randomGenerator.random() * cellSize.width - cellSize.width / 2),
+                    y: (cellSize.height) * j + Math.sin(ang) * 70 * dist + (this.randomGenerator.random() * cellSize.height - cellSize.height / 2)//* dist
                 })
             }
         }
-
+        sites.push({
+            x: (cellSize.width) * lines / 2,
+            y: (cellSize.height) * cols / 2
+        })
 
         var diagram = voronoi.compute(sites, bbox);
         ///https://www.npmjs.com/package/voronoi
@@ -47,23 +61,17 @@ export default class WorldManager {
 
         this.numbersContainer = new PIXI.Container();
         this.container.addChild(this.numbersContainer)
+        this.busyTiles = []
 
-        // this.container.addChild(this.drawMap(island))
-        // this.container.scale.set(2)
-        let done = false
-
-        let count = 0
+        this.currentWorldData = {
+            cells: []
+        }
         diagram.cells.forEach(element => {
-            //console.log(element)
-            if (element.halfedges.length && element.site.x > 0 && element.site.y > 0 && element.site.x < this.width && element.site.y < this.height && !done) {
-
-
+            if (element.halfedges.length) {
                 let mid = new PIXI.BitmapText(element.site.voronoiId.toString(), { fontName: 'damage1' });
                 mid.anchor.set(0.5)
                 mid.x = element.site.x
                 mid.y = element.site.y
-
-                //gr.lineTo(element.halfedges[0].edge.vb.x, element.halfedges[0].edge.vb.y)
                 let toAdd = []
                 let onBounds = true;
                 for (let index = 0; index < element.halfedges.length; index++) {
@@ -86,41 +94,356 @@ export default class WorldManager {
                     }
                 }
                 if (onBounds) {
-                    console.log(element.site.voronoiId, element.getNeighborIds(), 'create my data to point to neibors and stuff')
-
-                    let gr = new PIXI.Graphics();
-                    gr.lineStyle(2, 0x999999)
-                    gr.beginFill(0x555555 * Math.random())
-
-
                     let toScan = []
                     toAdd.forEach(v => {
                         toScan.push([v.x, v.y])
                     });
                     toScan = grahamScan(toScan);
 
-                    let toAdd2 = []
+                    let polygonPoints = []
 
                     toScan.forEach(result => {
-                        toAdd2.push({ x: result[0], y: result[1] })
+                        polygonPoints.push({ x: result[0], y: result[1] })
                     });
-                    gr.moveTo(toAdd2[0].x, toAdd2[0].y)
-                    for (let v = 1; v < toAdd2.length; v++) {
-                        const vertex = toAdd2[v];
-                        gr.lineTo(vertex.x, vertex.y)
-                    }
-                    gr.lineTo(toAdd2[0].x, toAdd2[0].y)
-                    this.cellsContainer.addChild(gr)
-                    this.numbersContainer.addChild(mid)
+
+                    let center = this.findCenter(toScan)
+                    mid.x = center[0]
+                    mid.y = center[1]
+                    //this.numbersContainer.addChild(mid)
                     mid.scale.set(0.8)
+                    this.busyTiles.push(-1)
+                    this.currentWorldData.cells.push(
+                        {
+                            id: element.site.voronoiId,
+                            isHole: false,
+                            view: null,//wrong
+                            numberView: mid,//wrong
+                            color: 0,
+                            neighborsOld: element.getNeighborIds(),
+                            neighbors: [],
+                            pointsArray: toScan,
+                            points: polygonPoints,
+                            center: { x: center[0], y: center[1] }
+                        }
+                    )
                 }
             }
         });
 
-        this.container.visible = false;
 
+        let idAccum = 0;
+        this.currentWorldData.cells.forEach(element => {
+            let currentID = element.id;
+
+            this.currentWorldData.cells.forEach(others => {
+                for (let index = 0; index < others.neighborsOld.length; index++) {
+                    if (others.neighborsOld[index] == currentID) {
+                        others.neighbors.push(idAccum);
+                    }
+                }
+            });
+
+            element.id = idAccum;
+            element.numberView.text = idAccum
+            idAccum++;
+        });
+
+        this.playerOnMap = new PIXI.Sprite.from('icon_increase')
+        this.playerOnMap.anchor.set(0.5)
+        this.container.addChild(this.playerOnMap)
+
+        this.currentPlayerCell = 0;
+
+        this.colors = {
+            boss: 0xFF0000,
+            bossArround: 0xaa3333,
+            srhine: 0xaa33FF,
+            srhineAdj: 0xee33FF,
+        }
+        ////////FIND BOSS
+        this.bossCell = this.findCellByPosition([this.width / 2, this.height / 2])
+        this.busyTiles[this.bossCell.id] = 10
+        this.applyColorToCell(this.bossCell, this.colors.boss)
+        this.bossCell.neighbors.forEach(element => {
+            this.busyTiles[element] = 10
+            this.applyColorToCell(this.currentWorldData.cells[element], this.colors.bossArround)
+        });
+        this.shrines = [];
+        let startAngle = Math.PI * 2 * this.randomGenerator.random();
+        let totalShrines = 4;
+        for (let index = 0; index < totalShrines; index++) {
+            let shrine = this.findCellByPosition([this.width / 2 + Math.cos(startAngle) * this.width / 4, this.height / 2 + Math.sin(startAngle) * this.height / 4])
+            if (!shrine) continue
+            this.busyTiles[shrine.id] = 10
+
+            this.applyColorToCell(shrine, this.colors.srhine)
+            startAngle += Math.PI * 2 / totalShrines + this.randomGenerator.random() * 0.1;
+            this.shrines.push(shrine)
+        }
+
+        this.biomes = {
+            denseForest: {
+                weight: 3,                
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'forest'
+            },
+            forest: {
+                weight: 3,                
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 2,
+                endPropagationNode: 'grassland'
+            },
+            grassland: {
+                weight: 2,                
+                coreColor: 0x108907,
+                adjColor: 0x91ce7a,
+                adjFreq: 1,
+                propagation: 2,
+            },
+            deepLake: {
+                weight: 8,                
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'lake'
+
+            },
+            lake: {
+                weight: 1,                
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 1,
+                endPropagationNode: 'marsh'
+            },
+            mountain: {
+                weight: 5,                
+                coreColor: 0xaaaaaa,
+                adjColor: 0x555555,
+                adjFreq: 1,
+                propagation: 1,
+            },
+            desert: {
+                weight: 1,                
+                coreColor: 0xEAA56C,
+                adjColor: 0xEAA5aa,
+                adjFreq: 1,
+                propagation: 1,
+            },
+            marsh: {
+                weight: 4,                
+                coreColor: 0xEAA56C,
+                adjColor: 0x107260,
+                adjFreq: 1,
+                propagation: 1,
+            }
+        }
+        this.mapBuildData = [
+            {
+                total: Math.floor(lines * 0.5),
+                biome: this.biomes.denseForest,
+                cells: []
+            },
+            {
+                total: Math.floor(lines * 0.25),
+                biome: this.biomes.deepLake,
+                cells: []
+            },
+            {
+                total: Math.floor(lines * 0.25),
+                biome: this.biomes.mountain,
+                cells: []
+            },
+        ]
+        this.mapBuildData.forEach(element => {
+            element.panic = 0;
+            let biome = element.biome
+            while (element.cells.length < element.total) {
+                let cellID = Math.floor(this.currentWorldData.cells.length * this.randomGenerator.random());
+
+                element.panic++;
+                if (element.panic > 100) {
+                    break
+                }
+
+                if (this.busyTiles[cellID] > biome.weight) continue;
+                let cell = this.currentWorldData.cells[cellID]
+                if (!cell) continue
+
+                element.cells.push(cell)
+                this.applyColorToCell(cell, biome.coreColor)
+                this.busyTiles[cellID] = biome.weight
+                this.applyNeighbors(cell, biome, biome.propagation)
+            }
+        });
+
+
+        //this close gaps
+        for (let index = 0; index < 3; index++) {
+            this.currentWorldData.cells.forEach(element => {
+                if (this.busyTiles[element.id] >= 0) {
+                    this.drawCell(element)
+                } else {
+                    element.isHole = true;
+                }
+            });
+            this.findIsolated()
+        }
+
+    }
+    drawCell(cell) {
+        let gr = new PIXI.Graphics();
+        gr.lineStyle(1, 0x999999)
+        gr.beginFill(0xffffff)
+        gr.tint = cell.color
+
+
+        gr.moveTo(cell.points[0].x, cell.points[0].y)
+        for (let v = 1; v < cell.points.length; v++) {
+            const vertex = cell.points[v];
+            gr.lineTo(vertex.x, vertex.y)
+        }
+        gr.lineTo(cell.points[0].x, cell.points[0].y)
+        this.cellsContainer.addChild(gr)
+        cell.view = gr
+    }
+    findIsolated() {
+        this.currentWorldData.cells.forEach(cell => {
+
+            if (!cell.isHole) {
+                let isSurounded = false;
+
+                cell.neighbors.forEach(neighbor => {
+                    if (!isSurounded && !this.currentWorldData.cells[neighbor].isHole) {
+                        isSurounded = true;
+                    }
+                })
+                if (!isSurounded) {
+                    this.applyNeighbors(cell, this.biomes.marsh, 1)
+                }
+            }
+        });
+    }
+    applyNeighbors(cell, element, propagation = -1) {
+        if (propagation < 0) return;
+        cell.neighbors.forEach(neighbor => {
+            if (this.busyTiles[neighbor] < element.weight && this.randomGenerator.random() < element.adjFreq) {
+
+                this.busyTiles[neighbor] = element.weight
+                this.applyColorToCell(this.currentWorldData.cells[neighbor], element.adjColor)
+
+                if (propagation > 0) {
+                    this.applyNeighbors(this.currentWorldData.cells[neighbor], element, propagation - 1)
+                } else if (propagation == 0 && element.endPropagationNode) {
+                    this.applyNeighbors(this.currentWorldData.cells[neighbor], this.biomes[element.endPropagationNode], this.biomes[element.endPropagationNode].propagation)
+                }
+            }
+        });
+    }
+    get scale() {
+        return this.gameWorld.scale
+    }
+    applyColorToCell(cell, color) {
+        cell.color = color
+        if (cell.view) {
+            cell.view.tint = cell.color
+        }
+    }
+    findCenter(arr) {
+        var x = arr.map(function (a) { return a[0] });
+        var y = arr.map(function (a) { return a[1] });
+        var minX = Math.min.apply(null, x);
+        var maxX = Math.max.apply(null, x);
+        var minY = Math.min.apply(null, y);
+        var maxY = Math.max.apply(null, y);
+        return [(minX + maxX) / 2, (minY + maxY) / 2];
+    }
+
+    inside(point, vs) {
+        var x = point[0], y = point[1];
+
+        var inside = false;
+        for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+            var xi = vs[i][0], yi = vs[i][1];
+            var xj = vs[j][0], yj = vs[j][1];
+
+            var intersect = ((yi > y) != (yj > y))
+                && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+            if (intersect) inside = !inside;
+        }
+
+        return inside;
+    }
+    findCellByPosition(point) {
+        for (let index = 0; index < this.currentWorldData.cells.length; index++) {
+            const cellPoints = this.currentWorldData.cells[index].pointsArray;
+            if (this.inside(point, cellPoints)) {
+                return this.currentWorldData.cells[index];
+            }
+        }
     }
     onBounds(edge) {
         return edge.x > 0 && edge.x < this.width && edge.y > 0 && edge.y < this.height
-    }    
+    }
+    getFirstNode() {
+        for (let index = 0; index < this.currentWorldData.cells.length; index++) {
+            const element = this.currentWorldData.cells[index];
+            if (element.isHole) continue;
+            this.currentPlayerCell = index;
+            break;
+        }
+        return this.currentWorldData.cells[this.currentPlayerCell]
+    }
+    setPlayer(player) {
+        this.player = player;
+        this.playerInWorld.x = this.player.transform.position.x / this.gameWorld.scale
+        this.playerInWorld.y = this.player.transform.position.y / this.gameWorld.scale
+    }
+    findPlayerCell() {
+        let current = this.currentWorldData.cells[this.currentPlayerCell]
+        let playerArrayPosition = [this.playerInWorld.x, this.playerInWorld.y]
+        if (this.inside(playerArrayPosition, current.pointsArray)) {
+            return this.currentPlayerCell;
+        } else {
+            for (let index = 0; index < current.neighbors.length; index++) {
+                const neighborId = current.neighbors[index];
+                let neighbor = this.currentWorldData.cells[neighborId]
+                if (this.inside(playerArrayPosition, neighbor.pointsArray)) {
+                    if (this.currentWorldData.cells[this.currentPlayerCell].view) {
+                    }
+                    this.currentWorldData.cells[this.currentPlayerCell].view.tint = this.currentWorldData.cells[this.currentPlayerCell].color;
+                    return neighborId;
+                }
+            }
+        }
+        //this means is outside of the bounds
+        return this.currentPlayerCell;
+    }
+    setCurrentPlayerCell(id) {
+        this.currentPlayerCell = id;
+    }
+    update(delta) {
+        if (!this.player) {
+            return;
+        }
+
+        this.currentPlayerCell = this.findPlayerCell();
+        if (this.currentWorldData.cells[this.currentPlayerCell].view) {
+            this.currentWorldData.cells[this.currentPlayerCell].view.tint = 0xFFFFFF;
+        }
+
+        this.playerInWorld.x = this.player.transform.position.x / this.gameWorld.scale
+        this.playerInWorld.y = this.player.transform.position.y / this.gameWorld.scale
+
+        this.playerOnMap.rotation = this.player.transform.angle + Math.PI / 2;
+
+        this.playerOnMap.x = this.playerInWorld.x
+        this.playerOnMap.y = this.playerInWorld.y
+    }
 }

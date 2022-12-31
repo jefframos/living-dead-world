@@ -40,6 +40,10 @@ export default class PerspectiveCamera extends Camera {
     setFollowPoint(followPoint) {
         this.followPoint = followPoint;
     }
+    snapFollowPoint() {
+        this.renderModule.container.pivot.x = this.followPoint.x
+        this.renderModule.container.pivot.y = this.followPoint.y
+    }
     onRender() {
         this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
             element.view.x = element.gameObject.transform.position.x + element.viewOffset.x

@@ -82,7 +82,10 @@ export default class Player extends GameAgent {
 
             this.shootTimer -= delta;
             if (this.shootTimer <= 0) {
-                this.shoot()
+
+                if(this.sensor.collisionList.length){
+                    this.shoot()
+                }
             }
         }
 
