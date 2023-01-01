@@ -8,6 +8,7 @@ import PhysicsModule from "../modules/PhysicsModule";
 import RenderModule from "../modules/RenderModule";
 import Sensor from "../core/Sensor";
 import utils from "../../utils";
+import config from "../../config";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -101,18 +102,24 @@ export default class Player extends GameAgent {
         this.sensor.y = this.transform.position.y
 
         this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
-        if (this.input.touchAxisDown) {
+        if (window.isMobile && this.input.touchAxisDown) {
             this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta
             this.physics.velocity.y = Math.sin(this.input.direction) * this.speed * delta
             this.transform.angle = this.input.direction
 
         } else if (this.input.isMouseDown) {
+
+            //from the middle
+            this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height/2, this.input.mousePosition.x - config.width / 2)
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
             this.physics.velocity.y = Math.sin(this.transform.angle) * this.speed * delta
 
         } else if (this.input.magnitude > 0) {
-            this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta
-            this.physics.velocity.y = Math.sin(this.input.direction) * this.speed * delta
+            this.transform.angle = this.input.direction
+
+            console.log('here')
+            this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
+            this.physics.velocity.y = Math.sin(this.transform.angle) * this.speed * delta
 
 
 
