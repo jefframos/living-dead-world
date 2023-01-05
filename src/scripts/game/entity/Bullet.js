@@ -33,7 +33,7 @@ export default class Bullet extends PhysicsEntity {
         this.rigidBody.collisionFilter.mask = 3
 
 
-        this.lifeSpan = 0.5
+        this.lifeSpan = 0.85
 
         this.layerCategory = Layer.Bullet
         this.layerMask = Layer.BulletCollision

@@ -52,15 +52,15 @@ export default class RenderModule extends GameObject {
     }
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
-        this.physics.entityAdded.add(this.newEntityAdded.bind(this))
+        //this.physics.entityAdded.add(this.newEntityAdded.bind(this))
+        this.engine.entityAdded2.add(this.newEntityAdded.bind(this))
     }
     newEntityAdded(entities) {
         entities.forEach(element => {
             if (element.gameView) {
 
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
-                element.childAdded.add(this.newEntityAdded.bind(this))
-
+                //element.childAdded.add(this.newEntityAdded.bind(this))
                 this.layers[element.gameView.layer].addGameView(element.gameView)
 
             }

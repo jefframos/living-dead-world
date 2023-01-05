@@ -70,6 +70,8 @@ export default class PhysicsEntity extends GameObject {
         return this.rigidBody
     }
     update(delta) {
+
+        super.update(delta);
     
         this.transform.position.x = this.rigidBody.position.x;
         this.transform.position.y = this.rigidBody.position.y;

@@ -1,11 +1,15 @@
+import * as signals from 'signals';
+
 import GameObject from "./GameObject";
 import PhysicsModule from "../modules/PhysicsModule";
 
 export default class Engine {
     constructor() {
+        this.entityAdded2 = new signals.Signal()
         this.gameObjects = []
         this.parentGameObject = new GameObject();
         this.physics = this.addGameObject(new PhysicsModule())
+
 
         this.engineStats = {
             totalGameObjects: 0
@@ -75,8 +79,6 @@ export default class Engine {
             const element = gameObject.children[index];
             if(element instanceof GameObject){
                 element.engine = this;
-                console.log("CHILD ADD ", element)
-                //this.addGameObject(element)
             }
         }
 
@@ -84,6 +86,7 @@ export default class Engine {
 
             gameObject.start()
         }
+        this.entityAdded2.dispatch([gameObject])
         return gameObject;
     }
     addRigidBody(gameObject){

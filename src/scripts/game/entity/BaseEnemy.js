@@ -2,6 +2,7 @@ import GameAgent from "../modules/GameAgent";
 import Layer from "../core/Layer";
 import Player from "./Player";
 import RenderModule from "../modules/RenderModule";
+import SpriteJump from "../components/SpriteJump";
 
 export default class BaseEnemy extends GameAgent {
     constructor() {
@@ -15,6 +16,7 @@ export default class BaseEnemy extends GameAgent {
         //this.view.scale.set(0.2)
         this.buildCircle(0, 0, 15);
 
+        this.addComponent(SpriteJump)
 
         this.rigidBody.isSensor = false;
         this.layerCategory = Layer.Enemy

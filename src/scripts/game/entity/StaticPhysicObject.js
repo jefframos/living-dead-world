@@ -7,20 +7,21 @@ export default class StaticPhysicObject extends PhysicsEntity {
         super();
 
         this.gameView = new GameView(this);
-        this.gameView.view = new PIXI.Sprite.from('small-no-pattern-white')
+
+        let textures = ['grave (1)','grave (2)','grave (3)','grave (4)','grave (5)','grave (6)']
+        this.gameView.view = new PIXI.Sprite.from(textures[Math.floor(Math.random()* textures.length)])
     }
     build(x, y, width, height) {
         super.build()
         this.buildRect(x, y, width, height, true);
 
         //console.log(width)
-        this.gameView.view.width = width
-        this.gameView.view.height = height*2
+        this.gameView.view.scale.set(width / this.gameView.view.width )
 
-        this.gameView.viewOffset.y = -height/2
+        //this.gameView.viewOffset.y = -height/2
 
-        this.gameView.view.pivot.x = width/2
-        this.gameView.view.pivot.y = height/2
+        this.gameView.view.anchor.set(0.5, 1)
+        //this.gameView.view.pivot.y = height
         //this.gameView.view.anchor.set(0.5)
 
         this.layerCategory = Layer.Environment

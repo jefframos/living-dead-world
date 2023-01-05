@@ -37,7 +37,7 @@ export default class GameObject extends BaseComponent {
         let element = GameObject.Pool.getElement(constructor)
         this.components.push(element);
         element.gameObject = this;
-
+        element.enable();
         return element;
     }
     removeComponent(component) {
@@ -70,7 +70,6 @@ export default class GameObject extends BaseComponent {
         this.y = y
     }
     update(delta) {
-        //console.log(this.children.length)
         this.children.forEach(element => {
             if (element.enabled) {
                 element.update(delta);
@@ -112,6 +111,8 @@ export default class GameObject extends BaseComponent {
         }
         this.components.forEach(element => {
             element.destroy();
+
+            this.removeComponent(element)
             //element.removeAllSignals();
         });
         this.disable();

@@ -1,5 +1,8 @@
 import GameObject from "../core/GameObject";
-
+import ParticleEmitter from "../particleSystem/ParticleEmitter";
+import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
+import AlphaBehaviour from "../particleSystem/ParticleBehaviour/AlphaBehaviour";
+import ColorBehaviour from "../particleSystem/ParticleBehaviour/ColorBehaviour";
 export default class EffectsManager extends GameObject {
     static instance;
     constructor(container, gameContainer) {
@@ -8,8 +11,30 @@ export default class EffectsManager extends GameObject {
         this.effectsContainer = container;
         this.gameContainer = gameContainer;
 
+        this.effectsContainer.alpha = true;
+        this.particleEmitter = new ParticleEmitter(this.gameContainer);
+
+
+        //the descriptor is on the enemy
+        this.smallFireDescriptor = new ParticleDescriptor(
+            {
+                velocityX: [-10, 10],
+                velocityY: [-150, -180],
+                gravity: 200,
+                scale: [0.8, 0.5],
+                lifeSpan: [1, 1.5],
+                tint:0xff0000,
+                //blendMode: PIXI.BLEND_MODES.ADD,
+                texture: PIXI.Texture.from('spark2')
+            }
+        )
+
+        this.smallFireDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
+        this.smallFireDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
+
+
         this.labels = [];
-this.news = 0
+        this.news = 0
         this.damageFontPool = [];
     }
 
@@ -19,19 +44,21 @@ this.news = 0
 
         this.effectsContainer.x = this.gameContainer.x
         this.effectsContainer.y = this.gameContainer.y
-        
+
         //for (let index = 0; index < this.labels.length; index++) {
-        for (let index = this.labels.length-1; index >=0; index--) {
+        for (let index = this.labels.length - 1; index >= 0; index--) {
             this.labels[index].alpha -= delta * 2;
-            if(this.labels[index].alpha <= 0){
+            if (this.labels[index].alpha <= 0) {
                 this.damageFontPool.push(this.labels[index]);
-                this.labels.splice(index,1)
+                this.labels.splice(index, 1)
             }
 
         }
+
+        this.particleEmitter.update(delta)
     }
     popDamage(entity, value) {
-       // console.log(entity.engineID)
+        // console.log(entity.engineID)
         let text = this.getDamageFont()
         text.alpha = 1
         text.text = value
@@ -40,6 +67,10 @@ this.news = 0
         text.anchor.set(0.5)
         this.labels.push(text)
         this.effectsContainer.addChild(text)
+
+        this.particleEmitter.emit(this.smallFireDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 4)
+
+        this.particleEmitter
     }
 
     getDamageFont() {

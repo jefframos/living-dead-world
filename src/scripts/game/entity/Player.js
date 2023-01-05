@@ -9,6 +9,7 @@ import RenderModule from "../modules/RenderModule";
 import Sensor from "../core/Sensor";
 import utils from "../../utils";
 import config from "../../config";
+import SpriteJump from "../components/SpriteJump";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -19,14 +20,18 @@ export default class Player extends GameAgent {
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
         this.gameView.view = new PIXI.Sprite.from('tile_0085')
-        this.setDebug(15)
+        //this.setDebug(15)
+
+        
 
     }
     build(radius = 15) {
         super.build()
 
+        this.addComponent(SpriteJump)
+
         this.sensor = this.engine.poolGameObject(Sensor)
-        this.sensor.build(120)
+        this.sensor.build(250)
         this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
@@ -90,6 +95,7 @@ export default class Player extends GameAgent {
             }
         }
 
+        //console.log(this.components)
         // if (this.physics.magnitude > 0) {
         //     this.view.play('Pistol_Run')
         // } else if (!this.view.currentState == 'Pistol_Shoot') {
@@ -117,22 +123,17 @@ export default class Player extends GameAgent {
         } else if (this.input.magnitude > 0) {
             this.transform.angle = this.input.direction
 
-            console.log('here')
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
             this.physics.velocity.y = Math.sin(this.transform.angle) * this.speed * delta
 
 
 
         } else {
-            //this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.y, this.input.mousePosition.x - this.transform.position.x)
             this.transform.angle = this.input.direction
             this.physics.velocity.x = 0
             this.physics.velocity.y = 0
-
         }
 
-       
-        
         super.update(delta)
     }
 

@@ -145,7 +145,7 @@ export default
             console.log(renderer)
             let texture = renderer.renderer.generateTexture(content);
             let gridSprite = new PIXI.Sprite()
-            gridSprite.setTexture(texture)
+            gridSprite.texture = texture
             list[id] = gridSprite;
 
             return gridSprite;

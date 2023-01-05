@@ -3,16 +3,97 @@ import { generate } from "tguesdon-island-generator"
 import Voronoi from "voronoi";
 import utils from "../../utils";
 import RandomGenerator from "../core/RandomGenerator";
+import TileMapManager from "./TileMapManager";
 import grahamScan from "graham-scan";
 export default class WorldManager {
     static instance;
 
     constructor(container) {
+
+        this.biomes = {
+            shrine: {
+                weight: 30,
+                coreColor: 0xaa33FF,
+                adjColor: 0xee33FF,
+                adjFreq: 1,
+                propagation: 0,
+            },
+            boss: {
+                weight: 300,
+                coreColor: 0xFF0000,
+                adjColor: 0xaa3333,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'forest'
+            },
+            denseForest: {
+                weight: 3,
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'forest'
+            },
+            forest: {
+                weight: 3,
+                coreColor: 0x108907,
+                adjColor: 0x558955,
+                adjFreq: 1,
+                propagation: 2,
+                endPropagationNode: 'grassland'
+            },
+            grassland: {
+                weight: 2,
+                coreColor: 0x108907,
+                adjColor: 0x91ce7a,
+                adjFreq: 1,
+                propagation: 2,
+            },
+            deepLake: {
+                weight: 8,
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 0,
+                endPropagationNode: 'lake'
+
+            },
+            lake: {
+                weight: 1,
+                coreColor: 0x2179f4,
+                adjColor: 0x3be5f1,
+                adjFreq: 1,
+                propagation: 1,
+                endPropagationNode: 'marsh'
+            },
+            mountain: {
+                weight: 5,
+                coreColor: 0xaaaaaa,
+                adjColor: 0x555555,
+                adjFreq: 1,
+                propagation: 1,
+            },
+            desert: {
+                weight: 1,
+                coreColor: 0xEAA56C,
+                adjColor: 0xEAA5aa,
+                adjFreq: 1,
+                propagation: 1,
+            },
+            marsh: {
+                weight: 4,
+                coreColor: 0xEAA56C,
+                adjColor: 0x107260,
+                adjFreq: 1,
+                propagation: 1,
+            }
+        }
+
         WorldManager.instance = this;
         this.container = container;
-        this.container.scale.set(0.35)
-        this.width = 800
-        this.height = 800
+        this.container.scale.set(1)
+        this.width = 500
+        this.height = 500
         this.gameWorld = {
             scale: 20,
             width: this.width,
@@ -21,6 +102,8 @@ export default class WorldManager {
         this.gameWorld.width = this.width * this.gameWorld.scale
         this.gameWorld.height = this.height * this.gameWorld.scale
 
+        this.tileMapManager = new TileMapManager();
+
         this.playerInWorld = { x: 0, y: 0 }
 
         var voronoi = new Voronoi();
@@ -28,14 +111,14 @@ export default class WorldManager {
         var sites = []
 
         this.worldStats = {
-            seed: Math.round(Math.random() * 50000)
+            seed:34560// Math.round(Math.random() * 50000)
         }
         window.GUI.add(this.worldStats, 'seed').listen();
 
         this.randomGenerator = new RandomGenerator(this.worldStats.seed);
 
-        let lines = 35
-        let cols = 23
+        let lines = 25
+        let cols = 15
         let cellSize = { width: this.width / lines, height: this.height / cols }
         for (let i = 0; i <= lines; i++) {
             for (let j = 0; j <= cols; j++) {
@@ -148,25 +231,17 @@ export default class WorldManager {
             idAccum++;
         });
 
-        this.playerOnMap = new PIXI.Sprite.from('icon_increase')
-        this.playerOnMap.anchor.set(0.5)
-        this.container.addChild(this.playerOnMap)
+        
 
         this.currentPlayerCell = 0;
 
-        this.colors = {
-            boss: 0xFF0000,
-            bossArround: 0xaa3333,
-            srhine: 0xaa33FF,
-            srhineAdj: 0xee33FF,
-        }
         ////////FIND BOSS
         this.bossCell = this.findCellByPosition([this.width / 2, this.height / 2])
         this.busyTiles[this.bossCell.id] = 10
-        this.applyColorToCell(this.bossCell, this.colors.boss)
+        this.setBiomeToCell(this.bossCell, this.biomes.boss)
         this.bossCell.neighbors.forEach(element => {
             this.busyTiles[element] = 10
-            this.applyColorToCell(this.currentWorldData.cells[element], this.colors.bossArround)
+            this.setBiomeToCell(this.currentWorldData.cells[element], this.biomes.boss, true)
         });
         this.shrines = [];
         let startAngle = Math.PI * 2 * this.randomGenerator.random();
@@ -176,74 +251,12 @@ export default class WorldManager {
             if (!shrine) continue
             this.busyTiles[shrine.id] = 10
 
-            this.applyColorToCell(shrine, this.colors.srhine)
+            this.setBiomeToCell(shrine, this.biomes.shrine)
             startAngle += Math.PI * 2 / totalShrines + this.randomGenerator.random() * 0.1;
             this.shrines.push(shrine)
         }
 
-        this.biomes = {
-            denseForest: {
-                weight: 3,                
-                coreColor: 0x108907,
-                adjColor: 0x558955,
-                adjFreq: 1,
-                propagation: 0,
-                endPropagationNode: 'forest'
-            },
-            forest: {
-                weight: 3,                
-                coreColor: 0x108907,
-                adjColor: 0x558955,
-                adjFreq: 1,
-                propagation: 2,
-                endPropagationNode: 'grassland'
-            },
-            grassland: {
-                weight: 2,                
-                coreColor: 0x108907,
-                adjColor: 0x91ce7a,
-                adjFreq: 1,
-                propagation: 2,
-            },
-            deepLake: {
-                weight: 8,                
-                coreColor: 0x2179f4,
-                adjColor: 0x3be5f1,
-                adjFreq: 1,
-                propagation: 0,
-                endPropagationNode: 'lake'
 
-            },
-            lake: {
-                weight: 1,                
-                coreColor: 0x2179f4,
-                adjColor: 0x3be5f1,
-                adjFreq: 1,
-                propagation: 1,
-                endPropagationNode: 'marsh'
-            },
-            mountain: {
-                weight: 5,                
-                coreColor: 0xaaaaaa,
-                adjColor: 0x555555,
-                adjFreq: 1,
-                propagation: 1,
-            },
-            desert: {
-                weight: 1,                
-                coreColor: 0xEAA56C,
-                adjColor: 0xEAA5aa,
-                adjFreq: 1,
-                propagation: 1,
-            },
-            marsh: {
-                weight: 4,                
-                coreColor: 0xEAA56C,
-                adjColor: 0x107260,
-                adjFreq: 1,
-                propagation: 1,
-            }
-        }
         this.mapBuildData = [
             {
                 total: Math.floor(lines * 0.5),
@@ -277,7 +290,7 @@ export default class WorldManager {
                 if (!cell) continue
 
                 element.cells.push(cell)
-                this.applyColorToCell(cell, biome.coreColor)
+                this.setBiomeToCell(cell, biome)
                 this.busyTiles[cellID] = biome.weight
                 this.applyNeighbors(cell, biome, biome.propagation)
             }
@@ -288,13 +301,31 @@ export default class WorldManager {
         for (let index = 0; index < 3; index++) {
             this.currentWorldData.cells.forEach(element => {
                 if (this.busyTiles[element.id] >= 0) {
-                    this.drawCell(element)
+                    //this.drawCell(element)
                 } else {
                     element.isHole = true;
                 }
             });
             this.findIsolated()
         }
+
+
+        let view = this.tileMapManager.buildMap(this.currentWorldData, this);
+
+        this.container.addChild(view)
+
+        //view.y = 800
+
+       // view.scale.set(0.5)
+
+        //view.alpha = 0.5
+
+        this.playerOnMap = new PIXI.Sprite.from('icon_increase')
+        this.playerOnMap.anchor.set(0.5)
+        this.container.addChild(this.playerOnMap)
+
+    }
+    drawTilemap() {
 
     }
     drawCell(cell) {
@@ -336,7 +367,7 @@ export default class WorldManager {
             if (this.busyTiles[neighbor] < element.weight && this.randomGenerator.random() < element.adjFreq) {
 
                 this.busyTiles[neighbor] = element.weight
-                this.applyColorToCell(this.currentWorldData.cells[neighbor], element.adjColor)
+                this.setBiomeToCell(this.currentWorldData.cells[neighbor], element, true)
 
                 if (propagation > 0) {
                     this.applyNeighbors(this.currentWorldData.cells[neighbor], element, propagation - 1)
@@ -349,8 +380,10 @@ export default class WorldManager {
     get scale() {
         return this.gameWorld.scale
     }
-    applyColorToCell(cell, color) {
-        cell.color = color
+    setBiomeToCell(cell, biome, isAdj = false) {
+        cell.color = isAdj ? biome.adjColor : biome.coreColor;
+        cell.biome = biome;
+        cell.isAdj = isAdj;        
         if (cell.view) {
             cell.view.tint = cell.color
         }
@@ -384,9 +417,14 @@ export default class WorldManager {
         for (let index = 0; index < this.currentWorldData.cells.length; index++) {
             const cellPoints = this.currentWorldData.cells[index].pointsArray;
             if (this.inside(point, cellPoints)) {
+                if (Array.isArray(this.currentWorldData.cells[index])) {
+                    console.log(this.currentWorldData.cells[index])
+                    return null;
+                }
                 return this.currentWorldData.cells[index];
             }
         }
+        return null;
     }
     onBounds(edge) {
         return edge.x > 0 && edge.x < this.width && edge.y > 0 && edge.y < this.height
@@ -416,8 +454,8 @@ export default class WorldManager {
                 let neighbor = this.currentWorldData.cells[neighborId]
                 if (this.inside(playerArrayPosition, neighbor.pointsArray)) {
                     if (this.currentWorldData.cells[this.currentPlayerCell].view) {
+                        this.currentWorldData.cells[this.currentPlayerCell].view.tint = this.currentWorldData.cells[this.currentPlayerCell].color;
                     }
-                    this.currentWorldData.cells[this.currentPlayerCell].view.tint = this.currentWorldData.cells[this.currentPlayerCell].color;
                     return neighborId;
                 }
             }
@@ -434,6 +472,7 @@ export default class WorldManager {
         }
 
         this.currentPlayerCell = this.findPlayerCell();
+
         if (this.currentWorldData.cells[this.currentPlayerCell].view) {
             this.currentWorldData.cells[this.currentPlayerCell].view.tint = 0xFFFFFF;
         }

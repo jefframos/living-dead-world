@@ -34,7 +34,7 @@ export default class InputModule extends GameObject {
 
         this.marker = new PIXI.Graphics().beginFill(0xff66FF).drawCircle(0, 0, 10)
 
-        this.container.addChild(this.marker);
+        //this.container.addChild(this.marker);
         this.container.interactive = true;
 
         this.container.on("pointermove", (e) => {

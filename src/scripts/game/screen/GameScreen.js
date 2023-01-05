@@ -17,6 +17,7 @@ import Screen from '../../screenManager/Screen'
 import Sensor from '../core/Sensor';
 import Signals from 'signals';
 import StaticPhysicObject from '../entity/StaticPhysicObject';
+import Trees from '../entity/Trees';
 import TouchAxisInput from '../modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
@@ -24,6 +25,7 @@ import config from '../../config';
 import GameManager from '../manager/GameManager';
 import EffectsManager from '../manager/EffectsManager';
 import WorldManager from '../manager/WorldManager';
+import BasicFloorRender from '../manager/BasicFloorRender';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -63,30 +65,34 @@ export default class GameScreen extends Screen {
         // const text = new PIXI.BitmapText("150", { fontName: 'damage1' });
         //     this.topUI.addChild(text)
 
-        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('tile_0049'), 16, 16);
+        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 45, 45);
         this.gameplayContainer = new PIXI.Container();
         this.effectsContainer = new PIXI.Container();
 
         this.baseContainer.anchor.set(0.5)
-        this.baseContainer.tileScale.set(0.5)
+        this.baseContainer.tileScale.set(2.5)
         this.baseContainer.width = 5000
         this.baseContainer.height = 5000
         //this.baseContainer.tint = 0x333333
-        this.container.addChild(this.baseContainer)
+        //this.container.addChild(this.baseContainer)
         this.container.addChild(this.gameplayContainer)
         this.container.addChild(this.effectsContainer)
 
+        this.gameEngine = new Engine();
+
+
         this.worldTestContainer = new PIXI.Container();
-        this.worldManager = new WorldManager(this.worldTestContainer)
+        //this.worldManager = new WorldManager(this.worldTestContainer)
         this.addChild(this.worldTestContainer)
 
 
-        this.gameEngine = new Engine();
+
         this.physics = this.gameEngine.physics
         this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer))
-        this.inputModule = this.gameEngine.addGameObject(new InputModule( this))
+        this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
+
 
         this.followPoint = { x: 0, y: 0 }
         this.camera.setFollowPoint(this.followPoint)
@@ -197,40 +203,41 @@ export default class GameScreen extends Screen {
             let enemy = GameManager.instance.addEntity(BaseEnemy, true)
             //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
             let angle = Math.PI * 2 * Math.random();
-            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width
-            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height
+            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
+            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height+ Math.random() * 300
 
         }
     }
     build(param) {
         super.build();
         this.addEvents();
-
-
         this.gameEngine.start();
-
 
         let i = 5
         let j = 8
-        let chunkX = config.width / i
-        let chunkY = config.height / j
+        let chunkX = (config.width * 2) / i
+        let chunkY = (config.height * 2) / j
         for (let index = 0; index <= i; index++) {
             for (let indexj = 0; indexj <= j; indexj++) {
-                this.gameManager.addEntity(StaticPhysicObject).build(chunkX * index, chunkY * indexj, 50, 50)
+                let targetPosition = { x: chunkX * index - 500 + (Math.random() * chunkX / 2), y: chunkY * indexj - 500 + (Math.random() * chunkY / 2) }
+                if (Math.random() < 0.5) {
+                    this.gameManager.addEntity(Trees).build(targetPosition.x, targetPosition.y, 50, 50)
+                } else {
+
+                    this.gameManager.addEntity(StaticPhysicObject).build(targetPosition.x, targetPosition.y, 50, 50)
+                }
             }
         }
 
-
-
-
         this.player = this.gameManager.addEntity(Player, true)
 
-        let firstNode = WorldManager.instance.getFirstNode();
-        console.log(firstNode.center.x)
-        this.player.setPosition(firstNode.center.x * WorldManager.instance.scale, firstNode.center.y * WorldManager.instance.scale)
-        
-        WorldManager.instance.setPlayer(this.player);
-        
+        this.worldRender = this.gameEngine.addGameObject(new BasicFloorRender())
+
+
+        //let firstNode = WorldManager.instance.getFirstNode();        
+        //this.player.setPosition(firstNode.center.x * WorldManager.instance.scale, firstNode.center.y * WorldManager.instance.scale)        
+        // WorldManager.instance.setPlayer(this.player);
+
         setTimeout(() => {
             this.camera.snapFollowPoint()
         }, 1);
@@ -252,9 +259,9 @@ export default class GameScreen extends Screen {
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         //this.addRandomAgents(1)
 
-        // for (let index = 0; index < 100; index++) {
-        //     this.addRandomAgents(1)
-        // }
+        for (let index = 0; index < 200; index++) {
+            this.addRandomAgents(1)
+        }
         // for (let index = 0; index < 100; index++) {
         //     this.addRandomAgents(1)
         // }
@@ -286,7 +293,7 @@ export default class GameScreen extends Screen {
             //this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
         }
 
-        WorldManager.instance.update(delta);
+        //WorldManager.instance.update(delta);
     }
     transitionOut(nextScreen) {
         this.removeEvents();

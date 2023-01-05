@@ -103,6 +103,22 @@ const processFolder = function (mPath, mSettings, mCallback) {
 		}
 
 		let outputPath = path.resolve(paths.destination.image);
+
+		let bracketsIndex = settings.outputFolderName.indexOf('{')
+		let bracketsEnd = settings.outputFolderName.indexOf('}')
+
+		if (bracketsIndex >= 0) {
+			settings.outputFolderName = settings.outputFolderName.replace(settings.outputFolderName.substring(bracketsIndex, bracketsEnd + 1), "");
+		}
+
+
+		bracketsIndex = settings.relativePath.indexOf('{')
+		bracketsEnd = settings.relativePath.indexOf('}')
+
+		if (bracketsIndex >= 0) {
+			settings.relativePath = settings.relativePath.replace(settings.relativePath.substring(bracketsIndex, bracketsEnd + 1), "");
+		}
+
 		outputPath = path.resolve(outputPath, settings.relativePath);
 
 		const { files, dir } = sources;
@@ -127,8 +143,6 @@ const processFolder = function (mPath, mSettings, mCallback) {
 					});
 
 					if (settings.outputFolderName.indexOf('{n}') >= 0) {
-						//console.log(settings.outputFolderName, settings.outputFolderName.indexOf('{n}') );
-
 						let tempFile = settings.outputFolderName.replace('{n}', '');
 						for (let index = 0; index < 20; index++) {
 							let file = 'image/' + tempFile + index + '/' + tempFile + index + '.json'
