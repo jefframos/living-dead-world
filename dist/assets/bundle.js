@@ -55217,26 +55217,33 @@ var InputModule = function (_GameObject) {
         _this.container.on("pointermove", function (e) {
 
             //it might change if this is landscape
-            _this.marker.x = e.data.global.x / _this.container.worldTransform.a - _this.container.worldTransform.tx / _this.container.worldTransform.a;
-            _this.marker.y = e.data.global.y - _this.container.worldTransform.ty;
-
-            _this.globalMousePos.x = e.data.global.x / _this.container.worldTransform.a - _this.container.worldTransform.tx / _this.container.worldTransform.a;
-            _this.globalMousePos.y = e.data.global.y - _this.container.worldTransform.ty;
+            _this.sortPosition(e);
         });
 
         _this.container.on("pointerdown", function (e) {
 
+            _this.sortPosition(e);
             _this.mouseDown = true;
         });
 
         _this.container.on("pointerup", function (e) {
 
+            _this.sortPosition(e);
             _this.mouseDown = false;
         });
         return _this;
     }
 
     (0, _createClass3.default)(InputModule, [{
+        key: "sortPosition",
+        value: function sortPosition(e) {
+            this.marker.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a;
+            this.marker.y = e.data.global.y - this.container.worldTransform.ty;
+
+            this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a;
+            this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty;
+        }
+    }, {
         key: "start",
         value: function start() {
 
@@ -71886,9 +71893,16 @@ var GameScreen = function (_Screen) {
                 key: 'update',
                 value: function update(delta) {
                         this.gameEngine.update(delta);
-                        this.inputModule.touchAxisDown = this.touchAxisInput.dragging;
-                        if (this.touchAxisInput.angle) {}
-                        this.inputModule.direction = this.touchAxisInput.angle;
+
+                        if (window.isMobile) {
+
+                                this.inputModule.touchAxisDown = this.touchAxisInput.dragging;
+                                if (this.touchAxisInput.angle) {}
+                                this.inputModule.direction = this.touchAxisInput.angle;
+                                this.touchAxisInput.visible = true;
+                        } else {
+                                this.touchAxisInput.visible = false;
+                        }
 
                         this.stats.text = 'FPS: ' + window.FPS + '\nPhys: ' + this.physics.physicsStats.totalPhysicsEntities;
                         if (this.player) {
@@ -81631,14 +81645,14 @@ var assets = [{
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
+	"id": "baseGameConfigMonster",
+	"url": "assets/json\\baseGameConfigMonster.json"
+}, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
 }, {
 	"id": "fairies",
 	"url": "assets/json\\fairies.json"
-}, {
-	"id": "baseGameConfigMonster",
-	"url": "assets/json\\baseGameConfigMonster.json"
 }, {
 	"id": "humans",
 	"url": "assets/json\\humans.json"
@@ -81646,20 +81660,20 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -81667,14 +81681,14 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
+}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
-}, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "monsters",
 	"url": "assets/json\\monsters.json"
@@ -81682,8 +81696,8 @@ var assets = [{
 	"id": "resources",
 	"url": "assets/json\\resources.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }];
 
 exports.default = assets;
@@ -81716,7 +81730,7 @@ module.exports = exports['default'];
 /* 224 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/particles/particles.json","image/terrain/terrain.json","image/texture/texture.json","image/environment/environment.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/terrain/terrain.json","image/environment/environment.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

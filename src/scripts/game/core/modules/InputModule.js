@@ -38,24 +38,28 @@ export default class InputModule extends GameObject {
         this.container.on("pointermove", (e) => {
 
             //it might change if this is landscape
-            this.marker.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
-            this.marker.y = e.data.global.y - this.container.worldTransform.ty
-
-            this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
-            this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty
+            this.sortPosition(e)
         })
 
         this.container.on("pointerdown", (e) => {
 
+            this.sortPosition(e)
             this.mouseDown = true;
         })
 
         this.container.on("pointerup", (e) => {
 
+            this.sortPosition(e)
             this.mouseDown = false;
         })
     }
+    sortPosition(e) {
+        this.marker.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
+        this.marker.y = e.data.global.y - this.container.worldTransform.ty
 
+        this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
+        this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty
+    }
     start() {
 
         // this.physicsModule = this.engine.findByType(PhysicsModule)

@@ -271,10 +271,17 @@ export default class GameScreen extends Screen {
     }
     update(delta) {
         this.gameEngine.update(delta)
-        this.inputModule.touchAxisDown = this.touchAxisInput.dragging
-        if (this.touchAxisInput.angle) {
+
+        if(window.isMobile){
+
+            this.inputModule.touchAxisDown = this.touchAxisInput.dragging
+            if (this.touchAxisInput.angle) {
+            }
+            this.inputModule.direction = this.touchAxisInput.angle
+            this.touchAxisInput.visible = true;
+        }else{
+            this.touchAxisInput.visible = false;
         }
-        this.inputModule.direction = this.touchAxisInput.angle
 
         this.stats.text = 'FPS: '+window.FPS +'\nPhys: '+this.physics.physicsStats.totalPhysicsEntities
         if (this.player) {
