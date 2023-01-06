@@ -6,7 +6,7 @@ import Pool from './utils/Pool';
 
 export default class Eugine {
     constructor() {
-        this.entityAdded2 = new signals.Signal()
+        this.entityAdded = new signals.Signal()
         this.gameObjects = []
         this.parentGameObject = new GameObject();
         this.physics = this.addGameObject(new PhysicsModule())
@@ -19,42 +19,42 @@ export default class Eugine {
         this.started = false;
 
     }
-    static RemoveFromListById(list, gameObject){
+    static RemoveFromListById(list, gameObject) {
         for (let index = 0; index < list.length; index++) {
             const element = list[index];
-            if(element.engineID == gameObject.engineID){
+            if (element.engineID == gameObject.engineID) {
                 list.splice(index, 1)
                 break
             }
-            
+
         }
     }
-    addCamera(camera){
+    addCamera(camera) {
         this.camera = this.addGameObject(camera);
 
         return this.camera;
     }
-    poolGameObject(constructor, rebuild){
+    poolGameObject(constructor, rebuild) {
         let element = Pool.instance.getElement(constructor)
-        if(element.removeAllSignals){
+        if (element.removeAllSignals) {
             element.removeAllSignals();
         }
 
         element.engine = this;
         element.enable()
         let go = this.addGameObject(element);
-        if(rebuild){
+        if (rebuild) {
             element.build();
         }
         return go;
     }
-    poolAtRandomPosition(constructor, rebuild, bounds){
+    poolAtRandomPosition(constructor, rebuild, bounds) {
         let element = Pool.instance.getElement(constructor)
         element.engine = this;
-     
+
         element.enable()
         let go = this.addGameObject(element);
-        if(rebuild){
+        if (rebuild) {
             go.build();
         }
         go.x = Math.random() * (bounds.maxX - bounds.minX) + bounds.minX
@@ -66,30 +66,26 @@ export default class Eugine {
 
         gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
         gameObject.childAdded.add(this.addGameObject.bind(this))
-        //gameObject.rigidbodyAdded.add(this.addRigidBody.bind(this))
 
         this.gameObjects.push(gameObject);
         this.parentGameObject.addChild(gameObject)
-        
-        // if(gameObject.rigidBody){
-        //     this.addRigidBody(gameObject)
-        // }
 
         for (let index = 0; index < gameObject.children.length; index++) {
             const element = gameObject.children[index];
-            if(element instanceof GameObject){
+            if (element instanceof GameObject) {
                 element.engine = this;
             }
         }
 
-        if(this.started){
+        if (this.started) {
 
             gameObject.start()
         }
-        this.entityAdded2.dispatch([gameObject])
+
+        this.entityAdded.dispatch([gameObject])
         return gameObject;
     }
-    addRigidBody(gameObject){
+    addRigidBody(gameObject) {
         this.physics.addAgent(gameObject)
     }
     destroyGameObject(gameObject) {
@@ -98,8 +94,8 @@ export default class Eugine {
     wipeGameObject(gameObject) {
 
         Eugine.RemoveFromListById(this.gameObjects, gameObject)
-        
-        if(gameObject.rigidBody){
+
+        if (gameObject.rigidBody) {
             this.physics.removeAgent(gameObject)
         }
     }
@@ -116,7 +112,7 @@ export default class Eugine {
         return elementFound;
     }
     start() {
-        if(this.started) {
+        if (this.started) {
             return
         }
         this.started = true
@@ -126,7 +122,7 @@ export default class Eugine {
     }
 
     update(delta) {
-        if(!this.started) {
+        if (!this.started) {
             return
         }
         this.gameObjects.forEach(element => {

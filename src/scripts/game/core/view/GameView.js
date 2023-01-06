@@ -17,22 +17,5 @@ export default class GameView {
         return this.view.y
     }
     update(delta) {
-        //THE CAMERA IS DOING THIS
-
-
-        // if (this.view) {
-        //     this.view.x = this.gameObject.transform.position.x + this.viewOffset.x
-        //     this.view.y = this.gameObject.transform.position.y + this.viewOffset.y
-
-
-        //     // if (this.gameObject.physics.magnitude > 0) {
-        //     //     this.anchorOffset += delta * 10;
-        //     //     this.anchorOffset %= Math.PI
-        //     // } else {
-        //     //     this.anchorOffset = utils.lerp(this.anchorOffset, 0, 0.5)
-        //     // }
-        //     //  this.view.anchor.y = 1 + Math.sin(this.anchorOffset) * 0.5
-
-        // }
     }
 }

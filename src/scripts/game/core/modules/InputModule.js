@@ -32,6 +32,8 @@ export default class InputModule extends GameObject {
 
         this.marker = new PIXI.Graphics().beginFill(0xff66FF).drawCircle(0, 0, 10)
 
+        this.onKeyUp = new signals.Signal();
+
         //this.container.addChild(this.marker);
         this.container.interactive = true;
 
@@ -54,6 +56,7 @@ export default class InputModule extends GameObject {
         })
     }
     sortPosition(e) {
+        
         this.marker.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
         this.marker.y = e.data.global.y - this.container.worldTransform.ty
 
@@ -96,10 +99,11 @@ export default class InputModule extends GameObject {
         }
 
         this.direction = Math.atan2(this.axis.y, this.axis.x)
+
+        this.onKeyUp.dispatch(e);
     }
 
     getUpKey(e) {
-        console.log(this.axis)
         if (e.keyCode === 83 || e.keyCode === 40) {
             this.axis.y = 0
         }

@@ -16,6 +16,7 @@ import TouchAxisInput from '../core/modules/TouchAxisInput';
 import Trees from '../entity/Trees';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
+import WorldSystem from '../manager/WorldSystem';
 import config from '../../config';
 
 export default class GameScreen extends Screen {
@@ -220,6 +221,10 @@ export default class GameScreen extends Screen {
         this.addEvents();
         this.gameEngine.start();
 
+
+        this.worldSystem = this.gameEngine.poolGameObject(WorldSystem, true);
+
+
         let i = 5
         let j = 8
         let chunkX = (config.width * 2) / i
@@ -250,39 +255,10 @@ export default class GameScreen extends Screen {
 
         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
-        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width / 2, config.height, config.width, 60)
-        // this.gameEngine.poolGameObject(StaticPhysicObject).build(-20, config.height / 2, 30, config.height)
-        // this.gameEngine.poolGameObject(StaticPhysicObject).build(config.width, config.height / 2, 30, config.height)
-
-
-        // let a = this.gameEngine.poolGameObject(BaseEnemy, true)
-        // a.setPosition(config.width / 2, config.height / 2 - 100)
-        // console.log(a)
-        // this.gameEngine.poolGameObject(BaseEnemy, true).setPosition(config.width / 2, config.height / 2 - 100)
-        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
-        //this.addRandomAgents(1)
-
+      
         for (let index = 0; index < 600; index++) {
             this.addRandomAgents(1)
         }
-        // for (let index = 0; index < 100; index++) {
-        //     this.addRandomAgents(1)
-        // }
-        // console.log(GameObject.Pool.pool)
-
-        // setTimeout(() => {
-        //     this.destroyRandom(50)
-        //     console.log(GameObject.Pool.pool)
-        // }, 100);
-
-        // setTimeout(() => {
-        //     this.addRandomAgents(30)
-        //     console.log(GameObject.Pool.pool)
-        // }, 500);
-
     }
     update(delta) {
         delta *= this.debug.timeScale;

@@ -14,13 +14,12 @@ export default class Player extends GameAgent {
     static Deaths = 0;
     constructor() {
         super();
-        
+
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
         this.gameView.view = new PIXI.Sprite.from('tile_0085')
-        //this.setDebug(15)
-
+        //this.setDebug(15)        
         this.playerStats = {
             health: 0,
             deaths: 0
@@ -61,10 +60,10 @@ export default class Player extends GameAgent {
     }
     onSensorTrigger(element) {
     }
-    die(){
+    die() {
         super.die();
 
-        Player.Deaths ++;
+        Player.Deaths++;
     }
     start() {
         this.input = this.engine.findByType(InputModule)
@@ -72,12 +71,12 @@ export default class Player extends GameAgent {
     }
 
     collisionEnter(collided) {
-        if(collided.layerCategory != Layer.Enemy)  return;
-        if(this.findInCollision(collided)) return;        
-        this.currentEnemiesColliding.push({entity:collided, timer:0});
+        if (collided.layerCategory != Layer.Enemy) return;
+        if (this.findInCollision(collided)) return;
+        this.currentEnemiesColliding.push({ entity: collided, timer: 0 });
     }
     collisionExit(collided) {
-        if(collided.layerCategory != Layer.Enemy)  return;
+        if (collided.layerCategory != Layer.Enemy) return;
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
@@ -118,14 +117,14 @@ export default class Player extends GameAgent {
         }
 
         this.currentEnemiesColliding.forEach(element => {
-            if(element.timer <= 0){
+            if (element.timer <= 0) {
                 this.damage(10);
                 element.timer = 1;
-            }else{
+            } else {
                 element.timer -= delta;
             }
         });
-        
+
         this.playerStats.health = this.health.currentHealth
         this.playerStats.deaths = Player.Deaths
 

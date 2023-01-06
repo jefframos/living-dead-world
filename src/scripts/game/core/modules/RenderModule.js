@@ -7,6 +7,7 @@ export default class RenderModule extends GameObject {
         Base: 'base',
         Debug: 'debug',
         Default: 'default',
+        Building: 'building',
         Gameplay: 'gameplay',
         Particles: 'particles'
     }
@@ -48,7 +49,7 @@ export default class RenderModule extends GameObject {
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
         //this.physics.entityAdded.add(this.newEntityAdded.bind(this))
-        this.engine.entityAdded2.add(this.newEntityAdded.bind(this))
+        this.engine.entityAdded.add(this.newEntityAdded.bind(this))
     }
     newEntityAdded(entities) {
         entities.forEach(element => {

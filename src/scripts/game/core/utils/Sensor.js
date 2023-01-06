@@ -20,7 +20,6 @@ export default class Sensor extends PhysicsEntity {
 
         this.layerCategory = Layer.Sensor
         this.layerMask = Layer.Enemy - Layer.Player// &! Layer.Environment
-        console.log("DOESNT WORK PROPERLY")
 
     }
     collisionExit(collided) {
