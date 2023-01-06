@@ -1,15 +1,10 @@
 import BaseEnemy from "./BaseEnemy";
-import Engine from "../core/Engine";
-import GameAgent from "../modules/GameAgent";
-import GameView from "../core/GameView";
-import InputModule from "../modules/InputModule";
-import Layer from "../core/Layer";
-import Matter from "matter-js";
-import PhysicsEntity from "../modules/PhysicsEntity";
-import PhysicsModule from "../modules/PhysicsModule";
-import StandardZombie from "./StandardZombie";
-import config from "../../config";
 import GameManager from "../manager/GameManager";
+import GameView from "../core/view/GameView";
+import Layer from "../core/Layer";
+import PhysicsEntity from "../core/physics/PhysicsEntity";
+import PhysicsModule from "../core/modules/PhysicsModule";
+import config from "../../config";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -33,7 +28,9 @@ export default class Bullet extends PhysicsEntity {
         this.rigidBody.collisionFilter.mask = 3
 
 
-        this.lifeSpan = 0.85
+        this.lifeSpan = 99999
+
+        this.distanceSpan = 300;
 
         this.layerCategory = Layer.Bullet
         this.layerMask = Layer.BulletCollision
@@ -89,6 +86,13 @@ export default class Bullet extends PhysicsEntity {
         super.update(delta)
         this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta
         this.physics.velocity.y = Math.sin(this.angle) * this.speed * delta
+
+
+        this.distanceSpan -= this.speed * delta;
+        if (this.distanceSpan <= 0) {
+            this.destroy()
+        }
+
         this.lifeSpan -= delta
         if (this.lifeSpan <= 0) {
             this.destroy()

@@ -2,30 +2,21 @@ import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
-import CameraModule from '../modules/CameraModule';
-import Engine from '../core/Engine';
-import Game from '../../Game'
-import GameAgent from '../modules/GameAgent';
-import GameObject from '../core/GameObject';
-import InputModule from '../modules/InputModule';
-import Matter from 'matter-js';
+import BasicFloorRender from '../manager/BasicFloorRender';
+import EffectsManager from '../manager/EffectsManager';
+import Eugine from '../core/Eugine';
+import GameManager from '../manager/GameManager';
+import InputModule from '../core/modules/InputModule';
 import PerspectiveCamera from '../core/PerspectiveCamera';
-import PhysicsModule from '../modules/PhysicsModule';
 import Player from '../entity/Player';
-import RenderModule from '../modules/RenderModule';
+import RenderModule from '../core/modules/RenderModule';
 import Screen from '../../screenManager/Screen'
-import Sensor from '../core/Sensor';
-import Signals from 'signals';
 import StaticPhysicObject from '../entity/StaticPhysicObject';
+import TouchAxisInput from '../core/modules/TouchAxisInput';
 import Trees from '../entity/Trees';
-import TouchAxisInput from '../modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import config from '../../config';
-import GameManager from '../manager/GameManager';
-import EffectsManager from '../manager/EffectsManager';
-import WorldManager from '../manager/WorldManager';
-import BasicFloorRender from '../manager/BasicFloorRender';
 
 export default class GameScreen extends Screen {
     constructor(label) {
@@ -78,7 +69,7 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.gameplayContainer)
         this.container.addChild(this.effectsContainer)
 
-        this.gameEngine = new Engine();
+        this.gameEngine = new Eugine();
 
 
         this.worldTestContainer = new PIXI.Container();
@@ -100,7 +91,7 @@ export default class GameScreen extends Screen {
         this.gameManager = new GameManager(this.gameEngine);
 
         this.debug = {
-            removeRandomPiece: () => {
+            REMOVE_ENEMIES: () => {
 
                 //this.destroyRandom(1);
 
@@ -112,7 +103,7 @@ export default class GameScreen extends Screen {
 
                 }
             },
-            addRandomPiece: () => {
+            ADD_ENEMIES: () => {
                 //this.addRandomAgents(1);
 
                 //return
@@ -124,8 +115,8 @@ export default class GameScreen extends Screen {
                 }
             }
         }
-        window.GUI.add(this.debug, 'removeRandomPiece');
-        window.GUI.add(this.debug, 'addRandomPiece');
+        window.GUI.add(this.debug, 'REMOVE_ENEMIES');
+        window.GUI.add(this.debug, 'ADD_ENEMIES');
 
         //window.GUI.close()
 
@@ -168,8 +159,8 @@ export default class GameScreen extends Screen {
 
         this.stats = new PIXI.Text('fps')
         this.stats.style.fill = 0xFFFFFF
-        this.stats.style.fontSize = 22
-        this.stats.style.align = 'left'
+        this.stats.style.fontSize = 20
+        this.stats.style.align = 'right'
         this.stats.anchor.set(1)
         this.helperButtonList.addElement(this.stats)
 
@@ -285,7 +276,7 @@ export default class GameScreen extends Screen {
         }
         this.inputModule.direction = this.touchAxisInput.angle
 
-        this.stats.text = window.FPS
+        this.stats.text = 'FPS: '+window.FPS +'\nPhys: '+this.physics.physicsStats.totalPhysicsEntities
         if (this.player) {
             this.followPoint.x = this.player.gameView.view.position.x
             this.followPoint.y = this.player.gameView.view.position.y

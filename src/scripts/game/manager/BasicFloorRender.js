@@ -1,7 +1,7 @@
-import GameObject from "../core/GameObject";
-import GameView from "../core/GameView";
+import GameObject from "../core/gameObject/GameObject";
+import GameView from "../core/view/GameView";
 import Player from "../entity/Player";
-import RenderModule from "../modules/RenderModule";
+import RenderModule from "../core/modules/RenderModule";
 import WorldManager from "./WorldManager";
 
 export default class BasicFloorRender extends GameObject {

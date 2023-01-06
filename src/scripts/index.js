@@ -1,20 +1,26 @@
-import globals from './globals';
-import plugins from './plugins';
 import * as PIXI from 'pixi.js';
-window.PIXI = PIXI;
-import Game from './Game';
-import LocalStorage from './game/data/LocalStorage';
-import CookieManager from './game/CookieManager';
 
-import SoundManager from './soundManager/SoundManager'
-import SoundManagerCordova from './soundManager/SoundManagerCordova'
-import jsonManifest from './manifests/manifest-json'
-import imageManifest from './manifests/manifest-image'
-import audioManifest from './manifests/manifest-audio'
-import spritesheetManifest from './manifests/manifest'
+import CookieManager from './game/CookieManager';
+import Game from './Game';
 import MainScreenManager from './game/screen/MainScreenManager';
+import SoundManager from './soundManager/SoundManager'
+import audioManifest from './manifests/manifest-audio'
+import globals from './globals';
+import jsonManifest from './manifests/manifest-json'
+import plugins from './plugins';
 import signals from 'signals';
-import LocalizationManager from './game/LocalizationManager';
+import spritesheetManifest from './manifests/manifest'
+
+window.PIXI = PIXI;
+
+
+
+
+
+
+
+
+
 
 
 window.noPoki = true;
@@ -23,7 +29,6 @@ window.noPoki = true;
 window.onAdds = new signals.Signal();
 window.onStopAdds = new signals.Signal();
 
-window.STORAGE = new LocalStorage();
 
 window.GAME_ID = 572860816402905
 

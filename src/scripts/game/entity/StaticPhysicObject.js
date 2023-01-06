@@ -1,6 +1,6 @@
-import GameView from "../core/GameView";
+import GameView from "../core/view/GameView";
 import Layer from "../core/Layer";
-import PhysicsEntity from "../modules/PhysicsEntity";
+import PhysicsEntity from "../core/physics/PhysicsEntity";
 
 export default class StaticPhysicObject extends PhysicsEntity {
     constructor() {

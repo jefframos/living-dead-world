@@ -1,8 +1,9 @@
-import GameObject from "../core/GameObject";
-import ParticleEmitter from "../particleSystem/ParticleEmitter";
-import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
-import AlphaBehaviour from "../particleSystem/ParticleBehaviour/AlphaBehaviour";
-import ColorBehaviour from "../particleSystem/ParticleBehaviour/ColorBehaviour";
+import AlphaBehaviour from "../components/particleSystem/particleBehaviour/AlphaBehaviour";
+import ColorBehaviour from "../components/particleSystem/particleBehaviour/ColorBehaviour";
+import GameObject from "../core/gameObject/GameObject";
+import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
+import ParticleEmitter from "../components/particleSystem/ParticleEmitter";
+
 export default class EffectsManager extends GameObject {
     static instance;
     constructor(container, gameContainer) {
@@ -18,13 +19,12 @@ export default class EffectsManager extends GameObject {
         //the descriptor is on the enemy
         this.smallFireDescriptor = new ParticleDescriptor(
             {
-                velocityX: [-10, 10],
-                velocityY: [-150, -180],
+                velocityX: [-100, 100],
+                velocityY: [-50, -180],
                 gravity: 200,
                 scale: [0.8, 0.5],
                 lifeSpan: [1, 1.5],
                 tint:0xff0000,
-                //blendMode: PIXI.BLEND_MODES.ADD,
                 texture: PIXI.Texture.from('spark2')
             }
         )

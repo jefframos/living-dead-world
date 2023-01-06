@@ -1,4 +1,4 @@
-import GameAgent from "../modules/GameAgent";
+import GameAgent from "../core/entity/GameAgent";
 import Layer from "../core/Layer";
 
 export default class StandardZombie extends GameAgent {

@@ -1,10 +1,9 @@
-
-import { generate } from "tguesdon-island-generator"
-import Voronoi from "voronoi";
-import utils from "../../utils";
-import RandomGenerator from "../core/RandomGenerator";
+import RandomGenerator from "../core/utils/RandomGenerator";
 import TileMapManager from "./TileMapManager";
+import Voronoi from "voronoi";
 import grahamScan from "graham-scan";
+import utils from "../../utils";
+
 export default class WorldManager {
     static instance;
 

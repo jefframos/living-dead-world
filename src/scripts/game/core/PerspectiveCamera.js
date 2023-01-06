@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import Camera from './Camera';
-import RenderModule from '../modules/RenderModule';
+import RenderModule from './modules/RenderModule';
 import utils from '../../utils';
 
 export default class PerspectiveCamera extends Camera {
@@ -12,10 +12,7 @@ export default class PerspectiveCamera extends Camera {
         }
         for (const key in this.cam) {
             if (Object.hasOwnProperty.call(this.cam, key)) {
-
-                window.GUI.add(this.cam, key).listen();
-
-
+                //window.GUI.add(this.cam, key).listen();
             }
         }
     }

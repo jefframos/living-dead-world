@@ -1,5 +1,5 @@
 import GameObject from "../core/GameObject";
-import GameView from "../core/GameView";
+import GameView from "../core/view/GameView";
 import Player from "../entity/Player";
 import RenderModule from "../modules/RenderModule";
 import WorldManager from "./WorldManager";

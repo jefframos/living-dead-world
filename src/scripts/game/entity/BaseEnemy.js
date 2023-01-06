@@ -1,7 +1,6 @@
-import GameAgent from "../modules/GameAgent";
+import GameAgent from "../core/entity/GameAgent";
 import Layer from "../core/Layer";
 import Player from "./Player";
-import RenderModule from "../modules/RenderModule";
 import SpriteJump from "../components/SpriteJump";
 
 export default class BaseEnemy extends GameAgent {

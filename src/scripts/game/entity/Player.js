@@ -1,15 +1,13 @@
 import Bullet from "./Bullet";
-import Game from "../../Game";
-import GameAgent from "../modules/GameAgent";
-import InputModule from "../modules/InputModule";
+import GameAgent from "../core/entity/GameAgent";
+import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
-import Matter from "matter-js";
-import PhysicsModule from "../modules/PhysicsModule";
-import RenderModule from "../modules/RenderModule";
-import Sensor from "../core/Sensor";
-import utils from "../../utils";
-import config from "../../config";
+import PhysicsModule from "../core/modules/PhysicsModule";
+import RenderModule from "../core/modules/RenderModule";
+import Sensor from "../core/utils/Sensor";
 import SpriteJump from "../components/SpriteJump";
+import config from "../../config";
+import utils from "../../utils";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;

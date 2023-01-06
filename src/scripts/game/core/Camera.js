@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-import GameObject from './GameObject';
+import GameObject from './gameObject/GameObject';
 
 export default class Camera extends GameObject{
     constructor(){

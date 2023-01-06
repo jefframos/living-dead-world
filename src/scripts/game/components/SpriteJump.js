@@ -1,5 +1,5 @@
 import signals from 'signals';
-import BaseComponent from '../core/BaseComponent';
+import BaseComponent from '../core/gameObject/BaseComponent';
 
 export default class SpriteJump extends BaseComponent{
     constructor() {

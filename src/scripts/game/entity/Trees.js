@@ -1,4 +1,4 @@
-import GameView from "../core/GameView";
+import GameView from "../core/view/GameView";
 import Layer from "../core/Layer";
 import StaticPhysicObject from "./StaticPhysicObject";
 
