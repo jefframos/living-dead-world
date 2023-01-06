@@ -11,20 +11,31 @@ import utils from "../../utils";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
+    static Deaths = 0;
     constructor() {
         super();
-        Player.MainPlayer = this;
+        
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
         this.gameView.view = new PIXI.Sprite.from('tile_0085')
         //this.setDebug(15)
 
-        
-
+        this.playerStats = {
+            health: 0,
+            deaths: 0
+        }
+        window.GUI.add(this.playerStats, 'health').listen();
+        window.GUI.add(this.playerStats, 'deaths').listen();
     }
     build(radius = 15) {
+
+        Player.MainPlayer = this;
         super.build()
+
+        this.health.reset()
+
+        this.currentEnemiesColliding = []
 
         this.addComponent(SpriteJump)
 
@@ -36,18 +47,24 @@ export default class Player extends GameAgent {
 
         this.speed = 100
 
-        this.shootBaseTime = 0.2
+        this.shootBaseTime = 0.25
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
-         this.gameView.view.anchor.set(0.5, 1)
-         this.gameView.view.scale.set(2)
+        this.gameView.view.anchor.set(0.5, 1)
+        this.gameView.view.scale.set(2)
 
         this.anchorOffset = 0
+
     }
     onSensorTrigger(element) {
+    }
+    die(){
+        super.die();
+
+        Player.Deaths ++;
     }
     start() {
         this.input = this.engine.findByType(InputModule)
@@ -55,7 +72,14 @@ export default class Player extends GameAgent {
     }
 
     collisionEnter(collided) {
-        //this.physicsModule.removeAgent(collided);
+        if(collided.layerCategory != Layer.Enemy)  return;
+        if(this.findInCollision(collided)) return;        
+        this.currentEnemiesColliding.push({entity:collided, timer:0});
+    }
+    collisionExit(collided) {
+        if(collided.layerCategory != Layer.Enemy)  return;
+        if (!this.findInCollision(collided)) return;
+        this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
     shoot() {
         this.shootTimer = this.shootBaseTime;
@@ -87,20 +111,23 @@ export default class Player extends GameAgent {
             this.shootTimer -= delta;
             if (this.shootTimer <= 0) {
 
-                if(this.sensor.collisionList.length){
-                    this.shoot()
+                if (this.sensor.collisionList.length) {
+                    this.shoot();
                 }
             }
         }
 
-        //console.log(this.components)
-        // if (this.physics.magnitude > 0) {
-        //     this.view.play('Pistol_Run')
-        // } else if (!this.view.currentState == 'Pistol_Shoot') {
-        //     this.view.play('Pistol_Idle')
-        // }
-
-
+        this.currentEnemiesColliding.forEach(element => {
+            if(element.timer <= 0){
+                this.damage(10);
+                element.timer = 1;
+            }else{
+                element.timer -= delta;
+            }
+        });
+        
+        this.playerStats.health = this.health.currentHealth
+        this.playerStats.deaths = Player.Deaths
 
         this.sensor.x = this.transform.position.x
         this.sensor.y = this.transform.position.y
@@ -114,7 +141,7 @@ export default class Player extends GameAgent {
         } else if (this.input.isMouseDown) {
 
             //from the middle
-            this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height/2, this.input.mousePosition.x - config.width / 2)
+            this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height / 2, this.input.mousePosition.x - config.width / 2)
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
             this.physics.velocity.y = Math.sin(this.transform.angle) * this.speed * delta
 

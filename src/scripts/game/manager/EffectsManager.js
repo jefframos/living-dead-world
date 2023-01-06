@@ -17,7 +17,7 @@ export default class EffectsManager extends GameObject {
 
 
         //the descriptor is on the enemy
-        this.smallFireDescriptor = new ParticleDescriptor(
+        this.bloodDescriptor = new ParticleDescriptor(
             {
                 velocityX: [-100, 100],
                 velocityY: [-50, -180],
@@ -29,8 +29,8 @@ export default class EffectsManager extends GameObject {
             }
         )
 
-        this.smallFireDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
-        this.smallFireDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
+        this.bloodDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
+        this.bloodDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
 
 
         this.labels = [];
@@ -68,9 +68,8 @@ export default class EffectsManager extends GameObject {
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 
-        this.particleEmitter.emit(this.smallFireDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 4)
-
-        this.particleEmitter
+        this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 4);
+        
     }
 
     getDamageFont() {

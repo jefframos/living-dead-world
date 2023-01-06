@@ -16,7 +16,7 @@ export default class ColorBehaviour extends ParticleBehaviour {
     build(params) {
         this.startValue = this.toRGB(ParticleBehaviour.findValue(params.startValue));
         this.endValue = this.toRGB(ParticleBehaviour.findValue(params.endValue));
-        this.time = ParticleBehaviour.findValue(params.time) | 5;
+        this.time = ParticleBehaviour.findValue(params.time);
         this.currentValue = this.rgbToColor(this.startValue.r, this.startValue.g, this.startValue.b);
     }
     update(delta) {

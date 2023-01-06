@@ -1,5 +1,5 @@
-import signals from 'signals';
 import BaseComponent from '../core/gameObject/BaseComponent';
+import signals from 'signals';
 
 export default class SpriteJump extends BaseComponent{
     constructor() {
@@ -7,7 +7,8 @@ export default class SpriteJump extends BaseComponent{
 
         this.acc = 0
     }
-    reset(){
+    enable(){
+        super.enable();
         this.gameObject.gameView.anchorOffset = Math.random() * Math.PI * 2;
     }
     update(delta){     

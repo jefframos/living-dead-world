@@ -7,13 +7,19 @@ export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
         //this.setDebug(15)
-        this.gameView.view = new PIXI.Sprite.from('tile_0121')
+
+        this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
+        this.gameView.view = new PIXI.Sprite()
 
     }
     build(radius = 15) {
         super.build();
         //this.view.scale.set(0.2)
         this.buildCircle(0, 0, 15);
+
+
+        this.gameView.view.texture = new PIXI.Texture.from(this.enemies[Math.floor(Math.random() * this.enemies.length)])
+
 
         this.addComponent(SpriteJump)
 
@@ -22,7 +28,7 @@ export default class BaseEnemy extends GameAgent {
         this.layerMask = Layer.EnemyCollision
 
         this.gameView.view.anchor.set(0.5,1)
-        this.gameView.view.scale.set(2,3)
+        this.gameView.view.scale.set(2)
 
         this.speedAdjust = 3
     }

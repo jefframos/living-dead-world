@@ -21,14 +21,12 @@ export default class BasicFloorRender extends GameObject {
         this.playerTileID = { i: 0, j: 0 }
     }
     start() {
-        this.player = this.engine.findByType(Player)
     }
     update(delta) {
-        this.playerTileID.i = Math.floor(this.player.transform.position.x / this.tileSize)
-        this.playerTileID.j = Math.floor(this.player.transform.position.y / this.tileSize)
+        
+        this.playerTileID.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
+        this.playerTileID.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
         this.gameView.view.x = this.playerTileID.i * this.tileSize
         this.gameView.view.y = this.playerTileID.j * this.tileSize
-
-       
     }
 }

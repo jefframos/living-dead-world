@@ -12,9 +12,7 @@ export default class Trees extends StaticPhysicObject {
     }
     build(x, y, width, height) {
         super.build(x, y, width, height)
-        //this.buildRect(x, y, width, height, true);
-
-        console.log(width)
+        
         this.gameView.view.scale.set(width / this.gameView.view.width* 2)
         this.gameView.view.anchor.set(0.5, 1)
 

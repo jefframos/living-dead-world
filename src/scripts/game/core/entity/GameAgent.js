@@ -1,10 +1,12 @@
 import GameView from "../view/GameView";
 import Health from "../../components/Health";
 import PhysicsEntity from "../physics/PhysicsEntity";
+import signals from "signals";
 
 export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
         super(debug);
+        this.onDie = new signals.Signal();
 
         this.gameView = new GameView(this)
         this.totalDirections = 6
@@ -15,6 +17,8 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.scale.set(30 / this.shadow.width)
         this.shadow.scale.y = this.shadow.scale.x * 0.6
         this.health = this.addComponent(Health)
+
+        this.currentEnemiesColliding = [];
 
         this.health.gotKilled.add(this.die.bind(this))
         // this.view = new SpriteSheetAnimation()
@@ -28,12 +32,24 @@ export default class GameAgent extends PhysicsEntity {
         }
 
     }
+    findInCollision(entity){
+        for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
+            if(this.currentEnemiesColliding[index].entity == entity){
+                return true;
+            }
+            
+        }
+        return false;
+    }
     damage(value){
         this.health.damage(value);
     }
     die() {
         this.rigidBody.isSensor = true;
+        this.dying = true;
+
         this.destroy()
+        this.onDie.dispatch(this);
     }
     onAnimationEnd(animation, state) { }
     start() {
@@ -49,6 +65,7 @@ export default class GameAgent extends PhysicsEntity {
         this.speedAdjust = 1;
         this.dying = false;
 
+        
     }
     update(delta) {
         super.update(delta);

@@ -3,6 +3,8 @@ export default class PhysicsProperties {
         this.density = 0.1;
         this.angle = 0;
         this.velocity = new PIXI.Point();
+        this.unscaleVelocity = new PIXI.Point();
+        this.force = new PIXI.Point();
 
     }
     get magnitude() {

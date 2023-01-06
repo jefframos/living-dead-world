@@ -36,6 +36,9 @@ export default class GameScreen extends Screen {
         //         fontWeight: 'bold',
         //     });
 
+
+
+
         PIXI.BitmapFont.from('damage1', {
             fontFamily: 'retro',
             align: "center",
@@ -91,6 +94,7 @@ export default class GameScreen extends Screen {
         this.gameManager = new GameManager(this.gameEngine);
 
         this.debug = {
+            timeScale: 1,
             REMOVE_ENEMIES: () => {
 
                 //this.destroyRandom(1);
@@ -115,6 +119,7 @@ export default class GameScreen extends Screen {
                 }
             }
         }
+        window.GUI.add(this.debug, 'timeScale', 0.1, 10);
         window.GUI.add(this.debug, 'REMOVE_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ENEMIES');
 
@@ -195,9 +200,20 @@ export default class GameScreen extends Screen {
             //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
             let angle = Math.PI * 2 * Math.random();
             enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
-            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height+ Math.random() * 300
+            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
 
         }
+    }
+    spawnPlayer() {
+        this.player = this.gameManager.addEntity(Player, true)
+
+        let angle = Math.PI * 2 * Math.random();
+        this.player.setPosition(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
+        //this.debug.ADD_ENEMIES();
+        this.player.onDie.add(() => {
+            this.spawnPlayer()
+            //this.debug.REMOVE_ENEMIES();
+        })
     }
     build(param) {
         super.build();
@@ -220,8 +236,7 @@ export default class GameScreen extends Screen {
             }
         }
 
-        this.player = this.gameManager.addEntity(Player, true)
-
+        this.spawnPlayer();
         this.worldRender = this.gameEngine.addGameObject(new BasicFloorRender())
 
 
@@ -250,7 +265,7 @@ export default class GameScreen extends Screen {
         // this.gameEngine.poolGameObject(BaseEnemy, true).position = { x: config.width / 2, y: config.height / 2 - 100 }
         //this.addRandomAgents(1)
 
-        for (let index = 0; index < 200; index++) {
+        for (let index = 0; index < 600; index++) {
             this.addRandomAgents(1)
         }
         // for (let index = 0; index < 100; index++) {
@@ -270,20 +285,21 @@ export default class GameScreen extends Screen {
 
     }
     update(delta) {
+        delta *= this.debug.timeScale;
         this.gameEngine.update(delta)
 
-        if(window.isMobile){
+        if (window.isMobile) {
 
             this.inputModule.touchAxisDown = this.touchAxisInput.dragging
             if (this.touchAxisInput.angle) {
             }
             this.inputModule.direction = this.touchAxisInput.angle
             this.touchAxisInput.visible = true;
-        }else{
+        } else {
             this.touchAxisInput.visible = false;
         }
 
-        this.stats.text = 'FPS: '+window.FPS +'\nPhys: '+this.physics.physicsStats.totalPhysicsEntities
+        this.stats.text = 'FPS: ' + window.FPS + '\nPhys: ' + this.physics.physicsStats.totalPhysicsEntities
         if (this.player) {
             this.followPoint.x = this.player.gameView.view.position.x
             this.followPoint.y = this.player.gameView.view.position.y
