@@ -10,13 +10,13 @@ export default class BasicFloorRender extends GameObject {
     constructor() {
         super()
         this.gameView = new GameView();
-        this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 45, 45);
+        this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 128, 128);
         this.gameView.view.anchor.set(0.5)
-        this.gameView.view.tileScale.set(2)
+        this.gameView.view.tileScale.set(1.5)
         this.gameView.view.width = 5000
         this.gameView.view.height = 5000
 
-        this.tileSize = 45 * this.gameView.view.tileScale.x;
+        this.tileSize = 128 * this.gameView.view.tileScale.x;
         this.gameView.layer = RenderModule.RenderLayers.Base;       
         this.playerTileID = { i: 0, j: 0 }
     }

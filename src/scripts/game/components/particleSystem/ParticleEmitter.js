@@ -11,7 +11,7 @@ export default class ParticleEmmiter {
         this.particles = [];
         this.frequency = 0.1;
         this.emitTimer = 0;
-        this.maxParticles = 1500;
+        this.maxParticles = 800;
         this.active = true;
     }
 

@@ -17,3 +17,11 @@
     font-style: normal;
 
 }
+
+@font-face {
+    font-family: 'peppa_pigmedium';
+    src: url('peppa_pig-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}

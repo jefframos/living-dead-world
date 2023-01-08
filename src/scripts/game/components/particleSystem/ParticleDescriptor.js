@@ -8,6 +8,7 @@ export default class ParticleDescriptor {
         this.direction = 0;
         this.velocityX = 0;
         this.velocityY = 0;
+        this.rotationSpeed = 0;
 
         
 
@@ -33,10 +34,18 @@ export default class ParticleDescriptor {
         if (this.baseData) {
             for (const key in this.baseData) {
                 if (this[key] !== undefined) {
-                    if (Array.isArray(this.baseData[key])) {
-                        this[key] = Math.random() * (this.baseData[key][1] - this.baseData[key][0]) + this.baseData[key][0];
-                    } else {
-                        this[key] = this.baseData[key];
+                    if(key == 'texture'){
+                        if (Array.isArray(this.baseData[key])){
+                            this[key] = PIXI.Texture.from(this.baseData[key][Math.floor(Math.random() * this.baseData[key].length)]);
+                        } else {
+                            this[key] = this.baseData[key];
+                        }
+                    }else{
+                        if (Array.isArray(this.baseData[key])) {
+                            this[key] = Math.random() * (this.baseData[key][1] - this.baseData[key][0]) + this.baseData[key][0];
+                        } else {
+                            this[key] = this.baseData[key];
+                        }
                     }
                 }
             }

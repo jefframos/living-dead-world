@@ -15,6 +15,9 @@ export default class PerspectiveCamera extends Camera {
                 //window.GUI.add(this.cam, key).listen();
             }
         }
+        this.zoom = 1;
+        this.targetZoom = 1.5;
+        window.GUI.add(this, 'targetZoom',0.5,3).listen();
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
@@ -32,6 +35,10 @@ export default class PerspectiveCamera extends Camera {
             }
             this.renderModule.container.pivot.x = utils.lerp(this.renderModule.container.pivot.x, this.followPoint.x, 0.1)
             this.renderModule.container.pivot.y = utils.lerp(this.renderModule.container.pivot.y, this.followPoint.y, 0.1)
+
+            this.zoom = utils.lerp(this.zoom, this.targetZoom, 0.1)
+
+            this.renderModule.container.scale.set(this.zoom);
         }
     }
     setFollowPoint(followPoint) {

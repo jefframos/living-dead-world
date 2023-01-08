@@ -7,6 +7,7 @@ export default class RenderModule extends GameObject {
         Base: 'base',
         Debug: 'debug',
         Default: 'default',
+        Floor: 'floor',
         Building: 'building',
         Gameplay: 'gameplay',
         Particles: 'particles'

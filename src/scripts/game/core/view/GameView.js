@@ -9,6 +9,7 @@ export default class GameView {
         this.view = null;
         this.gameObject = gameObject;
         this.anchorOffset = 0;
+        this.baseScale = { x: 0, y: 0 }
     }
     get x(){
         return this.view.x
@@ -17,5 +18,9 @@ export default class GameView {
         return this.view.y
     }
     update(delta) {
+    }
+    applyScale(){
+        this.baseScale.x = this.view.scale.x;
+        this.baseScale.y = this.view.scale.y;
     }
 }

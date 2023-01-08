@@ -12,6 +12,8 @@ export default class GameManager {
             totalGameObjects: 0
         }
         window.GUI.add(this.gameManagerStats, 'totalGameObjects').listen();
+
+        console.log('when registering, some times i remove the events that are beign used in other places')
     }
     addEntity(constructor, autoBuild = false) {
         let entity = this.gameEngine.poolGameObject(constructor, autoBuild)
@@ -29,6 +31,10 @@ export default class GameManager {
         if (entity.health) {
             entity.health.gotDamaged.removeAll()
             entity.health.gotDamaged.add(this.entityDamaged.bind(this))
+            
+            //entity.health.gotKilledParticles.removeAll()
+            //entity.health.gotKilledParticles.add(this.entityKilled.bind(this))
+
             this.entityRegister.push();
         }
     }
@@ -39,5 +45,9 @@ export default class GameManager {
     }
     entityDamaged(entity, value) {
         EffectsManager.instance.popDamage(entity.gameObject, value)
+    }
+
+    entityKilled(entity, value) {
+        EffectsManager.instance.popKill(entity.gameObject, value)
     }
 }

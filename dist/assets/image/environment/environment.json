@@ -2,31 +2,31 @@
 
 "grave (1).png":
 {
-	"frame": {"x":67,"y":387,"w":30,"h":32},
-	"rotated": true,
+	"frame": {"x":512,"y":64,"w":30,"h":32},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":32},
 	"sourceSize": {"w":30,"h":32}
 },
 "grave (2).png":
 {
-	"frame": {"x":1,"y":191,"w":48,"h":96},
-	"rotated": true,
+	"frame": {"x":462,"y":1,"w":48,"h":96},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":48,"h":96},
 	"sourceSize": {"w":48,"h":96}
 },
 "grave (3).png":
 {
-	"frame": {"x":1,"y":384,"w":30,"h":64},
-	"rotated": false,
+	"frame": {"x":431,"y":197,"w":30,"h":64},
+	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":30,"h":64},
 	"sourceSize": {"w":30,"h":64}
 },
 "grave (4).png":
 {
-	"frame": {"x":33,"y":384,"w":32,"h":61},
+	"frame": {"x":512,"y":1,"w":32,"h":61},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":61},
@@ -34,7 +34,7 @@
 },
 "grave (5).png":
 {
-	"frame": {"x":67,"y":338,"w":32,"h":47},
+	"frame": {"x":497,"y":197,"w":32,"h":47},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":47},
@@ -42,7 +42,7 @@
 },
 "grave (6).png":
 {
-	"frame": {"x":1,"y":338,"w":44,"h":64},
+	"frame": {"x":365,"y":196,"w":44,"h":64},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":44,"h":64},
@@ -50,7 +50,7 @@
 },
 "tree (1).png":
 {
-	"frame": {"x":1,"y":241,"w":95,"h":95},
+	"frame": {"x":365,"y":1,"w":95,"h":95},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":95,"h":95},
@@ -58,27 +58,46 @@
 },
 "tree (2).png":
 {
-	"frame": {"x":1,"y":97,"w":92,"h":96},
-	"rotated": true,
+	"frame": {"x":461,"y":99,"w":92,"h":96},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":92,"h":96},
 	"sourceSize": {"w":92,"h":96}
 },
 "tree (3).png":
 {
-	"frame": {"x":1,"y":1,"w":94,"h":96},
-	"rotated": true,
+	"frame": {"x":365,"y":98,"w":94,"h":96},
+	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":96},
 	"sourceSize": {"w":94,"h":96}
+},
+"tree1.png":
+{
+	"frame": {"x":183,"y":1,"w":180,"h":240},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":240},
+	"sourceSize": {"w":180,"h":240}
+},
+"tree2.png":
+{
+	"frame": {"x":1,"y":1,"w":180,"h":248},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":180,"h":248},
+	"sourceSize": {"w":180,"h":248}
 }},
+"animations": {
+	"tree": ["tree1.png","tree2.png"]
+},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "environment.png",
 	"format": "RGBA8888",
-	"size": {"w":100,"h":449},
+	"size": {"w":554,"h":250},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:8ef501e09925fcea5de58eb5040a52d2:f452d2869add1c33239de00bed55fd2c:7abea815e3107eecbafa95ee71efdc50$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a8576c4b0401a5285258c3cab6f58e8c:756ad793f4843992def531b59cdf198c:7abea815e3107eecbafa95ee71efdc50$"
 }
 }

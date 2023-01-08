@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js';
+
 import ParticleDescriptor from './ParticleDescriptor'
 
 export default class Particle {
@@ -23,6 +24,8 @@ export default class Particle {
         this.sprite.texture = this.descriptor.texture;
         this.sprite.tint = this.descriptor.tint;
         this.sprite.anchor.set(0.5)
+        this.sprite.rotation = 0;
+        this.sprite.alpha = 1;
         this.sprite.scale.set(this.descriptor.scale);
         this.sprite.blendMode = this.descriptor.blendMode;
     }
@@ -30,6 +33,7 @@ export default class Particle {
         this.descriptor.update(delta);
         this.sprite.x += this.descriptor.velocityX * delta + this.descriptor.velocityOffsetX * delta;
         this.sprite.y += this.descriptor.velocityY * delta + this.descriptor.velocityOffsetY * delta;
+        this.sprite.rotation += this.descriptor.rotationSpeed * delta;
 
 
         this.descriptor.velocityY += this.descriptor.gravity * delta;

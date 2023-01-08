@@ -8,7 +8,8 @@ export default class BaseEnemy extends GameAgent {
         super();
         //this.setDebug(15)
 
-        this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
+        this.enemies = ['cat','dog','elephant','poney','rabbit','sheep']
+        //this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
         this.gameView.view = new PIXI.Sprite()
 
     }
@@ -28,7 +29,8 @@ export default class BaseEnemy extends GameAgent {
         this.layerMask = Layer.EnemyCollision
 
         this.gameView.view.anchor.set(0.5,1)
-        this.gameView.view.scale.set(2)
+        this.gameView.view.scale.set(15 / this.gameView.view.width * Math.abs(this.gameView.view.scale.x) * 2)
+        this.gameView.applyScale();
 
         this.speedAdjust = 3
     }
@@ -48,6 +50,12 @@ export default class BaseEnemy extends GameAgent {
         } else {
             this.physics.velocity.x = 0
             this.physics.velocity.y = 0
+        }
+
+        if(this.physics.velocity.x > 0){
+            this.gameView.view.scale.x = -this.gameView.baseScale.x
+        }else if(this.physics.velocity.x < 0){
+            this.gameView.view.scale.x = this.gameView.baseScale.x
         }
 
         super.update(delta)

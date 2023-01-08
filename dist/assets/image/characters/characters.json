@@ -1,0 +1,119 @@
+{"frames": {
+
+"cat.png":
+{
+	"frame": {"x":69,"y":478,"w":50,"h":62},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":62},
+	"sourceSize": {"w":50,"h":62}
+},
+"daddy.png":
+{
+	"frame": {"x":1,"y":1,"w":120,"h":148},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":148},
+	"sourceSize": {"w":120,"h":148}
+},
+"dog.png":
+{
+	"frame": {"x":1,"y":513,"w":50,"h":60},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":60},
+	"sourceSize": {"w":50,"h":60}
+},
+"elephant.png":
+{
+	"frame": {"x":1,"y":404,"w":55,"h":68},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":55,"h":68},
+	"sourceSize": {"w":55,"h":68}
+},
+"george.png":
+{
+	"frame": {"x":59,"y":594,"w":40,"h":41},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":41},
+	"sourceSize": {"w":40,"h":41}
+},
+"knife.png":
+{
+	"frame": {"x":89,"y":285,"w":28,"h":123},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":123},
+	"sourceSize": {"w":28,"h":123}
+},
+"momm.png":
+{
+	"frame": {"x":1,"y":151,"w":100,"h":132},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":132},
+	"sourceSize": {"w":100,"h":132}
+},
+"peppa.png":
+{
+	"frame": {"x":71,"y":410,"w":50,"h":66},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":66},
+	"sourceSize": {"w":50,"h":66}
+},
+"peppa1.png":
+{
+	"frame": {"x":63,"y":542,"w":50,"h":57},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":57},
+	"sourceSize": {"w":50,"h":57}
+},
+"peppa2.png":
+{
+	"frame": {"x":1,"y":337,"w":65,"h":85},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":85},
+	"sourceSize": {"w":65,"h":85}
+},
+"poney.png":
+{
+	"frame": {"x":1,"y":565,"w":50,"h":56},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":56},
+	"sourceSize": {"w":50,"h":56}
+},
+"rabbit.png":
+{
+	"frame": {"x":1,"y":285,"w":50,"h":86},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":86},
+	"sourceSize": {"w":50,"h":86}
+},
+"sheep.png":
+{
+	"frame": {"x":1,"y":461,"w":50,"h":66},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":66},
+	"sourceSize": {"w":50,"h":66}
+}},
+"animations": {
+	"peppa": ["peppa1.png","peppa2.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "characters.png",
+	"format": "RGBA8888",
+	"size": {"w":122,"h":636},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:a67d4affae6e75114e4804561fef9676:1229ead0eef63c835db0ba03316a3c84:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+}
+}

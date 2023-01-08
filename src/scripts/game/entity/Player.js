@@ -18,7 +18,7 @@ export default class Player extends GameAgent {
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('tile_0085')
+        this.gameView.view = new PIXI.Sprite.from('peppa2')
         //this.setDebug(15)        
         this.playerStats = {
             health: 0,
@@ -53,7 +53,8 @@ export default class Player extends GameAgent {
         this.layerMask = Layer.PlayerCollision
 
         this.gameView.view.anchor.set(0.5, 1)
-        this.gameView.view.scale.set(2)
+        this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2)
+        this.gameView.applyScale();
 
         this.anchorOffset = 0
 
@@ -156,6 +157,12 @@ export default class Player extends GameAgent {
             this.transform.angle = this.input.direction
             this.physics.velocity.x = 0
             this.physics.velocity.y = 0
+        }
+
+        if(this.physics.velocity.x > 0){
+            this.gameView.view.scale.x = -this.gameView.baseScale.x
+        }else if(this.physics.velocity.x < 0){
+            this.gameView.view.scale.x = this.gameView.baseScale.x
         }
 
         super.update(delta)

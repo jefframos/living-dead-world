@@ -1,5 +1,5 @@
-import signals from 'signals';
 import BaseComponent from '../core/gameObject/BaseComponent';
+import signals from 'signals';
 
 export default class Health extends BaseComponent{
     constructor() {
@@ -9,6 +9,7 @@ export default class Health extends BaseComponent{
 
         this.gotDamaged = new signals.Signal();
         this.gotKilled = new signals.Signal(); 
+        this.gotKilledParticles = new signals.Signal(); 
     }
     reset(){
         this.currentHealth = this.standrdHealth;
@@ -19,6 +20,7 @@ export default class Health extends BaseComponent{
         this.currentHealth-=value;
         if(this.currentHealth <= 0){
             this.gotKilled.dispatch(this);
+            this.gotKilledParticles.dispatch(this);
         }
     }
 }

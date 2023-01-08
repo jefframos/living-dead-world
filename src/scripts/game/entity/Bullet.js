@@ -11,7 +11,7 @@ export default class Bullet extends PhysicsEntity {
         super();
 
         this.gameView = new GameView(this)
-        this.gameView.view = new PIXI.Sprite.from('tile_0103')
+        this.gameView.view = new PIXI.Sprite.from('knife')
         this.gameView.view.alpha = 1
 
         this.enemiesShot = [];
@@ -23,8 +23,8 @@ export default class Bullet extends PhysicsEntity {
 
         this.enemiesShot = [];
         this.gameView.view.anchor.set(0.5)
-        this.gameView.view.scale.set(1.5)
-        //this.gameView.view.scale.set(5 / this.gameView.view.width * 2 * this.gameView.view.scale.x)
+        //this.gameView.view.scale.set(1.5)
+        this.gameView.view.scale.set(5 / this.gameView.view.width * this.gameView.view.scale.x)
         this.speed = 250
 
         this.rigidBody.collisionFilter.group = 2
@@ -40,8 +40,7 @@ export default class Bullet extends PhysicsEntity {
 
         this.rigidBody.isSensor = true
 
-        this.viewOffset.y = - 5;
-
+        this.gameView.viewOffset.y = -15
 
     }
     enable(){
@@ -114,10 +113,8 @@ export default class Bullet extends PhysicsEntity {
         }
         this.gameView.view.x = this.transform.position.x
         this.gameView.view.y = this.transform.position.y + this.viewOffset.y
-
-        this.gameView.view.visible = true;
-
-
+        
         this.gameView.view.rotation =  this.transform.angle + Math.PI/2
+        this.gameView.view.visible = true;
     }
 }
