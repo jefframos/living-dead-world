@@ -24817,6 +24817,7 @@ var Player = function (_GameAgent) {
 
                         this.gameView.view.anchor.set(0.5, 1);
                         this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2);
+                        this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
                         this.gameView.applyScale();
 
                         this.anchorOffset = 0;
@@ -82109,14 +82110,14 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 var assets = [{
+	"id": "achievments",
+	"url": "assets/json\\achievments.json"
+}, {
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
-}, {
-	"id": "achievments",
-	"url": "assets/json\\achievments.json"
 }, {
 	"id": "baseGameConfigMonster",
 	"url": "assets/json\\baseGameConfigMonster.json"
@@ -82139,11 +82140,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -82157,9 +82158,6 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
@@ -82168,6 +82166,9 @@ var assets = [{
 }, {
 	"id": "resources",
 	"url": "assets/json\\resources.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }];
 
 exports.default = assets;

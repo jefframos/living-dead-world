@@ -54,6 +54,7 @@ export default class Player extends GameAgent {
 
         this.gameView.view.anchor.set(0.5, 1)
         this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2)
+        this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.applyScale();
 
         this.anchorOffset = 0
