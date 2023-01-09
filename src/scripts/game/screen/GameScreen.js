@@ -3,6 +3,8 @@ import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
 import BasicFloorRender from '../manager/BasicFloorRender';
+import Companion from '../entity/Companion';
+import DeckView from '../components/deckBuilding/DeckView';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import GameManager from '../manager/GameManager';
@@ -16,6 +18,7 @@ import TouchAxisInput from '../core/modules/TouchAxisInput';
 import Trees from '../entity/Trees';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
+import Vector3 from '../core/gameObject/Vector3';
 import WorldSystem from '../manager/WorldSystem';
 import config from '../../config';
 
@@ -54,24 +57,14 @@ export default class GameScreen extends Screen {
             wordWrap: true,
             wordWrapWidth: 300
         });
-        //     const text = new PIXI.BitmapText("Hello World", { fontName: 'fredokaone' });
-        //     this.container.addChild(text)
-        // }, 50);
-        // const text = new PIXI.BitmapText("150", { fontName: 'damage1' });
-        //     this.topUI.addChild(text)
 
-        this.baseContainer = new PIXI.TilingSprite(PIXI.Texture.from('grass'), 45, 45);
         this.gameplayContainer = new PIXI.Container();
         this.effectsContainer = new PIXI.Container();
+        this.uiContainer = new PIXI.Container();
 
-        this.baseContainer.anchor.set(0.5)
-        this.baseContainer.tileScale.set(2.5)
-        this.baseContainer.width = 5000
-        this.baseContainer.height = 5000
-        //this.baseContainer.tint = 0x333333
-        //this.container.addChild(this.baseContainer)
         this.container.addChild(this.gameplayContainer)
         this.container.addChild(this.effectsContainer)
+        this.container.addChild(this.uiContainer)
 
         this.gameEngine = new Eugine();
 
@@ -83,13 +76,13 @@ export default class GameScreen extends Screen {
 
 
         this.physics = this.gameEngine.physics
-        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer))
+        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
 
 
-        this.followPoint = { x: 0, y: 0 }
+        this.followPoint = new Vector3();
         this.camera.setFollowPoint(this.followPoint)
 
         this.gameManager = new GameManager(this.gameEngine);
@@ -201,17 +194,24 @@ export default class GameScreen extends Screen {
             //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
             let angle = Math.PI * 2 * Math.random();
             enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
-            enemy.y = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
+            enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
 
         }
     }
     spawnPlayer() {
         this.player = this.gameManager.addEntity(Player, true)
 
+        this.companion = this.gameManager.addEntity(Companion, true)
+
         let angle = Math.PI * 2 * Math.random();
-        this.player.setPosition(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
+        this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
+
+        this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
+        this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
+        //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
         //this.debug.ADD_ENEMIES();
         this.player.onDie.add(() => {
+            this.companion.destroy();
             this.spawnPlayer()
             //this.debug.REMOVE_ENEMIES();
         })
@@ -224,6 +224,9 @@ export default class GameScreen extends Screen {
 
         this.worldSystem = this.gameEngine.poolGameObject(WorldSystem, true);
 
+        console.log("deck start here");
+        this.deckView = this.gameEngine.poolGameObject(DeckView, true)
+        this.deckView.setActive(false);
 
         let i = 5
         let j = 8
@@ -255,10 +258,12 @@ export default class GameScreen extends Screen {
 
         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
-      
-        for (let index = 0; index < 600; index++) {
+
+        for (let index = 0; index < 500; index++) {
             this.addRandomAgents(1)
         }
+
+        console.log(config)
     }
     update(delta) {
         delta *= this.debug.timeScale;
@@ -277,13 +282,10 @@ export default class GameScreen extends Screen {
 
         this.stats.text = 'FPS: ' + window.FPS + '\nPhys: ' + this.physics.physicsStats.totalPhysicsEntities
         if (this.player) {
-            this.followPoint.x = this.player.gameView.view.position.x
-            this.followPoint.y = this.player.gameView.view.position.y
-            //this.container.pivot.x = this.player.gameView.view.position.x //- config.width / 2
-            //this.container.pivot.y = this.player.gameView.view.position.y //- config.height / 2
+            this.followPoint.x = this.player.gameView.view.position.x;
+            this.followPoint.y = 0;
+            this.followPoint.z = this.player.gameView.view.position.y;
         }
-
-        //WorldManager.instance.update(delta);
     }
     transitionOut(nextScreen) {
         this.removeEvents();

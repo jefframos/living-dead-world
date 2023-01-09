@@ -1,6 +1,8 @@
-import config from './config';
 import * as PIXI from 'pixi.js';
+
+import config from './config';
 import conversionUtils from './conversionUtils';
+
 export default
     {
         resizeToFitMaxAR(size, element, res) {
@@ -531,7 +533,7 @@ export default
         distSort(point, array){
 
             array.forEach(element => {
-                element._playerDist = this.distance(element.transform.position.x,element.transform.position.y,point.x, point.y)
+                element._playerDist = this.distance(element.transform.position.x,element.transform.position.z,point.x, point.z)
             });
 
             array.sort(this.playerDistCompare)

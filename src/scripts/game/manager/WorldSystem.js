@@ -25,6 +25,8 @@ export default class WorldSystem extends GameObject {
         this.buildingComponent = this.addComponent(BuildingComponent)
         this.buildingComponent.setGameView(this.gameView.view);
 
+
+        console.log("building start here");
         //this.setBuildingMode();
     }
     start() {

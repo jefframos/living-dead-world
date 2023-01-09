@@ -12,10 +12,12 @@ export default class RenderModule extends GameObject {
         Gameplay: 'gameplay',
         Particles: 'particles'
     }
-    constructor(container) {
+    static UILayer = 'UI';
+    constructor(container, uiContainer) {
         super();
 
         this.container = container;
+        this.uiContainer = uiContainer;
 
         this.views = [];
 
@@ -55,10 +57,15 @@ export default class RenderModule extends GameObject {
     newEntityAdded(entities) {
         entities.forEach(element => {
             if (element.gameView) {
-
+                
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
                 //element.childAdded.add(this.newEntityAdded.bind(this))
-                this.layers[element.gameView.layer].addGameView(element.gameView)
+                if (element.gameView.layer == RenderModule.UILayer) {
+                    this.uiContainer.addChild(element.gameView.view)
+
+                } else {
+                    this.layers[element.gameView.layer].addGameView(element.gameView)
+                }
 
             }
             if (element.debug) {
@@ -66,13 +73,16 @@ export default class RenderModule extends GameObject {
             }
 
             if (element.shadow) {
-                this.layers[RenderModule.RenderLayers.Base].addChild(element.shadow)
-            }               
+                this.layers[RenderModule.RenderLayers.Floor].addChild(element.shadow)
+            }
         });
 
     }
     elementDestroyed(element) {
-        if (element.gameView) {
+        if (element.gameView.layer == RenderModule.UILayer) {
+            this.uiContainer.removeChild(element.gameView.view)
+
+        } else if (element.gameView) {
             this.layers[element.gameView.layer].removeGameView(element.gameView)
 
         }
@@ -84,7 +94,7 @@ export default class RenderModule extends GameObject {
         }
 
         if (element.shadow) {
-            this.layers[RenderModule.RenderLayers.Base].removeChild(element.shadow)
+            this.layers[RenderModule.RenderLayers.Floor].removeChild(element.shadow)
         }
     }
     onRender() {
@@ -93,9 +103,9 @@ export default class RenderModule extends GameObject {
         this.layersArray.forEach(element => {
             element.onRender();
         });
-        
+
         this.renderStats.totalRenderEntities = this.layers[RenderModule.RenderLayers.Gameplay].children.length;
 
-        
+
     }
 }

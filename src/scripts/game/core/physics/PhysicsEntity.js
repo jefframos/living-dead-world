@@ -2,6 +2,7 @@ import Matter, { Body } from "matter-js";
 
 import GameObject from "../gameObject/GameObject";
 import PhysicsProperties from "../physics/PhysicsProperties";
+import Vector3 from "../gameObject/Vector3";
 import utils from "../../../utils";
 
 export default class PhysicsEntity extends GameObject {
@@ -9,9 +10,9 @@ export default class PhysicsEntity extends GameObject {
         super();
         this.rigidBody = null;
         this.type = null;
-        this.viewOffset = { x: 0, y: 0 }
+        this.viewOffset = new Vector3()
         this.autoSetAngle = true;
-        this.appliedForce = {x:0, y:0};
+        this.appliedForce = new Vector3()
         this.friction = 0.1;
     }
 
@@ -54,7 +55,8 @@ export default class PhysicsEntity extends GameObject {
     buildRect(x, y, width, height, isStatic = false) {
         this.rigidBody = Matter.Bodies.rectangle(x, y, width, height, { isStatic: isStatic });
         this.rigidBody.gameObject = this;
-        this.transform.position = this.rigidBody.position;
+        this.transform.position.x = this.rigidBody.position.x;
+        this.transform.position.z = this.rigidBody.position.y;
         this.type = 'rect'
 
         this.engine.physics.addAgent(this)
@@ -64,7 +66,8 @@ export default class PhysicsEntity extends GameObject {
     buildCircle(x, y, radius, isStatic = false) {
         this.rigidBody = Matter.Bodies.circle(x, y, radius, { isStatic: false, restitution: 1 });
         this.rigidBody.gameObject = this;
-        this.transform.position = this.rigidBody.position;
+        this.transform.position.x = this.rigidBody.position.x;
+        this.transform.position.z = this.rigidBody.position.y;
         this.type = 'circle'
 
         this.engine.physics.addAgent(this)
@@ -75,37 +78,44 @@ export default class PhysicsEntity extends GameObject {
         if (!this.rigidBody) return;
 
         this.appliedForce.x = force.x
-        this.appliedForce.y = force.y
+        this.appliedForce.y = force.z
+    }
+    applyVelocity(force){
+        Matter.Body.setVelocity(this.rigidBody, force)
     }
     update(delta) {
 
         super.update(delta);
 
         this.transform.position.x = this.rigidBody.position.x;
-        this.transform.position.y = this.rigidBody.position.y;
+        this.transform.position.z = this.rigidBody.position.y;
 
         if (this.autoSetAngle && this.physics.magnitude > 0) {
-            this.transform.angle = Math.atan2(this.physics.velocity.y, this.physics.velocity.x);
+            this.transform.angle = Math.atan2(this.physics.velocity.z, this.physics.velocity.x);
         }
 
         this.physics.unscaleVelocity.x = this.physics.velocity.x / delta;
-        this.physics.unscaleVelocity.y = this.physics.velocity.y / delta;
+        this.physics.unscaleVelocity.z = this.physics.velocity.z / delta;
 
         this.physics.force.x = this.physics.velocity.x + this.appliedForce.x
-        this.physics.force.y = this.physics.velocity.y + this.appliedForce.y
+        this.physics.force.z = this.physics.velocity.z + this.appliedForce.z
+        
+        this.physics.force2D.x = this.physics.force.x
+        this.physics.force2D.y = this.physics.force.z
 
         this.appliedForce.x = utils.lerp(this.appliedForce.x, 0, this.friction);
-        this.appliedForce.y = utils.lerp(this.appliedForce.y, 0, this.friction);
+        this.appliedForce.z = utils.lerp(this.appliedForce.z, 0, this.friction);
         
-        Matter.Body.setVelocity(this.rigidBody, this.physics.force)
+        this.applyVelocity(this.physics.force2D);
         this.physics.angle = this.transform.angle
 
         if (this.debug) {
             this.debug.x = this.transform.position.x
-            this.debug.y = this.transform.position.y
+            this.debug.y = this.transform.position.z
             this.debug.rotation = this.physics.angle
             this.label.rotation = - this.debug.rotation
             this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
+
         }
     }
 
@@ -139,8 +149,13 @@ export default class PhysicsEntity extends GameObject {
      * @param {number} value
      */
     set y(value) {
-        Matter.Body.setPosition(this.rigidBody, { x: this.rigidBody.position.x, y: value })
-        this.transform.position.y = this.rigidBody.position.y;
+        this.transform.position.y = value;
     }
-
+    /**
+     * @param {number} value
+     */
+    set z(value) {
+        Matter.Body.setPosition(this.rigidBody, { x: this.rigidBody.position.x, y: value })
+        this.transform.position.z = this.rigidBody.position.y;
+    }
 }

@@ -38,7 +38,7 @@ export default class EffectsManager extends GameObject {
                 velocityX: [-100, 100],
                 velocityY: [-50, -180],
                 gravity: 200,
-                scale: [0.8, 0.5],
+                scale: [0.3, 0.5],
                 lifeSpan: [1, 1.5],
                 tint: 0xff0000,
                 texture: PIXI.Texture.from('p1')
@@ -132,7 +132,7 @@ export default class EffectsManager extends GameObject {
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 
-        this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 4);
+        this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 3);
 
     }
 

@@ -1,19 +1,16 @@
 import * as PIXI from 'pixi.js';
+
 import config from './config';
 import utils from './utils';
 
 export default class Game {
     static GlobalScale = {x:1, y:1}
     static GlobalContainerPosition = {x:0, y:0}
+    static Screen = {width:0, height:0}
     constructor(config, screenManager) {
         Game.GlobalScale = {x:1, y:1}
         Game.GlobalContainerPosition = {x:0, y:0}
         this.screenManager = screenManager;
-
-        if (!window.isMobile) {
-            config.width *= 1.1
-            config.height *= 1.1
-        }
 
         const Renderer = (config.webgl) ? PIXI.autoDetectRenderer : PIXI.CanvasRenderer;
 
@@ -22,7 +19,9 @@ export default class Game {
             height: config.height,
         };
 
-
+        Game.Screen.width = config.width
+        Game.Screen.height = config.height
+        
         this.ratio = config.width / config.height;
         window.renderer = new PIXI.Application({
             width: config.width,

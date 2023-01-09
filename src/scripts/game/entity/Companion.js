@@ -1,35 +1,19 @@
 import Bullet from "./Bullet";
 import GameAgent from "../core/entity/GameAgent";
-import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
-import PhysicsModule from "../core/modules/PhysicsModule";
+import Player from "./Player";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import SpriteJump from "../components/SpriteJump";
-import config from "../../config";
-import utils from "../../utils";
+import Vector3 from "../core/gameObject/Vector3";
 
-export default class Player extends GameAgent {
-    static MainPlayer = this;
-    static Deaths = 0;
+export default class Companion extends GameAgent {
     constructor() {
-        super();
-
-        this.totalDirections = 8
-        this.autoSetAngle = false;
+        super();        
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('peppa2')
-        //this.setDebug(15)        
-        this.playerStats = {
-            health: 0,
-            deaths: 0
-        }
-        window.GUI.add(this.playerStats, 'health').listen();
-        window.GUI.add(this.playerStats, 'deaths').listen();
+        this.gameView.view = new PIXI.Sprite.from('george')
     }
-    build(radius = 15) {
-
-        Player.MainPlayer = this;
+    build() {
         super.build()
 
         this.health.reset()
@@ -40,36 +24,24 @@ export default class Player extends GameAgent {
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
-        this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
+        //this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
-        this.speed = 100
+        this.speed = 50
 
-        this.shootBaseTime = 0.25
+        this.shootBaseTime = 1
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
         this.gameView.view.anchor.set(0.5, 1)
-        this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2)
+        this.gameView.view.scale.set(12 / this.gameView.view.width * this.gameView.view.scale.x * 2)
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.applyScale();
 
         this.anchorOffset = 0
-
-    }
-    onSensorTrigger(element) {
-    }
-    die() {
-        super.die();
-
-        Player.Deaths++;
-    }
-    start() {
-        this.input = this.engine.findByType(InputModule)
-        this.physicsModule = this.engine.findByType(PhysicsModule)
     }
 
     collisionEnter(collided) {
@@ -127,46 +99,24 @@ export default class Player extends GameAgent {
             }
         });
 
-        this.playerStats.health = this.health.currentHealth
-        this.playerStats.deaths = Player.Deaths
 
         this.sensor.x = this.transform.position.x
         this.sensor.z = this.transform.position.z
 
-        this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.z, this.input.mousePosition.x - this.transform.position.x)
-        if (window.isMobile && this.input.touchAxisDown) {
-            this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta
-            this.physics.velocity.z = Math.sin(this.input.direction) * this.speed * delta
-            this.transform.angle = this.input.direction
-
-        } else if (this.input.isMouseDown) {
-
-            //from the middle
-            this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height / 2, this.input.mousePosition.x - config.width / 2)
+        if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 100) {
+            this.transform.angle = Vector3.atan2XZ(Player.MainPlayer.transform.position,this.transform.position )
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
             this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta
-
-        } else if (this.input.magnitude > 0) {
-            this.transform.angle = this.input.direction
-
-            this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
-            this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta
-
-
-
         } else {
-            this.transform.angle = this.input.direction
-            this.physics.velocity.x = 0
-            this.physics.velocity.z = 0
+            this.physics.velocity.zero();
         }
 
-        if(this.physics.velocity.x > 0){
+        if (this.physics.velocity.x > 0) {
             this.gameView.view.scale.x = -this.gameView.baseScale.x
-        }else if(this.physics.velocity.x < 0){
+        } else if (this.physics.velocity.x < 0) {
             this.gameView.view.scale.x = this.gameView.baseScale.x
         }
 
         super.update(delta)
     }
-
 }

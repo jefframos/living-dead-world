@@ -14,10 +14,17 @@ import spritesheetManifest from './manifests/manifest'
 window.PIXI = PIXI;
 
 
+window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
 
 
-
-
+if (!window.isMobile) {
+    config.width = config.desktopRes.width
+    config.height  = config.desktopRes.height
+}else{
+    config.width = config.mobileRes.width
+    config.height  = config.mobileRes.height
+}
 
 
 

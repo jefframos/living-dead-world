@@ -75,9 +75,7 @@ export default class GameAgent extends PhysicsEntity {
         
 
         this.shadow.x = this.transform.position.x
-        this.shadow.y = this.transform.position.y
-
-
+        this.shadow.y = this.transform.position.z
 
         // if (this.view.init) {
         //     this.view.setLayer(this.calcFrame())

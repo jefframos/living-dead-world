@@ -8,7 +8,7 @@ export default class GameObject extends BaseComponent {
     static ObjectCounter = 0;
     constructor() {
         super();
-        
+
         this.gameObject = this;
         this.engineID = ++GameObject.ObjectCounter;
         this.transform = new Transform();
@@ -21,7 +21,7 @@ export default class GameObject extends BaseComponent {
         this.childRemoved = new signals.Signal();
         this.rigidbodyAdded = new signals.Signal();
     }
-    findComponent(type){
+    findComponent(type) {
         let elementFound = null
 
         for (let index = 0; index < this.gameObjects.length; index++) {
@@ -49,6 +49,14 @@ export default class GameObject extends BaseComponent {
         this.childAdded.dispatch(this)
         this.children.push(gameObject);
     }
+    setActive(value = true) {
+        if (value == this.enabled) return;
+        if (value) {
+            this.enable();
+        } else {
+            this.disable();
+        }
+    }
     get forward() {
         let rad = this.transform.angle // 180 * Math.PI
         return { x: Math.cos(rad), y: Math.sin(rad) }
@@ -65,9 +73,17 @@ export default class GameObject extends BaseComponent {
     set y(value) {
         this.transform.position.y = value
     }
-    setPosition(x, y) {
+    set z(value) {
+        this.transform.position.z = value
+    }
+    setPosition(x, y, z = 0) {
         this.x = x
         this.y = y
+        this.z = z
+    }
+    setPositionXZ(x, z = 0) {
+        this.x = x
+        this.z = z
     }
     update(delta) {
         this.children.forEach(element => {
@@ -118,7 +134,7 @@ export default class GameObject extends BaseComponent {
         this.disable();
         Pool.instance.returnElement(this)
     }
-    
+
     removeChild(child) {
 
         for (let index = 0; index < this.children.length; index++) {

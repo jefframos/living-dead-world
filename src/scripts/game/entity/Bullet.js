@@ -55,6 +55,7 @@ export default class Bullet extends PhysicsEntity {
 
         this.physics.velocity.x = 0
         this.physics.velocity.y = 0
+        this.physics.velocity.z = 0
     }
     collisionEnter(collided) {
 
@@ -76,10 +77,10 @@ export default class Bullet extends PhysicsEntity {
                     //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
                     let angle = Math.PI * 2 * Math.random();
                     enemy.x = this.transform.position.x+Math.cos(angle) * config.width
-                    enemy.y = this.transform.position.y+Math.sin(angle) * config.height
+                    enemy.z = this.transform.position.z+Math.sin(angle) * config.height
                 }else{
                     if(collided.applyForce){
-                        let angle = Math.atan2(collided.transform.position.y - this.transform.position.y , collided.transform.position.x -this.transform.position.x );
+                        let angle = Math.atan2(collided.transform.position.z - this.transform.position.z , collided.transform.position.x -this.transform.position.x );
                         let forceBack = {x:Math.cos(angle) * 5, y:Math.sin(angle) * 5};
                         collided.applyForce(forceBack)
                     }
@@ -99,7 +100,7 @@ export default class Bullet extends PhysicsEntity {
     update(delta) {
         super.update(delta)
         this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta
-        this.physics.velocity.y = Math.sin(this.angle) * this.speed * delta
+        this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta
 
 
         this.distanceSpan -= this.speed * delta;
@@ -112,7 +113,7 @@ export default class Bullet extends PhysicsEntity {
             this.destroy()
         }
         this.gameView.view.x = this.transform.position.x
-        this.gameView.view.y = this.transform.position.y + this.viewOffset.y
+        this.gameView.view.y = this.transform.position.z + this.viewOffset.y
         
         this.gameView.view.rotation =  this.transform.angle + Math.PI/2
         this.gameView.view.visible = true;

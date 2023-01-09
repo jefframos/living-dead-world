@@ -23,10 +23,12 @@ export default class PerspectiveCamera extends Camera {
         this.renderModule = this.engine.findByType(RenderModule);
     }
     update(delta) {
-        if (this.followPoint) {
-            if (utils.distance(this.renderModule.container.pivot.x, this.renderModule.container.pivot.y, this.followPoint.x, this.followPoint.y) > 30) {
 
-                let angle = Math.atan2(this.renderModule.container.pivot.y - this.followPoint.y,
+
+        if (this.followPoint) {
+            if (utils.distance(this.renderModule.container.pivot.x, this.renderModule.container.pivot.y, this.followPoint.x, this.followPoint.z) > 30) {
+
+                let angle = Math.atan2(this.renderModule.container.pivot.y - this.followPoint.z,
                     this.renderModule.container.pivot.x - this.followPoint.x)
 
                 //this.renderModule.container.pivot
@@ -34,7 +36,7 @@ export default class PerspectiveCamera extends Camera {
 
             }
             this.renderModule.container.pivot.x = utils.lerp(this.renderModule.container.pivot.x, this.followPoint.x, 0.1)
-            this.renderModule.container.pivot.y = utils.lerp(this.renderModule.container.pivot.y, this.followPoint.y, 0.1)
+            this.renderModule.container.pivot.y = utils.lerp(this.renderModule.container.pivot.y, this.followPoint.z, 0.1)
 
             this.zoom = utils.lerp(this.zoom, this.targetZoom, 0.1)
 
@@ -43,15 +45,16 @@ export default class PerspectiveCamera extends Camera {
     }
     setFollowPoint(followPoint) {
         this.followPoint = followPoint;
+
     }
     snapFollowPoint() {
         this.renderModule.container.pivot.x = this.followPoint.x
-        this.renderModule.container.pivot.y = this.followPoint.y
+        this.renderModule.container.pivot.y = this.followPoint.z
     }
     onRender() {
         this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
             element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
-            element.view.y = element.gameObject.transform.position.y + element.viewOffset.y
+            element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
             //this.transformView(element)
         });
     }

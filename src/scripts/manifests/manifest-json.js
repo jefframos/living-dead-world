@@ -8,12 +8,12 @@ const assets = [
 	"url":"assets/json\\baseGameConfigFairy.json"
 	},
 	{
-	"id":"baseGameConfigHumans",
-	"url":"assets/json\\baseGameConfigHumans.json"
-	},
-	{
 	"id":"baseGameConfigMonster",
 	"url":"assets/json\\baseGameConfigMonster.json"
+	},
+	{
+	"id":"baseGameConfigHumans",
+	"url":"assets/json\\baseGameConfigHumans.json"
 	},
 	{
 	"id":"fairies",
@@ -40,24 +40,28 @@ const assets = [
 	"url":"assets/json\\localization_FR.json"
 	},
 	{
-	"id":"localization_JA",
-	"url":"assets/json\\localization_JA.json"
-	},
-	{
 	"id":"localization_IT",
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
+	"id":"localization_JA",
+	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
+	},
+	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
+	},
+	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
 	},
 	{
 	"id":"localization_TR",
@@ -74,10 +78,6 @@ const assets = [
 	{
 	"id":"resources",
 	"url":"assets/json\\resources.json"
-	},
-	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
 	}
 ];
 

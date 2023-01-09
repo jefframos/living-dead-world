@@ -43,13 +43,13 @@ export default class BaseEnemy extends GameAgent {
         if (!this.dying) {
             this.timer += delta * (this.speed * delta * Math.random())
 
-            let dir = Math.atan2(Player.MainPlayer.transform.position.y - this.transform.position.y, Player.MainPlayer.transform.position.x - this.transform.position.x)//this.timer
+            let dir = Math.atan2(Player.MainPlayer.transform.position.z - this.transform.position.z, Player.MainPlayer.transform.position.x - this.transform.position.x)//this.timer
             this.physics.velocity.x = Math.cos(dir) * this.speed * this.speedAdjust * delta
-            this.physics.velocity.y = Math.sin(dir) * this.speed * this.speedAdjust * delta
+            this.physics.velocity.z = Math.sin(dir) * this.speed * this.speedAdjust * delta
            
         } else {
             this.physics.velocity.x = 0
-            this.physics.velocity.y = 0
+            this.physics.velocity.z = 0
         }
 
         if(this.physics.velocity.x > 0){

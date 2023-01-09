@@ -1,6 +1,14 @@
 export default {
 	width: 750 * 0.9,
 	height: 1334 * 0.9,
+	mobileRes:{
+		width: 750 * 0.9,
+		height: 1334 * 0.9
+	},
+	desktopRes:{
+		width: 1024,
+		height: 768
+	},
 	webgl: true,
 	effectsLayer: null,
 	colors: {

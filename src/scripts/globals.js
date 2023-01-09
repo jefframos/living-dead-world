@@ -1,6 +1,7 @@
+import * as PIXI from 'pixi.js';
+
 import config from './config';
 import utils from './utils';
-import * as PIXI from 'pixi.js';
 
 window.alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 window.numberList = []
@@ -119,5 +120,3 @@ window.LABELS.LABEL_DAMAGE= {
     strokeThickness:4,    
 }
 
-window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
-window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
