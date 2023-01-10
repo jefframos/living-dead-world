@@ -14,23 +14,45 @@ export default class ParticleBehaviour {
         this.currentValue = 0;
 
         this.normalValue = 0;
+
+        this.autoKill = false;
+        this.shouldKill = false;
+
+        this.delay = 0;
+
+        this.tween = 'easeOutCubic';
     }
     reset() {
         this.currentTime = 0;
+        this.autoKill = false;
+        this.shouldKill = false;
     }
     build(params) {
-
+        this.delay = ParticleBehaviour.findValue(params.delay);
+        if(!this.delay) {
+            this.delay = 0;
+        }
     }
     update(delta) {
-        if (this.currentTime > this.time) {
+        if (this.currentTime >= this.time) {
+            if(this.autoKill){
+                this.shouldKill = true;
+            }
             return;
         }
-        this.normalValue = ParticleBehaviour.easeOutCubic(this.currentTime / this.time, 0, 1, 1);
+        this.normalValue = ParticleBehaviour[this.tween](this.currentTime / this.time, 0, 1, 1);
 
         if (typeof this.currentValue === 'number') {
             this.currentValue = this.normalValue * (this.endValue - this.startValue) + this.startValue;
         }
-        this.currentTime += delta;
+
+        if(this.delay <= 0){
+            this.currentTime += delta;
+        }else{
+            this.delay -= delta;
+        }
+
+        
     }
 
 

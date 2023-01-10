@@ -6,7 +6,7 @@ export default class Particle {
 
     constructor() {
         this.descriptor = new ParticleDescriptor();
-        this.sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
+        this.sprite = new PIXI.Sprite(PIXI.Texture.EMPTY);
     }
 
     set x(value) {
@@ -21,7 +21,7 @@ export default class Particle {
     }
     build(descriptor) {
         this.descriptor.clone(descriptor);
-        this.sprite.texture = this.descriptor.texture;
+        this.sprite.texture = this.descriptor.texture ? this.descriptor.texture : PIXI.Texture.EMPTY;
         this.sprite.tint = this.descriptor.tint;
         this.sprite.anchor.set(0.5)
         this.sprite.rotation = 0;
@@ -34,11 +34,12 @@ export default class Particle {
         this.sprite.x += this.descriptor.velocityX * delta + this.descriptor.velocityOffsetX * delta;
         this.sprite.y += this.descriptor.velocityY * delta + this.descriptor.velocityOffsetY * delta;
         this.sprite.rotation += this.descriptor.rotationSpeed * delta;
-
-
         this.descriptor.velocityY += this.descriptor.gravity * delta;
 
         this.descriptor.behaviours.forEach(element => {
+            if(element.shouldKill){
+                this.descriptor.shouldDestroy = true;                
+            }
             if (element.type == 'descriptor') {
                 if (this.descriptor[element.property] !== undefined) {
                     this.descriptor[element.property] = element.currentValue;

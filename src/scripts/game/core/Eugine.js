@@ -64,8 +64,8 @@ export default class Eugine {
     addGameObject(gameObject) {
         gameObject.engine = this;
 
-        gameObject.gameObjectDestroyed.add(this.wipeGameObject.bind(this))
-        gameObject.childAdded.add(this.addGameObject.bind(this))
+        gameObject.gameObjectDestroyed.addOnce(this.wipeGameObject.bind(this))
+        gameObject.childAdded.addOnce(this.addGameObject.bind(this))
 
         this.gameObjects.push(gameObject);
         this.parentGameObject.addChild(gameObject)

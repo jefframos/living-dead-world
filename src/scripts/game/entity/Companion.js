@@ -1,9 +1,11 @@
 import Bullet from "./Bullet";
+import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
 import Layer from "../core/Layer";
 import Player from "./Player";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
+import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
 
@@ -20,7 +22,7 @@ export default class Companion extends GameAgent {
 
         this.currentEnemiesColliding = []
 
-        this.addComponent(SpriteJump)
+        
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -30,7 +32,7 @@ export default class Companion extends GameAgent {
 
         this.speed = 50
 
-        this.shootBaseTime = 1
+        this.shootBaseTime = 2
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
@@ -42,6 +44,9 @@ export default class Companion extends GameAgent {
         this.gameView.applyScale();
 
         this.anchorOffset = 0
+
+        this.addComponent(SpriteJump)
+        this.addComponent(SpriteFacing)
     }
 
     collisionEnter(collided) {
@@ -55,6 +60,8 @@ export default class Companion extends GameAgent {
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
     shoot() {
+
+        
         this.shootTimer = this.shootBaseTime;
 
         let bullet = this.engine.poolGameObject(Bullet, true)
@@ -83,7 +90,7 @@ export default class Companion extends GameAgent {
 
             this.shootTimer -= delta;
             if (this.shootTimer <= 0) {
-
+                //EffectsManager.instance.testParticles(this)
                 if (this.sensor.collisionList.length) {
                     this.shoot();
                 }
@@ -111,12 +118,6 @@ export default class Companion extends GameAgent {
             this.physics.velocity.zero();
         }
 
-        if (this.physics.velocity.x > 0) {
-            this.gameView.view.scale.x = -this.gameView.baseScale.x
-        } else if (this.physics.velocity.x < 0) {
-            this.gameView.view.scale.x = this.gameView.baseScale.x
-        }
-
-        super.update(delta)
+            super.update(delta)
     }
 }

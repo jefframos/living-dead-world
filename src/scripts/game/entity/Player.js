@@ -5,7 +5,9 @@ import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
+import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import Utils from "../core/utils/Utils";
 import config from "../../config";
 import utils from "../../utils";
 
@@ -36,7 +38,7 @@ export default class Player extends GameAgent {
 
         this.currentEnemiesColliding = []
 
-        this.addComponent(SpriteJump)
+        
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -46,7 +48,7 @@ export default class Player extends GameAgent {
 
         this.speed = 100
 
-        this.shootBaseTime = 0.25
+        this.shootBaseTime = 1
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
@@ -58,6 +60,10 @@ export default class Player extends GameAgent {
         this.gameView.applyScale();
 
         this.anchorOffset = 0
+
+
+        this.addComponent(SpriteJump)
+        this.addComponent(SpriteFacing)
 
     }
     onSensorTrigger(element) {
@@ -160,11 +166,7 @@ export default class Player extends GameAgent {
             this.physics.velocity.z = 0
         }
 
-        if(this.physics.velocity.x > 0){
-            this.gameView.view.scale.x = -this.gameView.baseScale.x
-        }else if(this.physics.velocity.x < 0){
-            this.gameView.view.scale.x = this.gameView.baseScale.x
-        }
+       
 
         super.update(delta)
     }

@@ -10,6 +10,7 @@ import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import GameManager from '../manager/GameManager';
 import InputModule from '../core/modules/InputModule';
+import Layer from '../core/Layer';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
 import RenderModule from '../core/modules/RenderModule';
@@ -30,7 +31,7 @@ export default class GameScreen extends Screen {
         this.container = new PIXI.Container()
         this.addChild(this.container);
 
-            PIXI.BitmapFont.from('damage1', {
+        PIXI.BitmapFont.from('damage1', {
             fontFamily: 'retro',
             align: "center",
             dropShadow: true,
@@ -80,12 +81,8 @@ export default class GameScreen extends Screen {
                 //this.destroyRandom(1);
 
                 //return
-                for (let index = 0; index < 50; index++) {
-                    setTimeout(() => {
-                        this.destroyRandom(1)
-                    }, 5 * index);
+                this.destroyRandom(50)
 
-                }
             },
             ADD_ENEMIES: () => {
                 //this.addRandomAgents(1);
@@ -98,6 +95,9 @@ export default class GameScreen extends Screen {
 
                 }
             },
+            ADD_ONE_ENEMY: () => {
+                this.addRandomAgents(1)
+            },
             RESPAWN: () => {
                 this.killPlayer();
                 this.spawnPlayer();
@@ -106,6 +106,7 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'timeScale', 0.1, 10);
         window.GUI.add(this.debug, 'REMOVE_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ENEMIES');
+        window.GUI.add(this.debug, 'ADD_ONE_ENEMY');
         window.GUI.add(this.debug, 'RESPAWN');
 
         //window.GUI.close()
@@ -139,12 +140,12 @@ export default class GameScreen extends Screen {
         this.removeEntities = new UIButton1(0x002299, 'icon_close', 0xFFFFFF, 60, 60)
         this.helperButtonList.addElement(this.removeEntities)
         this.removeEntities.onClick.add(() => {
-            for (let index = 0; index < 100; index++) {
-                setTimeout(() => {
-                    this.destroyRandom(1)
-                }, 5 * index);
+            this.destroyRandom(50)
+            // for (let index = 0; index < 100; index++) {
+            //     setTimeout(() => {
+            //     }, 5 * index);
 
-            }
+            // }
         })
 
         this.stats = new PIXI.Text('fps')
@@ -173,8 +174,13 @@ export default class GameScreen extends Screen {
     }
     destroyRandom(quant) {
         for (let index = 0; index < quant; index++) {
+            
+            let id = this.gameEngine.gameObjects.length - index - 1;
             if (this.gameEngine.gameObjects.length <= 0) continue;
-            this.gameEngine.destroyGameObject(this.gameEngine.gameObjects[this.gameEngine.gameObjects.length - 1])
+            if (id <= 0) continue;
+            if (this.gameEngine.gameObjects[id].layerCategory != Layer.Enemy) continue;
+
+            this.gameEngine.destroyGameObject(this.gameEngine.gameObjects[id])
         }
     }
     addRandomAgents(quant) {
@@ -189,7 +195,7 @@ export default class GameScreen extends Screen {
 
         }
     }
-    killPlayer(){
+    killPlayer() {
         this.player.destroy();
         this.companion.destroy();
 
@@ -243,7 +249,7 @@ export default class GameScreen extends Screen {
 
         this.camera.addComponent(CameraOcclusion2D);
 
-        
+
         this.worldRender = this.gameEngine.addGameObject(new BasicFloorRender())
 
 
@@ -258,7 +264,7 @@ export default class GameScreen extends Screen {
         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
 
-        for (let index = 0; index < 500; index++) {
+        for (let index = 0; index < 40; index++) {
             this.addRandomAgents(1)
         }
 

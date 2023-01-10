@@ -10,6 +10,7 @@ export default class SinoidBehaviour extends ParticleBehaviour {
     }
 
     build(params) {
+        super.build(params);
         this.speed = ParticleBehaviour.findValue(params.speed) | 1;
         this.length = ParticleBehaviour.findValue(params.length) | 0.1;
     }

@@ -1,9 +1,7 @@
-import * as PIXI from 'pixi.js';
 import signals from 'signals';
 
-export default class SpriteSheetAnimation extends PIXI.Sprite {
+export default class SpriteSheetAnimation {
     constructor() {
-        super();
         this.currentLayer = null;
         this.currentState = null;
         this.init = false;
@@ -28,7 +26,11 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
         }
 
         for (let index = totalFramesRange.min; index <= totalFramesRange.max; index++) {
-            animLayer.animationFrames.push(spriteName + index);
+            let id = index;
+            if(id < 10){
+                id = '0' + id;
+            }
+            animLayer.animationFrames.push(spriteName + id);
         }
 
         if (!this.animationState[state] || !this.animationState[state].layers) {
@@ -77,12 +79,11 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
                 this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime;
             }
         }
-        
+
         if (!this.currentAnimation.loop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
             this.animationFinish.dispatch(this.currentAnimation, this.currentState);
         }
         this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
-        this.texture = PIXI.Texture.from(this.currentAnimation.animationFrames[this.currentAnimation.currentFrame]);
     }
 
 
@@ -90,6 +91,6 @@ export default class SpriteSheetAnimation extends PIXI.Sprite {
         this.updateAnimation(delta);
     }
     get currentFrame() {
-        return this.currentAnimation.currentFrame;
+        return this.currentAnimation.animationFrames[this.currentAnimation.currentFrame];
     }
 }

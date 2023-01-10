@@ -1,6 +1,7 @@
 import GameAgent from "../core/entity/GameAgent";
 import Layer from "../core/Layer";
 import Player from "./Player";
+import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 
 export default class BaseEnemy extends GameAgent {
@@ -22,7 +23,7 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.texture = new PIXI.Texture.from(this.enemies[Math.floor(Math.random() * this.enemies.length)])
 
 
-        this.addComponent(SpriteJump)
+       
 
         this.rigidBody.isSensor = false;
         this.layerCategory = Layer.Enemy
@@ -33,6 +34,9 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.applyScale();
 
         this.speedAdjust = 3
+
+        this.addComponent(SpriteJump)
+        this.addComponent(SpriteFacing)
     }
     destroy(){
         super.destroy();
@@ -50,12 +54,6 @@ export default class BaseEnemy extends GameAgent {
         } else {
             this.physics.velocity.x = 0
             this.physics.velocity.z = 0
-        }
-
-        if(this.physics.velocity.x > 0){
-            this.gameView.view.scale.x = -this.gameView.baseScale.x
-        }else if(this.physics.velocity.x < 0){
-            this.gameView.view.scale.x = this.gameView.baseScale.x
         }
 
         super.update(delta)

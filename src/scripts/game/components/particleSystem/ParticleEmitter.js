@@ -5,14 +5,18 @@ import Pool from '../../core/utils/Pool';
 
 export default class ParticleEmmiter {
 
-    constructor(container) {
+    constructor(container, maxParticles = 800) {
         this.container = container;
         this.position = { x: 0, y: 0 }
         this.particles = [];
         this.frequency = 0.1;
         this.emitTimer = 0;
-        this.maxParticles = 800;
+        this.maxParticles = maxParticles;
         this.active = true;
+
+        this.totalParticles = 0;
+        window.GUI.add(this, 'totalParticles').listen();
+
     }
 
     get x() {
@@ -54,19 +58,20 @@ export default class ParticleEmmiter {
             if (this.particles.length > this.maxParticles) {
                 let first = this.particles.shift();
                 Pool.instance.returnElement(first);
-                this.container.removeChild(first.sprite);
+                particle.sprite.parent.removeChild(first.sprite);
             }
         }
 
     }
     update(delta) {
         this.emitTimer -= delta;
+        this.totalParticles = this.particles.length;
         for (let index = this.particles.length - 1; index >= 0; index--) {
             const particle = this.particles[index];
             particle.update(delta)
             if (particle.shouldDestroy) {
                 Pool.instance.returnElement(particle);
-                this.container.removeChild(particle.sprite);
+                particle.sprite.parent.removeChild(particle.sprite);
                 this.particles.splice(index, 1);
             }
         }

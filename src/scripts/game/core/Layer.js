@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-export default class Layer extends PIXI.Container {
+export default class Layer {
 
     static Nothing = 0;
     static Everything = 1;
@@ -16,14 +16,15 @@ export default class Layer extends PIXI.Container {
     static EnemyCollision = Layer.Environment | Layer.Default | Layer.Player | Layer.Bullet | Layer.Sensor
     static BulletCollision = Layer.Environment | Layer.Default | Layer.Enemy
 
-    constructor(name) {
-        super()
+    constructor(name, container, sortable = true) {
         this.layerName = name;
+        this.container = container;
         this.gameViews = []
+        this.sortable = sortable;
     }
     addGameView(gameView) {
         this.gameViews.push(gameView)
-        this.addChild(gameView.view)
+        this.container.addChild(gameView.view)
     }
     removeGameView(gameView) {
 
@@ -34,10 +35,20 @@ export default class Layer extends PIXI.Container {
             }
         }
 
-        this.removeChild(gameView.view)
+        this.container.removeChild(gameView.view)
+    }
+    addChild(element) {
+        this.container.addChild(element)
+    }
+    removeChild(element) {
+        this.container.removeChild(element)
+    }
+    get children() {
+        return this.container.children;
     }
     onRender() {
-        this.children.sort((a, b) => {
+        if (!this.sortable) return;
+        this.container.children.sort((a, b) => {
             if (a.y < b.y) {
                 return -1;
             } else if (a.y > b.y) {

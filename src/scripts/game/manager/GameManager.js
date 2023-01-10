@@ -29,11 +29,8 @@ export default class GameManager {
     }
     registerEntity(entity) {
         if (entity.health) {
-            entity.health.gotDamaged.removeAll()
-            entity.health.gotDamaged.add(this.entityDamaged.bind(this))
-            
-            //entity.health.gotKilledParticles.removeAll()
-            //entity.health.gotKilledParticles.add(this.entityKilled.bind(this))
+            entity.health.gotDamaged.addOnce(this.entityDamaged.bind(this))
+            entity.health.gotKilledParticles.addOnce(this.entityKilled.bind(this))
 
             this.entityRegister.push();
         }

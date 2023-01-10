@@ -4,6 +4,7 @@ import GameObject from "../core/gameObject/GameObject";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
 import ParticleEmitter from "../components/particleSystem/ParticleEmitter";
 import RenderModule from "../core/modules/RenderModule";
+import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
 
 export default class EffectsManager extends GameObject {
     static instance;
@@ -14,7 +15,6 @@ export default class EffectsManager extends GameObject {
         this.gameContainer = gameContainer;
 
         this.effectsContainer.alpha = true;
-        this.particleEmitter = new ParticleEmitter(this.gameContainer);
 
 
 
@@ -30,7 +30,7 @@ export default class EffectsManager extends GameObject {
                 texture: ['skull', 'skull2', 'arm', 'leg']
             }
         )
-        this.skullDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
+        this.skullDescriptor.addBaseBehaviours(AlphaBehaviour, { time: 0.3, delay:1 })
 
         //the descriptor is on the enemy
         this.bloodDescriptor = new ParticleDescriptor(
@@ -51,11 +51,11 @@ export default class EffectsManager extends GameObject {
                 velocityY: 0,
                 gravity: 0,
                 scale: [0.3, 0.5],
-                lifeSpan: 80,
-                tint: 0xff0000,
-                texture: ['bloodp1','bloodp2','bloodp3','bloodp4']
+                lifeSpan: 999,
+                texture: ['bloodp1', 'bloodp2', 'bloodp3', 'bloodp4']
             }
         )
+        this.bloodPuddle.addBaseBehaviours(AlphaBehaviour, { time: [0.5, 0.25] , delay:10})
 
         PIXI.BitmapFont.from('damage2', {
             fontFamily: 'peppa_pigmedium',
@@ -73,6 +73,16 @@ export default class EffectsManager extends GameObject {
         });
 
 
+
+        console.log("this is how to do spritesheet particle effects")
+        this.spriteSheetTest = new ParticleDescriptor({ lifeSpan: 999 })
+        this.spriteSheetTest.addBaseBehaviours(SpriteSheetBehaviour, {
+            time: 0.5,
+            startFrame: 1,
+            endFrame: 50,
+            spriteName: 'hit_claws_'
+        })
+
         this.bloodDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
         this.bloodDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
 
@@ -83,10 +93,10 @@ export default class EffectsManager extends GameObject {
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
-        this.baseLayer = this.renderModule.layers.floor;
-
-        this.particleEmitterKill = new ParticleEmitter(this.baseLayer);
-
+        this.baseLayer = this.renderModule.layers[RenderModule.RenderLayers.Floor].container;
+        
+        this.particleEmitter = new ParticleEmitter(this.gameContainer);
+        this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 500);
     }
     update(delta) {
         this.effectsContainer.pivot.x = this.gameContainer.pivot.x
@@ -114,6 +124,7 @@ export default class EffectsManager extends GameObject {
         }
 
         this.particleEmitter.update(delta)
+        this.particleEmitterKill.update(delta)
     }
     popKill(entity) {
         this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
@@ -134,6 +145,10 @@ export default class EffectsManager extends GameObject {
 
         this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 3);
 
+    }
+
+    testParticles(entity, value) {
+        this.particleEmitter.emit(this.spriteSheetTest, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
 
     getDamageFont() {

@@ -19,7 +19,7 @@ export default class ParticleDescriptor {
 
         this.gravity = 0;
         this.scale = 1;
-        this.texture = PIXI.Texture.from('spark2');
+        this.texture = PIXI.Texture.EMPTY;
         this.baseData = data;
         this.baseBehaviours = [];
         this.behaviours = [];
@@ -62,8 +62,8 @@ export default class ParticleDescriptor {
         this.behaviours = [];
         descriptor.baseBehaviours.forEach(element => {
             let behaviour = Pool.instance.getElement(element.behavior);
-            behaviour.build(element.params);
             behaviour.reset();
+            behaviour.build(element.params);
 
             this.behaviours.push(behaviour);
         });

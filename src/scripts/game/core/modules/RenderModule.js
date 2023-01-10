@@ -7,7 +7,7 @@ export default class RenderModule extends GameObject {
         Base: 'base',
         Debug: 'debug',
         Default: 'default',
-        Floor: 'floor',
+        Floor: '_p_floor',
         Building: 'building',
         Gameplay: 'gameplay',
         Particles: 'particles'
@@ -25,8 +25,16 @@ export default class RenderModule extends GameObject {
         this.layersArray = [];
         for (const key in RenderModule.RenderLayers) {
             const element = RenderModule.RenderLayers[key];
-            let layer = new Layer(element)
-            this.container.addChild(layer)
+            let container = null;
+            let sortable = true;
+            if(element.indexOf('_p_')>=0){
+                container = new PIXI.ParticleContainer(800, {tint:true});
+                sortable = false;
+            }else{
+                container = new PIXI.Container()
+            }
+            let layer = new Layer(element, container, sortable)
+            this.container.addChild(layer.container)
             this.layers[element] = layer;
             this.layersArray.push(layer)
         }
