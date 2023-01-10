@@ -3,6 +3,7 @@ import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
 import BasicFloorRender from '../manager/BasicFloorRender';
+import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Companion from '../entity/Companion';
 import DeckView from '../components/deckBuilding/DeckView';
 import EffectsManager from '../manager/EffectsManager';
@@ -29,21 +30,7 @@ export default class GameScreen extends Screen {
         this.container = new PIXI.Container()
         this.addChild(this.container);
 
-        //this.particleContainer = new PIXI.ParticleContainer();
-
-        // setTimeout(() => {
-
-        //     PIXI.BitmapFont.from('fredokaone', {
-        //         fill: "#333333",
-        //         fontFamily:'fredokaone',
-        //         fontSize: 40,
-        //         fontWeight: 'bold',
-        //     });
-
-
-
-
-        PIXI.BitmapFont.from('damage1', {
+            PIXI.BitmapFont.from('damage1', {
             fontFamily: 'retro',
             align: "center",
             dropShadow: true,
@@ -81,7 +68,6 @@ export default class GameScreen extends Screen {
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
 
-
         this.followPoint = new Vector3();
         this.camera.setFollowPoint(this.followPoint)
 
@@ -111,11 +97,16 @@ export default class GameScreen extends Screen {
                     }, 5 * index);
 
                 }
+            },
+            RESPAWN: () => {
+                this.killPlayer();
+                this.spawnPlayer();
             }
         }
         window.GUI.add(this.debug, 'timeScale', 0.1, 10);
         window.GUI.add(this.debug, 'REMOVE_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ENEMIES');
+        window.GUI.add(this.debug, 'RESPAWN');
 
         //window.GUI.close()
 
@@ -198,11 +189,14 @@ export default class GameScreen extends Screen {
 
         }
     }
+    killPlayer(){
+        this.player.destroy();
+        this.companion.destroy();
+
+    }
     spawnPlayer() {
         this.player = this.gameManager.addEntity(Player, true)
-
         this.companion = this.gameManager.addEntity(Companion, true)
-
         let angle = Math.PI * 2 * Math.random();
         this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
@@ -245,6 +239,11 @@ export default class GameScreen extends Screen {
         }
 
         this.spawnPlayer();
+
+
+        this.camera.addComponent(CameraOcclusion2D);
+
+        
         this.worldRender = this.gameEngine.addGameObject(new BasicFloorRender())
 
 

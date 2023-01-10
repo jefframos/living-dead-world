@@ -2,6 +2,7 @@ import * as signals from 'signals';
 
 import BaseComponent from "./BaseComponent";
 import Pool from '../utils/Pool';
+import TagManager from '../TagManager';
 import Transform from "./Transform";
 
 export default class GameObject extends BaseComponent {
@@ -9,6 +10,7 @@ export default class GameObject extends BaseComponent {
     constructor() {
         super();
 
+        this.tag = TagManager.Tags.Untagged;
         this.gameObject = this;
         this.engineID = ++GameObject.ObjectCounter;
         this.transform = new Transform();
@@ -91,9 +93,8 @@ export default class GameObject extends BaseComponent {
                 element.update(delta);
             }
         });
-
         this.components.forEach(element => {
-            if (element.enabled) {
+            if (element.enabled) {                
                 element.update(delta);
             }
         });

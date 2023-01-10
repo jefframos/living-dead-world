@@ -1,6 +1,7 @@
 import GameView from "../core/view/GameView";
 import Layer from "../core/Layer";
 import PhysicsEntity from "../core/physics/PhysicsEntity";
+import TagManager from "../core/TagManager";
 
 export default class StaticPhysicObject extends PhysicsEntity {
     constructor() {
@@ -10,6 +11,7 @@ export default class StaticPhysicObject extends PhysicsEntity {
 
         let textures = ['grave (1)','grave (2)','grave (3)','grave (4)','grave (5)','grave (6)']
         this.gameView.view = new PIXI.Sprite.from(textures[Math.floor(Math.random()* textures.length)])
+        this.gameView.tag = TagManager.Tags.Occlusion;
     }
     build(x, y, width, height) {
         super.build()

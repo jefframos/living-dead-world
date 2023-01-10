@@ -1,9 +1,11 @@
 import * as PIXI from 'pixi.js';
 
 import RenderModule from '../modules/RenderModule';
+import TagManager from '../TagManager';
 
 export default class GameView {
-    constructor(gameObject) {
+    constructor(gameObject) {        
+        this.tag = TagManager.Tags.Untagged;
         this.layer = RenderModule.RenderLayers.Gameplay
         this.viewOffset = { x: 0, y: 0 }
         this.view = null;

@@ -67,6 +67,8 @@ export default class Game {
         // this.logo.y = -200
         // this.loaderContainer.addChild(this.logo)
         this.stage.addChild(this.loaderContainer);
+
+        this.loaderContainer.x = Game.Screen.width/2
     }
     updateLoader(progress) {
         this.fillLoader.scale.x = progress / 100
@@ -171,8 +173,8 @@ export default class Game {
             this.loaderContainer.scale.y = newScaleY//this.ratio
 
 
-            this.loaderContainer.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
-            this.loaderContainer.y = config.height / 2 + 50
+            this.loaderContainer.x = Game.Screen.width/2 - this.loaderContainer.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+            this.loaderContainer.y =  Game.Screen.height - this.loaderContainer.height - 50
 
 
         }

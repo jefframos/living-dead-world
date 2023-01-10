@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import Camera from './Camera';
+import Player from '../entity/Player';
 import RenderModule from './modules/RenderModule';
 import utils from '../../utils';
 
@@ -17,13 +18,13 @@ export default class PerspectiveCamera extends Camera {
         }
         this.zoom = 1;
         this.targetZoom = 1.5;
-        window.GUI.add(this, 'targetZoom',0.5,3).listen();
+        window.GUI.add(this, 'targetZoom', 0.5, 3).listen();
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
     }
     update(delta) {
-
+        super.update(delta);
 
         if (this.followPoint) {
             if (utils.distance(this.renderModule.container.pivot.x, this.renderModule.container.pivot.y, this.followPoint.x, this.followPoint.z) > 30) {
@@ -58,7 +59,6 @@ export default class PerspectiveCamera extends Camera {
             //this.transformView(element)
         });
     }
-
     transformView(gameView) {
         //console.log(gameView.gameObject)
         // let camM = [1, 0, 0, 0,

@@ -105,7 +105,5 @@ export default class RenderModule extends GameObject {
         });
 
         this.renderStats.totalRenderEntities = this.layers[RenderModule.RenderLayers.Gameplay].children.length;
-
-
     }
 }
