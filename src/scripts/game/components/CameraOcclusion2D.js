@@ -18,7 +18,8 @@ export default class CameraOcclusion2D extends BaseComponent {
     }
 
     update(delta) {
-        this.renderModule.layers.gameplay.gameViews.forEach(element => {
+        //only uses player layer to test occlusion
+        this.renderModule.layers[this.player.gameView.layer].gameViews.forEach(element => {
             if(element.tag == TagManager.Tags.Occlusion){
                 this.boundOcclusion(this.player.gameView.view, element.view, element.view.anchor);
             }
