@@ -19,6 +19,8 @@ export default class Eugine {
         this.started = false;
 
     }
+
+    //helper to revome entity from list by its unique engine id
     static RemoveFromListById(list, gameObject) {
         for (let index = 0; index < list.length; index++) {
             const element = list[index];
@@ -29,11 +31,15 @@ export default class Eugine {
 
         }
     }
+
+    //add main camera
     addCamera(camera) {
         this.camera = this.addGameObject(camera);
 
         return this.camera;
     }
+
+    //add game object using pooling system
     poolGameObject(constructor, rebuild) {
         let element = Pool.instance.getElement(constructor)
         if (element.removeAllSignals) {
@@ -48,6 +54,8 @@ export default class Eugine {
         }
         return go;
     }
+
+    //add game object at random position (more like a helper)    
     poolAtRandomPosition(constructor, rebuild, bounds) {
         let element = Pool.instance.getElement(constructor)
         element.engine = this;
@@ -61,9 +69,12 @@ export default class Eugine {
         go.y = Math.random() * (bounds.maxY - bounds.minY) + bounds.minY
         return go;
     }
+
+    //add game object on the engine 
     addGameObject(gameObject) {
         gameObject.engine = this;
 
+        //add these event once to avoid duplications
         gameObject.gameObjectDestroyed.addOnce(this.wipeGameObject.bind(this))
         gameObject.childAdded.addOnce(this.addGameObject.bind(this))
 
@@ -77,20 +88,24 @@ export default class Eugine {
             }
         }
 
+        //if the engine is started then start the gameobjects, otherwise will start when the engine starts
         if (this.started) {
-
             gameObject.start()
         }
 
         this.entityAdded.dispatch([gameObject])
         return gameObject;
     }
+
+    //add physics agent if there is one
     addRigidBody(gameObject) {
         this.physics.addAgent(gameObject)
     }
+    //destroy game object
     destroyGameObject(gameObject) {
         gameObject.destroy()
     }
+    //remove the game object from the world
     wipeGameObject(gameObject) {
 
         Eugine.RemoveFromListById(this.gameObjects, gameObject)
@@ -99,6 +114,7 @@ export default class Eugine {
             this.physics.removeAgent(gameObject)
         }
     }
+    //find go inside the engine (only on the top level)
     findByType(type) {
         let elementFound = null
 
@@ -111,6 +127,7 @@ export default class Eugine {
         }
         return elementFound;
     }
+    //start engine and the game objects
     start() {
         if (this.started) {
             return

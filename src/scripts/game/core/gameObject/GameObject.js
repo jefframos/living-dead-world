@@ -128,9 +128,7 @@ export default class GameObject extends BaseComponent {
         }
         this.components.forEach(element => {
             element.destroy();
-
             this.removeComponent(element)
-            //element.removeAllSignals();
         });
         this.disable();
         Pool.instance.returnElement(this)
