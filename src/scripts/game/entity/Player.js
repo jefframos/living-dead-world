@@ -52,9 +52,9 @@ export default class Player extends GameAgent {
         this.addChild(this.weapon)
         this.weapon.build()
         
-        this.weapon2 = this.engine.poolGameObject(FloatingProjectile) 
-        this.addChild(this.weapon2)
-        this.weapon2.build()
+        // this.weapon2 = this.engine.poolGameObject(FloatingProjectile) 
+        // this.addChild(this.weapon2)
+        // this.weapon2.build()
 
         this.weapon3 = this.engine.poolGameObject(ThrowingProjectile) 
         this.addChild(this.weapon3)

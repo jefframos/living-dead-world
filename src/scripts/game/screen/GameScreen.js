@@ -232,7 +232,7 @@ export default class GameScreen extends Screen {
 
         setInterval(() => {
             for (let index = 0; index < Math.random() * 10 + 5; index++) {
-                this.addRandomAgents(1)
+                //this.addRandomAgents(1)
             }
         }, 5000)
         //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
@@ -287,7 +287,7 @@ export default class GameScreen extends Screen {
 
         setTimeout(() => {
 
-            for (let index = 0; index < 2; index++) {
+            for (let index = 0; index < 8; index++) {
                 this.addRandomAgents(1)
             }
         }, 20);

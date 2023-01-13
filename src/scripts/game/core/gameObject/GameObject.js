@@ -117,7 +117,7 @@ export default class GameObject extends BaseComponent {
     }
     destroy() {
         this.gameObjectDestroyed.dispatch(this);
-
+        
         if (this.parent) {
             this.parent.removeChild(this)
         }
@@ -136,6 +136,7 @@ export default class GameObject extends BaseComponent {
         });
         this.disable();
         Pool.instance.returnElement(this)
+        super.destroy();
     }
 
     removeChild(child) {

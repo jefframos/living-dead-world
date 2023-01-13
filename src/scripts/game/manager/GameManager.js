@@ -23,17 +23,17 @@ export default class GameManager {
         this.gameplayEntities.push(entity);
 
         this.gameManagerStats.totalGameObjects = this.gameplayEntities.length
-        entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
-        entity.gameObjectDestroyed.add(this.removeEntity.bind(this))
+        //entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
+        entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
 
         this.registerEntity(entity)
         return entity;
     }
     registerEntity(entity) {
-        if (this.entityRegister.indexOf(entity) < 0 && entity.health) {
-            entity.health.gotDamaged.remove(this.entityDamaged)
-            entity.health.gotDamaged.add(this.entityDamaged)
-            entity.health.gotKilledParticles.addOnce(this.entityKilled)
+       if (this.entityRegister.indexOf(entity) < 0 && entity.health) {
+            //entity.health.gotDamaged.remove(this.entityDamaged)
+            entity.health.gotDamaged.addOnce(this.entityDamaged.bind(this))
+            entity.health.gotKilledParticles.addOnce(this.entityKilled.bind(this))
             
             this.entityRegister.push(entity);
         }

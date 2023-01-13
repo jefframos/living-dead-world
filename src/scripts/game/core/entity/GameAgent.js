@@ -17,11 +17,10 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.tint = 0;
         this.shadow.scale.set(30 / this.shadow.width)
         this.shadow.scale.y = this.shadow.scale.x * 0.4
-        this.health = this.addComponent(Health)
-
+        
         this.currentEnemiesColliding = [];
-
-        this.health.gotKilled.add(this.die.bind(this))
+        
+        
         // this.view = new SpriteSheetAnimation()
         // this.view.anchor.set(0.5, 0.5)
         // this.view.animationFinish.add(this.onAnimationEnd.bind(this))
@@ -60,6 +59,9 @@ export default class GameAgent extends PhysicsEntity {
     build() {
         super.build();
 
+        this.health = this.addComponent(Health)
+        this.health.gotKilled.add(this.die.bind(this))
+        
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
         this.timer = Math.random()

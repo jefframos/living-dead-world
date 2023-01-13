@@ -87,6 +87,9 @@ export default class PhysicsEntity extends GameObject {
 
         super.update(delta);
 
+        this.physics.update();
+
+
         this.transform.position.x = this.rigidBody.position.x;
         this.transform.position.z = this.rigidBody.position.y;
 
@@ -119,7 +122,6 @@ export default class PhysicsEntity extends GameObject {
 
         }
 
-        this.physics.update();
     }
 
     set layerMask(value) {

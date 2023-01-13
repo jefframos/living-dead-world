@@ -22,7 +22,7 @@ export default class Health extends BaseComponent {
         this.currentHealth -= value;
         if (this.currentHealth <= 0) {
             this.gotKilled.dispatch(this);
-            this.gotKilledParticles.dispatch(this);
+            //this.gotKilledParticles.dispatch(this);
         }
     }
 }

@@ -12,7 +12,9 @@ export default class BaseComponent {
     build() { }
     start() { }
     onRender() { }
-    destroy() { }
+    destroy() { 
+        this.gameObject = null;
+    }
     removeAllSignals() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {

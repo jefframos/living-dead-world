@@ -19,11 +19,7 @@ export default class BaseEnemy extends GameAgent {
         //this.view.scale.set(0.2)
         this.buildCircle(0, 0, 15);
 
-
-        this.gameView.view.texture = new PIXI.Texture.from(this.enemies[Math.floor(Math.random() * this.enemies.length)])
-
-
-       
+        this.gameView.view.texture = new PIXI.Texture.from(this.enemies[Math.floor(Math.random() * this.enemies.length)])       
 
         this.rigidBody.isSensor = false;
         this.layerCategory = Layer.Enemy
