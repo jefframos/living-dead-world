@@ -110,6 +110,7 @@ export default class PhysicsEntity extends GameObject {
         this.physics.angle = this.transform.angle
 
         if (this.debug) {
+            
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
             this.debug.rotation = this.physics.angle
@@ -117,6 +118,8 @@ export default class PhysicsEntity extends GameObject {
             this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
 
         }
+
+        this.physics.update();
     }
 
     set layerMask(value) {
@@ -137,6 +140,15 @@ export default class PhysicsEntity extends GameObject {
     }
     get layerCategory() {
         return this.rigidBody.collisionFilter.category;
+    }
+    get facing() {
+        return this.physics.facing;
+    }
+    get facingAngle() {
+        return this.physics.facing > 0 ? Math.PI :  0;
+    }
+    get facingAngleBack() {
+        return this.physics.facing < 0 ? Math.PI :  0;
     }
     /**
      * @param {number} value

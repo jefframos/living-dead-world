@@ -4,6 +4,7 @@ export default class PhysicsProperties {
     constructor() {
         this.density = 0.1;
         this.angle = 0;
+        this.facing = 1;
         
         this.velocity = new Vector3();
         this.unscaleVelocity = new Vector3();
@@ -17,4 +18,11 @@ export default class PhysicsProperties {
             return Math.sqrt(sum);
         }
     }
+    update(){
+        if(this.velocity.x > 0){            
+            this.facing = -1;
+        }else if(this.velocity.x < 0){
+            this.facing = 1;
+        }
+    }    
 }

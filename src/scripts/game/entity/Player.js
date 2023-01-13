@@ -1,4 +1,6 @@
-import Bullet from "./Bullet";
+import BaseMelee from "../components/weapon/BaseMelee";
+import Bullet from "../components/weapon/bullets/Bullet";
+import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import GameAgent from "../core/entity/GameAgent";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
@@ -7,6 +9,7 @@ import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import ThrowingProjectile from "../components/weapon/ThrowingProjectile";
 import Utils from "../core/utils/Utils";
 import config from "../../config";
 import utils from "../../utils";
@@ -38,7 +41,6 @@ export default class Player extends GameAgent {
 
         this.currentEnemiesColliding = []
 
-        
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -46,17 +48,28 @@ export default class Player extends GameAgent {
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
+        this.weapon = this.engine.poolGameObject(BaseMelee)
+        this.addChild(this.weapon)
+        this.weapon.build()
+        
+        this.weapon2 = this.engine.poolGameObject(FloatingProjectile) 
+        this.addChild(this.weapon2)
+        this.weapon2.build()
+
+        this.weapon3 = this.engine.poolGameObject(ThrowingProjectile) 
+        this.addChild(this.weapon3)
+        this.weapon3.build()
+
         this.speed = 100
 
-        this.shootBaseTime = 1
-        this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
-        this.gameView.view.anchor.set(0.5, 1)
-        this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2)
+        this.gameView.view.anchor.set(0.5, 1);
+        this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2);
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
+        this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
 
         this.anchorOffset = 0
@@ -64,6 +77,9 @@ export default class Player extends GameAgent {
 
         this.addComponent(SpriteJump)
         this.addComponent(SpriteFacing)
+
+
+        this.framesAfterStart = 0;
 
     }
     onSensorTrigger(element) {
@@ -88,40 +104,15 @@ export default class Player extends GameAgent {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
-    shoot() {
-        this.shootTimer = this.shootBaseTime;
 
-        let bullet = this.engine.poolGameObject(Bullet, true)
-        let forw = this.forward;
-
-        //this.view.play('Pistol_Shoot')
-        let shootAngle = this.transform.angle//Math.floor(this.transform.angle / this.angleChunkRad) * this.angleChunkRad;
-
-        //console.log(this.sensor.collisionList.length,this.sensor.collisionList[0])
-        //console.log(this.sensor.collisionList.length)
-        if (this.sensor.collisionList.length) {
-            utils.distSort(this.transform.position, this.sensor.collisionList)
-
-            //let first = this.sensor.collisionList[Math.floor(Math.random() * this.sensor.collisionList.length)].transform.position
-            let first = this.sensor.collisionList[0].transform.position
-            shootAngle = Math.atan2(first.z - this.transform.position.z, first.x - this.transform.position.x)
-        }
-
-        bullet.setPosition(this.transform.position.x + Math.cos(shootAngle) * 20 + this.physics.velocity.x, 0, this.transform.position.z + Math.sin(shootAngle) * 20 + this.physics.velocity.z);
-
-        bullet.shoot(shootAngle + Math.random() * 0.2 - 0.1, this.physics.magnitude)
-    }
     update(delta) {
-        if (!this.isShooting) {
-
-
-            this.shootTimer -= delta;
-            if (this.shootTimer <= 0) {
-
-                if (this.sensor.collisionList.length) {
-                    this.shoot();
+        this.framesAfterStart++
+        if (this.framesAfterStart == 1) {
+            this.sensor.collisionList.forEach(element => {
+                if (element.destroy) {
+                    element.destroy()
                 }
-            }
+            });
         }
 
         this.currentEnemiesColliding.forEach(element => {
@@ -166,7 +157,7 @@ export default class Player extends GameAgent {
             this.physics.velocity.z = 0
         }
 
-       
+
 
         super.update(delta)
     }

@@ -54,6 +54,8 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.effectsContainer)
         this.container.addChild(this.uiContainer)
 
+        this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
+
         this.gameEngine = new Eugine();
 
 
@@ -98,8 +100,10 @@ export default class GameScreen extends Screen {
             ADD_ONE_ENEMY: () => {
                 this.addRandomAgents(1)
             },
-            RESPAWN: () => {
+            DAMAGE_PLAYER: () => {
                 this.killPlayer();
+            },
+            RESPAWN: () => {
                 this.spawnPlayer();
             }
         }
@@ -108,6 +112,7 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'ADD_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ONE_ENEMY');
         window.GUI.add(this.debug, 'RESPAWN');
+        window.GUI.add(this.debug, 'DAMAGE_PLAYER');
 
         //window.GUI.close()
 
@@ -174,7 +179,7 @@ export default class GameScreen extends Screen {
     }
     destroyRandom(quant) {
         for (let index = 0; index < quant; index++) {
-            
+
             let id = this.gameEngine.gameObjects.length - index - 1;
             if (this.gameEngine.gameObjects.length <= 0) continue;
             if (id <= 0) continue;
@@ -190,44 +195,55 @@ export default class GameScreen extends Screen {
             let enemy = GameManager.instance.addEntity(BaseEnemy, true)
             //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
             let angle = Math.PI * 2 * Math.random();
-            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
-            enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
+            // enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
+            // enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
+
+            enemy.x = this.player.transform.position.x + Math.cos(angle) * 300
+            enemy.z = this.player.transform.position.y + Math.sin(angle) * 300
 
         }
     }
     killPlayer() {
-        this.player.destroy();
-        this.companion.destroy();
+        this.player.damage(50);
+        //this.companion.destroy();
 
     }
     spawnPlayer() {
-        this.player = this.gameManager.addEntity(Player, true)
-        this.companion = this.gameManager.addEntity(Companion, true)
-        let angle = Math.PI * 2 * Math.random();
-        this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
-        this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
-        this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
+        console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
+        if(this.player && !this.player.isDead){
+            this.player.destroy();
+        }
+        this.player = this.gameManager.addEntity(Player, true)
+        let angle = Math.PI * 2 * Math.random();
+       // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
+
+        // this.companion = this.gameManager.addEntity(Companion, true)
+        // this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
+        // this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
+
+        setTimeout(() => {
+
+            this.followPoint.x = this.player.gameView.view.position.x;
+            this.followPoint.y = 0;
+            this.followPoint.z = this.player.gameView.view.position.y;
+            this.camera.snapFollowPoint()
+        }, 1);
+
+        setInterval(() => {
+            for (let index = 0; index < Math.random() * 10 + 5; index++) {
+                this.addRandomAgents(1)
+            }
+        }, 5000)
         //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
         //this.debug.ADD_ENEMIES();
         this.player.onDie.add(() => {
-            this.companion.destroy();
-            this.spawnPlayer()
-            //this.debug.REMOVE_ENEMIES();
+            setTimeout(() => {                
+                this.spawnPlayer()
+            }, 1000);
         })
     }
-    build(param) {
-        super.build();
-        this.addEvents();
-        this.gameEngine.start();
-
-
-        this.worldSystem = this.gameEngine.poolGameObject(WorldSystem, true);
-
-        console.log("deck start here");
-        this.deckView = this.gameEngine.poolGameObject(DeckView, true)
-        this.deckView.setActive(false);
-
+    addWorldElements() {
         let i = 5
         let j = 8
         let chunkX = (config.width * 2) / i
@@ -244,6 +260,15 @@ export default class GameScreen extends Screen {
             }
         }
 
+    }
+    build(param) {
+        super.build();
+        this.addEvents();
+        this.gameEngine.start();
+
+
+        this.worldSystem = this.gameEngine.poolGameObject(WorldSystem, true);
+
         this.spawnPlayer();
 
 
@@ -257,16 +282,15 @@ export default class GameScreen extends Screen {
         //this.player.setPosition(firstNode.center.x * WorldManager.instance.scale, firstNode.center.y * WorldManager.instance.scale)        
         // WorldManager.instance.setPlayer(this.player);
 
-        setTimeout(() => {
-            this.camera.snapFollowPoint()
-        }, 1);
 
         console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
 
+        setTimeout(() => {
 
-        for (let index = 0; index < 40; index++) {
-            this.addRandomAgents(1)
-        }
+            for (let index = 0; index < 2; index++) {
+                this.addRandomAgents(1)
+            }
+        }, 20);
 
         console.log(config)
     }
@@ -290,6 +314,8 @@ export default class GameScreen extends Screen {
             this.followPoint.x = this.player.gameView.view.position.x;
             this.followPoint.y = 0;
             this.followPoint.z = this.player.gameView.view.position.y;
+
+            //console.log(this.gameplayContainer.position)
         }
     }
     transitionOut(nextScreen) {

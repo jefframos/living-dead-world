@@ -186,19 +186,17 @@ export default class Game {
             // this.screenManager.scale.set(min)
 
 
-
-
-
             let newScaleX = newSize.width / this.innerResolution.width
             this.screenManager.scale.x = newScaleX//this.ratio
             let newScaleY = newSize.height / this.innerResolution.height
             this.screenManager.scale.y = newScaleY//this.ratio
 
-            //console.log(newScaleX)
-            // 	// this.screenManager.pivot.x = this.innerResolution.width / 2 // this.screenManager.scale.x
-            this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
-            this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
 
+            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2          
+            
+            this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
+            //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
+            this.screenManager.y = this.desktopResolution.height / 2 - (this.desktopResolution.height / 2 * newScaleY)
             // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
             // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
 
@@ -214,7 +212,6 @@ export default class Game {
 
             
             // 	//console.log(window.appScale)
-            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
 
             this.screenManager.resize(this.resolution, this.innerResolution);
             this.borders.topRight.x = config.width + this.screenManager.x / this.screenManager.scale.x

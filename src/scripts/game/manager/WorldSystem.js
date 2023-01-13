@@ -1,4 +1,6 @@
 import BuildingComponent from "../components/building/BuildingComponent";
+import DeckView from "../components/deckBuilding/DeckView";
+import Eugine from "../core/Eugine";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import InputModule from "../core/modules/InputModule";
@@ -26,6 +28,10 @@ export default class WorldSystem extends GameObject {
         this.buildingComponent.setGameView(this.gameView.view);
 
 
+        this.deckView = this.engine.poolGameObject(DeckView, true)
+        this.deckView.setActive(false);
+
+
         console.log("building start here");
         //this.setBuildingMode();
     }
@@ -35,7 +41,21 @@ export default class WorldSystem extends GameObject {
             if (e.keyCode == 81) {
                 this.toggleBuilding();
             }
+
+            if (e.keyCode == 49) {
+                
+                this.toggleDeck();
+            }
         })
+    }
+    toggleDeck() {
+        if(this.deckView.enabled){
+            this.deckView.setActive(false);
+            Eugine.PhysicsTimeScale = 1;
+        }else{
+            this.deckView.setActive(true);
+            Eugine.PhysicsTimeScale = 0;            
+        }
     }
     toggleBuilding() {
         if (WorldSystem.CurrentMode == WorldSystem.CombatMode) {

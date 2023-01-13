@@ -48,7 +48,7 @@ export default class GameObject extends BaseComponent {
     }
     addChild(gameObject) {
         gameObject.setParent(this)
-        this.childAdded.dispatch(this)
+        this.childAdded.dispatch(gameObject)
         this.children.push(gameObject);
     }
     setActive(value = true) {
@@ -62,6 +62,10 @@ export default class GameObject extends BaseComponent {
     get forward() {
         let rad = this.transform.angle // 180 * Math.PI
         return { x: Math.cos(rad), y: Math.sin(rad) }
+    }
+    get facingDirection() {
+        let rad = this.transform.angle * 180 * Math.PI
+        return rad
     }
     /**
      * @param {number} value

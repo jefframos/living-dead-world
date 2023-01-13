@@ -3,9 +3,9 @@
         "image/terrain/terrain.json",
         "image/texture/texture.json",
         "image/particles/particles.json",
-        "image/vfx/vfx.json",
         "image/characters/characters.json",
         "image/environment/environment.json",
+        "image/vfx/vfx.json",
         "image/entities/entities.json",
         "image/ui/ui.json"
     ]

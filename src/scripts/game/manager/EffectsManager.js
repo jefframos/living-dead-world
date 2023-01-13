@@ -75,12 +75,13 @@ export default class EffectsManager extends GameObject {
 
 
         console.log("this is how to do spritesheet particle effects")
-        this.spriteSheetTest = new ParticleDescriptor({ lifeSpan: 999 })
+        this.spriteSheetTest = new ParticleDescriptor({ lifeSpan: 999, scale:1 })
         this.spriteSheetTest.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.5,
+            time: 0.25,
             startFrame: 1,
-            endFrame: 50,
-            spriteName: 'hit_claws_'
+            endFrame: 6,
+            spriteName: 'blood-2-',
+            addZero: false,
         })
 
         this.bloodDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
@@ -96,7 +97,7 @@ export default class EffectsManager extends GameObject {
         this.baseLayer = this.renderModule.layers[RenderModule.RenderLayers.Floor].container;
         
         this.particleEmitter = new ParticleEmitter(this.gameContainer);
-        this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 500);
+        this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 200);
     }
     update(delta) {
         this.effectsContainer.pivot.x = this.gameContainer.pivot.x
@@ -143,7 +144,9 @@ export default class EffectsManager extends GameObject {
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 
-        this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 3);
+        //this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 3);
+        //uses blod spritesheet
+        this.particleEmitter.emit(this.spriteSheetTest, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
 
     }
 
@@ -151,6 +154,9 @@ export default class EffectsManager extends GameObject {
         this.particleEmitter.emit(this.spriteSheetTest, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
 
+    emitParticles(position, descriptor, quant = 1, overrides){
+        this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+    }
     getDamageFont() {
 
         if (this.damageFontPool.length > 0) {

@@ -5,6 +5,7 @@ import PhysicsModule from "./modules/PhysicsModule";
 import Pool from './utils/Pool';
 
 export default class Eugine {
+    static PhysicsTimeScale = 1;
     constructor() {
         this.entityAdded = new signals.Signal()
         this.gameObjects = []

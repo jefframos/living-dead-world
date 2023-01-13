@@ -43,22 +43,28 @@ export default class ParticleEmmiter {
 
         }
     }
-    emit(particleDescriptor, position, quant) {
-
+    emit(particleDescriptor, position, quant, overrides = {}) {
         for (let index = 0; index < quant; index++) {
             let particle = Pool.instance.getElement(Particle);
             particle.build(particleDescriptor)
             particle.x = Math.random() * (position.maxX - position.minX) + position.minX + this.x;
             particle.y = Math.random() * (position.maxY - position.minY) + position.minY + this.y;
 
+            for (const key in overrides) {
+                if(particle.sprite[key]){
+                    particle.sprite[key] = overrides[key];
+                }
+            }
+
             this.container.addChild(particle.sprite);
             this.particles.push(particle)
 
             this.emitTimer = this.frequency;
             if (this.particles.length > this.maxParticles) {
-                let first = this.particles.shift();
+                let first = this.particles[0];
                 Pool.instance.returnElement(first);
                 particle.sprite.parent.removeChild(first.sprite);
+                this.particles.splice(0,1)
             }
         }
 

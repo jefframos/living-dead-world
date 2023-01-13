@@ -33,7 +33,7 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.scale.set(15 / this.gameView.view.width * Math.abs(this.gameView.view.scale.x) * 2)
         this.gameView.applyScale();
 
-        this.speedAdjust = 3
+        this.speedAdjust = 1
 
         this.addComponent(SpriteJump)
         this.addComponent(SpriteFacing)

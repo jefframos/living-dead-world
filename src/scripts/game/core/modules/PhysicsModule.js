@@ -112,8 +112,9 @@ export default class PhysicsModule extends GameObject {
         }
     }
     update(delta) {
+        delta *= Eugine.PhysicsTimeScale;
         super.update(delta)
-        if (this.physicsEngine) {
+        if (this.physicsEngine && delta) {
             Matter.Engine.update(this.physicsEngine, delta);
         }
         this.physicsStats.totalPhysicsEntities = this.physicsEngine.detector.bodies.length

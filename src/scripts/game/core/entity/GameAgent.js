@@ -33,6 +33,7 @@ export default class GameAgent extends PhysicsEntity {
         }
 
     }
+    get isDead() { return this.health.currentHealth <= 0 }
     findInCollision(entity){
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
             if(this.currentEnemiesColliding[index].entity == entity){

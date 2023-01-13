@@ -1,4 +1,4 @@
-import Bullet from "./Bullet";
+import Bullet from "../components/weapon/bullets/Bullet";
 import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
 import Layer from "../core/Layer";

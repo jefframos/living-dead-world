@@ -15,23 +15,26 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
         this.startFrame = ParticleBehaviour.findValue(params.startFrame) || 1;
         this.endFrame = ParticleBehaviour.findValue(params.endFrame) || 1;
         this.spriteName = ParticleBehaviour.findValue(params.spriteName);
+        this.addZero = params.addZero;
 
 
         this.frames = [];
         for (let index = this.startFrame; index <= this.endFrame; index++) {
             let id = index;
-            if (id < 10) {
+            if (this.addZero && id < 10) {
                 id = '0' + id;
             }
             this.frames.push(this.spriteName + id);
         }
-
     }
 
     reset() {
         super.reset();
         this.currentFrame = 0;
-        this.currentValue = PIXI.Texture.from(this.frames[this.currentFrame]);
+
+        if(this.frames.length){
+            this.currentValue = PIXI.Texture.from(this.frames[this.currentFrame]);
+        }
         this.autoKill = true;
         this.tween = 'linearTween';
     }
