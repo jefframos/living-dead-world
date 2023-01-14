@@ -156,6 +156,8 @@ export default class Eugine {
         });
 
         this.engineStats.totalGameObjects = this.gameObjects.length
+
+        //console.log(this.gameObjects)
     }
 
 }

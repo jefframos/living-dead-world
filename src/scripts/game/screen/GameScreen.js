@@ -3,6 +3,7 @@ import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
 import BasicFloorRender from '../manager/BasicFloorRender';
+import Bullet from '../components/weapon/bullets/Bullet';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Companion from '../entity/Companion';
 import DeckView from '../components/deckBuilding/DeckView';
@@ -13,6 +14,7 @@ import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
+import Pool from '../core/utils/Pool';
 import RenderModule from '../core/modules/RenderModule';
 import Screen from '../../screenManager/Screen'
 import StaticPhysicObject from '../entity/StaticPhysicObject';
@@ -78,6 +80,8 @@ export default class GameScreen extends Screen {
 
         this.debug = {
             timeScale: 1,
+            enemiesPool: 0,
+            bulletsPool: 0,
             REMOVE_ENEMIES: () => {
 
                 //this.destroyRandom(1);
@@ -108,6 +112,8 @@ export default class GameScreen extends Screen {
             }
         }
         window.GUI.add(this.debug, 'timeScale', 0.1, 10);
+        window.GUI.add(this.debug, 'enemiesPool').listen();
+        window.GUI.add(this.debug, 'bulletsPool').listen();
         window.GUI.add(this.debug, 'REMOVE_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ENEMIES');
         window.GUI.add(this.debug, 'ADD_ONE_ENEMY');
@@ -195,11 +201,11 @@ export default class GameScreen extends Screen {
             let enemy = GameManager.instance.addEntity(BaseEnemy, true)
             //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
             let angle = Math.PI * 2 * Math.random();
-            // enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
-            // enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
+            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
+            enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
 
-            enemy.x = this.player.transform.position.x + Math.cos(angle) * 300
-            enemy.z = this.player.transform.position.y + Math.sin(angle) * 300
+            // enemy.x = this.player.transform.position.x + Math.cos(angle) * 300
+            // enemy.z = this.player.transform.position.y + Math.sin(angle) * 300
 
         }
     }
@@ -237,7 +243,7 @@ export default class GameScreen extends Screen {
         }, 5000)
         //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
         //this.debug.ADD_ENEMIES();
-        this.player.onDie.add(() => {
+        this.player.onDie.addOnce(() => {
             setTimeout(() => {                
                 this.spawnPlayer()
             }, 1000);
@@ -287,7 +293,7 @@ export default class GameScreen extends Screen {
 
         setTimeout(() => {
 
-            for (let index = 0; index < 8; index++) {
+            for (let index = 0; index < 80; index++) {
                 this.addRandomAgents(1)
             }
         }, 20);
@@ -297,6 +303,9 @@ export default class GameScreen extends Screen {
     update(delta) {
         delta *= this.debug.timeScale;
         this.gameEngine.update(delta)
+
+        this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
+        this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
 
         if (window.isMobile) {
 

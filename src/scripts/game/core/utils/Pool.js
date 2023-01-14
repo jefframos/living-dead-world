@@ -31,7 +31,13 @@ export default class Pool {
         return newElement;
 
     }
+    getPool(constructor) {
+        if (!this.pool[constructor.name]) {
+            return []
+        }
 
+        return this.pool[constructor.name]
+    }
     returnElement(element) {
         if (!this.pool[element.constructor.name]) {
             this.pool[element.constructor.name] = []

@@ -15,14 +15,22 @@ export default class Health extends BaseComponent {
     reset() {
         this.currentHealth = this.standrdHealth;
     }
+    setNewHealth(value) {
+        this.standrdHealth = value;
+        this.currentHealth = this.standrdHealth;
+
+    }
     damage(value) {
 
         this.gotDamaged.dispatch(this, value);
 
+
+
         this.currentHealth -= value;
         if (this.currentHealth <= 0) {
+            //console.log(this.currentHealth)
             this.gotKilled.dispatch(this);
-            //this.gotKilledParticles.dispatch(this);
+            this.gotKilledParticles.dispatch(this);
         }
     }
 }

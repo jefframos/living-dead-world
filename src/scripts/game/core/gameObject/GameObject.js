@@ -22,6 +22,10 @@ export default class GameObject extends BaseComponent {
         this.childAdded = new signals.Signal();
         this.childRemoved = new signals.Signal();
         this.rigidbodyAdded = new signals.Signal();
+        this.destroyed = false;
+    }
+    start(){
+        this.destroyed = false;
     }
     findComponent(type) {
         let elementFound = null
@@ -92,11 +96,13 @@ export default class GameObject extends BaseComponent {
         this.z = z
     }
     update(delta) {
-        this.children.forEach(element => {
-            if (element.enabled) {
-                element.update(delta);
-            }
-        });
+
+        //this was causing double update
+        // this.children.forEach(element => {
+        //     if (element.enabled) {
+        //         element.update(delta);
+        //     }
+        // });
         this.components.forEach(element => {
             if (element.enabled) {                
                 element.update(delta);
@@ -105,6 +111,7 @@ export default class GameObject extends BaseComponent {
     }
     enable() {
         this.enabled = true;
+        this.destroyed = false;
         this.components.forEach(element => {
             element.enable();
         });
@@ -116,6 +123,13 @@ export default class GameObject extends BaseComponent {
         });
     }
     destroy() {
+        if(this.destroyed){
+           // console.log("Trying to destroy object that is already destroyed", this);
+            console.trace(this);
+            return;
+        }
+
+        this.destroyed = true;
         this.gameObjectDestroyed.dispatch(this);
         
         if (this.parent) {

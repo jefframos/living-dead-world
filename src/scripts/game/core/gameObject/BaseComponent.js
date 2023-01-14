@@ -6,15 +6,13 @@ export default class BaseComponent {
         this.gameObject = null;
     }
     reset() { }
-    disable() { this.enabled = false;}
-    enable() { this.enabled = true;}
+    disable() { this.enabled = false; }
+    enable() { this.enabled = true; }
     update() { }
     build() { }
     start() { }
     onRender() { }
-    destroy() { 
-        this.gameObject = null;
-    }
+    destroy() { }
     removeAllSignals() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {

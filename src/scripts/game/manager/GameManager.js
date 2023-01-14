@@ -9,9 +9,9 @@ export default class GameManager {
         this.entityRegister = [];
 
         this.gameManagerStats = {
-            totalGameObjects: 0
+            LtotalGameObjects: 0
         }
-        window.GUI.add(this.gameManagerStats, 'totalGameObjects').listen();
+        window.GUI.add(this.gameManagerStats, 'LtotalGameObjects').listen();
 
         console.log('when registering, some times i remove the events that are beign used in other places')
     }
@@ -22,7 +22,7 @@ export default class GameManager {
 
         this.gameplayEntities.push(entity);
 
-        this.gameManagerStats.totalGameObjects = this.gameplayEntities.length
+        this.gameManagerStats.LtotalGameObjects = this.gameplayEntities.length
         //entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
         entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
 
@@ -32,8 +32,8 @@ export default class GameManager {
     registerEntity(entity) {
        if (this.entityRegister.indexOf(entity) < 0 && entity.health) {
             //entity.health.gotDamaged.remove(this.entityDamaged)
-            entity.health.gotDamaged.addOnce(this.entityDamaged.bind(this))
-            entity.health.gotKilledParticles.addOnce(this.entityKilled.bind(this))
+            entity.health.gotDamaged.add(this.entityDamaged.bind(this))
+            entity.health.gotKilledParticles.add(this.entityKilled.bind(this))
             
             this.entityRegister.push(entity);
         }

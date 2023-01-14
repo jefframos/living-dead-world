@@ -97,7 +97,7 @@ export default class EffectsManager extends GameObject {
         this.baseLayer = this.renderModule.layers[RenderModule.RenderLayers.Floor].container;
         
         this.particleEmitter = new ParticleEmitter(this.gameContainer);
-        this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 200);
+        this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 500);
     }
     update(delta) {
         this.effectsContainer.pivot.x = this.gameContainer.pivot.x

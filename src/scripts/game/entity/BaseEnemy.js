@@ -29,14 +29,17 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.scale.set(15 / this.gameView.view.width * Math.abs(this.gameView.view.scale.x) * 2)
         this.gameView.applyScale();
 
-        this.speedAdjust = 1
+        //this.health.setNewHealth(9999999)
+        this.speedAdjust = 0.5
 
         this.addComponent(SpriteJump)
         this.addComponent(SpriteFacing)
     }
     destroy(){
+        //console.log("DESTROY")
+
         super.destroy();
-        this.removeAllSignals();
+        //this.removeAllSignals();
     }
     update(delta) {
 

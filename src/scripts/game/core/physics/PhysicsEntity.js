@@ -19,6 +19,9 @@ export default class PhysicsEntity extends GameObject {
     get bodyID() {
         return this.rigidBody.id;
     }
+    start(){
+        super.start();
+    }
     build() {
         this.physics = new PhysicsProperties();
     }

@@ -54,6 +54,8 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.visible = false
     }
     shoot(ang, magnitude) {
+        this.enemiesShot = [];
+
         this.angle = ang;
 
         this.speed += this.speed * magnitude * 0.5
@@ -62,6 +64,12 @@ export default class Bullet extends PhysicsEntity {
         this.physics.velocity.x = 0
         this.physics.velocity.y = 0
         this.physics.velocity.z = 0
+    }
+    collisionExit(collided){
+        if (this.enemiesShot.indexOf(collided) < 0) return;
+
+        this.enemiesShot = this.enemiesShot.filter(item => item !== collided)
+
     }
     collisionEnter(collided) {
 
@@ -76,7 +84,6 @@ export default class Bullet extends PhysicsEntity {
         } else {
             if (collided.die) {
                 collided.damage(this.power);
-
                 if (collided.dying) {
 
                     let enemy = GameManager.instance.addEntity(BaseEnemy, true)
@@ -108,6 +115,11 @@ export default class Bullet extends PhysicsEntity {
         this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta
         this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta
 
+        this.gameView.view.x = this.transform.position.x
+        this.gameView.view.y = this.transform.position.z + this.viewOffset.y
+        
+        this.gameView.view.rotation = this.transform.angle + Math.PI / 2
+        this.gameView.view.visible = true;
         if (!this.usesTime) {
             this.distanceSpan -= this.speed * delta;
             if (this.distanceSpan <= 0) {
@@ -119,10 +131,5 @@ export default class Bullet extends PhysicsEntity {
                 this.destroy()
             }
         }
-        this.gameView.view.x = this.transform.position.x
-        this.gameView.view.y = this.transform.position.z + this.viewOffset.y
-
-        this.gameView.view.rotation = this.transform.angle + Math.PI / 2
-        this.gameView.view.visible = true;
     }
 }

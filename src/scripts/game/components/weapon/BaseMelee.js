@@ -31,12 +31,13 @@ export default class BaseMelee extends BaseWeapon {
         let facing = this.parent.gameView.view.scale.x > 0 ? 1 : -1;
         let facingAng = facing > 0 ? Math.PI : 0;
 
-        console.log("they way im adding more enemies is broken")
+        //console.log("they way im adding more enemies is broken")
         let bullet = this.engine.poolGameObject(Bullet)
         bullet.build(15, 250, 100);
         bullet.distanceSpan = 80
         bullet.setPosition(this.transform.position.x + this.parent.physics.velocity.x + facing * -20, 0, this.transform.position.z);
         bullet.shoot(facingAng, Math.abs(this.parent.physics.velocity.x))
+        bullet.name = 'melee'
 
         bullet.gameView.view.alpha = 0;
         let target = { x: this.parent.gameView.x + facing * -50, y: this.parent.gameView.y - 10 + this.parent.physics.velocity.y }

@@ -20,6 +20,7 @@ export default class GameAgent extends PhysicsEntity {
         
         this.currentEnemiesColliding = [];
         
+
         
         // this.view = new SpriteSheetAnimation()
         // this.view.anchor.set(0.5, 0.5)
@@ -46,21 +47,26 @@ export default class GameAgent extends PhysicsEntity {
         this.health.damage(value);
     }
     die() {
+        //console.log("DIE")
         this.rigidBody.isSensor = true;
         this.dying = true;
-
-        this.destroy()
         this.onDie.dispatch(this);
+        this.destroy()
     }
     onAnimationEnd(animation, state) { }
     start() {
+        super.start();
         // this.view.visible = true;
     }
     build() {
         super.build();
 
+
         this.health = this.addComponent(Health)
+        this.health.removeAllSignals();
+        
         this.health.gotKilled.add(this.die.bind(this))
+        this.health.reset()
         
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
