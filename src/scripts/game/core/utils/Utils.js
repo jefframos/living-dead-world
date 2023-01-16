@@ -23,4 +23,35 @@ export default class Utils {
     static distance(x1, y1, x2, y2) {
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
+    static distSort(point, array){
+
+        array.forEach(element => {
+            element._playerDist = this.distance(element.transform.position.x,element.transform.position.z,point.x, point.z)
+        });
+
+        array.sort(Utils.playerDistCompare)
+    }
+    static collidingDistSort(point, array){
+
+        array.forEach(element => {
+            element._playerDist = this.distance(element.entity.transform.position.x,element.entity.transform.position.z,point.x, point.z)
+        });
+
+        array.sort(Utils.playerDistCompare)
+    }
+
+    static playerDistCompare(a, b) {
+        var yA = a._playerDist;
+        var yB = b._playerDist;
+        if (yA === yB) {
+            return 0;
+        }
+        if (yA < yB) {
+            return -1;
+        }
+        if (yA > yB) {
+            return 1;
+        }
+        return 0;
+    }
 }

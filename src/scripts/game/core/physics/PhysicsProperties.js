@@ -19,9 +19,9 @@ export default class PhysicsProperties {
         }
     }
     update(){
-        if(this.velocity.x > 0){            
+        if(this.velocity.x > 0.01){            
             this.facing = -1;
-        }else if(this.velocity.x < 0){
+        }else if(this.velocity.x < -0.0){
             this.facing = 1;
         }
     }    

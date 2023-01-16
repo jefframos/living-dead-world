@@ -11,6 +11,7 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import ThrowingProjectile from "../components/weapon/ThrowingProjectile";
 import Utils from "../core/utils/Utils";
+import WeaponAttributes from "../data/WeaponAttributes";
 import config from "../../config";
 import utils from "../../utils";
 
@@ -48,17 +49,41 @@ export default class Player extends GameAgent {
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
+
+
+        let wp1 = new WeaponAttributes();
+        wp1.baseLifeRangeSpan = 50
         this.weapon = this.engine.poolGameObject(BaseMelee)
         this.addChild(this.weapon)
-        this.weapon.build()
+        this.weapon.build(wp1)
+        
+        let wp2 = new WeaponAttributes();
+        wp2.baseLifeSpan = 2
+        wp2.baseLifeRangeSpan = -1
+        wp2.baseAmount = 8
+        wp2.baseFrequency = 3
         
         this.weapon2 = this.engine.poolGameObject(FloatingProjectile) 
         this.addChild(this.weapon2)
-        this.weapon2.build()
+        this.weapon2.build(wp2)
 
+        let wp3 = new WeaponAttributes();
+        wp3.baseLifeRangeSpan = 200
+        wp3.baseAmount = 2
+        wp3.baseDirectionType = WeaponAttributes.DirectionType.FacingBackwards;
         this.weapon3 = this.engine.poolGameObject(ThrowingProjectile) 
         this.addChild(this.weapon3)
-        this.weapon3.build()
+        this.weapon3.build(wp3)
+
+        // let wp4 = new WeaponAttributes();
+        // wp4.baseLifeRangeSpan = 200
+        // wp4.baseAmount = 1
+        // wp4.baseFrequency = 0.25
+        // wp4.angleOffset = Math.PI / 4
+        // wp4.baseDirectionType = WeaponAttributes.DirectionType.AngularSequence
+        // this.weapon4 = this.engine.poolGameObject(ThrowingProjectile) 
+        // this.addChild(this.weapon4)
+        // this.weapon4.build(wp4)
 
         this.speed = 100
 

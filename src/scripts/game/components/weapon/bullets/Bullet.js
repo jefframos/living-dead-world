@@ -17,26 +17,26 @@ export default class Bullet extends PhysicsEntity {
         this.enemiesShot = [];
         //this.setDebug(15)
     }
-    build(radius = 15, speed = 250, distanceSpan = 50, lifeSpan = 9999) {
+    build(weaponData) {
         super.build()
-        this.buildCircle(0, 0, radius)
-
+        
+        this.buildCircle(0, 0, weaponData.radius)
+        //this.setDebug(radius)
+        this.distanceSpan = 0;
         this.enemiesShot = [];
         this.gameView.view.anchor.set(0.5)
-        //this.gameView.view.scale.set(1.5)
         this.gameView.view.scale.set(5 / this.gameView.view.width * this.gameView.view.scale.x)
 
         this.rigidBody.collisionFilter.group = 2
         this.rigidBody.collisionFilter.mask = 3
 
+        this.speed = weaponData.bulletSpeed
+        this.power = weaponData.power;
 
+        this.usesTime = weaponData.lifeRangeSpan <= 0;
+        this.lifeSpan = weaponData.lifeSpan
+        this.distanceSpan = weaponData.lifeRangeSpan;
 
-        this.speed = speed
-        this.power = 100;
-
-        this.usesTime = distanceSpan <= 0;
-        this.lifeSpan = lifeSpan
-        this.distanceSpan = distanceSpan;
 
         this.layerCategory = Layer.Bullet
         this.layerMask = Layer.BulletCollision

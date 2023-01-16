@@ -29,9 +29,7 @@ export default class PhysicsEntity extends GameObject {
 
         //improve this debug to fit the body
         if (!this.debug) {
-            this.debug = new PIXI.Sprite.from('debugRound')
-            this.debug.anchor.set(0.5)
-            this.debug.alpha = 0.1
+            this.debug = new PIXI.Graphics().lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
             this.debug.tint = color;
 
             this.label = new PIXI.Text('')
@@ -42,10 +40,12 @@ export default class PhysicsEntity extends GameObject {
             this.label.style.fontSize = 8
             this.debug.addChild(this.label)
 
+        }else{
+            this.debug.clear();
+            this.debug.lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
         }
-        this.debug.scale.set(radius / this.debug.width * 2)
+        
         this.label.scale.set(1 / this.debug.scale.x)
-
         this.label.anchor.y = -1 / this.label.scale.x
     }
     destroy() {
