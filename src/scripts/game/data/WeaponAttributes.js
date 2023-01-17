@@ -61,6 +61,9 @@ export default class WeaponAttributes {
         this.generalOffset = 0;
         this.angleOffset = 0.1;
         this.angleNoise = 0.2;
+
+        //it means that it will repel from the weapon
+        this.forceField = false;
     }
     get range() {
         return this.baseRange
@@ -83,7 +86,7 @@ export default class WeaponAttributes {
     get frequency() {
         return this.baseFrequency
     }
-    get percing() {
+    get piercing() {
         return this.basePiercing
     }
     get amount() {

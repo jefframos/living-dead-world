@@ -5,6 +5,7 @@ import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
 import config from "../../../../config";
+import signals from "signals";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -13,29 +14,42 @@ export default class Bullet extends PhysicsEntity {
         this.gameView = new GameView(this)
         this.gameView.view = new PIXI.Sprite.from('knife')
         this.gameView.view.alpha = 1
-
+        this.hitting = false;
         this.enemiesShot = [];
+
+        this.onSpawn = new signals.Signal;
+        this.onDestroy = new signals.Signal;
+        this.onDestroyOnHit = new signals.Signal;
+        this.onHit = new signals.Signal;
         //this.setDebug(15)
     }
-    build(weaponData) {
+    build(weapon) {
         super.build()
-        
-        this.buildCircle(0, 0, weaponData.radius)
+        this.weapon = weapon;
+
+        this.resetEvents();
+
+        this.buildCircle(0, 0, this.weapon.weaponAttributes.radius)
+
+        this.hitting = false;
+
+        this.piercing = this.weapon.weaponAttributes.piercing;
+        this.forceField = this.weapon.weaponAttributes.forceField;
+
         //this.setDebug(radius)
         this.distanceSpan = 0;
         this.enemiesShot = [];
         this.gameView.view.anchor.set(0.5)
-        this.gameView.view.scale.set(5 / this.gameView.view.width * this.gameView.view.scale.x)
 
         this.rigidBody.collisionFilter.group = 2
         this.rigidBody.collisionFilter.mask = 3
 
-        this.speed = weaponData.bulletSpeed
-        this.power = weaponData.power;
+        this.speed = this.weapon.weaponAttributes.bulletSpeed
+        this.power = this.weapon.weaponAttributes.power;
 
-        this.usesTime = weaponData.lifeRangeSpan <= 0;
-        this.lifeSpan = weaponData.lifeSpan
-        this.distanceSpan = weaponData.lifeRangeSpan;
+        this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
+        this.lifeSpan = this.weapon.weaponAttributes.lifeSpan
+        this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;
 
 
         this.layerCategory = Layer.Bullet
@@ -43,8 +57,7 @@ export default class Bullet extends PhysicsEntity {
 
         this.rigidBody.isSensor = true
 
-        this.gameView.viewOffset.y = -15
-
+        this.gameView.view.rotation = 0;
         this.gameView.view.alpha = 1;
         this.gameView.view.visible = true;
 
@@ -56,16 +69,20 @@ export default class Bullet extends PhysicsEntity {
     shoot(ang, magnitude) {
         this.enemiesShot = [];
 
+
         this.angle = ang;
 
         this.speed += this.speed * magnitude * 0.5
         this.gameView.view.rotation = this.angle + Math.PI / 2
 
+
         this.physics.velocity.x = 0
         this.physics.velocity.y = 0
         this.physics.velocity.z = 0
+
+        this.onSpawn.dispatch(this)
     }
-    collisionExit(collided){
+    collisionExit(collided) {
         if (this.enemiesShot.indexOf(collided) < 0) return;
 
         this.enemiesShot = this.enemiesShot.filter(item => item !== collided)
@@ -84,6 +101,9 @@ export default class Bullet extends PhysicsEntity {
         } else {
             if (collided.die) {
                 collided.damage(this.power);
+                this.piercing--;
+                this.onHit.dispatch(this);
+
                 if (collided.dying) {
 
                     let enemy = GameManager.instance.addEntity(BaseEnemy, true)
@@ -93,14 +113,25 @@ export default class Bullet extends PhysicsEntity {
                     enemy.z = this.transform.position.z + Math.sin(angle) * config.height / 3
                 } else {
                     if (collided.applyForce) {
-                        let angle = Math.atan2(collided.transform.position.z - this.transform.position.z, collided.transform.position.x - this.transform.position.x);
+                        let angle = 0;
+                        if (this.forceField) {
+                            angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
+                        } else {
+                            angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
+                        }
                         let forceBack = { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5 };
                         collided.applyForce(forceBack)
                     }
                 }
+
+                if (this.piercing <= 0) {
+                    this.onDestroyOnHit.dispatch(this);
+                    this.destroy()
+                }
                 //this.destroy()
             } else {
 
+                this.onDestroyOnHit.dispatch(this);
                 collided.destroy();
             }
             //this.destroy()
@@ -117,8 +148,12 @@ export default class Bullet extends PhysicsEntity {
 
         this.gameView.view.x = this.transform.position.x
         this.gameView.view.y = this.transform.position.z + this.viewOffset.y
-        
-        this.gameView.view.rotation = this.transform.angle + Math.PI / 2
+
+        if (this.weapon.weaponViewData.baseViewData.rotationSpeed) {
+            this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta;
+        } else {
+            this.gameView.view.rotation = this.transform.angle + Math.PI / 2
+        }
         this.gameView.view.visible = true;
         if (!this.usesTime) {
             this.distanceSpan -= this.speed * delta;
@@ -131,5 +166,15 @@ export default class Bullet extends PhysicsEntity {
                 this.destroy()
             }
         }
+    }
+    destroy() {
+        this.onDestroy.dispatch(this);
+        super.destroy();
+    }
+    resetEvents() {
+        this.onSpawn.removeAll();
+        this.onDestroy.removeAll();
+        this.onDestroyOnHit.removeAll();
+        this.onHit.removeAll();
     }
 }

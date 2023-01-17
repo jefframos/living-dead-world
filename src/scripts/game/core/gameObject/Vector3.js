@@ -4,20 +4,26 @@ export default class Vector3 {
         this.y = y;
         this.z = z;
     }
-    copy(target){
+    copy(target) {
         this.x = target.x;
         this.y = target.y;
         this.z = target.z;
     }
-    zero(){
+    zero() {
         this.x = 0;
         this.y = 0;
         this.z = 0;
     }
-    static distance(v1,v2) {
+    static distance(v1, v2) {
         return Math.sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y) + (v1.z - v2.z) * (v1.z - v2.z));
     }
-    static atan2XZ(v1,v2) {
+    static atan2XZ(v1, v2) {
         return Math.atan2(v1.z - v2.z, v1.x - v2.x)
+    }
+    static sum(v1, v2) {
+        return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z)
+    }
+    static mult(v1, v2){
+        return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z)
     }
 }
