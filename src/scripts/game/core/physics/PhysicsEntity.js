@@ -149,6 +149,9 @@ export default class PhysicsEntity extends GameObject {
     get facing() {
         return this.physics.facing;
     }
+    get facingVector() {
+        return this.physics.facingVector;
+    }
     get facingAngle() {
         return this.physics.facing > 0 ? Math.PI :  0;
     }

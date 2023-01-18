@@ -16,7 +16,7 @@ export default class EntityViewData {
 
     constructor() {
         this.movementType = EntityViewData.MovementType.Static;
-        
+
         this.baseViewData = this.makeViewStruct();
         this.baseViewData.viewType = EntityViewData.ViewType.Sprite;
         this.baseSpawnViewData = this.makeViewStruct();
@@ -32,27 +32,31 @@ export default class EntityViewData {
             offset: new Vector3(),
             alpha: 1,
             faceOrientation: true,
-            scale: 1
+            scale: 1,
+            angleOffset: 0
         }
     }
-    addSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3()) {
+    addSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
         this.baseViewData = new ParticleDescriptor()
         this.baseViewData.addBaseBehaviours(SpriteSheetBehaviour, params)
         this.baseSpawnViewData.offset = offset;
+        this.baseSpawnViewData.scale = scale;
 
         this.type = EntityViewData.ViewType.SpriteSheet;
     }
 
-    addSpawnSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3()) {
+    addSpawnSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
         this.baseSpawnViewData.viewData = new ParticleDescriptor()
         this.baseSpawnViewData.viewData.addBaseBehaviours(SpriteSheetBehaviour, params)
         this.baseSpawnViewData.offset = offset;
+        this.baseSpawnViewData.scale = scale;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
     }
-    addDestroySpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3()) {
+    addDestroySpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
         this.baseDestroyViewData.viewData = new ParticleDescriptor()
         this.baseDestroyViewData.viewData.addBaseBehaviours(SpriteSheetBehaviour, params)
         this.baseDestroyViewData.offset = offset;
+        this.baseDestroyViewData.scale = scale;
         this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
     }
 
@@ -65,5 +69,15 @@ export default class EntityViewData {
         }
 
         return sprite;
+    }
+
+    clone() {
+        let clone = new EntityViewData();
+        for (const key in this) {
+            if (Object.hasOwnProperty.call(this, key)) {
+                clone[key] = this[key];
+            }
+        }
+        return clone;
     }
 }

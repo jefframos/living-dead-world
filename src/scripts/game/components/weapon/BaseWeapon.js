@@ -36,28 +36,40 @@ export default class BaseWeapon extends PhysicsEntity {
 
         return { enemy: first, angle: shootAngle }
     }
-    getFacing() {
+    static getFacing(currentWeapon, customTransform, alternate) {
         let facing = 1;
-        if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingPlayer) {
-            facing = this.parent.facing;
-        } else if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingAlternated) {
-            facing = this.alternateFacing;
-        } else if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
-            facing = -this.parent.facing;
+        if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingPlayer) {
+            facing = customTransform.facing;
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingAlternated) {
+            facing = alternate;
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
+            facing = -customTransform.facing;
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle) {
+            facing = 1;
         }
 
         return facing;
     }
-    getFacingAngle() {
-        let facing = 0;
-        if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingPlayer) {
-            facing = this.parent.facingAngle;
-        } else if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingAlternated) {
-            facing = this.alternateFacing * Math.PI;
-        } else if (this.weaponData.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
-            facing = this.parent.facingAngle + Math.PI;
+    static getFacingAngle(currentWeapon, customTransform, alternate) {
+        let facing = customTransform.physics.angle;
+        if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingPlayer) {
+            facing = customTransform.facingAngle;
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingAlternated) {
+            facing = alternate * Math.PI;
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
+            facing = customTransform.facingAngle + Math.PI;
         }
-
+        else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle) {
+            if (customTransform.originWeapon) {
+                facing = Vector3.atan2XZ(customTransform.transform.position, customTransform.originWeapon.transform.position);
+            } else {
+                if (customTransform.physics.magnitude > 0) {
+                    facing = customTransform.physics.angle;
+                } else {
+                    facing = customTransform.facingAngle;
+                }
+            }
+        }
         return facing;
     }
     build(weaponData) {
@@ -100,18 +112,23 @@ export default class BaseWeapon extends PhysicsEntity {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
-    shoot() {
-        this.currentShootTimer = 0;
-        this.alternateFacing *= -1;
+    shoot(customWeapon, customParent) {
 
+        let weapon = customWeapon ? customWeapon : this.weaponData
+        let parentGameObject = customParent ? customParent : this
+        if (!customWeapon) {
+            this.currentShootTimer = 0;
+            this.alternateFacing *= -1;
+        }
 
-        let total = this.weaponData.weaponAttributes.amount;
+        let total = weapon.weaponAttributes.amount;
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
 
             let bullet = this.engine.poolGameObject(Bullet)
-            bullet.build(this.weaponData);
+            bullet.build(weapon);
+            bullet.originWeapon = this;
 
             bullet.onSpawn.add(this.spawnBullet.bind(this))
             bullet.onDestroy.add(this.destroyBullet.bind(this))
@@ -119,25 +136,28 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.onHit.add(this.hitBullet.bind(this))
 
             bullet.ang = ang;
-            let facing = this.getFacing();
-            let facingAng = this.getFacingAngle();
-            let halfAngle = this.weaponData.weaponAttributes.angleOffset * index - (this.weaponData.weaponAttributes.angleOffset * total) / 2
 
-            if (this.weaponData.weaponAttributes.directionType == WeaponAttributes.DirectionType.AngularSequence) {
-                let targetAngle = this.bulletAccum * this.weaponData.weaponAttributes.angleOffset
-                bullet.shoot(targetAngle + Math.random() * this.weaponData.weaponAttributes.angleNoise - this.weaponData.weaponAttributes.angleNoise * 0.5 + halfAngle, this.physics.magnitude)
-                bullet.setPosition(this.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, this.transform.position.z + Math.sin(targetAngle) * 20);
+            let facing = BaseWeapon.getFacing(weapon, parentGameObject, this.alternateFacing);
+            let halfAngle = weapon.weaponAttributes.angleOffset * index - (weapon.weaponAttributes.angleOffset * (total - 1) / 2)
+            if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.AngularSequence) {
+                let targetAngle = this.bulletAccum * weapon.weaponAttributes.angleOffset
+                bullet.shoot(targetAngle + Math.random() * weapon.weaponAttributes.angleNoise - weapon.weaponAttributes.angleNoise * 0.5 + halfAngle, this.physics.magnitude)
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
 
-            } else if (this.weaponData.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
                 let closest = this.getClosestEnemy()
-                bullet.shoot(closest.angle + Math.random() * this.weaponData.weaponAttributes.angleNoise - this.weaponData.weaponAttributes.angleNoise * 0.5 + halfAngle, this.physics.magnitude)
-                bullet.setPosition(this.transform.position.x + this.parent.physics.velocity.x + Math.cos(closest.angle) * 20, 0, this.transform.position.z + Math.sin(closest.angle) * 20);
+                bullet.shoot(closest.angle + Math.random() * weapon.weaponAttributes.angleNoise - weapon.weaponAttributes.angleNoise * 0.5 + halfAngle, this.physics.magnitude)
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(closest.angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(closest.angle) * 20);
 
             } else {
-                bullet.setPosition(this.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, this.transform.position.z);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
+                let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject,this.alternateFacing);
                 bullet.shoot(facingAng + halfAngle, Math.abs(this.parent.physics.velocity.x))
             }
-            this.bulletAccum++;
+
+            if (!customParent) {
+                this.bulletAccum++;
+            }
             spawnedBullets.push(bullet)
             this.activeProjectiles.push(bullet)
         }
@@ -179,13 +199,29 @@ export default class BaseWeapon extends PhysicsEntity {
 
     spawnBullet(bullet) {
 
-        this.sortGraphics('baseSpawnViewData', bullet)
-        this.sortGraphics('baseViewData', bullet)
+        this.sortGraphics('baseSpawnViewData', bullet, bullet.weapon)
+
+
+        this.sortGraphics('baseViewData', bullet, bullet.weapon)
 
     }
     destroyBullet(bullet) {
-        //console.log("destroyBullet")
-        this.sortGraphics('baseDestroyViewData', bullet)
+        this.sortGraphics('baseDestroyViewData', bullet, bullet.weapon)
+
+        if (bullet.weapon.onDestroyWeapon) {
+
+            let bullets = this.shoot(bullet.weapon.onDestroyWeapon, bullet)
+
+            // let nextBullet = bullet.weapon.onDestroyWeapon;
+
+            // if(nextBullet.weaponAttributes.bulletSpeed == 0){
+            //     console.log(nextBullet.weaponAttributes.bulletSpeed)
+            //     bullets.forEach(element => {
+            //         element.angle = Math.PI
+            //     });
+
+            // }
+        }
 
     }
     destroyBulletOnHit(bullet) {
@@ -196,26 +232,37 @@ export default class BaseWeapon extends PhysicsEntity {
         //console.log("hitBullet")
     }
 
-    sortGraphics(type, bullet) {
+    sortGraphics(type, bullet, customWeapon) {
 
-        //ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
-        let baseData = this.weaponData.weaponViewData[type]
+
+        let weapon = customWeapon ? customWeapon : this.weaponData
+
+        //TODO: ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
+        let baseData = weapon.weaponViewData[type]
         if (baseData.viewType == EntityViewData.ViewType.SpriteSheet) {
 
-            let facing = this.getFacing();
-            let targetScale = baseData.faceOrientation ? { x: -facing, y: 1 } : { x: 1, y: 1 }
+            let facing = BaseWeapon.getFacing(weapon, this,this.alternateFacing);
+            let targetScale = baseData.faceOrientation ? { x: -facing * baseData.scale, y: baseData.scale } : { x: baseData.scale, y: baseData.scale }
             let target = Vector3.sum(bullet.transform.position, Vector3.mult(baseData.offset, new Vector3(-facing, 1, 1)));
-           
+
             EffectsManager.instance.emitParticles(
                 { x: target.x, y: target.z }, baseData.viewData, 1, { scale: targetScale })
 
-        }else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
+        } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
-            bullet.gameView.view.texture = PIXI.Texture.from(this.weaponData.weaponViewData.viewData)
-            bullet.gameView.viewOffset.y = baseData.offset.y     
-            
-            let scale = Math.min(this.weaponData.weaponAttributes.radius / bullet.gameView.view.width, this.weaponData.weaponAttributes.radius / bullet.gameView.view.height)
+            bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
+            bullet.gameView.viewOffset.y = baseData.offset.y
+
+            let scale = Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width, weapon.weaponAttributes.radius / bullet.gameView.view.height)
             bullet.gameView.view.scale.set(scale * bullet.gameView.view.scale.x * baseData.scale)
         }
+    }
+
+    get facing() {
+        return this.parent.facing
+    }
+
+    get facingAngle() {
+        return this.parent.facingAngle
     }
 }

@@ -1,7 +1,4 @@
-import BaseMelee from "../components/weapon/BaseMelee";
-import BaseWeapon from "../components/weapon/BaseWeapon";
-import Bullet from "../components/weapon/bullets/Bullet";
-import FloatingProjectile from "../components/weapon/FloatingProjectile";
+import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
@@ -10,13 +7,8 @@ import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
-import ThrowingProjectile from "../components/weapon/ThrowingProjectile";
-import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
-import WeaponAttributes from "../data/WeaponAttributes";
-import WeaponData from "../data/WeaponData";
 import config from "../../config";
-import utils from "../../utils";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -41,6 +33,10 @@ export default class Player extends GameAgent {
         Player.MainPlayer = this;
         super.build()
 
+        this.distanceWalked = 0;
+
+        this.activeWeapons = [];
+
         this.health.reset()
 
         this.currentEnemiesColliding = []
@@ -53,83 +49,7 @@ export default class Player extends GameAgent {
         this.buildCircle(0, 0, 15);
 
 
-        let wData1 = new WeaponData();
-        wData1.weaponAttributes.baseLifeRangeSpan = 50
-        wData1.weaponViewData.addSpawnSpritesheet({
-            time: 0.2,
-            startFrame: 1,
-            endFrame: 5,
-            spriteName: 'hit-h',
-            addZero: false,
-            lifeSpan: 9999
-        },new Vector3(10,0,-20))
-        wData1.weaponViewData.baseViewData.alpha = 0
 
-        this.weapon = this.engine.poolGameObject(BaseWeapon)
-        this.addChild(this.weapon)
-        this.weapon.build(wData1)
-        
-
-
-        let wData2 = new WeaponData();
-        wData2.weaponAttributes.baseLifeSpan = 5
-        wData2.weaponAttributes.baseLifeRangeSpan = -1
-        wData2.weaponAttributes.baseAmount =5
-        wData2.weaponAttributes.baseFrequency =5
-        wData2.weaponAttributes.baseRadius =30
-        wData2.weaponAttributes.forceField = true
-        
-        wData2.weaponViewData.baseViewData.viewData = 'hit-g1'
-        wData2.weaponViewData.baseViewData.scale = 4
-        wData2.weaponViewData.baseViewData.offset.y = -20
-        wData2.weaponViewData.baseViewData.rotationSpeed = 5
-        
-        this.weapon2 = this.engine.poolGameObject(FloatingProjectile) 
-        this.addChild(this.weapon2)
-        this.weapon2.build(wData2)
-
-
-        let wData4 = new WeaponData();
-        wData4.weaponAttributes.baseLifeRangeSpan = 200
-        wData4.weaponAttributes.baseAmount = 1
-        wData4.weaponAttributes.baseFrequency = 0.25
-        wData4.weaponAttributes.baseRadius =30
-        //wData4.weaponAttributes.angleOffset = Math.PI / 4
-        wData4.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
-
-        wData4.weaponViewData.baseViewData.viewData = 'knife'
-        wData4.weaponViewData.baseViewData.scale = 1
-        wData4.weaponViewData.baseViewData.offset.y = -20
-
-        this.weapon4 = this.engine.poolGameObject(BaseWeapon) 
-        this.addChild(this.weapon4)
-        this.weapon4.build(wData4)
-
-
-        let wData5 = new WeaponData();
-        wData5.weaponAttributes.baseLifeRangeSpan = 200
-        wData5.weaponAttributes.baseAmount = 1
-        wData5.weaponAttributes.baseFrequency = 0.25
-        wData5.weaponAttributes.angleOffset = Math.PI / 4
-        wData5.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.AngularSequence
-
-        wData5.weaponViewData.addDestroySpritesheet({
-            time: 0.2,
-            startFrame: 1,
-            endFrame: 60,
-            spriteName: 'hit_claws_',
-            addZero: true,
-            lifeSpan: 9999
-        },new Vector3(10,0,-20))
-
-
-        wData5.weaponViewData.baseViewData.viewData = 'smallButton'
-        wData5.weaponViewData.baseViewData.scale = 1
-        wData5.weaponViewData.baseViewData.offset.y = -20
-
-        this.weapon5 = this.engine.poolGameObject(BaseWeapon) 
-        this.addChild(this.weapon5)
-        this.weapon5.build(wData5)
 
         this.speed = 100
 
@@ -152,6 +72,16 @@ export default class Player extends GameAgent {
 
         this.framesAfterStart = 0;
 
+    }
+    addWeapon(inGameWeapon) {
+        if(!inGameWeapon.hasWeapon){
+            return;
+        }
+        let weaponData = inGameWeapon.mainWeapon
+        let weapon = this.engine.poolGameObject(weaponData.constructor)
+        this.addChild(weapon)
+        weapon.build(weaponData)
+        this.activeWeapons.push(weapon)
     }
     onSensorTrigger(element) {
     }
@@ -227,7 +157,15 @@ export default class Player extends GameAgent {
             this.physics.velocity.z = 0
         }
 
+        this.distanceWalked += this.physics.magnitude * this.speed * delta;
 
+        if (this.distanceWalked > 50) {
+            EffectsManager.instance.emitById(Vector3.XZtoXY(
+                Vector3.sum(Vector3.sum(this.transform.position, this.facingVector), new Vector3(0, 0, -20))
+            ), 'smokeTrail', 1)
+
+            this.distanceWalked = 0;
+        }
 
         super.update(delta)
     }

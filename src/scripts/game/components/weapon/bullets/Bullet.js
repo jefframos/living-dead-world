@@ -4,6 +4,7 @@ import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
+import Player from "../../../entity/Player";
 import config from "../../../../config";
 import signals from "signals";
 
@@ -109,15 +110,15 @@ export default class Bullet extends PhysicsEntity {
                     let enemy = GameManager.instance.addEntity(BaseEnemy, true)
                     //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
                     let angle = Math.PI * 2 * Math.random();
-                    enemy.x = this.transform.position.x + Math.cos(angle) * config.width / 3
-                    enemy.z = this.transform.position.z + Math.sin(angle) * config.height / 3
+                    enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
+                    enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
                 } else {
                     if (collided.applyForce) {
                         let angle = 0;
                         if (this.forceField) {
                             angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
                         } else {
-                            angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
+                            angle = Math.atan2(collided.transform.position.z, collided.transform.position.x);
                         }
                         let forceBack = { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5 };
                         collided.applyForce(forceBack)
@@ -150,9 +151,9 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.y = this.transform.position.z + this.viewOffset.y
 
         if (this.weapon.weaponViewData.baseViewData.rotationSpeed) {
-            this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta;
+            this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
         } else {
-            this.gameView.view.rotation = this.transform.angle + Math.PI / 2
+            this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
         }
         this.gameView.view.visible = true;
         if (!this.usesTime) {

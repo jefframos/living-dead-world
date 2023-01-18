@@ -42,6 +42,7 @@ export default class WeaponAttributes {
         AngularSequence: 2,
         FacingAlternated: 3,
         FacingBackwards: 4,
+        ParentAngle: 5,
     }
     constructor() {
         this.baseRange = 60;
@@ -53,14 +54,14 @@ export default class WeaponAttributes {
         this.baseFrequency = 1;
         this.basePiercing = 10;
         this.baseAmount = 1;
-        this.baseDamageZone = 10;
+        this.baseDamageZone = 100;
         this.baseDetectionZone = 200;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
         this.baseShootArc = 0;
         this.generalOffset = 0;
         this.angleOffset = 0.1;
-        this.angleNoise = 0.2;
+        this.angleNoise = 0.1;
 
         //it means that it will repel from the weapon
         this.forceField = false;
@@ -106,5 +107,15 @@ export default class WeaponAttributes {
     }
     get shootArc() {
         return this.baseShootArc
+    }
+
+    clone() {
+        let clone = new WeaponAttributes();
+        for (const key in this) {
+            if (Object.hasOwnProperty.call(this, key)) {
+                clone[key] = this[key];
+            }
+        }
+        return clone;
     }
 }

@@ -23,6 +23,7 @@ import Trees from '../entity/Trees';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
+import WeaponBuilder from './WeaponBuilder';
 import WorldSystem from '../manager/WorldSystem';
 import config from '../../config';
 
@@ -177,6 +178,8 @@ export default class GameScreen extends Screen {
         }
 
         this.container.scale.set(1)
+
+        this.weaponBuilder = new WeaponBuilder();
     }
 
     onAdded() {
@@ -221,6 +224,9 @@ export default class GameScreen extends Screen {
             this.player.destroy();
         }
         this.player = this.gameManager.addEntity(Player, true)
+
+        this.weaponBuilder.addWeapons(this.player)
+
         let angle = Math.PI * 2 * Math.random();
        // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 

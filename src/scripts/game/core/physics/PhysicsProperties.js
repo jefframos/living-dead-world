@@ -6,6 +6,7 @@ export default class PhysicsProperties {
         this.angle = 0;
         this.facing = 1;
         
+        this.facingVector = new Vector3();
         this.velocity = new Vector3();
         this.unscaleVelocity = new Vector3();
         this.force = new Vector3();
@@ -24,5 +25,7 @@ export default class PhysicsProperties {
         }else if(this.velocity.x < -0.0){
             this.facing = 1;
         }
+
+        this.facingVector.x = this.facing;
     }    
 }
