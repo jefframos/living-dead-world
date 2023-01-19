@@ -51,11 +51,10 @@ export default class ParticleEmmiter {
             particle.y = Math.random() * (position.maxY - position.minY) + position.minY + this.y;
 
             for (const key in overrides) {
-                if(particle.sprite[key]){
+                if(particle.sprite[key] !== undefined) {
                     particle.sprite[key] = overrides[key];
                 }
             }
-
             this.container.addChild(particle.sprite);
             this.particles.push(particle)
 

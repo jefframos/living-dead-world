@@ -36,29 +36,31 @@ export default class EntityViewData {
             angleOffset: 0
         }
     }
-    addSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
-        this.baseViewData = new ParticleDescriptor()
-        this.baseViewData.addBaseBehaviours(SpriteSheetBehaviour, params)
-        this.baseSpawnViewData.offset = offset;
-        this.baseSpawnViewData.scale = scale;
+
+    addSpawnVfx(vfxPack) {
+        this.baseSpawnViewData.viewData = vfxPack.descriptor
+        this.baseSpawnViewData.offset = vfxPack.offset;
+        this.baseSpawnViewData.scale = vfxPack.scale;
+
+        this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
+    }
+
+    addDestroyVfx(vfxPack) {
+        this.baseDestroyViewData.viewData = vfxPack.descriptor
+        this.baseDestroyViewData.offset = vfxPack.offset;
+        this.baseDestroyViewData.scale = vfxPack.scale;
+
+        this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
+    }
+
+    addStandardVfx(vfxPack) {
+        this.baseViewData = vfxPack.descriptor
+        this.baseSpawnViewData.offset = vfxPack.offset;
+        this.baseSpawnViewData.scale = vfxPack.scale;
 
         this.type = EntityViewData.ViewType.SpriteSheet;
     }
 
-    addSpawnSpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
-        this.baseSpawnViewData.viewData = new ParticleDescriptor()
-        this.baseSpawnViewData.viewData.addBaseBehaviours(SpriteSheetBehaviour, params)
-        this.baseSpawnViewData.offset = offset;
-        this.baseSpawnViewData.scale = scale;
-        this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
-    }
-    addDestroySpritesheet(params = { time: 0.2, startFrame: 1, endFrame: 5, spriteName: 'hit-g1', addZero: false, lifeSpan: 999 }, offset = new Vector3(), scale = 1) {
-        this.baseDestroyViewData.viewData = new ParticleDescriptor()
-        this.baseDestroyViewData.viewData.addBaseBehaviours(SpriteSheetBehaviour, params)
-        this.baseDestroyViewData.offset = offset;
-        this.baseDestroyViewData.scale = scale;
-        this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
-    }
 
     get viewData() {
         let sprite;

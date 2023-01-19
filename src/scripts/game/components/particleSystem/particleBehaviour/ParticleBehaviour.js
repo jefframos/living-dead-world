@@ -15,6 +15,8 @@ export default class ParticleBehaviour {
 
         this.normalValue = 0;
 
+        this.anchor = {x:0.5, y:0.5}
+
         this.autoKill = false;
         this.shouldKill = false;
 

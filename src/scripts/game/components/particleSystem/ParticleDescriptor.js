@@ -10,8 +10,6 @@ export default class ParticleDescriptor {
         this.velocityY = 0;
         this.rotationSpeed = 0;
 
-        
-
         this.blendMode = PIXI.BLEND_MODES.NORMAL;
 
         this.velocityOffsetX = 0;
@@ -34,13 +32,13 @@ export default class ParticleDescriptor {
         if (this.baseData) {
             for (const key in this.baseData) {
                 if (this[key] !== undefined) {
-                    if(key == 'texture'){
-                        if (Array.isArray(this.baseData[key])){
+                    if (key == 'texture') {
+                        if (Array.isArray(this.baseData[key])) {
                             this[key] = PIXI.Texture.from(this.baseData[key][Math.floor(Math.random() * this.baseData[key].length)]);
                         } else {
                             this[key] = this.baseData[key];
                         }
-                    }else{
+                    } else {
                         if (Array.isArray(this.baseData[key])) {
                             this[key] = Math.random() * (this.baseData[key][1] - this.baseData[key][0]) + this.baseData[key][0];
                         } else {
@@ -64,7 +62,6 @@ export default class ParticleDescriptor {
             let behaviour = Pool.instance.getElement(element.behavior);
             behaviour.reset();
             behaviour.build(element.params);
-
             this.behaviours.push(behaviour);
         });
 

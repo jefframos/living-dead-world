@@ -44,6 +44,10 @@ export default class WeaponAttributes {
         FacingBackwards: 4,
         ParentAngle: 5,
     }
+    static ExtendedBehaviour = {
+        None: 0,
+        Boomerang: 1,
+    }
     constructor() {
         this.baseRange = 60;
         this.baseLifeSpan = -1;
@@ -58,6 +62,7 @@ export default class WeaponAttributes {
         this.baseDetectionZone = 200;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
+        this.extendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
         this.baseShootArc = 0;
         this.generalOffset = 0;
         this.angleOffset = 0.1;

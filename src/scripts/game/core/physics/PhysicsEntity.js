@@ -32,21 +32,21 @@ export default class PhysicsEntity extends GameObject {
             this.debug = new PIXI.Graphics().lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
             this.debug.tint = color;
 
-            this.label = new PIXI.Text('')
-            this.label.anchor.set(0.5, -1)
-            this.label.alpha = 5
+            // this.label = new PIXI.Text('')
+            // this.label.anchor.set(0.5, -1)
+            // this.label.alpha = 5
 
-            this.label.style.fill = color;
-            this.label.style.fontSize = 8
-            this.debug.addChild(this.label)
+            // this.label.style.fill = color;
+            // this.label.style.fontSize = 8
+            // this.debug.addChild(this.label)
 
         }else{
             this.debug.clear();
             this.debug.lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
         }
         
-        this.label.scale.set(1 / this.debug.scale.x)
-        this.label.anchor.y = -1 / this.label.scale.x
+        // this.label.scale.set(1 / this.debug.scale.x)
+        // this.label.anchor.y = -1 / this.label.scale.x
     }
     destroy() {
         super.destroy();
@@ -120,8 +120,11 @@ export default class PhysicsEntity extends GameObject {
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
             this.debug.rotation = this.physics.angle
-            this.label.rotation = - this.debug.rotation
-            this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
+
+            if(this.label){
+                this.label.rotation = - this.debug.rotation
+                this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
+            }
 
         }
 

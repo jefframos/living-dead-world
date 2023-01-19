@@ -14,6 +14,9 @@ export default class Vector3 {
         this.y = 0;
         this.z = 0;
     }
+    clone(){
+        return new Vector3(this.x, this.y, this.z);
+    }
     static distance(v1, v2) {
         return Math.sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y) + (v1.z - v2.z) * (v1.z - v2.z));
     }

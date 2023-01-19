@@ -23,7 +23,13 @@ export default class Particle {
         this.descriptor.clone(descriptor);
         this.sprite.texture = this.descriptor.texture ? this.descriptor.texture : PIXI.Texture.EMPTY;
         this.sprite.tint = this.descriptor.tint;
-        this.sprite.anchor.set(0.5)
+
+        if (descriptor.anchor) {
+            this.sprite.anchor.set(descriptor.anchor.x, descriptor.anchor.y)
+        } else {
+            this.sprite.anchor.set(0.5)
+        }
+        
         this.sprite.rotation = 0;
         this.sprite.alpha = 1;
         this.sprite.scale.set(this.descriptor.scale);
@@ -37,16 +43,24 @@ export default class Particle {
         this.descriptor.velocityY += this.descriptor.gravity * delta;
 
         this.descriptor.behaviours.forEach(element => {
-            if(element.shouldKill){
-                this.descriptor.shouldDestroy = true;                
+            if (element.shouldKill) {
+                this.descriptor.shouldDestroy = true;
             }
             if (element.type == 'descriptor') {
                 if (this.descriptor[element.property] !== undefined) {
                     this.descriptor[element.property] = element.currentValue;
                 }
             } else if (element.type == 'sprite') {
-                if (this.sprite[element.property] !== undefined) {
-                    this.sprite[element.property] = element.currentValue;
+                if(Array.isArray(element.property)) {
+                    for (var i = 0; i < element.property.length;i++){
+                        if (this.sprite[element.property[i]] !== undefined) {
+                            this.sprite[element.property[i]] = element.currentValue[i];
+                        }
+                    }
+                }else{
+                    if (this.sprite[element.property] !== undefined) {
+                        this.sprite[element.property] = element.currentValue;
+                    }
                 }
             }
         });

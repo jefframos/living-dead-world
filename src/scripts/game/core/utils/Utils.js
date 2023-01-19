@@ -8,6 +8,15 @@ export default class Utils {
             [a[i - 1], a[j]] = [a[j], a[i - 1]];
         }
     }
+    static shortAngleDist(a0,a1) {
+        var max = Math.PI*2;
+        var da = (a1 - a0) % max;
+        return 2*da % max - da;
+    }
+    
+    static angleLerp(a0,a1,t) {
+        return a0 + Utils.shortAngleDist(a0,a1)*t;
+    }
     static lerp(x, y, a) {
         return x * (1 - a) + y * a;
     }

@@ -1,10 +1,14 @@
 import BaseEnemy from "../../../entity/BaseEnemy";
+import BaseWeapon from "../BaseWeapon";
 import GameManager from "../../../manager/GameManager";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
 import Player from "../../../entity/Player";
+import Utils from "../../../core/utils/Utils";
+import Vector3 from "../../../core/gameObject/Vector3";
+import WeaponAttributes from "../../../data/WeaponAttributes";
 import config from "../../../../config";
 import signals from "signals";
 
@@ -22,11 +26,16 @@ export default class Bullet extends PhysicsEntity {
         this.onDestroy = new signals.Signal;
         this.onDestroyOnHit = new signals.Signal;
         this.onHit = new signals.Signal;
-        //this.setDebug(15)
+        // this.setDebug(15)
     }
-    build(weapon) {
+    build(weapon, parent) {
         super.build()
         this.weapon = weapon;
+        // this.setDebug(this.weapon.weaponAttributes.radius)
+        this.spawnParent = parent;
+        this.safeTimer = 10;
+
+        this.originPosition = parent.transform.position.clone()
 
         this.resetEvents();
 
@@ -37,7 +46,6 @@ export default class Bullet extends PhysicsEntity {
         this.piercing = this.weapon.weaponAttributes.piercing;
         this.forceField = this.weapon.weaponAttributes.forceField;
 
-        //this.setDebug(radius)
         this.distanceSpan = 0;
         this.enemiesShot = [];
         this.gameView.view.anchor.set(0.5)
@@ -73,7 +81,7 @@ export default class Bullet extends PhysicsEntity {
 
         this.angle = ang;
 
-        this.speed += this.speed * magnitude * 0.5
+        //this.speed += this.speed * magnitude * 0.5
         this.gameView.view.rotation = this.angle + Math.PI / 2
 
 
@@ -150,6 +158,14 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.x = this.transform.position.x
         this.gameView.view.y = this.transform.position.z + this.viewOffset.y
 
+
+
+        if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
+            let closest = GameManager.instance.findClosestEnemy(this.transform.position)
+            this.smoothAngle(Vector3.atan2XZ(closest.transform.position, this.transform.position), delta)
+        }
+
+
         if (this.weapon.weaponViewData.baseViewData.rotationSpeed) {
             this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
         } else {
@@ -157,16 +173,47 @@ export default class Bullet extends PhysicsEntity {
         }
         this.gameView.view.visible = true;
         if (!this.usesTime) {
+
             this.distanceSpan -= this.speed * delta;
+
             if (this.distanceSpan <= 0) {
-                this.destroy()
+                if (this.weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang) {
+
+                    let targetPosition = this.originPosition
+
+                    if (this.spawnParent instanceof BaseWeapon) {
+                        targetPosition = this.spawnParent.transform.position;
+                    }
+
+
+                    this.smoothAngle(Vector3.atan2XZ(targetPosition, this.transform.position), delta)
+
+
+                    this.safeTimer -= delta;
+                    if (Vector3.distance(targetPosition, this.transform.position) < this.weapon.weaponAttributes.radius * 2 || this.safeTimer <= 0) {
+                        this.destroy()
+                    }
+
+                } else {
+                    this.destroy()
+                }
             }
+
         } else {
             this.lifeSpan -= delta
             if (this.lifeSpan <= 0) {
                 this.destroy()
             }
         }
+    }
+    smoothAngle(target, delta) {
+        let ang = target
+
+        let scale = 1 / 60 / delta;
+        scale *= 0.05;
+        scale = Math.max(scale, 0.05)
+        scale = Math.min(scale, 0.95)
+        this.angle = Utils.angleLerp(this.angle, ang, scale);
     }
     destroy() {
         this.onDestroy.dispatch(this);

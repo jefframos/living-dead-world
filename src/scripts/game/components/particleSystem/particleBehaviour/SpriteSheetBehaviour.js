@@ -1,11 +1,11 @@
 import ParticleBehaviour from "./ParticleBehaviour";
-import SpriteSheetAnimation from "../../utils/SpriteSheetAnimation";
 
 export default class SpriteSheetBehaviour extends ParticleBehaviour {
     constructor() {
         super();
-        this.property = 'texture';
+        this.property = ['texture', 'anchor'];
         this.frames = [];
+        this.currentValue = [null,null]
         this.currentFrame = 0;
     }
 
@@ -16,7 +16,7 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
         this.endFrame = ParticleBehaviour.findValue(params.endFrame) || 1;
         this.spriteName = ParticleBehaviour.findValue(params.spriteName);
         this.addZero = params.addZero;
-
+        this.anchor = params.anchor ? params.anchor : {x:0.5,y:0.5}
 
         this.frames = [];
         for (let index = this.startFrame; index <= this.endFrame; index++) {
@@ -42,6 +42,7 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
     update(delta) {
         super.update(delta)
         this.currentFrame = Math.floor(this.normalValue * this.frames.length)
-        this.currentValue = PIXI.Texture.from(this.frames[this.currentFrame]);
+        this.currentValue[0] = PIXI.Texture.from(this.frames[this.currentFrame]);
+        this.currentValue[1] = this.anchor;
     }
 }
