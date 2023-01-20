@@ -14,6 +14,7 @@ import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
+import PlayerInventoryHud from '../inventory/view/PlayerInventoryHud';
 import Pool from '../core/utils/Pool';
 import RenderModule from '../core/modules/RenderModule';
 import Screen from '../../screenManager/Screen'
@@ -110,6 +111,9 @@ export default class GameScreen extends Screen {
             },
             RESPAWN: () => {
                 this.spawnPlayer();
+            },
+            KILL_ALL_ENEMIES: () => {
+                this.killAllEnemies();
             }
         }
         window.GUI.add(this.debug, 'timeScale', 0.1, 10);
@@ -120,6 +124,7 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'ADD_ONE_ENEMY');
         window.GUI.add(this.debug, 'RESPAWN');
         window.GUI.add(this.debug, 'DAMAGE_PLAYER');
+        window.GUI.add(this.debug, 'KILL_ALL_ENEMIES');
 
         //window.GUI.close()
 
@@ -178,8 +183,11 @@ export default class GameScreen extends Screen {
         }
 
         this.container.scale.set(1)
-
+        
         this.weaponBuilder = new WeaponBuilder();
+
+        this.playerInventoryHud = new PlayerInventoryHud();
+        this.addChild(this.playerInventoryHud)
     }
 
     onAdded() {
@@ -212,6 +220,13 @@ export default class GameScreen extends Screen {
 
         }
     }
+    killAllEnemies(){
+        for (let index = this.gameManager.activeEnemies.length-1; index >=0 ; index--) {
+            const element = this.gameManager.activeEnemies[index];
+            element.destroy();
+        }
+        
+    }
     killPlayer() {
         this.player.damage(50);
         //this.companion.destroy();
@@ -224,8 +239,11 @@ export default class GameScreen extends Screen {
             this.player.destroy();
         }
         this.player = this.gameManager.addEntity(Player, true)
+        this.playerInventoryHud.registerPlayer(this.player)
 
         this.weaponBuilder.addWeapons(this.player)
+
+        this.player.setPositionXZ(0,0)
 
         let angle = Math.PI * 2 * Math.random();
        // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)

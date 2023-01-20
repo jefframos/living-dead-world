@@ -40,8 +40,7 @@ export default class BuildingComponent extends BaseComponent{
         this.container.removeChild(this.gridContainer)
         super.destroy();
     }
-    update(delta){     
-       
+    update(delta){       
     }
     updateMousePosition(mousePosition){
         this.tile2.x = mousePosition.mouseX

@@ -13,7 +13,9 @@ export default class Utils {
         var da = (a1 - a0) % max;
         return 2*da % max - da;
     }
-    
+    static scaleToFit(element, size){
+        return Math.min(size / element.width * element.scale.x, size / element.height * element.scale.y)
+    }
     static angleLerp(a0,a1,t) {
         return a0 + Utils.shortAngleDist(a0,a1)*t;
     }

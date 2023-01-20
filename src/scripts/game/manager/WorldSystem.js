@@ -75,16 +75,20 @@ export default class WorldSystem extends GameObject {
     update(delta) {
 
         if (!Player.MainPlayer) return;
-        this.buildingPositions.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
-        this.buildingPositions.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
-        this.buildingPositions.x = Player.MainPlayer.transform.position.x;
-        this.buildingPositions.y = Player.MainPlayer.transform.position.y;
-
-        this.buildingPositions.mouseX = Math.floor((this.input.globalMousePos.x + Player.MainPlayer.transform.position.x - config.width / 2) / this.tileSize) * this.tileSize
-        this.buildingPositions.mouseY = Math.floor((this.input.globalMousePos.y + Player.MainPlayer.transform.position.y - config.height / 2) / this.tileSize) * this.tileSize
-
-
+        
+        
         if (WorldSystem.CurrentMode == WorldSystem.BuildingMode) {
+            this.buildingPositions.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
+            this.buildingPositions.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
+            this.buildingPositions.x = Player.MainPlayer.transform.position.x;
+            this.buildingPositions.y = Player.MainPlayer.transform.position.y;
+    
+            this.buildingPositions.mouseX = Math.floor((this.input.globalMousePos.x + Player.MainPlayer.transform.position.x - config.width / 2) / this.tileSize) * this.tileSize
+            this.buildingPositions.mouseY = Math.floor((this.input.globalMousePos.y + Player.MainPlayer.transform.position.y - config.height / 2) / this.tileSize) * this.tileSize
+    
+            this.buildingPositions.mouseX = this.input.globalMousePos.x + Player.MainPlayer.transform.position.x - config.width / 2
+            this.buildingPositions.mouseY = this.input.globalMousePos.y + Player.MainPlayer.transform.position.y - config.height / 2
+            
             this.buildingComponent.updateGridPosition(this.buildingPositions);
             this.buildingComponent.updateMousePosition(this.buildingPositions);
         }

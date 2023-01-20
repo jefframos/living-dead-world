@@ -9,6 +9,7 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
 import config from "../../config";
+import signals from "signals";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -16,6 +17,7 @@ export default class Player extends GameAgent {
     constructor() {
         super();
 
+        this.onUpdateEquipment = new signals.Signal();
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
@@ -82,6 +84,8 @@ export default class Player extends GameAgent {
         this.addChild(weapon)
         weapon.build(weaponData)
         this.activeWeapons.push(weapon)
+
+        this.onUpdateEquipment.dispatch(this);
     }
     onSensorTrigger(element) {
     }

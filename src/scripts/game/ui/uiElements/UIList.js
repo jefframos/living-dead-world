@@ -149,6 +149,7 @@ export default class UIList extends PIXI.Container {
         let stdH = 1;
         let stdW = 1;
         for (var i = 0; i < listSizes.length; i++) {
+            let anchorX = this.elementsList[i].anchorX !== undefined? this.elementsList[i].anchorX:0.5;
             // let pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
             // this.container.addChild(pixig)
             plus = 0;
@@ -185,8 +186,7 @@ export default class UIList extends PIXI.Container {
             let nextY = nextX + chunkSize * align - this.elementsList[i].height * align
             this.elementsList[i].y = nextY;
             // pixig.x = nextX
-
-            this.elementsList[i].x = this.w / 2 - this.elementsList[i].width / 2
+            this.elementsList[i].x = this.w * anchorX// - this.elementsList[i].width * anchorX
         }
 
     }

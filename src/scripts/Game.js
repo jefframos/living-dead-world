@@ -7,6 +7,7 @@ export default class Game {
     static GlobalScale = {x:1, y:1}
     static GlobalContainerPosition = {x:0, y:0}
     static Screen = {width:0, height:0}
+    static IsPortrait = false;
     constructor(config, screenManager) {
         Game.GlobalScale = {x:1, y:1}
         Game.GlobalContainerPosition = {x:0, y:0}
@@ -193,6 +194,8 @@ export default class Game {
 
 
             window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2          
+
+            Game.IsPortrait = window.isPortrait;
             
             this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
             //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y

@@ -1,5 +1,6 @@
 import * as signals from 'signals';
 
+import Game from '../../../Game';
 import GameObject from "../gameObject/GameObject";
 import Matter from "matter-js";
 
@@ -56,12 +57,22 @@ export default class InputModule extends GameObject {
         })
     }
     sortPosition(e) {
-        
-        this.marker.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
-        this.marker.y = e.data.global.y - this.container.worldTransform.ty
 
-        this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
-        this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty
+
+        if (!Game.IsPortrait) {
+            this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
+            this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty
+
+        } else {
+
+            this.globalMousePos.x = e.data.global.x - this.container.worldTransform.tx
+            this.globalMousePos.y = e.data.global.y / this.container.worldTransform.d - this.container.worldTransform.ty / this.container.worldTransform.d
+        }
+
+
+        this.marker.x = this.globalMousePos.x
+        this.marker.y = this.globalMousePos.y
+
     }
     start() {
 
