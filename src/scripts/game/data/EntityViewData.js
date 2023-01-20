@@ -1,3 +1,4 @@
+import EffectsManager from "../manager/EffectsManager";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
 import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
 import Vector3 from "../core/gameObject/Vector3";
@@ -33,35 +34,55 @@ export default class EntityViewData {
             alpha: 1,
             faceOrientation: true,
             scale: 1,
-            angleOffset: 0
+            angleOffset: 0,
+            fitRadius: true,
+            width:1,
+            height:1,
+            targetLayer: EffectsManager.TargetLayer.Gameplay
+
         }
     }
 
-    addSpawnVfx(vfxPack) {
+    addSpawnVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
-
+        console.log(targetLayer)
+        this.baseSpawnViewData.targetLayer = targetLayer;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
+        this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData)
     }
-
-    addDestroyVfx(vfxPack) {
+    
+    addDestroyVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
         this.baseDestroyViewData.viewData = vfxPack.descriptor
         this.baseDestroyViewData.offset = vfxPack.offset;
         this.baseDestroyViewData.scale = vfxPack.scale;
-
+        this.baseDestroyViewData.targetLayer = targetLayer;
+        
         this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
-    }
+        this.extractDimensions(vfxPack.descriptor, this.baseDestroyViewData)
 
-    addStandardVfx(vfxPack) {
+    }
+    
+    addStandardVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
         this.baseViewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
-
+        this.baseViewData.targetLayer = targetLayer;
+        
         this.type = EntityViewData.ViewType.SpriteSheet;
+        this.extractDimensions(vfxPack.descriptor, this.baseViewData)
     }
 
+extractDimensions(descriptor, target){
+    let spriteSheet = descriptor.findBehaviour(SpriteSheetBehaviour);
+    if(spriteSheet){
+        let texture = PIXI.Texture.from(spriteSheet.frames[0])
+        target.width = texture.width
+        target.height = texture.height
+    }
 
+}
     get viewData() {
         let sprite;
         if (Array.isArray(this.baseViewData.viewData)) {

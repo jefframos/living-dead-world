@@ -60,6 +60,7 @@ export default class WeaponAttributes {
         this.baseAmount = 1;
         this.baseDamageZone = 100;
         this.baseDetectionZone = 200;
+        this.baseExtendedAmount = 1;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
         this.extendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
@@ -97,6 +98,9 @@ export default class WeaponAttributes {
     }
     get amount() {
         return this.baseAmount
+    }
+    get extendedAmount() {
+        return this.baseExtendedAmount
     }
     get damageZone() {
         return this.baseDamageZone

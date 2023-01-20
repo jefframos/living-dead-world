@@ -2,6 +2,7 @@ import Bullet from "./bullets/Bullet";
 import EffectsManager from "../../manager/EffectsManager";
 import EntityViewData from "../../data/EntityViewData";
 import Layer from "../../core/Layer";
+import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import PhysicsEntity from "../../core/physics/PhysicsEntity";
 import Utils from "../../core/utils/Utils";
 import Vector3 from "../../core/gameObject/Vector3";
@@ -86,6 +87,8 @@ export default class BaseWeapon extends PhysicsEntity {
 
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
 
+        this.currentShootTimer = this.shootFrequency * 0.8
+
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         this.setDebug(this.weaponData.weaponAttributes.detectionZone)
 
@@ -123,6 +126,10 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         let total = weapon.weaponAttributes.amount;
+
+        if(!isMain){
+            total = weapon.weaponAttributes.extendedAmount;
+        }
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
@@ -255,8 +262,16 @@ export default class BaseWeapon extends PhysicsEntity {
             
             let target = bullet.transform.position
             //console.log(target.x)
+            let scale = 1;
+            if(baseData.fitRadius){
+                if(baseData.viewData instanceof ParticleDescriptor){
+                    scale =  Math.min(weapon.weaponAttributes.radius / baseData.width, weapon.weaponAttributes.radius / baseData.height) * baseData.scale
+                }else{
+                    scale =  Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width * bullet.gameView.view.scale.x, weapon.weaponAttributes.radius / bullet.gameView.view.height * bullet.gameView.view.scale.y)
+                }
+            }
             EffectsManager.instance.emitParticles(
-                { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle })
+                { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle, scale: {x:scale, y:scale} }, baseData.targetLayer)
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;

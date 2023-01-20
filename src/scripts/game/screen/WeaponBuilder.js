@@ -1,3 +1,4 @@
+import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import InGameWeapon from "../data/InGameWeapon";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
@@ -31,7 +32,7 @@ export default class WeaponBuilder {
         let meleeShockVfxPack = {
             descriptor: new ParticleDescriptor(),
             offset: new Vector3(10, 0, -20),
-            scale: 1
+            scale: 3
         }
         meleeShockVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 0.75,
@@ -78,10 +79,11 @@ export default class WeaponBuilder {
         this.smallBomb = new WeaponData('Bomb');
         this.smallBomb.weaponAttributes.baseLifeRangeSpan = -1
         this.smallBomb.weaponAttributes.baseLifeSpan = 0.5
-        this.smallBomb.weaponAttributes.baseRadius = 50
+        this.smallBomb.weaponAttributes.baseRadius = 100
         this.smallBomb.weaponAttributes.baseBulletSpeed = 0
+        this.smallBomb.weaponAttributes.baseFrequency = 3
 
-        this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack);
+        this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
         this.smallBomb.weaponViewData.baseViewData.alpha = 0
         this.smallBomb.weaponViewData.baseViewData.offset.y = -20
         this.smallBomb.icon = 'hit-d3'
@@ -107,7 +109,7 @@ export default class WeaponBuilder {
         this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250
         this.daggerThrow.weaponAttributes.baseLifeSpan = 0
         this.daggerThrow.weaponAttributes.baseRadius = 15
-        this.daggerThrow.weaponAttributes.baseBulletSpeed = 150
+        this.daggerThrow.weaponAttributes.baseBulletSpeed = 250
         this.daggerThrow.weaponAttributes.baseFrequency = 2
 
         this.daggerThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
@@ -158,7 +160,7 @@ export default class WeaponBuilder {
         this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -5
         this.floatingOrbit.icon = 'hit-g1'
 
-        this.floatingOrbit.constructor = FloatingProjectile
+        this.floatingOrbit.customConstructor = FloatingProjectile
 
 
 
@@ -191,6 +193,7 @@ export default class WeaponBuilder {
         this.multishot.weaponAttributes.basePiercing = 0
         this.multishot.weaponAttributes.baseFrequency = 1
         this.multishot.weaponAttributes.angleOffset = 0.4
+        this.multishot.weaponAttributes.baseExtendedAmount = 2
         this.multishot.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ParentAngle
 
         this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131'
@@ -238,6 +241,8 @@ export default class WeaponBuilder {
         let testWeapon = new InGameWeapon();
 
         Utils.shuffle(a)
+        // testWeapon.addWeapon(this.smallBomb)
+        // testWeapon.addWeapon(this.floatingOrbit)
 
         for (let i = 0; i < 4; i++) {
             testWeapon.addWeapon(a[i])
@@ -255,7 +260,6 @@ export default class WeaponBuilder {
         // testWeapon.addWeapon(this.uniformTimeSpread)
         // testWeapon.addWeapon(this.boomerangThrow)
         //testWeapon.addWeapon(this.daggerThrow)
-        // testWeapon.addWeapon(this.floatingOrbit)
         // testWeapon.addWeapon(this.multishot)
         //testWeapon.addWeapon(this.multishot)
         // testWeapon.addWeapon(this.facingMelee)

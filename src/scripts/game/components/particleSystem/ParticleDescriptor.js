@@ -25,6 +25,19 @@ export default class ParticleDescriptor {
 
         this.shouldDestroy = false;
     }
+    findBehaviour(constructor) {
+
+        for (let index = 0; index < this.baseBehaviours.length; index++) {
+            const element = this.baseBehaviours[index];
+            if (element.behavior == constructor) {
+                let behaviour = Pool.instance.getElement(element.behavior);
+                behaviour.reset();
+                behaviour.build(element.params);
+                return behaviour
+            }
+
+        }
+    }
     addBaseBehaviours(behavior, params) {
         this.baseBehaviours.push({ behavior, params });
     }
@@ -64,6 +77,7 @@ export default class ParticleDescriptor {
             behaviour.build(element.params);
             this.behaviours.push(behaviour);
         });
+
 
     }
     update(delta) {

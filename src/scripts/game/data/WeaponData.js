@@ -6,7 +6,7 @@ export default class WeaponData {
     constructor(name = 'none') {
         this.weaponAttributes = new WeaponAttributes();
         this.weaponViewData = new EntityViewData();
-        this.constructor = BaseWeapon;
+        this.customConstructor = BaseWeapon;
         this.icon = 'knife';
         this.name = name;
         this.onDestroyWeapon = null;
@@ -15,7 +15,7 @@ export default class WeaponData {
         let weapon = new WeaponData();
         weapon.weaponAttributes = this.weaponAttributes.clone();
         weapon.weaponViewData = this.weaponViewData.clone();
-        weapon.constructor = this.constructor;
+        weapon.customConstructor = this.customConstructor;
 
         weapon.icon = this.icon;
         weapon.name = this.name;

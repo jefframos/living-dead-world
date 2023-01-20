@@ -80,7 +80,7 @@ export default class Player extends GameAgent {
             return;
         }
         let weaponData = inGameWeapon.mainWeapon
-        let weapon = this.engine.poolGameObject(weaponData.constructor)
+        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
         weapon.build(weaponData)
         this.activeWeapons.push(weapon)

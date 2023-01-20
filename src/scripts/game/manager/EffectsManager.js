@@ -8,6 +8,10 @@ import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour
 
 export default class EffectsManager extends GameObject {
     static instance;
+    static TargetLayer = {
+        Gameplay: 1,
+        Botom: 2
+    }
     constructor(container, gameContainer) {
         super();
         EffectsManager.instance = this;
@@ -30,7 +34,7 @@ export default class EffectsManager extends GameObject {
                 texture: ['skull', 'skull2', 'arm', 'leg']
             }
         )
-        this.skullDescriptor.addBaseBehaviours(AlphaBehaviour, { time: 0.3, delay:1 })
+        this.skullDescriptor.addBaseBehaviours(AlphaBehaviour, { time: 0.3, delay: 1 })
 
         //the descriptor is on the enemy
         this.bloodDescriptor = new ParticleDescriptor(
@@ -55,7 +59,7 @@ export default class EffectsManager extends GameObject {
                 texture: ['bloodp1', 'bloodp2', 'bloodp3', 'bloodp4']
             }
         )
-        this.bloodPuddle.addBaseBehaviours(AlphaBehaviour, { time: [0.5, 0.25] , delay:10})
+        this.bloodPuddle.addBaseBehaviours(AlphaBehaviour, { time: [0.5, 0.25], delay: 10 })
 
         PIXI.BitmapFont.from('damage2', {
             fontFamily: 'peppa_pigmedium',
@@ -72,7 +76,7 @@ export default class EffectsManager extends GameObject {
             wordWrapWidth: 300
         });
 
-        this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale:1 })
+        this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
         this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 0.5,
             startFrame: 1,
@@ -81,7 +85,7 @@ export default class EffectsManager extends GameObject {
             addZero: false,
         })
 
-        this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale:1 })
+        this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
         this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 0.25,
             startFrame: 1,
@@ -101,8 +105,10 @@ export default class EffectsManager extends GameObject {
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
         this.baseLayer = this.renderModule.layers[RenderModule.RenderLayers.Floor].container;
-        
+        this.bottomLayer = this.renderModule.layers[RenderModule.RenderLayers.Base].container;
+
         this.particleEmitter = new ParticleEmitter(this.gameContainer);
+        this.particleEmitterBottom = new ParticleEmitter(this.bottomLayer);
         this.particleEmitterKill = new ParticleEmitter(this.baseLayer, 500);
     }
     update(delta) {
@@ -131,6 +137,7 @@ export default class EffectsManager extends GameObject {
         }
 
         this.particleEmitter.update(delta)
+        this.particleEmitterBottom.update(delta)
         this.particleEmitterKill.update(delta)
     }
     popKill(entity) {
@@ -160,12 +167,20 @@ export default class EffectsManager extends GameObject {
         this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
 
-    emitParticles(position, descriptor, quant = 1, overrides){
-        this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+    emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
+        if (target == EffectsManager.TargetLayer.Gameplay) {
+            this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        } else {
+            this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        }
     }
 
-    emitById(position, descriptor, quant = 1, overrides){
-        this.particleEmitter.emit(this[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+    emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
+        if (target == EffectsManager.TargetLayer.Gameplay) {
+            this.particleEmitter.emit(this[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        } else {
+            this.particleEmitterBottom.emit(this[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        }
     }
 
     getDamageFont() {

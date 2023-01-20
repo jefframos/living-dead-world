@@ -26,12 +26,12 @@ export default class Bullet extends PhysicsEntity {
         this.onDestroy = new signals.Signal;
         this.onDestroyOnHit = new signals.Signal;
         this.onHit = new signals.Signal;
-        // this.setDebug(15)
+        //  this.setDebug(15)
     }
     build(weapon, parent) {
         super.build()
         this.weapon = weapon;
-        // this.setDebug(this.weapon.weaponAttributes.radius)
+        //  this.setDebug(this.weapon.weaponAttributes.radius)
         this.spawnParent = parent;
         this.safeTimer = 10;
 

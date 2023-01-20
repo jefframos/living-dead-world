@@ -13,7 +13,7 @@ export default class PlayerInventoryHud extends PIXI.Container {
 
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
-        this.addChild(this.zero)
+        // this.addChild(this.zero)
         this.addChild(this.equippedItemsList)
     }
 
