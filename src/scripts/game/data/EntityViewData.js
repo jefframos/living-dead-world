@@ -47,7 +47,6 @@ export default class EntityViewData {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
-        console.log(targetLayer)
         this.baseSpawnViewData.targetLayer = targetLayer;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData)

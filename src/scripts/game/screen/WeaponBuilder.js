@@ -1,3 +1,4 @@
+import AuraProjectile from "../components/weapon/AuraProjectile";
 import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import InGameWeapon from "../data/InGameWeapon";
@@ -12,15 +13,26 @@ export default class WeaponBuilder {
     constructor() {
 
 
-
-
-
         let bombVfxPack = {
             descriptor: new ParticleDescriptor(),
             offset: new Vector3(0, 0, 0),
-            scale: 2
+            scale: 1
         }
         bombVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
+            time: 0.5,
+            startFrame: 1,
+            endFrame: 5,
+            spriteName: 'hit-d',
+            addZero: false,
+            lifeSpan: 9999
+        })
+
+        let endAuraVfxPack = {
+            descriptor: new ParticleDescriptor(),
+            offset: new Vector3(0, 0, 0),
+            scale: 1
+        }
+        endAuraVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 0.5,
             startFrame: 1,
             endFrame: 5,
@@ -32,7 +44,7 @@ export default class WeaponBuilder {
         let meleeShockVfxPack = {
             descriptor: new ParticleDescriptor(),
             offset: new Vector3(10, 0, -20),
-            scale: 3
+            scale: 1
         }
         meleeShockVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 0.75,
@@ -74,6 +86,36 @@ export default class WeaponBuilder {
         })
 
 
+        this.damageAura = new WeaponData('Aura');
+        this.damageAura.weaponAttributes.baseLifeRangeSpan = -1
+        this.damageAura.weaponAttributes.baseLifeSpan = 3
+        this.damageAura.weaponAttributes.baseRadius = 100
+        this.damageAura.weaponAttributes.baseBulletSpeed = 0
+        this.damageAura.weaponAttributes.baseFrequency = 3
+        this.damageAura.weaponAttributes.basePiercing = 99999
+        this.damageAura.weaponAttributes.basePower = 5
+        this.damageAura.weaponAttributes.baseDamageOverTime = 1
+        this.damageAura.weaponAttributes.baseForceField = false
+        this.damageAura.weaponAttributes.baseForceFeedback = 0
+
+        this.damageAura.weaponAttributes.makeOverrider()
+        this.damageAura.weaponAttributes.overrider.baseRadius = 50
+        this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2
+
+        this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
+
+        //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
+        this.damageAura.weaponViewData.baseViewData.alpha = 1
+        this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
+        this.damageAura.weaponViewData.baseViewData.offset.y = 0
+        this.damageAura.icon = 'hit-d3'
+        this.damageAura.customConstructor = AuraProjectile
+
+        this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
+        this.damageAura.weaponViewData.baseViewData.scale = 1
+        this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.Botom
+
+
 
 
         this.smallBomb = new WeaponData('Bomb');
@@ -83,6 +125,9 @@ export default class WeaponBuilder {
         this.smallBomb.weaponAttributes.baseBulletSpeed = 0
         this.smallBomb.weaponAttributes.baseFrequency = 3
 
+        this.smallBomb.weaponAttributes.makeOverrider()
+
+
         this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
         this.smallBomb.weaponViewData.baseViewData.alpha = 0
         this.smallBomb.weaponViewData.baseViewData.offset.y = -20
@@ -91,11 +136,15 @@ export default class WeaponBuilder {
 
 
         this.facingMelee = new WeaponData('Melee',);
-        this.facingMelee.weaponAttributes.baseLifeRangeSpan = 50
+        this.facingMelee.weaponAttributes.baseLifeRangeSpan = 70
         this.facingMelee.weaponAttributes.baseLifeSpan = 0
-        this.facingMelee.weaponAttributes.baseRadius = 30
+        this.facingMelee.weaponAttributes.baseRadius = 50
         this.facingMelee.weaponAttributes.baseBulletSpeed = 150
         this.facingMelee.weaponAttributes.baseFrequency = 2
+        this.facingMelee.weaponAttributes.basePower = 200
+
+        this.facingMelee.weaponAttributes.makeOverrider()
+
 
         this.facingMelee.weaponViewData.addSpawnVfx(meleeShockVfxPack);
         this.facingMelee.weaponViewData.baseViewData.alpha = 0
@@ -109,15 +158,25 @@ export default class WeaponBuilder {
         this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250
         this.daggerThrow.weaponAttributes.baseLifeSpan = 0
         this.daggerThrow.weaponAttributes.baseRadius = 15
-        this.daggerThrow.weaponAttributes.baseBulletSpeed = 250
-        this.daggerThrow.weaponAttributes.baseFrequency = 2
+        this.daggerThrow.weaponAttributes.baseBulletSpeed = 350
+        this.daggerThrow.weaponAttributes.baseFrequency = 3
+        this.daggerThrow.weaponAttributes.baseAngleNoise = 0.5
+
+        this.daggerThrow.weaponAttributes.baseBrustFire.amount = 3
+        this.daggerThrow.weaponAttributes.baseBrustFire.interval = 0.1
+
+        this.daggerThrow.weaponAttributes.makeOverrider()
+
 
         this.daggerThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+        this.daggerThrow.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
 
 
         this.daggerThrow.weaponViewData.baseViewData.viewData = 'tile_0103'
         this.daggerThrow.weaponViewData.baseViewData.alpha = 1
         this.daggerThrow.weaponViewData.baseViewData.offset.y = -20
+        this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15
+
         this.daggerThrow.icon = 'tile_0103'
 
 
@@ -125,17 +184,19 @@ export default class WeaponBuilder {
         this.boomerangThrow.weaponAttributes.baseLifeRangeSpan = 250
         this.boomerangThrow.weaponAttributes.baseLifeSpan = 0
         this.boomerangThrow.weaponAttributes.baseRadius = 15
-        this.boomerangThrow.weaponAttributes.baseBulletSpeed = 150
+        this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200
         this.boomerangThrow.weaponAttributes.baseFrequency = 2
         this.boomerangThrow.weaponAttributes.basePiercing = 9999
+        this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.Boomerang;
+        this.boomerangThrow.weaponAttributes.makeOverrider()
 
-        this.boomerangThrow.weaponAttributes.extendedBehaviour = WeaponAttributes.ExtendedBehaviour.Boomerang;
+
         this.boomerangThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
 
         this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118'
         this.boomerangThrow.weaponViewData.baseViewData.alpha = 1
         this.boomerangThrow.weaponViewData.baseViewData.scale = 1
-        this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 5
+        this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 15
         this.boomerangThrow.weaponViewData.baseViewData.offset.y = 0//-20
         this.boomerangThrow.icon = 'tile_0118'
 
@@ -148,7 +209,9 @@ export default class WeaponBuilder {
         this.floatingOrbit.weaponAttributes.baseBulletSpeed = Math.PI
         this.floatingOrbit.weaponAttributes.baseRadius = 30
         this.floatingOrbit.weaponAttributes.baseDamageZone = 80
-        this.floatingOrbit.weaponAttributes.forceField = true
+        this.floatingOrbit.weaponAttributes.baseForceField = true
+        this.floatingOrbit.weaponAttributes.makeOverrider()
+
 
         this.floatingOrbit.weaponViewData.addSpawnVfx(bombVfxPack);
         this.floatingOrbit.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
@@ -157,7 +220,7 @@ export default class WeaponBuilder {
         this.floatingOrbit.weaponViewData.baseViewData.viewData = 'hit-g1'
         this.floatingOrbit.weaponViewData.baseViewData.scale = 4
         this.floatingOrbit.weaponViewData.baseViewData.offset.y = 0
-        this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -5
+        this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -12
         this.floatingOrbit.icon = 'hit-g1'
 
         this.floatingOrbit.customConstructor = FloatingProjectile
@@ -172,11 +235,14 @@ export default class WeaponBuilder {
         this.hoaming.weaponAttributes.baseBulletSpeed = 100
         this.hoaming.weaponAttributes.basePiercing = 1
         this.hoaming.weaponAttributes.baseDetectionZone = 500
+        this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
+        this.hoaming.weaponAttributes.makeOverrider()
+
+
         this.hoaming.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
         this.hoaming.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
 
         //this.hoaming.weaponAttributes.angleOffset = Math.PI / 4
-        this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
 
         this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
         this.hoaming.weaponViewData.baseViewData.scale = 1
@@ -187,33 +253,37 @@ export default class WeaponBuilder {
 
 
         this.multishot = new WeaponData('Multishot');
+        this.multishot.icon = 'tile_0131'
+
         this.multishot.weaponAttributes.baseLifeRangeSpan = 150
         this.multishot.weaponAttributes.baseAmount = 4
         this.multishot.weaponAttributes.basePower = 10
         this.multishot.weaponAttributes.basePiercing = 0
-        this.multishot.weaponAttributes.baseFrequency = 1
-        this.multishot.weaponAttributes.angleOffset = 0.4
-        this.multishot.weaponAttributes.baseExtendedAmount = 2
+        this.multishot.weaponAttributes.baseFrequency = 3
+        this.multishot.weaponAttributes.baseAngleOffset = 0.4
         this.multishot.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ParentAngle
+        this.multishot.weaponAttributes.makeOverrider()
 
         this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131'
         this.multishot.weaponViewData.baseViewData.scale = 1
-        this.multishot.icon = 'tile_0131'
-
+        this.multishot.weaponViewData.baseViewData.offset.y = -20
         this.multishot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
-
+        this.multishot.weaponAttributes.overrider.baseAmount = 2
 
 
 
 
         this.uniformTimeSpread = new WeaponData('Spread');
-        this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 100
+        this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 200
         this.uniformTimeSpread.weaponAttributes.baseAmount = 1
         this.uniformTimeSpread.weaponAttributes.basePower = 10
         this.uniformTimeSpread.weaponAttributes.basePiercing = 0
-        this.uniformTimeSpread.weaponAttributes.baseFrequency = 0.5
-        this.uniformTimeSpread.weaponAttributes.angleOffset = Math.PI / 4
+        this.uniformTimeSpread.weaponAttributes.baseFrequency = 1
+        this.uniformTimeSpread.weaponAttributes.baseAngleOffset = Math.PI / 4
         this.uniformTimeSpread.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.AngularSequence
+        this.uniformTimeSpread.weaponAttributes.makeOverrider()
+
+
         this.uniformTimeSpread.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2)
         this.uniformTimeSpread.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2)
 
@@ -228,6 +298,7 @@ export default class WeaponBuilder {
     addWeapons(player) {
 
         let a = [
+            this.damageAura,
             this.smallBomb,
             this.facingMelee,
             this.daggerThrow,
@@ -239,20 +310,26 @@ export default class WeaponBuilder {
 
         ]
         let testWeapon = new InGameWeapon();
-
+        
         Utils.shuffle(a)
-        // testWeapon.addWeapon(this.smallBomb)
-        // testWeapon.addWeapon(this.floatingOrbit)
-
+        //testWeapon.addWeapon(this.floatingOrbit)
+        //testWeapon.addWeapon(this.smallBomb)
+        //testWeapon.addWeapon(this.damageAura)
+        //testWeapon.addWeapon(this.daggerThrow)
+        //testWeapon.addWeapon(this.multishot)
+        
         for (let i = 0; i < 4; i++) {
             testWeapon.addWeapon(a[i])
         }
-
+        //Utils.shuffle(a)
+        let testWeapon2 = new InGameWeapon();
+        for (let i = 3; i < 7; i++) {
+            testWeapon2.addWeapon(a[i])
+        }
         // testWeapon.addWeapon(this.alternateMelee)
-        //  testWeapon.addWeapon(this.facingMelee)
+          //testWeapon.addWeapon(this.facingMelee)
         //  testWeapon.addWeapon(this.hoaming)
         //  testWeapon.addWeapon(this.uniformTimeSpread)
-        // testWeapon.addWeapon(this.multishot)
         // testWeapon.addWeapon(this.smallBomb)
         console.log("CHeck the alternate weapon")
         console.log("CHeck the hoaming to always find an enemy")
@@ -275,6 +352,7 @@ export default class WeaponBuilder {
         // player.addWeapon(this.hoaming)
 
         player.addWeapon(testWeapon)
+        player.addWeapon(testWeapon2)
 
     }
 }

@@ -5,7 +5,7 @@ import Pool from '../../core/utils/Pool';
 
 export default class ParticleEmmiter {
 
-    constructor(container, maxParticles = 800) {
+    constructor(container, maxParticles = 1000) {
         this.container = container;
         this.position = { x: 0, y: 0 }
         this.particles = [];

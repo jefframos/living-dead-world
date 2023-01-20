@@ -50,9 +50,6 @@ export default class Player extends GameAgent {
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
-
-
-
         this.speed = 100
 
         this.transform.angle = -Math.PI / 2
@@ -83,6 +80,7 @@ export default class Player extends GameAgent {
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
         weapon.build(weaponData)
+
         this.activeWeapons.push(weapon)
 
         this.onUpdateEquipment.dispatch(this);

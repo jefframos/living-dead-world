@@ -49,6 +49,8 @@ export default class WeaponAttributes {
         Boomerang: 1,
     }
     constructor() {
+        this.isMain = true;
+        
         this.baseRange = 60;
         this.baseLifeSpan = -1;
         this.baseLifeRangeSpan = 50;
@@ -60,62 +62,96 @@ export default class WeaponAttributes {
         this.baseAmount = 1;
         this.baseDamageZone = 100;
         this.baseDetectionZone = 200;
-        this.baseExtendedAmount = 1;
+        this.baseDamageOverTime = 3;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
-        this.extendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
-        this.baseShootArc = 0;
-        this.generalOffset = 0;
-        this.angleOffset = 0.1;
-        this.angleNoise = 0.1;
+        
+        
+        this.baseBrustFire = {
+            amount:0,
+            interval:0
+        };
+        this.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
+        this.baseBaseShootArc = 0;
+        this.baseGeneralOffset = 0;
+        this.baseAngleOffset = 0.1;
+        this.baseAngleNoise = 0.1;
+        this.baseForceField = false;
+        this.baseForceFeedback = 5;
 
-        //it means that it will repel from the weapon
-        this.forceField = false;
+        this.overrider = null;
+    }
+    makeOverrider(){
+        this.overrider = this.clone();
+    }
+    get brustFire(){
+        return this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire
+    }
+    get extendedBehaviour() {
+        return this.isMain ? this.baseExtendedBehaviour : this.overrider.baseExtendedBehaviour
+    }
+    get baseShootArc(){
+        return this.isMain ? this.baseBaseShootArc : this.overrider.baseBaseShootArc
+    }
+    get generalOffset(){
+        return this.isMain ? this.baseGeneralOffset : this.overrider.baseGeneralOffset
+    }
+    get angleOffset(){
+        return this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset
+    }
+    get angleNoise(){
+        return this.isMain ? this.baseAngleNoise : this.overrider.baseAngleNoise
+    }
+    get forceField(){
+        return this.isMain ? this.baseForceField : this.overrider.baseForceField
+    }
+    get forceFeedback(){
+        return this.isMain ? this.baseForceFeedback : this.overrider.baseForceFeedback
     }
     get range() {
-        return this.baseRange
+        return this.isMain ? this.baseRange : this.overrider.baseRange
     }
     get lifeSpan() {
-        return this.baseLifeSpan
+        return this.isMain ? this.baseLifeSpan : this.overrider.baseLifeSpan
     }
     get lifeRangeSpan() {
-        return this.baseLifeRangeSpan
+        return this.isMain ? this.baseLifeRangeSpan : this.overrider.baseLifeRangeSpan
     }
     get power() {
-        return this.basePower
+        return this.isMain ? this.basePower : this.overrider.basePower
     }
     get radius() {
-        return this.baseRadius
+        return this.isMain ? this.baseRadius : this.overrider.baseRadius
     }
     get bulletSpeed() {
-        return this.baseBulletSpeed
+        return this.isMain ? this.baseBulletSpeed : this.overrider.baseBulletSpeed
     }
     get frequency() {
-        return this.baseFrequency
+        return this.isMain ? this.baseFrequency : this.overrider.baseFrequency
     }
     get piercing() {
-        return this.basePiercing
+        return this.isMain ? this.basePiercing : this.overrider.basePiercing
     }
     get amount() {
-        return this.baseAmount
-    }
-    get extendedAmount() {
-        return this.baseExtendedAmount
+        return this.isMain ? this.baseAmount : this.overrider.baseAmount
     }
     get damageZone() {
-        return this.baseDamageZone
+        return this.isMain ? this.baseDamageZone : this.overrider.baseDamageZone
     }
     get detectionZone() {
-        return this.baseDetectionZone
+        return this.isMain ? this.baseDetectionZone : this.overrider.baseDetectionZone
     }
     get directionType() {
-        return this.baseDirectionType
+        return this.isMain ? this.baseDirectionType : this.overrider.baseDirectionType
     }
     get blockType() {
-        return this.baseBlockType
+        return this.isMain ? this.baseBlockType : this.overrider.baseBlockType
     }
     get shootArc() {
-        return this.baseShootArc
+        return this.isMain ? this.baseShootArc : this.overrider.baseShootArc
+    }
+    get damageOverTime() {
+        return this.isMain ? this.baseDamageOverTime : this.overrider.baseDamageOverTime
     }
 
     clone() {

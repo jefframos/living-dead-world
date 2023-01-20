@@ -1,11 +1,13 @@
 import BaseEnemy from "../../../entity/BaseEnemy";
 import BaseWeapon from "../BaseWeapon";
+import EffectsManager from "../../../manager/EffectsManager";
 import GameManager from "../../../manager/GameManager";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
 import Player from "../../../entity/Player";
+import RenderModule from "../../../core/modules/RenderModule";
 import Utils from "../../../core/utils/Utils";
 import Vector3 from "../../../core/gameObject/Vector3";
 import WeaponAttributes from "../../../data/WeaponAttributes";
@@ -26,12 +28,22 @@ export default class Bullet extends PhysicsEntity {
         this.onDestroy = new signals.Signal;
         this.onDestroyOnHit = new signals.Signal;
         this.onHit = new signals.Signal;
-        //  this.setDebug(15)
+        //   this.setDebug(15)
     }
     build(weapon, parent) {
         super.build()
         this.weapon = weapon;
-        //  this.setDebug(this.weapon.weaponAttributes.radius)
+
+        if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.Botom) {
+            if (this.gameView.layer != RenderModule.RenderLayers.Default) {
+
+                this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Default)
+            }
+        } else if (this.gameView.layer != RenderModule.RenderLayers.Gameplay) {
+            this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Gameplay)
+        }
+
+        //   this.setDebug(this.weapon.weaponAttributes.radius)
         this.spawnParent = parent;
         this.safeTimer = 10;
 
@@ -70,6 +82,8 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.alpha = 1;
         this.gameView.view.visible = true;
 
+        this.fromWeapon = this.spawnParent instanceof BaseWeapon
+
     }
     enable() {
         super.enable();
@@ -92,18 +106,20 @@ export default class Bullet extends PhysicsEntity {
         this.onSpawn.dispatch(this)
     }
     collisionExit(collided) {
-        if (this.enemiesShot.indexOf(collided) < 0) return;
-
-        this.enemiesShot = this.enemiesShot.filter(item => item !== collided)
+        if (this.enemiesShot.filter(item => item.entity == collided).length <= 0) return;
+        //console.log(this.enemiesShot.filter(item => item.entity == collided))
+        this.enemiesShot = this.enemiesShot.filter(item => item.entity !== collided)
 
     }
     collisionEnter(collided) {
 
-        if (this.enemiesShot.indexOf(collided) >= 0) return;
-        this.enemiesShot.push(collided);
         if (collided.rigidBody.isSensor) {
             return;
         }
+        if (this.enemiesShot.filter(item => item.entity == collided).length > 0) {
+            return;
+        }
+        this.enemiesShot.push({ entity: collided, timer: this.weapon.weaponAttributes.damageOverTime });
         if (collided.rigidBody.isStatic) {
             this.destroy()
 
@@ -121,14 +137,14 @@ export default class Bullet extends PhysicsEntity {
                     enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
                     enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
                 } else {
-                    if (collided.applyForce) {
+                    if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
                         let angle = 0;
-                        if (this.forceField) {
+                        if (this.forceField && this.fromWeapon) {
                             angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
                         } else {
                             angle = Math.atan2(collided.transform.position.z, collided.transform.position.x);
                         }
-                        let forceBack = { x: Math.cos(angle) * 5, y: Math.sin(angle) * 5 };
+                        let forceBack = { x: Math.cos(angle) * this.weapon.weaponAttributes.forceFeedback, y: Math.sin(angle) * this.weapon.weaponAttributes.forceFeedback };
                         collided.applyForce(forceBack)
                     }
                 }
@@ -145,9 +161,13 @@ export default class Bullet extends PhysicsEntity {
             }
             //this.destroy()
         }
+
+        //console.log(this.enemiesShot)
     }
     start() {
         this.physicsModule = this.engine.findByType(PhysicsModule)
+        this.renderModule = this.engine.findByType(RenderModule)
+
     }
 
     update(delta) {
@@ -159,10 +179,22 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.y = this.transform.position.z + this.viewOffset.y
 
 
+        this.enemiesShot.forEach(element => {
+            if (element.entity.enabledAndAlive) {
+
+                if (element.timer <= 0) {
+                    element.entity.damage(this.power);
+                    element.timer = this.weapon.weaponAttributes.damageOverTime;
+                } else {
+                    element.timer -= delta;
+                }
+            }
+        });
+
 
         if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
             let closest = GameManager.instance.findClosestEnemy(this.transform.position)
-            if(closest){
+            if (closest) {
                 this.smoothAngle(Vector3.atan2XZ(closest.transform.position, this.transform.position), delta)
             }
         }
@@ -183,7 +215,7 @@ export default class Bullet extends PhysicsEntity {
 
                     let targetPosition = this.originPosition
 
-                    if (this.spawnParent instanceof BaseWeapon) {
+                    if (this.fromWeapon) {
                         targetPosition = this.spawnParent.transform.position;
                     }
 

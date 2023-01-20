@@ -6,7 +6,7 @@ export default class RenderModule extends GameObject {
     static RenderLayers = {
         Base: 'base',
         Debug: 'debug',
-        Default: 'default',
+        Default: '_n_default',
         Floor: '_p_floor',
         Building: 'building',
         Gameplay: 'gameplay',
@@ -26,13 +26,14 @@ export default class RenderModule extends GameObject {
         for (const key in RenderModule.RenderLayers) {
             const element = RenderModule.RenderLayers[key];
             let container = null;
-            let sortable = true;
+            let sortable = element.indexOf('_n_') < 0;
             if(element.indexOf('_p_')>=0){
                 container = new PIXI.ParticleContainer(800, {tint:true});
                 sortable = false;
             }else{
                 container = new PIXI.Container()
             }
+
             let layer = new Layer(element, container, sortable)
             this.container.addChild(layer.container)
             this.layers[element] = layer;
@@ -104,6 +105,12 @@ export default class RenderModule extends GameObject {
         if (element.shadow) {
             this.layers[RenderModule.RenderLayers.Floor].removeChild(element.shadow)
         }
+    }
+    swapLayer(entity, layer){
+        this.layers[entity.layer].removeGameView(entity)
+        this.layers[layer].addGameView(entity)
+
+        entity.layer = layer;
     }
     onRender() {
         if (!this.physics) return

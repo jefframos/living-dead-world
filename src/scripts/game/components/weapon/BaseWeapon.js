@@ -20,6 +20,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.alternateFacing = 1;
         this.bulletAccum = 0;
         this.weaponData = null;
+        this.brustFire = {amount:0, interval:0};
 
     }
     getClosestEnemy() {
@@ -73,9 +74,12 @@ export default class BaseWeapon extends PhysicsEntity {
         }
         return facing;
     }
+    resetBrust(){
+        this.brustFire.amount = this.weaponData.weaponAttributes.brustFire.amount;
+        this.brustFire.interval = this.weaponData.weaponAttributes.brustFire.interval;
+    }
     build(weaponData) {
         super.build();
-
         this.interactiveProjectiles = [];
         this.activeProjectiles = [];
 
@@ -85,12 +89,12 @@ export default class BaseWeapon extends PhysicsEntity {
             this.weaponData = new WeaponData();
         }
 
+        this.resetBrust();
+
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
-
-        this.currentShootTimer = this.shootFrequency * 0.8
-
+        this.currentShootTimer = this.shootFrequency * 0.1
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
-        this.setDebug(this.weaponData.weaponAttributes.detectionZone)
+        //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
 
         this.rigidBody.isSensor = true;
 
@@ -120,16 +124,24 @@ export default class BaseWeapon extends PhysicsEntity {
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
+        weapon.weaponAttributes.isMain = isMain;
+        
         if (!customWeapon) {
-            this.currentShootTimer = 0;
+            if(this.brustFire.amount > 0){
+                this.currentShootTimer = this.brustFire.interval;
+                this.brustFire.amount --;                
+                if(this.brustFire.amount <= 0){
+                this.currentShootTimer = this.shootFrequency;
+                    this.resetBrust();
+                }
+            }else{
+                this.currentShootTimer = this.shootFrequency;
+            }
             this.alternateFacing *= -1;
         }
 
         let total = weapon.weaponAttributes.amount;
 
-        if(!isMain){
-            total = weapon.weaponAttributes.extendedAmount;
-        }
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
@@ -149,6 +161,8 @@ export default class BaseWeapon extends PhysicsEntity {
 
             let facing = 0//BaseWeapon.getFacing(weapon, parentGameObject, this.alternateFacing);
             let halfAngle = weapon.weaponAttributes.angleOffset * index - (weapon.weaponAttributes.angleOffset * (total - 1) / 2)
+
+            let angleNoise = Math.random() * weapon.weaponAttributes.angleNoise - weapon.weaponAttributes.angleNoise * 0.5
             if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.AngularSequence) {
                 let targetAngle = this.bulletAccum * weapon.weaponAttributes.angleOffset
 
@@ -157,12 +171,12 @@ export default class BaseWeapon extends PhysicsEntity {
                 }
 
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
-                bullet.shoot(targetAngle + Math.random() * weapon.weaponAttributes.angleNoise - weapon.weaponAttributes.angleNoise * 0.5 + halfAngle, this.physics.magnitude)
+                bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
                 let closest = Math.random() * Math.PI * 2//this.getClosestEnemy()
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(closest) * 20, 0, parentGameObject.transform.position.z + Math.sin(closest) * 20);
-                bullet.shoot(closest, this.physics.magnitude)
+                bullet.shoot(closest+angleNoise, this.physics.magnitude)
 
             } else if(weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang){
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
@@ -172,7 +186,7 @@ export default class BaseWeapon extends PhysicsEntity {
                     facingAng = parentGameObject.angle;
                 }
 
-                bullet.shoot(facingAng + halfAngle + Math.random()* 0.2 - 0.1 , Math.abs(this.parent.physics.velocity.x))
+                bullet.shoot(facingAng + halfAngle + angleNoise , Math.abs(this.parent.physics.velocity.x))
             }else
             {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
@@ -181,8 +195,7 @@ export default class BaseWeapon extends PhysicsEntity {
                 if (!isMain) {
                     facingAng = parentGameObject.angle;
                 }
-
-                bullet.shoot(facingAng + halfAngle, Math.abs(this.parent.physics.velocity.x))
+                bullet.shoot(facingAng +angleNoise+ halfAngle, Math.abs(this.parent.physics.velocity.x))
             }
 
             if (!customParent) {
@@ -199,17 +212,14 @@ export default class BaseWeapon extends PhysicsEntity {
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z
 
-        this.debug.x = this.transform.position.x
-        this.debug.y = this.transform.position.z
+        if(this.debug){
+            this.debug.x = this.transform.position.x
+            this.debug.y = this.transform.position.z
+        }
 
-        if (this.currentShootTimer < this.shootFrequency) {
-            this.currentShootTimer += delta;
+        if (this.currentShootTimer > 0) {
+            this.currentShootTimer -= delta;
         } else {
-            // if (this.weaponData.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
-            //     if (this.currentEnemiesColliding.length <= 0) {
-            //         return;
-            //     }
-            // }
             this.shoot();
         }
 
@@ -264,12 +274,14 @@ export default class BaseWeapon extends PhysicsEntity {
             //console.log(target.x)
             let scale = 1;
             if(baseData.fitRadius){
+                let length = weapon.weaponAttributes.radius * 2;
                 if(baseData.viewData instanceof ParticleDescriptor){
-                    scale =  Math.min(weapon.weaponAttributes.radius / baseData.width, weapon.weaponAttributes.radius / baseData.height) * baseData.scale
+                    scale =  Math.min(length / baseData.width, length / baseData.height) * baseData.scale
                 }else{
-                    scale =  Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width * bullet.gameView.view.scale.x, weapon.weaponAttributes.radius / bullet.gameView.view.height * bullet.gameView.view.scale.y)
+                    scale =  Math.min(length / bullet.gameView.view.width * bullet.gameView.view.scale.x, length / bullet.gameView.view.height * bullet.gameView.view.scale.y)
                 }
             }
+            //console.log(scale, target)
             EffectsManager.instance.emitParticles(
                 { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle, scale: {x:scale, y:scale} }, baseData.targetLayer)
 
@@ -278,8 +290,10 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             bullet.gameView.viewOffset.y = baseData.offset.y
 
-            let scale = Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width, weapon.weaponAttributes.radius / bullet.gameView.view.height)
-            bullet.gameView.view.scale.set(scale * bullet.gameView.view.scale.x * baseData.scale)
+            let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius* baseData.scale* 2)
+            // let scale = 1//Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width * bullet.gameView.view.scale.x, weapon.weaponAttributes.radius / bullet.gameView.view.height * bullet.gameView.view.scale.y)
+            // console.log(scale)
+            bullet.gameView.view.scale.set(scale)
         }
     }
 

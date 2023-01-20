@@ -105,7 +105,7 @@ export default class EffectsManager extends GameObject {
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
         this.baseLayer = this.renderModule.layers[RenderModule.RenderLayers.Floor].container;
-        this.bottomLayer = this.renderModule.layers[RenderModule.RenderLayers.Base].container;
+        this.bottomLayer = this.renderModule.layers[RenderModule.RenderLayers.Default].container;
 
         this.particleEmitter = new ParticleEmitter(this.gameContainer);
         this.particleEmitterBottom = new ParticleEmitter(this.bottomLayer);
@@ -141,8 +141,9 @@ export default class EffectsManager extends GameObject {
         this.particleEmitterKill.update(delta)
     }
     popKill(entity) {
-        this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
         this.particleEmitter.emit(this.skullDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        return
+        this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
 
     }
     popDamage(entity, value) {

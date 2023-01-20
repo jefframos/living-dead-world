@@ -7,39 +7,53 @@ export default class PlayerInventoryHud extends PIXI.Container {
     constructor() {
         super()
 
-        this.equippedItemsList = new UIList();
-        this.equippedItemsList.w = 500;
-        this.equippedItemsList.h = 100;
+        this.weaponGrid = [];
+
+        for (let index = 0; index < 5; index++) {
+            let list = new UIList();
+            list.w = 500;
+            list.h = 100;
+
+            this.weaponGrid.push(list)
+            this.addChild(list)
+
+        }
 
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.addChild(this.zero)
-        this.addChild(this.equippedItemsList)
     }
 
     registerPlayer(player) {
         this.player = player;
-        this.player.onUpdateEquipment.addOnce(this.updatePlayerEquip.bind(this));
+        this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
     }
     updatePlayerEquip(player) {
 
-        this.equippedItemsList.removeAllElements();
-        this.equippedItemsList.h = 50;
-        player.activeWeapons.forEach(element => {
-            this.addLine(element.weaponData, true)
-        });
+        for (let index = 0; index < player.activeWeapons.length; index++) {
+            const element = player.activeWeapons[index];
+            this.weaponGrid[index].removeAllElements();
+            this.weaponGrid[index].h = 0;
+            console.log(this.weaponGrid[index])
+            this.addLine(element.weaponData, true, this.weaponGrid[index])
+            this.weaponGrid[index].updateVerticalList();
 
-        this.equippedItemsList.updateVerticalList();
+            this.weaponGrid[index].x = index * 200
+            
+        }
+
     }
-    addLine(weapon, isMaster) {
+    addLine(weapon, isMaster, list) {
+        console.log(list)
         let line = new PlayerInventorySlotEquipView();
         line.registerItem(weapon, isMaster);
         line.anchorX = 0
-        this.equippedItemsList.addElement(line)
-        this.equippedItemsList.h += 50;
 
-        if(weapon.onDestroyWeapon){
-            this.addLine(weapon.onDestroyWeapon, false)
+        list.addElement(line)
+        list.h += 50;
+
+        if (weapon.onDestroyWeapon) {
+            this.addLine(weapon.onDestroyWeapon, false, list)
         }
     }
 }

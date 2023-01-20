@@ -172,6 +172,6 @@ export default class GameObject extends BaseComponent {
 
     }
     get enabledAndAlive(){
-        return this.enabled && !this.destroyedk
+        return this.enabled && !this.destroyed
     }
 }
