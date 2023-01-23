@@ -398,7 +398,7 @@ export default class WeaponBuilder {
     }
     addWeapons(player) {
 
-        let a = [
+        this.physical = [
             this.bombThrow,
             this.facingMelee,
             this.daggerThrow,
@@ -406,7 +406,7 @@ export default class WeaponBuilder {
             this.multishot
         ]
 
-        let m = [
+        this.magical = [
             this.hoaming,
             this.damageAura,
             this.floatingOrbit,
@@ -415,8 +415,8 @@ export default class WeaponBuilder {
         ]
         let testWeapon = new InGameWeapon();
 
-        Utils.shuffle(a)
-        Utils.shuffle(m)
+        Utils.shuffle(this.physical)
+        Utils.shuffle(this.magical)
         //testWeapon.addWeapon(this.floatingOrbit)
         //testWeapon.addWeapon(this.uniformTimeSpread)
         //testWeapon.addWeapon(this.multishot)
@@ -434,12 +434,12 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.facingMelee)
 
         for (let i = 0; i < 3; i++) {
-            testWeapon.addWeapon(a[i])
+            testWeapon.addWeapon(this.physical[i])
         }
         // //Utils.shuffle(a)
         let testWeapon2 = new InGameWeapon();
         for (let i = 0; i < 3; i++) {
-            testWeapon2.addWeapon(m[i])
+            testWeapon2.addWeapon(this.magical[i])
         }
 
 

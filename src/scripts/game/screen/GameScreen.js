@@ -184,8 +184,6 @@ export default class GameScreen extends Screen {
 
         this.container.scale.set(1)
         
-        this.weaponBuilder = new WeaponBuilder();
-
         this.playerInventoryHud = new PlayerInventoryHud();
         this.addChild(this.playerInventoryHud)
     }
@@ -238,11 +236,9 @@ export default class GameScreen extends Screen {
         if(this.player && !this.player.isDead){
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, true)
+        this.player = this.gameManager.addEntity(Player, true)        
         this.playerInventoryHud.registerPlayer(this.player)
-
-        this.weaponBuilder.addWeapons(this.player)
-
+        this.player.refreshEquipment()
         this.player.setPositionXZ(0,0)
 
         let angle = Math.PI * 2 * Math.random();

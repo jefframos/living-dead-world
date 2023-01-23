@@ -6,6 +6,7 @@ import Pool from './utils/Pool';
 
 export default class Eugine {
     static PhysicsTimeScale = 1;
+    static TimeScale = 1;
     constructor() {
         this.entityAdded = new signals.Signal()
         this.gameObjects = []
@@ -18,6 +19,8 @@ export default class Eugine {
         window.GUI.add(this.engineStats, 'totalGameObjects').listen();
 
         this.started = false;
+
+        this.callbacksWhenAdding = {};
 
     }
 
@@ -32,7 +35,11 @@ export default class Eugine {
 
         }
     }
-
+    callbackWhenAdding(constructor, callback) {
+        if(!this.callbacksWhenAdding[constructor.name]){
+            this.callbacksWhenAdding[constructor.name] = callback;
+        }
+    }
     //add main camera
     addCamera(camera) {
         this.camera = this.addGameObject(camera);
@@ -88,13 +95,19 @@ export default class Eugine {
                 element.engine = this;
             }
         }
-
         //if the engine is started then start the gameobjects, otherwise will start when the engine starts
         if (this.started) {
             gameObject.start()
         }
 
         this.entityAdded.dispatch([gameObject])
+
+        //console.log(this.callbacksWhenAdding)
+        if(this.callbacksWhenAdding && this.callbacksWhenAdding[gameObject.constructor.name]){
+           this.callbacksWhenAdding[gameObject.constructor.name]([gameObject]);
+           this.callbacksWhenAdding[gameObject.constructor.name] = null;
+        }
+        
         return gameObject;
     }
 
@@ -145,7 +158,7 @@ export default class Eugine {
         }
         this.gameObjects.forEach(element => {
             if (element.update && element.enabled) {
-                element.update(delta);
+                element.update(delta * Eugine.TimeScale, delta);
             }
         });
 

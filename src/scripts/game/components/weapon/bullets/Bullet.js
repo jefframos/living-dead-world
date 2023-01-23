@@ -170,7 +170,7 @@ export default class Bullet extends PhysicsEntity {
 
     }
 
-    update(delta) {
+    update(delta, unscaleDelta) {
         super.update(delta)
         this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta
         this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta

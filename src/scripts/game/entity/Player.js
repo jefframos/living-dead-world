@@ -17,6 +17,8 @@ export default class Player extends GameAgent {
     constructor() {
         super();
 
+        this.activeWeapons = [];
+
         this.onUpdateEquipment = new signals.Signal();
         this.totalDirections = 8
         this.autoSetAngle = false;
@@ -72,8 +74,24 @@ export default class Player extends GameAgent {
         this.framesAfterStart = 0;
 
     }
+
+    addWeaponData(weaponData){
+        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
+
+        if(weaponData.type == WeaponData.WeaponType.Main){           
+            this.addChild(weapon)
+            weapon.build(weaponData) 
+            this.activeWeapons[0].addWeapon(weaponData)
+        }else{
+            this.addChild(weapon)
+            weapon.build(weaponData)    
+            this.activeWeapons[1].addWeapon(weaponData)
+        }
+        this.refreshEquipment();
+    }
+
     addWeapon(inGameWeapon) {
-        if(!inGameWeapon.hasWeapon){
+        if (!inGameWeapon.hasWeapon) {
             return;
         }
         let weaponData = inGameWeapon.mainWeapon
@@ -82,7 +100,9 @@ export default class Player extends GameAgent {
         weapon.build(weaponData)
 
         this.activeWeapons.push(weapon)
-
+        this.refreshEquipment();
+    }
+    refreshEquipment() {
         this.onUpdateEquipment.dispatch(this);
     }
     onSensorTrigger(element) {
