@@ -158,11 +158,11 @@ export default class WeaponBuilder {
         this.damageAura.weaponType = WeaponData.WeaponType.Magic;
         this.damageAura.weaponAttributes.baseLifeRangeSpan = -1
         this.damageAura.weaponAttributes.baseLifeSpan = 3
-        this.damageAura.weaponAttributes.baseRadius = 100
+        this.damageAura.weaponAttributes.baseRadius = 80
         this.damageAura.weaponAttributes.baseBulletSpeed = 0
         this.damageAura.weaponAttributes.baseFrequency = 3
         this.damageAura.weaponAttributes.basePiercing = 99999
-        this.damageAura.weaponAttributes.basePower = 5
+        this.damageAura.weaponAttributes.basePower = 15
         this.damageAura.weaponAttributes.baseDamageOverTime = 1
         this.damageAura.weaponAttributes.baseForceField = false
         this.damageAura.weaponAttributes.baseForceFeedback = 0
@@ -178,7 +178,7 @@ export default class WeaponBuilder {
         this.damageAura.weaponViewData.baseViewData.alpha = 1
         this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
         this.damageAura.weaponViewData.baseViewData.offset.y = 0
-        this.damageAura.icon = 'hit-d3'
+        this.damageAura.icon = 'vfx-b1'
         this.damageAura.customConstructor = AuraProjectile
 
         // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'

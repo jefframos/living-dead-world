@@ -80949,11 +80949,11 @@ var WeaponBuilder = function () {
                 this.damageAura.weaponType = _WeaponData2.default.WeaponType.Magic;
                 this.damageAura.weaponAttributes.baseLifeRangeSpan = -1;
                 this.damageAura.weaponAttributes.baseLifeSpan = 3;
-                this.damageAura.weaponAttributes.baseRadius = 100;
+                this.damageAura.weaponAttributes.baseRadius = 80;
                 this.damageAura.weaponAttributes.baseBulletSpeed = 0;
                 this.damageAura.weaponAttributes.baseFrequency = 3;
                 this.damageAura.weaponAttributes.basePiercing = 99999;
-                this.damageAura.weaponAttributes.basePower = 5;
+                this.damageAura.weaponAttributes.basePower = 15;
                 this.damageAura.weaponAttributes.baseDamageOverTime = 1;
                 this.damageAura.weaponAttributes.baseForceField = false;
                 this.damageAura.weaponAttributes.baseForceFeedback = 0;
@@ -80969,7 +80969,7 @@ var WeaponBuilder = function () {
                 this.damageAura.weaponViewData.baseViewData.alpha = 1;
                 this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5;
                 this.damageAura.weaponViewData.baseViewData.offset.y = 0;
-                this.damageAura.icon = 'hit-d3';
+                this.damageAura.icon = 'vfx-b1';
                 this.damageAura.customConstructor = _AuraProjectile2.default;
 
                 // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
@@ -85881,11 +85881,11 @@ var assets = [{
 	"id": "baseGameConfigFairy",
 	"url": "assets/json\\baseGameConfigFairy.json"
 }, {
-	"id": "baseGameConfigMonster",
-	"url": "assets/json\\baseGameConfigMonster.json"
-}, {
 	"id": "baseGameConfigHumans",
 	"url": "assets/json\\baseGameConfigHumans.json"
+}, {
+	"id": "baseGameConfigMonster",
+	"url": "assets/json\\baseGameConfigMonster.json"
 }, {
 	"id": "fairies",
 	"url": "assets/json\\fairies.json"
@@ -85911,20 +85911,20 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
@@ -85966,7 +85966,7 @@ module.exports = exports['default'];
 /* 247 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/characters/characters.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);
