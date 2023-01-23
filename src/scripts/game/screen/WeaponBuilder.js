@@ -1,6 +1,7 @@
 import AuraProjectile from "../components/weapon/AuraProjectile";
 import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
+import GravityBullet from "../components/weapon/bullets/GravityBullet";
 import InGameWeapon from "../data/InGameWeapon";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
 import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
@@ -26,7 +27,7 @@ export default class WeaponBuilder {
             addZero: false,
             lifeSpan: 9999
         })
-       
+
 
         let auraVfxPack = {
             descriptor: new ParticleDescriptor(),
@@ -35,7 +36,7 @@ export default class WeaponBuilder {
         }
         auraVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
             time: 3,
-            frameTime: 3/12,
+            frameTime: 3 / 12,
             startFrame: 1,
             endFrame: 6,
             spriteName: 'vfx-b',
@@ -175,7 +176,9 @@ export default class WeaponBuilder {
         this.damageAura.weaponViewData.addStandardVfx(auraVfxPack);
 
         //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
-        this.damageAura.weaponViewData.baseViewData.alpha = 1
+
+        //doesnt work on spritesheets
+        this.damageAura.weaponViewData.baseViewData.alpha = 0.1
         this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
         this.damageAura.weaponViewData.baseViewData.offset.y = 0
         this.damageAura.icon = 'vfx-b1'
@@ -202,6 +205,29 @@ export default class WeaponBuilder {
         this.smallBomb.weaponViewData.baseViewData.alpha = 0
         this.smallBomb.weaponViewData.baseViewData.offset.y = -20
         this.smallBomb.icon = 'hit-d3'
+
+
+        this.bombThrow = new WeaponData('Bomb');
+        this.bombThrow.bulletComponent = GravityBullet;
+        this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150
+        this.bombThrow.weaponAttributes.baseLifeSpan = -1
+        this.bombThrow.weaponAttributes.baseRadius = 30
+        this.bombThrow.weaponAttributes.baseBulletSpeed = 120
+        this.bombThrow.weaponAttributes.baseFrequency = 2
+        this.bombThrow.weaponAttributes.baseAngleNoise = Math.PI / 4;
+        this.bombThrow.addFixedDestroyedWeapon(this.smallBomb)
+
+        this.bombThrow.weaponAttributes.makeOverrider()
+
+        this.bombThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
+        this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1'
+        this.bombThrow.weaponViewData.baseViewData.alpha = 1
+        this.bombThrow.weaponViewData.baseViewData.scale = 0.25
+        this.bombThrow.weaponViewData.baseViewData.rotationSpeed = 15
+        this.bombThrow.weaponViewData.baseViewData.maxHeight = 150
+        this.bombThrow.icon = 'hit-d3'
+
+
 
 
 
@@ -317,8 +343,8 @@ export default class WeaponBuilder {
         this.hoaming.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
 
 
-       // this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
-       // this.hoaming.weaponViewData.baseViewData.scale = 1
+        // this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
+        // this.hoaming.weaponViewData.baseViewData.scale = 1
         this.hoaming.weaponViewData.baseViewData.offset.y = -20
         this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2
         this.hoaming.icon = 'fire-missile1'
@@ -373,13 +399,13 @@ export default class WeaponBuilder {
     addWeapons(player) {
 
         let a = [
-            this.smallBomb,
+            this.bombThrow,
             this.facingMelee,
             this.daggerThrow,
             this.boomerangThrow,
             this.multishot
         ]
-        
+
         let m = [
             this.hoaming,
             this.damageAura,
@@ -388,24 +414,31 @@ export default class WeaponBuilder {
 
         ]
         let testWeapon = new InGameWeapon();
-        
+
         Utils.shuffle(a)
         Utils.shuffle(m)
         //testWeapon.addWeapon(this.floatingOrbit)
-          //testWeapon.addWeapon(this.uniformTimeSpread)
-          //testWeapon.addWeapon(this.hoaming)
+        //testWeapon.addWeapon(this.uniformTimeSpread)
+        //testWeapon.addWeapon(this.multishot)
+        //testWeapon.addWeapon(this.multishot)
+        // testWeapon.addWeapon(this.hoaming)
+        // testWeapon.addWeapon(this.bombThrow)
+        // testWeapon.addWeapon(this.multishot)
+        // testWeapon.addWeapon(this.multishot)
+        // testWeapon.addWeapon(this.hoaming)
+        //testWeapon.addWeapon(this.multishot)
         //testWeapon.addWeapon(this.smallBomb)
         //testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.daggerThrow)
-        //testWeapon.addWeapon(this.multishot)
-       // testWeapon.addWeapon(this.damageAura)
-        
-        for (let i = 0; i < 4; i++) {
+        // testWeapon.addWeapon(this.damageAura)
+        //testWeapon.addWeapon(this.facingMelee)
+
+        for (let i = 0; i < 3; i++) {
             testWeapon.addWeapon(a[i])
         }
         // //Utils.shuffle(a)
         let testWeapon2 = new InGameWeapon();
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < 3; i++) {
             testWeapon2.addWeapon(m[i])
         }
 
@@ -421,7 +454,6 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.daggerThrow)
         // testWeapon.addWeapon(this.multishot)
         //testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.facingMelee)
         // testWeapon.addWeapon(this.multishot)
         //testWeapon.addWeapon(this.multishot)
         // testWeapon.addWeapon(this.multishot)
@@ -434,7 +466,9 @@ export default class WeaponBuilder {
         // player.addWeapon(this.hoaming)
 
         player.addWeapon(testWeapon)
-             player.addWeapon(testWeapon2)
+
+        console.log(testWeapon)
+         player.addWeapon(testWeapon2)
 
     }
 }

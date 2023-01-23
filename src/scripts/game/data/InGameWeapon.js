@@ -5,9 +5,9 @@ export default class InGameWeapon {
     addWeapon(weapon){
 
         let clone = weapon.clone();
-
+        //console.log(weapon, 'clone')
         if(this.stackWeapons.length > 0){
-            this.stackWeapons[this.stackWeapons.length - 1].onDestroyWeapon = clone;
+            this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
         }
         
         this.stackWeapons.push(clone);

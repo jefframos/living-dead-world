@@ -29,22 +29,17 @@ export default class PlayerInventoryHud extends PIXI.Container {
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
     }
     updatePlayerEquip(player) {
-
         for (let index = 0; index < player.activeWeapons.length; index++) {
             const element = player.activeWeapons[index];
             this.weaponGrid[index].removeAllElements();
             this.weaponGrid[index].h = 0;
-            console.log(this.weaponGrid[index])
             this.addLine(element.weaponData, true, this.weaponGrid[index])
             this.weaponGrid[index].updateVerticalList();
-
-            this.weaponGrid[index].x = index * 200
-            
+            this.weaponGrid[index].x = index * 200            
         }
 
     }
     addLine(weapon, isMaster, list) {
-        console.log(list)
         let line = new PlayerInventorySlotEquipView();
         line.registerItem(weapon, isMaster);
         line.anchorX = 0
@@ -52,8 +47,8 @@ export default class PlayerInventoryHud extends PIXI.Container {
         list.addElement(line)
         list.h += 50;
 
-        if (weapon.onDestroyWeapon) {
-            this.addLine(weapon.onDestroyWeapon, false, list)
+        if (weapon.onDestroyWeapon.length > 0) {
+            this.addLine(weapon.onDestroyWeapon[weapon.onDestroyWeapon.length - 1], false, list)
         }
     }
 }

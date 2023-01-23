@@ -39,6 +39,7 @@ export default class EntityViewData {
             fitRadius: true,
             width: 1,
             height: 1,
+            maxHeight:0,
             targetLayer: EffectsManager.TargetLayer.Gameplay
 
         }

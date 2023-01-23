@@ -149,7 +149,7 @@ export default class BaseWeapon extends PhysicsEntity {
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
 
-            let bullet = this.engine.poolGameObject(Bullet)
+            let bullet = this.engine.poolGameObject(weapon.bulletComponent)
             bullet.build(weapon, parentGameObject);
             bullet.originWeapon = this;
 
@@ -249,8 +249,20 @@ export default class BaseWeapon extends PhysicsEntity {
     destroyBullet(bullet) {
         this.sortGraphics('baseDestroyViewData', bullet, bullet.weapon)
 
-        if (bullet.weapon.onDestroyWeapon) {
-            let bullets = this.shoot(bullet.weapon.onDestroyWeapon, bullet)
+        if (bullet.weapon.onDestroyWeapon.length) {
+            for (let index = 0; index < bullet.weapon.onDestroyWeapon.length; index++) {
+                const element = bullet.weapon.onDestroyWeapon[index];
+                let bullets = this.shoot(element, bullet)
+                
+            }
+        }
+
+        if (bullet.weapon.onFixedDestroyWeapon.length) {
+            for (let index = 0; index < bullet.weapon.onFixedDestroyWeapon.length; index++) {
+                const element = bullet.weapon.onFixedDestroyWeapon[index];
+                let bullets = this.shoot(element, bullet)
+                
+            }
         }
 
     }

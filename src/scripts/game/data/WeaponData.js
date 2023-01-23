@@ -1,4 +1,5 @@
 import BaseWeapon from "../components/weapon/BaseWeapon";
+import Bullet from "../components/weapon/bullets/Bullet";
 import EntityViewData from "./EntityViewData";
 import WeaponAttributes from "./WeaponAttributes";
 
@@ -12,9 +13,17 @@ export default class WeaponData {
         this.weaponViewData = new EntityViewData();
         this.customConstructor = BaseWeapon;
         this.weaponType = WeaponData.WeaponType.Main;
+        this.bulletComponent = Bullet;
         this.icon = 'knife';
         this.name = name;
-        this.onDestroyWeapon = null;
+        this.onDestroyWeapon = [];
+        this.onFixedDestroyWeapon = [];
+    }
+    addFixedDestroyedWeapon(weapon){
+        this.onFixedDestroyWeapon.push(weapon);
+    }
+    addWeaponOnDestroy(weapon){
+        this.onDestroyWeapon.push(weapon);
     }
     clone() {
         let weapon = new WeaponData();
@@ -27,16 +36,7 @@ export default class WeaponData {
             }
                 
         }
-        // weapon.weaponAttributes = this.weaponAttributes.clone();
-        // weapon.weaponViewData = this.weaponViewData.clone();
-        // weapon.customConstructor = this.customConstructor;
-
-        // weapon.weaponType = WeaponData.WeaponType.Main;
-
-        // weapon.icon = this.icon;
-        // weapon.name = this.name;
-        // weapon.onDestroyWeapon = this.onDestroyWeapon;
-
+        weapon.onDestroyWeapon = [];
         return weapon;
     }
 }
