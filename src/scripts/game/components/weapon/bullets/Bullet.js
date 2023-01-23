@@ -19,7 +19,7 @@ export default class Bullet extends PhysicsEntity {
         super();
 
         this.gameView = new GameView(this)
-        this.gameView.view = new PIXI.Sprite.from('knife')
+        this.gameView.view = new PIXI.Sprite()
         this.gameView.view.alpha = 1
         this.hitting = false;
         this.enemiesShot = [];

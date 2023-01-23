@@ -87,7 +87,7 @@ export default class EffectsManager extends GameObject {
 
         this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
         this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.25,
+            time: 0.2,
             startFrame: 1,
             endFrame: 6,
             spriteName: 'blood-2-',

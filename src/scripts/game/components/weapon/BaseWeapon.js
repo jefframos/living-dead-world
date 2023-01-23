@@ -4,6 +4,7 @@ import EntityViewData from "../../data/EntityViewData";
 import Layer from "../../core/Layer";
 import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import PhysicsEntity from "../../core/physics/PhysicsEntity";
+import SpriteSheetGameView from "../SpriteSheetGameView";
 import Utils from "../../core/utils/Utils";
 import Vector3 from "../../core/gameObject/Vector3";
 import WeaponAttributes from "../../data/WeaponAttributes";
@@ -125,6 +126,8 @@ export default class BaseWeapon extends PhysicsEntity {
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
         weapon.weaponAttributes.isMain = isMain;
+
+        //EffectsManager.instance.popDamage(this.parent, 10)
         
         if (!customWeapon) {
             if(this.brustFire.amount > 0){
@@ -261,11 +264,10 @@ export default class BaseWeapon extends PhysicsEntity {
 
     sortGraphics(type, bullet, customWeapon) {
 
-
         let weapon = customWeapon ? customWeapon : this.weaponData
 
         let isMain = weapon == this.weaponData;
-
+        
         //TODO: ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
         let baseData = weapon.weaponViewData[type]
         if (baseData.viewType == EntityViewData.ViewType.SpriteSheet) {
@@ -276,14 +278,18 @@ export default class BaseWeapon extends PhysicsEntity {
             if(baseData.fitRadius){
                 let length = weapon.weaponAttributes.radius * 2;
                 if(baseData.viewData instanceof ParticleDescriptor){
-                    scale =  Math.min(length / baseData.width, length / baseData.height) * baseData.scale
+                    scale =  Math.min(length / baseData.width, length / baseData.height) * baseData.scale                   
                 }else{
                     scale =  Math.min(length / bullet.gameView.view.width * bullet.gameView.view.scale.x, length / bullet.gameView.view.height * bullet.gameView.view.scale.y)
                 }
             }
-            //console.log(scale, target)
-            EffectsManager.instance.emitParticles(
-                { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle, scale: {x:scale, y:scale} }, baseData.targetLayer)
+            if(baseData.movementType == EntityViewData.MovementType.Follow){
+                let spriteSheet = bullet.addComponent(SpriteSheetGameView);
+                spriteSheet.setDescriptor(baseData.viewData,{ rotation: bullet.angle, scale: {x:scale, y:scale} })
+            }else{                
+                EffectsManager.instance.emitParticles(
+                    { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle, scale: {x:scale, y:scale} }, baseData.targetLayer)
+            }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
@@ -291,8 +297,6 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.gameView.viewOffset.y = baseData.offset.y
 
             let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius* baseData.scale* 2)
-            // let scale = 1//Math.min(weapon.weaponAttributes.radius / bullet.gameView.view.width * bullet.gameView.view.scale.x, weapon.weaponAttributes.radius / bullet.gameView.view.height * bullet.gameView.view.scale.y)
-            // console.log(scale)
             bullet.gameView.view.scale.set(scale)
         }
     }

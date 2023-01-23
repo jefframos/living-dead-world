@@ -318,7 +318,7 @@ export default class GameScreen extends Screen {
         setTimeout(() => {
 
             for (let index = 0; index < 80; index++) {
-                this.addRandomAgents(1)
+                //this.addRandomAgents(1)
             }
         }, 20);
 

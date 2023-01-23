@@ -61,6 +61,9 @@ export default class FloatingProjectile extends BaseWeapon {
             EffectsManager.instance.emitParticles(
                 { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle })
 
+            //todo: not sure about this
+            bullet.spawnOrder++
+            super.sortGraphics(type, bullet, customWeapon)
 
         } else {
             super.sortGraphics(type, bullet, customWeapon)

@@ -5,8 +5,8 @@
         "image/particles/particles.json",
         "image/characters/characters.json",
         "image/environment/environment.json",
-        "image/vfx/vfx.json",
         "image/entities/entities.json",
+        "image/vfx/vfx.json",
         "image/ui/ui.json"
     ]
 }
