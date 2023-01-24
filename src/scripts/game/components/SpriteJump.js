@@ -9,6 +9,7 @@ export default class SpriteJump extends BaseComponent {
         this.acc = 0
         this.offsetSin = Math.random() * Math.PI * 2;
         this.rnd = Math.random();
+        this.jumpHight = 20
     }
     enable() {
         super.enable();
@@ -23,7 +24,7 @@ export default class SpriteJump extends BaseComponent {
             } else {
                 this.offsetSin = utils.lerp(this.offsetSin, 0, 0.5)
             }
-            this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -20
+            this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -this.jumpHight
         }
     }
 }

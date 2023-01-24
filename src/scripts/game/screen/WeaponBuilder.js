@@ -268,12 +268,12 @@ export default class WeaponBuilder {
         this.daggerThrow.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
 
 
-        this.daggerThrow.weaponViewData.baseViewData.viewData = 'tile_0103'
+        this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1'
         this.daggerThrow.weaponViewData.baseViewData.alpha = 1
         this.daggerThrow.weaponViewData.baseViewData.offset.y = -20
         this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15
 
-        this.daggerThrow.icon = 'tile_0103'
+        this.daggerThrow.icon = 'weapon_sword_1'
 
 
         this.boomerangThrow = new WeaponData('Boomerang');
@@ -408,7 +408,7 @@ export default class WeaponBuilder {
 
         this.magical = [
             this.hoaming,
-            this.damageAura,
+           // this.damageAura,
             this.floatingOrbit,
             this.uniformTimeSpread
 
@@ -432,7 +432,7 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.daggerThrow)
         // testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.facingMelee)
-
+        
         for (let i = 0; i < 3; i++) {
             testWeapon.addWeapon(this.physical[i])
         }
@@ -441,6 +441,7 @@ export default class WeaponBuilder {
         for (let i = 0; i < 3; i++) {
             testWeapon2.addWeapon(this.magical[i])
         }
+        testWeapon2.addWeapon(this.damageAura)
 
 
         // testWeapon.addWeapon(this.alternateMelee)

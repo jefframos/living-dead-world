@@ -1,5 +1,21 @@
 {"frames": {
 
+"floor.png":
+{
+	"frame": {"x":1,"y":131,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
+"floor_5.png":
+{
+	"frame": {"x":67,"y":131,"w":64,"h":64},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+	"sourceSize": {"w":64,"h":64}
+},
 "grass.png":
 {
 	"frame": {"x":1,"y":1,"w":128,"h":128},
@@ -13,8 +29,8 @@
 	"version": "1.0",
 	"image": "texture.png",
 	"format": "RGBA8888",
-	"size": {"w":130,"h":130},
+	"size": {"w":132,"h":196},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:169b61b5431d01e948523d95cbf0dd8e:236c774915b0262be444c14d2a626ec4:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:62cb7bbfd15c6d23b3996748d7ac0cf9:6e38e28651e2f8115038d396903b09bd:88db1022cd6b660616541d2788fcd4f7$"
 }
 }

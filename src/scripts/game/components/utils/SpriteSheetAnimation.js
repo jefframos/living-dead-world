@@ -16,18 +16,17 @@ export default class SpriteSheetAnimation {
         this.currentLayerID = 0;
         this.animationState = {}
     }
-    addLayer(state, spriteName, totalFramesRange = { min: 0, max: 1 }, time = 0.1, loop = true) {
+    addLayer(state, spriteName, param = {totalFramesRange : { min: 0, max: 1 }, time :0.1, loop : true, addZero:false}) {
         let animLayer = {
             currentAnimationTime: 0,
             currentFrame: 0,
             animationFrames: [],
-            frameTime: time,
-            loop: loop,
+            frameTime: param.time,
+            loop: param.loop,
         }
-
-        for (let index = totalFramesRange.min; index <= totalFramesRange.max; index++) {
+        for (let index = param.totalFramesRange.min; index <= param.totalFramesRange.max; index++) {
             let id = index;
-            if(id < 10){
+            if(param.addZero && id < 10){
                 id = '0' + id;
             }
             animLayer.animationFrames.push(spriteName + id);
@@ -41,7 +40,7 @@ export default class SpriteSheetAnimation {
 
         this.currentAnimation = animLayer;
 
-        this.currentAnimation.currentAnimationTime = Math.random() * time
+        this.currentAnimation.currentAnimationTime = Math.random() * param.time
 
         this.updateAnimation(0)
 
@@ -88,6 +87,9 @@ export default class SpriteSheetAnimation {
 
 
     update(delta) {
+        if(!this.currentAnimation){
+            return;
+        }
         this.updateAnimation(delta);
     }
     get currentFrame() {

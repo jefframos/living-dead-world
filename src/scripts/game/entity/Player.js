@@ -1,5 +1,6 @@
 import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
+import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
@@ -23,7 +24,7 @@ export default class Player extends GameAgent {
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('peppa2')
+        this.gameView.view = new PIXI.Sprite.from('knight_idle_anim_f0')
         //this.setDebug(15)        
         this.playerStats = {
             health: 0,
@@ -68,23 +69,40 @@ export default class Player extends GameAgent {
 
 
         this.addComponent(SpriteJump)
-        this.addComponent(SpriteFacing)
-
+        let spriteFacing = this.addComponent(SpriteFacing);
+        spriteFacing.lerp = 1
+        spriteFacing.startScaleX = -1
 
         this.framesAfterStart = 0;
+        let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
+        let animData = {}
+        animData[GameViewSpriteSheet.AnimationType.Idle] = {
+            spriteName: 'knight_idle_anim_f',
+            params: {
+                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
+            }
+        }
+        animData[GameViewSpriteSheet.AnimationType.Running] = {
+            spriteName: 'knight_run_anim_f',
+            params: {
+                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
+            }
+        }
+
+        spriteSheet.setData(animData);
     }
 
-    addWeaponData(weaponData){
+    addWeaponData(weaponData) {
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
 
-        if(weaponData.type == WeaponData.WeaponType.Main){           
+        if (weaponData.type == WeaponData.WeaponType.Main) {
             this.addChild(weapon)
-            weapon.build(weaponData) 
+            weapon.build(weaponData)
             this.activeWeapons[0].addWeapon(weaponData)
-        }else{
+        } else {
             this.addChild(weapon)
-            weapon.build(weaponData)    
+            weapon.build(weaponData)
             this.activeWeapons[1].addWeapon(weaponData)
         }
         this.refreshEquipment();
