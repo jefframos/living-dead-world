@@ -12,9 +12,11 @@ export default class GameManager {
         this.activeEnemies = [];
 
         this.gameManagerStats = {
-            LtotalGameObjects: 0
+            GMtotalGameObjects: 0,
+            GMenemiesDeaths: 0
         }
-        window.GUI.add(this.gameManagerStats, 'LtotalGameObjects').listen();
+        window.GUI.add(this.gameManagerStats, 'GMtotalGameObjects').listen();
+        window.GUI.add(this.gameManagerStats, 'GMenemiesDeaths').listen();
 
         console.log('when registering, some times i remove the events that are beign used in other places')
     }
@@ -25,7 +27,7 @@ export default class GameManager {
 
         this.gameplayEntities.push(entity);
 
-        this.gameManagerStats.LtotalGameObjects = this.gameplayEntities.length
+        this.gameManagerStats.GMtotalGameObjects = this.gameplayEntities.length
         //entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
         entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
 
@@ -61,6 +63,7 @@ export default class GameManager {
     }
 
     entityKilled(entity, value) {
+        this.gameManagerStats.GMenemiesDeaths ++;
         EffectsManager.instance.popKill(entity.gameObject, value)
     }
     findClosestEnemy(point){
