@@ -62,18 +62,17 @@ export default class EffectsManager extends GameObject {
         this.bloodPuddle.addBaseBehaviours(AlphaBehaviour, { time: [0.5, 0.25], delay: 10 })
 
         PIXI.BitmapFont.from('damage2', {
-            fontFamily: 'peppa_pigmedium',
+            fontFamily: 'retro',
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
             fontSize: 14,
             dropShadowDistance: 2,
-            fill: "#febc15",
+            fill: "#ffffff",
+            //fill: "#febc15",
             fontWeight: 800,
             letterSpacing: 2,
-            strokeThickness: 1,
-            wordWrap: true,
-            wordWrapWidth: 300
+            strokeThickness: 3,
         });
 
         this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
@@ -141,9 +140,9 @@ export default class EffectsManager extends GameObject {
         this.particleEmitterKill.update(delta)
     }
     popKill(entity) {
-        this.particleEmitter.emit(this.skullDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        //this.particleEmitter.emit(this.skullDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        //this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
         return
-        this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
 
     }
     popDamage(entity, value) {

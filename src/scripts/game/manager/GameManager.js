@@ -1,5 +1,6 @@
 import BaseEnemy from "../entity/BaseEnemy";
 import EffectsManager from "./EffectsManager";
+import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
 import GameStaticData from "../data/GameStaticData";
 import Layer from "../core/Layer";
 import Player from "../entity/Player";
@@ -28,6 +29,8 @@ export default class GameManager {
         window.GUI.add(this.gameManagerStats, 'Phase').listen();
         window.GUI.add(this.gameManagerStats, 'Time').listen();
 
+        this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
+
         this.gameplayTime = 0;
 
         this.levelStructure = {
@@ -36,28 +39,73 @@ export default class GameManager {
                     duration: 60,
                     spawnData: [{
                         id: 0,
-                        max: 20
+                        max: 20,
+                        spawnParameters: {
+                            areaType: EnemyGlobalSpawner.SpawnAreaType.Point
+                        }
                     },
                     {
                         id: 1,
-                        max: 5,
-                        force: true
+                        max: 15,
+                        spawnParameters: {
+                            limitSpawn: 0,
+                            areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
+                            radius: 150,
+                            total: 30
+                        }
+                    },
+                    {
+                        id: 2,
+                        max: 15,
+                        spawnParameters: {
+                            limitSpawn: 0,
+                            areaType: EnemyGlobalSpawner.SpawnAreaType.Rect,
+                            width: 100,
+                            height: 100,
+                            total: 15
+                        }
                     }],
                 },
                 {
                     duration: 80,
-                    spawnData: [{
-                        id: 1,
-                        max: 20,
-                        force: true
-                    }],
+                    spawnData: [
+                        {
+                            id: 1,
+                            max: 100,
+                            spawnParameters: {
+                                limitSpawn: 0,
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
+                                radius: 50,
+                                total: 5
+                            }
+
+                        }],
                 },
                 {
                     duration: 120,
-                    spawnData: [{
-                        id: 0,
-                        max: 200
-                    }],
+                    spawnData: [
+                        {
+                            id: 0,
+                            max: 200,
+                            spawnParameters: {
+                                limitSpawn: 0,
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
+                                radius: 150,
+                                total: 50
+                            }
+
+                        },
+                        {
+                            id: 2,
+                            max: 200,
+                            spawnParameters: {
+                                limitSpawn: 0,
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
+                                radius: 150,
+                                total: 50
+                            }
+
+                        }],
                 }
             ],
         }
@@ -76,10 +124,20 @@ export default class GameManager {
         }
         this.entitiesByType = {}
     }
-    spawnEnemy(id = 0) {
-        let enemyData = this.gameStaticData.enemies[id];
+    spawnEnemy(spawnData) {
+        if (!spawnData) {
+            console.log('cant spawn without data');
+            return
+        }
+        this.enemyGlobalSpawner.spawnEnemy(spawnData)
+
+        return
+        let enemyData = this.gameStaticData.enemies[spawnData.id];
+
         //find out if uses baseEnemy
         let enemy = this.addEntity(BaseEnemy, enemyData)
+
+
         let angle = Math.PI * 2 * Math.random();
 
         enemy.setPositionXZ(
@@ -182,7 +240,7 @@ export default class GameManager {
         }
         phase.spawnData.forEach(spawnerData => {
             if (!this.entitiesByType[this.gameStaticData.enemies[spawnerData.id].id] || this.entitiesByType[this.gameStaticData.enemies[spawnerData.id].id].length < spawnerData.max) {
-                this.spawnEnemy(spawnerData.id);
+                this.spawnEnemy(spawnerData);
             }
         });
 

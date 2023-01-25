@@ -1,6 +1,13 @@
 export default class Utils {
-    constructor(){
-        
+    constructor() {
+
+    }
+    static randomCircle() {
+        let angle = Math.PI * 2 * Math.random();
+        return { x: Math.cos(angle), y: Math.sin(angle) }
+    }
+    static randomRect() {
+        return { x: Math.random(), y: Math.random() }
     }
     static shuffle(a) {
         for (let i = a.length; i; i--) {
@@ -8,16 +15,16 @@ export default class Utils {
             [a[i - 1], a[j]] = [a[j], a[i - 1]];
         }
     }
-    static shortAngleDist(a0,a1) {
-        var max = Math.PI*2;
+    static shortAngleDist(a0, a1) {
+        var max = Math.PI * 2;
         var da = (a1 - a0) % max;
-        return 2*da % max - da;
+        return 2 * da % max - da;
     }
-    static scaleToFit(element, size){
+    static scaleToFit(element, size) {
         return Math.min(size / element.width * element.scale.x, size / element.height * element.scale.y)
     }
-    static angleLerp(a0,a1,t) {
-        return a0 + Utils.shortAngleDist(a0,a1)*t;
+    static angleLerp(a0, a1, t) {
+        return a0 + Utils.shortAngleDist(a0, a1) * t;
     }
     static lerp(x, y, a) {
         return x * (1 - a) + y * a;
@@ -34,18 +41,18 @@ export default class Utils {
     static distance(x1, y1, x2, y2) {
         return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
     }
-    static distSort(point, array){
+    static distSort(point, array) {
 
         array.forEach(element => {
-            element._playerDist = this.distance(element.transform.position.x,element.transform.position.z,point.x, point.z)
+            element._playerDist = this.distance(element.transform.position.x, element.transform.position.z, point.x, point.z)
         });
 
         array.sort(Utils.playerDistCompare)
     }
-    static collidingDistSort(point, array){
+    static collidingDistSort(point, array) {
 
         array.forEach(element => {
-            element._playerDist = this.distance(element.entity.transform.position.x,element.entity.transform.position.z,point.x, point.z)
+            element._playerDist = this.distance(element.entity.transform.position.x, element.entity.transform.position.z, point.x, point.z)
         });
 
         array.sort(Utils.playerDistCompare)

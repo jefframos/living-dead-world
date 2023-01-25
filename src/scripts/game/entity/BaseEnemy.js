@@ -6,6 +6,7 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
+import ZombieWalk from "../components/ZombieWalk";
 
 export default class BaseEnemy extends GameAgent {
     constructor() {
@@ -43,7 +44,9 @@ export default class BaseEnemy extends GameAgent {
         spriteFacing.startScaleX = -1
 
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
-
+        if(this.viewData.zombieWalk){
+            this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
+        }
         let animData1 = {}
         animData1[GameViewSpriteSheet.AnimationType.Idle] = enemyData.animationData.idle
         animData1[GameViewSpriteSheet.AnimationType.Running] = enemyData.animationData.running
@@ -69,7 +72,7 @@ export default class BaseEnemy extends GameAgent {
     update(delta) {
 
         if (!this.dying) {
-            if(Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 800){
+            if(Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000){
                 this.destroy();
             }
             this.timer += delta * (this.speed * delta * Math.random())
