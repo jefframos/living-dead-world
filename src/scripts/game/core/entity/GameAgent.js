@@ -19,14 +19,7 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.scale.y = this.shadow.scale.x * 0.4
         
         this.currentEnemiesColliding = [];
-        
-
-        
-        // this.view = new SpriteSheetAnimation()
-        // this.view.anchor.set(0.5, 0.5)
-        // this.view.animationFinish.add(this.onAnimationEnd.bind(this))
-
-        // this.viewOffset.y = 0;
+    
 
         if (debug) {
             this.setDebug(15)
@@ -44,9 +37,12 @@ export default class GameAgent extends PhysicsEntity {
         return false;
     }
     damage(value){
-        this.health.damage(value);
+        return this.health.damage(value);
     }
     die() {
+        if(this.dying){
+            return;
+        }
         //console.log("DIE")
         this.rigidBody.isSensor = true;
         this.dying = true;
@@ -105,6 +101,7 @@ export default class GameAgent extends PhysicsEntity {
     onRender() {
     }
     destroy() {
+        if(this.isDestroyed) return;
         super.destroy();
 
         //this.view.visible = false;

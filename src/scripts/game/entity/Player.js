@@ -32,6 +32,8 @@ export default class Player extends GameAgent {
         }
         window.GUI.add(this.playerStats, 'health').listen();
         window.GUI.add(this.playerStats, 'deaths').listen();
+
+        this.isPlayer = true;
     }
     build(radius = 15) {
 
@@ -112,6 +114,7 @@ export default class Player extends GameAgent {
         if (!inGameWeapon.hasWeapon) {
             return;
         }
+        console.log("addWeapon", inGameWeapon)
         let weaponData = inGameWeapon.mainWeapon
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
@@ -155,14 +158,19 @@ export default class Player extends GameAgent {
                 }
             });
         }
-        this.currentEnemiesColliding.forEach(element => {
+
+        for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
+            const element = this.currentEnemiesColliding[index];            
             if (element.timer <= 0) {
-                this.damage(10);
+                let dead = this.damage(element.entity.attributes.power);
+                if(dead){
+                    return
+                }
                 element.timer = 1;
             } else {
                 element.timer -= delta;
             }
-        });
+        }
 
         this.playerStats.health = this.health.currentHealth
         this.playerStats.deaths = Player.Deaths

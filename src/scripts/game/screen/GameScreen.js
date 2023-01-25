@@ -206,15 +206,8 @@ export default class GameScreen extends Screen {
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
 
-
-            let enemy = GameManager.instance.addEntity(BaseEnemy, true)
-            //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
-            let angle = Math.PI * 2 * Math.random();
-            enemy.x = this.player.transform.position.x + Math.cos(angle) * config.width + Math.random() * 400
-            enemy.z = this.player.transform.position.y + Math.sin(angle) * config.height + Math.random() * 300
-
-            // enemy.x = this.player.transform.position.x + Math.cos(angle) * 300
-            // enemy.z = this.player.transform.position.y + Math.sin(angle) * 300
+            GameManager.instance.spawnEnemy();
+           
 
         }
     }
@@ -236,11 +229,14 @@ export default class GameScreen extends Screen {
         if(this.player && !this.player.isDead){
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, true)        
+        this.player = this.gameManager.addEntity(Player, true)      
+        this.worldSystem.playerReady()  
         this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
         this.player.setPositionXZ(0,0)
 
+        this.gameManager.start(this.player);
+        
         let angle = Math.PI * 2 * Math.random();
        // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
@@ -314,7 +310,7 @@ export default class GameScreen extends Screen {
         setTimeout(() => {
 
             for (let index = 0; index < 80; index++) {
-                this.addRandomAgents(1)
+                //this.addRandomAgents(1)
             }
         }, 20);
 
@@ -322,10 +318,12 @@ export default class GameScreen extends Screen {
     }
     update(delta) {
         delta *= this.debug.timeScale;
+        this.gameManager.update(delta)
         this.gameEngine.update(delta)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
+
 
         if (window.isMobile) {
 

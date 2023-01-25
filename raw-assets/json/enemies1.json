@@ -1,0 +1,103 @@
+{
+    "enemies": [
+        {
+            "name": "Goblin",
+            "id": "GOBLIN_01",
+            "tier": 1,
+            "ranking": 1,
+            "animationData": {
+                "idle": {
+                    "spriteName": "goblin_idle_anim_f",
+                    "params": {
+                        "totalFramesRange": {
+                            "min": 0,
+                            "max": 5
+                        },
+                        "time": 0.2,
+                        "loop": true
+                    }
+                },
+                "running": {
+                    "spriteName": "goblin_run_anim_f",
+                    "params": {
+                        "totalFramesRange": {
+                            "min": 0,
+                            "max": 5
+                        },
+                        "time": 0.2,
+                        "loop": true
+                    }
+                }
+            },
+            "attributes": {
+                "radius": 10,
+                "power": 8,
+                "speed": 15,
+                "hp": 80,
+                "defense": 5,
+                "magicDefense": 2,
+                "mass": 1
+            },
+            "view":{
+                "jumpHight": 10,
+                "offsetY": 0,
+                "anchor":{"x":0.5, "y":1},
+                "scale":1.5
+            },
+            "behaviour": null,
+            "stageMultiplier": 1.2,
+            "icon": "goblin_idle_anim_f0",
+            "title": "Jhonatan Goblin",
+            "description": "Green, greedy, groovy"
+        },
+        {
+            "name": "Bat",
+            "id": "BAT_01",
+            "tier": 1,
+            "ranking": 1,
+            "animationData": {
+                "idle": {
+                    "spriteName": "fly_anim_f",
+                    "params": {
+                        "totalFramesRange": {
+                            "min": 0,
+                            "max": 3
+                        },
+                        "time": 0.2,
+                        "loop": true
+                    }
+                },
+                "running": {
+                    "spriteName": "fly_anim_f",
+                    "params": {
+                        "totalFramesRange": {
+                            "min": 0,
+                            "max": 3
+                        },
+                        "time": 0.2,
+                        "loop": true
+                    }
+                }
+            },
+            "attributes": {
+                "radius": 8,
+                "power": 5,
+                "speed": 50,
+                "hp": 20,
+                "defense": 5,
+                "magicDefense": 2,
+                "mass": 1
+            },
+            "view":{
+                "jumpHight": 5,
+                "offsetY": -20,
+                "scale":2
+            },
+            "behaviour": null,
+            "stageMultiplier": 1.2,
+            "icon": "fly_anim_f1",
+            "title": "Jeremy Bat",
+            "description": "Flap Flap"
+        }
+    ]
+}

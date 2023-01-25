@@ -433,12 +433,12 @@ export default class WeaponBuilder {
         // testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.facingMelee)
         
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
             testWeapon.addWeapon(this.physical[i])
         }
         // //Utils.shuffle(a)
         let testWeapon2 = new InGameWeapon();
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < 2; i++) {
             testWeapon2.addWeapon(this.magical[i])
         }
         testWeapon2.addWeapon(this.damageAura)

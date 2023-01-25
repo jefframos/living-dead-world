@@ -45,14 +45,14 @@ export default class WorldSystem extends GameObject {
         if (!this.player) {
             this.engine.callbackWhenAdding(Player, (player) => {
                 this.player = player[0];
-                this.playerReady();
+                //this.playerReady();
             });
         }
         //this.setBuildingMode();
         //this.toggleDeck();
     }
     playerReady() {
-        //wait one frame
+    
         setTimeout(() => {            
             this.weaponBuilder = new WeaponBuilder();
             this.weaponBuilder.addWeapons(this.player)

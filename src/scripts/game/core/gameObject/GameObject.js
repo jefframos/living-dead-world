@@ -22,10 +22,10 @@ export default class GameObject extends BaseComponent {
         this.childAdded = new signals.Signal();
         this.childRemoved = new signals.Signal();
         this.rigidbodyAdded = new signals.Signal();
-        this.destroyed = false;
+        this.isDestroyed = false;
     }
-    start(){
-        this.destroyed = false;
+    start() {
+        this.isDestroyed = false;
     }
     findComponent(type) {
         let elementFound = null
@@ -104,14 +104,14 @@ export default class GameObject extends BaseComponent {
         //     }
         // });
         this.components.forEach(element => {
-            if (element.enabled) {                
+            if (element.enabled) {
                 element.update(delta);
             }
         });
     }
     enable() {
         this.enabled = true;
-        this.destroyed = false;
+        this.isDestroyed = false;
         this.components.forEach(element => {
             element.enable();
         });
@@ -123,15 +123,15 @@ export default class GameObject extends BaseComponent {
         });
     }
     destroy() {
-        if(this.destroyed){
-           // console.log("Trying to destroy object that is already destroyed", this);
-            console.trace(this);
+        if (this.isDestroyed) {
+            console.log("Trying to destroy object that is already destroyed", this);
+            // console.trace(this);
             return;
         }
 
-        this.destroyed = true;
+        this.isDestroyed = true;
         this.gameObjectDestroyed.dispatch(this);
-        
+
         if (this.parent) {
             this.parent.removeChild(this)
         }
@@ -171,7 +171,10 @@ export default class GameObject extends BaseComponent {
         this.parent = newParent;
 
     }
-    get enabledAndAlive(){
-        return this.enabled && !this.destroyed
+    get destroyed() {
+        return this.isDestroyed
+    }
+    get enabledAndAlive() {
+        return this.enabled && !this.isDestroyed
     }
 }

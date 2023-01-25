@@ -148,11 +148,13 @@ export default class EffectsManager extends GameObject {
     }
     popDamage(entity, value) {
         // console.log(entity.engineID)
+        let ang = Math.random() * Math.PI * 2;
+        let dist = Math.random() * 30;
         let text = this.getDamageFont()
         text.alpha = 1
         text.text = value
-        text.x = entity.gameView.x
-        text.y = entity.gameView.y
+        text.x = entity.gameView.x + Math.cos(ang) * dist
+        text.y = entity.gameView.y+ Math.sin(ang) * dist
         text.timer = 1
         text.anchor.set(0.5)
         this.labels.push(text)

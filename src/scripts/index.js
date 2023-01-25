@@ -123,8 +123,10 @@ window.DO_REWARD = function (callback, params) {
 }
 // console.log(spritesheetManifest['default'][0]);
 //startLoader();
+window.game = new Game(config);
 
-const loader = new PIXI.Loader();
+Game.MainLoader = new PIXI.Loader();
+
 
 
 const jsons = [];
@@ -160,9 +162,9 @@ function loadManifests() {
         let dest = 'assets/' + spritesheetManifest['default'][i]
 
         jsons.push(dest);
-        loader.add(dest)
+        Game.MainLoader.add(dest)
     }
-    loader.load(afterLoadManifests);
+    Game.MainLoader.load(afterLoadManifests);
 }
 //PokiSDK.setDebug(true);
 
@@ -189,7 +191,7 @@ function startLoader() {
     for (var i = 0; i < jsonManifest.length; i++) {
         jsonManifest[i].url = jsonManifest[i].url.replace(/\\/, "/")
         let url = jsonManifest[i].url//.substr(0, jsonManifest[i].url.length - 4);
-        loader.add(jsonManifest[i].id, url)
+        Game.MainLoader.add(jsonManifest[i].id, url)
     }
 
     for (var i = 0; i < audioManifest.length; i++) {
@@ -202,14 +204,14 @@ function startLoader() {
             url += '.ogg'
         }
 
-        loader.add(audioManifest[i].id, url)
+        Game.MainLoader.add(audioManifest[i].id, url)
     }
-    loader
+    Game.MainLoader
         .add('./assets/fonts/stylesheet.css')
         .load(configGame);
 
 
-    loader.onProgress.add((e) => {
+    Game.MainLoader.onProgress.add((e) => {
         game.updateLoader(e.progress)
     })
 }
@@ -217,7 +219,6 @@ function startLoader() {
 window.COOKIE_MANAGER = new CookieManager();
 
 
-window.game = new Game(config);
 
 
 function configGame(evt) {

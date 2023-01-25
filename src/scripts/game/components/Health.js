@@ -21,16 +21,20 @@ export default class Health extends BaseComponent {
 
     }
     damage(value) {
+        if (this.currentHealth <= 0) {
+            return true;
+        }
 
         this.gotDamaged.dispatch(this, value);
-
-
-
         this.currentHealth -= value;
         if (this.currentHealth <= 0) {
-            //console.log(this.currentHealth)
+            if(this.gameObject.isPlayer){
+                console.log('KILL PLAYER')
+            }
             this.gotKilled.dispatch(this);
             this.gotKilledParticles.dispatch(this);
         }
+
+        return this.currentHealth <= 0;
     }
 }

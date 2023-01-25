@@ -157,7 +157,7 @@ export default class Eugine {
             return
         }
         this.gameObjects.forEach(element => {
-            if (element.update && element.enabled) {
+            if (element.update && element.enabled && !element.destroyed) {
                 element.update(delta * Eugine.TimeScale, delta);
             }
         });

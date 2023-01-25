@@ -131,11 +131,11 @@ export default class Bullet extends PhysicsEntity {
 
                 if (collided.dying) {
 
-                    let enemy = GameManager.instance.addEntity(BaseEnemy, true)
-                    //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
-                    let angle = Math.PI * 2 * Math.random();
-                    enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
-                    enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
+                    // let enemy = GameManager.instance.spawnEnemy()
+                    // //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
+                    // let angle = Math.PI * 2 * Math.random();
+                    // enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
+                    // enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
                 } else {
                     if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
                         let angle = 0;

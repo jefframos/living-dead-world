@@ -8,6 +8,7 @@ export default class Game {
     static GlobalContainerPosition = {x:0, y:0}
     static Screen = {width:0, height:0}
     static IsPortrait = false;
+    static MainLoader =  new PIXI.Loader();
     constructor(config, screenManager) {
         Game.GlobalScale = {x:1, y:1}
         Game.GlobalContainerPosition = {x:0, y:0}
@@ -51,7 +52,6 @@ export default class Game {
             topRight: { x: 0, y: 0 },
             bottomRight: { x: 0, y: 0 },
         }
-
         this.makeLoader();
         this.resize()
     }
