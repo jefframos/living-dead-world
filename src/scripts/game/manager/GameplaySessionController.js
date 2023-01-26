@@ -10,6 +10,7 @@ import Player from "../entity/Player";
 import RenderModule from "../core/modules/RenderModule";
 import WeaponBuilder from "../screen/WeaponBuilder";
 import config from "../../config";
+import signals from "signals";
 
 export default class GameplaySessionController extends GameObject {
     static CurrentMode = 0;
@@ -25,6 +26,10 @@ export default class GameplaySessionController extends GameObject {
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Building
         this.gameView.view = new PIXI.Container();
+
+        this.onPlayerReady = new signals.Signal();
+        this.onPlayerDead = new signals.Signal();
+        this.onGameStart = new signals.Signal();
     }
     build() {
 

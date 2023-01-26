@@ -24955,7 +24955,7 @@ var Bullet = function (_PhysicsEntity) {
                 return;
             }
             this.enemiesShot.push({ entity: collided, timer: this.weapon.weaponAttributes.damageOverTime });
-            if (collided.rigidBody.isStatic) {
+            if (false) {
                 this.destroy();
             } else {
                 if (collided.die) {
@@ -24990,8 +24990,11 @@ var Bullet = function (_PhysicsEntity) {
                     //this.destroy()
                 } else {
 
-                    this.onDestroyOnHit.dispatch(this);
-                    collided.destroy();
+                    if (!collided.rigidBody.isStatic) {
+
+                        this.onDestroyOnHit.dispatch(this);
+                        collided.destroy();
+                    }
                 }
                 //this.destroy()
             }
@@ -25019,7 +25022,7 @@ var Bullet = function (_PhysicsEntity) {
             this.enemiesShot.forEach(function (element) {
                 if (element.entity.enabledAndAlive) {
 
-                    if (element.timer <= 0) {
+                    if (element.timer <= 0 && element.entity.damage) {
                         element.entity.damage(_this2.power);
                         element.timer = _this2.weapon.weaponAttributes.damageOverTime;
                     } else {
@@ -59799,12 +59802,11 @@ var StaticPhysicObject = function (_PhysicsEntity) {
 
         (0, _createClass3.default)(StaticPhysicObject, [{
                 key: "build",
-                value: function build(x, y, width, height) {
+                value: function build(params) {
                         (0, _get3.default)(StaticPhysicObject.prototype.__proto__ || (0, _getPrototypeOf2.default)(StaticPhysicObject.prototype), "build", this).call(this);
-                        this.buildRect(x, y, width, height, true);
-
+                        this.buildRect(params.x, params.y, params.width, params.height, true);
                         //console.log(width)
-                        this.gameView.view.scale.set(width / this.gameView.view.width);
+                        this.gameView.view.scale.set(params.width / this.gameView.view.width);
 
                         //this.gameView.viewOffset.y = -height/2
 
@@ -75966,11 +75968,11 @@ var GameScreen = function (_Screen) {
             for (var index = 0; index <= i; index++) {
                 for (var indexj = 0; indexj <= j; indexj++) {
                     var targetPosition = { x: chunkX * index - 500 + Math.random() * chunkX / 2, y: chunkY * indexj - 500 + Math.random() * chunkY / 2 };
-                    if (Math.random() < 1.5) {
-                        this.gameManager.addEntity(_Trees2.default).build(targetPosition.x, targetPosition.y, 50, 50);
+                    if (Math.random() < 0.5) {
+                        this.gameManager.addEntity(_Trees2.default, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 });
                     } else {
 
-                        this.gameManager.addEntity(_StaticPhysicObject2.default).build(targetPosition.x, targetPosition.y, 50, 50);
+                        this.gameManager.addEntity(_StaticPhysicObject2.default, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 });
                     }
                 }
             }
@@ -76004,6 +76006,7 @@ var GameScreen = function (_Screen) {
                 }
             }, 20);
 
+            this.addWorldElements();
             console.log(_config2.default);
         }
     }, {
@@ -80163,6 +80166,10 @@ var _config = __webpack_require__(18);
 
 var _config2 = _interopRequireDefault(_config);
 
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var GameplaySessionController = function (_GameObject) {
@@ -80179,6 +80186,10 @@ var GameplaySessionController = function (_GameObject) {
         _this.gameView = new _GameView2.default(_this);
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Building;
         _this.gameView.view = new PIXI.Container();
+
+        _this.onPlayerReady = new _signals2.default.Signal();
+        _this.onPlayerDead = new _signals2.default.Signal();
+        _this.onGameStart = new _signals2.default.Signal();
         return _this;
     }
 
@@ -82846,7 +82857,7 @@ var Trees = function (_StaticPhysicObject) {
         //this.gameView = new GameView(this);
         var _this = (0, _possibleConstructorReturn3.default)(this, (Trees.__proto__ || (0, _getPrototypeOf2.default)(Trees)).call(this));
 
-        var textures = ['tree1', 'tree2'];
+        var textures = ['tree (1)', 'tree (2)', 'tree (3)'];
         _this.gameView.view.texture = new PIXI.Texture.from(textures[Math.floor(Math.random() * textures.length)]);
         _this.gameView.tag = _TagManager2.default.Tags.Occlusion;
         return _this;
@@ -87295,11 +87306,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -87310,11 +87321,11 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
+}, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
@@ -87350,7 +87361,7 @@ module.exports = exports['default'];
 /* 255 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/terrain/terrain.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

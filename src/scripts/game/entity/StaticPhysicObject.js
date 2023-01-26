@@ -13,12 +13,11 @@ export default class StaticPhysicObject extends PhysicsEntity {
         this.gameView.view = new PIXI.Sprite.from(textures[Math.floor(Math.random()* textures.length)])
         this.gameView.tag = TagManager.Tags.Occlusion;
     }
-    build(x, y, width, height) {
+    build(params) {
         super.build()
-        this.buildRect(x, y, width, height, true);
-
+        this.buildRect(params.x, params.y, params.width, params.height, true);
         //console.log(width)
-        this.gameView.view.scale.set(width / this.gameView.view.width )
+        this.gameView.view.scale.set(params.width / this.gameView.view.width )
 
         //this.gameView.viewOffset.y = -height/2
 

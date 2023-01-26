@@ -273,11 +273,11 @@ export default class GameScreen extends Screen {
         for (let index = 0; index <= i; index++) {
             for (let indexj = 0; indexj <= j; indexj++) {
                 let targetPosition = { x: chunkX * index - 500 + (Math.random() * chunkX / 2), y: chunkY * indexj - 500 + (Math.random() * chunkY / 2) }
-                if (Math.random() < 1.5) {
-                    this.gameManager.addEntity(Trees).build(targetPosition.x, targetPosition.y, 50, 50)
+                if (Math.random() < 0.5) {
+                    this.gameManager.addEntity(Trees, {x:targetPosition.x, y:targetPosition.y, width:50, height:50})
                 } else {
 
-                    this.gameManager.addEntity(StaticPhysicObject).build(targetPosition.x, targetPosition.y, 50, 50)
+                    this.gameManager.addEntity(StaticPhysicObject, {x:targetPosition.x, y:targetPosition.y, width:50, height:50})
                 }
             }
         }
@@ -314,6 +314,7 @@ export default class GameScreen extends Screen {
             }
         }, 20);
 
+        this.addWorldElements()
         console.log(config)
     }
     update(delta) {

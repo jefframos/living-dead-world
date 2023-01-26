@@ -120,7 +120,7 @@ export default class Bullet extends PhysicsEntity {
             return;
         }
         this.enemiesShot.push({ entity: collided, timer: this.weapon.weaponAttributes.damageOverTime });
-        if (collided.rigidBody.isStatic) {
+        if (false && collided.rigidBody.isStatic) {
             this.destroy()
 
         } else {
@@ -156,8 +156,11 @@ export default class Bullet extends PhysicsEntity {
                 //this.destroy()
             } else {
 
-                this.onDestroyOnHit.dispatch(this);
-                collided.destroy();
+                if(!collided.rigidBody.isStatic){
+
+                    this.onDestroyOnHit.dispatch(this);
+                    collided.destroy();
+                }
             }
             //this.destroy()
         }
@@ -182,7 +185,7 @@ export default class Bullet extends PhysicsEntity {
         this.enemiesShot.forEach(element => {
             if (element.entity.enabledAndAlive) {
 
-                if (element.timer <= 0) {
+                if (element.timer <= 0 && element.entity.damage) {
                     element.entity.damage(this.power);
                     element.timer = this.weapon.weaponAttributes.damageOverTime;
                 } else {
