@@ -18,15 +18,18 @@ export default class EnemyGlobalSpawner {
         this.distanceToSpawn = 800
 
     }
+    spawnRandom(){
+        this.spawnSingleEntity(this.gameManager.gameStaticData.enemies[Math.floor(Math.random() * this.gameManager.gameStaticData.enemies.length)]);
+    }
     spawnEnemy(spawnData) {
         if (!spawnData.spawnParameters || !spawnData.spawnParameters.areaType) {
-            this.spawnSingle(spawnData)
+            this.spawnSingleEntityFromSpawner(spawnData)
             return;
         }
 
         switch (spawnData.spawnParameters.areaType) {
             case EnemyGlobalSpawner.SpawnAreaType.Point:
-                this.spawnSingle(spawnData);
+                this.spawnSingleEntityFromSpawner(spawnData);
                 break;
             case EnemyGlobalSpawner.SpawnAreaType.Rect:
                 this.spawnRectGroup(spawnData);
@@ -36,7 +39,18 @@ export default class EnemyGlobalSpawner {
                 break;
         }
     }
-    spawnSingle(spawnData) {
+    spawnSingleEntity(enemyData){
+
+        //find out if uses baseEnemy
+        let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
+
+        let circleRandom = Utils.randomCircle()
+
+        enemy.setPositionXZ(
+            this.gameManager.player.transform.position.x + circleRandom.x * this.distanceToSpawn
+            , this.gameManager.player.transform.position.z + circleRandom.y * this.distanceToSpawn)
+    }
+    spawnSingleEntityFromSpawner(spawnData) {
 
         let enemyData = this.gameManager.gameStaticData.enemies[spawnData.id];
 

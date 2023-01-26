@@ -11,7 +11,7 @@ import RenderModule from "../core/modules/RenderModule";
 import WeaponBuilder from "../screen/WeaponBuilder";
 import config from "../../config";
 
-export default class WorldSystem extends GameObject {
+export default class GameplaySessionController extends GameObject {
     static CurrentMode = 0;
     static CombatMode = 0;
     static BuildingMode = 1;
@@ -85,18 +85,18 @@ export default class WorldSystem extends GameObject {
         }
     }
     toggleBuilding() {
-        if (WorldSystem.CurrentMode == WorldSystem.CombatMode) {
+        if (GameplaySessionController.CurrentMode == GameplaySessionController.CombatMode) {
             this.setBuildingMode();
         } else {
             this.setCombatMode();
         }
     }
     setCombatMode() {
-        WorldSystem.CurrentMode = WorldSystem.CombatMode;
+        GameplaySessionController.CurrentMode = GameplaySessionController.CombatMode;
         this.buildingComponent.hide();
     }
     setBuildingMode() {
-        WorldSystem.CurrentMode = WorldSystem.BuildingMode;
+        GameplaySessionController.CurrentMode = GameplaySessionController.BuildingMode;
         this.buildingComponent.show();
     }
     update(delta) {
@@ -104,7 +104,7 @@ export default class WorldSystem extends GameObject {
         if (!Player.MainPlayer) return;
 
 
-        if (WorldSystem.CurrentMode == WorldSystem.BuildingMode) {
+        if (GameplaySessionController.CurrentMode == GameplaySessionController.BuildingMode) {
             this.buildingPositions.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
             this.buildingPositions.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
             this.buildingPositions.x = Player.MainPlayer.transform.position.x;

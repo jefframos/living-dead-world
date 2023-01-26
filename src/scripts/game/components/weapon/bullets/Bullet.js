@@ -192,7 +192,7 @@ export default class Bullet extends PhysicsEntity {
         });
 
 
-        if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
+        if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Hoaming) {
             let closest = GameManager.instance.findClosestEnemy(this.transform.position)
             if (closest) {
                 this.smoothAngle(Vector3.atan2XZ(closest.transform.position, this.transform.position), delta)

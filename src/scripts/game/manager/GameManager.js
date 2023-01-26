@@ -124,27 +124,15 @@ export default class GameManager {
         }
         this.entitiesByType = {}
     }
+    spawnRandomEnemy() {
+        this.enemyGlobalSpawner.spawnRandom();
+    }
     spawnEnemy(spawnData) {
         if (!spawnData) {
             console.log('cant spawn without data');
             return
         }
         this.enemyGlobalSpawner.spawnEnemy(spawnData)
-
-        return
-        let enemyData = this.gameStaticData.enemies[spawnData.id];
-
-        //find out if uses baseEnemy
-        let enemy = this.addEntity(BaseEnemy, enemyData)
-
-
-        let angle = Math.PI * 2 * Math.random();
-
-        enemy.setPositionXZ(
-            this.player.transform.position.x + Math.cos(angle) * 800
-            , this.player.transform.position.z + Math.sin(angle) * 500)
-
-        return enemy;
     }
     addEntity(constructor, buildParams) {
 

@@ -43,6 +43,7 @@ export default class WeaponAttributes {
         FacingAlternated: 3,
         FacingBackwards: 4,
         ParentAngle: 5,
+        Hoaming: 6
     }
     static ExtendedBehaviour = {
         None: 0,
@@ -61,7 +62,7 @@ export default class WeaponAttributes {
         this.basePiercing = 10;
         this.baseAmount = 1;
         this.baseDamageZone = 100;
-        this.baseDetectionZone = 200;
+        this.baseDetectionZone = 500;
         this.baseDamageOverTime = 3;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;

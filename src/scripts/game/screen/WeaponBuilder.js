@@ -163,8 +163,8 @@ export default class WeaponBuilder {
         this.damageAura.weaponAttributes.baseBulletSpeed = 0
         this.damageAura.weaponAttributes.baseFrequency = 3
         this.damageAura.weaponAttributes.basePiercing = 99999
-        this.damageAura.weaponAttributes.basePower = 15
-        this.damageAura.weaponAttributes.baseDamageOverTime = 1
+        this.damageAura.weaponAttributes.basePower = 25
+        this.damageAura.weaponAttributes.baseDamageOverTime = 0.5
         this.damageAura.weaponAttributes.baseForceField = false
         this.damageAura.weaponAttributes.baseForceFeedback = 0
 
@@ -207,7 +207,7 @@ export default class WeaponBuilder {
         this.smallBomb.icon = 'hit-d3'
 
 
-        this.bombThrow = new WeaponData('Bomb');
+        this.bombThrow = new WeaponData('BombThrow');
         this.bombThrow.bulletComponent = GravityBullet;
         this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150
         this.bombThrow.weaponAttributes.baseLifeSpan = -1
@@ -282,7 +282,7 @@ export default class WeaponBuilder {
         this.boomerangThrow.weaponAttributes.baseRadius = 15
         this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200
         this.boomerangThrow.weaponAttributes.baseFrequency = 2
-        this.boomerangThrow.weaponAttributes.basePiercing = 9999
+        this.boomerangThrow.weaponAttributes.basePiercing = 8
         this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.Boomerang;
         this.boomerangThrow.weaponAttributes.makeOverrider()
 
@@ -333,8 +333,7 @@ export default class WeaponBuilder {
         this.hoaming.weaponAttributes.baseRadius = 15
         this.hoaming.weaponAttributes.baseBulletSpeed = 100
         this.hoaming.weaponAttributes.basePiercing = 1
-        this.hoaming.weaponAttributes.baseDetectionZone = 500
-        this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
+        this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.Hoaming
         this.hoaming.weaponAttributes.makeOverrider()
 
         this.hoaming.weaponViewData.addStandardVfx(hoamingVfxPack);
@@ -369,6 +368,27 @@ export default class WeaponBuilder {
         this.multishot.weaponViewData.baseViewData.offset.y = -20
         this.multishot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
         this.multishot.weaponAttributes.overrider.baseAmount = 2
+
+
+
+        this.preciseShot = new WeaponData('PreciseShot');
+        this.preciseShot.icon = 'tile_0131'
+
+        this.preciseShot.weaponAttributes.baseLifeRangeSpan = 800
+        this.preciseShot.weaponAttributes.baseAmount = 1
+        this.preciseShot.weaponAttributes.basePower = 80
+        this.preciseShot.weaponAttributes.basePiercing = 1
+        this.preciseShot.weaponAttributes.baseFrequency = 0.5
+        this.preciseShot.weaponAttributes.baseBulletSpeed = 400
+        this.preciseShot.weaponAttributes.baseAngleOffset = 0.4
+        this.preciseShot.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
+        this.preciseShot.weaponAttributes.makeOverrider()
+
+        this.preciseShot.weaponViewData.baseViewData.viewData = 'tile_0131'
+        this.preciseShot.weaponViewData.baseViewData.scale = 1
+        this.preciseShot.weaponViewData.baseViewData.offset.y = -20
+        this.preciseShot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
+        // this.preciseShot.weaponAttributes.overrider.baseAmount = 2
 
 
 
@@ -408,7 +428,7 @@ export default class WeaponBuilder {
 
         this.magical = [
             this.hoaming,
-           // this.damageAura,
+            // this.damageAura,
             this.floatingOrbit,
             this.uniformTimeSpread
 
@@ -431,8 +451,8 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.daggerThrow)
         // testWeapon.addWeapon(this.damageAura)
-        //testWeapon.addWeapon(this.facingMelee)
-        
+        testWeapon.addWeapon(this.preciseShot)
+
         for (let i = 0; i < 2; i++) {
             testWeapon.addWeapon(this.physical[i])
         }
@@ -469,7 +489,7 @@ export default class WeaponBuilder {
         player.addWeapon(testWeapon)
 
         console.log(testWeapon)
-         player.addWeapon(testWeapon2)
+        player.addWeapon(testWeapon2)
 
     }
 }

@@ -21070,7 +21070,7 @@ var Power4 = globals.Power4;
 var TweenPlugin = globals.TweenPlugin;
 var EventDispatcher = nonGlobals.events.EventDispatcher;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(233)(module), __webpack_require__(28)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(241)(module), __webpack_require__(28)))
 
 /***/ }),
 /* 21 */
@@ -25028,7 +25028,7 @@ var Bullet = function (_PhysicsEntity) {
                 }
             });
 
-            if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ClosestEnemy) {
+            if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Hoaming) {
                 var closest = _GameManager2.default.instance.findClosestEnemy(this.transform.position);
                 if (closest) {
                     this.smoothAngle(_Vector2.default.atan2XZ(closest.transform.position, this.transform.position), delta);
@@ -26256,7 +26256,7 @@ var WeaponAttributes = function () {
         this.basePiercing = 10;
         this.baseAmount = 1;
         this.baseDamageZone = 100;
-        this.baseDetectionZone = 200;
+        this.baseDetectionZone = 500;
         this.baseDamageOverTime = 3;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
@@ -26422,7 +26422,8 @@ WeaponAttributes.DirectionType = {
     AngularSequence: 2,
     FacingAlternated: 3,
     FacingBackwards: 4,
-    ParentAngle: 5
+    ParentAngle: 5,
+    Hoaming: 6
 };
 WeaponAttributes.ExtendedBehaviour = {
     None: 0,
@@ -27502,9 +27503,13 @@ var BaseWeapon = function (_PhysicsEntity) {
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
                     bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ClosestEnemy) {
-                    var closest = Math.random() * Math.PI * 2; //this.getClosestEnemy()
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(closest) * 20, 0, parentGameObject.transform.position.z + Math.sin(closest) * 20);
-                    bullet.shoot(closest + angleNoise, this.physics.magnitude);
+                    var closestEnemy = this.getClosestEnemy(); //Math.random() * Math.PI * 2//
+                    var angle = Math.random() * Math.PI * 2;
+                    if (closestEnemy.enemy) {
+                        angle = closestEnemy.angle;
+                    }
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(angle) * 20);
+                    bullet.shoot(angle + angleNoise, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.ExtendedBehaviour.Boomerang) {
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
                     var facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
@@ -42855,14 +42860,14 @@ module.exports = exports['default'];
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DirectionalRotationPlugin_js__ = __webpack_require__(124);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DirectionalRotationPlugin_js__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(127);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TweenLite", function() { return __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["l"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TweenMax", function() { return __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__["a"]; });
@@ -58926,6 +58931,11 @@ var GameManager = function () {
             this.entitiesByType = {};
         }
     }, {
+        key: "spawnRandomEnemy",
+        value: function spawnRandomEnemy() {
+            this.enemyGlobalSpawner.spawnRandom();
+        }
+    }, {
         key: "spawnEnemy",
         value: function spawnEnemy(spawnData) {
             if (!spawnData) {
@@ -58933,18 +58943,6 @@ var GameManager = function () {
                 return;
             }
             this.enemyGlobalSpawner.spawnEnemy(spawnData);
-
-            return;
-            var enemyData = this.gameStaticData.enemies[spawnData.id];
-
-            //find out if uses baseEnemy
-            var enemy = this.addEntity(_BaseEnemy2.default, enemyData);
-
-            var angle = Math.PI * 2 * Math.random();
-
-            enemy.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 800, this.player.transform.position.z + Math.sin(angle) * 500);
-
-            return enemy;
         }
     }, {
         key: "addEntity",
@@ -59230,6 +59228,517 @@ Object.defineProperty(exports, "__esModule", {
         value: true
 });
 
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _AuraProjectile = __webpack_require__(231);
+
+var _AuraProjectile2 = _interopRequireDefault(_AuraProjectile);
+
+var _EffectsManager = __webpack_require__(25);
+
+var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
+
+var _FloatingProjectile = __webpack_require__(232);
+
+var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
+
+var _GravityBullet = __webpack_require__(233);
+
+var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
+
+var _InGameWeapon = __webpack_require__(234);
+
+var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
+
+var _ParticleDescriptor = __webpack_require__(47);
+
+var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
+
+var _SpriteSheetBehaviour = __webpack_require__(54);
+
+var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _Vector = __webpack_require__(15);
+
+var _Vector2 = _interopRequireDefault(_Vector);
+
+var _WeaponAttributes = __webpack_require__(48);
+
+var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
+
+var _WeaponData = __webpack_require__(116);
+
+var _WeaponData2 = _interopRequireDefault(_WeaponData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var WeaponBuilder = function () {
+        function WeaponBuilder() {
+                (0, _classCallCheck3.default)(this, WeaponBuilder);
+
+
+                var bombVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+                bombVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 0.5,
+                        startFrame: 1,
+                        endFrame: 5,
+                        spriteName: 'hit-d',
+                        addZero: false,
+                        lifeSpan: 9999
+                });
+
+                var auraVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+                auraVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 3,
+                        frameTime: 3 / 12,
+                        startFrame: 1,
+                        endFrame: 6,
+                        spriteName: 'vfx-b',
+                        addZero: false,
+                        lifeSpan: 9999
+                });
+
+                var endAuraVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+                endAuraVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 0.5,
+                        startFrame: 1,
+                        endFrame: 5,
+                        spriteName: 'vfx-b',
+                        addZero: false,
+                        lifeSpan: 9999
+                });
+
+                var meleeShockVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(10, 0, -30),
+                        scale: 1
+                };
+                meleeShockVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 0.75,
+                        startFrame: 1,
+                        endFrame: 12,
+                        spriteName: 'slash',
+                        addZero: false,
+                        lifeSpan: 9999,
+                        anchor: { x: 0.2, y: 0.35 }
+                });
+
+                var impactShootSpawnVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+
+                impactShootSpawnVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 0.2,
+                        startFrame: 1,
+                        endFrame: 6,
+                        spriteName: 'hit-l',
+                        addZero: false,
+                        lifeSpan: 9999
+                });
+                var impactShootSpawnVfxPack2 = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+
+                impactShootSpawnVfxPack2.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 0.2,
+                        startFrame: 1,
+                        endFrame: 5,
+                        spriteName: 'hit-j',
+                        addZero: false,
+                        lifeSpan: 9999
+                });
+
+                var thunderBallVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+
+                thunderBallVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 9999,
+                        frameTime: 0.5,
+                        startFrame: 1,
+                        endFrame: 12,
+                        spriteName: 'small-spark',
+                        addZero: false,
+                        lifeSpan: 9999,
+                        loop: true
+                });
+
+                var hoamingVfxPack = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+
+                hoamingVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 9999,
+                        frameTime: 0.5,
+                        startFrame: 1,
+                        endFrame: 5,
+                        spriteName: 'fire-missile',
+                        addZero: false,
+                        lifeSpan: 9999,
+                        loop: true
+                });
+                var spreadMagicVfx = {
+                        descriptor: new _ParticleDescriptor2.default(),
+                        offset: new _Vector2.default(0, 0, 0),
+                        scale: 1
+                };
+
+                spreadMagicVfx.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
+                        time: 9999,
+                        frameTime: 0.5,
+                        startFrame: 1,
+                        endFrame: 6,
+                        spriteName: 'vfx-c',
+                        addZero: false,
+                        lifeSpan: 9999,
+                        loop: true
+                });
+
+                this.damageAura = new _WeaponData2.default('Aura');
+                this.damageAura.weaponType = _WeaponData2.default.WeaponType.Magic;
+                this.damageAura.weaponAttributes.baseLifeRangeSpan = -1;
+                this.damageAura.weaponAttributes.baseLifeSpan = 3;
+                this.damageAura.weaponAttributes.baseRadius = 80;
+                this.damageAura.weaponAttributes.baseBulletSpeed = 0;
+                this.damageAura.weaponAttributes.baseFrequency = 3;
+                this.damageAura.weaponAttributes.basePiercing = 99999;
+                this.damageAura.weaponAttributes.basePower = 25;
+                this.damageAura.weaponAttributes.baseDamageOverTime = 0.5;
+                this.damageAura.weaponAttributes.baseForceField = false;
+                this.damageAura.weaponAttributes.baseForceFeedback = 0;
+
+                this.damageAura.weaponAttributes.makeOverrider();
+                this.damageAura.weaponAttributes.overrider.baseRadius = 50;
+                this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2;
+
+                //this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
+                this.damageAura.weaponViewData.addStandardVfx(auraVfxPack);
+
+                //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
+
+                //doesnt work on spritesheets
+                this.damageAura.weaponViewData.baseViewData.alpha = 0.1;
+                this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5;
+                this.damageAura.weaponViewData.baseViewData.offset.y = 0;
+                this.damageAura.icon = 'vfx-b1';
+                this.damageAura.customConstructor = _AuraProjectile2.default;
+
+                // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
+                // this.damageAura.weaponViewData.baseViewData.scale = 1
+                this.damageAura.weaponViewData.baseViewData.targetLayer = _EffectsManager2.default.TargetLayer.Botom;
+
+                this.smallBomb = new _WeaponData2.default('Bomb');
+                this.smallBomb.weaponAttributes.baseLifeRangeSpan = -1;
+                this.smallBomb.weaponAttributes.baseLifeSpan = 0.5;
+                this.smallBomb.weaponAttributes.baseRadius = 100;
+                this.smallBomb.weaponAttributes.baseBulletSpeed = 0;
+                this.smallBomb.weaponAttributes.baseFrequency = 3;
+
+                this.smallBomb.weaponAttributes.makeOverrider();
+
+                this.smallBomb.weaponAttributes.overrider.baseRadius = 50;
+                this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack, _EffectsManager2.default.TargetLayer.Botom);
+                this.smallBomb.weaponViewData.baseViewData.alpha = 0;
+                this.smallBomb.weaponViewData.baseViewData.offset.y = -20;
+                this.smallBomb.icon = 'hit-d3';
+
+                this.bombThrow = new _WeaponData2.default('BombThrow');
+                this.bombThrow.bulletComponent = _GravityBullet2.default;
+                this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150;
+                this.bombThrow.weaponAttributes.baseLifeSpan = -1;
+                this.bombThrow.weaponAttributes.baseRadius = 30;
+                this.bombThrow.weaponAttributes.baseBulletSpeed = 120;
+                this.bombThrow.weaponAttributes.baseFrequency = 2;
+                this.bombThrow.weaponAttributes.baseAngleNoise = Math.PI / 4;
+                this.bombThrow.addFixedDestroyedWeapon(this.smallBomb);
+
+                this.bombThrow.weaponAttributes.makeOverrider();
+
+                this.bombThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+                this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1';
+                this.bombThrow.weaponViewData.baseViewData.alpha = 1;
+                this.bombThrow.weaponViewData.baseViewData.scale = 0.25;
+                this.bombThrow.weaponViewData.baseViewData.rotationSpeed = 15;
+                this.bombThrow.weaponViewData.baseViewData.maxHeight = 150;
+                this.bombThrow.icon = 'hit-d3';
+
+                this.facingMelee = new _WeaponData2.default('Melee');
+                this.facingMelee.weaponAttributes.baseLifeRangeSpan = 70;
+                this.facingMelee.weaponAttributes.baseLifeSpan = 0;
+                this.facingMelee.weaponAttributes.baseRadius = 50;
+                this.facingMelee.weaponAttributes.baseBulletSpeed = 150;
+                this.facingMelee.weaponAttributes.baseFrequency = 2;
+                this.facingMelee.weaponAttributes.basePower = 200;
+
+                this.facingMelee.weaponAttributes.makeOverrider();
+
+                this.facingMelee.weaponViewData.addSpawnVfx(meleeShockVfxPack);
+                this.facingMelee.weaponViewData.baseViewData.alpha = 0;
+                this.facingMelee.weaponViewData.baseViewData.offset.y = -20;
+                this.facingMelee.icon = 'slash4';
+
+                this.daggerThrow = new _WeaponData2.default('Dagger Throw');
+                this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250;
+                this.daggerThrow.weaponAttributes.baseLifeSpan = 0;
+                this.daggerThrow.weaponAttributes.baseRadius = 15;
+                this.daggerThrow.weaponAttributes.baseBulletSpeed = 350;
+                this.daggerThrow.weaponAttributes.baseFrequency = 3;
+                this.daggerThrow.weaponAttributes.baseAngleNoise = 0.5;
+
+                this.daggerThrow.weaponAttributes.baseBrustFire.amount = 3;
+                this.daggerThrow.weaponAttributes.baseBrustFire.interval = 0.1;
+
+                this.daggerThrow.weaponAttributes.makeOverrider();
+
+                this.daggerThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+                this.daggerThrow.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
+
+                this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1';
+                this.daggerThrow.weaponViewData.baseViewData.alpha = 1;
+                this.daggerThrow.weaponViewData.baseViewData.offset.y = -20;
+                this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15;
+
+                this.daggerThrow.icon = 'weapon_sword_1';
+
+                this.boomerangThrow = new _WeaponData2.default('Boomerang');
+                this.boomerangThrow.weaponAttributes.baseLifeRangeSpan = 250;
+                this.boomerangThrow.weaponAttributes.baseLifeSpan = 0;
+                this.boomerangThrow.weaponAttributes.baseRadius = 15;
+                this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200;
+                this.boomerangThrow.weaponAttributes.baseFrequency = 2;
+                this.boomerangThrow.weaponAttributes.basePiercing = 8;
+                this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = _WeaponAttributes2.default.ExtendedBehaviour.Boomerang;
+                this.boomerangThrow.weaponAttributes.makeOverrider();
+
+                this.boomerangThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+
+                this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118';
+                this.boomerangThrow.weaponViewData.baseViewData.alpha = 1;
+                this.boomerangThrow.weaponViewData.baseViewData.scale = 1;
+                this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 15;
+                this.boomerangThrow.weaponViewData.baseViewData.offset.y = 0; //-20
+                this.boomerangThrow.icon = 'tile_0118';
+
+                this.floatingOrbit = new _WeaponData2.default('Orbit');
+                this.floatingOrbit.weaponType = _WeaponData2.default.WeaponType.Magic;
+
+                this.floatingOrbit.weaponAttributes.baseLifeSpan = 3;
+                this.floatingOrbit.weaponAttributes.baseLifeRangeSpan = -1;
+                this.floatingOrbit.weaponAttributes.baseAmount = 5;
+                this.floatingOrbit.weaponAttributes.baseFrequency = 5;
+                this.floatingOrbit.weaponAttributes.baseBulletSpeed = Math.PI;
+                this.floatingOrbit.weaponAttributes.baseRadius = 30;
+                this.floatingOrbit.weaponAttributes.baseDamageZone = 80;
+                this.floatingOrbit.weaponAttributes.baseForceField = true;
+                this.floatingOrbit.weaponAttributes.makeOverrider();
+
+                this.floatingOrbit.weaponViewData.addStandardVfx(thunderBallVfxPack);
+                this.floatingOrbit.weaponViewData.addSpawnVfx(bombVfxPack);
+                this.floatingOrbit.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
+
+                this.floatingOrbit.weaponAttributes.overrider.baseAmount = 1;
+
+                this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -2;
+                this.floatingOrbit.icon = 'small-spark4';
+
+                this.floatingOrbit.customConstructor = _FloatingProjectile2.default;
+
+                this.hoaming = new _WeaponData2.default('Hoaming');
+                this.hoaming.weaponType = _WeaponData2.default.WeaponType.Magic;
+
+                this.hoaming.weaponAttributes.baseLifeRangeSpan = 400;
+                this.hoaming.weaponAttributes.baseAmount = 1;
+                this.hoaming.weaponAttributes.baseFrequency = 5;
+                this.hoaming.weaponAttributes.baseRadius = 15;
+                this.hoaming.weaponAttributes.baseBulletSpeed = 100;
+                this.hoaming.weaponAttributes.basePiercing = 1;
+                this.hoaming.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.Hoaming;
+                this.hoaming.weaponAttributes.makeOverrider();
+
+                this.hoaming.weaponViewData.addStandardVfx(hoamingVfxPack);
+
+                this.hoaming.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
+                this.hoaming.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
+
+                // this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
+                // this.hoaming.weaponViewData.baseViewData.scale = 1
+                this.hoaming.weaponViewData.baseViewData.offset.y = -20;
+                this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2;
+                this.hoaming.icon = 'fire-missile1';
+
+                this.multishot = new _WeaponData2.default('Multishot');
+                this.multishot.icon = 'tile_0131';
+
+                this.multishot.weaponAttributes.baseLifeRangeSpan = 150;
+                this.multishot.weaponAttributes.baseAmount = 4;
+                this.multishot.weaponAttributes.basePower = 10;
+                this.multishot.weaponAttributes.basePiercing = 0;
+                this.multishot.weaponAttributes.baseFrequency = 3;
+                this.multishot.weaponAttributes.baseAngleOffset = 0.4;
+                this.multishot.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ParentAngle;
+                this.multishot.weaponAttributes.makeOverrider();
+
+                this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131';
+                this.multishot.weaponViewData.baseViewData.scale = 1;
+                this.multishot.weaponViewData.baseViewData.offset.y = -20;
+                this.multishot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+                this.multishot.weaponAttributes.overrider.baseAmount = 2;
+
+                this.preciseShot = new _WeaponData2.default('PreciseShot');
+                this.preciseShot.icon = 'tile_0131';
+
+                this.preciseShot.weaponAttributes.baseLifeRangeSpan = 800;
+                this.preciseShot.weaponAttributes.baseAmount = 1;
+                this.preciseShot.weaponAttributes.basePower = 80;
+                this.preciseShot.weaponAttributes.basePiercing = 1;
+                this.preciseShot.weaponAttributes.baseFrequency = 0.5;
+                this.preciseShot.weaponAttributes.baseBulletSpeed = 400;
+                this.preciseShot.weaponAttributes.baseAngleOffset = 0.4;
+                this.preciseShot.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ClosestEnemy;
+                this.preciseShot.weaponAttributes.makeOverrider();
+
+                this.preciseShot.weaponViewData.baseViewData.viewData = 'tile_0131';
+                this.preciseShot.weaponViewData.baseViewData.scale = 1;
+                this.preciseShot.weaponViewData.baseViewData.offset.y = -20;
+                this.preciseShot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+                // this.preciseShot.weaponAttributes.overrider.baseAmount = 2
+
+
+                this.uniformTimeSpread = new _WeaponData2.default('Spread');
+                this.uniformTimeSpread.weaponType = _WeaponData2.default.WeaponType.Magic;
+
+                this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 200;
+                this.uniformTimeSpread.weaponAttributes.baseAmount = 1;
+                this.uniformTimeSpread.weaponAttributes.basePower = 10;
+                this.uniformTimeSpread.weaponAttributes.basePiercing = 0;
+                this.uniformTimeSpread.weaponAttributes.baseFrequency = 1;
+                this.uniformTimeSpread.weaponAttributes.baseAngleOffset = Math.PI / 4;
+                this.uniformTimeSpread.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.AngularSequence;
+                this.uniformTimeSpread.weaponAttributes.makeOverrider();
+
+                this.uniformTimeSpread.weaponViewData.addStandardVfx(spreadMagicVfx);
+                this.uniformTimeSpread.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
+                this.uniformTimeSpread.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
+
+                this.uniformTimeSpread.weaponViewData.baseViewData.offset.y = -20;
+
+                this.uniformTimeSpread.icon = 'vfx-c1';
+        }
+
+        (0, _createClass3.default)(WeaponBuilder, [{
+                key: "addWeapons",
+                value: function addWeapons(player) {
+
+                        this.physical = [this.bombThrow, this.facingMelee, this.daggerThrow, this.boomerangThrow, this.multishot];
+
+                        this.magical = [this.hoaming,
+                        // this.damageAura,
+                        this.floatingOrbit, this.uniformTimeSpread];
+                        var testWeapon = new _InGameWeapon2.default();
+
+                        _Utils2.default.shuffle(this.physical);
+                        _Utils2.default.shuffle(this.magical);
+                        //testWeapon.addWeapon(this.floatingOrbit)
+                        //testWeapon.addWeapon(this.uniformTimeSpread)
+                        //testWeapon.addWeapon(this.multishot)
+                        //testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.hoaming)
+                        // testWeapon.addWeapon(this.bombThrow)
+                        // testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.hoaming)
+                        //testWeapon.addWeapon(this.multishot)
+                        //testWeapon.addWeapon(this.smallBomb)
+                        //testWeapon.addWeapon(this.damageAura)
+                        //testWeapon.addWeapon(this.daggerThrow)
+                        // testWeapon.addWeapon(this.damageAura)
+                        testWeapon.addWeapon(this.preciseShot);
+
+                        for (var i = 0; i < 2; i++) {
+                                testWeapon.addWeapon(this.physical[i]);
+                        }
+                        // //Utils.shuffle(a)
+                        var testWeapon2 = new _InGameWeapon2.default();
+                        for (var _i = 0; _i < 2; _i++) {
+                                testWeapon2.addWeapon(this.magical[_i]);
+                        }
+                        testWeapon2.addWeapon(this.damageAura);
+
+                        // testWeapon.addWeapon(this.alternateMelee)
+                        //  testWeapon.addWeapon(this.uniformTimeSpread)
+                        // testWeapon.addWeapon(this.smallBomb)
+                        console.log("CHeck the alternate weapon");
+                        console.log("CHeck the hoaming to always find an enemy");
+                        //testWeapon.addWeapon(this.hoaming)
+                        // testWeapon.addWeapon(this.uniformTimeSpread)
+                        // testWeapon.addWeapon(this.boomerangThrow)
+                        //testWeapon.addWeapon(this.daggerThrow)
+                        // testWeapon.addWeapon(this.multishot)
+                        //testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.multishot)
+                        //testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.smallBomb)
+                        // testWeapon.addWeapon(this.multishot)
+                        // testWeapon.addWeapon(this.smallBomb)
+
+                        // player.addWeapon(this.multishot)
+                        // player.addWeapon(this.alternateMelee)
+                        // player.addWeapon(this.hoaming)
+
+                        player.addWeapon(testWeapon);
+
+                        console.log(testWeapon);
+                        player.addWeapon(testWeapon2);
+                }
+        }]);
+        return WeaponBuilder;
+}();
+
+exports.default = WeaponBuilder;
+module.exports = exports["default"];
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
 var _getPrototypeOf = __webpack_require__(2);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -59327,7 +59836,7 @@ exports.default = StaticPhysicObject;
 module.exports = exports["default"];
 
 /***/ }),
-/* 120 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -59860,7 +60369,7 @@ var TimelineMax = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */]
 
 
 /***/ }),
-/* 121 */
+/* 122 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62790,7 +63299,7 @@ var CSSPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].C
 
 
 /***/ }),
-/* 122 */
+/* 123 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62843,7 +63352,7 @@ var AttrPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsScope */]
 
 
 /***/ }),
-/* 123 */
+/* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -62956,7 +63465,7 @@ var RoundPropsPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsSco
 
 
 /***/ }),
-/* 124 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63051,7 +63560,7 @@ DirectionalRotationPlugin._autoCSS = true;
 
 
 /***/ }),
-/* 125 */
+/* 126 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -63664,7 +64173,7 @@ DirectionalRotationPlugin._autoCSS = true;
 
 
 /***/ }),
-/* 126 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -64060,498 +64569,6 @@ var Expo = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].Expo;
 var Sine = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].Sine;
 var ExpoScaleEase = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].ExpoScaleEase;
 
-
-/***/ }),
-/* 127 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-        value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _AuraProjectile = __webpack_require__(238);
-
-var _AuraProjectile2 = _interopRequireDefault(_AuraProjectile);
-
-var _EffectsManager = __webpack_require__(25);
-
-var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
-
-var _FloatingProjectile = __webpack_require__(239);
-
-var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
-
-var _GravityBullet = __webpack_require__(240);
-
-var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
-
-var _InGameWeapon = __webpack_require__(241);
-
-var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
-
-var _ParticleDescriptor = __webpack_require__(47);
-
-var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
-
-var _SpriteSheetBehaviour = __webpack_require__(54);
-
-var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _Vector = __webpack_require__(15);
-
-var _Vector2 = _interopRequireDefault(_Vector);
-
-var _WeaponAttributes = __webpack_require__(48);
-
-var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
-
-var _WeaponData = __webpack_require__(116);
-
-var _WeaponData2 = _interopRequireDefault(_WeaponData);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var WeaponBuilder = function () {
-        function WeaponBuilder() {
-                (0, _classCallCheck3.default)(this, WeaponBuilder);
-
-
-                var bombVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-                bombVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 0.5,
-                        startFrame: 1,
-                        endFrame: 5,
-                        spriteName: 'hit-d',
-                        addZero: false,
-                        lifeSpan: 9999
-                });
-
-                var auraVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-                auraVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 3,
-                        frameTime: 3 / 12,
-                        startFrame: 1,
-                        endFrame: 6,
-                        spriteName: 'vfx-b',
-                        addZero: false,
-                        lifeSpan: 9999
-                });
-
-                var endAuraVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-                endAuraVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 0.5,
-                        startFrame: 1,
-                        endFrame: 5,
-                        spriteName: 'vfx-b',
-                        addZero: false,
-                        lifeSpan: 9999
-                });
-
-                var meleeShockVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(10, 0, -30),
-                        scale: 1
-                };
-                meleeShockVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 0.75,
-                        startFrame: 1,
-                        endFrame: 12,
-                        spriteName: 'slash',
-                        addZero: false,
-                        lifeSpan: 9999,
-                        anchor: { x: 0.2, y: 0.35 }
-                });
-
-                var impactShootSpawnVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-
-                impactShootSpawnVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 0.2,
-                        startFrame: 1,
-                        endFrame: 6,
-                        spriteName: 'hit-l',
-                        addZero: false,
-                        lifeSpan: 9999
-                });
-                var impactShootSpawnVfxPack2 = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-
-                impactShootSpawnVfxPack2.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 0.2,
-                        startFrame: 1,
-                        endFrame: 5,
-                        spriteName: 'hit-j',
-                        addZero: false,
-                        lifeSpan: 9999
-                });
-
-                var thunderBallVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-
-                thunderBallVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 9999,
-                        frameTime: 0.5,
-                        startFrame: 1,
-                        endFrame: 12,
-                        spriteName: 'small-spark',
-                        addZero: false,
-                        lifeSpan: 9999,
-                        loop: true
-                });
-
-                var hoamingVfxPack = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-
-                hoamingVfxPack.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 9999,
-                        frameTime: 0.5,
-                        startFrame: 1,
-                        endFrame: 5,
-                        spriteName: 'fire-missile',
-                        addZero: false,
-                        lifeSpan: 9999,
-                        loop: true
-                });
-                var spreadMagicVfx = {
-                        descriptor: new _ParticleDescriptor2.default(),
-                        offset: new _Vector2.default(0, 0, 0),
-                        scale: 1
-                };
-
-                spreadMagicVfx.descriptor.addBaseBehaviours(_SpriteSheetBehaviour2.default, {
-                        time: 9999,
-                        frameTime: 0.5,
-                        startFrame: 1,
-                        endFrame: 6,
-                        spriteName: 'vfx-c',
-                        addZero: false,
-                        lifeSpan: 9999,
-                        loop: true
-                });
-
-                this.damageAura = new _WeaponData2.default('Aura');
-                this.damageAura.weaponType = _WeaponData2.default.WeaponType.Magic;
-                this.damageAura.weaponAttributes.baseLifeRangeSpan = -1;
-                this.damageAura.weaponAttributes.baseLifeSpan = 3;
-                this.damageAura.weaponAttributes.baseRadius = 80;
-                this.damageAura.weaponAttributes.baseBulletSpeed = 0;
-                this.damageAura.weaponAttributes.baseFrequency = 3;
-                this.damageAura.weaponAttributes.basePiercing = 99999;
-                this.damageAura.weaponAttributes.basePower = 15;
-                this.damageAura.weaponAttributes.baseDamageOverTime = 1;
-                this.damageAura.weaponAttributes.baseForceField = false;
-                this.damageAura.weaponAttributes.baseForceFeedback = 0;
-
-                this.damageAura.weaponAttributes.makeOverrider();
-                this.damageAura.weaponAttributes.overrider.baseRadius = 50;
-                this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2;
-
-                //this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
-                this.damageAura.weaponViewData.addStandardVfx(auraVfxPack);
-
-                //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
-
-                //doesnt work on spritesheets
-                this.damageAura.weaponViewData.baseViewData.alpha = 0.1;
-                this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5;
-                this.damageAura.weaponViewData.baseViewData.offset.y = 0;
-                this.damageAura.icon = 'vfx-b1';
-                this.damageAura.customConstructor = _AuraProjectile2.default;
-
-                // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
-                // this.damageAura.weaponViewData.baseViewData.scale = 1
-                this.damageAura.weaponViewData.baseViewData.targetLayer = _EffectsManager2.default.TargetLayer.Botom;
-
-                this.smallBomb = new _WeaponData2.default('Bomb');
-                this.smallBomb.weaponAttributes.baseLifeRangeSpan = -1;
-                this.smallBomb.weaponAttributes.baseLifeSpan = 0.5;
-                this.smallBomb.weaponAttributes.baseRadius = 100;
-                this.smallBomb.weaponAttributes.baseBulletSpeed = 0;
-                this.smallBomb.weaponAttributes.baseFrequency = 3;
-
-                this.smallBomb.weaponAttributes.makeOverrider();
-
-                this.smallBomb.weaponAttributes.overrider.baseRadius = 50;
-                this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack, _EffectsManager2.default.TargetLayer.Botom);
-                this.smallBomb.weaponViewData.baseViewData.alpha = 0;
-                this.smallBomb.weaponViewData.baseViewData.offset.y = -20;
-                this.smallBomb.icon = 'hit-d3';
-
-                this.bombThrow = new _WeaponData2.default('Bomb');
-                this.bombThrow.bulletComponent = _GravityBullet2.default;
-                this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150;
-                this.bombThrow.weaponAttributes.baseLifeSpan = -1;
-                this.bombThrow.weaponAttributes.baseRadius = 30;
-                this.bombThrow.weaponAttributes.baseBulletSpeed = 120;
-                this.bombThrow.weaponAttributes.baseFrequency = 2;
-                this.bombThrow.weaponAttributes.baseAngleNoise = Math.PI / 4;
-                this.bombThrow.addFixedDestroyedWeapon(this.smallBomb);
-
-                this.bombThrow.weaponAttributes.makeOverrider();
-
-                this.bombThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
-                this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1';
-                this.bombThrow.weaponViewData.baseViewData.alpha = 1;
-                this.bombThrow.weaponViewData.baseViewData.scale = 0.25;
-                this.bombThrow.weaponViewData.baseViewData.rotationSpeed = 15;
-                this.bombThrow.weaponViewData.baseViewData.maxHeight = 150;
-                this.bombThrow.icon = 'hit-d3';
-
-                this.facingMelee = new _WeaponData2.default('Melee');
-                this.facingMelee.weaponAttributes.baseLifeRangeSpan = 70;
-                this.facingMelee.weaponAttributes.baseLifeSpan = 0;
-                this.facingMelee.weaponAttributes.baseRadius = 50;
-                this.facingMelee.weaponAttributes.baseBulletSpeed = 150;
-                this.facingMelee.weaponAttributes.baseFrequency = 2;
-                this.facingMelee.weaponAttributes.basePower = 200;
-
-                this.facingMelee.weaponAttributes.makeOverrider();
-
-                this.facingMelee.weaponViewData.addSpawnVfx(meleeShockVfxPack);
-                this.facingMelee.weaponViewData.baseViewData.alpha = 0;
-                this.facingMelee.weaponViewData.baseViewData.offset.y = -20;
-                this.facingMelee.icon = 'slash4';
-
-                this.daggerThrow = new _WeaponData2.default('Dagger Throw');
-                this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250;
-                this.daggerThrow.weaponAttributes.baseLifeSpan = 0;
-                this.daggerThrow.weaponAttributes.baseRadius = 15;
-                this.daggerThrow.weaponAttributes.baseBulletSpeed = 350;
-                this.daggerThrow.weaponAttributes.baseFrequency = 3;
-                this.daggerThrow.weaponAttributes.baseAngleNoise = 0.5;
-
-                this.daggerThrow.weaponAttributes.baseBrustFire.amount = 3;
-                this.daggerThrow.weaponAttributes.baseBrustFire.interval = 0.1;
-
-                this.daggerThrow.weaponAttributes.makeOverrider();
-
-                this.daggerThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
-                this.daggerThrow.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
-
-                this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1';
-                this.daggerThrow.weaponViewData.baseViewData.alpha = 1;
-                this.daggerThrow.weaponViewData.baseViewData.offset.y = -20;
-                this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15;
-
-                this.daggerThrow.icon = 'weapon_sword_1';
-
-                this.boomerangThrow = new _WeaponData2.default('Boomerang');
-                this.boomerangThrow.weaponAttributes.baseLifeRangeSpan = 250;
-                this.boomerangThrow.weaponAttributes.baseLifeSpan = 0;
-                this.boomerangThrow.weaponAttributes.baseRadius = 15;
-                this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200;
-                this.boomerangThrow.weaponAttributes.baseFrequency = 2;
-                this.boomerangThrow.weaponAttributes.basePiercing = 9999;
-                this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = _WeaponAttributes2.default.ExtendedBehaviour.Boomerang;
-                this.boomerangThrow.weaponAttributes.makeOverrider();
-
-                this.boomerangThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
-
-                this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118';
-                this.boomerangThrow.weaponViewData.baseViewData.alpha = 1;
-                this.boomerangThrow.weaponViewData.baseViewData.scale = 1;
-                this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 15;
-                this.boomerangThrow.weaponViewData.baseViewData.offset.y = 0; //-20
-                this.boomerangThrow.icon = 'tile_0118';
-
-                this.floatingOrbit = new _WeaponData2.default('Orbit');
-                this.floatingOrbit.weaponType = _WeaponData2.default.WeaponType.Magic;
-
-                this.floatingOrbit.weaponAttributes.baseLifeSpan = 3;
-                this.floatingOrbit.weaponAttributes.baseLifeRangeSpan = -1;
-                this.floatingOrbit.weaponAttributes.baseAmount = 5;
-                this.floatingOrbit.weaponAttributes.baseFrequency = 5;
-                this.floatingOrbit.weaponAttributes.baseBulletSpeed = Math.PI;
-                this.floatingOrbit.weaponAttributes.baseRadius = 30;
-                this.floatingOrbit.weaponAttributes.baseDamageZone = 80;
-                this.floatingOrbit.weaponAttributes.baseForceField = true;
-                this.floatingOrbit.weaponAttributes.makeOverrider();
-
-                this.floatingOrbit.weaponViewData.addStandardVfx(thunderBallVfxPack);
-                this.floatingOrbit.weaponViewData.addSpawnVfx(bombVfxPack);
-                this.floatingOrbit.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
-
-                this.floatingOrbit.weaponAttributes.overrider.baseAmount = 1;
-
-                this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -2;
-                this.floatingOrbit.icon = 'small-spark4';
-
-                this.floatingOrbit.customConstructor = _FloatingProjectile2.default;
-
-                this.hoaming = new _WeaponData2.default('Hoaming');
-                this.hoaming.weaponType = _WeaponData2.default.WeaponType.Magic;
-
-                this.hoaming.weaponAttributes.baseLifeRangeSpan = 400;
-                this.hoaming.weaponAttributes.baseAmount = 1;
-                this.hoaming.weaponAttributes.baseFrequency = 5;
-                this.hoaming.weaponAttributes.baseRadius = 15;
-                this.hoaming.weaponAttributes.baseBulletSpeed = 100;
-                this.hoaming.weaponAttributes.basePiercing = 1;
-                this.hoaming.weaponAttributes.baseDetectionZone = 500;
-                this.hoaming.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ClosestEnemy;
-                this.hoaming.weaponAttributes.makeOverrider();
-
-                this.hoaming.weaponViewData.addStandardVfx(hoamingVfxPack);
-
-                this.hoaming.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
-                this.hoaming.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
-
-                // this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
-                // this.hoaming.weaponViewData.baseViewData.scale = 1
-                this.hoaming.weaponViewData.baseViewData.offset.y = -20;
-                this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2;
-                this.hoaming.icon = 'fire-missile1';
-
-                this.multishot = new _WeaponData2.default('Multishot');
-                this.multishot.icon = 'tile_0131';
-
-                this.multishot.weaponAttributes.baseLifeRangeSpan = 150;
-                this.multishot.weaponAttributes.baseAmount = 4;
-                this.multishot.weaponAttributes.basePower = 10;
-                this.multishot.weaponAttributes.basePiercing = 0;
-                this.multishot.weaponAttributes.baseFrequency = 3;
-                this.multishot.weaponAttributes.baseAngleOffset = 0.4;
-                this.multishot.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ParentAngle;
-                this.multishot.weaponAttributes.makeOverrider();
-
-                this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131';
-                this.multishot.weaponViewData.baseViewData.scale = 1;
-                this.multishot.weaponViewData.baseViewData.offset.y = -20;
-                this.multishot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
-                this.multishot.weaponAttributes.overrider.baseAmount = 2;
-
-                this.uniformTimeSpread = new _WeaponData2.default('Spread');
-                this.uniformTimeSpread.weaponType = _WeaponData2.default.WeaponType.Magic;
-
-                this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 200;
-                this.uniformTimeSpread.weaponAttributes.baseAmount = 1;
-                this.uniformTimeSpread.weaponAttributes.basePower = 10;
-                this.uniformTimeSpread.weaponAttributes.basePiercing = 0;
-                this.uniformTimeSpread.weaponAttributes.baseFrequency = 1;
-                this.uniformTimeSpread.weaponAttributes.baseAngleOffset = Math.PI / 4;
-                this.uniformTimeSpread.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.AngularSequence;
-                this.uniformTimeSpread.weaponAttributes.makeOverrider();
-
-                this.uniformTimeSpread.weaponViewData.addStandardVfx(spreadMagicVfx);
-                this.uniformTimeSpread.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
-                this.uniformTimeSpread.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
-
-                this.uniformTimeSpread.weaponViewData.baseViewData.offset.y = -20;
-
-                this.uniformTimeSpread.icon = 'vfx-c1';
-        }
-
-        (0, _createClass3.default)(WeaponBuilder, [{
-                key: "addWeapons",
-                value: function addWeapons(player) {
-
-                        this.physical = [this.bombThrow, this.facingMelee, this.daggerThrow, this.boomerangThrow, this.multishot];
-
-                        this.magical = [this.hoaming,
-                        // this.damageAura,
-                        this.floatingOrbit, this.uniformTimeSpread];
-                        var testWeapon = new _InGameWeapon2.default();
-
-                        _Utils2.default.shuffle(this.physical);
-                        _Utils2.default.shuffle(this.magical);
-                        //testWeapon.addWeapon(this.floatingOrbit)
-                        //testWeapon.addWeapon(this.uniformTimeSpread)
-                        //testWeapon.addWeapon(this.multishot)
-                        //testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.hoaming)
-                        // testWeapon.addWeapon(this.bombThrow)
-                        // testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.hoaming)
-                        //testWeapon.addWeapon(this.multishot)
-                        //testWeapon.addWeapon(this.smallBomb)
-                        //testWeapon.addWeapon(this.damageAura)
-                        //testWeapon.addWeapon(this.daggerThrow)
-                        // testWeapon.addWeapon(this.damageAura)
-                        //testWeapon.addWeapon(this.facingMelee)
-
-                        for (var i = 0; i < 2; i++) {
-                                testWeapon.addWeapon(this.physical[i]);
-                        }
-                        // //Utils.shuffle(a)
-                        var testWeapon2 = new _InGameWeapon2.default();
-                        for (var _i = 0; _i < 2; _i++) {
-                                testWeapon2.addWeapon(this.magical[_i]);
-                        }
-                        testWeapon2.addWeapon(this.damageAura);
-
-                        // testWeapon.addWeapon(this.alternateMelee)
-                        //  testWeapon.addWeapon(this.uniformTimeSpread)
-                        // testWeapon.addWeapon(this.smallBomb)
-                        console.log("CHeck the alternate weapon");
-                        console.log("CHeck the hoaming to always find an enemy");
-                        //testWeapon.addWeapon(this.hoaming)
-                        // testWeapon.addWeapon(this.uniformTimeSpread)
-                        // testWeapon.addWeapon(this.boomerangThrow)
-                        //testWeapon.addWeapon(this.daggerThrow)
-                        // testWeapon.addWeapon(this.multishot)
-                        //testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.multishot)
-                        //testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.smallBomb)
-                        // testWeapon.addWeapon(this.multishot)
-                        // testWeapon.addWeapon(this.smallBomb)
-
-                        // player.addWeapon(this.multishot)
-                        // player.addWeapon(this.alternateMelee)
-                        // player.addWeapon(this.hoaming)
-
-                        player.addWeapon(testWeapon);
-
-                        console.log(testWeapon);
-                        player.addWeapon(testWeapon2);
-                }
-        }]);
-        return WeaponBuilder;
-}();
-
-exports.default = WeaponBuilder;
-module.exports = exports["default"];
 
 /***/ }),
 /* 128 */
@@ -75626,6 +75643,10 @@ var _GameManager = __webpack_require__(117);
 
 var _GameManager2 = _interopRequireDefault(_GameManager);
 
+var _GameplaySessionController = __webpack_require__(227);
+
+var _GameplaySessionController2 = _interopRequireDefault(_GameplaySessionController);
+
 var _InputModule = __webpack_require__(78);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
@@ -75634,7 +75655,7 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PerspectiveCamera = __webpack_require__(227);
+var _PerspectiveCamera = __webpack_require__(235);
 
 var _PerspectiveCamera2 = _interopRequireDefault(_PerspectiveCamera);
 
@@ -75642,7 +75663,7 @@ var _Player = __webpack_require__(24);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerInventoryHud = __webpack_require__(229);
+var _PlayerInventoryHud = __webpack_require__(237);
 
 var _PlayerInventoryHud2 = _interopRequireDefault(_PlayerInventoryHud);
 
@@ -75654,23 +75675,23 @@ var _RenderModule = __webpack_require__(13);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Screen2 = __webpack_require__(231);
+var _Screen2 = __webpack_require__(239);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
-var _StaticPhysicObject = __webpack_require__(119);
+var _StaticPhysicObject = __webpack_require__(120);
 
 var _StaticPhysicObject2 = _interopRequireDefault(_StaticPhysicObject);
 
-var _TouchAxisInput = __webpack_require__(232);
+var _TouchAxisInput = __webpack_require__(240);
 
 var _TouchAxisInput2 = _interopRequireDefault(_TouchAxisInput);
 
-var _Trees = __webpack_require__(236);
+var _Trees = __webpack_require__(244);
 
 var _Trees2 = _interopRequireDefault(_Trees);
 
-var _UIButton = __webpack_require__(237);
+var _UIButton = __webpack_require__(245);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
@@ -75682,13 +75703,9 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponBuilder = __webpack_require__(127);
+var _WeaponBuilder = __webpack_require__(119);
 
 var _WeaponBuilder2 = _interopRequireDefault(_WeaponBuilder);
-
-var _WorldSystem = __webpack_require__(242);
-
-var _WorldSystem2 = _interopRequireDefault(_WorldSystem);
 
 var _config = __webpack_require__(18);
 
@@ -75877,7 +75894,7 @@ var GameScreen = function (_Screen) {
         value: function addRandomAgents(quant) {
             for (var index = 0; index < quant; index++) {
 
-                _GameManager2.default.instance.spawnEnemy();
+                _GameManager2.default.instance.spawnRandomEnemy();
             }
         }
     }, {
@@ -75904,7 +75921,7 @@ var GameScreen = function (_Screen) {
                 this.player.destroy();
             }
             this.player = this.gameManager.addEntity(_Player2.default, true);
-            this.worldSystem.playerReady();
+            this.gameSessionController.playerReady();
             this.playerInventoryHud.registerPlayer(this.player);
             this.player.refreshEquipment();
             this.player.setPositionXZ(0, 0);
@@ -75965,7 +75982,7 @@ var GameScreen = function (_Screen) {
             this.addEvents();
             this.gameEngine.start();
 
-            this.worldSystem = this.gameEngine.poolGameObject(_WorldSystem2.default, true);
+            this.gameSessionController = this.gameEngine.poolGameObject(_GameplaySessionController2.default, true);
 
             this.spawnPlayer();
 
@@ -79581,16 +79598,21 @@ var EnemyGlobalSpawner = function () {
     }
 
     (0, _createClass3.default)(EnemyGlobalSpawner, [{
+        key: "spawnRandom",
+        value: function spawnRandom() {
+            this.spawnSingleEntity(this.gameManager.gameStaticData.enemies[Math.floor(Math.random() * this.gameManager.gameStaticData.enemies.length)]);
+        }
+    }, {
         key: "spawnEnemy",
         value: function spawnEnemy(spawnData) {
             if (!spawnData.spawnParameters || !spawnData.spawnParameters.areaType) {
-                this.spawnSingle(spawnData);
+                this.spawnSingleEntityFromSpawner(spawnData);
                 return;
             }
 
             switch (spawnData.spawnParameters.areaType) {
                 case EnemyGlobalSpawner.SpawnAreaType.Point:
-                    this.spawnSingle(spawnData);
+                    this.spawnSingleEntityFromSpawner(spawnData);
                     break;
                 case EnemyGlobalSpawner.SpawnAreaType.Rect:
                     this.spawnRectGroup(spawnData);
@@ -79601,8 +79623,19 @@ var EnemyGlobalSpawner = function () {
             }
         }
     }, {
-        key: "spawnSingle",
-        value: function spawnSingle(spawnData) {
+        key: "spawnSingleEntity",
+        value: function spawnSingleEntity(enemyData) {
+
+            //find out if uses baseEnemy
+            var enemy = this.gameManager.addEntity(_BaseEnemy2.default, enemyData);
+
+            var circleRandom = _Utils2.default.randomCircle();
+
+            enemy.setPositionXZ(this.gameManager.player.transform.position.x + circleRandom.x * this.distanceToSpawn, this.gameManager.player.transform.position.z + circleRandom.y * this.distanceToSpawn);
+        }
+    }, {
+        key: "spawnSingleEntityFromSpawner",
+        value: function spawnSingleEntityFromSpawner(spawnData) {
 
             var enemyData = this.gameManager.gameStaticData.enemies[spawnData.id];
 
@@ -80078,6 +80111,1017 @@ var _possibleConstructorReturn2 = __webpack_require__(3);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BuildingComponent = __webpack_require__(228);
+
+var _BuildingComponent2 = _interopRequireDefault(_BuildingComponent);
+
+var _CardPlacementSystem = __webpack_require__(229);
+
+var _CardPlacementSystem2 = _interopRequireDefault(_CardPlacementSystem);
+
+var _CardPlacementView = __webpack_require__(230);
+
+var _CardPlacementView2 = _interopRequireDefault(_CardPlacementView);
+
+var _DeckView = __webpack_require__(118);
+
+var _DeckView2 = _interopRequireDefault(_DeckView);
+
+var _Eugine = __webpack_require__(40);
+
+var _Eugine2 = _interopRequireDefault(_Eugine);
+
+var _GameObject2 = __webpack_require__(14);
+
+var _GameObject3 = _interopRequireDefault(_GameObject2);
+
+var _GameView = __webpack_require__(22);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
+var _InputModule = __webpack_require__(78);
+
+var _InputModule2 = _interopRequireDefault(_InputModule);
+
+var _Player = __webpack_require__(24);
+
+var _Player2 = _interopRequireDefault(_Player);
+
+var _RenderModule = __webpack_require__(13);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _WeaponBuilder = __webpack_require__(119);
+
+var _WeaponBuilder2 = _interopRequireDefault(_WeaponBuilder);
+
+var _config = __webpack_require__(18);
+
+var _config2 = _interopRequireDefault(_config);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameplaySessionController = function (_GameObject) {
+    (0, _inherits3.default)(GameplaySessionController, _GameObject);
+
+    function GameplaySessionController() {
+        (0, _classCallCheck3.default)(this, GameplaySessionController);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (GameplaySessionController.__proto__ || (0, _getPrototypeOf2.default)(GameplaySessionController)).call(this));
+
+        _this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
+        _this.tileSize = 45;
+
+        _this.gameView = new _GameView2.default(_this);
+        _this.gameView.layer = _RenderModule2.default.RenderLayers.Building;
+        _this.gameView.view = new PIXI.Container();
+        return _this;
+    }
+
+    (0, _createClass3.default)(GameplaySessionController, [{
+        key: "build",
+        value: function build() {
+            var _this2 = this;
+
+            this.buildingComponent = this.addComponent(_BuildingComponent2.default);
+            this.buildingComponent.setGameView(this.gameView.view);
+
+            this.deckView = this.engine.poolGameObject(_DeckView2.default, true);
+            this.deckView.setActive(false);
+
+            this.cardPlacementView = this.engine.poolGameObject(_CardPlacementView2.default, true);
+            this.cardPlacementView.setActive(false);
+
+            this.cardPlacementSystem = new _CardPlacementSystem2.default(this.deckView, this.cardPlacementView);
+
+            this.player = this.engine.findByType(_Player2.default);
+
+            if (!this.player) {
+                this.engine.callbackWhenAdding(_Player2.default, function (player) {
+                    _this2.player = player[0];
+                    //this.playerReady();
+                });
+            }
+            //this.setBuildingMode();
+            //this.toggleDeck();
+        }
+    }, {
+        key: "playerReady",
+        value: function playerReady() {
+            var _this3 = this;
+
+            setTimeout(function () {
+                _this3.weaponBuilder = new _WeaponBuilder2.default();
+                _this3.weaponBuilder.addWeapons(_this3.player);
+                _this3.cardPlacementSystem.setPlayer(_this3.player);
+                _this3.cardPlacementSystem.setWeapons(_this3.weaponBuilder);
+                _this3.player.refreshEquipment();
+            }, 1);
+        }
+    }, {
+        key: "start",
+        value: function start() {
+            var _this4 = this;
+
+            this.input = this.engine.findByType(_InputModule2.default);
+            this.input.onKeyUp.add(function (e) {
+                if (e.keyCode == 81) {
+                    _this4.toggleBuilding();
+                }
+
+                if (e.keyCode == 49) {
+
+                    _this4.toggleDeck();
+                }
+            });
+        }
+    }, {
+        key: "toggleDeck",
+        value: function toggleDeck() {
+            if (!this.cardPlacementSystem.enabled) {
+                this.cardPlacementSystem.show();
+                _Eugine2.default.TimeScale = 0;
+            } else {
+                this.cardPlacementSystem.hide();
+                _Eugine2.default.TimeScale = 1;
+            }
+        }
+    }, {
+        key: "toggleBuilding",
+        value: function toggleBuilding() {
+            if (GameplaySessionController.CurrentMode == GameplaySessionController.CombatMode) {
+                this.setBuildingMode();
+            } else {
+                this.setCombatMode();
+            }
+        }
+    }, {
+        key: "setCombatMode",
+        value: function setCombatMode() {
+            GameplaySessionController.CurrentMode = GameplaySessionController.CombatMode;
+            this.buildingComponent.hide();
+        }
+    }, {
+        key: "setBuildingMode",
+        value: function setBuildingMode() {
+            GameplaySessionController.CurrentMode = GameplaySessionController.BuildingMode;
+            this.buildingComponent.show();
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+
+            if (!_Player2.default.MainPlayer) return;
+
+            if (GameplaySessionController.CurrentMode == GameplaySessionController.BuildingMode) {
+                this.buildingPositions.i = Math.floor(_Player2.default.MainPlayer.transform.position.x / this.tileSize);
+                this.buildingPositions.j = Math.floor(_Player2.default.MainPlayer.transform.position.y / this.tileSize);
+                this.buildingPositions.x = _Player2.default.MainPlayer.transform.position.x;
+                this.buildingPositions.y = _Player2.default.MainPlayer.transform.position.y;
+
+                this.buildingPositions.mouseX = Math.floor((this.input.globalMousePos.x + _Player2.default.MainPlayer.transform.position.x - _config2.default.width / 2) / this.tileSize) * this.tileSize;
+                this.buildingPositions.mouseY = Math.floor((this.input.globalMousePos.y + _Player2.default.MainPlayer.transform.position.y - _config2.default.height / 2) / this.tileSize) * this.tileSize;
+
+                this.buildingPositions.mouseX = this.input.globalMousePos.x + _Player2.default.MainPlayer.transform.position.x - _config2.default.width / 2;
+                this.buildingPositions.mouseY = this.input.globalMousePos.y + _Player2.default.MainPlayer.transform.position.y - _config2.default.height / 2;
+
+                this.buildingComponent.updateGridPosition(this.buildingPositions);
+                this.buildingComponent.updateMousePosition(this.buildingPositions);
+            }
+        }
+    }]);
+    return GameplaySessionController;
+}(_GameObject3.default);
+
+GameplaySessionController.CurrentMode = 0;
+GameplaySessionController.CombatMode = 0;
+GameplaySessionController.BuildingMode = 1;
+exports.default = GameplaySessionController;
+module.exports = exports["default"];
+
+/***/ }),
+/* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BaseComponent2 = __webpack_require__(23);
+
+var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BuildingComponent = function (_BaseComponent) {
+    (0, _inherits3.default)(BuildingComponent, _BaseComponent);
+
+    function BuildingComponent() {
+        (0, _classCallCheck3.default)(this, BuildingComponent);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (BuildingComponent.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent)).call(this));
+
+        _this.acc = 0;
+
+        _this.gridContainer = new PIXI.Container();
+
+        _this.tile = new PIXI.Sprite.from('tile_0060');
+        _this.gridContainer.addChild(_this.tile);
+        _this.tile.width = 45;
+        _this.tile.height = 45;
+        _this.tile.alpha = 0.5;
+
+        _this.tile2 = new PIXI.Sprite.from('tile_0060');
+        _this.gridContainer.addChild(_this.tile2);
+        _this.tile2.width = 45;
+        _this.tile2.height = 45;
+        _this.tile2.tint = 0xFF0000;
+        _this.hide();
+        return _this;
+    }
+
+    (0, _createClass3.default)(BuildingComponent, [{
+        key: 'enable',
+        value: function enable() {
+            (0, _get3.default)(BuildingComponent.prototype.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent.prototype), 'enable', this).call(this);
+        }
+    }, {
+        key: 'setGameView',
+        value: function setGameView(container) {
+            this.container = container;
+            this.container.addChild(this.gridContainer);
+        }
+    }, {
+        key: 'hide',
+        value: function hide() {
+            this.gridContainer.visible = false;
+        }
+    }, {
+        key: 'show',
+        value: function show() {
+            this.gridContainer.visible = true;
+        }
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+
+            this.container.removeChild(this.gridContainer);
+            (0, _get3.default)(BuildingComponent.prototype.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent.prototype), 'destroy', this).call(this);
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {}
+    }, {
+        key: 'updateMousePosition',
+        value: function updateMousePosition(mousePosition) {
+            this.tile2.x = mousePosition.mouseX;
+            this.tile2.y = mousePosition.mouseY;
+        }
+    }, {
+        key: 'updateGridPosition',
+        value: function updateGridPosition(playerPosition) {
+            this.tile.x = playerPosition.i * 45;
+            this.tile.y = playerPosition.j * 45;
+        }
+    }]);
+    return BuildingComponent;
+}(_BaseComponent3.default);
+
+exports.default = BuildingComponent;
+module.exports = exports['default'];
+
+/***/ }),
+/* 229 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _CardView = __webpack_require__(82);
+
+var _CardView2 = _interopRequireDefault(_CardView);
+
+var _Game = __webpack_require__(38);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+var _GameObject = __webpack_require__(14);
+
+var _GameObject2 = _interopRequireDefault(_GameObject);
+
+var _GameView = __webpack_require__(22);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
+var _InteractableView = __webpack_require__(56);
+
+var _InteractableView2 = _interopRequireDefault(_InteractableView);
+
+var _RenderModule = __webpack_require__(13);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CardPlacementSystem = function () {
+    function CardPlacementSystem(deckView, cardPlacementView) {
+        (0, _classCallCheck3.default)(this, CardPlacementSystem);
+
+        this.deckView = deckView;
+
+        this.deckView.onCardClicked.add(this.onCardEquipped.bind(this));
+        this.cardPlacementView = cardPlacementView;
+        this.enabled = false;
+        this.player = null;
+    }
+
+    (0, _createClass3.default)(CardPlacementSystem, [{
+        key: "build",
+        value: function build() {}
+    }, {
+        key: "onCardEquipped",
+        value: function onCardEquipped(cardData) {
+            this.player.addWeaponData(cardData);
+        }
+    }, {
+        key: "setPlayer",
+        value: function setPlayer(player) {
+            this.player = player;
+        }
+    }, {
+        key: "setWeapons",
+        value: function setWeapons(weapons) {
+            this.weapons = weapons;
+
+            this.deckView.buildCards(this.weapons.physical);
+        }
+    }, {
+        key: "show",
+        value: function show() {
+            this.enabled = true;
+
+            this.deckView.setActive(true);
+            this.cardPlacementView.setActive(true);
+        }
+    }, {
+        key: "hide",
+        value: function hide() {
+            this.enabled = false;
+
+            this.deckView.setActive(false);
+            this.cardPlacementView.setActive(false);
+        }
+    }, {
+        key: "update",
+        value: function update(delta, unscaleDelta) {
+            this.gameView.view.x = _Utils2.default.lerp(this.gameView.view.x, -this.gameView.view.width / 2, 0.1);
+        }
+    }, {
+        key: "disable",
+        value: function disable() {
+            (0, _get3.default)(CardPlacementSystem.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementSystem.prototype), "disable", this).call(this);
+            this.gameView.view.visible = false;
+        }
+    }, {
+        key: "enable",
+        value: function enable() {
+            (0, _get3.default)(CardPlacementSystem.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementSystem.prototype), "enable", this).call(this);
+            this.gameView.view.visible = true;
+        }
+    }]);
+    return CardPlacementSystem;
+}();
+
+exports.default = CardPlacementSystem;
+module.exports = exports["default"];
+
+/***/ }),
+/* 230 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _CardView = __webpack_require__(82);
+
+var _CardView2 = _interopRequireDefault(_CardView);
+
+var _Game = __webpack_require__(38);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+var _GameObject2 = __webpack_require__(14);
+
+var _GameObject3 = _interopRequireDefault(_GameObject2);
+
+var _GameView = __webpack_require__(22);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
+var _InteractableView = __webpack_require__(56);
+
+var _InteractableView2 = _interopRequireDefault(_InteractableView);
+
+var _RenderModule = __webpack_require__(13);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CardPlacementView = function (_GameObject) {
+    (0, _inherits3.default)(CardPlacementView, _GameObject);
+
+    function CardPlacementView() {
+        (0, _classCallCheck3.default)(this, CardPlacementView);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (CardPlacementView.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView)).call(this));
+
+        _this.gameView = new _GameView2.default(_this);
+        _this.gameView.layer = _RenderModule2.default.UILayer;
+        _this.gameView.view = new PIXI.Container();
+
+        _this.handCards = [];
+
+        return _this;
+    }
+
+    (0, _createClass3.default)(CardPlacementView, [{
+        key: "build",
+        value: function build() {}
+    }, {
+        key: "update",
+        value: function update(delta, unscaleDelta) {}
+    }, {
+        key: "disable",
+        value: function disable() {
+            (0, _get3.default)(CardPlacementView.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView.prototype), "disable", this).call(this);
+            this.gameView.view.visible = false;
+        }
+    }, {
+        key: "enable",
+        value: function enable() {
+            (0, _get3.default)(CardPlacementView.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView.prototype), "enable", this).call(this);
+            this.gameView.view.visible = true;
+        }
+    }]);
+    return CardPlacementView;
+}(_GameObject3.default);
+
+exports.default = CardPlacementView;
+module.exports = exports["default"];
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BaseWeapon2 = __webpack_require__(55);
+
+var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
+
+var _Bullet = __webpack_require__(41);
+
+var _Bullet2 = _interopRequireDefault(_Bullet);
+
+var _WeaponAttributes = __webpack_require__(48);
+
+var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AuraProjectile = function (_BaseWeapon) {
+    (0, _inherits3.default)(AuraProjectile, _BaseWeapon);
+
+    function AuraProjectile() {
+        (0, _classCallCheck3.default)(this, AuraProjectile);
+        return (0, _possibleConstructorReturn3.default)(this, (AuraProjectile.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile)).call(this));
+    }
+
+    (0, _createClass3.default)(AuraProjectile, [{
+        key: "shoot",
+        value: function shoot(customWeapon, customParent) {
+            var _this2 = this;
+
+            var bullets = (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "shoot", this).call(this, customWeapon, customParent);
+            bullets.forEach(function (bullet) {
+                if (bullet.weapon == _this2.weaponData) {
+                    _this2.interactiveProjectiles.push({ angle: bullet.ang, projectile: bullet, distance: 0 });
+                    bullet.physics.velocity.x = 0;
+                    bullet.physics.velocity.y = 0;
+                    bullet.physics.velocity.z = 0;
+                }
+            });
+
+            return bullets;
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "update", this).call(this, delta);
+
+            for (var i = this.interactiveProjectiles.length - 1; i >= 0; i--) {
+                var element = this.interactiveProjectiles[i];
+                if (!element) continue;
+                if (!element.projectile.enabledAndAlive) {
+                    this.removeProjectile(element.projectile);
+                } else {
+                    element.projectile.x = this.transform.position.x;
+                    element.projectile.z = this.transform.position.z;
+                }
+            }
+        }
+    }, {
+        key: "removeProjectile",
+        value: function removeProjectile(element) {
+            if (element.projectile && element.projectile.enabledAndAlive) {
+                element.projectile.destroy();
+            }
+            this.interactiveProjectiles = this.interactiveProjectiles.filter(function (item) {
+                return item.projectile !== element;
+            });
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "destroy", this).call(this);
+        }
+    }]);
+    return AuraProjectile;
+}(_BaseWeapon3.default);
+
+exports.default = AuraProjectile;
+module.exports = exports["default"];
+
+/***/ }),
+/* 232 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BaseWeapon2 = __webpack_require__(55);
+
+var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
+
+var _EffectsManager = __webpack_require__(25);
+
+var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
+
+var _EntityViewData = __webpack_require__(81);
+
+var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FloatingProjectile = function (_BaseWeapon) {
+    (0, _inherits3.default)(FloatingProjectile, _BaseWeapon);
+
+    function FloatingProjectile() {
+        (0, _classCallCheck3.default)(this, FloatingProjectile);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (FloatingProjectile.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile)).call(this));
+
+        console.log(_this);
+        return _this;
+    }
+
+    (0, _createClass3.default)(FloatingProjectile, [{
+        key: "shoot",
+        value: function shoot(customWeapon, customParent) {
+            var _this2 = this;
+
+            var bullets = (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "shoot", this).call(this, customWeapon, customParent);
+            bullets.forEach(function (bullet) {
+                if (bullet.weapon == _this2.weaponData) {
+                    _this2.interactiveProjectiles.push({ angle: bullet.ang, projectile: bullet, distance: 0 });
+                    bullet.physics.velocity.x = 0;
+                    bullet.physics.velocity.y = 0;
+                    bullet.physics.velocity.z = 0;
+                }
+            });
+
+            return bullets;
+        }
+    }, {
+        key: "removeProjectile",
+        value: function removeProjectile(element) {
+            if (element.projectile && element.projectile.enabledAndAlive) {
+                element.projectile.destroy();
+            }
+            this.interactiveProjectiles = this.interactiveProjectiles.filter(function (item) {
+                return item.projectile !== element;
+            });
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "update", this).call(this, delta);
+
+            for (var i = this.interactiveProjectiles.length - 1; i >= 0; i--) {
+                var element = this.interactiveProjectiles[i];
+
+                if (!element.projectile.enabledAndAlive) {
+                    this.removeProjectile(element.projectile);
+                } else {
+                    element.angle += delta * this.weaponData.weaponAttributes.bulletSpeed;
+                    element.distance += element.projectile.weapon.weaponAttributes.damageZone * delta;
+                    element.distance = Math.min(element.distance, element.projectile.weapon.weaponAttributes.damageZone);
+                    element.projectile.x = this.transform.position.x + Math.cos(element.angle) * element.distance;
+                    element.projectile.z = this.transform.position.z + Math.sin(element.angle) * element.distance;
+                    element.projectile.angle = element.angle;
+                }
+            }
+        }
+    }, {
+        key: "sortGraphics",
+        value: function sortGraphics(type, bullet, customWeapon) {
+            var weapon = customWeapon ? customWeapon : this.weaponData;
+
+            var isMain = weapon == this.weaponData;
+
+            //TODO: ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
+            var baseData = weapon.weaponViewData[type];
+            if (isMain && baseData.viewType == _EntityViewData2.default.ViewType.SpriteSheet && bullet.spawnOrder == 0) {
+                var target = bullet.transform.position;
+                _EffectsManager2.default.instance.emitParticles({ x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle });
+
+                //todo: not sure about this
+                bullet.spawnOrder++;
+                (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "sortGraphics", this).call(this, type, bullet, customWeapon);
+            } else {
+                (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "sortGraphics", this).call(this, type, bullet, customWeapon);
+            }
+        }
+    }, {
+        key: "destroyBullet",
+        value: function destroyBullet(bullet) {
+            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "destroyBullet", this).call(this, bullet);
+            this.removeProjectile(bullet);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "destroy", this).call(this);
+            this.interactiveProjectiles.forEach(function (element) {
+                element.projectile.destroy();
+            });
+            this.interactiveProjectiles = [];
+        }
+    }]);
+    return FloatingProjectile;
+}(_BaseWeapon3.default);
+
+exports.default = FloatingProjectile;
+module.exports = exports["default"];
+
+/***/ }),
+/* 233 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _Bullet2 = __webpack_require__(41);
+
+var _Bullet3 = _interopRequireDefault(_Bullet2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GravityBullet = function (_Bullet) {
+    (0, _inherits3.default)(GravityBullet, _Bullet);
+
+    function GravityBullet() {
+        (0, _classCallCheck3.default)(this, GravityBullet);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (GravityBullet.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet)).call(this));
+
+        console.log("GRAVITY");
+        return _this;
+    }
+
+    (0, _createClass3.default)(GravityBullet, [{
+        key: "build",
+        value: function build(weapon, parent) {
+            (0, _get3.default)(GravityBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet.prototype), "build", this).call(this, weapon, parent);
+
+            this.target = weapon;
+
+            this.timeToFall = weapon.weaponAttributes.baseLifeRangeSpan / weapon.weaponAttributes.baseBulletSpeed;
+            this.currentTime = 0;
+
+            this.high = weapon.weaponViewData.baseViewData.maxHeight;
+        }
+    }, {
+        key: "collisionEnter",
+        value: function collisionEnter() {}
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(GravityBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet.prototype), "update", this).call(this, delta);
+
+            this.currentTime += delta;
+            this.normalized = this.currentTime / this.timeToFall;
+
+            this.transform.position.y = this.easeOutQuad(this.normalized * 2) * -this.high;
+
+            if (this.currentTime <= 0) {
+                this.destroy();
+            }
+        }
+    }, {
+        key: "easeOutBack",
+        value: function easeOutBack(x) {
+            var c1 = 1.70158;
+            var c3 = c1 + 1;
+
+            return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
+        }
+    }, {
+        key: "easeOutQuad",
+        value: function easeOutQuad(x) {
+            return 1 - (1 - x) * (1 - x);
+        }
+    }, {
+        key: "easeInQuad",
+        value: function easeInQuad(x) {
+            return x * x;
+        }
+    }]);
+    return GravityBullet;
+}(_Bullet3.default);
+
+exports.default = GravityBullet;
+module.exports = exports["default"];
+
+/***/ }),
+/* 234 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var InGameWeapon = function () {
+    function InGameWeapon() {
+        (0, _classCallCheck3.default)(this, InGameWeapon);
+
+        this.stackWeapons = [];
+    }
+
+    (0, _createClass3.default)(InGameWeapon, [{
+        key: "addWeapon",
+        value: function addWeapon(weapon) {
+
+            var clone = weapon.clone();
+            //console.log(weapon, 'clone')
+            if (this.stackWeapons.length > 0) {
+                this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
+            }
+
+            this.stackWeapons.push(clone);
+        }
+    }, {
+        key: "hasWeapon",
+        get: function get() {
+            return this.stackWeapons.length > 0;
+        }
+    }, {
+        key: "mainWeapon",
+        get: function get() {
+            return this.stackWeapons[0];
+        }
+    }]);
+    return InGameWeapon;
+}();
+
+exports.default = InGameWeapon;
+module.exports = exports["default"];
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
 var _get2 = __webpack_require__(5);
 
 var _get3 = _interopRequireDefault(_get2);
@@ -80090,7 +81134,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Camera2 = __webpack_require__(228);
+var _Camera2 = __webpack_require__(236);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
@@ -80243,7 +81287,7 @@ exports.default = PerspectiveCamera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 228 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80376,7 +81420,7 @@ exports.default = Camera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 229 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80410,7 +81454,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _PlayerInventorySlotEquipView = __webpack_require__(230);
+var _PlayerInventorySlotEquipView = __webpack_require__(238);
 
 var _PlayerInventorySlotEquipView2 = _interopRequireDefault(_PlayerInventorySlotEquipView);
 
@@ -80491,7 +81535,7 @@ exports.default = PlayerInventoryHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 230 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80593,7 +81637,7 @@ exports.default = PlayerInventorySlotEquipView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 231 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80742,7 +81786,7 @@ exports.default = Screen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 232 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80945,7 +81989,7 @@ exports.default = TouchAxisInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 233 */
+/* 241 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -80975,22 +82019,22 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 234 */
+/* 242 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(123);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DirectionalRotationPlugin_js__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DirectionalRotationPlugin_js__ = __webpack_require__(125);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TimelineMax_js__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(125);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TimelineMax_js__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(127);
 /* unused harmony reexport TweenLite */
 /* unused harmony reexport TimelineLite */
 /* unused harmony reexport TimelineMax */
@@ -81050,7 +82094,7 @@ TweenMax._autoActivated = [__WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__["a" /*
 
 
 /***/ }),
-/* 235 */
+/* 243 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -81741,7 +82785,7 @@ var TweenMaxBase = TweenMax;
 
 
 /***/ }),
-/* 236 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81783,7 +82827,7 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _StaticPhysicObject2 = __webpack_require__(119);
+var _StaticPhysicObject2 = __webpack_require__(120);
 
 var _StaticPhysicObject3 = _interopRequireDefault(_StaticPhysicObject2);
 
@@ -81837,7 +82881,7 @@ exports.default = Trees;
 module.exports = exports["default"];
 
 /***/ }),
-/* 237 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82174,1017 +83218,6 @@ var UIButton1 = function (_PIXI$Container) {
 
 exports.default = UIButton1;
 module.exports = exports['default'];
-
-/***/ }),
-/* 238 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BaseWeapon2 = __webpack_require__(55);
-
-var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
-
-var _Bullet = __webpack_require__(41);
-
-var _Bullet2 = _interopRequireDefault(_Bullet);
-
-var _WeaponAttributes = __webpack_require__(48);
-
-var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AuraProjectile = function (_BaseWeapon) {
-    (0, _inherits3.default)(AuraProjectile, _BaseWeapon);
-
-    function AuraProjectile() {
-        (0, _classCallCheck3.default)(this, AuraProjectile);
-        return (0, _possibleConstructorReturn3.default)(this, (AuraProjectile.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile)).call(this));
-    }
-
-    (0, _createClass3.default)(AuraProjectile, [{
-        key: "shoot",
-        value: function shoot(customWeapon, customParent) {
-            var _this2 = this;
-
-            var bullets = (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "shoot", this).call(this, customWeapon, customParent);
-            bullets.forEach(function (bullet) {
-                if (bullet.weapon == _this2.weaponData) {
-                    _this2.interactiveProjectiles.push({ angle: bullet.ang, projectile: bullet, distance: 0 });
-                    bullet.physics.velocity.x = 0;
-                    bullet.physics.velocity.y = 0;
-                    bullet.physics.velocity.z = 0;
-                }
-            });
-
-            return bullets;
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "update", this).call(this, delta);
-
-            for (var i = this.interactiveProjectiles.length - 1; i >= 0; i--) {
-                var element = this.interactiveProjectiles[i];
-                if (!element) continue;
-                if (!element.projectile.enabledAndAlive) {
-                    this.removeProjectile(element.projectile);
-                } else {
-                    element.projectile.x = this.transform.position.x;
-                    element.projectile.z = this.transform.position.z;
-                }
-            }
-        }
-    }, {
-        key: "removeProjectile",
-        value: function removeProjectile(element) {
-            if (element.projectile && element.projectile.enabledAndAlive) {
-                element.projectile.destroy();
-            }
-            this.interactiveProjectiles = this.interactiveProjectiles.filter(function (item) {
-                return item.projectile !== element;
-            });
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            (0, _get3.default)(AuraProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(AuraProjectile.prototype), "destroy", this).call(this);
-        }
-    }]);
-    return AuraProjectile;
-}(_BaseWeapon3.default);
-
-exports.default = AuraProjectile;
-module.exports = exports["default"];
-
-/***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BaseWeapon2 = __webpack_require__(55);
-
-var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
-
-var _EffectsManager = __webpack_require__(25);
-
-var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
-
-var _EntityViewData = __webpack_require__(81);
-
-var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FloatingProjectile = function (_BaseWeapon) {
-    (0, _inherits3.default)(FloatingProjectile, _BaseWeapon);
-
-    function FloatingProjectile() {
-        (0, _classCallCheck3.default)(this, FloatingProjectile);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (FloatingProjectile.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile)).call(this));
-
-        console.log(_this);
-        return _this;
-    }
-
-    (0, _createClass3.default)(FloatingProjectile, [{
-        key: "shoot",
-        value: function shoot(customWeapon, customParent) {
-            var _this2 = this;
-
-            var bullets = (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "shoot", this).call(this, customWeapon, customParent);
-            bullets.forEach(function (bullet) {
-                if (bullet.weapon == _this2.weaponData) {
-                    _this2.interactiveProjectiles.push({ angle: bullet.ang, projectile: bullet, distance: 0 });
-                    bullet.physics.velocity.x = 0;
-                    bullet.physics.velocity.y = 0;
-                    bullet.physics.velocity.z = 0;
-                }
-            });
-
-            return bullets;
-        }
-    }, {
-        key: "removeProjectile",
-        value: function removeProjectile(element) {
-            if (element.projectile && element.projectile.enabledAndAlive) {
-                element.projectile.destroy();
-            }
-            this.interactiveProjectiles = this.interactiveProjectiles.filter(function (item) {
-                return item.projectile !== element;
-            });
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "update", this).call(this, delta);
-
-            for (var i = this.interactiveProjectiles.length - 1; i >= 0; i--) {
-                var element = this.interactiveProjectiles[i];
-
-                if (!element.projectile.enabledAndAlive) {
-                    this.removeProjectile(element.projectile);
-                } else {
-                    element.angle += delta * this.weaponData.weaponAttributes.bulletSpeed;
-                    element.distance += element.projectile.weapon.weaponAttributes.damageZone * delta;
-                    element.distance = Math.min(element.distance, element.projectile.weapon.weaponAttributes.damageZone);
-                    element.projectile.x = this.transform.position.x + Math.cos(element.angle) * element.distance;
-                    element.projectile.z = this.transform.position.z + Math.sin(element.angle) * element.distance;
-                    element.projectile.angle = element.angle;
-                }
-            }
-        }
-    }, {
-        key: "sortGraphics",
-        value: function sortGraphics(type, bullet, customWeapon) {
-            var weapon = customWeapon ? customWeapon : this.weaponData;
-
-            var isMain = weapon == this.weaponData;
-
-            //TODO: ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
-            var baseData = weapon.weaponViewData[type];
-            if (isMain && baseData.viewType == _EntityViewData2.default.ViewType.SpriteSheet && bullet.spawnOrder == 0) {
-                var target = bullet.transform.position;
-                _EffectsManager2.default.instance.emitParticles({ x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle });
-
-                //todo: not sure about this
-                bullet.spawnOrder++;
-                (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "sortGraphics", this).call(this, type, bullet, customWeapon);
-            } else {
-                (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "sortGraphics", this).call(this, type, bullet, customWeapon);
-            }
-        }
-    }, {
-        key: "destroyBullet",
-        value: function destroyBullet(bullet) {
-            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "destroyBullet", this).call(this, bullet);
-            this.removeProjectile(bullet);
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            (0, _get3.default)(FloatingProjectile.prototype.__proto__ || (0, _getPrototypeOf2.default)(FloatingProjectile.prototype), "destroy", this).call(this);
-            this.interactiveProjectiles.forEach(function (element) {
-                element.projectile.destroy();
-            });
-            this.interactiveProjectiles = [];
-        }
-    }]);
-    return FloatingProjectile;
-}(_BaseWeapon3.default);
-
-exports.default = FloatingProjectile;
-module.exports = exports["default"];
-
-/***/ }),
-/* 240 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _Bullet2 = __webpack_require__(41);
-
-var _Bullet3 = _interopRequireDefault(_Bullet2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GravityBullet = function (_Bullet) {
-    (0, _inherits3.default)(GravityBullet, _Bullet);
-
-    function GravityBullet() {
-        (0, _classCallCheck3.default)(this, GravityBullet);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (GravityBullet.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet)).call(this));
-
-        console.log("GRAVITY");
-        return _this;
-    }
-
-    (0, _createClass3.default)(GravityBullet, [{
-        key: "build",
-        value: function build(weapon, parent) {
-            (0, _get3.default)(GravityBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet.prototype), "build", this).call(this, weapon, parent);
-
-            this.target = weapon;
-
-            this.timeToFall = weapon.weaponAttributes.baseLifeRangeSpan / weapon.weaponAttributes.baseBulletSpeed;
-            this.currentTime = 0;
-
-            this.high = weapon.weaponViewData.baseViewData.maxHeight;
-        }
-    }, {
-        key: "collisionEnter",
-        value: function collisionEnter() {}
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(GravityBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet.prototype), "update", this).call(this, delta);
-
-            this.currentTime += delta;
-            this.normalized = this.currentTime / this.timeToFall;
-
-            this.transform.position.y = this.easeOutQuad(this.normalized * 2) * -this.high;
-
-            if (this.currentTime <= 0) {
-                this.destroy();
-            }
-        }
-    }, {
-        key: "easeOutBack",
-        value: function easeOutBack(x) {
-            var c1 = 1.70158;
-            var c3 = c1 + 1;
-
-            return 1 + c3 * Math.pow(x - 1, 3) + c1 * Math.pow(x - 1, 2);
-        }
-    }, {
-        key: "easeOutQuad",
-        value: function easeOutQuad(x) {
-            return 1 - (1 - x) * (1 - x);
-        }
-    }, {
-        key: "easeInQuad",
-        value: function easeInQuad(x) {
-            return x * x;
-        }
-    }]);
-    return GravityBullet;
-}(_Bullet3.default);
-
-exports.default = GravityBullet;
-module.exports = exports["default"];
-
-/***/ }),
-/* 241 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var InGameWeapon = function () {
-    function InGameWeapon() {
-        (0, _classCallCheck3.default)(this, InGameWeapon);
-
-        this.stackWeapons = [];
-    }
-
-    (0, _createClass3.default)(InGameWeapon, [{
-        key: "addWeapon",
-        value: function addWeapon(weapon) {
-
-            var clone = weapon.clone();
-            //console.log(weapon, 'clone')
-            if (this.stackWeapons.length > 0) {
-                this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
-            }
-
-            this.stackWeapons.push(clone);
-        }
-    }, {
-        key: "hasWeapon",
-        get: function get() {
-            return this.stackWeapons.length > 0;
-        }
-    }, {
-        key: "mainWeapon",
-        get: function get() {
-            return this.stackWeapons[0];
-        }
-    }]);
-    return InGameWeapon;
-}();
-
-exports.default = InGameWeapon;
-module.exports = exports["default"];
-
-/***/ }),
-/* 242 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BuildingComponent = __webpack_require__(243);
-
-var _BuildingComponent2 = _interopRequireDefault(_BuildingComponent);
-
-var _CardPlacementSystem = __webpack_require__(244);
-
-var _CardPlacementSystem2 = _interopRequireDefault(_CardPlacementSystem);
-
-var _CardPlacementView = __webpack_require__(245);
-
-var _CardPlacementView2 = _interopRequireDefault(_CardPlacementView);
-
-var _DeckView = __webpack_require__(118);
-
-var _DeckView2 = _interopRequireDefault(_DeckView);
-
-var _Eugine = __webpack_require__(40);
-
-var _Eugine2 = _interopRequireDefault(_Eugine);
-
-var _GameObject2 = __webpack_require__(14);
-
-var _GameObject3 = _interopRequireDefault(_GameObject2);
-
-var _GameView = __webpack_require__(22);
-
-var _GameView2 = _interopRequireDefault(_GameView);
-
-var _InputModule = __webpack_require__(78);
-
-var _InputModule2 = _interopRequireDefault(_InputModule);
-
-var _Player = __webpack_require__(24);
-
-var _Player2 = _interopRequireDefault(_Player);
-
-var _RenderModule = __webpack_require__(13);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _WeaponBuilder = __webpack_require__(127);
-
-var _WeaponBuilder2 = _interopRequireDefault(_WeaponBuilder);
-
-var _config = __webpack_require__(18);
-
-var _config2 = _interopRequireDefault(_config);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var WorldSystem = function (_GameObject) {
-    (0, _inherits3.default)(WorldSystem, _GameObject);
-
-    function WorldSystem() {
-        (0, _classCallCheck3.default)(this, WorldSystem);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (WorldSystem.__proto__ || (0, _getPrototypeOf2.default)(WorldSystem)).call(this));
-
-        _this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
-        _this.tileSize = 45;
-
-        _this.gameView = new _GameView2.default(_this);
-        _this.gameView.layer = _RenderModule2.default.RenderLayers.Building;
-        _this.gameView.view = new PIXI.Container();
-        return _this;
-    }
-
-    (0, _createClass3.default)(WorldSystem, [{
-        key: "build",
-        value: function build() {
-            var _this2 = this;
-
-            this.buildingComponent = this.addComponent(_BuildingComponent2.default);
-            this.buildingComponent.setGameView(this.gameView.view);
-
-            this.deckView = this.engine.poolGameObject(_DeckView2.default, true);
-            this.deckView.setActive(false);
-
-            this.cardPlacementView = this.engine.poolGameObject(_CardPlacementView2.default, true);
-            this.cardPlacementView.setActive(false);
-
-            this.cardPlacementSystem = new _CardPlacementSystem2.default(this.deckView, this.cardPlacementView);
-
-            this.player = this.engine.findByType(_Player2.default);
-
-            if (!this.player) {
-                this.engine.callbackWhenAdding(_Player2.default, function (player) {
-                    _this2.player = player[0];
-                    //this.playerReady();
-                });
-            }
-            //this.setBuildingMode();
-            //this.toggleDeck();
-        }
-    }, {
-        key: "playerReady",
-        value: function playerReady() {
-            var _this3 = this;
-
-            setTimeout(function () {
-                _this3.weaponBuilder = new _WeaponBuilder2.default();
-                _this3.weaponBuilder.addWeapons(_this3.player);
-                _this3.cardPlacementSystem.setPlayer(_this3.player);
-                _this3.cardPlacementSystem.setWeapons(_this3.weaponBuilder);
-                _this3.player.refreshEquipment();
-            }, 1);
-        }
-    }, {
-        key: "start",
-        value: function start() {
-            var _this4 = this;
-
-            this.input = this.engine.findByType(_InputModule2.default);
-            this.input.onKeyUp.add(function (e) {
-                if (e.keyCode == 81) {
-                    _this4.toggleBuilding();
-                }
-
-                if (e.keyCode == 49) {
-
-                    _this4.toggleDeck();
-                }
-            });
-        }
-    }, {
-        key: "toggleDeck",
-        value: function toggleDeck() {
-            if (!this.cardPlacementSystem.enabled) {
-                this.cardPlacementSystem.show();
-                _Eugine2.default.TimeScale = 0;
-            } else {
-                this.cardPlacementSystem.hide();
-                _Eugine2.default.TimeScale = 1;
-            }
-        }
-    }, {
-        key: "toggleBuilding",
-        value: function toggleBuilding() {
-            if (WorldSystem.CurrentMode == WorldSystem.CombatMode) {
-                this.setBuildingMode();
-            } else {
-                this.setCombatMode();
-            }
-        }
-    }, {
-        key: "setCombatMode",
-        value: function setCombatMode() {
-            WorldSystem.CurrentMode = WorldSystem.CombatMode;
-            this.buildingComponent.hide();
-        }
-    }, {
-        key: "setBuildingMode",
-        value: function setBuildingMode() {
-            WorldSystem.CurrentMode = WorldSystem.BuildingMode;
-            this.buildingComponent.show();
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-
-            if (!_Player2.default.MainPlayer) return;
-
-            if (WorldSystem.CurrentMode == WorldSystem.BuildingMode) {
-                this.buildingPositions.i = Math.floor(_Player2.default.MainPlayer.transform.position.x / this.tileSize);
-                this.buildingPositions.j = Math.floor(_Player2.default.MainPlayer.transform.position.y / this.tileSize);
-                this.buildingPositions.x = _Player2.default.MainPlayer.transform.position.x;
-                this.buildingPositions.y = _Player2.default.MainPlayer.transform.position.y;
-
-                this.buildingPositions.mouseX = Math.floor((this.input.globalMousePos.x + _Player2.default.MainPlayer.transform.position.x - _config2.default.width / 2) / this.tileSize) * this.tileSize;
-                this.buildingPositions.mouseY = Math.floor((this.input.globalMousePos.y + _Player2.default.MainPlayer.transform.position.y - _config2.default.height / 2) / this.tileSize) * this.tileSize;
-
-                this.buildingPositions.mouseX = this.input.globalMousePos.x + _Player2.default.MainPlayer.transform.position.x - _config2.default.width / 2;
-                this.buildingPositions.mouseY = this.input.globalMousePos.y + _Player2.default.MainPlayer.transform.position.y - _config2.default.height / 2;
-
-                this.buildingComponent.updateGridPosition(this.buildingPositions);
-                this.buildingComponent.updateMousePosition(this.buildingPositions);
-            }
-        }
-    }]);
-    return WorldSystem;
-}(_GameObject3.default);
-
-WorldSystem.CurrentMode = 0;
-WorldSystem.CombatMode = 0;
-WorldSystem.BuildingMode = 1;
-exports.default = WorldSystem;
-module.exports = exports["default"];
-
-/***/ }),
-/* 243 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BaseComponent2 = __webpack_require__(23);
-
-var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BuildingComponent = function (_BaseComponent) {
-    (0, _inherits3.default)(BuildingComponent, _BaseComponent);
-
-    function BuildingComponent() {
-        (0, _classCallCheck3.default)(this, BuildingComponent);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (BuildingComponent.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent)).call(this));
-
-        _this.acc = 0;
-
-        _this.gridContainer = new PIXI.Container();
-
-        _this.tile = new PIXI.Sprite.from('tile_0060');
-        _this.gridContainer.addChild(_this.tile);
-        _this.tile.width = 45;
-        _this.tile.height = 45;
-        _this.tile.alpha = 0.5;
-
-        _this.tile2 = new PIXI.Sprite.from('tile_0060');
-        _this.gridContainer.addChild(_this.tile2);
-        _this.tile2.width = 45;
-        _this.tile2.height = 45;
-        _this.tile2.tint = 0xFF0000;
-        _this.hide();
-        return _this;
-    }
-
-    (0, _createClass3.default)(BuildingComponent, [{
-        key: 'enable',
-        value: function enable() {
-            (0, _get3.default)(BuildingComponent.prototype.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent.prototype), 'enable', this).call(this);
-        }
-    }, {
-        key: 'setGameView',
-        value: function setGameView(container) {
-            this.container = container;
-            this.container.addChild(this.gridContainer);
-        }
-    }, {
-        key: 'hide',
-        value: function hide() {
-            this.gridContainer.visible = false;
-        }
-    }, {
-        key: 'show',
-        value: function show() {
-            this.gridContainer.visible = true;
-        }
-    }, {
-        key: 'destroy',
-        value: function destroy() {
-
-            this.container.removeChild(this.gridContainer);
-            (0, _get3.default)(BuildingComponent.prototype.__proto__ || (0, _getPrototypeOf2.default)(BuildingComponent.prototype), 'destroy', this).call(this);
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {}
-    }, {
-        key: 'updateMousePosition',
-        value: function updateMousePosition(mousePosition) {
-            this.tile2.x = mousePosition.mouseX;
-            this.tile2.y = mousePosition.mouseY;
-        }
-    }, {
-        key: 'updateGridPosition',
-        value: function updateGridPosition(playerPosition) {
-            this.tile.x = playerPosition.i * 45;
-            this.tile.y = playerPosition.j * 45;
-        }
-    }]);
-    return BuildingComponent;
-}(_BaseComponent3.default);
-
-exports.default = BuildingComponent;
-module.exports = exports['default'];
-
-/***/ }),
-/* 244 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _CardView = __webpack_require__(82);
-
-var _CardView2 = _interopRequireDefault(_CardView);
-
-var _Game = __webpack_require__(38);
-
-var _Game2 = _interopRequireDefault(_Game);
-
-var _GameObject = __webpack_require__(14);
-
-var _GameObject2 = _interopRequireDefault(_GameObject);
-
-var _GameView = __webpack_require__(22);
-
-var _GameView2 = _interopRequireDefault(_GameView);
-
-var _InteractableView = __webpack_require__(56);
-
-var _InteractableView2 = _interopRequireDefault(_InteractableView);
-
-var _RenderModule = __webpack_require__(13);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var CardPlacementSystem = function () {
-    function CardPlacementSystem(deckView, cardPlacementView) {
-        (0, _classCallCheck3.default)(this, CardPlacementSystem);
-
-        this.deckView = deckView;
-
-        this.deckView.onCardClicked.add(this.onCardEquipped.bind(this));
-        this.cardPlacementView = cardPlacementView;
-        this.enabled = false;
-        this.player = null;
-    }
-
-    (0, _createClass3.default)(CardPlacementSystem, [{
-        key: "build",
-        value: function build() {}
-    }, {
-        key: "onCardEquipped",
-        value: function onCardEquipped(cardData) {
-            this.player.addWeaponData(cardData);
-        }
-    }, {
-        key: "setPlayer",
-        value: function setPlayer(player) {
-            this.player = player;
-        }
-    }, {
-        key: "setWeapons",
-        value: function setWeapons(weapons) {
-            this.weapons = weapons;
-
-            this.deckView.buildCards(this.weapons.physical);
-        }
-    }, {
-        key: "show",
-        value: function show() {
-            this.enabled = true;
-
-            this.deckView.setActive(true);
-            this.cardPlacementView.setActive(true);
-        }
-    }, {
-        key: "hide",
-        value: function hide() {
-            this.enabled = false;
-
-            this.deckView.setActive(false);
-            this.cardPlacementView.setActive(false);
-        }
-    }, {
-        key: "update",
-        value: function update(delta, unscaleDelta) {
-            this.gameView.view.x = _Utils2.default.lerp(this.gameView.view.x, -this.gameView.view.width / 2, 0.1);
-        }
-    }, {
-        key: "disable",
-        value: function disable() {
-            (0, _get3.default)(CardPlacementSystem.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementSystem.prototype), "disable", this).call(this);
-            this.gameView.view.visible = false;
-        }
-    }, {
-        key: "enable",
-        value: function enable() {
-            (0, _get3.default)(CardPlacementSystem.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementSystem.prototype), "enable", this).call(this);
-            this.gameView.view.visible = true;
-        }
-    }]);
-    return CardPlacementSystem;
-}();
-
-exports.default = CardPlacementSystem;
-module.exports = exports["default"];
-
-/***/ }),
-/* 245 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _CardView = __webpack_require__(82);
-
-var _CardView2 = _interopRequireDefault(_CardView);
-
-var _Game = __webpack_require__(38);
-
-var _Game2 = _interopRequireDefault(_Game);
-
-var _GameObject2 = __webpack_require__(14);
-
-var _GameObject3 = _interopRequireDefault(_GameObject2);
-
-var _GameView = __webpack_require__(22);
-
-var _GameView2 = _interopRequireDefault(_GameView);
-
-var _InteractableView = __webpack_require__(56);
-
-var _InteractableView2 = _interopRequireDefault(_InteractableView);
-
-var _RenderModule = __webpack_require__(13);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var CardPlacementView = function (_GameObject) {
-    (0, _inherits3.default)(CardPlacementView, _GameObject);
-
-    function CardPlacementView() {
-        (0, _classCallCheck3.default)(this, CardPlacementView);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (CardPlacementView.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView)).call(this));
-
-        _this.gameView = new _GameView2.default(_this);
-        _this.gameView.layer = _RenderModule2.default.UILayer;
-        _this.gameView.view = new PIXI.Container();
-
-        _this.handCards = [];
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(CardPlacementView, [{
-        key: "build",
-        value: function build() {}
-    }, {
-        key: "update",
-        value: function update(delta, unscaleDelta) {}
-    }, {
-        key: "disable",
-        value: function disable() {
-            (0, _get3.default)(CardPlacementView.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView.prototype), "disable", this).call(this);
-            this.gameView.view.visible = false;
-        }
-    }, {
-        key: "enable",
-        value: function enable() {
-            (0, _get3.default)(CardPlacementView.prototype.__proto__ || (0, _getPrototypeOf2.default)(CardPlacementView.prototype), "enable", this).call(this);
-            this.gameView.view.visible = true;
-        }
-    }]);
-    return CardPlacementView;
-}(_GameObject3.default);
-
-exports.default = CardPlacementView;
-module.exports = exports["default"];
 
 /***/ }),
 /* 246 */
@@ -87317,7 +87350,7 @@ module.exports = exports['default'];
 /* 255 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/terrain/terrain.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

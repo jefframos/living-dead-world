@@ -177,9 +177,13 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
-                let closest = Math.random() * Math.PI * 2//this.getClosestEnemy()
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(closest) * 20, 0, parentGameObject.transform.position.z + Math.sin(closest) * 20);
-                bullet.shoot(closest+angleNoise, this.physics.magnitude)
+                let closestEnemy = this.getClosestEnemy()//Math.random() * Math.PI * 2//
+                let angle = Math.random() * Math.PI * 2;
+                if(closestEnemy.enemy){
+                    angle = closestEnemy.angle;
+                }
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(angle) * 20);
+                bullet.shoot(angle+angleNoise, this.physics.magnitude)
 
             } else if(weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang){
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);

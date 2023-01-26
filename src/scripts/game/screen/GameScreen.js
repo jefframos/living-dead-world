@@ -10,6 +10,7 @@ import DeckView from '../components/deckBuilding/DeckView';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import GameManager from '../manager/GameManager';
+import GameplaySessionController from '../manager/GameplaySessionController';
 import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
 import PerspectiveCamera from '../core/PerspectiveCamera';
@@ -25,7 +26,6 @@ import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
 import WeaponBuilder from './WeaponBuilder';
-import WorldSystem from '../manager/WorldSystem';
 import config from '../../config';
 
 export default class GameScreen extends Screen {
@@ -206,7 +206,7 @@ export default class GameScreen extends Screen {
     addRandomAgents(quant) {
         for (let index = 0; index < quant; index++) {
 
-            GameManager.instance.spawnEnemy();
+            GameManager.instance.spawnRandomEnemy();
            
 
         }
@@ -230,7 +230,7 @@ export default class GameScreen extends Screen {
             this.player.destroy();
         }
         this.player = this.gameManager.addEntity(Player, true)      
-        this.worldSystem.playerReady()  
+        this.gameSessionController.playerReady()  
         this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
         this.player.setPositionXZ(0,0)
@@ -289,7 +289,7 @@ export default class GameScreen extends Screen {
         this.gameEngine.start();
 
 
-        this.worldSystem = this.gameEngine.poolGameObject(WorldSystem, true);
+        this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
 
         this.spawnPlayer();
 
