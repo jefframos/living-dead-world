@@ -42,9 +42,11 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
 
     update(delta) {
         super.update(delta)
-        let frameCalc  = ParticleBehaviour[this.tween](this.currentTime / this.frameTime, 0, 1, 1) % 1;
-        this.currentFrame = Math.floor(frameCalc * this.frames.length)
+        let frame = ParticleBehaviour[this.tween](this.currentTime / this.frameTime, 0, 1, 1)
+        this.currentFrame = Math.floor(frame * (this.frames.length - 1)) % this.frames.length
+        
         this.currentValue[0] = PIXI.Texture.from(this.frames[this.currentFrame]);
+
         this.currentValue[1] = this.anchor;
     }
 }

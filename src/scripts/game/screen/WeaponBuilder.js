@@ -1,6 +1,8 @@
 import AuraProjectile from "../components/weapon/AuraProjectile";
+import Bullet from "../components/weapon/bullets/Bullet";
 import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
+import GameStaticData from "../data/GameStaticData";
 import GravityBullet from "../components/weapon/bullets/GravityBullet";
 import InGameWeapon from "../data/InGameWeapon";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
@@ -11,149 +13,33 @@ import WeaponAttributes from "../data/WeaponAttributes";
 import WeaponData from "../data/WeaponData";
 
 export default class WeaponBuilder {
+    static BulletsAvailable = [Bullet, GravityBullet]
+    static WeaponsAvailable = [AuraProjectile, FloatingProjectile]
     constructor() {
 
+        let vfxPackData = GameStaticData.instance.getAllDataFrom('vfx', 'weaponVFXPack');
+        this.weaponVFXPackData = {};
+        vfxPackData.forEach(element => {
+            if (this.weaponVFXPackData[element.id]) {
+                console.log('duplicated vfx pack data', element)
+            } else {
+                this.weaponVFXPackData[element.id] = this.makeSpriteSheetPack(element)
+            }
+        });
+        console.log('packs', this.weaponVFXPackData)
 
-        let bombVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-        bombVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.5,
-            startFrame: 1,
-            endFrame: 5,
-            spriteName: 'hit-d',
-            addZero: false,
-            lifeSpan: 9999
-        })
+        let weapons = GameStaticData.instance.getAllDataFrom('weapons', 'main');
 
 
-        let auraVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-        auraVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 3,
-            frameTime: 3 / 12,
-            startFrame: 1,
-            endFrame: 6,
-            spriteName: 'vfx-b',
-            addZero: false,
-            lifeSpan: 9999
-        })
-
-        let endAuraVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-        endAuraVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.5,
-            startFrame: 1,
-            endFrame: 5,
-            spriteName: 'vfx-b',
-            addZero: false,
-            lifeSpan: 9999
-        })
-
-        let meleeShockVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(10, 0, -30),
-            scale: 1
-        }
-        meleeShockVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.75,
-            startFrame: 1,
-            endFrame: 12,
-            spriteName: 'slash',
-            addZero: false,
-            lifeSpan: 9999,
-            anchor: { x: 0.2, y: 0.35 }
-        })
-
-        let impactShootSpawnVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-
-        impactShootSpawnVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.2,
-            startFrame: 1,
-            endFrame: 6,
-            spriteName: 'hit-l',
-            addZero: false,
-            lifeSpan: 9999
-        })
-        let impactShootSpawnVfxPack2 = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-
-        impactShootSpawnVfxPack2.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.2,
-            startFrame: 1,
-            endFrame: 5,
-            spriteName: 'hit-j',
-            addZero: false,
-            lifeSpan: 9999
-        })
-
-
-
-        let thunderBallVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-
-        thunderBallVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 9999,
-            frameTime: 0.5,
-            startFrame: 1,
-            endFrame: 12,
-            spriteName: 'small-spark',
-            addZero: false,
-            lifeSpan: 9999,
-            loop: true,
-        })
-
-
-        let hoamingVfxPack = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-
-        hoamingVfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 9999,
-            frameTime: 0.5,
-            startFrame: 1,
-            endFrame: 5,
-            spriteName: 'fire-missile',
-            addZero: false,
-            lifeSpan: 9999,
-            loop: true,
-        })
-        let spreadMagicVfx = {
-            descriptor: new ParticleDescriptor(),
-            offset: new Vector3(0, 0, 0),
-            scale: 1
-        }
-
-        spreadMagicVfx.descriptor.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 9999,
-            frameTime: 0.5,
-            startFrame: 1,
-            endFrame: 6,
-            spriteName: 'vfx-c',
-            addZero: false,
-            lifeSpan: 9999,
-            loop: true,
-        })
+        this.weaponsData = {};
+        weapons.forEach(element => {
+            if (this.weaponsData[element.id]) {
+                console.log('duplicated vfx pack data', element)
+            } else {
+                this.weaponsData[element.id] = this.makeWeapon(element)
+            }
+        });
+        console.log('weapons', this.weaponsData, weapons)
 
         this.damageAura = new WeaponData('Aura');
         this.damageAura.weaponType = WeaponData.WeaponType.Magic;
@@ -173,7 +59,8 @@ export default class WeaponBuilder {
         this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2
 
         //this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
-        this.damageAura.weaponViewData.addStandardVfx(auraVfxPack);
+
+        this.damageAura.weaponViewData.addStandardVfx(this.getVFXPack('AURA_PACK_01'));
 
         //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
 
@@ -181,12 +68,12 @@ export default class WeaponBuilder {
         this.damageAura.weaponViewData.baseViewData.alpha = 0.1
         this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
         this.damageAura.weaponViewData.baseViewData.offset.y = 0
+        this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.Botom
         this.damageAura.icon = 'vfx-b1'
         this.damageAura.customConstructor = AuraProjectile
 
         // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
         // this.damageAura.weaponViewData.baseViewData.scale = 1
-        this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.Botom
 
 
 
@@ -201,7 +88,7 @@ export default class WeaponBuilder {
         this.smallBomb.weaponAttributes.makeOverrider()
 
         this.smallBomb.weaponAttributes.overrider.baseRadius = 50
-        this.smallBomb.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
+        this.smallBomb.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
         this.smallBomb.weaponViewData.baseViewData.alpha = 0
         this.smallBomb.weaponViewData.baseViewData.offset.y = -20
         this.smallBomb.icon = 'hit-d3'
@@ -219,7 +106,7 @@ export default class WeaponBuilder {
 
         this.bombThrow.weaponAttributes.makeOverrider()
 
-        this.bombThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
+        this.bombThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
         this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1'
         this.bombThrow.weaponViewData.baseViewData.alpha = 1
         this.bombThrow.weaponViewData.baseViewData.scale = 0.25
@@ -242,7 +129,7 @@ export default class WeaponBuilder {
         this.facingMelee.weaponAttributes.makeOverrider()
 
 
-        this.facingMelee.weaponViewData.addSpawnVfx(meleeShockVfxPack);
+        this.facingMelee.weaponViewData.addSpawnVfx(this.getVFXPack('MELEE_SWORD_SHOCK_PACK_01'));
         this.facingMelee.weaponViewData.baseViewData.alpha = 0
         this.facingMelee.weaponViewData.baseViewData.offset.y = -20
         this.facingMelee.icon = 'slash4'
@@ -264,8 +151,8 @@ export default class WeaponBuilder {
         this.daggerThrow.weaponAttributes.makeOverrider()
 
 
-        this.daggerThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
-        this.daggerThrow.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
+        this.daggerThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
+        this.daggerThrow.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
 
 
         this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1'
@@ -287,7 +174,7 @@ export default class WeaponBuilder {
         this.boomerangThrow.weaponAttributes.makeOverrider()
 
 
-        this.boomerangThrow.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack);
+        this.boomerangThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
 
         this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118'
         this.boomerangThrow.weaponViewData.baseViewData.alpha = 1
@@ -311,9 +198,9 @@ export default class WeaponBuilder {
         this.floatingOrbit.weaponAttributes.makeOverrider()
 
 
-        this.floatingOrbit.weaponViewData.addStandardVfx(thunderBallVfxPack);
-        this.floatingOrbit.weaponViewData.addSpawnVfx(bombVfxPack);
-        this.floatingOrbit.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack);
+        this.floatingOrbit.weaponViewData.addStandardVfx(this.getVFXPack('THUNDER_BALL_PACK_01'));
+        this.floatingOrbit.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
+        this.floatingOrbit.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
 
         this.floatingOrbit.weaponAttributes.overrider.baseAmount = 1
 
@@ -336,14 +223,12 @@ export default class WeaponBuilder {
         this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.Hoaming
         this.hoaming.weaponAttributes.makeOverrider()
 
-        this.hoaming.weaponViewData.addStandardVfx(hoamingVfxPack);
+        this.hoaming.weaponViewData.addStandardVfx(this.getVFXPack('HOAMING_FIREBALL_PACK'));
 
-        this.hoaming.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2);
-        this.hoaming.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2);
+        this.hoaming.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
+        this.hoaming.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
 
 
-        // this.hoaming.weaponViewData.baseViewData.viewData = 'tile_0107'
-        // this.hoaming.weaponViewData.baseViewData.scale = 1
         this.hoaming.weaponViewData.baseViewData.offset.y = -20
         this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2
         this.hoaming.icon = 'fire-missile1'
@@ -366,7 +251,7 @@ export default class WeaponBuilder {
         this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131'
         this.multishot.weaponViewData.baseViewData.scale = 1
         this.multishot.weaponViewData.baseViewData.offset.y = -20
-        this.multishot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
+        this.multishot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
         this.multishot.weaponAttributes.overrider.baseAmount = 2
 
 
@@ -387,7 +272,7 @@ export default class WeaponBuilder {
         this.preciseShot.weaponViewData.baseViewData.viewData = 'tile_0131'
         this.preciseShot.weaponViewData.baseViewData.scale = 1
         this.preciseShot.weaponViewData.baseViewData.offset.y = -20
-        this.preciseShot.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack)
+        this.preciseShot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
         // this.preciseShot.weaponAttributes.overrider.baseAmount = 2
 
 
@@ -406,15 +291,120 @@ export default class WeaponBuilder {
         this.uniformTimeSpread.weaponAttributes.makeOverrider()
 
 
-        this.uniformTimeSpread.weaponViewData.addStandardVfx(spreadMagicVfx)
-        this.uniformTimeSpread.weaponViewData.addSpawnVfx(impactShootSpawnVfxPack2)
-        this.uniformTimeSpread.weaponViewData.addDestroyVfx(impactShootSpawnVfxPack2)
+        this.uniformTimeSpread.weaponViewData.addStandardVfx(this.getVFXPack('WATER_BALL_PACK'))
+        this.uniformTimeSpread.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'))
+        this.uniformTimeSpread.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'))
 
         this.uniformTimeSpread.weaponViewData.baseViewData.offset.y = -20
 
         this.uniformTimeSpread.icon = 'vfx-c1'
 
 
+    }
+    makeWeapon(weaponData) {
+        let weapon = new WeaponData(weaponData.name);
+
+
+        for (const key in weaponData) {
+            if (Object.hasOwnProperty.call(weapon, key)) {
+                weapon[key] = weaponData[key];
+
+            }
+        }
+
+        let att = weaponData.attributes;
+        let overrider = weaponData.overrider;
+
+        for (const key in att) {
+            if (Object.hasOwnProperty.call(weapon.weaponAttributes, key)) {
+                weapon.weaponAttributes[key] = att[key];
+
+            }
+        }
+
+        weapon.weaponAttributes.makeOverrider()
+
+        if (overrider) {
+            for (const key in overrider) {
+                if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, key)) {
+                    weapon.weaponAttributes.overrider[key] = overrider[key];
+
+                }
+            }
+        }
+
+        if (weaponData.view) {
+            for (const key in weaponData.view) {
+                if (Object.hasOwnProperty.call(weapon.weaponViewData, key)) {
+                    weapon.weaponViewData[key] = weaponData.view[key];
+                }
+            }
+
+            if (weaponData.view.overrider) {
+
+                
+                for (const key in weaponData.view.overrider) {
+                    if(weapon.weaponViewData[key]){
+                        for (const overriderKey in weaponData.view.overrider[key]) {
+                            if(weapon.weaponViewData[key][overriderKey] !== undefined){
+                                if(overriderKey == 'offset'){
+                                    console.log(weaponData.view.overrider,key, overriderKey, weaponData.view.overrider[key][overriderKey] )
+                                    weapon.weaponViewData[key][overriderKey].x = weaponData.view.overrider[key][overriderKey].x || 0;
+                                    weapon.weaponViewData[key][overriderKey].y = weaponData.view.overrider[key][overriderKey].y || 0;
+                                    weapon.weaponViewData[key][overriderKey].z = weaponData.view.overrider[key][overriderKey].z || 0;
+                                }else{
+                                    weapon.weaponViewData[key][overriderKey] = weaponData.view.overrider[key][overriderKey]
+                                }
+                                
+                            }
+                        }
+                    }
+                    
+                    if(weaponData.view['standardVfxPack']){
+                        weapon.weaponViewData.addStandardVfx(this.getVFXPack(weaponData.view['standardVfxPack']));
+                    }
+                    if(weaponData.view['spawnVfxPack']){
+                        weapon.weaponViewData.addSpawnVfx(this.getVFXPack(weaponData.view['spawnVfxPack']));
+                    }
+                    if(weaponData.view['destroyVfxPack']){
+                        weapon.weaponViewData.addDestroyVfx(this.getVFXPack(weaponData.view['destroyVfxPack']));
+                    }
+                }
+            }
+        }
+        if(weaponData.customConstructor){
+            weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor - 1]
+        }
+        if(weaponData.bulletComponent){
+            weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent - 1]
+        }
+
+        console.log("OFFSET NOT WORKING")
+
+        console.log(weapon)
+
+
+        return weapon
+    }
+    getVFXPack(vfxPackID) {
+        if (!this.weaponVFXPackData[vfxPackID]) {
+            console.error("the pack ", vfxPackID, "is not registerd");
+        }
+        return this.weaponVFXPackData[vfxPackID]
+    }
+    makeSpriteSheetPack(vfxPackData) {
+        let vfxPack = {
+            descriptor: new ParticleDescriptor(),
+            offset: vfxPackData.offset,
+            scale: vfxPackData.scale,
+            targetLayer: vfxPackData.targetLayer
+        }
+        let spriteSheetParams = GameStaticData.instance.getDataById('vfx', 'weaponVFX', vfxPackData.vfxData)
+        if (!spriteSheetParams) {
+            console.error('coudn\'t find VFX for', vfxPackData.vfxData);
+        }
+        vfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, spriteSheetParams)
+        return vfxPack;
     }
     addWeapons(player) {
 
@@ -451,24 +441,24 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.daggerThrow)
         // testWeapon.addWeapon(this.damageAura)
-        testWeapon.addWeapon(this.preciseShot)
+        //testWeapon.addWeapon(this.damageAura)
+        //testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+        //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             testWeapon.addWeapon(this.physical[i])
         }
         // //Utils.shuffle(a)
         let testWeapon2 = new InGameWeapon();
-        for (let i = 0; i < 2; i++) {
+        for (let i = 0; i < 3; i++) {
             testWeapon2.addWeapon(this.magical[i])
         }
-        testWeapon2.addWeapon(this.damageAura)
+        //testWeapon2.addWeapon(this.damageAura)
 
 
         // testWeapon.addWeapon(this.alternateMelee)
         //  testWeapon.addWeapon(this.uniformTimeSpread)
         // testWeapon.addWeapon(this.smallBomb)
-        console.log("CHeck the alternate weapon")
-        console.log("CHeck the hoaming to always find an enemy")
         //testWeapon.addWeapon(this.hoaming)
         // testWeapon.addWeapon(this.uniformTimeSpread)
         // testWeapon.addWeapon(this.boomerangThrow)

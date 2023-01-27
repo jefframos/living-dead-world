@@ -16,7 +16,6 @@ export default class GameManager {
         this.activeEnemies = [];
         this.entitiesByType = {};
 
-        this.gameStaticData = GameStaticData.instance;
         this.gameManagerStats = {
             GMtotalGameObjects: 0,
             GMenemiesDeaths: 0,
@@ -135,15 +134,12 @@ export default class GameManager {
         this.enemyGlobalSpawner.spawnEnemy(spawnData)
     }
     addEntity(constructor, buildParams) {
-
-
         let entity = this.gameEngine.poolGameObject(constructor, false)
         entity.build(buildParams)
 
         this.gameplayEntities.push(entity);
 
         this.gameManagerStats.GMtotalGameObjects = this.gameplayEntities.length
-        //entity.gameObjectDestroyed.remove(this.removeEntity.bind(this))
         entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
 
         if (entity.layerCategory && entity.layerCategory == Layer.Enemy) {
@@ -227,7 +223,13 @@ export default class GameManager {
             this.currentPhase %= this.levelStructure.phases.length;
         }
         phase.spawnData.forEach(spawnerData => {
-            if (!this.entitiesByType[this.gameStaticData.enemies[spawnerData.id].id] || this.entitiesByType[this.gameStaticData.enemies[spawnerData.id].id].length < spawnerData.max) {
+            let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnerData.id)
+            if(!enemyData){
+                console.log('No enemy data',spawnerData);
+                return;
+            }
+            if (!this.entitiesByType[enemyData.id] ||
+                this.entitiesByType[enemyData.id].length < spawnerData.max) {
                 this.spawnEnemy(spawnerData);
             }
         });

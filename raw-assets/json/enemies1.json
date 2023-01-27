@@ -1,5 +1,5 @@
 {
-    "enemies": [
+    "list": [
         {
             "name": "Goblin",
             "id": "GOBLIN_01",

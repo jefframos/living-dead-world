@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
 import GameScreen from './GameScreen';
+import GameStaticData from '../data/GameStaticData';
 import ScreenManager from '../../screenManager/ScreenManager';
 import ScreenTransition from './ScreenTransition';
 import config from '../../config';
@@ -10,6 +11,8 @@ export default class MainScreenManager extends ScreenManager {
     constructor() {
         super();
 
+
+        GameStaticData.instance.initialize();
 
         this.settings = {
             fps:60

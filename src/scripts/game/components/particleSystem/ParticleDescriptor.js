@@ -3,26 +3,26 @@ import * as PIXI from 'pixi.js';
 import Pool from '../../core/utils/Pool';
 
 export default class ParticleDescriptor {
-    constructor(data) {
+    constructor(data = {velocityX:0, velocityY:0, tint:0xFFFFFF}) {
+        this.baseData = data;
+        this.reset();
+    }
+    reset(){
         this.lifeSpan = 1;
         this.direction = 0;
         this.velocityX = 0;
         this.velocityY = 0;
         this.rotationSpeed = 0;
-
         this.blendMode = PIXI.BLEND_MODES.NORMAL;
-
         this.velocityOffsetX = 0;
         this.velocityOffsetY = 0;
-
         this.gravity = 0;
         this.scale = 1;
         this.texture = PIXI.Texture.EMPTY;
-        this.baseData = data;
         this.baseBehaviours = [];
         this.behaviours = [];
         this.tint = 0xFFFFFF;
-
+        this.baseAmount = 1;
         this.shouldDestroy = false;
     }
     findBehaviour(constructor) {
@@ -43,12 +43,15 @@ export default class ParticleDescriptor {
     }
     applyBaseData() {
         if (this.baseData) {
+            this.reset();
             for (const key in this.baseData) {
                 if (this[key] !== undefined) {
                     if (key == 'texture') {
                         if (Array.isArray(this.baseData[key])) {
                             this[key] = PIXI.Texture.from(this.baseData[key][Math.floor(Math.random() * this.baseData[key].length)]);
-                        } else {
+                        } else if (typeof this.baseData[key] === 'string' ){
+                            this[key] = PIXI.Texture.from(this.baseData[key]);
+                        }else{
                             this[key] = this.baseData[key];
                         }
                     } else {
@@ -65,7 +68,9 @@ export default class ParticleDescriptor {
     }
     clone(descriptor) {
         for (const key in this) {
-            this[key] = descriptor[key];
+            if(descriptor[key]){
+                this[key] = descriptor[key];
+            }
         }
         this.applyBaseData();
         this.shouldDestroy = false;
@@ -77,8 +82,6 @@ export default class ParticleDescriptor {
             behaviour.build(element.params);
             this.behaviours.push(behaviour);
         });
-
-
     }
     update(delta) {
         this.lifeSpan -= delta;
@@ -90,6 +93,4 @@ export default class ParticleDescriptor {
             element.update(delta);
         });
     }
-
-
 }

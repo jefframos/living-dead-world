@@ -114,7 +114,6 @@ export default class Player extends GameAgent {
         if (!inGameWeapon.hasWeapon) {
             return;
         }
-        console.log("addWeapon", inGameWeapon)
         let weaponData = inGameWeapon.mainWeapon
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
@@ -210,7 +209,7 @@ export default class Player extends GameAgent {
         if (this.distanceWalked > 50) {
             EffectsManager.instance.emitById(Vector3.XZtoXY(
                 Vector3.sum(Vector3.sum(this.transform.position, this.facingVector), new Vector3(0, 0, -20))
-            ), 'smokeTrail', 1)
+            ), 'SMOKE_01', 1)
 
             this.distanceWalked = 0;
         }

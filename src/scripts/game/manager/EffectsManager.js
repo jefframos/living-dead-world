@@ -1,9 +1,11 @@
 import AlphaBehaviour from "../components/particleSystem/particleBehaviour/AlphaBehaviour";
 import ColorBehaviour from "../components/particleSystem/particleBehaviour/ColorBehaviour";
 import GameObject from "../core/gameObject/GameObject";
+import GameStaticData from "../data/GameStaticData";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
 import ParticleEmitter from "../components/particleSystem/ParticleEmitter";
 import RenderModule from "../core/modules/RenderModule";
+import SinoidBehaviour from "../components/particleSystem/particleBehaviour/SinoidBehaviour";
 import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
 
 export default class EffectsManager extends GameObject {
@@ -12,6 +14,7 @@ export default class EffectsManager extends GameObject {
         Gameplay: 1,
         Botom: 2
     }
+    static ParticleBehaviours = [AlphaBehaviour, ColorBehaviour, SinoidBehaviour, SpriteSheetBehaviour]
     constructor(container, gameContainer) {
         super();
         EffectsManager.instance = this;
@@ -19,8 +22,6 @@ export default class EffectsManager extends GameObject {
         this.gameContainer = gameContainer;
 
         this.effectsContainer.alpha = true;
-
-
 
         this.skullDescriptor = new ParticleDescriptor(
             {
@@ -75,23 +76,21 @@ export default class EffectsManager extends GameObject {
             strokeThickness: 3,
         });
 
-        this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.5,
-            startFrame: 1,
-            endFrame: 7,
-            spriteName: 'hit-l',
-            addZero: false,
-        })
 
-        this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, {
-            time: 0.2,
-            startFrame: 1,
-            endFrame: 6,
-            spriteName: 'blood-2-',
-            addZero: false,
-        })
+
+        this.particleDescriptors = {};
+        this.makeDescriptors();
+        
+        console.log('>>>',this.particleDescriptors)
+
+        // this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
+        // this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'SMOKE_01'))
+
+        // this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
+        // this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'BLOD_SPLAT_01'))
+
+
+
 
         this.bloodDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
         this.bloodDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
@@ -100,6 +99,28 @@ export default class EffectsManager extends GameObject {
         this.labels = [];
         this.news = 0
         this.damageFontPool = [];
+    }
+    makeDescriptors() {
+        let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
+
+
+        descriptors.forEach(data => {
+            
+            this.particleDescriptors[data.id] = new ParticleDescriptor(data)
+    
+            if(data.behaviours){
+                data.behaviours.forEach(behaviour => {
+                    let behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId - 1];
+                    if(behaviourConstructor.name == SpriteSheetBehaviour.name){    
+                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor,GameStaticData.instance.getSharedDataById('vfx', behaviour.vfxId));
+                    }else{
+    
+                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor,behaviour)
+                    }
+                });
+    
+            }
+        });
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
@@ -153,23 +174,26 @@ export default class EffectsManager extends GameObject {
         text.alpha = 1
         text.text = value
         text.x = entity.gameView.x + Math.cos(ang) * dist
-        text.y = entity.gameView.y+ Math.sin(ang) * dist
+        text.y = entity.gameView.y + Math.sin(ang) * dist
         text.timer = 1
         text.anchor.set(0.5)
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 
-        //this.particleEmitter.emit(this.bloodDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 3);
-        //uses blod spritesheet
-        this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y], 1);
+        this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
 
+        //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        
     }
-
+    
     testParticles(entity, value) {
-        this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
+        //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
 
     emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
+
         if (target == EffectsManager.TargetLayer.Gameplay) {
             this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         } else {
@@ -179,9 +203,9 @@ export default class EffectsManager extends GameObject {
 
     emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
         if (target == EffectsManager.TargetLayer.Gameplay) {
-            this.particleEmitter.emit(this[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         } else {
-            this.particleEmitterBottom.emit(this[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         }
     }
 

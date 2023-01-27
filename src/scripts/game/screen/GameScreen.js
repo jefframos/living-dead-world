@@ -114,6 +114,9 @@ export default class GameScreen extends Screen {
             },
             KILL_ALL_ENEMIES: () => {
                 this.killAllEnemies();
+            },
+            BLOOD_SPLAT: () => {
+                this.effectsManager.testParticles(this.player);
             }
         }
         window.GUI.add(this.debug, 'timeScale', 0.1, 10);
@@ -125,6 +128,7 @@ export default class GameScreen extends Screen {
         window.GUI.add(this.debug, 'RESPAWN');
         window.GUI.add(this.debug, 'DAMAGE_PLAYER');
         window.GUI.add(this.debug, 'KILL_ALL_ENEMIES');
+        window.GUI.add(this.debug, 'BLOOD_SPLAT');
 
         //window.GUI.close()
 
@@ -183,7 +187,7 @@ export default class GameScreen extends Screen {
         }
 
         this.container.scale.set(1)
-        
+
         this.playerInventoryHud = new PlayerInventoryHud();
         this.addChild(this.playerInventoryHud)
     }
@@ -207,16 +211,16 @@ export default class GameScreen extends Screen {
         for (let index = 0; index < quant; index++) {
 
             GameManager.instance.spawnRandomEnemy();
-           
+
 
         }
     }
-    killAllEnemies(){
-        for (let index = this.gameManager.activeEnemies.length-1; index >=0 ; index--) {
+    killAllEnemies() {
+        for (let index = this.gameManager.activeEnemies.length - 1; index >= 0; index--) {
             const element = this.gameManager.activeEnemies[index];
             element.destroy();
         }
-        
+
     }
     killPlayer() {
         this.player.damage(50);
@@ -226,19 +230,19 @@ export default class GameScreen extends Screen {
     spawnPlayer() {
 
         console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
-        if(this.player && !this.player.isDead){
+        if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, true)      
-        this.gameSessionController.playerReady()  
+        this.player = this.gameManager.addEntity(Player, true)
+        this.gameSessionController.playerReady()
         this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
-        this.player.setPositionXZ(0,0)
+        this.player.setPositionXZ(0, 0)
 
         this.gameManager.start(this.player);
-        
+
         let angle = Math.PI * 2 * Math.random();
-       // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
+        // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
         // this.companion = this.gameManager.addEntity(Companion, true)
         // this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
@@ -260,7 +264,7 @@ export default class GameScreen extends Screen {
         //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
         //this.debug.ADD_ENEMIES();
         this.player.onDie.addOnce(() => {
-            setTimeout(() => {                
+            setTimeout(() => {
                 this.spawnPlayer()
             }, 1000);
         })
@@ -274,10 +278,10 @@ export default class GameScreen extends Screen {
             for (let indexj = 0; indexj <= j; indexj++) {
                 let targetPosition = { x: chunkX * index - 500 + (Math.random() * chunkX / 2), y: chunkY * indexj - 500 + (Math.random() * chunkY / 2) }
                 if (Math.random() < 0.5) {
-                    this.gameManager.addEntity(Trees, {x:targetPosition.x, y:targetPosition.y, width:50, height:50})
+                    this.gameManager.addEntity(Trees, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 } else {
 
-                    this.gameManager.addEntity(StaticPhysicObject, {x:targetPosition.x, y:targetPosition.y, width:50, height:50})
+                    this.gameManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 }
             }
         }

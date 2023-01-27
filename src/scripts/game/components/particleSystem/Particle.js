@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js';
 
 import ParticleDescriptor from './ParticleDescriptor'
+import Pool from '../../core/utils/Pool';
 
 export default class Particle {
 
     constructor() {
-        this.descriptor = new ParticleDescriptor();
+        this.descriptor = Pool.instance.getElement(ParticleDescriptor);
         this.sprite = new PIXI.Sprite(PIXI.Texture.EMPTY);
     }
 
@@ -20,6 +21,8 @@ export default class Particle {
 
     }
     build(descriptor) {
+        this.descriptor = Pool.instance.getElement(ParticleDescriptor);
+        this.descriptor.reset()
         this.descriptor.clone(descriptor);
         this.sprite.texture = this.descriptor.texture ? this.descriptor.texture : PIXI.Texture.EMPTY;
         this.sprite.tint = this.descriptor.tint;
@@ -29,11 +32,14 @@ export default class Particle {
         } else {
             this.sprite.anchor.set(0.5)
         }
-        
+
         this.sprite.rotation = 0;
         this.sprite.alpha = 1;
         this.sprite.scale.set(this.descriptor.scale);
         this.sprite.blendMode = this.descriptor.blendMode;
+
+        this.update(0)
+
     }
     update(delta) {
         this.descriptor.update(delta);
@@ -51,18 +57,21 @@ export default class Particle {
                     this.descriptor[element.property] = element.currentValue;
                 }
             } else if (element.type == 'sprite') {
-                if(Array.isArray(element.property)) {
-                    for (var i = 0; i < element.property.length;i++){
+                if (Array.isArray(element.property)) {
+                    for (var i = 0; i < element.property.length; i++) {
                         if (this.sprite[element.property[i]] !== undefined) {
                             this.sprite[element.property[i]] = element.currentValue[i];
                         }
                     }
-                }else{
+                } else {
                     if (this.sprite[element.property] !== undefined) {
                         this.sprite[element.property] = element.currentValue;
                     }
                 }
             }
         });
+    }
+    destroy() {
+        Pool.instance.returnElement(this.descriptor);
     }
 }

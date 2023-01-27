@@ -45,31 +45,31 @@ export default class EntityViewData {
         }
     }
 
-    addSpawnVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
+    addSpawnVfx(vfxPack) {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
-        this.baseSpawnViewData.targetLayer = targetLayer;
+        this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData)
     }
 
-    addDestroyVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
+    addDestroyVfx(vfxPack) {
         this.baseDestroyViewData.viewData = vfxPack.descriptor
         this.baseDestroyViewData.offset = vfxPack.offset;
         this.baseDestroyViewData.scale = vfxPack.scale;
-        this.baseDestroyViewData.targetLayer = targetLayer;
+        this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
 
         this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseDestroyViewData)
 
     }
 
-    addStandardVfx(vfxPack, targetLayer = EffectsManager.TargetLayer.Gameplay) {
+    addStandardVfx(vfxPack) {
         this.baseViewData.viewData = vfxPack.descriptor
         this.baseViewData.offset = vfxPack.offset;
         this.baseViewData.scale = vfxPack.scale;
-        this.baseViewData.targetLayer = targetLayer;
+        this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
         this.baseViewData.movementType = EntityViewData.MovementType.Follow;
 
         this.baseViewData.viewType = EntityViewData.ViewType.SpriteSheet;

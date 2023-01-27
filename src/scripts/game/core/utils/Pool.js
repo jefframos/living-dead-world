@@ -28,21 +28,21 @@ export default class Pool {
                 newElement.setDebug()
             }
         }
+        
         return newElement;
-
+        
     }
     getPool(constructor) {
         if (!this.pool[constructor.name]) {
             return []
         }
-
+        
         return this.pool[constructor.name]
     }
     returnElement(element) {
         if (!this.pool[element.constructor.name]) {
             this.pool[element.constructor.name] = []
         }
-
         this.pool[element.constructor.name].push(element)
     }
 }

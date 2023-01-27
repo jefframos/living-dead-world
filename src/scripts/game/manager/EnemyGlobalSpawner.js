@@ -1,4 +1,5 @@
 import BaseEnemy from "../entity/BaseEnemy";
+import GameStaticData from "../data/GameStaticData";
 import Utils from "../core/utils/Utils";
 
 export default class EnemyGlobalSpawner {
@@ -19,7 +20,7 @@ export default class EnemyGlobalSpawner {
 
     }
     spawnRandom(){
-        this.spawnSingleEntity(this.gameManager.gameStaticData.enemies[Math.floor(Math.random() * this.gameManager.gameStaticData.enemies.length)]);
+        this.spawnSingleEntity(GameStaticData.instance.getEntityByIndex('enemy', 0));
     }
     spawnEnemy(spawnData) {
         if (!spawnData.spawnParameters || !spawnData.spawnParameters.areaType) {
@@ -52,7 +53,10 @@ export default class EnemyGlobalSpawner {
     }
     spawnSingleEntityFromSpawner(spawnData) {
 
-        let enemyData = this.gameManager.gameStaticData.enemies[spawnData.id];
+        let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnData.id);
+
+
+        
 
         //find out if uses baseEnemy
         let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
@@ -63,7 +67,7 @@ export default class EnemyGlobalSpawner {
             this.gameManager.player.transform.position.x + circleRandom.x * this.distanceToSpawn
             , this.gameManager.player.transform.position.z + circleRandom.y * this.distanceToSpawn)
 
-
+            
     }
     spawnRectGroup(spawnData) {
 
@@ -75,7 +79,7 @@ export default class EnemyGlobalSpawner {
 
         for (let index = 0; index < spawnData.spawnParameters.total; index++) {
             
-            let enemyData = this.gameManager.gameStaticData.enemies[spawnData.id];
+            let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnData.id);;
             let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
 
             circleRandom = Utils.randomRect()
@@ -95,7 +99,7 @@ export default class EnemyGlobalSpawner {
 
         for (let index = 0; index < spawnData.spawnParameters.total; index++) {
             
-            let enemyData = this.gameManager.gameStaticData.enemies[spawnData.id];
+            let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnData.id);;
             let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
 
             circleRandom = Utils.randomCircle()
