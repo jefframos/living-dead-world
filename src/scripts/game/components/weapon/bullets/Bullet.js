@@ -34,7 +34,8 @@ export default class Bullet extends PhysicsEntity {
         super.build()
         this.weapon = weapon;
 
-        if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.Botom) {
+        console.log('weapon.weaponViewData.baseViewData.targetLayer',weapon.weaponViewData.baseViewData.targetLayer)
+        if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.BaseLayer) {
             if (this.gameView.layer != RenderModule.RenderLayers.Default) {
 
                 this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Default)

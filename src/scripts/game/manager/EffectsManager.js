@@ -11,10 +11,15 @@ import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour
 export default class EffectsManager extends GameObject {
     static instance;
     static TargetLayer = {
-        Gameplay: 1,
-        Botom: 2
+        GameplayLayer: 'GameplayLayer',
+        BaseLayer: 'BaseLayer'
     }
-    static ParticleBehaviours = [AlphaBehaviour, ColorBehaviour, SinoidBehaviour, SpriteSheetBehaviour]
+    static ParticleBehaviours = {
+        Alpha: AlphaBehaviour,
+        Color: ColorBehaviour,
+        Sinoid: SinoidBehaviour,
+        SpriteSheet: SpriteSheetBehaviour
+    }
     constructor(container, gameContainer) {
         super();
         EffectsManager.instance = this;
@@ -80,8 +85,8 @@ export default class EffectsManager extends GameObject {
 
         this.particleDescriptors = {};
         this.makeDescriptors();
-        
-        console.log('>>>',this.particleDescriptors)
+
+        console.log('>>>', this.particleDescriptors)
 
         // this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
         // this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'SMOKE_01'))
@@ -105,22 +110,42 @@ export default class EffectsManager extends GameObject {
 
 
         descriptors.forEach(data => {
-            
+
             this.particleDescriptors[data.id] = new ParticleDescriptor(data)
-    
-            if(data.behaviours){
-                data.behaviours.forEach(behaviour => {
-                    let behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId - 1];
-                    if(behaviourConstructor.name == SpriteSheetBehaviour.name){    
-                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor,GameStaticData.instance.getSharedDataById('vfx', behaviour.vfxId));
-                    }else{
-    
-                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor,behaviour)
+            console.log(data)
+
+            if (data.baseBehaviours) {
+
+                if (Array.isArray(data.baseBehaviours)) {
+
+                    data.baseBehaviours.forEach(behaviour => {
+                        console.log(behaviour)
+                        let behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId];
+                        if (behaviourConstructor.name == SpriteSheetBehaviour.name) {
+                            this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, GameStaticData.instance.getSharedDataById('vfx', behaviour.vfxId));
+                        } else {
+
+                            this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, behaviour)
+                        }
+                    });
+                } else {
+                    EffectsManager.ParticleBehaviours[data.baseBehaviours];
+                    let behaviour = GameStaticData.instance.getDataById('vfx', 'behaviours', data.baseBehaviours)
+                    let behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId]
+
+                    if (behaviourConstructor.name == SpriteSheetBehaviour.name) {
+                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, GameStaticData.instance.getSharedDataById('vfx', behaviour.vfxId));
+                    } else {
+
+                        this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, behaviour)
                     }
-                });
-    
+
+                }
+
             }
         });
+
+        console.log(this.particleDescriptors['BLOOD_SPLAT'])
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
@@ -181,28 +206,28 @@ export default class EffectsManager extends GameObject {
         this.effectsContainer.addChild(text)
 
         //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y], 1);
-        this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
+        //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
 
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-        
+
     }
-    
+
     testParticles(entity, value) {
         this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
 
-    emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
+    emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
 
-        if (target == EffectsManager.TargetLayer.Gameplay) {
+        if (target == EffectsManager.TargetLayer.GameplayLayer) {
             this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         } else {
             this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         }
     }
 
-    emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.Gameplay) {
-        if (target == EffectsManager.TargetLayer.Gameplay) {
+    emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
+        if (target == EffectsManager.TargetLayer.GameplayLayer) {
             this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
         } else {
             this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);

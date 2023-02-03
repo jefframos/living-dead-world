@@ -1,4 +1,6 @@
+import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
+import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import Layer from "../core/Layer";
 import Player from "./Player";
@@ -22,9 +24,9 @@ export default class BaseEnemy extends GameAgent {
         super.build();
 
         this.staticData = enemyData;
-        this.attributes = enemyData.attributes;        
-        this.viewData = enemyData.view;        
-        
+        this.attributes = enemyData.attributes;
+        this.viewData = enemyData.view;
+
         this.buildCircle(0, 0, this.attributes.radius);
         this.rigidBody.isSensor = false;
         this.layerCategory = Layer.Enemy
@@ -33,10 +35,10 @@ export default class BaseEnemy extends GameAgent {
 
 
         this.speed = this.attributes.speed;
-        this.health.setNewHealth(this.attributes.hp)     
+        this.health.setNewHealth(this.attributes.hp)
 
         //view related attributes
-        if(this.viewData.jumpHight){
+        if (this.viewData.jumpHight) {
             this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
         }
         let spriteFacing = this.addComponent(SpriteFacing);
@@ -44,39 +46,50 @@ export default class BaseEnemy extends GameAgent {
         spriteFacing.startScaleX = -1
 
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
-        if(this.viewData.zombieWalk){
+        if (this.viewData.zombieWalk) {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
         let animData1 = {}
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = enemyData.animationData.idle
-        animData1[GameViewSpriteSheet.AnimationType.Running] = enemyData.animationData.running
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
+
+        let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
+        if (run) {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
+        } else {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
+        }
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
 
-        if(this.viewData.anchor){
-            this.gameView.view.anchor.set(this.viewData.anchor.x,this.viewData.anchor.y)
-        }else{
+        if (this.viewData.anchor) {
+            this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)
+        } else {
             this.gameView.view.anchor.set(0.5, 1)
         }
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * (this.viewData.scale?this.viewData.scale:1)));
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * (this.viewData.scale ? this.viewData.scale : 1)));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
 
-        this.transform.position.y = this.viewData.offsetY
+        if (this.viewData.offset) {
+            if (this.viewData.offset.y) {
+                this.transform.position.y = this.viewData.offset.y
+            }
+        }
     }
+
     destroy() {
         super.destroy();
     }
     update(delta) {
 
         if (!this.dying) {
-            if(Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000){
+            if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000) {
                 this.destroy();
             }
             this.timer += delta * (this.speed * delta * Math.random())
-            
+
             let dir = Math.atan2(Player.MainPlayer.transform.position.z - this.transform.position.z, Player.MainPlayer.transform.position.x - this.transform.position.x)//this.timer
             this.physics.velocity.x = Math.cos(dir) * this.speed * this.speedAdjust * delta
             this.physics.velocity.z = Math.sin(dir) * this.speed * this.speedAdjust * delta

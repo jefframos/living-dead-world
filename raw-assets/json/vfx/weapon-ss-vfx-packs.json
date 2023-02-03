@@ -22,8 +22,8 @@
                 "y": 0,
                 "z": 0
             },
-            "scale": 1,
-            "targetLayer":2
+            "scale": 1.2,
+            "targetLayer": "BaseLayer"
         },
         {
             "id": "END_AURA_PACK_01",

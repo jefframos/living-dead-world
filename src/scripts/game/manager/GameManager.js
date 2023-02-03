@@ -179,13 +179,13 @@ export default class GameManager {
         }
     }
     entityDamaged(entity, value) {
-        if (entity.dying) return;
-        EffectsManager.instance.popDamage(entity.gameObject, value)
+        // if (entity.dying) return;
+        // EffectsManager.instance.popDamage(entity.gameObject, value)
     }
 
     entityKilled(entity, value) {
-        this.gameManagerStats.GMenemiesDeaths++;
-        EffectsManager.instance.popKill(entity.gameObject, value)
+        // this.gameManagerStats.GMenemiesDeaths++;
+        // EffectsManager.instance.popKill(entity.gameObject, value)
     }
     findClosestEnemy(point) {
         let closest = 0;
@@ -210,7 +210,7 @@ export default class GameManager {
 
         this.gameManagerStats.Time = this.gameplayTime
 
-        if (this.gameplayTime > 1) {
+        if (this.gameplayTime > 0) {
             this.updateLevelPhase();
         }
         this.gameManagerStats.Phase = this.currentPhase

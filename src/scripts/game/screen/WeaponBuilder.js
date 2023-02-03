@@ -1,4 +1,5 @@
 import AuraProjectile from "../components/weapon/AuraProjectile";
+import BaseWeapon from "../components/weapon/BaseWeapon";
 import Bullet from "../components/weapon/bullets/Bullet";
 import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
@@ -13,20 +14,27 @@ import WeaponAttributes from "../data/WeaponAttributes";
 import WeaponData from "../data/WeaponData";
 
 export default class WeaponBuilder {
-    static BulletsAvailable = [Bullet, GravityBullet]
-    static WeaponsAvailable = [AuraProjectile, FloatingProjectile]
+    static BulletsAvailable = {
+        Bullet: Bullet,
+        GravityBullet: GravityBullet
+    }
+    static WeaponsAvailable = {
+        BaseWeapon: BaseWeapon,
+        AuraProjectile: AuraProjectile,
+        FloatingProjectile: FloatingProjectile
+    }
     constructor() {
 
         let vfxPackData = GameStaticData.instance.getAllDataFrom('vfx', 'weaponVFXPack');
         this.weaponVFXPackData = {};
         vfxPackData.forEach(element => {
             if (this.weaponVFXPackData[element.id]) {
-                console.log('duplicated vfx pack data', element)
+                
             } else {
                 this.weaponVFXPackData[element.id] = this.makeSpriteSheetPack(element)
             }
         });
-        console.log('packs', this.weaponVFXPackData)
+        
 
         let weapons = GameStaticData.instance.getAllDataFrom('weapons', 'main');
 
@@ -34,12 +42,13 @@ export default class WeaponBuilder {
         this.weaponsData = {};
         weapons.forEach(element => {
             if (this.weaponsData[element.id]) {
-                console.log('duplicated vfx pack data', element)
+                
             } else {
                 this.weaponsData[element.id] = this.makeWeapon(element)
             }
         });
-        console.log('weapons', this.weaponsData, weapons)
+        
+        console.log('<<<>>>',this.weaponsData)
 
         this.damageAura = new WeaponData('Aura');
         this.damageAura.weaponType = WeaponData.WeaponType.Magic;
@@ -68,7 +77,7 @@ export default class WeaponBuilder {
         this.damageAura.weaponViewData.baseViewData.alpha = 0.1
         this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
         this.damageAura.weaponViewData.baseViewData.offset.y = 0
-        this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.Botom
+        this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.BaseLayer
         this.damageAura.icon = 'vfx-b1'
         this.damageAura.customConstructor = AuraProjectile
 
@@ -304,6 +313,7 @@ export default class WeaponBuilder {
     makeWeapon(weaponData) {
         let weapon = new WeaponData(weaponData.name);
 
+        console.log("RAW",weaponData)
 
         for (const key in weaponData) {
             if (Object.hasOwnProperty.call(weapon, key)) {
@@ -342,47 +352,46 @@ export default class WeaponBuilder {
 
             if (weaponData.view.overrider) {
 
-                
+
                 for (const key in weaponData.view.overrider) {
-                    if(weapon.weaponViewData[key]){
+                    if (weapon.weaponViewData[key]) {
                         for (const overriderKey in weaponData.view.overrider[key]) {
-                            if(weapon.weaponViewData[key][overriderKey] !== undefined){
-                                if(overriderKey == 'offset'){
-                                    console.log(weaponData.view.overrider,key, overriderKey, weaponData.view.overrider[key][overriderKey] )
+                            if (weapon.weaponViewData[key][overriderKey] !== undefined) {
+                                if (overriderKey == 'offset') {
+                                    
                                     weapon.weaponViewData[key][overriderKey].x = weaponData.view.overrider[key][overriderKey].x || 0;
                                     weapon.weaponViewData[key][overriderKey].y = weaponData.view.overrider[key][overriderKey].y || 0;
                                     weapon.weaponViewData[key][overriderKey].z = weaponData.view.overrider[key][overriderKey].z || 0;
-                                }else{
+                                } else {
                                     weapon.weaponViewData[key][overriderKey] = weaponData.view.overrider[key][overriderKey]
                                 }
-                                
+
                             }
                         }
                     }
-                    
-                    if(weaponData.view['standardVfxPack']){
-                        weapon.weaponViewData.addStandardVfx(this.getVFXPack(weaponData.view['standardVfxPack']));
-                    }
-                    if(weaponData.view['spawnVfxPack']){
-                        weapon.weaponViewData.addSpawnVfx(this.getVFXPack(weaponData.view['spawnVfxPack']));
-                    }
-                    if(weaponData.view['destroyVfxPack']){
-                        weapon.weaponViewData.addDestroyVfx(this.getVFXPack(weaponData.view['destroyVfxPack']));
-                    }
+
                 }
             }
         }
-        if(weaponData.customConstructor){
-            weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor - 1]
+        if (weaponData.view['standardVfxPack']) {
+            weapon.weaponViewData.addStandardVfx(this.getVFXPack(weaponData.view['standardVfxPack']));
         }
-        if(weaponData.bulletComponent){
-            weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent - 1]
+        if (weaponData.view['spawnVfxPack']) {
+            weapon.weaponViewData.addSpawnVfx(this.getVFXPack(weaponData.view['spawnVfxPack']));
         }
-
-        console.log("OFFSET NOT WORKING")
-
-        console.log(weapon)
-
+        if (weaponData.view['destroyVfxPack']) {
+            weapon.weaponViewData.addDestroyVfx(this.getVFXPack(weaponData.view['destroyVfxPack']));
+        }
+        if (weaponData.customConstructor) {
+            weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor]
+        }else{
+            weapon.customConstructor = WeaponBuilder.WeaponsAvailable.BaseWeapon;
+        }
+        if (weaponData.bulletComponent) {
+            weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
+        }else{
+            weapon.bulletComponent = WeaponBuilder.BulletsAvailable.Bullet;
+        }
 
         return weapon
     }
@@ -434,7 +443,6 @@ export default class WeaponBuilder {
         // testWeapon.addWeapon(this.hoaming)
         // testWeapon.addWeapon(this.bombThrow)
         // testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.multishot)
         // testWeapon.addWeapon(this.hoaming)
         //testWeapon.addWeapon(this.multishot)
         //testWeapon.addWeapon(this.smallBomb)
@@ -443,15 +451,23 @@ export default class WeaponBuilder {
         // testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+        testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
+
+        
+        
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
+        for (const key in this.multishot.weaponViewData) {
+            
+        }
+
         for (let i = 0; i < 3; i++) {
-            testWeapon.addWeapon(this.physical[i])
+            //testWeapon.addWeapon(this.physical[i])
         }
         // //Utils.shuffle(a)
         let testWeapon2 = new InGameWeapon();
         for (let i = 0; i < 3; i++) {
-            testWeapon2.addWeapon(this.magical[i])
+            //testWeapon2.addWeapon(this.magical[i])
         }
         //testWeapon2.addWeapon(this.damageAura)
 
@@ -478,7 +494,7 @@ export default class WeaponBuilder {
 
         player.addWeapon(testWeapon)
 
-        console.log(testWeapon)
+        
         player.addWeapon(testWeapon2)
 
     }

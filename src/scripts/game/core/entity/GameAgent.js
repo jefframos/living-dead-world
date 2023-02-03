@@ -1,3 +1,4 @@
+import EffectsManager from "../../manager/EffectsManager";
 import GameView from "../view/GameView";
 import Health from "../../components/Health";
 import PhysicsEntity from "../physics/PhysicsEntity";
@@ -17,9 +18,9 @@ export default class GameAgent extends PhysicsEntity {
         this.shadow.tint = 0;
         this.shadow.scale.set(30 / this.shadow.width)
         this.shadow.scale.y = this.shadow.scale.x * 0.4
-        
+        this.staticData = {};
         this.currentEnemiesColliding = [];
-    
+
 
         if (debug) {
             this.setDebug(15)
@@ -27,28 +28,41 @@ export default class GameAgent extends PhysicsEntity {
 
     }
     get isDead() { return this.health.currentHealth <= 0 }
-    findInCollision(entity){
+    findInCollision(entity) {
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
-            if(this.currentEnemiesColliding[index].entity == entity){
+            if (this.currentEnemiesColliding[index].entity == entity) {
                 return true;
             }
-            
+
         }
         return false;
     }
-    damage(value){
+
+    die() {
+        super.die();
+    }
+
+    damage(value) {
+        EffectsManager.instance.popDamage(this, value)
+        this.playVfx('onHit')
         return this.health.damage(value);
     }
     die() {
-        if(this.dying){
+        if (this.dying) {
             return;
         }
-        //console.log("DIE")
+
+        this.playVfx('onDie')
         this.rigidBody.isSensor = true;
         this.dying = true;
         this.onDie.dispatch(this);
         this.destroy()
     }
+    playVfx(type) {
+        if (!this.staticData || !this.staticData.vfx || !this.staticData.vfx[type]) { return }
+        EffectsManager.instance.emitById(this.gameView.view.position, this.staticData.vfx[type])
+    }
+
     onAnimationEnd(animation, state) { }
     start() {
         super.start();
@@ -60,10 +74,10 @@ export default class GameAgent extends PhysicsEntity {
 
         this.health = this.addComponent(Health)
         this.health.removeAllSignals();
-        
+
         this.health.gotKilled.add(this.die.bind(this))
         this.health.reset()
-        
+
         this.angleChunk = 360 / this.totalDirections;
         this.angleChunkRad = Math.PI * 2 / this.totalDirections;
         this.timer = Math.random()
@@ -71,13 +85,13 @@ export default class GameAgent extends PhysicsEntity {
         this.speedAdjust = 1;
         this.dying = false;
 
-        
+
     }
     update(delta) {
         super.update(delta);
 
         this.gameView.update(delta)
-        
+
 
         this.shadow.x = this.transform.position.x
         this.shadow.y = this.transform.position.z
@@ -90,7 +104,7 @@ export default class GameAgent extends PhysicsEntity {
     injectAnimations(animations, flipped) {
         animations.forEach(element => {
             for (let index = this.totalDirections; index >= 1; index--) {
-                let angId = Math.round(index * ((flipped?180:360) / this.totalDirections))
+                let angId = Math.round(index * ((flipped ? 180 : 360) / this.totalDirections))
                 this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop)
             }
         });
@@ -101,21 +115,21 @@ export default class GameAgent extends PhysicsEntity {
     onRender() {
     }
     destroy() {
-        if(this.isDestroyed) return;
+        if (this.isDestroyed) return;
         super.destroy();
 
         //this.view.visible = false;
     }
 
     calcFrame() {
-        let ang = (this.transform.angle) * 180 / Math.PI + 90        
-        
+        let ang = (this.transform.angle) * 180 / Math.PI + 90
+
         if (ang < 0 || ang > 180) {
             this.view.scale.x = -Math.abs(this.view.scale.x)
         } else {
             this.view.scale.x = Math.abs(this.view.scale.x)
         }
-        
+
         ang = Math.abs(ang)
         if (ang > 180) {
             ang = 180 - ang % 180

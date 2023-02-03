@@ -64,8 +64,47 @@
     },
     "list": [
         {
-            "name": "Damage Aura",
             "id": "PLAYER_AURA",
+            "isMain": true,
+            "icon": "vfx-b1",
+            "name": "Aura",
+            "type": "Magical",
+            "customConstructor": "AuraProjectile",
+            "overrider": "PLAYER_AURA_OVERRIDER",
+            "attributes": {
+                "baseRange": 50,
+                "baseRadius": 50,
+                "baseLifeSpan": 3,
+                "baseLifeRangeSpan": -1,
+                "basePower": 50,
+                "baseBulletSpeed": 0,
+                "baseFrequency": 3,
+                "basePiercing": 9999,
+                "baseAmount": 1,
+                "baseDamageZone": 80,
+                "baseDetectionZone": 500,
+                "baseDamageOverTime": 0.5,
+                "baseDirectionType": "FacingPlayer",
+                "baseBlockType": "IgnoreEnemyBullets",
+                "baseBrustFire": {
+                    "amount": 0,
+                    "interval": 0
+                },
+                "baseBaseShootArc": 0,
+                "baseGeneralOffset": 0,
+                "baseForceField": false,
+                "baseForceFeedback": 0,
+                "baseAngleOffset": 0,
+                "baseAngleNoise": 0
+            },
+            "view": {
+                "rotationSpeed": 0,
+                "standardVfxPack": "AURA_PACK_01"
+            }
+        },
+        {
+            "name": "Damage Aura",
+            "id": "PLAYER_AURA_BASE",
             "type": 2,
             "icon": "vfx-b1",
             "customConstructor": 1,
@@ -118,7 +157,7 @@
                     "baseViewData": {
                         "alpha": 0.1,
                         "offset": {
-                            "y": 20
+                            "y": -20
                         }
                     }
                 },
@@ -153,7 +192,7 @@
                     "baseViewData": {
                         "viewData": "tile_0131",
                         "offset": {
-                            "y": 20
+                            "y": -20
                         }
                     }
                 },

@@ -1,4 +1,5 @@
 import { Assets } from 'pixi.js';
+import EnemyStaticData from './EnemyStaticData';
 import Game from '../../Game';
 
 export default class GameStaticData {
@@ -12,7 +13,7 @@ export default class GameStaticData {
     }
 
     constructor() {
-        this.staticAssets = {};
+        this.staticAssets = {};        
     }
 
     initialize() {
@@ -20,11 +21,15 @@ export default class GameStaticData {
             { type:'entities', list: 'enemy', path: ['enemies1'] },
             { type:'weapons', list: 'main', path: ['mainWeapons'] },
             
+            { type:'animation',list: 'entity', path: ['entity-animation'], shared:true },
+
             { type:'vfx',list: 'weaponVFX', path: ['weapon-ss-vfx'], shared:true },
             { type:'vfx',list: 'entityVFXPack', path: ['entity-ss-vfx'] , shared:true},
 
             { type:'vfx',list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
-            { type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
+            //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
+            { type:'vfx',list: 'particleDescriptors', path: ['effects-descriptors'] },
+            { type:'vfx',list: 'behaviours', path: ['vfx-behaviours'] },
         ]
 
         loadList.forEach(element => {
@@ -41,6 +46,9 @@ export default class GameStaticData {
 
             element.path.forEach(jsonPath => {
                 let data = Game.MainLoader.resources[jsonPath].data.list
+                if(!data){
+                    data = Game.MainLoader.resources[jsonPath].data;
+                }
                 data.forEach(row => {
                     this.staticAssets[element.type][element.list].allElements.push(row);
                     this.staticAssets[element.type][element.list][row.id] = row;

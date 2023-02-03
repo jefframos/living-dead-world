@@ -40,7 +40,7 @@ export default class EntityViewData {
             width: 1,
             height: 1,
             maxHeight:0,
-            targetLayer: EffectsManager.TargetLayer.Gameplay
+            targetLayer: EffectsManager.TargetLayer.GameplayLayer
 
         }
     }
@@ -49,7 +49,7 @@ export default class EntityViewData {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
-        this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
+        this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData)
     }
@@ -58,7 +58,7 @@ export default class EntityViewData {
         this.baseDestroyViewData.viewData = vfxPack.descriptor
         this.baseDestroyViewData.offset = vfxPack.offset;
         this.baseDestroyViewData.scale = vfxPack.scale;
-        this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
+        this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
 
         this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseDestroyViewData)
@@ -69,7 +69,7 @@ export default class EntityViewData {
         this.baseViewData.viewData = vfxPack.descriptor
         this.baseViewData.offset = vfxPack.offset;
         this.baseViewData.scale = vfxPack.scale;
-        this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.Gameplay;
+        this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
         this.baseViewData.movementType = EntityViewData.MovementType.Follow;
 
         this.baseViewData.viewType = EntityViewData.ViewType.SpriteSheet;
