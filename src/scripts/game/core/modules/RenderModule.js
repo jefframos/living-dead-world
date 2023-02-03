@@ -43,7 +43,7 @@ export default class RenderModule extends GameObject {
         this.renderStats = {
             totalRenderEntities: 0
         }
-        window.GUI.add(this.renderStats, 'totalRenderEntities').listen();
+        window.gameplayFolder.add(this.renderStats, 'totalRenderEntities').listen();
 
         // this.cam = {
         //     x: 0, y: 250, z: 0, aspec: 1, fov: 5, near: 0, far: 200

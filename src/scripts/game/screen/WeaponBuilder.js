@@ -51,7 +51,24 @@ export default class WeaponBuilder {
         for (const key in this.weaponsData) {
             this.findDestroyWeapon(this.weaponsData[key])
         }
-        //console.log('<<<>>>', this.weaponsData)
+        
+        if (!window.weaponFolder) {
+            window.weaponFolder = window.GUI.addFolder("Weapons");
+
+            this.helpers = {};
+
+            window.weaponFolder.add(this, 'eraseWeapon')
+            for (const key in this.weaponsData) {
+                if (this.weaponsData[key].isMain) {
+                    this.helpers[key] = () => {
+                        let data = this.weaponsData[key];
+                        this.equipWeapon(data)
+                    }
+                    window.weaponFolder.add(this.helpers, key)
+
+                }
+            }
+        }
 
         // this.damageAura = new WeaponData('Aura');
         // this.damageAura.weaponType = WeaponData.WeaponType.Magic;
@@ -423,10 +440,20 @@ export default class WeaponBuilder {
         vfxPack.descriptor.addBaseBehaviours(SpriteSheetBehaviour, spriteSheetParams)
         return vfxPack;
     }
+    equipWeapon(weaponData) {
+        this.mainWeapon.addWeapon(weaponData)
+    }
+    eraseWeapon() {
+        this.mainWeapon.clear()
+        this.mainWeapon = new InGameWeapon();
+        this.player.clearWeapon();
+        this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
+        this.player.addWeapon(this.mainWeapon)
+    }
     addWeapons(player) {
-
+        this.player = player;
         this.physical = [
-           // this.weaponsData['PLAYER_AURA'],
+            // this.weaponsData['PLAYER_AURA'],
             this.weaponsData['DAGGER_SNIPER'],
             this.weaponsData['DAGGER_SHOTGUN'],
             this.weaponsData['DAGGER_GUN'],
@@ -435,7 +462,7 @@ export default class WeaponBuilder {
             this.weaponsData['DAGGER_HOAMING'],
             this.weaponsData['PLAYER_MULTISHOT'],
             this.weaponsData['BOMB_THROWER'],
-           // this.weaponsData['PLAYER_AURA']
+            // this.weaponsData['PLAYER_AURA']
             // this.bombThrow,
             // this.facingMelee,
             // this.daggerThrow,
@@ -450,9 +477,9 @@ export default class WeaponBuilder {
             // this.uniformTimeSpread
 
         ]
-        let testWeapon = new InGameWeapon();
+        this.mainWeapon = new InGameWeapon();
 
-         Utils.shuffle(this.physical)
+        Utils.shuffle(this.physical)
         // Utils.shuffle(this.magical)
         //testWeapon.addWeapon(this.floatingOrbit)
         //testWeapon.addWeapon(this.uniformTimeSpread)
@@ -473,17 +500,21 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.weaponsData['DAGGER_SHOTGUN'])
         //testWeapon.addWeapon(this.weaponsData['DAGGER_THROW'])
         //testWeapon.addWeapon(this.weaponsData['DAGGER_ROTATOR'])
-       // testWeapon.addWeapon(this.weaponsData['DAGGER_HOAMING'])
-       // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+        // testWeapon.addWeapon(this.weaponsData['DAGGER_HOAMING'])
+        // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
         // testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
         // testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
 
 
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
+        this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
 
-        for (let i = 0; i < 3; i++) {
-            testWeapon.addWeapon(this.physical[i])
+        if(window.isMobile){
+
+            for (let i = 0; i < 3; i++) {
+                this.mainWeapon.addWeapon(this.physical[i])
+            }
         }
         // //Utils.shuffle(a)
         // let testWeapon2 = new InGameWeapon();
@@ -513,7 +544,7 @@ export default class WeaponBuilder {
         // player.addWeapon(this.alternateMelee)
         // player.addWeapon(this.hoaming)
 
-        player.addWeapon(testWeapon)
+        player.addWeapon(this.mainWeapon)
 
 
         // player.addWeapon(testWeapon2)

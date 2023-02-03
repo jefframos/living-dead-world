@@ -310,9 +310,9 @@
         "attributes": {
             "baseRadius": 5,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 800,
+            "baseLifeRangeSpan": 450,
             "basePower": 250,
-            "baseBulletSpeed": 550,
+            "baseBulletSpeed": 500,
             "baseFrequency": 3,
             "basePiercing": 2,
             "baseAmount": 1,
@@ -456,6 +456,44 @@
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
                 "baseViewData": "AXE_BOOMERANG"
+            }
+        }
+    },
+    {
+        "id": "MELEE_SWORD",
+        "isMain": true,
+        "icon": "slash4",
+        "name": "Melee",
+        "type": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 70,
+            "basePower": 120,
+            "baseBulletSpeed": 150,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
             }
         }
     }

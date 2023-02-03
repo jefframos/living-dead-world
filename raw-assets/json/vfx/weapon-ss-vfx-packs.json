@@ -42,5 +42,16 @@
         },
         "scale": 1,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "SWORD_MELEE_PACK_01",
+        "vfxData": "MELEE_SWORD_SHOCK_01",
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "targetLayer": "GameplayLayer"
     }
 ]

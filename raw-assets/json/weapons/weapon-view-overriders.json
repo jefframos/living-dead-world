@@ -38,7 +38,11 @@
         "offset": {
             "y": -20
         },
-        "scale": 1,
+        "scale": 1.5,
         "rotationSpeed": 10
+    },
+    {
+        "id": "TRANSPARENT",
+        "alpha": 0
     }
 ]

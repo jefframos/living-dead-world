@@ -25,47 +25,7 @@ export default class EffectsManager extends GameObject {
         EffectsManager.instance = this;
         this.effectsContainer = container;
         this.gameContainer = gameContainer;
-
         this.effectsContainer.alpha = true;
-
-        this.skullDescriptor = new ParticleDescriptor(
-            {
-                velocityX: [-50, 50],
-                velocityY: [-50, -180],
-                rotationSpeed: [-3, -5],
-                gravity: 200,
-                scale: 0.5,
-                lifeSpan: [1, 1.5],
-                tint: 0xFFFFFF,
-                texture: ['skull', 'skull2', 'arm', 'leg']
-            }
-        )
-        this.skullDescriptor.addBaseBehaviours(AlphaBehaviour, { time: 0.3, delay: 1 })
-
-        //the descriptor is on the enemy
-        this.bloodDescriptor = new ParticleDescriptor(
-            {
-                velocityX: [-100, 100],
-                velocityY: [-50, -180],
-                gravity: 200,
-                scale: [0.3, 0.5],
-                lifeSpan: [1, 1.5],
-                tint: 0xff0000,
-                texture: PIXI.Texture.from('p1')
-            }
-        )
-
-        this.bloodPuddle = new ParticleDescriptor(
-            {
-                velocityX: 0,
-                velocityY: 0,
-                gravity: 0,
-                scale: [0.3, 0.5],
-                lifeSpan: 999,
-                texture: ['bloodp1', 'bloodp2', 'bloodp3', 'bloodp4']
-            }
-        )
-        this.bloodPuddle.addBaseBehaviours(AlphaBehaviour, { time: [0.5, 0.25], delay: 10 })
 
         PIXI.BitmapFont.from('damage2', {
             fontFamily: 'retro',
@@ -86,21 +46,6 @@ export default class EffectsManager extends GameObject {
         this.particleDescriptors = {};
         this.makeDescriptors();
 
-        console.log('>>>', this.particleDescriptors)
-
-        // this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        // this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'SMOKE_01'))
-
-        // this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        // this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'BLOD_SPLAT_01'))
-
-
-
-
-        this.bloodDescriptor.addBaseBehaviours(AlphaBehaviour, { time: [1, 2] })
-        this.bloodDescriptor.addBaseBehaviours(ColorBehaviour, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f })
-
-
         this.labels = [];
         this.news = 0
         this.damageFontPool = [];
@@ -110,16 +55,13 @@ export default class EffectsManager extends GameObject {
 
 
         descriptors.forEach(data => {
-
             this.particleDescriptors[data.id] = new ParticleDescriptor(data)
-            console.log(data)
 
             if (data.baseBehaviours) {
 
                 if (Array.isArray(data.baseBehaviours)) {
 
                     data.baseBehaviours.forEach(behaviour => {
-                        console.log(behaviour)
                         let behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId];
                         if (behaviourConstructor.name == SpriteSheetBehaviour.name) {
                             this.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, GameStaticData.instance.getSharedDataById('vfx', behaviour.vfxId));
@@ -144,8 +86,6 @@ export default class EffectsManager extends GameObject {
 
             }
         });
-
-        console.log(this.particleDescriptors['BLOOD_SPLAT'])
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);

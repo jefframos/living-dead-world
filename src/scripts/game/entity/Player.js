@@ -96,20 +96,25 @@ export default class Player extends GameAgent {
     }
 
     addWeaponData(weaponData) {
-        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
+        // let weapon = this.engine.poolGameObject(weaponData.customConstructor)
 
-        if (weaponData.type == WeaponData.WeaponType.Main) {
-            this.addChild(weapon)
-            weapon.build(weaponData)
-            this.activeWeapons[0].addWeapon(weaponData)
-        } else {
-            this.addChild(weapon)
-            weapon.build(weaponData)
-            this.activeWeapons[1].addWeapon(weaponData)
-        }
-        this.refreshEquipment();
+        // if (weaponData.type == WeaponData.WeaponType.Main) {
+        //     this.addChild(weapon)
+        //     weapon.build(weaponData)
+        //     this.activeWeapons[0].addWeapon(weaponData)
+        // } else {
+        //     this.addChild(weapon)
+        //     weapon.build(weaponData)
+        //     this.activeWeapons[1].addWeapon(weaponData)
+        // }
+        // this.refreshEquipment();
     }
-
+    clearWeapon() {
+        for (let index = this.activeWeapons.length - 1; index >= 0; index--) {
+            this.activeWeapons[index].destroy();
+        }
+        this.activeWeapons = [];
+    }
     addWeapon(inGameWeapon) {
         if (!inGameWeapon.hasWeapon) {
             return;
@@ -118,6 +123,10 @@ export default class Player extends GameAgent {
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
         weapon.build(weaponData)
+
+        inGameWeapon.onUpdateWeapon.add(() => {
+            this.refreshEquipment();
+        })
 
         this.activeWeapons.push(weapon)
         this.refreshEquipment();
@@ -159,10 +168,10 @@ export default class Player extends GameAgent {
         }
 
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
-            const element = this.currentEnemiesColliding[index];            
+            const element = this.currentEnemiesColliding[index];
             if (element.timer <= 0) {
                 let dead = this.damage(element.entity.attributes.power);
-                if(dead){
+                if (dead) {
                     return
                 }
                 element.timer = 1;

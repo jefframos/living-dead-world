@@ -29,14 +29,12 @@ export default class PlayerInventoryHud extends PIXI.Container {
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
     }
     updatePlayerEquip(player) {
-        console.log( player.activeWeapons)
         for (let index = 0; index < player.activeWeapons.length; index++) {
 
             const element = player.activeWeapons[index];
             this.weaponGrid[index].removeAllElements();
             this.weaponGrid[index].h = 0;
             //if(this.weaponGrid[index].length){
-
                 this.addLine(element.weaponData, true, this.weaponGrid[index])
                 this.weaponGrid[index].updateVerticalList();
                 this.weaponGrid[index].x = index * 200            

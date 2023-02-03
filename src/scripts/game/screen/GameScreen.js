@@ -25,7 +25,6 @@ import Trees from '../entity/Trees';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
-import WeaponBuilder from './WeaponBuilder';
 import config from '../../config';
 
 export default class GameScreen extends Screen {
@@ -34,6 +33,8 @@ export default class GameScreen extends Screen {
 
         this.container = new PIXI.Container()
         this.addChild(this.container);
+
+        window.gameplayFolder = window.GUI.addFolder('Gameplay');
 
         PIXI.BitmapFont.from('damage1', {
             fontFamily: 'retro',
@@ -119,16 +120,16 @@ export default class GameScreen extends Screen {
                 this.effectsManager.testParticles(this.player);
             }
         }
-        window.GUI.add(this.debug, 'timeScale', 0.1, 10);
-        window.GUI.add(this.debug, 'enemiesPool').listen();
-        window.GUI.add(this.debug, 'bulletsPool').listen();
-        window.GUI.add(this.debug, 'REMOVE_ENEMIES');
-        window.GUI.add(this.debug, 'ADD_ENEMIES');
-        window.GUI.add(this.debug, 'ADD_ONE_ENEMY');
-        window.GUI.add(this.debug, 'RESPAWN');
-        window.GUI.add(this.debug, 'DAMAGE_PLAYER');
-        window.GUI.add(this.debug, 'KILL_ALL_ENEMIES');
-        window.GUI.add(this.debug, 'BLOOD_SPLAT');
+         window.gameplayFolder.add(this.debug, 'timeScale', 0.1, 10);
+         window.gameplayFolder.add(this.debug, 'enemiesPool').listen();
+         window.gameplayFolder.add(this.debug, 'bulletsPool').listen();
+         window.gameplayFolder.add(this.debug, 'REMOVE_ENEMIES');
+         window.gameplayFolder.add(this.debug, 'ADD_ENEMIES');
+         window.gameplayFolder.add(this.debug, 'ADD_ONE_ENEMY');
+         window.gameplayFolder.add(this.debug, 'RESPAWN');
+         window.gameplayFolder.add(this.debug, 'DAMAGE_PLAYER');
+         window.gameplayFolder.add(this.debug, 'KILL_ALL_ENEMIES');
+         window.gameplayFolder.add(this.debug, 'BLOOD_SPLAT');
 
         //window.GUI.close()
 

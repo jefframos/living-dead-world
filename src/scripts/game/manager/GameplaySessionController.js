@@ -58,9 +58,14 @@ export default class GameplaySessionController extends GameObject {
     }
     playerReady() {
     
-        setTimeout(() => {            
-            this.weaponBuilder = new WeaponBuilder();
-            this.weaponBuilder.addWeapons(this.player)
+        setTimeout(() => {       
+            if(this.weaponBuilder){
+                this.weaponBuilder.eraseWeapon()
+            } else{
+
+                this.weaponBuilder = new WeaponBuilder();
+                this.weaponBuilder.addWeapons(this.player)
+            }  
             this.cardPlacementSystem.setPlayer(this.player);
             this.cardPlacementSystem.setWeapons(this.weaponBuilder);
             this.player.refreshEquipment();

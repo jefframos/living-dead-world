@@ -22,11 +22,11 @@ export default class GameManager {
             Phase: 0,
             Time: 0,
         }
-        window.GUI.add(this.gameManagerStats, 'GMtotalGameObjects').listen();
-        window.GUI.add(this.gameManagerStats, 'GMenemiesDeaths').listen();
+         window.gameplayFolder.add(this.gameManagerStats, 'GMtotalGameObjects').listen();
+         window.gameplayFolder.add(this.gameManagerStats, 'GMenemiesDeaths').listen();
 
-        window.GUI.add(this.gameManagerStats, 'Phase').listen();
-        window.GUI.add(this.gameManagerStats, 'Time').listen();
+         window.gameplayFolder.add(this.gameManagerStats, 'Phase').listen();
+         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
 

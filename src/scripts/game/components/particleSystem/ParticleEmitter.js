@@ -15,7 +15,7 @@ export default class ParticleEmmiter {
         this.active = true;
 
         this.totalParticles = 0;
-        window.GUI.add(this, 'totalParticles').listen();
+        window.gameplayFolder.add(this, 'totalParticles').listen();
 
     }
 
