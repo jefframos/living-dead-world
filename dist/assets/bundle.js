@@ -745,7 +745,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "uniformParsers", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["R"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_extract__ = __webpack_require__(93);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Extract", function() { return __WEBPACK_IMPORTED_MODULE_6__pixi_extract__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(51);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AppLoaderPlugin", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Loader", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LoaderResource", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["c"]; });
@@ -782,7 +782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pixi_mixin_cache_as_bitmap__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pixi_mixin_get_child_by_name__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pixi_mixin_get_global_position__ = __webpack_require__(156);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pixi_constants__ = __webpack_require__(22);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ALPHA_MODES", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BLEND_MODES", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BUFFER_BITS", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["c"]; });
@@ -844,7 +844,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimpleRope", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["f"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pixi_runner__ = __webpack_require__(92);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Runner", function() { return __WEBPACK_IMPORTED_MODULE_29__pixi_runner__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(43);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Sprite", function() { return __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__ = __webpack_require__(158);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AnimatedSprite", function() { return __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__["a"]; });
@@ -2295,7 +2295,7 @@ var filters = {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Q", function() { return systems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R", function() { return uniformParsers; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_settings__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_runner__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_ticker__ = __webpack_require__(36);
@@ -13324,7 +13324,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_url__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_url___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_url__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "url", function() { return __WEBPACK_IMPORTED_MODULE_3_url___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(22);
 /*!
  * @pixi/utils - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -18166,11 +18166,11 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsModule = __webpack_require__(54);
+var _PhysicsModule = __webpack_require__(56);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -18362,11 +18362,11 @@ var _Pool = __webpack_require__(28);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _TagManager = __webpack_require__(45);
+var _TagManager = __webpack_require__(46);
 
 var _TagManager2 = _interopRequireDefault(_TagManager);
 
-var _Transform = __webpack_require__(209);
+var _Transform = __webpack_require__(211);
 
 var _Transform2 = _interopRequireDefault(_Transform);
 
@@ -18824,6 +18824,17 @@ var Utils = function () {
             }
             return 0;
         }
+    }, {
+        key: "findValue",
+        value: function findValue(data) {
+            if (Array.isArray(data)) {
+                if (data.length == 1) {
+                    return data[0];
+                }
+                return Math.random() * (data[1] - data[0]) + data[0];
+            }
+            return data;
+        }
     }]);
     return Utils;
 }();
@@ -18980,6 +18991,330 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _AlphaBehaviour = __webpack_require__(209);
+
+var _AlphaBehaviour2 = _interopRequireDefault(_AlphaBehaviour);
+
+var _ColorBehaviour = __webpack_require__(210);
+
+var _ColorBehaviour2 = _interopRequireDefault(_ColorBehaviour);
+
+var _GameObject2 = __webpack_require__(14);
+
+var _GameObject3 = _interopRequireDefault(_GameObject2);
+
+var _GameStaticData = __webpack_require__(41);
+
+var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
+
+var _ParticleDescriptor = __webpack_require__(47);
+
+var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
+
+var _ParticleEmitter = __webpack_require__(213);
+
+var _ParticleEmitter2 = _interopRequireDefault(_ParticleEmitter);
+
+var _RenderModule = __webpack_require__(13);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _SinoidBehaviour = __webpack_require__(214);
+
+var _SinoidBehaviour2 = _interopRequireDefault(_SinoidBehaviour);
+
+var _SpriteSheetBehaviour = __webpack_require__(57);
+
+var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EffectsManager = function (_GameObject) {
+    (0, _inherits3.default)(EffectsManager, _GameObject);
+
+    function EffectsManager(container, gameContainer) {
+        (0, _classCallCheck3.default)(this, EffectsManager);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (EffectsManager.__proto__ || (0, _getPrototypeOf2.default)(EffectsManager)).call(this));
+
+        EffectsManager.instance = _this;
+        _this.effectsContainer = container;
+        _this.gameContainer = gameContainer;
+
+        _this.effectsContainer.alpha = true;
+
+        _this.skullDescriptor = new _ParticleDescriptor2.default({
+            velocityX: [-50, 50],
+            velocityY: [-50, -180],
+            rotationSpeed: [-3, -5],
+            gravity: 200,
+            scale: 0.5,
+            lifeSpan: [1, 1.5],
+            tint: 0xFFFFFF,
+            texture: ['skull', 'skull2', 'arm', 'leg']
+        });
+        _this.skullDescriptor.addBaseBehaviours(_AlphaBehaviour2.default, { time: 0.3, delay: 1 });
+
+        //the descriptor is on the enemy
+        _this.bloodDescriptor = new _ParticleDescriptor2.default({
+            velocityX: [-100, 100],
+            velocityY: [-50, -180],
+            gravity: 200,
+            scale: [0.3, 0.5],
+            lifeSpan: [1, 1.5],
+            tint: 0xff0000,
+            texture: PIXI.Texture.from('p1')
+        });
+
+        _this.bloodPuddle = new _ParticleDescriptor2.default({
+            velocityX: 0,
+            velocityY: 0,
+            gravity: 0,
+            scale: [0.3, 0.5],
+            lifeSpan: 999,
+            texture: ['bloodp1', 'bloodp2', 'bloodp3', 'bloodp4']
+        });
+        _this.bloodPuddle.addBaseBehaviours(_AlphaBehaviour2.default, { time: [0.5, 0.25], delay: 10 });
+
+        PIXI.BitmapFont.from('damage2', {
+            fontFamily: 'retro',
+            align: "center",
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            fontSize: 14,
+            dropShadowDistance: 2,
+            fill: "#ffffff",
+            //fill: "#febc15",
+            fontWeight: 800,
+            letterSpacing: 2,
+            strokeThickness: 3
+        });
+
+        _this.particleDescriptors = {};
+        _this.makeDescriptors();
+
+        console.log('>>>', _this.particleDescriptors);
+
+        // this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
+        // this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'SMOKE_01'))
+
+        // this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
+        // this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'BLOD_SPLAT_01'))
+
+
+        _this.bloodDescriptor.addBaseBehaviours(_AlphaBehaviour2.default, { time: [1, 2] });
+        _this.bloodDescriptor.addBaseBehaviours(_ColorBehaviour2.default, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f });
+
+        _this.labels = [];
+        _this.news = 0;
+        _this.damageFontPool = [];
+        return _this;
+    }
+
+    (0, _createClass3.default)(EffectsManager, [{
+        key: "makeDescriptors",
+        value: function makeDescriptors() {
+            var _this2 = this;
+
+            var descriptors = _GameStaticData2.default.instance.getAllDataFrom('vfx', 'particleDescriptors');
+
+            descriptors.forEach(function (data) {
+
+                _this2.particleDescriptors[data.id] = new _ParticleDescriptor2.default(data);
+                console.log(data);
+
+                if (data.baseBehaviours) {
+
+                    if (Array.isArray(data.baseBehaviours)) {
+
+                        data.baseBehaviours.forEach(function (behaviour) {
+                            console.log(behaviour);
+                            var behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId];
+                            if (behaviourConstructor.name == _SpriteSheetBehaviour2.default.name) {
+                                _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, _GameStaticData2.default.instance.getSharedDataById('vfx', behaviour.vfxId));
+                            } else {
+
+                                _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, behaviour);
+                            }
+                        });
+                    } else {
+                        EffectsManager.ParticleBehaviours[data.baseBehaviours];
+                        var behaviour = _GameStaticData2.default.instance.getDataById('vfx', 'behaviours', data.baseBehaviours);
+                        var behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId];
+
+                        if (behaviourConstructor.name == _SpriteSheetBehaviour2.default.name) {
+                            _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, _GameStaticData2.default.instance.getSharedDataById('vfx', behaviour.vfxId));
+                        } else {
+
+                            _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, behaviour);
+                        }
+                    }
+                }
+            });
+
+            console.log(this.particleDescriptors['BLOOD_SPLAT']);
+        }
+    }, {
+        key: "start",
+        value: function start() {
+            this.renderModule = this.engine.findByType(_RenderModule2.default);
+            this.baseLayer = this.renderModule.layers[_RenderModule2.default.RenderLayers.Floor].container;
+            this.bottomLayer = this.renderModule.layers[_RenderModule2.default.RenderLayers.Default].container;
+
+            this.particleEmitter = new _ParticleEmitter2.default(this.gameContainer);
+            this.particleEmitterBottom = new _ParticleEmitter2.default(this.bottomLayer);
+            this.particleEmitterKill = new _ParticleEmitter2.default(this.baseLayer, 500);
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            this.effectsContainer.pivot.x = this.gameContainer.pivot.x;
+            this.effectsContainer.pivot.y = this.gameContainer.pivot.y;
+
+            this.effectsContainer.scale.x = this.gameContainer.scale.x;
+            this.effectsContainer.scale.y = this.gameContainer.scale.y;
+
+            this.effectsContainer.x = this.gameContainer.x;
+            this.effectsContainer.y = this.gameContainer.y;
+
+            //for (let index = 0; index < this.labels.length; index++) {
+            for (var index = this.labels.length - 1; index >= 0; index--) {
+                this.labels[index].timer -= delta;
+                this.labels[index].y -= delta * 5;
+                if (this.labels[index].timer < 0.5) {
+                    this.labels[index].alpha = this.labels[index].timer * 2;
+                }
+                if (this.labels[index].timer <= 0) {
+                    this.damageFontPool.push(this.labels[index]);
+                    this.labels.splice(index, 1);
+                }
+            }
+
+            this.particleEmitter.update(delta);
+            this.particleEmitterBottom.update(delta);
+            this.particleEmitterKill.update(delta);
+        }
+    }, {
+        key: "popKill",
+        value: function popKill(entity) {
+            //this.particleEmitter.emit(this.skullDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+            //this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+            return;
+        }
+    }, {
+        key: "popDamage",
+        value: function popDamage(entity, value) {
+            // console.log(entity.engineID)
+            var ang = Math.random() * Math.PI * 2;
+            var dist = Math.random() * 30;
+            var text = this.getDamageFont();
+            text.alpha = 1;
+            text.text = value;
+            text.x = entity.gameView.x + Math.cos(ang) * dist;
+            text.y = entity.gameView.y + Math.sin(ang) * dist;
+            text.timer = 1;
+            text.anchor.set(0.5);
+            this.labels.push(text);
+            this.effectsContainer.addChild(text);
+
+            //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y], 1);
+            //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
+
+            //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        }
+    }, {
+        key: "testParticles",
+        value: function testParticles(entity, value) {
+            this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
+            //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
+        }
+    }, {
+        key: "emitParticles",
+        value: function emitParticles(position, descriptor) {
+            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+            var overrides = arguments[3];
+            var target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : EffectsManager.TargetLayer.GameplayLayer;
+
+
+            if (target == EffectsManager.TargetLayer.GameplayLayer) {
+                this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            } else {
+                this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            }
+        }
+    }, {
+        key: "emitById",
+        value: function emitById(position, descriptor) {
+            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+            var overrides = arguments[3];
+            var target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : EffectsManager.TargetLayer.GameplayLayer;
+
+            if (target == EffectsManager.TargetLayer.GameplayLayer) {
+                this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            } else {
+                this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            }
+        }
+    }, {
+        key: "getDamageFont",
+        value: function getDamageFont() {
+
+            if (this.damageFontPool.length > 0) {
+                var element = this.damageFontPool.pop();
+                return element;
+            }
+            var newElement = new PIXI.BitmapText("150", { fontName: 'damage2' });
+            this.news++;
+            return newElement;
+        }
+    }]);
+    return EffectsManager;
+}(_GameObject3.default);
+
+EffectsManager.TargetLayer = {
+    GameplayLayer: 'GameplayLayer',
+    BaseLayer: 'BaseLayer'
+};
+EffectsManager.ParticleBehaviours = {
+    Alpha: _AlphaBehaviour2.default,
+    Color: _ColorBehaviour2.default,
+    Sinoid: _SinoidBehaviour2.default,
+    SpriteSheet: _SpriteSheetBehaviour2.default
+};
+exports.default = EffectsManager;
+module.exports = exports["default"];
+
+/***/ }),
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -19075,7 +19410,7 @@ exports.default = Layer;
 module.exports = exports['default'];
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21070,10 +21405,10 @@ var Power4 = globals.Power4;
 var TweenPlugin = globals.TweenPlugin;
 var EventDispatcher = nonGlobals.events.EventDispatcher;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(242)(module), __webpack_require__(29)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(243)(module), __webpack_require__(29)))
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21539,80 +21874,6 @@ var MSAA_QUALITY;
 
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _RenderModule = __webpack_require__(13);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _TagManager = __webpack_require__(45);
-
-var _TagManager2 = _interopRequireDefault(_TagManager);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameView = function () {
-    function GameView(gameObject) {
-        (0, _classCallCheck3.default)(this, GameView);
-
-        this.tag = _TagManager2.default.Tags.Untagged;
-        this.layer = _RenderModule2.default.RenderLayers.Gameplay;
-        this.viewOffset = { x: 0, y: 0 };
-        this.view = null;
-        this.gameObject = gameObject;
-        this.anchorOffset = 0;
-        this.baseScale = { x: 0, y: 0 };
-    }
-
-    (0, _createClass3.default)(GameView, [{
-        key: 'update',
-        value: function update(delta) {}
-    }, {
-        key: 'applyScale',
-        value: function applyScale() {
-            this.baseScale.x = this.view.scale.x;
-            this.baseScale.y = this.view.scale.y;
-        }
-    }, {
-        key: 'x',
-        get: function get() {
-            return this.view.x;
-        }
-    }, {
-        key: 'y',
-        get: function get() {
-            return this.view.y;
-        }
-    }]);
-    return GameView;
-}();
-
-exports.default = GameView;
-module.exports = exports['default'];
-
-/***/ }),
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21705,6 +21966,80 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _pixi = __webpack_require__(7);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _RenderModule = __webpack_require__(13);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _TagManager = __webpack_require__(46);
+
+var _TagManager2 = _interopRequireDefault(_TagManager);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameView = function () {
+    function GameView(gameObject) {
+        (0, _classCallCheck3.default)(this, GameView);
+
+        this.tag = _TagManager2.default.Tags.Untagged;
+        this.layer = _RenderModule2.default.RenderLayers.Gameplay;
+        this.viewOffset = { x: 0, y: 0 };
+        this.view = null;
+        this.gameObject = gameObject;
+        this.anchorOffset = 0;
+        this.baseScale = { x: 0, y: 0 };
+    }
+
+    (0, _createClass3.default)(GameView, [{
+        key: 'update',
+        value: function update(delta) {}
+    }, {
+        key: 'applyScale',
+        value: function applyScale() {
+            this.baseScale.x = this.view.scale.x;
+            this.baseScale.y = this.view.scale.y;
+        }
+    }, {
+        key: 'x',
+        get: function get() {
+            return this.view.x;
+        }
+    }, {
+        key: 'y',
+        get: function get() {
+            return this.view.y;
+        }
+    }]);
+    return GameView;
+}();
+
+exports.default = GameView;
+module.exports = exports['default'];
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _getPrototypeOf = __webpack_require__(2);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -21729,15 +22064,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _GameAgent2 = __webpack_require__(77);
+var _GameAgent2 = __webpack_require__(78);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _GameViewSpriteSheet = __webpack_require__(114);
+var _GameViewSpriteSheet = __webpack_require__(115);
 
 var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
 
@@ -21745,11 +22080,11 @@ var _InputModule = __webpack_require__(79);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsModule = __webpack_require__(54);
+var _PhysicsModule = __webpack_require__(56);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -22008,306 +22343,6 @@ var Player = function (_GameAgent) {
 Player.MainPlayer = undefined;
 Player.Deaths = 0;
 exports.default = Player;
-module.exports = exports["default"];
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _AlphaBehaviour = __webpack_require__(213);
-
-var _AlphaBehaviour2 = _interopRequireDefault(_AlphaBehaviour);
-
-var _ColorBehaviour = __webpack_require__(214);
-
-var _ColorBehaviour2 = _interopRequireDefault(_ColorBehaviour);
-
-var _GameObject2 = __webpack_require__(14);
-
-var _GameObject3 = _interopRequireDefault(_GameObject2);
-
-var _GameStaticData = __webpack_require__(47);
-
-var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
-
-var _ParticleDescriptor = __webpack_require__(48);
-
-var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
-
-var _ParticleEmitter = __webpack_require__(215);
-
-var _ParticleEmitter2 = _interopRequireDefault(_ParticleEmitter);
-
-var _RenderModule = __webpack_require__(13);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _SinoidBehaviour = __webpack_require__(216);
-
-var _SinoidBehaviour2 = _interopRequireDefault(_SinoidBehaviour);
-
-var _SpriteSheetBehaviour = __webpack_require__(55);
-
-var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var EffectsManager = function (_GameObject) {
-    (0, _inherits3.default)(EffectsManager, _GameObject);
-
-    function EffectsManager(container, gameContainer) {
-        (0, _classCallCheck3.default)(this, EffectsManager);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (EffectsManager.__proto__ || (0, _getPrototypeOf2.default)(EffectsManager)).call(this));
-
-        EffectsManager.instance = _this;
-        _this.effectsContainer = container;
-        _this.gameContainer = gameContainer;
-
-        _this.effectsContainer.alpha = true;
-
-        _this.skullDescriptor = new _ParticleDescriptor2.default({
-            velocityX: [-50, 50],
-            velocityY: [-50, -180],
-            rotationSpeed: [-3, -5],
-            gravity: 200,
-            scale: 0.5,
-            lifeSpan: [1, 1.5],
-            tint: 0xFFFFFF,
-            texture: ['skull', 'skull2', 'arm', 'leg']
-        });
-        _this.skullDescriptor.addBaseBehaviours(_AlphaBehaviour2.default, { time: 0.3, delay: 1 });
-
-        //the descriptor is on the enemy
-        _this.bloodDescriptor = new _ParticleDescriptor2.default({
-            velocityX: [-100, 100],
-            velocityY: [-50, -180],
-            gravity: 200,
-            scale: [0.3, 0.5],
-            lifeSpan: [1, 1.5],
-            tint: 0xff0000,
-            texture: PIXI.Texture.from('p1')
-        });
-
-        _this.bloodPuddle = new _ParticleDescriptor2.default({
-            velocityX: 0,
-            velocityY: 0,
-            gravity: 0,
-            scale: [0.3, 0.5],
-            lifeSpan: 999,
-            texture: ['bloodp1', 'bloodp2', 'bloodp3', 'bloodp4']
-        });
-        _this.bloodPuddle.addBaseBehaviours(_AlphaBehaviour2.default, { time: [0.5, 0.25], delay: 10 });
-
-        PIXI.BitmapFont.from('damage2', {
-            fontFamily: 'retro',
-            align: "center",
-            dropShadow: true,
-            dropShadowAngle: 1.5,
-            fontSize: 14,
-            dropShadowDistance: 2,
-            fill: "#ffffff",
-            //fill: "#febc15",
-            fontWeight: 800,
-            letterSpacing: 2,
-            strokeThickness: 3
-        });
-
-        _this.particleDescriptors = {};
-        _this.makeDescriptors();
-
-        console.log('>>>', _this.particleDescriptors);
-
-        // this.smokeTrail = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        // this.smokeTrail.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'SMOKE_01'))
-
-        // this.bloodSplat = new ParticleDescriptor({ lifeSpan: 999, scale: 1 })
-        // this.bloodSplat.addBaseBehaviours(SpriteSheetBehaviour, GameStaticData.instance.getSharedDataById('vfx', 'BLOD_SPLAT_01'))
-
-
-        _this.bloodDescriptor.addBaseBehaviours(_AlphaBehaviour2.default, { time: [1, 2] });
-        _this.bloodDescriptor.addBaseBehaviours(_ColorBehaviour2.default, { time: [1, 3], startValue: 0xff0000, endValue: 0x9f182f });
-
-        _this.labels = [];
-        _this.news = 0;
-        _this.damageFontPool = [];
-        return _this;
-    }
-
-    (0, _createClass3.default)(EffectsManager, [{
-        key: "makeDescriptors",
-        value: function makeDescriptors() {
-            var _this2 = this;
-
-            var descriptors = _GameStaticData2.default.instance.getAllDataFrom('vfx', 'particleDescriptors');
-
-            descriptors.forEach(function (data) {
-
-                _this2.particleDescriptors[data.id] = new _ParticleDescriptor2.default(data);
-
-                if (data.behaviours) {
-                    data.behaviours.forEach(function (behaviour) {
-                        var behaviourConstructor = EffectsManager.ParticleBehaviours[behaviour.behaviourId - 1];
-                        if (behaviourConstructor.name == _SpriteSheetBehaviour2.default.name) {
-                            _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, _GameStaticData2.default.instance.getSharedDataById('vfx', behaviour.vfxId));
-                        } else {
-
-                            _this2.particleDescriptors[data.id].addBaseBehaviours(behaviourConstructor, behaviour);
-                        }
-                    });
-                }
-            });
-        }
-    }, {
-        key: "start",
-        value: function start() {
-            this.renderModule = this.engine.findByType(_RenderModule2.default);
-            this.baseLayer = this.renderModule.layers[_RenderModule2.default.RenderLayers.Floor].container;
-            this.bottomLayer = this.renderModule.layers[_RenderModule2.default.RenderLayers.Default].container;
-
-            this.particleEmitter = new _ParticleEmitter2.default(this.gameContainer);
-            this.particleEmitterBottom = new _ParticleEmitter2.default(this.bottomLayer);
-            this.particleEmitterKill = new _ParticleEmitter2.default(this.baseLayer, 500);
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            this.effectsContainer.pivot.x = this.gameContainer.pivot.x;
-            this.effectsContainer.pivot.y = this.gameContainer.pivot.y;
-
-            this.effectsContainer.scale.x = this.gameContainer.scale.x;
-            this.effectsContainer.scale.y = this.gameContainer.scale.y;
-
-            this.effectsContainer.x = this.gameContainer.x;
-            this.effectsContainer.y = this.gameContainer.y;
-
-            //for (let index = 0; index < this.labels.length; index++) {
-            for (var index = this.labels.length - 1; index >= 0; index--) {
-                this.labels[index].timer -= delta;
-                this.labels[index].y -= delta * 5;
-                if (this.labels[index].timer < 0.5) {
-                    this.labels[index].alpha = this.labels[index].timer * 2;
-                }
-                if (this.labels[index].timer <= 0) {
-                    this.damageFontPool.push(this.labels[index]);
-                    this.labels.splice(index, 1);
-                }
-            }
-
-            this.particleEmitter.update(delta);
-            this.particleEmitterBottom.update(delta);
-            this.particleEmitterKill.update(delta);
-        }
-    }, {
-        key: "popKill",
-        value: function popKill(entity) {
-            //this.particleEmitter.emit(this.skullDescriptor, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-            //this.particleEmitterKill.emit(this.bloodPuddle, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-            return;
-        }
-    }, {
-        key: "popDamage",
-        value: function popDamage(entity, value) {
-            // console.log(entity.engineID)
-            var ang = Math.random() * Math.PI * 2;
-            var dist = Math.random() * 30;
-            var text = this.getDamageFont();
-            text.alpha = 1;
-            text.text = value;
-            text.x = entity.gameView.x + Math.cos(ang) * dist;
-            text.y = entity.gameView.y + Math.sin(ang) * dist;
-            text.timer = 1;
-            text.anchor.set(0.5);
-            this.labels.push(text);
-            this.effectsContainer.addChild(text);
-
-            //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y], 1);
-            this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
-
-            //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-        }
-    }, {
-        key: "testParticles",
-        value: function testParticles(entity, value) {
-            this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
-            //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-        }
-    }, {
-        key: "emitParticles",
-        value: function emitParticles(position, descriptor) {
-            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-            var overrides = arguments[3];
-            var target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : EffectsManager.TargetLayer.Gameplay;
-
-
-            if (target == EffectsManager.TargetLayer.Gameplay) {
-                this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-            } else {
-                this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-            }
-        }
-    }, {
-        key: "emitById",
-        value: function emitById(position, descriptor) {
-            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
-            var overrides = arguments[3];
-            var target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : EffectsManager.TargetLayer.Gameplay;
-
-            if (target == EffectsManager.TargetLayer.Gameplay) {
-                this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-            } else {
-                this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-            }
-        }
-    }, {
-        key: "getDamageFont",
-        value: function getDamageFont() {
-
-            if (this.damageFontPool.length > 0) {
-                var element = this.damageFontPool.pop();
-                return element;
-            }
-            var newElement = new PIXI.BitmapText("150", { fontName: 'damage2' });
-            this.news++;
-            return newElement;
-        }
-    }]);
-    return EffectsManager;
-}(_GameObject3.default);
-
-EffectsManager.TargetLayer = {
-    Gameplay: 1,
-    Botom: 2
-};
-EffectsManager.ParticleBehaviours = [_AlphaBehaviour2.default, _ColorBehaviour2.default, _SinoidBehaviour2.default, _SpriteSheetBehaviour2.default];
-exports.default = EffectsManager;
 module.exports = exports["default"];
 
 /***/ }),
@@ -23268,7 +23303,7 @@ module.exports = $export;
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(43);
+var anObject = __webpack_require__(44);
 var IE8_DOM_DEFINE = __webpack_require__(102);
 var toPrimitive = __webpack_require__(61);
 var dP = Object.defineProperty;
@@ -23291,7 +23326,7 @@ exports.f = __webpack_require__(32) ? Object.defineProperty : function definePro
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(44)(function () {
+module.exports = !__webpack_require__(45)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -23353,15 +23388,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseEnemy = __webpack_require__(53);
+var _BaseEnemy = __webpack_require__(54);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _BaseWeapon = __webpack_require__(57);
+var _BaseWeapon = __webpack_require__(49);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
@@ -23369,23 +23404,23 @@ var _GameManager = __webpack_require__(118);
 
 var _GameManager2 = _interopRequireDefault(_GameManager);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(46);
+var _PhysicsEntity2 = __webpack_require__(48);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _PhysicsModule = __webpack_require__(54);
+var _PhysicsModule = __webpack_require__(56);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -23401,7 +23436,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(49);
+var _WeaponAttributes = __webpack_require__(50);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -23442,8 +23477,7 @@ var Bullet = function (_PhysicsEntity) {
         value: function build(weapon, parent) {
             (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "build", this).call(this);
             this.weapon = weapon;
-
-            if (weapon.weaponViewData.baseViewData.targetLayer == _EffectsManager2.default.TargetLayer.Botom) {
+            if (weapon.weaponViewData.baseViewData.targetLayer == _EffectsManager2.default.TargetLayer.BaseLayer) {
                 if (this.gameView.layer != _RenderModule2.default.RenderLayers.Default) {
 
                     this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Default);
@@ -23491,6 +23525,11 @@ var Bullet = function (_PhysicsEntity) {
             this.gameView.view.visible = true;
 
             this.fromWeapon = this.spawnParent instanceof _BaseWeapon2.default;
+
+            this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.rotationSpeed);
+            if (this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined) {
+                this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
+            }
         }
     }, {
         key: "enable",
@@ -23557,7 +23596,7 @@ var Bullet = function (_PhysicsEntity) {
                         if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
                             var angle = 0;
                             if (this.forceField && this.fromWeapon) {
-                                angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
+                                angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
                             } else {
                                 angle = Math.atan2(collided.transform.position.z, collided.transform.position.x);
                             }
@@ -23621,8 +23660,8 @@ var Bullet = function (_PhysicsEntity) {
                 }
             }
 
-            if (this.weapon.weaponViewData.baseViewData.rotationSpeed) {
-                this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
+            if (this.rotationSpeed) {
+                this.gameView.view.rotation += this.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
             } else {
                 this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
             }
@@ -23671,6 +23710,7 @@ var Bullet = function (_PhysicsEntity) {
     }, {
         key: "destroy",
         value: function destroy() {
+            this.gameView.view.visible = false;
             this.onDestroy.dispatch(this);
             (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "destroy", this).call(this);
         }
@@ -24551,7 +24591,7 @@ var TickerPlugin = /** @class */ (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(31);
-var createDesc = __webpack_require__(51);
+var createDesc = __webpack_require__(52);
 module.exports = __webpack_require__(32) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -24875,7 +24915,7 @@ module.exports = exports['default'];
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(70)('wks');
-var uid = __webpack_require__(52);
+var uid = __webpack_require__(53);
 var Symbol = __webpack_require__(26).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -24906,6 +24946,175 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _pixi = __webpack_require__(7);
+
+var _EnemyStaticData = __webpack_require__(212);
+
+var _EnemyStaticData2 = _interopRequireDefault(_EnemyStaticData);
+
+var _Game = __webpack_require__(39);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameStaticData = function () {
+    (0, _createClass3.default)(GameStaticData, null, [{
+        key: 'instance',
+        get: function get() {
+            if (!GameStaticData._instance) {
+                GameStaticData._instance = new GameStaticData();
+            }
+            return GameStaticData._instance;
+        }
+    }]);
+
+    function GameStaticData() {
+        (0, _classCallCheck3.default)(this, GameStaticData);
+
+        this.staticAssets = {};
+    }
+
+    (0, _createClass3.default)(GameStaticData, [{
+        key: 'initialize',
+        value: function initialize() {
+            var _this = this;
+
+            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'weapons', list: 'main', path: ['mainWeapons'] }, { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] }, { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
+            //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
+            { type: 'vfx', list: 'particleDescriptors', path: ['effects-descriptors'] }, { type: 'vfx', list: 'behaviours', path: ['vfx-behaviours'] }];
+
+            loadList.forEach(function (element) {
+                if (!_this.staticAssets[element.type]) {
+                    _this.staticAssets[element.type] = {
+                        sharedData: {}
+                    };
+                }
+                if (!_this.staticAssets[element.type][element.list]) {
+                    _this.staticAssets[element.type][element.list] = {
+                        allElements: []
+                    };
+                }
+
+                element.path.forEach(function (jsonPath) {
+                    var data = _Game2.default.MainLoader.resources[jsonPath].data.list;
+                    if (!data) {
+                        data = _Game2.default.MainLoader.resources[jsonPath].data;
+                    }
+                    data.forEach(function (row) {
+                        _this.staticAssets[element.type][element.list].allElements.push(row);
+                        _this.staticAssets[element.type][element.list][row.id] = row;
+                        if (element.shared) {
+                            _this.staticAssets[element.type].sharedData[row.id] = row;
+                        }
+                    });
+                });
+            });
+
+            console.log(this.staticAssets);
+        }
+    }, {
+        key: 'getEntityByIndex',
+        value: function getEntityByIndex() {
+            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
+            var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            var type = 'entities';
+            var data = this.staticAssets[type][subtype].allElements[id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getEntityById',
+        value: function getEntityById() {
+            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
+            var id = arguments[1];
+
+            var type = 'entities';
+            var data = this.staticAssets[type][subtype][id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getDataByIndex',
+        value: function getDataByIndex(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+            var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+            var data = this.staticAssets[type][subtype].allElements[id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getDataById',
+        value: function getDataById(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+            var id = arguments[2];
+
+            var data = this.staticAssets[type][subtype][id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getSharedDataById',
+        value: function getSharedDataById(type, id) {
+            var data = this.staticAssets[type].sharedData[id];
+            if (!data) {
+                console.error('unable to find sharedData of', type, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getAllDataFrom',
+        value: function getAllDataFrom(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+
+            var data = this.staticAssets[type][subtype].allElements;
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }]);
+    return GameStaticData;
+}();
+
+exports.default = GameStaticData;
+module.exports = exports['default'];
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _signals = __webpack_require__(6);
 
 var signals = _interopRequireWildcard(_signals);
@@ -24914,7 +25123,7 @@ var _GameObject = __webpack_require__(14);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
-var _PhysicsModule = __webpack_require__(54);
+var _PhysicsModule = __webpack_require__(56);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -25136,12 +25345,12 @@ exports.default = Eugine;
 module.exports = exports["default"];
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sprite; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(10);
@@ -25739,7 +25948,7 @@ var Sprite = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(38);
@@ -25750,7 +25959,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -25763,7 +25972,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25793,7 +26002,152 @@ exports.default = TagManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 46 */
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _pixi = __webpack_require__(7);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _Pool = __webpack_require__(28);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ParticleDescriptor = function () {
+    function ParticleDescriptor() {
+        var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { velocityX: 0, velocityY: 0, tint: 0xFFFFFF };
+        (0, _classCallCheck3.default)(this, ParticleDescriptor);
+
+        this.baseData = data;
+        this.reset();
+    }
+
+    (0, _createClass3.default)(ParticleDescriptor, [{
+        key: 'reset',
+        value: function reset() {
+            this.lifeSpan = 1;
+            this.direction = 0;
+            this.velocityX = 0;
+            this.velocityY = 0;
+            this.rotationSpeed = 0;
+            this.blendMode = PIXI.BLEND_MODES.NORMAL;
+            this.velocityOffsetX = 0;
+            this.velocityOffsetY = 0;
+            this.gravity = 0;
+            this.scale = 1;
+            this.texture = PIXI.Texture.EMPTY;
+            this.baseBehaviours = [];
+            this.behaviours = [];
+            this.tint = 0xFFFFFF;
+            this.baseAmount = 1;
+            this.shouldDestroy = false;
+        }
+    }, {
+        key: 'findBehaviour',
+        value: function findBehaviour(constructor) {
+
+            for (var index = 0; index < this.baseBehaviours.length; index++) {
+                var element = this.baseBehaviours[index];
+                if (element.behavior == constructor) {
+                    var behaviour = _Pool2.default.instance.getElement(element.behavior);
+                    behaviour.reset();
+                    behaviour.build(element.params);
+                    return behaviour;
+                }
+            }
+        }
+    }, {
+        key: 'addBaseBehaviours',
+        value: function addBaseBehaviours(behavior, params) {
+            this.baseBehaviours.push({ behavior: behavior, params: params });
+        }
+    }, {
+        key: 'applyBaseData',
+        value: function applyBaseData() {
+            if (this.baseData) {
+                this.reset();
+                for (var key in this.baseData) {
+                    if (this[key] !== undefined) {
+                        if (key == 'texture') {
+                            if (Array.isArray(this.baseData[key])) {
+                                this[key] = PIXI.Texture.from(this.baseData[key][Math.floor(Math.random() * this.baseData[key].length)]);
+                            } else if (typeof this.baseData[key] === 'string') {
+                                this[key] = PIXI.Texture.from(this.baseData[key]);
+                            } else {
+                                this[key] = this.baseData[key];
+                            }
+                        } else {
+                            if (Array.isArray(this.baseData[key])) {
+                                this[key] = Math.random() * (this.baseData[key][1] - this.baseData[key][0]) + this.baseData[key][0];
+                            } else {
+                                this[key] = this.baseData[key];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'clone',
+        value: function clone(descriptor) {
+            var _this = this;
+
+            for (var key in this) {
+                if (descriptor[key]) {
+                    this[key] = descriptor[key];
+                }
+            }
+            this.applyBaseData();
+            this.shouldDestroy = false;
+
+            this.behaviours = [];
+            descriptor.baseBehaviours.forEach(function (element) {
+                var behaviour = _Pool2.default.instance.getElement(element.behavior);
+                behaviour.reset();
+                behaviour.build(element.params);
+                _this.behaviours.push(behaviour);
+            });
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            this.lifeSpan -= delta;
+            if (this.lifeSpan <= 0) {
+                this.shouldDestroy = true;
+            }
+
+            this.behaviours.forEach(function (element) {
+                element.update(delta);
+            });
+        }
+    }]);
+    return ParticleDescriptor;
+}();
+
+exports.default = ParticleDescriptor;
+module.exports = exports['default'];
+
+/***/ }),
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25827,7 +26181,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _matterJs = __webpack_require__(78);
+var _matterJs = __webpack_require__(77);
 
 var _matterJs2 = _interopRequireDefault(_matterJs);
 
@@ -25835,7 +26189,7 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _PhysicsProperties = __webpack_require__(211);
+var _PhysicsProperties = __webpack_require__(216);
 
 var _PhysicsProperties2 = _interopRequireDefault(_PhysicsProperties);
 
@@ -26083,1524 +26437,7 @@ exports.default = PhysicsEntity;
 module.exports = exports["default"];
 
 /***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var _Game = __webpack_require__(39);
-
-var _Game2 = _interopRequireDefault(_Game);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameStaticData = function () {
-    (0, _createClass3.default)(GameStaticData, null, [{
-        key: 'instance',
-        get: function get() {
-            if (!GameStaticData._instance) {
-                GameStaticData._instance = new GameStaticData();
-            }
-            return GameStaticData._instance;
-        }
-    }]);
-
-    function GameStaticData() {
-        (0, _classCallCheck3.default)(this, GameStaticData);
-
-        this.staticAssets = {};
-    }
-
-    (0, _createClass3.default)(GameStaticData, [{
-        key: 'initialize',
-        value: function initialize() {
-            var _this = this;
-
-            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'weapons', list: 'main', path: ['mainWeapons'] }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] }, { type: 'vfx', list: 'particleDescriptors', path: ['entity-particle-descriptor'] }];
-
-            loadList.forEach(function (element) {
-                if (!_this.staticAssets[element.type]) {
-                    _this.staticAssets[element.type] = {
-                        sharedData: {}
-                    };
-                }
-                if (!_this.staticAssets[element.type][element.list]) {
-                    _this.staticAssets[element.type][element.list] = {
-                        allElements: []
-                    };
-                }
-
-                element.path.forEach(function (jsonPath) {
-                    var data = _Game2.default.MainLoader.resources[jsonPath].data.list;
-                    data.forEach(function (row) {
-                        _this.staticAssets[element.type][element.list].allElements.push(row);
-                        _this.staticAssets[element.type][element.list][row.id] = row;
-                        if (element.shared) {
-                            _this.staticAssets[element.type].sharedData[row.id] = row;
-                        }
-                    });
-                });
-            });
-
-            console.log(this.staticAssets);
-        }
-    }, {
-        key: 'getEntityByIndex',
-        value: function getEntityByIndex() {
-            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
-            var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            var type = 'entities';
-            var data = this.staticAssets[type][subtype].allElements[id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getEntityById',
-        value: function getEntityById() {
-            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
-            var id = arguments[1];
-
-            var type = 'entities';
-            var data = this.staticAssets[type][subtype][id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getDataByIndex',
-        value: function getDataByIndex(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-            var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-            var data = this.staticAssets[type][subtype].allElements[id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getDataById',
-        value: function getDataById(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-            var id = arguments[2];
-
-            var data = this.staticAssets[type][subtype][id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getSharedDataById',
-        value: function getSharedDataById(type, id) {
-            var data = this.staticAssets[type].sharedData[id];
-            if (!data) {
-                console.error('unable to find sharedData of', type, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getAllDataFrom',
-        value: function getAllDataFrom(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-
-            var data = this.staticAssets[type][subtype].allElements;
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }]);
-    return GameStaticData;
-}();
-
-exports.default = GameStaticData;
-module.exports = exports['default'];
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _Pool = __webpack_require__(28);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ParticleDescriptor = function () {
-    function ParticleDescriptor() {
-        var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { velocityX: 0, velocityY: 0, tint: 0xFFFFFF };
-        (0, _classCallCheck3.default)(this, ParticleDescriptor);
-
-        this.baseData = data;
-        this.reset();
-    }
-
-    (0, _createClass3.default)(ParticleDescriptor, [{
-        key: 'reset',
-        value: function reset() {
-            this.lifeSpan = 1;
-            this.direction = 0;
-            this.velocityX = 0;
-            this.velocityY = 0;
-            this.rotationSpeed = 0;
-            this.blendMode = PIXI.BLEND_MODES.NORMAL;
-            this.velocityOffsetX = 0;
-            this.velocityOffsetY = 0;
-            this.gravity = 0;
-            this.scale = 1;
-            this.texture = PIXI.Texture.EMPTY;
-            this.baseBehaviours = [];
-            this.behaviours = [];
-            this.tint = 0xFFFFFF;
-            this.baseAmount = 1;
-            this.shouldDestroy = false;
-        }
-    }, {
-        key: 'findBehaviour',
-        value: function findBehaviour(constructor) {
-
-            for (var index = 0; index < this.baseBehaviours.length; index++) {
-                var element = this.baseBehaviours[index];
-                if (element.behavior == constructor) {
-                    var behaviour = _Pool2.default.instance.getElement(element.behavior);
-                    behaviour.reset();
-                    behaviour.build(element.params);
-                    return behaviour;
-                }
-            }
-        }
-    }, {
-        key: 'addBaseBehaviours',
-        value: function addBaseBehaviours(behavior, params) {
-            this.baseBehaviours.push({ behavior: behavior, params: params });
-        }
-    }, {
-        key: 'applyBaseData',
-        value: function applyBaseData() {
-            if (this.baseData) {
-                this.reset();
-                for (var key in this.baseData) {
-                    if (this[key] !== undefined) {
-                        if (key == 'texture') {
-                            if (Array.isArray(this.baseData[key])) {
-                                this[key] = PIXI.Texture.from(this.baseData[key][Math.floor(Math.random() * this.baseData[key].length)]);
-                            } else if (typeof this.baseData[key] === 'string') {
-                                this[key] = PIXI.Texture.from(this.baseData[key]);
-                            } else {
-                                this[key] = this.baseData[key];
-                            }
-                        } else {
-                            if (Array.isArray(this.baseData[key])) {
-                                this[key] = Math.random() * (this.baseData[key][1] - this.baseData[key][0]) + this.baseData[key][0];
-                            } else {
-                                this[key] = this.baseData[key];
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'clone',
-        value: function clone(descriptor) {
-            var _this = this;
-
-            for (var key in this) {
-                if (descriptor[key]) {
-                    this[key] = descriptor[key];
-                }
-            }
-            this.applyBaseData();
-            this.shouldDestroy = false;
-
-            this.behaviours = [];
-            descriptor.baseBehaviours.forEach(function (element) {
-                var behaviour = _Pool2.default.instance.getElement(element.behavior);
-                behaviour.reset();
-                behaviour.build(element.params);
-                _this.behaviours.push(behaviour);
-            });
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            this.lifeSpan -= delta;
-            if (this.lifeSpan <= 0) {
-                this.shouldDestroy = true;
-            }
-
-            this.behaviours.forEach(function (element) {
-                element.update(delta);
-            });
-        }
-    }]);
-    return ParticleDescriptor;
-}();
-
-exports.default = ParticleDescriptor;
-module.exports = exports['default'];
-
-/***/ }),
 /* 49 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-//sword: soldier
-//fast low range attack facing player, piercing
-//
-
-//longSword: knight
-//unleash high range attack every x sec
-//slow, high range attack facing player, piercing
-
-//bow: archer
-//slow, high distance, high damage, target closest enemy, piercing
-//throw bombs
-
-//crossbow: hunter
-//fast, multiple shots, medium damage, shot in accum angle, no piercing
-//spawn companions
-
-//dagger: rogue
-//fast, low range, high damage, attack closest enemy
-//get invencible for x time after damage
-
-//wand: mage
-//attack in front and back directions alternating, no piercing
-//random fireballs
-
-//hamer: dwarf
-//slow, high damage, attack in area
-//collect more money
-
-//axe: barbarian
-//boomerang, attack closest, piercing
-//throw extra piercing attack when damaged x amount
-
-var WeaponAttributes = function () {
-    function WeaponAttributes() {
-        (0, _classCallCheck3.default)(this, WeaponAttributes);
-
-        this.isMain = true;
-
-        this.baseRange = 60;
-        this.baseLifeSpan = -1;
-        this.baseLifeRangeSpan = 50;
-        this.basePower = 100;
-        this.baseRadius = 15;
-        this.baseBulletSpeed = 200;
-        this.baseFrequency = 1;
-        this.basePiercing = 10;
-        this.baseAmount = 1;
-        this.baseDamageZone = 100;
-        this.baseDetectionZone = 500;
-        this.baseDamageOverTime = 3;
-        this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
-        this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
-
-        this.baseBrustFire = {
-            amount: 0,
-            interval: 0
-        };
-        this.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
-        this.baseBaseShootArc = 0;
-        this.baseGeneralOffset = 0;
-        this.baseAngleOffset = 0.1;
-        this.baseAngleNoise = 0.1;
-        this.baseForceField = false;
-        this.baseForceFeedback = 5;
-
-        this.overrider = null;
-    }
-
-    (0, _createClass3.default)(WeaponAttributes, [{
-        key: "makeOverrider",
-        value: function makeOverrider() {
-            this.overrider = this.clone();
-        }
-    }, {
-        key: "clone",
-        value: function clone() {
-            var clone = new WeaponAttributes();
-            for (var key in this) {
-                if (Object.hasOwnProperty.call(this, key)) {
-                    clone[key] = this[key];
-                }
-            }
-            return clone;
-        }
-    }, {
-        key: "brustFire",
-        get: function get() {
-            return this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire;
-        }
-    }, {
-        key: "extendedBehaviour",
-        get: function get() {
-            return this.isMain ? this.baseExtendedBehaviour : this.overrider.baseExtendedBehaviour;
-        }
-    }, {
-        key: "baseShootArc",
-        get: function get() {
-            return this.isMain ? this.baseBaseShootArc : this.overrider.baseBaseShootArc;
-        }
-    }, {
-        key: "generalOffset",
-        get: function get() {
-            return this.isMain ? this.baseGeneralOffset : this.overrider.baseGeneralOffset;
-        }
-    }, {
-        key: "angleOffset",
-        get: function get() {
-            return this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset;
-        }
-    }, {
-        key: "angleNoise",
-        get: function get() {
-            return this.isMain ? this.baseAngleNoise : this.overrider.baseAngleNoise;
-        }
-    }, {
-        key: "forceField",
-        get: function get() {
-            return this.isMain ? this.baseForceField : this.overrider.baseForceField;
-        }
-    }, {
-        key: "forceFeedback",
-        get: function get() {
-            return this.isMain ? this.baseForceFeedback : this.overrider.baseForceFeedback;
-        }
-    }, {
-        key: "range",
-        get: function get() {
-            return this.isMain ? this.baseRange : this.overrider.baseRange;
-        }
-    }, {
-        key: "lifeSpan",
-        get: function get() {
-            return this.isMain ? this.baseLifeSpan : this.overrider.baseLifeSpan;
-        }
-    }, {
-        key: "lifeRangeSpan",
-        get: function get() {
-            return this.isMain ? this.baseLifeRangeSpan : this.overrider.baseLifeRangeSpan;
-        }
-    }, {
-        key: "power",
-        get: function get() {
-            return this.isMain ? this.basePower : this.overrider.basePower;
-        }
-    }, {
-        key: "radius",
-        get: function get() {
-            return this.isMain ? this.baseRadius : this.overrider.baseRadius;
-        }
-    }, {
-        key: "bulletSpeed",
-        get: function get() {
-            return this.isMain ? this.baseBulletSpeed : this.overrider.baseBulletSpeed;
-        }
-    }, {
-        key: "frequency",
-        get: function get() {
-            return this.isMain ? this.baseFrequency : this.overrider.baseFrequency;
-        }
-    }, {
-        key: "piercing",
-        get: function get() {
-            return this.isMain ? this.basePiercing : this.overrider.basePiercing;
-        }
-    }, {
-        key: "amount",
-        get: function get() {
-            return this.isMain ? this.baseAmount : this.overrider.baseAmount;
-        }
-    }, {
-        key: "damageZone",
-        get: function get() {
-            return this.isMain ? this.baseDamageZone : this.overrider.baseDamageZone;
-        }
-    }, {
-        key: "detectionZone",
-        get: function get() {
-            return this.isMain ? this.baseDetectionZone : this.overrider.baseDetectionZone;
-        }
-    }, {
-        key: "directionType",
-        get: function get() {
-            return this.isMain ? this.baseDirectionType : this.overrider.baseDirectionType;
-        }
-    }, {
-        key: "blockType",
-        get: function get() {
-            return this.isMain ? this.baseBlockType : this.overrider.baseBlockType;
-        }
-    }, {
-        key: "shootArc",
-        get: function get() {
-            return this.isMain ? this.baseShootArc : this.overrider.baseShootArc;
-        }
-    }, {
-        key: "damageOverTime",
-        get: function get() {
-            return this.isMain ? this.baseDamageOverTime : this.overrider.baseDamageOverTime;
-        }
-    }]);
-    return WeaponAttributes;
-}();
-
-WeaponAttributes.BlockType = {
-    IgnoreEnemyBullets: 0,
-    DestroyEnemyBullets: 1,
-    DestroyEnemyBulletsAndDie: 2
-};
-WeaponAttributes.DirectionType = {
-    FacingPlayer: 0,
-    ClosestEnemy: 1,
-    AngularSequence: 2,
-    FacingAlternated: 3,
-    FacingBackwards: 4,
-    ParentAngle: 5,
-    Hoaming: 6
-};
-WeaponAttributes.ExtendedBehaviour = {
-    None: 0,
-    Boomerang: 1
-};
-exports.default = WeaponAttributes;
-module.exports = exports["default"];
-
-/***/ }),
-/* 50 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppLoaderPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Loader; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LoaderResource; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextureLoader; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resource_loader__ = __webpack_require__(145);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(8);
-/*!
- * @pixi/loaders - v5.3.12
- * Compiled Wed, 23 Mar 2022 18:34:28 UTC
- *
- * @pixi/loaders is licensed under the MIT License.
- * http://www.opensource.org/licenses/mit-license
- */
-
-
-
-/**
-* Reference to **{@link https://github.com/englercj/resource-loader
-* resource-loader}**'s Resource class.
-* @see http://englercj.github.io/resource-loader/Resource.html
-* @class LoaderResource
-* @memberof PIXI
-*/
-var LoaderResource = __WEBPACK_IMPORTED_MODULE_0_resource_loader__["b" /* Resource */];
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
-    return extendStatics(d, b);
-};
-
-function __extends(d, b) {
-    extendStatics(d, b);
-    function __() { this.constructor = d; }
-    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-}
-
-/**
- * Loader plugin for handling Texture resources.
- * @class
- * @memberof PIXI
- * @implements PIXI.ILoaderPlugin
- */
-var TextureLoader = /** @class */ (function () {
-    function TextureLoader() {
-    }
-    /**
-     * Called after a resource is loaded.
-     * @see PIXI.Loader.loaderMiddleware
-     * @param {PIXI.LoaderResource} resource
-     * @param {function} next
-     */
-    TextureLoader.use = function (resource, next) {
-        // create a new texture if the data is an Image object
-        if (resource.data && resource.type === __WEBPACK_IMPORTED_MODULE_0_resource_loader__["b" /* Resource */].TYPE.IMAGE) {
-            resource.texture = __WEBPACK_IMPORTED_MODULE_1__pixi_core__["G" /* Texture */].fromLoader(resource.data, resource.url, resource.name);
-        }
-        next();
-    };
-    return TextureLoader;
-}());
-
-/**
- * The new loader, extends Resource Loader by Chad Engler: https://github.com/englercj/resource-loader
- *
- * ```js
- * const loader = PIXI.Loader.shared; // PixiJS exposes a premade instance for you to use.
- * //or
- * const loader = new PIXI.Loader(); // you can also create your own if you want
- *
- * const sprites = {};
- *
- * // Chainable `add` to enqueue a resource
- * loader.add('bunny', 'data/bunny.png')
- *       .add('spaceship', 'assets/spritesheet.json');
- * loader.add('scoreFont', 'assets/score.fnt');
- *
- * // Chainable `pre` to add a middleware that runs for each resource, *before* loading that resource.
- * // This is useful to implement custom caching modules (using filesystem, indexeddb, memory, etc).
- * loader.pre(cachingMiddleware);
- *
- * // Chainable `use` to add a middleware that runs for each resource, *after* loading that resource.
- * // This is useful to implement custom parsing modules (like spritesheet parsers, spine parser, etc).
- * loader.use(parsingMiddleware);
- *
- * // The `load` method loads the queue of resources, and calls the passed in callback called once all
- * // resources have loaded.
- * loader.load((loader, resources) => {
- *     // resources is an object where the key is the name of the resource loaded and the value is the resource object.
- *     // They have a couple default properties:
- *     // - `url`: The URL that the resource was loaded from
- *     // - `error`: The error that happened when trying to load (if any)
- *     // - `data`: The raw data that was loaded
- *     // also may contain other properties based on the middleware that runs.
- *     sprites.bunny = new PIXI.TilingSprite(resources.bunny.texture);
- *     sprites.spaceship = new PIXI.TilingSprite(resources.spaceship.texture);
- *     sprites.scoreFont = new PIXI.TilingSprite(resources.scoreFont.texture);
- * });
- *
- * // throughout the process multiple signals can be dispatched.
- * loader.onProgress.add(() => {}); // called once per loaded/errored file
- * loader.onError.add(() => {}); // called once per errored file
- * loader.onLoad.add(() => {}); // called once per loaded file
- * loader.onComplete.add(() => {}); // called once when the queued resources all load.
- * ```
- *
- * @see https://github.com/englercj/resource-loader
- *
- * @class Loader
- * @memberof PIXI
- * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
- * @param {number} [concurrency=10] - The number of resources to load concurrently.
- */
-var Loader = /** @class */ (function (_super) {
-    __extends(Loader, _super);
-    function Loader(baseUrl, concurrency) {
-        var _this = _super.call(this, baseUrl, concurrency) || this;
-        for (var i = 0; i < Loader._plugins.length; ++i) {
-            var plugin = Loader._plugins[i];
-            var pre = plugin.pre, use = plugin.use;
-            if (pre) {
-                _this.pre(pre);
-            }
-            if (use) {
-                _this.use(use);
-            }
-        }
-        /**
-         * If this loader cannot be destroyed.
-         * @member {boolean}
-         * @default false
-         * @private
-         */
-        _this._protected = false;
-        return _this;
-    }
-    /**
-     * Destroy the loader, removes references.
-     * @memberof PIXI.Loader#
-     * @method destroy
-     * @public
-     */
-    Loader.prototype.destroy = function () {
-        if (!this._protected) {
-            this.reset();
-        }
-    };
-    Object.defineProperty(Loader, "shared", {
-        /**
-         * A premade instance of the loader that can be used to load resources.
-         * @name shared
-         * @type {PIXI.Loader}
-         * @static
-         * @memberof PIXI.Loader
-         */
-        get: function () {
-            var shared = Loader._shared;
-            if (!shared) {
-                shared = new Loader();
-                shared._protected = true;
-                Loader._shared = shared;
-            }
-            return shared;
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /**
-     * Adds a Loader plugin for the global shared loader and all
-     * new Loader instances created.
-     *
-     * @static
-     * @method registerPlugin
-     * @memberof PIXI.Loader
-     * @param {PIXI.ILoaderPlugin} plugin - The plugin to add
-     * @return {PIXI.Loader} Reference to PIXI.Loader for chaining
-     */
-    Loader.registerPlugin = function (plugin) {
-        Loader._plugins.push(plugin);
-        if (plugin.add) {
-            plugin.add();
-        }
-        return Loader;
-    };
-    /**
-     * Collection of all installed `use` middleware for Loader.
-     *
-     * @static
-     * @member {Array<PIXI.ILoaderPlugin>} _plugins
-     * @memberof PIXI.Loader
-     * @private
-     */
-    Loader._plugins = [];
-    return Loader;
-}(__WEBPACK_IMPORTED_MODULE_0_resource_loader__["a" /* Loader */]));
-// parse any blob into more usable objects (e.g. Image)
-Loader.registerPlugin({ use: __WEBPACK_IMPORTED_MODULE_0_resource_loader__["c" /* middleware */].parsing });
-// parse any Image objects into textures
-Loader.registerPlugin(TextureLoader);
-/**
- * Plugin to be installed for handling specific Loader resources.
- *
- * @memberof PIXI
- * @typedef {object} ILoaderPlugin
- * @property {function} [add] - Function to call immediate after registering plugin.
- * @property {PIXI.Loader.loaderMiddleware} [pre] - Middleware function to run before load, the
- *           arguments for this are `(resource, next)`
- * @property {PIXI.Loader.loaderMiddleware} [use] - Middleware function to run after load, the
- *           arguments for this are `(resource, next)`
- */
-/**
- * @memberof PIXI.Loader
- * @typedef {object} ICallbackID
- */
-/**
- * @memberof PIXI.Loader
- * @typedef {function} ISignalCallback
- * @param {function} callback - Callback function
- * @param {object} [context] - Context
- * @returns {ICallbackID} - CallbackID
- */
-/**
- * @memberof PIXI.Loader
- * @typedef {function} ISignalDetach
- * @param {ICallbackID} id - CallbackID returned by `add`/`once` methods
- */
-/**
- * @memberof PIXI.Loader
- * @typedef ILoaderSignal
- * @property {ISignalCallback} add - Register callback
- * @property {ISignalCallback} once - Register oneshot callback
- * @property {ISignalDetach} detach - Detach specific callback by ID
- */
-/**
- * @memberof PIXI.Loader
- * @callback loaderMiddleware
- * @param {PIXI.LoaderResource} resource
- * @param {function} next
- */
-/**
- * @memberof PIXI.Loader#
- * @description Dispatched when the loader begins to loading process.
- * @member {PIXI.Loader.ILoaderSignal} onStart
- */
-/**
- * @memberof PIXI.Loader#
- * @description Dispatched once per loaded or errored resource.
- * @member {PIXI.Loader.ILoaderSignal} onProgress
- */
-/**
- * @memberof PIXI.Loader#
- * @description Dispatched once per errored resource.
- * @member {PIXI.Loader.ILoaderSignal} onError
- */
-/**
- * @memberof PIXI.Loader#
- * @description Dispatched once per loaded resource.
- * @member {PIXI.Loader.ILoaderSignal} onLoad
- */
-/**
- * @memberof PIXI.Loader#
- * @description Dispatched when completely loaded all resources.
- * @member {PIXI.Loader.ILoaderSignal} onComplete
- */
-
-/**
- * Application plugin for supporting loader option. Installing the LoaderPlugin
- * is not necessary if using **pixi.js** or **pixi.js-legacy**.
- * @example
- * import {AppLoaderPlugin} from '@pixi/loaders';
- * import {Application} from '@pixi/app';
- * Application.registerPlugin(AppLoaderPlugin);
- * @class
- * @memberof PIXI
- */
-var AppLoaderPlugin = /** @class */ (function () {
-    function AppLoaderPlugin() {
-    }
-    /**
-     * Called on application constructor
-     * @param {object} options
-     * @private
-     */
-    AppLoaderPlugin.init = function (options) {
-        options = Object.assign({
-            sharedLoader: false,
-        }, options);
-        /**
-         * Loader instance to help with asset loading.
-         * @name PIXI.Application#loader
-         * @type {PIXI.Loader}
-         * @readonly
-         */
-        this.loader = options.sharedLoader ? Loader.shared : new Loader();
-    };
-    /**
-     * Called when application destroyed
-     * @private
-     */
-    AppLoaderPlugin.destroy = function () {
-        if (this.loader) {
-            this.loader.destroy();
-            this.loader = null;
-        }
-    };
-    return AppLoaderPlugin;
-}());
-
-
-//# sourceMappingURL=loaders.es.js.map
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, exports) {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-/* 53 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _GameAgent2 = __webpack_require__(77);
-
-var _GameAgent3 = _interopRequireDefault(_GameAgent2);
-
-var _GameViewSpriteSheet = __webpack_require__(114);
-
-var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
-
-var _Layer = __webpack_require__(19);
-
-var _Layer2 = _interopRequireDefault(_Layer);
-
-var _Player = __webpack_require__(24);
-
-var _Player2 = _interopRequireDefault(_Player);
-
-var _SpriteFacing = __webpack_require__(80);
-
-var _SpriteFacing2 = _interopRequireDefault(_SpriteFacing);
-
-var _SpriteJump = __webpack_require__(81);
-
-var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _Vector = __webpack_require__(15);
-
-var _Vector2 = _interopRequireDefault(_Vector);
-
-var _ZombieWalk = __webpack_require__(217);
-
-var _ZombieWalk2 = _interopRequireDefault(_ZombieWalk);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BaseEnemy = function (_GameAgent) {
-    (0, _inherits3.default)(BaseEnemy, _GameAgent);
-
-    function BaseEnemy() {
-        (0, _classCallCheck3.default)(this, BaseEnemy);
-
-        //this.setDebug(15)
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (BaseEnemy.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy)).call(this));
-
-        _this.enemies = ['cat', 'dog', 'elephant', 'poney', 'rabbit', 'sheep'];
-        //this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
-        _this.gameView.view = new PIXI.Sprite();
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(BaseEnemy, [{
-        key: "build",
-        value: function build(enemyData) {
-            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "build", this).call(this);
-
-            this.staticData = enemyData;
-            this.attributes = enemyData.attributes;
-            this.viewData = enemyData.view;
-
-            this.buildCircle(0, 0, this.attributes.radius);
-            this.rigidBody.isSensor = false;
-            this.layerCategory = _Layer2.default.Enemy;
-            this.layerMask = _Layer2.default.EnemyCollision;
-
-            this.speed = this.attributes.speed;
-            this.health.setNewHealth(this.attributes.hp);
-
-            //view related attributes
-            if (this.viewData.jumpHight) {
-                this.addComponent(_SpriteJump2.default).jumpHight = this.viewData.jumpHight;
-            }
-            var spriteFacing = this.addComponent(_SpriteFacing2.default);
-            spriteFacing.lerp = 1;
-            spriteFacing.startScaleX = -1;
-
-            var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
-            if (this.viewData.zombieWalk) {
-                this.addComponent(_ZombieWalk2.default).speed = this.viewData.zombieWalk;
-            }
-            var animData1 = {};
-            animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = enemyData.animationData.idle;
-            animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = enemyData.animationData.running;
-
-            spriteSheet.setData(animData1);
-            spriteSheet.update(0.1);
-
-            if (this.viewData.anchor) {
-                this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y);
-            } else {
-                this.gameView.view.anchor.set(0.5, 1);
-            }
-            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, this.attributes.radius * 2 * (this.viewData.scale ? this.viewData.scale : 1)));
-            this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
-            this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
-            this.gameView.applyScale();
-
-            this.transform.position.y = this.viewData.offsetY;
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "destroy", this).call(this);
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-
-            if (!this.dying) {
-                if (_Vector2.default.distance(this.transform.position, _Player2.default.MainPlayer.transform.position) > 1000) {
-                    this.destroy();
-                }
-                this.timer += delta * (this.speed * delta * Math.random());
-
-                var dir = Math.atan2(_Player2.default.MainPlayer.transform.position.z - this.transform.position.z, _Player2.default.MainPlayer.transform.position.x - this.transform.position.x); //this.timer
-                this.physics.velocity.x = Math.cos(dir) * this.speed * this.speedAdjust * delta;
-                this.physics.velocity.z = Math.sin(dir) * this.speed * this.speedAdjust * delta;
-            } else {
-                this.physics.velocity.x = 0;
-                this.physics.velocity.z = 0;
-            }
-
-            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "update", this).call(this, delta);
-        }
-    }]);
-    return BaseEnemy;
-}(_GameAgent3.default);
-
-exports.default = BaseEnemy;
-module.exports = exports["default"];
-
-/***/ }),
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _signals = __webpack_require__(6);
-
-var signals = _interopRequireWildcard(_signals);
-
-var _Eugine = __webpack_require__(41);
-
-var _Eugine2 = _interopRequireDefault(_Eugine);
-
-var _GameObject2 = __webpack_require__(14);
-
-var _GameObject3 = _interopRequireDefault(_GameObject2);
-
-var _matterJs = __webpack_require__(78);
-
-var _matterJs2 = _interopRequireDefault(_matterJs);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var PhysicsModule = function (_GameObject) {
-    (0, _inherits3.default)(PhysicsModule, _GameObject);
-
-    function PhysicsModule() {
-        (0, _classCallCheck3.default)(this, PhysicsModule);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (PhysicsModule.__proto__ || (0, _getPrototypeOf2.default)(PhysicsModule)).call(this));
-
-        _this.physicsEngine = _matterJs2.default.Engine.create({
-            gravity: {
-                scale: 10,
-                x: 0,
-                y: 0
-            }
-        });
-
-        _this.entityAdded = new signals.Signal();
-        _this.entityRemoved = new signals.Signal();
-
-        _this.nonStaticList = [];
-        _this.collisionList = [];
-
-        _this.physicsStats = {
-            totalPhysicsEntities: 0
-        };
-        window.GUI.add(_this.physicsStats, 'totalPhysicsEntities').listen();
-
-        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionActive ', function (event) {
-            event.pairs.forEach(function (collision) {
-                var elementPosA = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyA.id);
-                if (elementPosA >= 0) {
-                    if (_this.collisionList[elementPosA].collisionStay) {
-                        _this.collisionList[elementPosA].collisionStay(collision.bodyB.gameObject);
-                    }
-                }
-                var elementPosB = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyB.id);
-                if (elementPosB >= 0) {
-                    if (_this.collisionList[elementPosB].collisionStay) {
-                        _this.collisionList[elementPosB].collisionStay(collision.bodyA.gameObject);
-                    }
-                }
-            });
-        });
-        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionEnd', function (event) {
-            event.pairs.forEach(function (collision) {
-                var elementPosA = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyA.id);
-                if (elementPosA >= 0) {
-                    if (_this.collisionList[elementPosA].collisionExit) {
-                        _this.collisionList[elementPosA].collisionExit(collision.bodyB.gameObject);
-                    }
-                }
-                var elementPosB = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyB.id);
-                if (elementPosB >= 0) {
-                    if (_this.collisionList[elementPosB].collisionExit) {
-                        _this.collisionList[elementPosB].collisionExit(collision.bodyA.gameObject);
-                    }
-                }
-            });
-        });
-        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionStart', function (event) {
-            event.pairs.forEach(function (collision) {
-                var elementPosA = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyA.id);
-                if (elementPosA >= 0) {
-                    if (_this.collisionList[elementPosA].collisionEnter) {
-                        _this.collisionList[elementPosA].collisionEnter(collision.bodyB.gameObject);
-                    }
-                }
-                var elementPosB = _this.collisionList.map(function (x) {
-                    return x.bodyID;
-                }).indexOf(collision.bodyB.id);
-                if (elementPosB >= 0) {
-                    if (_this.collisionList[elementPosB].collisionEnter) {
-                        _this.collisionList[elementPosB].collisionEnter(collision.bodyA.gameObject);
-                    }
-                }
-            });
-        });
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(PhysicsModule, [{
-        key: 'addPhysicBody',
-        value: function addPhysicBody(physicBody) {
-            if (physicBody.collisionEnter || physicBody.collisionExit || physicBody.collisionStay) {
-                this.collisionList.push(physicBody);
-            }
-            _matterJs2.default.Composite.add(this.physicsEngine.world, physicBody.rigidBody);
-
-            //console.log('addPhysicBody')
-            this.entityAdded.dispatch([physicBody]);
-        }
-    }, {
-        key: 'destroyRandom',
-        value: function destroyRandom() {
-            var quant = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
-
-            for (var index = 0; index < quant; index++) {
-                if (this.nonStaticList.length <= 0) return;
-
-                this.removeAgent(this.nonStaticList[this.nonStaticList.length - 1]);
-            }
-        }
-    }, {
-        key: 'removeAgent',
-        value: function removeAgent(agent) {
-            //console.log("REMOVE AGENT")
-            _Eugine2.default.RemoveFromListById(this.nonStaticList, agent);
-
-            _Eugine2.default.RemoveFromListById(this.collisionList, agent);
-
-            _matterJs2.default.World.remove(this.physicsEngine.world, agent.rigidBody);
-        }
-    }, {
-        key: 'addAgent',
-        value: function addAgent(agent) {
-            this.addPhysicBody(agent);
-            //console.log("addAgent")
-            if (!agent.rigidBody.isStatic) {
-                this.nonStaticList.push(agent);
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            delta *= _Eugine2.default.PhysicsTimeScale;
-            (0, _get3.default)(PhysicsModule.prototype.__proto__ || (0, _getPrototypeOf2.default)(PhysicsModule.prototype), 'update', this).call(this, delta);
-            if (this.physicsEngine && delta) {
-                _matterJs2.default.Engine.update(this.physicsEngine, delta);
-            }
-            this.physicsStats.totalPhysicsEntities = this.physicsEngine.detector.bodies.length;
-        }
-    }]);
-    return PhysicsModule;
-}(_GameObject3.default);
-
-exports.default = PhysicsModule;
-module.exports = exports['default'];
-
-/***/ }),
-/* 55 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _ParticleBehaviour2 = __webpack_require__(56);
-
-var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SpriteSheetBehaviour = function (_ParticleBehaviour) {
-    (0, _inherits3.default)(SpriteSheetBehaviour, _ParticleBehaviour);
-
-    function SpriteSheetBehaviour() {
-        (0, _classCallCheck3.default)(this, SpriteSheetBehaviour);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (SpriteSheetBehaviour.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour)).call(this));
-
-        _this.property = ['texture', 'anchor'];
-        _this.frames = [];
-        _this.currentValue = [null, null];
-        _this.currentFrame = 0;
-        return _this;
-    }
-
-    (0, _createClass3.default)(SpriteSheetBehaviour, [{
-        key: 'build',
-        value: function build(params) {
-            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'build', this).call(this, params);
-            this.time = _ParticleBehaviour3.default.findValue(params.time) || 1;
-            this.frameTime = _ParticleBehaviour3.default.findValue(params.frameTime) || this.time;
-            this.startFrame = _ParticleBehaviour3.default.findValue(params.startFrame) || 1;
-            this.endFrame = _ParticleBehaviour3.default.findValue(params.endFrame) || 1;
-            this.spriteName = _ParticleBehaviour3.default.findValue(params.spriteName);
-            this.addZero = params.addZero;
-            this.anchor = params.anchor ? params.anchor : { x: 0.5, y: 0.5 };
-
-            this.frames = [];
-            for (var index = this.startFrame; index <= this.endFrame; index++) {
-                var id = index;
-                if (this.addZero && id < 10) {
-                    id = '0' + id;
-                }
-                this.frames.push(this.spriteName + id);
-            }
-        }
-    }, {
-        key: 'reset',
-        value: function reset() {
-            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'reset', this).call(this);
-            this.currentFrame = 0;
-
-            if (this.frames.length) {
-                this.currentValue = PIXI.Texture.from(this.frames[this.currentFrame]);
-            }
-            this.autoKill = true;
-            this.tween = 'linearTween';
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'update', this).call(this, delta);
-            var frame = _ParticleBehaviour3.default[this.tween](this.currentTime / this.frameTime, 0, 1, 1);
-            this.currentFrame = Math.floor(frame * (this.frames.length - 1)) % this.frames.length;
-
-            this.currentValue[0] = PIXI.Texture.from(this.frames[this.currentFrame]);
-
-            this.currentValue[1] = this.anchor;
-        }
-    }]);
-    return SpriteSheetBehaviour;
-}(_ParticleBehaviour3.default);
-
-exports.default = SpriteSheetBehaviour;
-module.exports = exports['default'];
-
-/***/ }),
-/* 56 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ParticleBehaviour = function () {
-    function ParticleBehaviour() {
-        (0, _classCallCheck3.default)(this, ParticleBehaviour);
-
-
-        this.property = 'alpha';
-        this.type = 'sprite';
-
-        this.time = 3;
-        this.delay = 0;
-
-        this.startValue = 0;
-        this.endValue = 1;
-
-        this.currentTime = 0;
-        this.currentValue = 0;
-
-        this.normalValue = 0;
-
-        this.anchor = { x: 0.5, y: 0.5 };
-
-        this.autoKill = false;
-        this.shouldKill = false;
-
-        this.delay = 0;
-
-        this.tween = 'easeOutCubic';
-    }
-
-    (0, _createClass3.default)(ParticleBehaviour, [{
-        key: 'reset',
-        value: function reset() {
-            this.currentTime = 0;
-            this.autoKill = false;
-            this.shouldKill = false;
-        }
-    }, {
-        key: 'build',
-        value: function build(params) {
-            this.delay = ParticleBehaviour.findValue(params.delay);
-            if (!this.delay) {
-                this.delay = 0;
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            if (this.currentTime >= this.time) {
-                if (this.autoKill) {
-                    this.shouldKill = true;
-                }
-                return;
-            }
-            this.normalValue = ParticleBehaviour[this.tween](this.currentTime / this.time, 0, 1, 1);
-
-            if (typeof this.currentValue === 'number') {
-                this.currentValue = this.normalValue * (this.endValue - this.startValue) + this.startValue;
-            }
-
-            if (this.delay <= 0) {
-                this.currentTime += delta;
-            } else {
-                this.delay -= delta;
-            }
-        }
-    }], [{
-        key: 'linearTween',
-        value: function linearTween(t, b, c, d) {
-            return c * t / d + b;
-        }
-    }, {
-        key: 'easeOutCubic',
-        value: function easeOutCubic(t, b, c, d) {
-            t /= d;
-            t--;
-            return c * (t * t * t + 1) + b;
-        }
-    }, {
-        key: 'easeInExpo',
-        value: function easeInExpo(t, b, c, d) {
-            return c * Math.pow(2, 10 * (t / d - 1)) + b;
-        }
-    }, {
-        key: 'easeInCirc',
-        value: function easeInCirc(t, b, c, d) {
-            t /= d;
-            return -c * (Math.sqrt(1 - t * t) - 1) + b;
-        }
-    }, {
-        key: 'findValue',
-        value: function findValue(data) {
-            if (Array.isArray(data)) {
-                if (data.length == 1) {
-                    return data[0];
-                }
-                return Math.random() * (data[1] - data[0]) + data[0];
-            }
-            return data;
-        }
-    }]);
-    return ParticleBehaviour;
-}();
-
-exports.default = ParticleBehaviour;
-module.exports = exports['default'];
-
-/***/ }),
-/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27638,7 +26475,7 @@ var _Bullet = __webpack_require__(35);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
@@ -27646,19 +26483,19 @@ var _EntityViewData = __webpack_require__(82);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _ParticleDescriptor = __webpack_require__(48);
+var _ParticleDescriptor = __webpack_require__(47);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _PhysicsEntity2 = __webpack_require__(46);
+var _PhysicsEntity2 = __webpack_require__(48);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _SpriteSheetGameView = __webpack_require__(224);
+var _SpriteSheetGameView = __webpack_require__(225);
 
 var _SpriteSheetGameView2 = _interopRequireDefault(_SpriteSheetGameView);
 
@@ -27670,7 +26507,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(49);
+var _WeaponAttributes = __webpack_require__(50);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -28029,6 +26866,1236 @@ exports.default = BaseWeapon;
 module.exports = exports["default"];
 
 /***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+//sword: soldier
+//fast low range attack facing player, piercing
+//
+
+//longSword: knight
+//unleash high range attack every x sec
+//slow, high range attack facing player, piercing
+
+//bow: archer
+//slow, high distance, high damage, target closest enemy, piercing
+//throw bombs
+
+//crossbow: hunter
+//fast, multiple shots, medium damage, shot in accum angle, no piercing
+//spawn companions
+
+//dagger: rogue
+//fast, low range, high damage, attack closest enemy
+//get invencible for x time after damage
+
+//wand: mage
+//attack in front and back directions alternating, no piercing
+//random fireballs
+
+//hamer: dwarf
+//slow, high damage, attack in area
+//collect more money
+
+//axe: barbarian
+//boomerang, attack closest, piercing
+//throw extra piercing attack when damaged x amount
+
+var WeaponAttributes = function () {
+    function WeaponAttributes() {
+        (0, _classCallCheck3.default)(this, WeaponAttributes);
+
+        this.isMain = true;
+        this.baseRange = 60;
+        this.baseLifeSpan = -1;
+        this.baseLifeRangeSpan = 50;
+        this.basePower = 100;
+        this.baseRadius = 15;
+        this.baseBulletSpeed = 200;
+        this.baseFrequency = 1;
+        this.basePiercing = 10;
+        this.baseAmount = 1;
+        this.baseDamageZone = 100;
+        this.baseDetectionZone = 500;
+        this.baseDamageOverTime = 3;
+        this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
+        this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
+
+        this.baseBrustFire = {
+            amount: 0,
+            interval: 0
+        };
+        this.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
+        this.baseBaseShootArc = 0;
+        this.baseGeneralOffset = 0;
+        this.baseAngleOffset = 0.1;
+        this.baseAngleNoise = 0.1;
+        this.baseForceField = false;
+        this.baseForceFeedback = 5;
+
+        this.overrider = null;
+    }
+
+    (0, _createClass3.default)(WeaponAttributes, [{
+        key: 'makeOverrider',
+        value: function makeOverrider() {
+            this.overrider = this.clone();
+            this.overrider.isMain = false;
+        }
+    }, {
+        key: 'clone',
+        value: function clone() {
+            var clone = new WeaponAttributes();
+            for (var key in this) {
+                if (Object.hasOwnProperty.call(this, key)) {
+                    clone[key] = this[key];
+                }
+            }
+            return clone;
+        }
+    }, {
+        key: 'brustFire',
+        get: function get() {
+            return this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire;
+        }
+    }, {
+        key: 'extendedBehaviour',
+        get: function get() {
+            return this.isMain ? this.baseExtendedBehaviour : this.overrider.baseExtendedBehaviour;
+        }
+    }, {
+        key: 'baseShootArc',
+        get: function get() {
+            return this.isMain ? this.baseBaseShootArc : this.overrider.baseBaseShootArc;
+        }
+    }, {
+        key: 'generalOffset',
+        get: function get() {
+            return this.isMain ? this.baseGeneralOffset : this.overrider.baseGeneralOffset;
+        }
+    }, {
+        key: 'angleOffset',
+        get: function get() {
+            return this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset;
+        }
+    }, {
+        key: 'angleNoise',
+        get: function get() {
+            return this.isMain ? this.baseAngleNoise : this.overrider.baseAngleNoise;
+        }
+    }, {
+        key: 'forceField',
+        get: function get() {
+            return this.isMain ? this.baseForceField : this.overrider.baseForceField;
+        }
+    }, {
+        key: 'forceFeedback',
+        get: function get() {
+            return this.isMain ? this.baseForceFeedback : this.overrider.baseForceFeedback;
+        }
+    }, {
+        key: 'range',
+        get: function get() {
+            return this.isMain ? this.baseRange : this.overrider.baseRange;
+        }
+    }, {
+        key: 'lifeSpan',
+        get: function get() {
+            return this.isMain ? this.baseLifeSpan : this.overrider.baseLifeSpan;
+        }
+    }, {
+        key: 'lifeRangeSpan',
+        get: function get() {
+            return this.isMain ? this.baseLifeRangeSpan : this.overrider.baseLifeRangeSpan;
+        }
+    }, {
+        key: 'power',
+        get: function get() {
+            return this.isMain ? this.basePower : this.overrider.basePower;
+        }
+    }, {
+        key: 'radius',
+        get: function get() {
+            return this.isMain ? this.baseRadius : this.overrider.baseRadius;
+        }
+    }, {
+        key: 'bulletSpeed',
+        get: function get() {
+            return this.isMain ? this.baseBulletSpeed : this.overrider.baseBulletSpeed;
+        }
+    }, {
+        key: 'frequency',
+        get: function get() {
+            return this.isMain ? this.baseFrequency : this.overrider.baseFrequency;
+        }
+    }, {
+        key: 'piercing',
+        get: function get() {
+            return this.isMain ? this.basePiercing : this.overrider.basePiercing;
+        }
+    }, {
+        key: 'amount',
+        get: function get() {
+            return this.isMain ? this.baseAmount : this.overrider.baseAmount;
+        }
+    }, {
+        key: 'damageZone',
+        get: function get() {
+            return this.isMain ? this.baseDamageZone : this.overrider.baseDamageZone;
+        }
+    }, {
+        key: 'detectionZone',
+        get: function get() {
+            return this.isMain ? this.baseDetectionZone : this.overrider.baseDetectionZone;
+        }
+    }, {
+        key: 'directionType',
+        get: function get() {
+            return this.isMain ? this.baseDirectionType : this.overrider.baseDirectionType;
+        }
+    }, {
+        key: 'blockType',
+        get: function get() {
+            return this.isMain ? this.baseBlockType : this.overrider.baseBlockType;
+        }
+    }, {
+        key: 'shootArc',
+        get: function get() {
+            return this.isMain ? this.baseShootArc : this.overrider.baseShootArc;
+        }
+    }, {
+        key: 'damageOverTime',
+        get: function get() {
+            return this.isMain ? this.baseDamageOverTime : this.overrider.baseDamageOverTime;
+        }
+    }]);
+    return WeaponAttributes;
+}();
+
+WeaponAttributes.BlockType = {
+    IgnoreEnemyBullets: 'IgnoreEnemyBullets',
+    DestroyEnemyBullets: 'DestroyEnemyBullets',
+    DestroyEnemyBulletsAndDie: 'DestroyEnemyBulletsAndDie'
+};
+WeaponAttributes.DirectionType = {
+    FacingPlayer: 'FacingPlayer',
+    ClosestEnemy: 'ClosestEnemy',
+    AngularSequence: 'AngularSequence',
+    FacingAlternated: 'FacingAlternated',
+    FacingBackwards: 'FacingBackwards',
+    ParentAngle: 'ParentAngle',
+    Hoaming: 'Hoaming'
+};
+WeaponAttributes.ExtendedBehaviour = {
+    None: 0,
+    Boomerang: 'Boomerang'
+};
+exports.default = WeaponAttributes;
+module.exports = exports['default'];
+
+/***/ }),
+/* 51 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppLoaderPlugin; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Loader; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LoaderResource; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextureLoader; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resource_loader__ = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(8);
+/*!
+ * @pixi/loaders - v5.3.12
+ * Compiled Wed, 23 Mar 2022 18:34:28 UTC
+ *
+ * @pixi/loaders is licensed under the MIT License.
+ * http://www.opensource.org/licenses/mit-license
+ */
+
+
+
+/**
+* Reference to **{@link https://github.com/englercj/resource-loader
+* resource-loader}**'s Resource class.
+* @see http://englercj.github.io/resource-loader/Resource.html
+* @class LoaderResource
+* @memberof PIXI
+*/
+var LoaderResource = __WEBPACK_IMPORTED_MODULE_0_resource_loader__["b" /* Resource */];
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = function(d, b) {
+    extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) { if (b.hasOwnProperty(p)) { d[p] = b[p]; } } };
+    return extendStatics(d, b);
+};
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
+/**
+ * Loader plugin for handling Texture resources.
+ * @class
+ * @memberof PIXI
+ * @implements PIXI.ILoaderPlugin
+ */
+var TextureLoader = /** @class */ (function () {
+    function TextureLoader() {
+    }
+    /**
+     * Called after a resource is loaded.
+     * @see PIXI.Loader.loaderMiddleware
+     * @param {PIXI.LoaderResource} resource
+     * @param {function} next
+     */
+    TextureLoader.use = function (resource, next) {
+        // create a new texture if the data is an Image object
+        if (resource.data && resource.type === __WEBPACK_IMPORTED_MODULE_0_resource_loader__["b" /* Resource */].TYPE.IMAGE) {
+            resource.texture = __WEBPACK_IMPORTED_MODULE_1__pixi_core__["G" /* Texture */].fromLoader(resource.data, resource.url, resource.name);
+        }
+        next();
+    };
+    return TextureLoader;
+}());
+
+/**
+ * The new loader, extends Resource Loader by Chad Engler: https://github.com/englercj/resource-loader
+ *
+ * ```js
+ * const loader = PIXI.Loader.shared; // PixiJS exposes a premade instance for you to use.
+ * //or
+ * const loader = new PIXI.Loader(); // you can also create your own if you want
+ *
+ * const sprites = {};
+ *
+ * // Chainable `add` to enqueue a resource
+ * loader.add('bunny', 'data/bunny.png')
+ *       .add('spaceship', 'assets/spritesheet.json');
+ * loader.add('scoreFont', 'assets/score.fnt');
+ *
+ * // Chainable `pre` to add a middleware that runs for each resource, *before* loading that resource.
+ * // This is useful to implement custom caching modules (using filesystem, indexeddb, memory, etc).
+ * loader.pre(cachingMiddleware);
+ *
+ * // Chainable `use` to add a middleware that runs for each resource, *after* loading that resource.
+ * // This is useful to implement custom parsing modules (like spritesheet parsers, spine parser, etc).
+ * loader.use(parsingMiddleware);
+ *
+ * // The `load` method loads the queue of resources, and calls the passed in callback called once all
+ * // resources have loaded.
+ * loader.load((loader, resources) => {
+ *     // resources is an object where the key is the name of the resource loaded and the value is the resource object.
+ *     // They have a couple default properties:
+ *     // - `url`: The URL that the resource was loaded from
+ *     // - `error`: The error that happened when trying to load (if any)
+ *     // - `data`: The raw data that was loaded
+ *     // also may contain other properties based on the middleware that runs.
+ *     sprites.bunny = new PIXI.TilingSprite(resources.bunny.texture);
+ *     sprites.spaceship = new PIXI.TilingSprite(resources.spaceship.texture);
+ *     sprites.scoreFont = new PIXI.TilingSprite(resources.scoreFont.texture);
+ * });
+ *
+ * // throughout the process multiple signals can be dispatched.
+ * loader.onProgress.add(() => {}); // called once per loaded/errored file
+ * loader.onError.add(() => {}); // called once per errored file
+ * loader.onLoad.add(() => {}); // called once per loaded file
+ * loader.onComplete.add(() => {}); // called once when the queued resources all load.
+ * ```
+ *
+ * @see https://github.com/englercj/resource-loader
+ *
+ * @class Loader
+ * @memberof PIXI
+ * @param {string} [baseUrl=''] - The base url for all resources loaded by this loader.
+ * @param {number} [concurrency=10] - The number of resources to load concurrently.
+ */
+var Loader = /** @class */ (function (_super) {
+    __extends(Loader, _super);
+    function Loader(baseUrl, concurrency) {
+        var _this = _super.call(this, baseUrl, concurrency) || this;
+        for (var i = 0; i < Loader._plugins.length; ++i) {
+            var plugin = Loader._plugins[i];
+            var pre = plugin.pre, use = plugin.use;
+            if (pre) {
+                _this.pre(pre);
+            }
+            if (use) {
+                _this.use(use);
+            }
+        }
+        /**
+         * If this loader cannot be destroyed.
+         * @member {boolean}
+         * @default false
+         * @private
+         */
+        _this._protected = false;
+        return _this;
+    }
+    /**
+     * Destroy the loader, removes references.
+     * @memberof PIXI.Loader#
+     * @method destroy
+     * @public
+     */
+    Loader.prototype.destroy = function () {
+        if (!this._protected) {
+            this.reset();
+        }
+    };
+    Object.defineProperty(Loader, "shared", {
+        /**
+         * A premade instance of the loader that can be used to load resources.
+         * @name shared
+         * @type {PIXI.Loader}
+         * @static
+         * @memberof PIXI.Loader
+         */
+        get: function () {
+            var shared = Loader._shared;
+            if (!shared) {
+                shared = new Loader();
+                shared._protected = true;
+                Loader._shared = shared;
+            }
+            return shared;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    /**
+     * Adds a Loader plugin for the global shared loader and all
+     * new Loader instances created.
+     *
+     * @static
+     * @method registerPlugin
+     * @memberof PIXI.Loader
+     * @param {PIXI.ILoaderPlugin} plugin - The plugin to add
+     * @return {PIXI.Loader} Reference to PIXI.Loader for chaining
+     */
+    Loader.registerPlugin = function (plugin) {
+        Loader._plugins.push(plugin);
+        if (plugin.add) {
+            plugin.add();
+        }
+        return Loader;
+    };
+    /**
+     * Collection of all installed `use` middleware for Loader.
+     *
+     * @static
+     * @member {Array<PIXI.ILoaderPlugin>} _plugins
+     * @memberof PIXI.Loader
+     * @private
+     */
+    Loader._plugins = [];
+    return Loader;
+}(__WEBPACK_IMPORTED_MODULE_0_resource_loader__["a" /* Loader */]));
+// parse any blob into more usable objects (e.g. Image)
+Loader.registerPlugin({ use: __WEBPACK_IMPORTED_MODULE_0_resource_loader__["c" /* middleware */].parsing });
+// parse any Image objects into textures
+Loader.registerPlugin(TextureLoader);
+/**
+ * Plugin to be installed for handling specific Loader resources.
+ *
+ * @memberof PIXI
+ * @typedef {object} ILoaderPlugin
+ * @property {function} [add] - Function to call immediate after registering plugin.
+ * @property {PIXI.Loader.loaderMiddleware} [pre] - Middleware function to run before load, the
+ *           arguments for this are `(resource, next)`
+ * @property {PIXI.Loader.loaderMiddleware} [use] - Middleware function to run after load, the
+ *           arguments for this are `(resource, next)`
+ */
+/**
+ * @memberof PIXI.Loader
+ * @typedef {object} ICallbackID
+ */
+/**
+ * @memberof PIXI.Loader
+ * @typedef {function} ISignalCallback
+ * @param {function} callback - Callback function
+ * @param {object} [context] - Context
+ * @returns {ICallbackID} - CallbackID
+ */
+/**
+ * @memberof PIXI.Loader
+ * @typedef {function} ISignalDetach
+ * @param {ICallbackID} id - CallbackID returned by `add`/`once` methods
+ */
+/**
+ * @memberof PIXI.Loader
+ * @typedef ILoaderSignal
+ * @property {ISignalCallback} add - Register callback
+ * @property {ISignalCallback} once - Register oneshot callback
+ * @property {ISignalDetach} detach - Detach specific callback by ID
+ */
+/**
+ * @memberof PIXI.Loader
+ * @callback loaderMiddleware
+ * @param {PIXI.LoaderResource} resource
+ * @param {function} next
+ */
+/**
+ * @memberof PIXI.Loader#
+ * @description Dispatched when the loader begins to loading process.
+ * @member {PIXI.Loader.ILoaderSignal} onStart
+ */
+/**
+ * @memberof PIXI.Loader#
+ * @description Dispatched once per loaded or errored resource.
+ * @member {PIXI.Loader.ILoaderSignal} onProgress
+ */
+/**
+ * @memberof PIXI.Loader#
+ * @description Dispatched once per errored resource.
+ * @member {PIXI.Loader.ILoaderSignal} onError
+ */
+/**
+ * @memberof PIXI.Loader#
+ * @description Dispatched once per loaded resource.
+ * @member {PIXI.Loader.ILoaderSignal} onLoad
+ */
+/**
+ * @memberof PIXI.Loader#
+ * @description Dispatched when completely loaded all resources.
+ * @member {PIXI.Loader.ILoaderSignal} onComplete
+ */
+
+/**
+ * Application plugin for supporting loader option. Installing the LoaderPlugin
+ * is not necessary if using **pixi.js** or **pixi.js-legacy**.
+ * @example
+ * import {AppLoaderPlugin} from '@pixi/loaders';
+ * import {Application} from '@pixi/app';
+ * Application.registerPlugin(AppLoaderPlugin);
+ * @class
+ * @memberof PIXI
+ */
+var AppLoaderPlugin = /** @class */ (function () {
+    function AppLoaderPlugin() {
+    }
+    /**
+     * Called on application constructor
+     * @param {object} options
+     * @private
+     */
+    AppLoaderPlugin.init = function (options) {
+        options = Object.assign({
+            sharedLoader: false,
+        }, options);
+        /**
+         * Loader instance to help with asset loading.
+         * @name PIXI.Application#loader
+         * @type {PIXI.Loader}
+         * @readonly
+         */
+        this.loader = options.sharedLoader ? Loader.shared : new Loader();
+    };
+    /**
+     * Called when application destroyed
+     * @private
+     */
+    AppLoaderPlugin.destroy = function () {
+        if (this.loader) {
+            this.loader.destroy();
+            this.loader = null;
+        }
+    };
+    return AppLoaderPlugin;
+}());
+
+
+//# sourceMappingURL=loaders.es.js.map
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports) {
+
+module.exports = function (bitmap, value) {
+  return {
+    enumerable: !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable: !(bitmap & 4),
+    value: value
+  };
+};
+
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports) {
+
+var id = 0;
+var px = Math.random();
+module.exports = function (key) {
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _EffectsManager = __webpack_require__(19);
+
+var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
+
+var _GameAgent2 = __webpack_require__(78);
+
+var _GameAgent3 = _interopRequireDefault(_GameAgent2);
+
+var _GameStaticData = __webpack_require__(41);
+
+var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
+
+var _GameViewSpriteSheet = __webpack_require__(115);
+
+var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
+
+var _Layer = __webpack_require__(20);
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _Player = __webpack_require__(25);
+
+var _Player2 = _interopRequireDefault(_Player);
+
+var _SpriteFacing = __webpack_require__(80);
+
+var _SpriteFacing2 = _interopRequireDefault(_SpriteFacing);
+
+var _SpriteJump = __webpack_require__(81);
+
+var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _Vector = __webpack_require__(15);
+
+var _Vector2 = _interopRequireDefault(_Vector);
+
+var _ZombieWalk = __webpack_require__(218);
+
+var _ZombieWalk2 = _interopRequireDefault(_ZombieWalk);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BaseEnemy = function (_GameAgent) {
+    (0, _inherits3.default)(BaseEnemy, _GameAgent);
+
+    function BaseEnemy() {
+        (0, _classCallCheck3.default)(this, BaseEnemy);
+
+        //this.setDebug(15)
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (BaseEnemy.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy)).call(this));
+
+        _this.enemies = ['cat', 'dog', 'elephant', 'poney', 'rabbit', 'sheep'];
+        //this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
+        _this.gameView.view = new PIXI.Sprite();
+
+        return _this;
+    }
+
+    (0, _createClass3.default)(BaseEnemy, [{
+        key: "build",
+        value: function build(enemyData) {
+            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "build", this).call(this);
+
+            this.staticData = enemyData;
+            this.attributes = enemyData.attributes;
+            this.viewData = enemyData.view;
+
+            this.buildCircle(0, 0, this.attributes.radius);
+            this.rigidBody.isSensor = false;
+            this.layerCategory = _Layer2.default.Enemy;
+            this.layerMask = _Layer2.default.EnemyCollision;
+
+            this.speed = this.attributes.speed;
+            this.health.setNewHealth(this.attributes.hp);
+
+            //view related attributes
+            if (this.viewData.jumpHight) {
+                this.addComponent(_SpriteJump2.default).jumpHight = this.viewData.jumpHight;
+            }
+            var spriteFacing = this.addComponent(_SpriteFacing2.default);
+            spriteFacing.lerp = 1;
+            spriteFacing.startScaleX = -1;
+
+            var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
+            if (this.viewData.zombieWalk) {
+                this.addComponent(_ZombieWalk2.default).speed = this.viewData.zombieWalk;
+            }
+            var animData1 = {};
+            animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = _GameStaticData2.default.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData;
+
+            var run = _GameStaticData2.default.instance.getSharedDataById('animation', enemyData.animationData.run);
+            if (run) {
+                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = run.animationData;
+            } else {
+                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = animData1[_GameViewSpriteSheet2.default.AnimationType.Idle];
+            }
+
+            spriteSheet.setData(animData1);
+            spriteSheet.update(0.1);
+
+            if (this.viewData.anchor) {
+                this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y);
+            } else {
+                this.gameView.view.anchor.set(0.5, 1);
+            }
+            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, this.attributes.radius * 2 * (this.viewData.scale ? this.viewData.scale : 1)));
+            this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
+            this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
+            this.gameView.applyScale();
+
+            if (this.viewData.offset) {
+                if (this.viewData.offset.y) {
+                    this.transform.position.y = this.viewData.offset.y;
+                }
+            }
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "destroy", this).call(this);
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+
+            if (!this.dying) {
+                if (_Vector2.default.distance(this.transform.position, _Player2.default.MainPlayer.transform.position) > 1000) {
+                    this.destroy();
+                }
+                this.timer += delta * (this.speed * delta * Math.random());
+
+                var dir = Math.atan2(_Player2.default.MainPlayer.transform.position.z - this.transform.position.z, _Player2.default.MainPlayer.transform.position.x - this.transform.position.x); //this.timer
+                this.physics.velocity.x = Math.cos(dir) * this.speed * this.speedAdjust * delta;
+                this.physics.velocity.z = Math.sin(dir) * this.speed * this.speedAdjust * delta;
+            } else {
+                this.physics.velocity.x = 0;
+                this.physics.velocity.z = 0;
+            }
+
+            (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "update", this).call(this, delta);
+        }
+    }]);
+    return BaseEnemy;
+}(_GameAgent3.default);
+
+exports.default = BaseEnemy;
+module.exports = exports["default"];
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ParticleBehaviour = function () {
+    function ParticleBehaviour() {
+        (0, _classCallCheck3.default)(this, ParticleBehaviour);
+
+
+        this.property = 'alpha';
+        this.type = 'sprite';
+
+        this.time = 3;
+        this.delay = 0;
+
+        this.startValue = 0;
+        this.endValue = 1;
+
+        this.currentTime = 0;
+        this.currentValue = 0;
+
+        this.normalValue = 0;
+
+        this.anchor = { x: 0.5, y: 0.5 };
+
+        this.autoKill = false;
+        this.shouldKill = false;
+
+        this.delay = 0;
+
+        this.tween = 'easeOutCubic';
+    }
+
+    (0, _createClass3.default)(ParticleBehaviour, [{
+        key: 'reset',
+        value: function reset() {
+            this.currentTime = 0;
+            this.autoKill = false;
+            this.shouldKill = false;
+        }
+    }, {
+        key: 'build',
+        value: function build(params) {
+            this.delay = ParticleBehaviour.findValue(params.delay);
+            if (!this.delay) {
+                this.delay = 0;
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            if (this.currentTime >= this.time) {
+                if (this.autoKill) {
+                    this.shouldKill = true;
+                }
+                return;
+            }
+            this.normalValue = ParticleBehaviour[this.tween](this.currentTime / this.time, 0, 1, 1);
+
+            if (typeof this.currentValue === 'number') {
+                this.currentValue = this.normalValue * (this.endValue - this.startValue) + this.startValue;
+            }
+
+            if (this.delay <= 0) {
+                this.currentTime += delta;
+            } else {
+                this.delay -= delta;
+            }
+        }
+    }], [{
+        key: 'linearTween',
+        value: function linearTween(t, b, c, d) {
+            return c * t / d + b;
+        }
+    }, {
+        key: 'easeOutCubic',
+        value: function easeOutCubic(t, b, c, d) {
+            t /= d;
+            t--;
+            return c * (t * t * t + 1) + b;
+        }
+    }, {
+        key: 'easeInExpo',
+        value: function easeInExpo(t, b, c, d) {
+            return c * Math.pow(2, 10 * (t / d - 1)) + b;
+        }
+    }, {
+        key: 'easeInCirc',
+        value: function easeInCirc(t, b, c, d) {
+            t /= d;
+            return -c * (Math.sqrt(1 - t * t) - 1) + b;
+        }
+    }, {
+        key: 'findValue',
+        value: function findValue(data) {
+            if (Array.isArray(data)) {
+                if (data.length == 1) {
+                    return data[0];
+                }
+                return Math.random() * (data[1] - data[0]) + data[0];
+            }
+            return data;
+        }
+    }]);
+    return ParticleBehaviour;
+}();
+
+exports.default = ParticleBehaviour;
+module.exports = exports['default'];
+
+/***/ }),
+/* 56 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _signals = __webpack_require__(6);
+
+var signals = _interopRequireWildcard(_signals);
+
+var _Eugine = __webpack_require__(42);
+
+var _Eugine2 = _interopRequireDefault(_Eugine);
+
+var _GameObject2 = __webpack_require__(14);
+
+var _GameObject3 = _interopRequireDefault(_GameObject2);
+
+var _matterJs = __webpack_require__(77);
+
+var _matterJs2 = _interopRequireDefault(_matterJs);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var PhysicsModule = function (_GameObject) {
+    (0, _inherits3.default)(PhysicsModule, _GameObject);
+
+    function PhysicsModule() {
+        (0, _classCallCheck3.default)(this, PhysicsModule);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (PhysicsModule.__proto__ || (0, _getPrototypeOf2.default)(PhysicsModule)).call(this));
+
+        _this.physicsEngine = _matterJs2.default.Engine.create({
+            gravity: {
+                scale: 10,
+                x: 0,
+                y: 0
+            }
+        });
+
+        _this.entityAdded = new signals.Signal();
+        _this.entityRemoved = new signals.Signal();
+
+        _this.nonStaticList = [];
+        _this.collisionList = [];
+
+        _this.physicsStats = {
+            totalPhysicsEntities: 0
+        };
+        window.GUI.add(_this.physicsStats, 'totalPhysicsEntities').listen();
+
+        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionActive ', function (event) {
+            event.pairs.forEach(function (collision) {
+                var elementPosA = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyA.id);
+                if (elementPosA >= 0) {
+                    if (_this.collisionList[elementPosA].collisionStay) {
+                        _this.collisionList[elementPosA].collisionStay(collision.bodyB.gameObject);
+                    }
+                }
+                var elementPosB = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyB.id);
+                if (elementPosB >= 0) {
+                    if (_this.collisionList[elementPosB].collisionStay) {
+                        _this.collisionList[elementPosB].collisionStay(collision.bodyA.gameObject);
+                    }
+                }
+            });
+        });
+        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionEnd', function (event) {
+            event.pairs.forEach(function (collision) {
+                var elementPosA = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyA.id);
+                if (elementPosA >= 0) {
+                    if (_this.collisionList[elementPosA].collisionExit) {
+                        _this.collisionList[elementPosA].collisionExit(collision.bodyB.gameObject);
+                    }
+                }
+                var elementPosB = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyB.id);
+                if (elementPosB >= 0) {
+                    if (_this.collisionList[elementPosB].collisionExit) {
+                        _this.collisionList[elementPosB].collisionExit(collision.bodyA.gameObject);
+                    }
+                }
+            });
+        });
+        _matterJs2.default.Events.on(_this.physicsEngine, 'collisionStart', function (event) {
+            event.pairs.forEach(function (collision) {
+                var elementPosA = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyA.id);
+                if (elementPosA >= 0) {
+                    if (_this.collisionList[elementPosA].collisionEnter) {
+                        _this.collisionList[elementPosA].collisionEnter(collision.bodyB.gameObject);
+                    }
+                }
+                var elementPosB = _this.collisionList.map(function (x) {
+                    return x.bodyID;
+                }).indexOf(collision.bodyB.id);
+                if (elementPosB >= 0) {
+                    if (_this.collisionList[elementPosB].collisionEnter) {
+                        _this.collisionList[elementPosB].collisionEnter(collision.bodyA.gameObject);
+                    }
+                }
+            });
+        });
+
+        return _this;
+    }
+
+    (0, _createClass3.default)(PhysicsModule, [{
+        key: 'addPhysicBody',
+        value: function addPhysicBody(physicBody) {
+            if (physicBody.collisionEnter || physicBody.collisionExit || physicBody.collisionStay) {
+                this.collisionList.push(physicBody);
+            }
+            _matterJs2.default.Composite.add(this.physicsEngine.world, physicBody.rigidBody);
+
+            //console.log('addPhysicBody')
+            this.entityAdded.dispatch([physicBody]);
+        }
+    }, {
+        key: 'destroyRandom',
+        value: function destroyRandom() {
+            var quant = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 5;
+
+            for (var index = 0; index < quant; index++) {
+                if (this.nonStaticList.length <= 0) return;
+
+                this.removeAgent(this.nonStaticList[this.nonStaticList.length - 1]);
+            }
+        }
+    }, {
+        key: 'removeAgent',
+        value: function removeAgent(agent) {
+            //console.log("REMOVE AGENT")
+            _Eugine2.default.RemoveFromListById(this.nonStaticList, agent);
+
+            _Eugine2.default.RemoveFromListById(this.collisionList, agent);
+
+            _matterJs2.default.World.remove(this.physicsEngine.world, agent.rigidBody);
+        }
+    }, {
+        key: 'addAgent',
+        value: function addAgent(agent) {
+            this.addPhysicBody(agent);
+            //console.log("addAgent")
+            if (!agent.rigidBody.isStatic) {
+                this.nonStaticList.push(agent);
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            delta *= _Eugine2.default.PhysicsTimeScale;
+            (0, _get3.default)(PhysicsModule.prototype.__proto__ || (0, _getPrototypeOf2.default)(PhysicsModule.prototype), 'update', this).call(this, delta);
+            if (this.physicsEngine && delta) {
+                _matterJs2.default.Engine.update(this.physicsEngine, delta);
+            }
+            this.physicsStats.totalPhysicsEntities = this.physicsEngine.detector.bodies.length;
+        }
+    }]);
+    return PhysicsModule;
+}(_GameObject3.default);
+
+exports.default = PhysicsModule;
+module.exports = exports['default'];
+
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _ParticleBehaviour2 = __webpack_require__(55);
+
+var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SpriteSheetBehaviour = function (_ParticleBehaviour) {
+    (0, _inherits3.default)(SpriteSheetBehaviour, _ParticleBehaviour);
+
+    function SpriteSheetBehaviour() {
+        (0, _classCallCheck3.default)(this, SpriteSheetBehaviour);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (SpriteSheetBehaviour.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour)).call(this));
+
+        _this.property = ['texture', 'anchor'];
+        _this.frames = [];
+        _this.currentValue = [null, null];
+        _this.currentFrame = 0;
+        return _this;
+    }
+
+    (0, _createClass3.default)(SpriteSheetBehaviour, [{
+        key: 'build',
+        value: function build(params) {
+            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'build', this).call(this, params);
+            this.time = _ParticleBehaviour3.default.findValue(params.time) || 1;
+            this.frameTime = _ParticleBehaviour3.default.findValue(params.frameTime) || this.time;
+            this.startFrame = _ParticleBehaviour3.default.findValue(params.startFrame) || 1;
+            this.endFrame = _ParticleBehaviour3.default.findValue(params.endFrame) || 1;
+            this.spriteName = _ParticleBehaviour3.default.findValue(params.spriteName);
+            this.addZero = params.addZero;
+            this.anchor = params.anchor ? params.anchor : { x: 0.5, y: 0.5 };
+
+            this.frames = [];
+            for (var index = this.startFrame; index <= this.endFrame; index++) {
+                var id = index;
+                if (this.addZero && id < 10) {
+                    id = '0' + id;
+                }
+                this.frames.push(this.spriteName + id);
+            }
+        }
+    }, {
+        key: 'reset',
+        value: function reset() {
+            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'reset', this).call(this);
+            this.currentFrame = 0;
+
+            if (this.frames.length) {
+                this.currentValue = PIXI.Texture.from(this.frames[this.currentFrame]);
+            }
+            this.autoKill = true;
+            this.tween = 'linearTween';
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            (0, _get3.default)(SpriteSheetBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetBehaviour.prototype), 'update', this).call(this, delta);
+            var frame = _ParticleBehaviour3.default[this.tween](this.currentTime / this.frameTime, 0, 1, 1);
+            this.currentFrame = Math.floor(frame * (this.frames.length - 1)) % this.frames.length;
+
+            this.currentValue[0] = PIXI.Texture.from(this.frames[this.currentFrame]);
+
+            this.currentValue[1] = this.anchor;
+        }
+    }]);
+    return SpriteSheetBehaviour;
+}(_ParticleBehaviour3.default);
+
+exports.default = SpriteSheetBehaviour;
+module.exports = exports['default'];
+
+/***/ }),
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28097,7 +28164,7 @@ module.exports = exports['default'];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Text; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TextMetrics; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextStyle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_settings__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(10);
@@ -30171,7 +30238,7 @@ var Text = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MeshMaterial; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_display__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_settings__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_utils__ = __webpack_require__(9);
@@ -30977,7 +31044,7 @@ module.exports = {};
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(43);
+var anObject = __webpack_require__(44);
 var dPs = __webpack_require__(171);
 var enumBugKeys = __webpack_require__(71);
 var IE_PROTO = __webpack_require__(69)('IE_PROTO');
@@ -31037,7 +31104,7 @@ module.exports = Object.keys || function keys(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(70)('keys');
-var uid = __webpack_require__(52);
+var uid = __webpack_require__(53);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -31112,7 +31179,7 @@ exports.f = {}.propertyIsEnumerable;
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(75);
-var createDesc = __webpack_require__(51);
+var createDesc = __webpack_require__(52);
 var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(61);
 var has = __webpack_require__(33);
@@ -31131,235 +31198,6 @@ exports.f = __webpack_require__(32) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 /* 77 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _GameView = __webpack_require__(22);
-
-var _GameView2 = _interopRequireDefault(_GameView);
-
-var _Health = __webpack_require__(210);
-
-var _Health2 = _interopRequireDefault(_Health);
-
-var _PhysicsEntity2 = __webpack_require__(46);
-
-var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameAgent = function (_PhysicsEntity) {
-    (0, _inherits3.default)(GameAgent, _PhysicsEntity);
-
-    function GameAgent() {
-        var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-        (0, _classCallCheck3.default)(this, GameAgent);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (GameAgent.__proto__ || (0, _getPrototypeOf2.default)(GameAgent)).call(this, debug));
-
-        _this.onDie = new _signals2.default.Signal();
-
-        _this.gameView = new _GameView2.default(_this);
-        _this.totalDirections = 6;
-        _this.dying = false;
-        _this.shadow = new PIXI.Sprite.from('shadow2');
-        _this.shadow.anchor.set(0.5, 0.5);
-        _this.shadow.alpha = 0.1;
-        _this.shadow.tint = 0;
-        _this.shadow.scale.set(30 / _this.shadow.width);
-        _this.shadow.scale.y = _this.shadow.scale.x * 0.4;
-
-        _this.currentEnemiesColliding = [];
-
-        if (debug) {
-            _this.setDebug(15);
-        }
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(GameAgent, [{
-        key: "findInCollision",
-        value: function findInCollision(entity) {
-            for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
-                if (this.currentEnemiesColliding[index].entity == entity) {
-                    return true;
-                }
-            }
-            return false;
-        }
-    }, {
-        key: "damage",
-        value: function damage(value) {
-            return this.health.damage(value);
-        }
-    }, {
-        key: "die",
-        value: function die() {
-            if (this.dying) {
-                return;
-            }
-            //console.log("DIE")
-            this.rigidBody.isSensor = true;
-            this.dying = true;
-            this.onDie.dispatch(this);
-            this.destroy();
-        }
-    }, {
-        key: "onAnimationEnd",
-        value: function onAnimationEnd(animation, state) {}
-    }, {
-        key: "start",
-        value: function start() {
-            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "start", this).call(this);
-            // this.view.visible = true;
-        }
-    }, {
-        key: "build",
-        value: function build() {
-            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "build", this).call(this);
-
-            this.health = this.addComponent(_Health2.default);
-            this.health.removeAllSignals();
-
-            this.health.gotKilled.add(this.die.bind(this));
-            this.health.reset();
-
-            this.angleChunk = 360 / this.totalDirections;
-            this.angleChunkRad = Math.PI * 2 / this.totalDirections;
-            this.timer = Math.random();
-            this.speed = 20 * Math.random() + 10;
-            this.speedAdjust = 1;
-            this.dying = false;
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "update", this).call(this, delta);
-
-            this.gameView.update(delta);
-
-            this.shadow.x = this.transform.position.x;
-            this.shadow.y = this.transform.position.z;
-
-            // if (this.view.init) {
-            //     this.view.setLayer(this.calcFrame())
-            //     this.view.update(delta)
-            // }
-        }
-    }, {
-        key: "injectAnimations",
-        value: function injectAnimations(animations, flipped) {
-            var _this2 = this;
-
-            animations.forEach(function (element) {
-                for (var index = _this2.totalDirections; index >= 1; index--) {
-                    var angId = Math.round(index * ((flipped ? 180 : 360) / _this2.totalDirections));
-                    _this2.view.addLayer(element.id, _this2.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop);
-                }
-            });
-
-            this.view.setLayer(0);
-            this.view.randomStartFrame();
-        }
-    }, {
-        key: "onRender",
-        value: function onRender() {}
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            if (this.isDestroyed) return;
-            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "destroy", this).call(this);
-
-            //this.view.visible = false;
-        }
-    }, {
-        key: "calcFrame",
-        value: function calcFrame() {
-            var ang = this.transform.angle * 180 / Math.PI + 90;
-
-            if (ang < 0 || ang > 180) {
-                this.view.scale.x = -Math.abs(this.view.scale.x);
-            } else {
-                this.view.scale.x = Math.abs(this.view.scale.x);
-            }
-
-            ang = Math.abs(ang);
-            if (ang > 180) {
-                ang = 180 - ang % 180;
-            }
-            var layer = Math.floor(ang / (180 / this.totalDirections));
-            if (layer < 0) {
-                layer += this.totalDirections;
-            }
-            layer %= this.totalDirections;
-            return layer;
-        }
-
-        // calcFrame() {
-        //     //aif(this.physics.magnitude == 0) return -1;
-
-        //     let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
-        //     if (ang <= 0) {
-        //         ang += 360
-        //     }
-        //     let layer = Math.round(ang / (360 / this.totalDirections)) + 1
-        //     if (layer < 0) {
-        //         layer += this.totalDirections
-        //     }
-        //     layer %= this.totalDirections
-
-        //     return layer;
-        // }
-
-    }, {
-        key: "isDead",
-        get: function get() {
-            return this.health.currentHealth <= 0;
-        }
-    }]);
-    return GameAgent;
-}(_PhysicsEntity3.default);
-
-exports.default = GameAgent;
-module.exports = exports["default"];
-
-/***/ }),
-/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -42123,6 +41961,255 @@ var Common = __webpack_require__(0);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
 
 /***/ }),
+/* 78 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _EffectsManager = __webpack_require__(19);
+
+var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
+
+var _GameView = __webpack_require__(24);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
+var _Health = __webpack_require__(215);
+
+var _Health2 = _interopRequireDefault(_Health);
+
+var _PhysicsEntity2 = __webpack_require__(48);
+
+var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameAgent = function (_PhysicsEntity) {
+    (0, _inherits3.default)(GameAgent, _PhysicsEntity);
+
+    function GameAgent() {
+        var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+        (0, _classCallCheck3.default)(this, GameAgent);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (GameAgent.__proto__ || (0, _getPrototypeOf2.default)(GameAgent)).call(this, debug));
+
+        _this.onDie = new _signals2.default.Signal();
+
+        _this.gameView = new _GameView2.default(_this);
+        _this.totalDirections = 6;
+        _this.dying = false;
+        _this.shadow = new PIXI.Sprite.from('shadow2');
+        _this.shadow.anchor.set(0.5, 0.5);
+        _this.shadow.alpha = 0.1;
+        _this.shadow.tint = 0;
+        _this.shadow.scale.set(30 / _this.shadow.width);
+        _this.shadow.scale.y = _this.shadow.scale.x * 0.4;
+        _this.staticData = {};
+        _this.currentEnemiesColliding = [];
+
+        if (debug) {
+            _this.setDebug(15);
+        }
+
+        return _this;
+    }
+
+    (0, _createClass3.default)(GameAgent, [{
+        key: "findInCollision",
+        value: function findInCollision(entity) {
+            for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
+                if (this.currentEnemiesColliding[index].entity == entity) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }, {
+        key: "die",
+        value: function die() {
+            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "die", this).call(this);
+        }
+    }, {
+        key: "damage",
+        value: function damage(value) {
+            _EffectsManager2.default.instance.popDamage(this, value);
+            this.playVfx('onHit');
+            return this.health.damage(value);
+        }
+    }, {
+        key: "die",
+        value: function die() {
+            if (this.dying) {
+                return;
+            }
+
+            this.playVfx('onDie');
+            this.rigidBody.isSensor = true;
+            this.dying = true;
+            this.onDie.dispatch(this);
+            this.destroy();
+        }
+    }, {
+        key: "playVfx",
+        value: function playVfx(type) {
+            if (!this.staticData || !this.staticData.vfx || !this.staticData.vfx[type]) {
+                return;
+            }
+            _EffectsManager2.default.instance.emitById(this.gameView.view.position, this.staticData.vfx[type]);
+        }
+    }, {
+        key: "onAnimationEnd",
+        value: function onAnimationEnd(animation, state) {}
+    }, {
+        key: "start",
+        value: function start() {
+            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "start", this).call(this);
+            // this.view.visible = true;
+        }
+    }, {
+        key: "build",
+        value: function build() {
+            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "build", this).call(this);
+
+            this.health = this.addComponent(_Health2.default);
+            this.health.removeAllSignals();
+
+            this.health.gotKilled.add(this.die.bind(this));
+            this.health.reset();
+
+            this.angleChunk = 360 / this.totalDirections;
+            this.angleChunkRad = Math.PI * 2 / this.totalDirections;
+            this.timer = Math.random();
+            this.speed = 20 * Math.random() + 10;
+            this.speedAdjust = 1;
+            this.dying = false;
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "update", this).call(this, delta);
+
+            this.gameView.update(delta);
+
+            this.shadow.x = this.transform.position.x;
+            this.shadow.y = this.transform.position.z;
+
+            // if (this.view.init) {
+            //     this.view.setLayer(this.calcFrame())
+            //     this.view.update(delta)
+            // }
+        }
+    }, {
+        key: "injectAnimations",
+        value: function injectAnimations(animations, flipped) {
+            var _this2 = this;
+
+            animations.forEach(function (element) {
+                for (var index = _this2.totalDirections; index >= 1; index--) {
+                    var angId = Math.round(index * ((flipped ? 180 : 360) / _this2.totalDirections));
+                    _this2.view.addLayer(element.id, _this2.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop);
+                }
+            });
+
+            this.view.setLayer(0);
+            this.view.randomStartFrame();
+        }
+    }, {
+        key: "onRender",
+        value: function onRender() {}
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            if (this.isDestroyed) return;
+            (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "destroy", this).call(this);
+
+            //this.view.visible = false;
+        }
+    }, {
+        key: "calcFrame",
+        value: function calcFrame() {
+            var ang = this.transform.angle * 180 / Math.PI + 90;
+
+            if (ang < 0 || ang > 180) {
+                this.view.scale.x = -Math.abs(this.view.scale.x);
+            } else {
+                this.view.scale.x = Math.abs(this.view.scale.x);
+            }
+
+            ang = Math.abs(ang);
+            if (ang > 180) {
+                ang = 180 - ang % 180;
+            }
+            var layer = Math.floor(ang / (180 / this.totalDirections));
+            if (layer < 0) {
+                layer += this.totalDirections;
+            }
+            layer %= this.totalDirections;
+            return layer;
+        }
+
+        // calcFrame() {
+        //     //aif(this.physics.magnitude == 0) return -1;
+
+        //     let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
+        //     if (ang <= 0) {
+        //         ang += 360
+        //     }
+        //     let layer = Math.round(ang / (360 / this.totalDirections)) + 1
+        //     if (layer < 0) {
+        //         layer += this.totalDirections
+        //     }
+        //     layer %= this.totalDirections
+
+        //     return layer;
+        // }
+
+    }, {
+        key: "isDead",
+        get: function get() {
+            return this.health.currentHealth <= 0;
+        }
+    }]);
+    return GameAgent;
+}(_PhysicsEntity3.default);
+
+exports.default = GameAgent;
+module.exports = exports["default"];
+
+/***/ }),
 /* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42169,7 +42256,7 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _matterJs = __webpack_require__(78);
+var _matterJs = __webpack_require__(77);
 
 var _matterJs2 = _interopRequireDefault(_matterJs);
 
@@ -42464,7 +42551,7 @@ var _BaseComponent2 = __webpack_require__(23);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(41);
+var _Eugine = __webpack_require__(42);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -42535,15 +42622,15 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _ParticleDescriptor = __webpack_require__(48);
+var _ParticleDescriptor = __webpack_require__(47);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _SpriteSheetBehaviour = __webpack_require__(55);
+var _SpriteSheetBehaviour = __webpack_require__(57);
 
 var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
 
@@ -42584,7 +42671,8 @@ var EntityViewData = function () {
                 width: 1,
                 height: 1,
                 maxHeight: 0,
-                targetLayer: _EffectsManager2.default.TargetLayer.Gameplay
+                rotationSpeed: 0,
+                targetLayer: _EffectsManager2.default.TargetLayer.GameplayLayer
 
             };
         }
@@ -42594,7 +42682,7 @@ var EntityViewData = function () {
             this.baseSpawnViewData.viewData = vfxPack.descriptor;
             this.baseSpawnViewData.offset = vfxPack.offset;
             this.baseSpawnViewData.scale = vfxPack.scale;
-            this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.Gameplay;
+            this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.GameplayLayer;
             this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
             this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData);
         }
@@ -42604,7 +42692,7 @@ var EntityViewData = function () {
             this.baseDestroyViewData.viewData = vfxPack.descriptor;
             this.baseDestroyViewData.offset = vfxPack.offset;
             this.baseDestroyViewData.scale = vfxPack.scale;
-            this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.Gameplay;
+            this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.GameplayLayer;
 
             this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
             this.extractDimensions(vfxPack.descriptor, this.baseDestroyViewData);
@@ -42615,7 +42703,7 @@ var EntityViewData = function () {
             this.baseViewData.viewData = vfxPack.descriptor;
             this.baseViewData.offset = vfxPack.offset;
             this.baseViewData.scale = vfxPack.scale;
-            this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.Gameplay;
+            this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer : _EffectsManager2.default.TargetLayer.GameplayLayer;
             this.baseViewData.movementType = EntityViewData.MovementType.Follow;
 
             this.baseViewData.viewType = EntityViewData.ViewType.SpriteSheet;
@@ -43054,10 +43142,10 @@ module.exports = exports['default'];
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(244);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(125);
@@ -43127,7 +43215,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 /* unused harmony export TimelineLite */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimelineLite; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 2.1.3
  * DATE: 2019-05-17
@@ -48393,7 +48481,7 @@ var Extract = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParticleContainer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ParticleRenderer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_display__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_core__ = __webpack_require__(8);
@@ -49878,7 +49966,7 @@ var TimeLimiter = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_display__ = __webpack_require__(12);
 /*!
  * @pixi/graphics - v5.3.12
@@ -53159,7 +53247,7 @@ var Graphics = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_math__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_loaders__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_loaders__ = __webpack_require__(51);
 /*!
  * @pixi/spritesheet - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -53508,9 +53596,9 @@ var SpritesheetLoader = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TilingSpriteRenderer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_utils__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(22);
 /*!
  * @pixi/sprite-tiling - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -53937,7 +54025,7 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_core__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_display__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(51);
 /*!
  * @pixi/text-bitmap - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -55774,7 +55862,7 @@ module.exports = function (fn, that, length) {
 /* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(32) && !__webpack_require__(44)(function () {
+module.exports = !__webpack_require__(32) && !__webpack_require__(45)(function () {
   return Object.defineProperty(__webpack_require__(103)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -55967,7 +56055,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(30);
 var core = __webpack_require__(17);
-var fails = __webpack_require__(44);
+var fails = __webpack_require__(45);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -58524,130 +58612,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BaseComponent2 = __webpack_require__(23);
-
-var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
-
-var _Pool = __webpack_require__(28);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-var _SpriteSheetAnimation = __webpack_require__(212);
-
-var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
-
-var _SpriteSheetBehaviour = __webpack_require__(55);
-
-var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameViewSpriteSheet = function (_BaseComponent) {
-    (0, _inherits3.default)(GameViewSpriteSheet, _BaseComponent);
-
-    function GameViewSpriteSheet() {
-        (0, _classCallCheck3.default)(this, GameViewSpriteSheet);
-        return (0, _possibleConstructorReturn3.default)(this, (GameViewSpriteSheet.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet)).call(this));
-    }
-
-    (0, _createClass3.default)(GameViewSpriteSheet, [{
-        key: 'enable',
-        value: function enable() {
-            (0, _get3.default)(GameViewSpriteSheet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet.prototype), 'enable', this).call(this);
-        }
-    }, {
-        key: 'destroy',
-        value: function destroy() {
-            (0, _get3.default)(GameViewSpriteSheet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet.prototype), 'destroy', this).call(this);
-            _Pool2.default.instance.returnElement(this.spriteSheet);
-            this.spriteSheet = null;
-        }
-    }, {
-        key: 'setData',
-        value: function setData(data) {
-            this.spriteSheet = _Pool2.default.instance.getElement(_SpriteSheetAnimation2.default);
-            this.view = this.gameObject.gameView.view;
-
-            this.spriteSheet.reset();
-
-            for (var key in data) {
-                if (Object.hasOwnProperty.call(data, key)) {
-                    var element = data[key];
-                    this.spriteSheet.addLayer(key, element.spriteName, element.params);
-                }
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            if (!this.spriteSheet) {
-                return;
-            }
-            this.spriteSheet.update(delta);
-            if (this.spriteSheet.currentFrame) {
-                this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame);
-            }
-
-            if (this.gameObject.physics.magnitude > 0) {
-                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running);
-            } else {
-                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle);
-            }
-        }
-    }]);
-    return GameViewSpriteSheet;
-}(_BaseComponent3.default);
-
-GameViewSpriteSheet.AnimationType = {
-    Idle: 'idle',
-    Running: 'running'
-};
-exports.default = GameViewSpriteSheet;
-module.exports = exports['default'];
-
-/***/ }),
-/* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
 var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -58660,7 +58624,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _ParticleDescriptor = __webpack_require__(48);
+var _ParticleDescriptor = __webpack_require__(47);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
@@ -58764,6 +58728,130 @@ exports.default = Particle;
 module.exports = exports['default'];
 
 /***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BaseComponent2 = __webpack_require__(23);
+
+var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
+
+var _Pool = __webpack_require__(28);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+var _SpriteSheetAnimation = __webpack_require__(217);
+
+var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
+
+var _SpriteSheetBehaviour = __webpack_require__(57);
+
+var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameViewSpriteSheet = function (_BaseComponent) {
+    (0, _inherits3.default)(GameViewSpriteSheet, _BaseComponent);
+
+    function GameViewSpriteSheet() {
+        (0, _classCallCheck3.default)(this, GameViewSpriteSheet);
+        return (0, _possibleConstructorReturn3.default)(this, (GameViewSpriteSheet.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet)).call(this));
+    }
+
+    (0, _createClass3.default)(GameViewSpriteSheet, [{
+        key: 'enable',
+        value: function enable() {
+            (0, _get3.default)(GameViewSpriteSheet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet.prototype), 'enable', this).call(this);
+        }
+    }, {
+        key: 'destroy',
+        value: function destroy() {
+            (0, _get3.default)(GameViewSpriteSheet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet.prototype), 'destroy', this).call(this);
+            _Pool2.default.instance.returnElement(this.spriteSheet);
+            this.spriteSheet = null;
+        }
+    }, {
+        key: 'setData',
+        value: function setData(data) {
+            this.spriteSheet = _Pool2.default.instance.getElement(_SpriteSheetAnimation2.default);
+            this.view = this.gameObject.gameView.view;
+
+            this.spriteSheet.reset();
+
+            for (var key in data) {
+                if (Object.hasOwnProperty.call(data, key)) {
+                    var element = data[key];
+                    this.spriteSheet.addLayer(key, element.spriteName, element.params);
+                }
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            if (!this.spriteSheet) {
+                return;
+            }
+            this.spriteSheet.update(delta);
+            if (this.spriteSheet.currentFrame) {
+                this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame);
+            }
+
+            if (this.gameObject.physics.magnitude > 0) {
+                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running);
+            } else {
+                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle);
+            }
+        }
+    }]);
+    return GameViewSpriteSheet;
+}(_BaseComponent3.default);
+
+GameViewSpriteSheet.AnimationType = {
+    Idle: 'idle',
+    Running: 'running'
+};
+exports.default = GameViewSpriteSheet;
+module.exports = exports['default'];
+
+/***/ }),
 /* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -58798,11 +58886,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(46);
+var _PhysicsEntity2 = __webpack_require__(48);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
@@ -58907,7 +58995,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseWeapon = __webpack_require__(57);
+var _BaseWeapon = __webpack_require__(49);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
@@ -58919,7 +59007,7 @@ var _EntityViewData = __webpack_require__(82);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
-var _WeaponAttributes = __webpack_require__(49);
+var _WeaponAttributes = __webpack_require__(50);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -58936,6 +59024,7 @@ var WeaponData = function () {
         this.weaponType = WeaponData.WeaponType.Main;
         this.bulletComponent = _Bullet2.default;
         this.icon = 'knife';
+        this.onDestroyId = null;
         this.name = name;
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
@@ -58996,27 +59085,27 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(53);
+var _BaseEnemy = __webpack_require__(54);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EnemyGlobalSpawner = __webpack_require__(225);
+var _EnemyGlobalSpawner = __webpack_require__(226);
 
 var _EnemyGlobalSpawner2 = _interopRequireDefault(_EnemyGlobalSpawner);
 
-var _GameStaticData = __webpack_require__(47);
+var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -59212,14 +59301,14 @@ var GameManager = function () {
     }, {
         key: "entityDamaged",
         value: function entityDamaged(entity, value) {
-            if (entity.dying) return;
-            _EffectsManager2.default.instance.popDamage(entity.gameObject, value);
+            // if (entity.dying) return;
+            // EffectsManager.instance.popDamage(entity.gameObject, value)
         }
     }, {
         key: "entityKilled",
         value: function entityKilled(entity, value) {
-            this.gameManagerStats.GMenemiesDeaths++;
-            _EffectsManager2.default.instance.popKill(entity.gameObject, value);
+            // this.gameManagerStats.GMenemiesDeaths++;
+            // EffectsManager.instance.popKill(entity.gameObject, value)
         }
     }, {
         key: "findClosestEnemy",
@@ -59248,7 +59337,7 @@ var GameManager = function () {
 
             this.gameManagerStats.Time = this.gameplayTime;
 
-            if (this.gameplayTime > 1) {
+            if (this.gameplayTime > 0) {
                 this.updateLevelPhase();
             }
             this.gameManagerStats.Phase = this.currentPhase;
@@ -59328,7 +59417,7 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -59447,39 +59536,43 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _AuraProjectile = __webpack_require__(232);
+var _AuraProjectile = __webpack_require__(233);
 
 var _AuraProjectile2 = _interopRequireDefault(_AuraProjectile);
+
+var _BaseWeapon = __webpack_require__(49);
+
+var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
 var _Bullet = __webpack_require__(35);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _FloatingProjectile = __webpack_require__(233);
+var _FloatingProjectile = __webpack_require__(234);
 
 var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
 
-var _GameStaticData = __webpack_require__(47);
+var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GravityBullet = __webpack_require__(234);
+var _GravityBullet = __webpack_require__(235);
 
 var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
 
-var _InGameWeapon = __webpack_require__(235);
+var _InGameWeapon = __webpack_require__(236);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
-var _ParticleDescriptor = __webpack_require__(48);
+var _ParticleDescriptor = __webpack_require__(47);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _SpriteSheetBehaviour = __webpack_require__(55);
+var _SpriteSheetBehaviour = __webpack_require__(57);
 
 var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
 
@@ -59491,7 +59584,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(49);
+var _WeaponAttributes = __webpack_require__(50);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -59511,262 +59604,283 @@ var WeaponBuilder = function () {
                 var vfxPackData = _GameStaticData2.default.instance.getAllDataFrom('vfx', 'weaponVFXPack');
                 this.weaponVFXPackData = {};
                 vfxPackData.forEach(function (element) {
-                        if (_this.weaponVFXPackData[element.id]) {
-                                console.log('duplicated vfx pack data', element);
-                        } else {
+                        if (_this.weaponVFXPackData[element.id]) {} else {
                                 _this.weaponVFXPackData[element.id] = _this.makeSpriteSheetPack(element);
                         }
                 });
-                console.log('packs', this.weaponVFXPackData);
 
                 var weapons = _GameStaticData2.default.instance.getAllDataFrom('weapons', 'main');
 
                 this.weaponsData = {};
                 weapons.forEach(function (element) {
-                        if (_this.weaponsData[element.id]) {
-                                console.log('duplicated vfx pack data', element);
-                        } else {
+                        if (_this.weaponsData[element.id]) {} else {
                                 _this.weaponsData[element.id] = _this.makeWeapon(element);
                         }
                 });
-                console.log('weapons', this.weaponsData, weapons);
 
-                this.damageAura = new _WeaponData2.default('Aura');
-                this.damageAura.weaponType = _WeaponData2.default.WeaponType.Magic;
-                this.damageAura.weaponAttributes.baseLifeRangeSpan = -1;
-                this.damageAura.weaponAttributes.baseLifeSpan = 3;
-                this.damageAura.weaponAttributes.baseRadius = 80;
-                this.damageAura.weaponAttributes.baseBulletSpeed = 0;
-                this.damageAura.weaponAttributes.baseFrequency = 3;
-                this.damageAura.weaponAttributes.basePiercing = 99999;
-                this.damageAura.weaponAttributes.basePower = 25;
-                this.damageAura.weaponAttributes.baseDamageOverTime = 0.5;
-                this.damageAura.weaponAttributes.baseForceField = false;
-                this.damageAura.weaponAttributes.baseForceFeedback = 0;
+                for (var key in this.weaponsData) {
+                        this.findDestroyWeapon(this.weaponsData[key]);
+                }
+                //console.log('<<<>>>', this.weaponsData)
 
-                this.damageAura.weaponAttributes.makeOverrider();
-                this.damageAura.weaponAttributes.overrider.baseRadius = 50;
-                this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2;
+                // this.damageAura = new WeaponData('Aura');
+                // this.damageAura.weaponType = WeaponData.WeaponType.Magic;
+                // this.damageAura.weaponAttributes.baseLifeRangeSpan = -1
+                // this.damageAura.weaponAttributes.baseLifeSpan = 3
+                // this.damageAura.weaponAttributes.baseRadius = 80
+                // this.damageAura.weaponAttributes.baseBulletSpeed = 0
+                // this.damageAura.weaponAttributes.baseFrequency = 3
+                // this.damageAura.weaponAttributes.basePiercing = 99999
+                // this.damageAura.weaponAttributes.basePower = 25
+                // this.damageAura.weaponAttributes.baseDamageOverTime = 0.5
+                // this.damageAura.weaponAttributes.baseForceField = false
+                // this.damageAura.weaponAttributes.baseForceFeedback = 0
 
-                //this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
+                // this.damageAura.weaponAttributes.makeOverrider()
+                // this.damageAura.weaponAttributes.overrider.baseRadius = 50
+                // this.damageAura.weaponAttributes.overrider.baseLifeSpan = 2
 
-                this.damageAura.weaponViewData.addStandardVfx(this.getVFXPack('AURA_PACK_01'));
+                // //this.damageAura.weaponViewData.addDestroyVfx(endAuraVfxPack);
 
-                //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
+                // this.damageAura.weaponViewData.addStandardVfx(this.getVFXPack('AURA_PACK_01'));
 
-                //doesnt work on spritesheets
-                this.damageAura.weaponViewData.baseViewData.alpha = 0.1;
-                this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5;
-                this.damageAura.weaponViewData.baseViewData.offset.y = 0;
-                this.damageAura.weaponViewData.baseViewData.targetLayer = _EffectsManager2.default.TargetLayer.Botom;
-                this.damageAura.icon = 'vfx-b1';
-                this.damageAura.customConstructor = _AuraProjectile2.default;
+                // //this.damageAura.weaponViewData.addSpawnVfx(bombVfxPack, EffectsManager.TargetLayer.Botom);
 
-                // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
-                // this.damageAura.weaponViewData.baseViewData.scale = 1
+                // //doesnt work on spritesheets
+                // this.damageAura.weaponViewData.baseViewData.alpha = 0.1
+                // this.damageAura.weaponViewData.baseViewData.rotationSpeed = 0.5
+                // this.damageAura.weaponViewData.baseViewData.offset.y = 0
+                // this.damageAura.weaponViewData.baseViewData.targetLayer = EffectsManager.TargetLayer.BaseLayer
+                // this.damageAura.icon = 'vfx-b1'
+                // this.damageAura.customConstructor = AuraProjectile
 
-
-                this.smallBomb = new _WeaponData2.default('Bomb');
-                this.smallBomb.weaponAttributes.baseLifeRangeSpan = -1;
-                this.smallBomb.weaponAttributes.baseLifeSpan = 0.5;
-                this.smallBomb.weaponAttributes.baseRadius = 100;
-                this.smallBomb.weaponAttributes.baseBulletSpeed = 0;
-                this.smallBomb.weaponAttributes.baseFrequency = 3;
-
-                this.smallBomb.weaponAttributes.makeOverrider();
-
-                this.smallBomb.weaponAttributes.overrider.baseRadius = 50;
-                this.smallBomb.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
-                this.smallBomb.weaponViewData.baseViewData.alpha = 0;
-                this.smallBomb.weaponViewData.baseViewData.offset.y = -20;
-                this.smallBomb.icon = 'hit-d3';
-
-                this.bombThrow = new _WeaponData2.default('BombThrow');
-                this.bombThrow.bulletComponent = _GravityBullet2.default;
-                this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150;
-                this.bombThrow.weaponAttributes.baseLifeSpan = -1;
-                this.bombThrow.weaponAttributes.baseRadius = 30;
-                this.bombThrow.weaponAttributes.baseBulletSpeed = 120;
-                this.bombThrow.weaponAttributes.baseFrequency = 2;
-                this.bombThrow.weaponAttributes.baseAngleNoise = Math.PI / 4;
-                this.bombThrow.addFixedDestroyedWeapon(this.smallBomb);
-
-                this.bombThrow.weaponAttributes.makeOverrider();
-
-                this.bombThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-                this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1';
-                this.bombThrow.weaponViewData.baseViewData.alpha = 1;
-                this.bombThrow.weaponViewData.baseViewData.scale = 0.25;
-                this.bombThrow.weaponViewData.baseViewData.rotationSpeed = 15;
-                this.bombThrow.weaponViewData.baseViewData.maxHeight = 150;
-                this.bombThrow.icon = 'hit-d3';
-
-                this.facingMelee = new _WeaponData2.default('Melee');
-                this.facingMelee.weaponAttributes.baseLifeRangeSpan = 70;
-                this.facingMelee.weaponAttributes.baseLifeSpan = 0;
-                this.facingMelee.weaponAttributes.baseRadius = 50;
-                this.facingMelee.weaponAttributes.baseBulletSpeed = 150;
-                this.facingMelee.weaponAttributes.baseFrequency = 2;
-                this.facingMelee.weaponAttributes.basePower = 200;
-
-                this.facingMelee.weaponAttributes.makeOverrider();
-
-                this.facingMelee.weaponViewData.addSpawnVfx(this.getVFXPack('MELEE_SWORD_SHOCK_PACK_01'));
-                this.facingMelee.weaponViewData.baseViewData.alpha = 0;
-                this.facingMelee.weaponViewData.baseViewData.offset.y = -20;
-                this.facingMelee.icon = 'slash4';
-
-                this.daggerThrow = new _WeaponData2.default('Dagger Throw');
-                this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250;
-                this.daggerThrow.weaponAttributes.baseLifeSpan = 0;
-                this.daggerThrow.weaponAttributes.baseRadius = 15;
-                this.daggerThrow.weaponAttributes.baseBulletSpeed = 350;
-                this.daggerThrow.weaponAttributes.baseFrequency = 3;
-                this.daggerThrow.weaponAttributes.baseAngleNoise = 0.5;
-
-                this.daggerThrow.weaponAttributes.baseBrustFire.amount = 3;
-                this.daggerThrow.weaponAttributes.baseBrustFire.interval = 0.1;
-
-                this.daggerThrow.weaponAttributes.makeOverrider();
-
-                this.daggerThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-                this.daggerThrow.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-
-                this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1';
-                this.daggerThrow.weaponViewData.baseViewData.alpha = 1;
-                this.daggerThrow.weaponViewData.baseViewData.offset.y = -20;
-                this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15;
-
-                this.daggerThrow.icon = 'weapon_sword_1';
-
-                this.boomerangThrow = new _WeaponData2.default('Boomerang');
-                this.boomerangThrow.weaponAttributes.baseLifeRangeSpan = 250;
-                this.boomerangThrow.weaponAttributes.baseLifeSpan = 0;
-                this.boomerangThrow.weaponAttributes.baseRadius = 15;
-                this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200;
-                this.boomerangThrow.weaponAttributes.baseFrequency = 2;
-                this.boomerangThrow.weaponAttributes.basePiercing = 8;
-                this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = _WeaponAttributes2.default.ExtendedBehaviour.Boomerang;
-                this.boomerangThrow.weaponAttributes.makeOverrider();
-
-                this.boomerangThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-
-                this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118';
-                this.boomerangThrow.weaponViewData.baseViewData.alpha = 1;
-                this.boomerangThrow.weaponViewData.baseViewData.scale = 1;
-                this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 15;
-                this.boomerangThrow.weaponViewData.baseViewData.offset.y = 0; //-20
-                this.boomerangThrow.icon = 'tile_0118';
-
-                this.floatingOrbit = new _WeaponData2.default('Orbit');
-                this.floatingOrbit.weaponType = _WeaponData2.default.WeaponType.Magic;
-
-                this.floatingOrbit.weaponAttributes.baseLifeSpan = 3;
-                this.floatingOrbit.weaponAttributes.baseLifeRangeSpan = -1;
-                this.floatingOrbit.weaponAttributes.baseAmount = 5;
-                this.floatingOrbit.weaponAttributes.baseFrequency = 5;
-                this.floatingOrbit.weaponAttributes.baseBulletSpeed = Math.PI;
-                this.floatingOrbit.weaponAttributes.baseRadius = 30;
-                this.floatingOrbit.weaponAttributes.baseDamageZone = 80;
-                this.floatingOrbit.weaponAttributes.baseForceField = true;
-                this.floatingOrbit.weaponAttributes.makeOverrider();
-
-                this.floatingOrbit.weaponViewData.addStandardVfx(this.getVFXPack('THUNDER_BALL_PACK_01'));
-                this.floatingOrbit.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
-                this.floatingOrbit.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-
-                this.floatingOrbit.weaponAttributes.overrider.baseAmount = 1;
-
-                this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -2;
-                this.floatingOrbit.icon = 'small-spark4';
-
-                this.floatingOrbit.customConstructor = _FloatingProjectile2.default;
-
-                this.hoaming = new _WeaponData2.default('Hoaming');
-                this.hoaming.weaponType = _WeaponData2.default.WeaponType.Magic;
-
-                this.hoaming.weaponAttributes.baseLifeRangeSpan = 400;
-                this.hoaming.weaponAttributes.baseAmount = 1;
-                this.hoaming.weaponAttributes.baseFrequency = 5;
-                this.hoaming.weaponAttributes.baseRadius = 15;
-                this.hoaming.weaponAttributes.baseBulletSpeed = 100;
-                this.hoaming.weaponAttributes.basePiercing = 1;
-                this.hoaming.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.Hoaming;
-                this.hoaming.weaponAttributes.makeOverrider();
-
-                this.hoaming.weaponViewData.addStandardVfx(this.getVFXPack('HOAMING_FIREBALL_PACK'));
-
-                this.hoaming.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
-                this.hoaming.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
-
-                this.hoaming.weaponViewData.baseViewData.offset.y = -20;
-                this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2;
-                this.hoaming.icon = 'fire-missile1';
-
-                this.multishot = new _WeaponData2.default('Multishot');
-                this.multishot.icon = 'tile_0131';
-
-                this.multishot.weaponAttributes.baseLifeRangeSpan = 150;
-                this.multishot.weaponAttributes.baseAmount = 4;
-                this.multishot.weaponAttributes.basePower = 10;
-                this.multishot.weaponAttributes.basePiercing = 0;
-                this.multishot.weaponAttributes.baseFrequency = 3;
-                this.multishot.weaponAttributes.baseAngleOffset = 0.4;
-                this.multishot.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ParentAngle;
-                this.multishot.weaponAttributes.makeOverrider();
-
-                this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131';
-                this.multishot.weaponViewData.baseViewData.scale = 1;
-                this.multishot.weaponViewData.baseViewData.offset.y = -20;
-                this.multishot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-                this.multishot.weaponAttributes.overrider.baseAmount = 2;
-
-                this.preciseShot = new _WeaponData2.default('PreciseShot');
-                this.preciseShot.icon = 'tile_0131';
-
-                this.preciseShot.weaponAttributes.baseLifeRangeSpan = 800;
-                this.preciseShot.weaponAttributes.baseAmount = 1;
-                this.preciseShot.weaponAttributes.basePower = 80;
-                this.preciseShot.weaponAttributes.basePiercing = 1;
-                this.preciseShot.weaponAttributes.baseFrequency = 0.5;
-                this.preciseShot.weaponAttributes.baseBulletSpeed = 400;
-                this.preciseShot.weaponAttributes.baseAngleOffset = 0.4;
-                this.preciseShot.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.ClosestEnemy;
-                this.preciseShot.weaponAttributes.makeOverrider();
-
-                this.preciseShot.weaponViewData.baseViewData.viewData = 'tile_0131';
-                this.preciseShot.weaponViewData.baseViewData.scale = 1;
-                this.preciseShot.weaponViewData.baseViewData.offset.y = -20;
-                this.preciseShot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
-                // this.preciseShot.weaponAttributes.overrider.baseAmount = 2
+                // // this.damageAura.weaponViewData.baseViewData.viewData = 'hit-d3'
+                // // this.damageAura.weaponViewData.baseViewData.scale = 1
 
 
-                this.uniformTimeSpread = new _WeaponData2.default('Spread');
-                this.uniformTimeSpread.weaponType = _WeaponData2.default.WeaponType.Magic;
+                // this.smallBomb = new WeaponData('Bomb');
+                // this.smallBomb.weaponAttributes.baseLifeRangeSpan = -1
+                // this.smallBomb.weaponAttributes.baseLifeSpan = 0.5
+                // this.smallBomb.weaponAttributes.baseRadius = 100
+                // this.smallBomb.weaponAttributes.baseBulletSpeed = 0
+                // this.smallBomb.weaponAttributes.baseFrequency = 3
 
-                this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 200;
-                this.uniformTimeSpread.weaponAttributes.baseAmount = 1;
-                this.uniformTimeSpread.weaponAttributes.basePower = 10;
-                this.uniformTimeSpread.weaponAttributes.basePiercing = 0;
-                this.uniformTimeSpread.weaponAttributes.baseFrequency = 1;
-                this.uniformTimeSpread.weaponAttributes.baseAngleOffset = Math.PI / 4;
-                this.uniformTimeSpread.weaponAttributes.baseDirectionType = _WeaponAttributes2.default.DirectionType.AngularSequence;
-                this.uniformTimeSpread.weaponAttributes.makeOverrider();
+                // this.smallBomb.weaponAttributes.makeOverrider()
 
-                this.uniformTimeSpread.weaponViewData.addStandardVfx(this.getVFXPack('WATER_BALL_PACK'));
-                this.uniformTimeSpread.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
-                this.uniformTimeSpread.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
+                // this.smallBomb.weaponAttributes.overrider.baseRadius = 50
+                // this.smallBomb.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
+                // this.smallBomb.weaponViewData.baseViewData.alpha = 0
+                // this.smallBomb.weaponViewData.baseViewData.offset.y = -20
+                // this.smallBomb.icon = 'hit-d3'
 
-                this.uniformTimeSpread.weaponViewData.baseViewData.offset.y = -20;
 
-                this.uniformTimeSpread.icon = 'vfx-c1';
+                // this.bombThrow = new WeaponData('BombThrow');
+                // this.bombThrow.bulletComponent = GravityBullet;
+                // this.bombThrow.weaponAttributes.baseLifeRangeSpan = 150
+                // this.bombThrow.weaponAttributes.baseLifeSpan = -1
+                // this.bombThrow.weaponAttributes.baseRadius = 30
+                // this.bombThrow.weaponAttributes.baseBulletSpeed = 120
+                // this.bombThrow.weaponAttributes.baseFrequency = 2
+                // this.bombThrow.weaponAttributes.baseAngleNoise = Math.PI / 4;
+                // this.bombThrow.addFixedDestroyedWeapon(this.smallBomb)
+
+                // this.bombThrow.weaponAttributes.makeOverrider()
+
+                // this.bombThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
+                // this.bombThrow.weaponViewData.baseViewData.viewData = 'vfx-c1'
+                // this.bombThrow.weaponViewData.baseViewData.alpha = 1
+                // this.bombThrow.weaponViewData.baseViewData.scale = 0.25
+                // this.bombThrow.weaponViewData.baseViewData.rotationSpeed = 15
+                // this.bombThrow.weaponViewData.baseViewData.maxHeight = 150
+                // this.bombThrow.icon = 'hit-d3'
+
+
+                // this.facingMelee = new WeaponData('Melee',);
+                // this.facingMelee.weaponAttributes.baseLifeRangeSpan = 70
+                // this.facingMelee.weaponAttributes.baseLifeSpan = 0
+                // this.facingMelee.weaponAttributes.baseRadius = 50
+                // this.facingMelee.weaponAttributes.baseBulletSpeed = 150
+                // this.facingMelee.weaponAttributes.baseFrequency = 2
+                // this.facingMelee.weaponAttributes.basePower = 200
+
+                // this.facingMelee.weaponAttributes.makeOverrider()
+
+
+                // this.facingMelee.weaponViewData.addSpawnVfx(this.getVFXPack('MELEE_SWORD_SHOCK_PACK_01'));
+                // this.facingMelee.weaponViewData.baseViewData.alpha = 0
+                // this.facingMelee.weaponViewData.baseViewData.offset.y = -20
+                // this.facingMelee.icon = 'slash4'
+
+
+                // this.daggerThrow = new WeaponData('Dagger Throw');
+                // this.daggerThrow.weaponAttributes.baseLifeRangeSpan = 250
+                // this.daggerThrow.weaponAttributes.baseLifeSpan = 0
+                // this.daggerThrow.weaponAttributes.baseRadius = 15
+                // this.daggerThrow.weaponAttributes.baseBulletSpeed = 350
+                // this.daggerThrow.weaponAttributes.baseFrequency = 3
+                // this.daggerThrow.weaponAttributes.baseAngleNoise = 0.5
+
+                // this.daggerThrow.weaponAttributes.baseBrustFire.amount = 3
+                // this.daggerThrow.weaponAttributes.baseBrustFire.interval = 0.1
+
+                // this.daggerThrow.weaponAttributes.makeOverrider()
+
+
+                // this.daggerThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
+                // this.daggerThrow.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
+
+
+                // this.daggerThrow.weaponViewData.baseViewData.viewData = 'weapon_sword_1'
+                // this.daggerThrow.weaponViewData.baseViewData.alpha = 1
+                // this.daggerThrow.weaponViewData.baseViewData.offset.y = -20
+                // this.daggerThrow.weaponViewData.baseViewData.rotationSpeed = -15
+
+                // this.daggerThrow.icon = 'weapon_sword_1'
+
+
+                // this.boomerangThrow = new WeaponData('Boomerang');
+                // this.boomerangThrow.weaponAttributes.baseLifeRangeSpan = 250
+                // this.boomerangThrow.weaponAttributes.baseLifeSpan = 0
+                // this.boomerangThrow.weaponAttributes.baseRadius = 15
+                // this.boomerangThrow.weaponAttributes.baseBulletSpeed = 200
+                // this.boomerangThrow.weaponAttributes.baseFrequency = 2
+                // this.boomerangThrow.weaponAttributes.basePiercing = 8
+                // this.boomerangThrow.weaponAttributes.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.Boomerang;
+                // this.boomerangThrow.weaponAttributes.makeOverrider()
+
+
+                // this.boomerangThrow.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
+
+                // this.boomerangThrow.weaponViewData.baseViewData.viewData = 'tile_0118'
+                // this.boomerangThrow.weaponViewData.baseViewData.alpha = 1
+                // this.boomerangThrow.weaponViewData.baseViewData.scale = 1
+                // this.boomerangThrow.weaponViewData.baseViewData.rotationSpeed = 15
+                // this.boomerangThrow.weaponViewData.baseViewData.offset.y = 0//-20
+                // this.boomerangThrow.icon = 'tile_0118'
+
+
+                // this.floatingOrbit = new WeaponData('Orbit');
+                // this.floatingOrbit.weaponType = WeaponData.WeaponType.Magic;
+
+                // this.floatingOrbit.weaponAttributes.baseLifeSpan = 3
+                // this.floatingOrbit.weaponAttributes.baseLifeRangeSpan = -1
+                // this.floatingOrbit.weaponAttributes.baseAmount = 5
+                // this.floatingOrbit.weaponAttributes.baseFrequency = 5
+                // this.floatingOrbit.weaponAttributes.baseBulletSpeed = Math.PI
+                // this.floatingOrbit.weaponAttributes.baseRadius = 30
+                // this.floatingOrbit.weaponAttributes.baseDamageZone = 80
+                // this.floatingOrbit.weaponAttributes.baseForceField = true
+                // this.floatingOrbit.weaponAttributes.makeOverrider()
+
+
+                // this.floatingOrbit.weaponViewData.addStandardVfx(this.getVFXPack('THUNDER_BALL_PACK_01'));
+                // this.floatingOrbit.weaponViewData.addSpawnVfx(this.getVFXPack('BOMB_PACK_01'));
+                // this.floatingOrbit.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'));
+
+                // this.floatingOrbit.weaponAttributes.overrider.baseAmount = 1
+
+                // this.floatingOrbit.weaponViewData.baseViewData.rotationSpeed = -2
+                // this.floatingOrbit.icon = 'small-spark4'
+
+                // this.floatingOrbit.customConstructor = FloatingProjectile
+
+
+                // this.hoaming = new WeaponData('Hoaming');
+                // this.hoaming.weaponType = WeaponData.WeaponType.Magic;
+
+                // this.hoaming.weaponAttributes.baseLifeRangeSpan = 400
+                // this.hoaming.weaponAttributes.baseAmount = 1
+                // this.hoaming.weaponAttributes.baseFrequency = 5
+                // this.hoaming.weaponAttributes.baseRadius = 15
+                // this.hoaming.weaponAttributes.baseBulletSpeed = 100
+                // this.hoaming.weaponAttributes.basePiercing = 1
+                // this.hoaming.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.Hoaming
+                // this.hoaming.weaponAttributes.makeOverrider()
+
+                // this.hoaming.weaponViewData.addStandardVfx(this.getVFXPack('HOAMING_FIREBALL_PACK'));
+
+                // this.hoaming.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
+                // this.hoaming.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'));
+
+
+                // this.hoaming.weaponViewData.baseViewData.offset.y = -20
+                // this.hoaming.weaponViewData.baseViewData.angleOffset = -Math.PI / 2
+                // this.hoaming.icon = 'fire-missile1'
+
+
+                // this.multishot = new WeaponData('Multishot');
+                // this.multishot.icon = 'tile_0131'
+
+                // this.multishot.weaponAttributes.baseLifeRangeSpan = 150
+                // this.multishot.weaponAttributes.baseAmount = 4
+                // this.multishot.weaponAttributes.basePower = 10
+                // this.multishot.weaponAttributes.basePiercing = 0
+                // this.multishot.weaponAttributes.baseFrequency = 3
+                // this.multishot.weaponAttributes.baseAngleOffset = 0.4
+                // this.multishot.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ParentAngle
+                // this.multishot.weaponAttributes.makeOverrider()
+
+                // this.multishot.weaponViewData.baseViewData.viewData = 'tile_0131'
+                // this.multishot.weaponViewData.baseViewData.scale = 1
+                // this.multishot.weaponViewData.baseViewData.offset.y = -20
+                // this.multishot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
+                // this.multishot.weaponAttributes.overrider.baseAmount = 2
+
+
+                // this.preciseShot = new WeaponData('PreciseShot');
+                // this.preciseShot.icon = 'tile_0131'
+
+                // this.preciseShot.weaponAttributes.baseLifeRangeSpan = 800
+                // this.preciseShot.weaponAttributes.baseAmount = 1
+                // this.preciseShot.weaponAttributes.basePower = 80
+                // this.preciseShot.weaponAttributes.basePiercing = 1
+                // this.preciseShot.weaponAttributes.baseFrequency = 0.5
+                // this.preciseShot.weaponAttributes.baseBulletSpeed = 400
+                // this.preciseShot.weaponAttributes.baseAngleOffset = 0.4
+                // this.preciseShot.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.ClosestEnemy
+                // this.preciseShot.weaponAttributes.makeOverrider()
+
+                // this.preciseShot.weaponViewData.baseViewData.viewData = 'tile_0131'
+                // this.preciseShot.weaponViewData.baseViewData.scale = 1
+                // this.preciseShot.weaponViewData.baseViewData.offset.y = -20
+                // this.preciseShot.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_01'))
+                // // this.preciseShot.weaponAttributes.overrider.baseAmount = 2
+
+
+                // this.uniformTimeSpread = new WeaponData('Spread');
+                // this.uniformTimeSpread.weaponType = WeaponData.WeaponType.Magic;
+
+                // this.uniformTimeSpread.weaponAttributes.baseLifeRangeSpan = 200
+                // this.uniformTimeSpread.weaponAttributes.baseAmount = 1
+                // this.uniformTimeSpread.weaponAttributes.basePower = 10
+                // this.uniformTimeSpread.weaponAttributes.basePiercing = 0
+                // this.uniformTimeSpread.weaponAttributes.baseFrequency = 1
+                // this.uniformTimeSpread.weaponAttributes.baseAngleOffset = Math.PI / 4
+                // this.uniformTimeSpread.weaponAttributes.baseDirectionType = WeaponAttributes.DirectionType.AngularSequence
+                // this.uniformTimeSpread.weaponAttributes.makeOverrider()
+
+
+                // this.uniformTimeSpread.weaponViewData.addStandardVfx(this.getVFXPack('WATER_BALL_PACK'))
+                // this.uniformTimeSpread.weaponViewData.addSpawnVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'))
+                // this.uniformTimeSpread.weaponViewData.addDestroyVfx(this.getVFXPack('SPAWN_IMPACT_PACK_02'))
+
+                // this.uniformTimeSpread.weaponViewData.baseViewData.offset.y = -20
+
+                // this.uniformTimeSpread.icon = 'vfx-c1'
+
         }
 
         (0, _createClass3.default)(WeaponBuilder, [{
+                key: "findDestroyWeapon",
+                value: function findDestroyWeapon(weapon) {
+                        if (weapon.onDestroyId) {
+                                weapon.addFixedDestroyedWeapon(this.weaponsData[weapon.onDestroyId]);
+                        }
+                }
+        }, {
                 key: "makeWeapon",
                 value: function makeWeapon(weaponData) {
                         var weapon = new _WeaponData2.default(weaponData.name);
-
                         for (var key in weaponData) {
                                 if (Object.hasOwnProperty.call(weapon, key)) {
                                         weapon[key] = weaponData[key];
@@ -59782,63 +59896,65 @@ var WeaponBuilder = function () {
                                 }
                         }
 
-                        weapon.weaponAttributes.makeOverrider();
-
-                        if (overrider) {
-                                for (var _key2 in overrider) {
-                                        if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, _key2)) {
-                                                weapon.weaponAttributes.overrider[_key2] = overrider[_key2];
-                                        }
-                                }
-                        }
-
                         if (weaponData.view) {
-                                for (var _key3 in weaponData.view) {
-                                        if (Object.hasOwnProperty.call(weapon.weaponViewData, _key3)) {
-                                                weapon.weaponViewData[_key3] = weaponData.view[_key3];
+                                for (var _key2 in weaponData.view) {
+                                        if (Object.hasOwnProperty.call(weapon.weaponViewData, _key2)) {
+                                                weapon.weaponViewData[_key2] = weaponData.view[_key2];
                                         }
                                 }
 
                                 if (weaponData.view.overrider) {
 
-                                        for (var _key4 in weaponData.view.overrider) {
-                                                if (weapon.weaponViewData[_key4]) {
-                                                        for (var overriderKey in weaponData.view.overrider[_key4]) {
-                                                                if (weapon.weaponViewData[_key4][overriderKey] !== undefined) {
-                                                                        if (overriderKey == 'offset') {
-                                                                                console.log(weaponData.view.overrider, _key4, overriderKey, weaponData.view.overrider[_key4][overriderKey]);
-                                                                                weapon.weaponViewData[_key4][overriderKey].x = weaponData.view.overrider[_key4][overriderKey].x || 0;
-                                                                                weapon.weaponViewData[_key4][overriderKey].y = weaponData.view.overrider[_key4][overriderKey].y || 0;
-                                                                                weapon.weaponViewData[_key4][overriderKey].z = weaponData.view.overrider[_key4][overriderKey].z || 0;
-                                                                        } else {
-                                                                                weapon.weaponViewData[_key4][overriderKey] = weaponData.view.overrider[_key4][overriderKey];
+                                        for (var _key3 in weaponData.view.overrider) {
+                                                if (weapon.weaponViewData[_key3] && weaponData.view.overrider[_key3]) {
+                                                        var targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'viewOverriders', weaponData.view.overrider[_key3]);
+                                                        if (targetOverrider) {
+                                                                for (var overriderKey in targetOverrider) {
+                                                                        if (weapon.weaponViewData[_key3][overriderKey] !== undefined) {
+                                                                                if (overriderKey == 'offset') {
+                                                                                        weapon.weaponViewData[_key3][overriderKey].x = targetOverrider[overriderKey].x || 0;
+                                                                                        weapon.weaponViewData[_key3][overriderKey].y = targetOverrider[overriderKey].y || 0;
+                                                                                        weapon.weaponViewData[_key3][overriderKey].z = targetOverrider[overriderKey].z || 0;
+                                                                                } else {
+                                                                                        weapon.weaponViewData[_key3][overriderKey] = targetOverrider[overriderKey];
+                                                                                }
                                                                         }
                                                                 }
                                                         }
                                                 }
-
-                                                if (weaponData.view['standardVfxPack']) {
-                                                        weapon.weaponViewData.addStandardVfx(this.getVFXPack(weaponData.view['standardVfxPack']));
-                                                }
-                                                if (weaponData.view['spawnVfxPack']) {
-                                                        weapon.weaponViewData.addSpawnVfx(this.getVFXPack(weaponData.view['spawnVfxPack']));
-                                                }
-                                                if (weaponData.view['destroyVfxPack']) {
-                                                        weapon.weaponViewData.addDestroyVfx(this.getVFXPack(weaponData.view['destroyVfxPack']));
-                                                }
                                         }
+                                }
+                                if (weaponData.view['standardVfxPack']) {
+                                        weapon.weaponViewData.addStandardVfx(this.getVFXPack(weaponData.view['standardVfxPack']));
+                                }
+                                if (weaponData.view['spawnVfxPack']) {
+                                        weapon.weaponViewData.addSpawnVfx(this.getVFXPack(weaponData.view['spawnVfxPack']));
+                                }
+                                if (weaponData.view['destroyVfxPack']) {
+                                        weapon.weaponViewData.addDestroyVfx(this.getVFXPack(weaponData.view['destroyVfxPack']));
                                 }
                         }
                         if (weaponData.customConstructor) {
-                                weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor - 1];
+                                weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor];
+                        } else {
+                                weapon.customConstructor = WeaponBuilder.WeaponsAvailable.BaseWeapon;
                         }
                         if (weaponData.bulletComponent) {
-                                weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent - 1];
+                                weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent];
+                        } else {
+                                weapon.bulletComponent = WeaponBuilder.BulletsAvailable.Bullet;
                         }
 
-                        console.log("OFFSET NOT WORKING");
+                        weapon.weaponAttributes.makeOverrider();
 
-                        console.log(weapon);
+                        if (overrider) {
+                                var _targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'main', overrider);
+                                for (var _key4 in _targetOverrider.attributes) {
+                                        if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, _key4)) {
+                                                weapon.weaponAttributes.overrider[_key4] = _targetOverrider.attributes[_key4];
+                                        }
+                                }
+                        }
 
                         return weapon;
                 }
@@ -59870,22 +59986,27 @@ var WeaponBuilder = function () {
                 key: "addWeapons",
                 value: function addWeapons(player) {
 
-                        this.physical = [this.bombThrow, this.facingMelee, this.daggerThrow, this.boomerangThrow, this.multishot];
+                        this.physical = [
+                        // this.weaponsData['PLAYER_AURA'],
+                        this.weaponsData['DAGGER_SNIPER'], this.weaponsData['DAGGER_SHOTGUN'], this.weaponsData['DAGGER_GUN'], this.weaponsData['DAGGER_THROW'], this.weaponsData['DAGGER_ROTATOR'], this.weaponsData['DAGGER_HOAMING'], this.weaponsData['PLAYER_MULTISHOT'], this.weaponsData['BOMB_THROWER']];
 
-                        this.magical = [this.hoaming,
-                        // this.damageAura,
-                        this.floatingOrbit, this.uniformTimeSpread];
+                        this.magical = [
+                                // this.hoaming,
+                                // // this.damageAura,
+                                // this.floatingOrbit,
+                                // this.uniformTimeSpread
+
+                        ];
                         var testWeapon = new _InGameWeapon2.default();
 
                         _Utils2.default.shuffle(this.physical);
-                        _Utils2.default.shuffle(this.magical);
+                        // Utils.shuffle(this.magical)
                         //testWeapon.addWeapon(this.floatingOrbit)
                         //testWeapon.addWeapon(this.uniformTimeSpread)
                         //testWeapon.addWeapon(this.multishot)
                         //testWeapon.addWeapon(this.multishot)
                         // testWeapon.addWeapon(this.hoaming)
                         // testWeapon.addWeapon(this.bombThrow)
-                        // testWeapon.addWeapon(this.multishot)
                         // testWeapon.addWeapon(this.multishot)
                         // testWeapon.addWeapon(this.hoaming)
                         //testWeapon.addWeapon(this.multishot)
@@ -59894,17 +60015,27 @@ var WeaponBuilder = function () {
                         //testWeapon.addWeapon(this.daggerThrow)
                         // testWeapon.addWeapon(this.damageAura)
                         //testWeapon.addWeapon(this.damageAura)
-                        //testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+                        //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
+                        //testWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
+                        //testWeapon.addWeapon(this.weaponsData['DAGGER_SHOTGUN'])
+                        //testWeapon.addWeapon(this.weaponsData['DAGGER_THROW'])
+                        //testWeapon.addWeapon(this.weaponsData['DAGGER_ROTATOR'])
+                        // testWeapon.addWeapon(this.weaponsData['DAGGER_HOAMING'])
+                        // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+                        // testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
+                        // testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
+
+
                         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
                         for (var i = 0; i < 3; i++) {
                                 testWeapon.addWeapon(this.physical[i]);
                         }
                         // //Utils.shuffle(a)
-                        var testWeapon2 = new _InGameWeapon2.default();
-                        for (var _i = 0; _i < 3; _i++) {
-                                testWeapon2.addWeapon(this.magical[_i]);
-                        }
+                        // let testWeapon2 = new InGameWeapon();
+                        // for (let i = 0; i < 3; i++) {
+                        //     testWeapon2.addWeapon(this.magical[i])
+                        // }
                         //testWeapon2.addWeapon(this.damageAura)
 
 
@@ -59930,15 +60061,21 @@ var WeaponBuilder = function () {
 
                         player.addWeapon(testWeapon);
 
-                        console.log(testWeapon);
-                        player.addWeapon(testWeapon2);
+                        // player.addWeapon(testWeapon2)
                 }
         }]);
         return WeaponBuilder;
 }();
 
-WeaponBuilder.BulletsAvailable = [_Bullet2.default, _GravityBullet2.default];
-WeaponBuilder.WeaponsAvailable = [_AuraProjectile2.default, _FloatingProjectile2.default];
+WeaponBuilder.BulletsAvailable = {
+        Bullet: _Bullet2.default,
+        GravityBullet: _GravityBullet2.default
+};
+WeaponBuilder.WeaponsAvailable = {
+        BaseWeapon: _BaseWeapon2.default,
+        AuraProjectile: _AuraProjectile2.default,
+        FloatingProjectile: _FloatingProjectile2.default
+};
 exports.default = WeaponBuilder;
 module.exports = exports["default"];
 
@@ -59977,19 +60114,19 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(46);
+var _PhysicsEntity2 = __webpack_require__(48);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _TagManager = __webpack_require__(45);
+var _TagManager = __webpack_require__(46);
 
 var _TagManager2 = _interopRequireDefault(_TagManager);
 
@@ -60055,7 +60192,7 @@ module.exports = exports["default"];
 "use strict";
 /* unused harmony export TimelineMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimelineMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(86);
 /* unused harmony reexport TimelineLite */
 /*!
@@ -60588,7 +60725,7 @@ var TimelineMax = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */]
 "use strict";
 /* unused harmony export CSSPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CSSPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 2.1.3
  * DATE: 2019-05-17
@@ -63518,7 +63655,7 @@ var CSSPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].C
 "use strict";
 /* unused harmony export AttrPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AttrPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 0.6.1
  * DATE: 2018-08-27
@@ -63574,7 +63711,7 @@ var AttrPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsScope */]
 /* unused harmony export _roundLinkedList */
 /* unused harmony export p */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RoundPropsPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 1.6.0
  * DATE: 2018-08-27
@@ -63684,7 +63821,7 @@ var RoundPropsPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsSco
 "use strict";
 /* unused harmony export DirectionalRotationPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DirectionalRotationPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 0.3.1
  * DATE: 2018-08-27
@@ -63779,7 +63916,7 @@ DirectionalRotationPlugin._autoCSS = true;
 "use strict";
 /* unused harmony export BezierPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BezierPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /*!
  * VERSION: 1.3.9
  * DATE: 2019-05-17
@@ -64400,7 +64537,7 @@ DirectionalRotationPlugin._autoCSS = true;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return Expo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return Sine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ExpoScaleEase; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /* unused harmony reexport Linear */
 /* unused harmony reexport Power0 */
 /* unused harmony reexport Power1 */
@@ -64806,23 +64943,23 @@ var _MainScreenManager = __webpack_require__(195);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _SoundManager = __webpack_require__(249);
+var _SoundManager = __webpack_require__(250);
 
 var _SoundManager2 = _interopRequireDefault(_SoundManager);
 
-var _manifestAudio = __webpack_require__(252);
+var _manifestAudio = __webpack_require__(253);
 
 var _manifestAudio2 = _interopRequireDefault(_manifestAudio);
 
-var _globals = __webpack_require__(253);
+var _globals = __webpack_require__(254);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _manifestJson = __webpack_require__(254);
+var _manifestJson = __webpack_require__(255);
 
 var _manifestJson2 = _interopRequireDefault(_manifestJson);
 
-var _plugins = __webpack_require__(255);
+var _plugins = __webpack_require__(256);
 
 var _plugins2 = _interopRequireDefault(_plugins);
 
@@ -64830,7 +64967,7 @@ var _signals = __webpack_require__(6);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _manifest = __webpack_require__(256);
+var _manifest = __webpack_require__(257);
 
 var _manifest2 = _interopRequireDefault(_manifest);
 
@@ -72380,7 +72517,7 @@ var NoiseFilter = /** @class */ (function (_super) {
 "use strict";
 /* unused harmony export CacheData */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_utils__ = __webpack_require__(9);
@@ -72823,7 +72960,7 @@ __WEBPACK_IMPORTED_MODULE_0__pixi_display__["c" /* DisplayObject */].prototype.g
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SimplePlane; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SimpleRope; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_mesh__ = __webpack_require__(60);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_core__ = __webpack_require__(8);
 /*!
  * @pixi/mesh-extras - v5.3.12
@@ -73563,7 +73700,7 @@ var NineSlicePlane = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(42);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(43);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_ticker__ = __webpack_require__(36);
 /*!
  * @pixi/sprite-animated - v5.3.12
@@ -74710,7 +74847,7 @@ module.exports = function (TO_STRING) {
 "use strict";
 
 var create = __webpack_require__(67);
-var descriptor = __webpack_require__(51);
+var descriptor = __webpack_require__(52);
 var setToStringTag = __webpack_require__(72);
 var IteratorPrototype = {};
 
@@ -74728,7 +74865,7 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(31);
-var anObject = __webpack_require__(43);
+var anObject = __webpack_require__(44);
 var getKeys = __webpack_require__(68);
 
 module.exports = __webpack_require__(32) ? Object.defineProperties : function defineProperties(O, Properties) {
@@ -74928,20 +75065,20 @@ var DESCRIPTORS = __webpack_require__(32);
 var $export = __webpack_require__(30);
 var redefine = __webpack_require__(105);
 var META = __webpack_require__(184).KEY;
-var $fails = __webpack_require__(44);
+var $fails = __webpack_require__(45);
 var shared = __webpack_require__(70);
 var setToStringTag = __webpack_require__(72);
-var uid = __webpack_require__(52);
+var uid = __webpack_require__(53);
 var wks = __webpack_require__(40);
 var wksExt = __webpack_require__(73);
 var wksDefine = __webpack_require__(74);
 var enumKeys = __webpack_require__(185);
 var isArray = __webpack_require__(186);
-var anObject = __webpack_require__(43);
+var anObject = __webpack_require__(44);
 var isObject = __webpack_require__(38);
 var toIObject = __webpack_require__(34);
 var toPrimitive = __webpack_require__(61);
-var createDesc = __webpack_require__(51);
+var createDesc = __webpack_require__(52);
 var _create = __webpack_require__(67);
 var gOPNExt = __webpack_require__(187);
 var $GOPD = __webpack_require__(76);
@@ -75160,7 +75297,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(52)('meta');
+var META = __webpack_require__(53)('meta');
 var isObject = __webpack_require__(38);
 var has = __webpack_require__(33);
 var setDesc = __webpack_require__(31).f;
@@ -75168,7 +75305,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(44)(function () {
+var FREEZE = !__webpack_require__(45)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -75452,15 +75589,15 @@ var _GameScreen = __webpack_require__(208);
 
 var _GameScreen2 = _interopRequireDefault(_GameScreen);
 
-var _GameStaticData = __webpack_require__(47);
+var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _ScreenManager2 = __webpack_require__(247);
+var _ScreenManager2 = __webpack_require__(248);
 
 var _ScreenManager3 = _interopRequireDefault(_ScreenManager2);
 
-var _ScreenTransition = __webpack_require__(248);
+var _ScreenTransition = __webpack_require__(249);
 
 var _ScreenTransition2 = _interopRequireDefault(_ScreenTransition);
 
@@ -75733,7 +75870,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(204).set });
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = __webpack_require__(38);
-var anObject = __webpack_require__(43);
+var anObject = __webpack_require__(44);
 var check = function (O, proto) {
   anObject(O);
   if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -75826,11 +75963,11 @@ var _dat = __webpack_require__(113);
 
 var dat = _interopRequireWildcard(_dat);
 
-var _BaseEnemy = __webpack_require__(53);
+var _BaseEnemy = __webpack_require__(54);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _BasicFloorRender = __webpack_require__(218);
+var _BasicFloorRender = __webpack_require__(219);
 
 var _BasicFloorRender2 = _interopRequireDefault(_BasicFloorRender);
 
@@ -75838,11 +75975,11 @@ var _Bullet = __webpack_require__(35);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _CameraOcclusion2D = __webpack_require__(226);
+var _CameraOcclusion2D = __webpack_require__(227);
 
 var _CameraOcclusion2D2 = _interopRequireDefault(_CameraOcclusion2D);
 
-var _Companion = __webpack_require__(227);
+var _Companion = __webpack_require__(228);
 
 var _Companion2 = _interopRequireDefault(_Companion);
 
@@ -75850,11 +75987,11 @@ var _DeckView = __webpack_require__(119);
 
 var _DeckView2 = _interopRequireDefault(_DeckView);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _Eugine = __webpack_require__(41);
+var _Eugine = __webpack_require__(42);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -75862,7 +75999,7 @@ var _GameManager = __webpack_require__(118);
 
 var _GameManager2 = _interopRequireDefault(_GameManager);
 
-var _GameplaySessionController = __webpack_require__(228);
+var _GameplaySessionController = __webpack_require__(229);
 
 var _GameplaySessionController2 = _interopRequireDefault(_GameplaySessionController);
 
@@ -75870,19 +76007,19 @@ var _InputModule = __webpack_require__(79);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PerspectiveCamera = __webpack_require__(236);
+var _PerspectiveCamera = __webpack_require__(237);
 
 var _PerspectiveCamera2 = _interopRequireDefault(_PerspectiveCamera);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerInventoryHud = __webpack_require__(238);
+var _PlayerInventoryHud = __webpack_require__(239);
 
 var _PlayerInventoryHud2 = _interopRequireDefault(_PlayerInventoryHud);
 
@@ -75894,7 +76031,7 @@ var _RenderModule = __webpack_require__(13);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Screen2 = __webpack_require__(240);
+var _Screen2 = __webpack_require__(241);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
@@ -75902,15 +76039,15 @@ var _StaticPhysicObject = __webpack_require__(121);
 
 var _StaticPhysicObject2 = _interopRequireDefault(_StaticPhysicObject);
 
-var _TouchAxisInput = __webpack_require__(241);
+var _TouchAxisInput = __webpack_require__(242);
 
 var _TouchAxisInput2 = _interopRequireDefault(_TouchAxisInput);
 
-var _Trees = __webpack_require__(245);
+var _Trees = __webpack_require__(246);
 
 var _Trees2 = _interopRequireDefault(_Trees);
 
-var _UIButton = __webpack_require__(246);
+var _UIButton = __webpack_require__(247);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
@@ -76315,6 +76452,186 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _ParticleBehaviour2 = __webpack_require__(55);
+
+var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AlphaBehaviour = function (_ParticleBehaviour) {
+    (0, _inherits3.default)(AlphaBehaviour, _ParticleBehaviour);
+
+    function AlphaBehaviour(time) {
+        (0, _classCallCheck3.default)(this, AlphaBehaviour);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (AlphaBehaviour.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour)).call(this));
+
+        _this.time = time;
+        _this.startValue = 1;
+        _this.endValue = 0;
+        return _this;
+    }
+
+    (0, _createClass3.default)(AlphaBehaviour, [{
+        key: "build",
+        value: function build(params) {
+            (0, _get3.default)(AlphaBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour.prototype), "build", this).call(this, params);
+            this.autoKill = true;
+            this.startValue = _ParticleBehaviour3.default.findValue(params.startValue) || 1;
+            this.endValue = _ParticleBehaviour3.default.findValue(params.endValue) || 0;
+            this.time = _ParticleBehaviour3.default.findValue(params.time) || 5;
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(AlphaBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour.prototype), "update", this).call(this, delta);
+        }
+    }]);
+    return AlphaBehaviour;
+}(_ParticleBehaviour3.default);
+
+exports.default = AlphaBehaviour;
+module.exports = exports["default"];
+
+/***/ }),
+/* 210 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _ParticleBehaviour2 = __webpack_require__(55);
+
+var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ColorBehaviour = function (_ParticleBehaviour) {
+    (0, _inherits3.default)(ColorBehaviour, _ParticleBehaviour);
+
+    function ColorBehaviour(time) {
+        (0, _classCallCheck3.default)(this, ColorBehaviour);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (ColorBehaviour.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour)).call(this));
+
+        _this.property = 'tint';
+        _this.type = 'sprite';
+
+        _this.time = time;
+        _this.startValue = 1;
+        _this.endValue = 0;
+
+        _this.currentRGB = { r: 0, g: 0, b: 0 };
+        return _this;
+    }
+
+    (0, _createClass3.default)(ColorBehaviour, [{
+        key: 'build',
+        value: function build(params) {
+            (0, _get3.default)(ColorBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour.prototype), 'build', this).call(this, params);
+            this.startValue = this.toRGB(_ParticleBehaviour3.default.findValue(params.startValue));
+            this.endValue = this.toRGB(_ParticleBehaviour3.default.findValue(params.endValue));
+            this.time = _ParticleBehaviour3.default.findValue(params.time);
+            this.currentValue = this.rgbToColor(this.startValue.r, this.startValue.g, this.startValue.b);
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            (0, _get3.default)(ColorBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour.prototype), 'update', this).call(this, delta);
+
+            this.currentRGB.r = Math.floor(this.normalValue * (this.endValue.r - this.startValue.r) + this.startValue.r);
+            this.currentRGB.g = Math.floor(this.normalValue * (this.endValue.g - this.startValue.g) + this.startValue.g);
+            this.currentRGB.b = Math.floor(this.normalValue * (this.endValue.b - this.startValue.b) + this.startValue.b);
+
+            this.currentValue = this.rgbToColor(this.currentRGB.r, this.currentRGB.g, this.currentRGB.b);
+        }
+    }, {
+        key: 'toRGB',
+        value: function toRGB(rgb) {
+            var r = rgb >> 16 & 0xFF;
+            var g = rgb >> 8 & 0xFF;
+            var b = rgb & 0xFF;
+            return {
+                r: r,
+                g: g,
+                b: b
+            };
+        }
+    }, {
+        key: 'rgbToColor',
+        value: function rgbToColor(r, g, b) {
+            return r << 16 | g << 8 | b;
+        }
+    }]);
+    return ColorBehaviour;
+}(_ParticleBehaviour3.default);
+
+exports.default = ColorBehaviour;
+module.exports = exports['default'];
+
+/***/ }),
+/* 211 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
@@ -76337,7 +76654,258 @@ exports.default = Transform;
 module.exports = exports["default"];
 
 /***/ }),
-/* 210 */
+/* 212 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EnemyStaticData = function EnemyStaticData() {
+    (0, _classCallCheck3.default)(this, EnemyStaticData);
+};
+
+exports.default = EnemyStaticData;
+module.exports = exports["default"];
+
+/***/ }),
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _pixi = __webpack_require__(7);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _Particle = __webpack_require__(114);
+
+var _Particle2 = _interopRequireDefault(_Particle);
+
+var _Pool = __webpack_require__(28);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ParticleEmmiter = function () {
+    function ParticleEmmiter(container) {
+        var maxParticles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
+        (0, _classCallCheck3.default)(this, ParticleEmmiter);
+
+        this.container = container;
+        this.position = { x: 0, y: 0 };
+        this.particles = [];
+        this.frequency = 0.1;
+        this.emitTimer = 0;
+        this.maxParticles = maxParticles;
+        this.active = true;
+
+        this.totalParticles = 0;
+        window.GUI.add(this, 'totalParticles').listen();
+    }
+
+    (0, _createClass3.default)(ParticleEmmiter, [{
+        key: 'reset',
+        value: function reset() {
+            for (var index = this.particles.length - 1; index >= 0; index--) {
+                var particle = this.particles[index];
+                _Pool2.default.instance.returnElement(particle);
+                this.container.removeChild(particle.sprite);
+                this.particles.splice(index, 1);
+            }
+        }
+    }, {
+        key: 'emit',
+        value: function emit(particleDescriptor, position) {
+            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1;
+            var overrides = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
+
+            if (quant <= 0) {
+                quant = particleDescriptor.baseData.baseAmount || 1;
+            }
+            for (var index = 0; index < quant; index++) {
+                var particle = _Pool2.default.instance.getElement(_Particle2.default);
+                particle.build(particleDescriptor);
+
+                if (Array.isArray(position)) {
+                    particle.x = position[0] + this.x;
+                    particle.y = position[1] + this.y;
+                } else {
+                    particle.x = Math.random() * (position.maxX - position.minX) + position.minX + this.x;
+                    particle.y = Math.random() * (position.maxY - position.minY) + position.minY + this.y;
+                }
+
+                for (var key in overrides) {
+                    if (particle.sprite[key] !== undefined) {
+                        particle.sprite[key] = overrides[key];
+                    }
+                }
+                this.container.addChild(particle.sprite);
+                this.particles.push(particle);
+
+                this.emitTimer = this.frequency;
+                if (this.particles.length > this.maxParticles) {
+                    var first = this.particles[0];
+                    first.destroy();
+                    _Pool2.default.instance.returnElement(first);
+                    particle.sprite.parent.removeChild(first.sprite);
+                    this.particles.splice(0, 1);
+                }
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            this.emitTimer -= delta;
+            this.totalParticles = this.particles.length;
+            for (var index = this.particles.length - 1; index >= 0; index--) {
+                var particle = this.particles[index];
+                particle.update(delta);
+                if (particle.shouldDestroy) {
+                    particle.destroy();
+                    _Pool2.default.instance.returnElement(particle);
+                    particle.sprite.parent.removeChild(particle.sprite);
+                    this.particles.splice(index, 1);
+                }
+            }
+        }
+    }, {
+        key: 'x',
+        get: function get() {
+            return this.position.x;
+        },
+        set: function set(value) {
+            this.position.x = value;
+        }
+    }, {
+        key: 'y',
+        get: function get() {
+            return this.position.y;
+        },
+        set: function set(value) {
+            this.position.y = value;
+        }
+    }, {
+        key: 'canEmit',
+        get: function get() {
+            return this.emitTimer <= 0 && this.active;
+        }
+    }]);
+    return ParticleEmmiter;
+}();
+
+exports.default = ParticleEmmiter;
+module.exports = exports['default'];
+
+/***/ }),
+/* 214 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _ParticleBehaviour2 = __webpack_require__(55);
+
+var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SinoidBehaviour = function (_ParticleBehaviour) {
+    (0, _inherits3.default)(SinoidBehaviour, _ParticleBehaviour);
+
+    function SinoidBehaviour() {
+        (0, _classCallCheck3.default)(this, SinoidBehaviour);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (SinoidBehaviour.__proto__ || (0, _getPrototypeOf2.default)(SinoidBehaviour)).call(this));
+
+        _this.property = 'velocityOffsetX';
+        _this.type = 'descriptor';
+
+        _this.angle = Math.random() * Math.PI * 2;
+        return _this;
+    }
+
+    (0, _createClass3.default)(SinoidBehaviour, [{
+        key: 'build',
+        value: function build(params) {
+            (0, _get3.default)(SinoidBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SinoidBehaviour.prototype), 'build', this).call(this, params);
+            this.speed = _ParticleBehaviour3.default.findValue(params.speed) | 1;
+            this.length = _ParticleBehaviour3.default.findValue(params.length) | 0.1;
+        }
+    }, {
+        key: 'reset',
+        value: function reset() {
+            this.angle = Math.random() * Math.PI * 2;
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+
+            this.angle += delta * this.speed;
+            this.currentValue = Math.sin(this.angle) * this.length;
+        }
+    }]);
+    return SinoidBehaviour;
+}(_ParticleBehaviour3.default);
+
+exports.default = SinoidBehaviour;
+module.exports = exports['default'];
+
+/***/ }),
+/* 215 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76437,7 +77005,7 @@ exports.default = Health;
 module.exports = exports['default'];
 
 /***/ }),
-/* 211 */
+/* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76503,7 +77071,7 @@ exports.default = PhysicsProperties;
 module.exports = exports["default"];
 
 /***/ }),
-/* 212 */
+/* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -76648,414 +77216,7 @@ exports.default = SpriteSheetAnimation;
 module.exports = exports['default'];
 
 /***/ }),
-/* 213 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _ParticleBehaviour2 = __webpack_require__(56);
-
-var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var AlphaBehaviour = function (_ParticleBehaviour) {
-    (0, _inherits3.default)(AlphaBehaviour, _ParticleBehaviour);
-
-    function AlphaBehaviour(time) {
-        (0, _classCallCheck3.default)(this, AlphaBehaviour);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (AlphaBehaviour.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour)).call(this));
-
-        _this.time = time;
-        _this.startValue = 1;
-        _this.endValue = 0;
-        return _this;
-    }
-
-    (0, _createClass3.default)(AlphaBehaviour, [{
-        key: "build",
-        value: function build(params) {
-            (0, _get3.default)(AlphaBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour.prototype), "build", this).call(this, params);
-            this.autoKill = true;
-            this.startValue = _ParticleBehaviour3.default.findValue(params.startValue) || 1;
-            this.endValue = _ParticleBehaviour3.default.findValue(params.endValue) || 0;
-            this.time = _ParticleBehaviour3.default.findValue(params.time) || 5;
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(AlphaBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(AlphaBehaviour.prototype), "update", this).call(this, delta);
-        }
-    }]);
-    return AlphaBehaviour;
-}(_ParticleBehaviour3.default);
-
-exports.default = AlphaBehaviour;
-module.exports = exports["default"];
-
-/***/ }),
-/* 214 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _ParticleBehaviour2 = __webpack_require__(56);
-
-var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ColorBehaviour = function (_ParticleBehaviour) {
-    (0, _inherits3.default)(ColorBehaviour, _ParticleBehaviour);
-
-    function ColorBehaviour(time) {
-        (0, _classCallCheck3.default)(this, ColorBehaviour);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (ColorBehaviour.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour)).call(this));
-
-        _this.property = 'tint';
-        _this.type = 'sprite';
-
-        _this.time = time;
-        _this.startValue = 1;
-        _this.endValue = 0;
-
-        _this.currentRGB = { r: 0, g: 0, b: 0 };
-        return _this;
-    }
-
-    (0, _createClass3.default)(ColorBehaviour, [{
-        key: 'build',
-        value: function build(params) {
-            (0, _get3.default)(ColorBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour.prototype), 'build', this).call(this, params);
-            this.startValue = this.toRGB(_ParticleBehaviour3.default.findValue(params.startValue));
-            this.endValue = this.toRGB(_ParticleBehaviour3.default.findValue(params.endValue));
-            this.time = _ParticleBehaviour3.default.findValue(params.time);
-            this.currentValue = this.rgbToColor(this.startValue.r, this.startValue.g, this.startValue.b);
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            (0, _get3.default)(ColorBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(ColorBehaviour.prototype), 'update', this).call(this, delta);
-
-            this.currentRGB.r = Math.floor(this.normalValue * (this.endValue.r - this.startValue.r) + this.startValue.r);
-            this.currentRGB.g = Math.floor(this.normalValue * (this.endValue.g - this.startValue.g) + this.startValue.g);
-            this.currentRGB.b = Math.floor(this.normalValue * (this.endValue.b - this.startValue.b) + this.startValue.b);
-
-            this.currentValue = this.rgbToColor(this.currentRGB.r, this.currentRGB.g, this.currentRGB.b);
-        }
-    }, {
-        key: 'toRGB',
-        value: function toRGB(rgb) {
-            var r = rgb >> 16 & 0xFF;
-            var g = rgb >> 8 & 0xFF;
-            var b = rgb & 0xFF;
-            return {
-                r: r,
-                g: g,
-                b: b
-            };
-        }
-    }, {
-        key: 'rgbToColor',
-        value: function rgbToColor(r, g, b) {
-            return r << 16 | g << 8 | b;
-        }
-    }]);
-    return ColorBehaviour;
-}(_ParticleBehaviour3.default);
-
-exports.default = ColorBehaviour;
-module.exports = exports['default'];
-
-/***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _Particle = __webpack_require__(115);
-
-var _Particle2 = _interopRequireDefault(_Particle);
-
-var _Pool = __webpack_require__(28);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ParticleEmmiter = function () {
-    function ParticleEmmiter(container) {
-        var maxParticles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 1000;
-        (0, _classCallCheck3.default)(this, ParticleEmmiter);
-
-        this.container = container;
-        this.position = { x: 0, y: 0 };
-        this.particles = [];
-        this.frequency = 0.1;
-        this.emitTimer = 0;
-        this.maxParticles = maxParticles;
-        this.active = true;
-
-        this.totalParticles = 0;
-        window.GUI.add(this, 'totalParticles').listen();
-    }
-
-    (0, _createClass3.default)(ParticleEmmiter, [{
-        key: 'reset',
-        value: function reset() {
-            for (var index = this.particles.length - 1; index >= 0; index--) {
-                var particle = this.particles[index];
-                _Pool2.default.instance.returnElement(particle);
-                this.container.removeChild(particle.sprite);
-                this.particles.splice(index, 1);
-            }
-        }
-    }, {
-        key: 'emit',
-        value: function emit(particleDescriptor, position) {
-            var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -1;
-            var overrides = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
-
-            if (quant <= 0) {
-                quant = particleDescriptor.baseData.baseAmount || 1;
-            }
-            for (var index = 0; index < quant; index++) {
-                var particle = _Pool2.default.instance.getElement(_Particle2.default);
-                particle.build(particleDescriptor);
-
-                if (Array.isArray(position)) {
-                    particle.x = position[0] + this.x;
-                    particle.y = position[1] + this.y;
-                } else {
-                    particle.x = Math.random() * (position.maxX - position.minX) + position.minX + this.x;
-                    particle.y = Math.random() * (position.maxY - position.minY) + position.minY + this.y;
-                }
-
-                for (var key in overrides) {
-                    if (particle.sprite[key] !== undefined) {
-                        particle.sprite[key] = overrides[key];
-                    }
-                }
-                this.container.addChild(particle.sprite);
-                this.particles.push(particle);
-
-                this.emitTimer = this.frequency;
-                if (this.particles.length > this.maxParticles) {
-                    var first = this.particles[0];
-                    first.destroy();
-                    _Pool2.default.instance.returnElement(first);
-                    particle.sprite.parent.removeChild(first.sprite);
-                    this.particles.splice(0, 1);
-                }
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            this.emitTimer -= delta;
-            this.totalParticles = this.particles.length;
-            for (var index = this.particles.length - 1; index >= 0; index--) {
-                var particle = this.particles[index];
-                particle.update(delta);
-                if (particle.shouldDestroy) {
-                    particle.destroy();
-                    _Pool2.default.instance.returnElement(particle);
-                    particle.sprite.parent.removeChild(particle.sprite);
-                    this.particles.splice(index, 1);
-                }
-            }
-        }
-    }, {
-        key: 'x',
-        get: function get() {
-            return this.position.x;
-        },
-        set: function set(value) {
-            this.position.x = value;
-        }
-    }, {
-        key: 'y',
-        get: function get() {
-            return this.position.y;
-        },
-        set: function set(value) {
-            this.position.y = value;
-        }
-    }, {
-        key: 'canEmit',
-        get: function get() {
-            return this.emitTimer <= 0 && this.active;
-        }
-    }]);
-    return ParticleEmmiter;
-}();
-
-exports.default = ParticleEmmiter;
-module.exports = exports['default'];
-
-/***/ }),
-/* 216 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _ParticleBehaviour2 = __webpack_require__(56);
-
-var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SinoidBehaviour = function (_ParticleBehaviour) {
-    (0, _inherits3.default)(SinoidBehaviour, _ParticleBehaviour);
-
-    function SinoidBehaviour() {
-        (0, _classCallCheck3.default)(this, SinoidBehaviour);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (SinoidBehaviour.__proto__ || (0, _getPrototypeOf2.default)(SinoidBehaviour)).call(this));
-
-        _this.property = 'velocityOffsetX';
-        _this.type = 'descriptor';
-
-        _this.angle = Math.random() * Math.PI * 2;
-        return _this;
-    }
-
-    (0, _createClass3.default)(SinoidBehaviour, [{
-        key: 'build',
-        value: function build(params) {
-            (0, _get3.default)(SinoidBehaviour.prototype.__proto__ || (0, _getPrototypeOf2.default)(SinoidBehaviour.prototype), 'build', this).call(this, params);
-            this.speed = _ParticleBehaviour3.default.findValue(params.speed) | 1;
-            this.length = _ParticleBehaviour3.default.findValue(params.length) | 0.1;
-        }
-    }, {
-        key: 'reset',
-        value: function reset() {
-            this.angle = Math.random() * Math.PI * 2;
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-
-            this.angle += delta * this.speed;
-            this.currentValue = Math.sin(this.angle) * this.length;
-        }
-    }]);
-    return SinoidBehaviour;
-}(_ParticleBehaviour3.default);
-
-exports.default = SinoidBehaviour;
-module.exports = exports['default'];
-
-/***/ }),
-/* 217 */
+/* 218 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77093,7 +77254,7 @@ var _BaseComponent2 = __webpack_require__(23);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(41);
+var _Eugine = __webpack_require__(42);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -77143,7 +77304,7 @@ exports.default = ZombieWalk;
 module.exports = exports['default'];
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77177,11 +77338,11 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -77189,7 +77350,7 @@ var _RenderModule = __webpack_require__(13);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _WorldManager = __webpack_require__(219);
+var _WorldManager = __webpack_require__(220);
 
 var _WorldManager2 = _interopRequireDefault(_WorldManager);
 
@@ -77236,7 +77397,7 @@ exports.default = BasicFloorRender;
 module.exports = exports["default"];
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77254,19 +77415,19 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _RandomGenerator = __webpack_require__(220);
+var _RandomGenerator = __webpack_require__(221);
 
 var _RandomGenerator2 = _interopRequireDefault(_RandomGenerator);
 
-var _TileMapManager = __webpack_require__(221);
+var _TileMapManager = __webpack_require__(222);
 
 var _TileMapManager2 = _interopRequireDefault(_TileMapManager);
 
-var _voronoi = __webpack_require__(222);
+var _voronoi = __webpack_require__(223);
 
 var _voronoi2 = _interopRequireDefault(_voronoi);
 
-var _grahamScan = __webpack_require__(223);
+var _grahamScan = __webpack_require__(224);
 
 var _grahamScan2 = _interopRequireDefault(_grahamScan);
 
@@ -77803,7 +77964,7 @@ exports.default = WorldManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77854,7 +78015,7 @@ exports.default = RandomGenerator;
 module.exports = exports["default"];
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -77931,7 +78092,7 @@ exports.default = TileMapManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -79657,7 +79818,7 @@ if(true) module.exports = Voronoi;
 
 
 /***/ }),
-/* 223 */
+/* 224 */
 /***/ (function(module, exports) {
 
 module.exports = function(points) {
@@ -79777,7 +79938,7 @@ module.exports = function(points) {
 
 
 /***/ }),
-/* 224 */
+/* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79815,11 +79976,11 @@ var _BaseComponent2 = __webpack_require__(23);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(41);
+var _Eugine = __webpack_require__(42);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Particle = __webpack_require__(115);
+var _Particle = __webpack_require__(114);
 
 var _Particle2 = _interopRequireDefault(_Particle);
 
@@ -79878,7 +80039,7 @@ exports.default = SpriteSheetGameView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 225 */
+/* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -79896,11 +80057,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(53);
+var _BaseEnemy = __webpack_require__(54);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _GameStaticData = __webpack_require__(47);
+var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -80026,7 +80187,7 @@ exports.default = EnemyGlobalSpawner;
 module.exports = exports["default"];
 
 /***/ }),
-/* 226 */
+/* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80064,7 +80225,7 @@ var _BaseComponent2 = __webpack_require__(23);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -80072,7 +80233,7 @@ var _RenderModule = __webpack_require__(13);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _TagManager = __webpack_require__(45);
+var _TagManager = __webpack_require__(46);
 
 var _TagManager2 = _interopRequireDefault(_TagManager);
 
@@ -80139,7 +80300,7 @@ exports.default = CameraOcclusion2D;
 module.exports = exports['default'];
 
 /***/ }),
-/* 227 */
+/* 228 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80177,19 +80338,19 @@ var _Bullet = __webpack_require__(35);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _GameAgent2 = __webpack_require__(77);
+var _GameAgent2 = __webpack_require__(78);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -80349,7 +80510,7 @@ exports.default = Companion;
 module.exports = exports["default"];
 
 /***/ }),
-/* 228 */
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80379,15 +80540,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BuildingComponent = __webpack_require__(229);
+var _BuildingComponent = __webpack_require__(230);
 
 var _BuildingComponent2 = _interopRequireDefault(_BuildingComponent);
 
-var _CardPlacementSystem = __webpack_require__(230);
+var _CardPlacementSystem = __webpack_require__(231);
 
 var _CardPlacementSystem2 = _interopRequireDefault(_CardPlacementSystem);
 
-var _CardPlacementView = __webpack_require__(231);
+var _CardPlacementView = __webpack_require__(232);
 
 var _CardPlacementView2 = _interopRequireDefault(_CardPlacementView);
 
@@ -80395,7 +80556,7 @@ var _DeckView = __webpack_require__(119);
 
 var _DeckView2 = _interopRequireDefault(_DeckView);
 
-var _Eugine = __webpack_require__(41);
+var _Eugine = __webpack_require__(42);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -80403,7 +80564,7 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -80411,7 +80572,7 @@ var _InputModule = __webpack_require__(79);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -80576,7 +80737,7 @@ exports.default = GameplaySessionController;
 module.exports = exports["default"];
 
 /***/ }),
-/* 229 */
+/* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80698,7 +80859,7 @@ exports.default = BuildingComponent;
 module.exports = exports['default'];
 
 /***/ }),
-/* 230 */
+/* 231 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80736,7 +80897,7 @@ var _GameObject = __webpack_require__(14);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -80831,7 +80992,7 @@ exports.default = CardPlacementSystem;
 module.exports = exports["default"];
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80877,7 +81038,7 @@ var _GameObject2 = __webpack_require__(14);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -80942,7 +81103,7 @@ exports.default = CardPlacementView;
 module.exports = exports["default"];
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -80976,7 +81137,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseWeapon2 = __webpack_require__(57);
+var _BaseWeapon2 = __webpack_require__(49);
 
 var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
 
@@ -80984,7 +81145,7 @@ var _Bullet = __webpack_require__(35);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _WeaponAttributes = __webpack_require__(49);
+var _WeaponAttributes = __webpack_require__(50);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -81054,7 +81215,7 @@ exports.default = AuraProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 233 */
+/* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81088,11 +81249,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseWeapon2 = __webpack_require__(57);
+var _BaseWeapon2 = __webpack_require__(49);
 
 var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
 
-var _EffectsManager = __webpack_require__(25);
+var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
@@ -81204,7 +81365,7 @@ exports.default = FloatingProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 234 */
+/* 235 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81249,11 +81410,7 @@ var GravityBullet = function (_Bullet) {
 
     function GravityBullet() {
         (0, _classCallCheck3.default)(this, GravityBullet);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (GravityBullet.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet)).call(this));
-
-        console.log("GRAVITY");
-        return _this;
+        return (0, _possibleConstructorReturn3.default)(this, (GravityBullet.__proto__ || (0, _getPrototypeOf2.default)(GravityBullet)).call(this));
     }
 
     (0, _createClass3.default)(GravityBullet, [{
@@ -81311,7 +81468,7 @@ exports.default = GravityBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81368,7 +81525,7 @@ exports.default = InGameWeapon;
 module.exports = exports["default"];
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81406,11 +81563,11 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Camera2 = __webpack_require__(237);
+var _Camera2 = __webpack_require__(238);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
-var _Player = __webpack_require__(24);
+var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -81559,7 +81716,7 @@ exports.default = PerspectiveCamera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81692,7 +81849,7 @@ exports.default = Camera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81726,7 +81883,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _PlayerInventorySlotEquipView = __webpack_require__(239);
+var _PlayerInventorySlotEquipView = __webpack_require__(240);
 
 var _PlayerInventorySlotEquipView2 = _interopRequireDefault(_PlayerInventorySlotEquipView);
 
@@ -81807,7 +81964,7 @@ exports.default = PlayerInventoryHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81909,7 +82066,7 @@ exports.default = PlayerInventorySlotEquipView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82058,7 +82215,7 @@ exports.default = Screen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82261,7 +82418,7 @@ exports.default = TouchAxisInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -82291,14 +82448,14 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(245);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(125);
@@ -82366,14 +82523,14 @@ TweenMax._autoActivated = [__WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__["a" /*
 
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* unused harmony export TweenMaxBase */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(20);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /* unused harmony reexport TweenLite */
 /* unused harmony reexport Ease */
 /* unused harmony reexport Power0 */
@@ -83057,7 +83214,7 @@ var TweenMaxBase = TweenMax;
 
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83091,11 +83248,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameView = __webpack_require__(22);
+var _GameView = __webpack_require__(24);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _Layer = __webpack_require__(19);
+var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
@@ -83103,7 +83260,7 @@ var _StaticPhysicObject2 = __webpack_require__(121);
 
 var _StaticPhysicObject3 = _interopRequireDefault(_StaticPhysicObject2);
 
-var _TagManager = __webpack_require__(45);
+var _TagManager = __webpack_require__(46);
 
 var _TagManager2 = _interopRequireDefault(_TagManager);
 
@@ -83153,7 +83310,7 @@ exports.default = Trees;
 module.exports = exports["default"];
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83492,7 +83649,7 @@ exports.default = UIButton1;
 module.exports = exports['default'];
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83628,7 +83785,7 @@ exports.default = ScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83801,7 +83958,7 @@ exports.default = ScreenTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83831,9 +83988,9 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _howler = __webpack_require__(250);
+var _howler = __webpack_require__(251);
 
-var _AbstractSoundManager2 = __webpack_require__(251);
+var _AbstractSoundManager2 = __webpack_require__(252);
 
 var _AbstractSoundManager3 = _interopRequireDefault(_AbstractSoundManager2);
 
@@ -84078,7 +84235,7 @@ exports.default = SoundManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -87328,7 +87485,7 @@ module.exports = exports['default'];
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(29)))
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87386,7 +87543,7 @@ exports.default = AbstractSoundManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87401,7 +87558,7 @@ exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87539,7 +87696,7 @@ window.LABELS.LABEL_DAMAGE = {
 };
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87591,27 +87748,39 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "effects-descriptors",
+	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
 }, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87634,10 +87803,10 @@ exports.default = {}; /*
 module.exports = exports['default'];
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/terrain/terrain.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

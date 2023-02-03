@@ -47,11 +47,10 @@ export default class WeaponAttributes {
     }
     static ExtendedBehaviour = {
         None: 0,
-        Boomerang: 1,
+        Boomerang: 'Boomerang',
     }
     constructor() {
         this.isMain = true;
-        
         this.baseRange = 60;
         this.baseLifeSpan = -1;
         this.baseLifeRangeSpan = 50;

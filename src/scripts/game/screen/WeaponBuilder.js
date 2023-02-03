@@ -313,18 +313,13 @@ export default class WeaponBuilder {
 
 
     }
-    findDestroyWeapon(weapon){
-
-        console.log("RAW", weapon)
-        if(weapon.onDestroyId){
+    findDestroyWeapon(weapon) {
+        if (weapon.onDestroyId) {
             weapon.addFixedDestroyedWeapon(this.weaponsData[weapon.onDestroyId])
         }
     }
     makeWeapon(weaponData) {
         let weapon = new WeaponData(weaponData.name);
-        console.log("weaponData", weaponData)
-
-
         for (const key in weaponData) {
             if (Object.hasOwnProperty.call(weapon, key)) {
                 weapon[key] = weaponData[key];
@@ -396,16 +391,16 @@ export default class WeaponBuilder {
 
         weapon.weaponAttributes.makeOverrider()
 
-        if (overrider) {            
-            let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)            
+        if (overrider) {
+            let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
             for (const key in targetOverrider.attributes) {
                 if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, key)) {
                     weapon.weaponAttributes.overrider[key] = targetOverrider.attributes[key];
-                    
+
                 }
             }
         }
-        
+
         return weapon
     }
     getVFXPack(vfxPackID) {
@@ -431,6 +426,16 @@ export default class WeaponBuilder {
     addWeapons(player) {
 
         this.physical = [
+           // this.weaponsData['PLAYER_AURA'],
+            this.weaponsData['DAGGER_SNIPER'],
+            this.weaponsData['DAGGER_SHOTGUN'],
+            this.weaponsData['DAGGER_GUN'],
+            this.weaponsData['DAGGER_THROW'],
+            this.weaponsData['DAGGER_ROTATOR'],
+            this.weaponsData['DAGGER_HOAMING'],
+            this.weaponsData['PLAYER_MULTISHOT'],
+            this.weaponsData['BOMB_THROWER'],
+           // this.weaponsData['PLAYER_AURA']
             // this.bombThrow,
             // this.facingMelee,
             // this.daggerThrow,
@@ -447,7 +452,7 @@ export default class WeaponBuilder {
         ]
         let testWeapon = new InGameWeapon();
 
-        // Utils.shuffle(this.physical)
+         Utils.shuffle(this.physical)
         // Utils.shuffle(this.magical)
         //testWeapon.addWeapon(this.floatingOrbit)
         //testWeapon.addWeapon(this.uniformTimeSpread)
@@ -464,16 +469,21 @@ export default class WeaponBuilder {
         // testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.damageAura)
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
-        testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
-        testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
+        //testWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
+        //testWeapon.addWeapon(this.weaponsData['DAGGER_SHOTGUN'])
+        //testWeapon.addWeapon(this.weaponsData['DAGGER_THROW'])
+        //testWeapon.addWeapon(this.weaponsData['DAGGER_ROTATOR'])
+       // testWeapon.addWeapon(this.weaponsData['DAGGER_HOAMING'])
+       // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
+        // testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
+        // testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
 
 
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
 
         for (let i = 0; i < 3; i++) {
-            //testWeapon.addWeapon(this.physical[i])
+            testWeapon.addWeapon(this.physical[i])
         }
         // //Utils.shuffle(a)
         // let testWeapon2 = new InGameWeapon();
@@ -506,7 +516,7 @@ export default class WeaponBuilder {
         player.addWeapon(testWeapon)
 
 
-       // player.addWeapon(testWeapon2)
+        // player.addWeapon(testWeapon2)
 
     }
 }

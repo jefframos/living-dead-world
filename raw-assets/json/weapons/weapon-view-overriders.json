@@ -15,5 +15,30 @@
         },
         "maxHeight": 150,
         "rotationSpeed": [-10,10]
+    },
+    {
+        "id": "DAGGER_BASE_01",
+        "viewData": "tile_0106",
+        "offset": {
+            "y": -20
+        },
+        "scale": 0.5
+    },
+    {
+        "id": "DAGGER_SNIPER_BASE_01",
+        "viewData": "tile_0106",
+        "offset": {
+            "y": -20
+        },
+        "scale": 1.5
+    },
+    {
+        "id": "AXE_BOOMERANG",
+        "viewData": "tile_0118",
+        "offset": {
+            "y": -20
+        },
+        "scale": 1,
+        "rotationSpeed": 10
     }
 ]

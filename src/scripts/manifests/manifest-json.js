@@ -72,16 +72,16 @@ const assets = [
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
 	"id":"weapon-ss-vfx-packs",
 	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
 	},
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
-	},
-	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
 	},
 	{
 	"id":"mainWeapons",
