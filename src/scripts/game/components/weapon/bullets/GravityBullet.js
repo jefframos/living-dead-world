@@ -3,8 +3,6 @@ import Bullet from "./Bullet";
 export default class GravityBullet extends Bullet {
     constructor() {
         super();
-
-        console.log("GRAVITY")
     }
     build(weapon, parent) {
         super.build(weapon, parent)

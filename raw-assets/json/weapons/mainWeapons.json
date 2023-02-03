@@ -1,203 +1,186 @@
-{
-    "helper": {
-        "types": " static WeaponType = {Main:1,Magic:2} TargetLayer = {Gameplay: 1,Botom: 2}",
-        "types2": " static BulletsAvailable = [Bullet, GravityBullet]  static WeaponsAvailable = [AuraProjectile, FloatingProjectile]",
-        "ViewType": {
-            "None": 0,
-            "Sprite": 1,
-            "SpriteSheet": 2,
-            "SpriteSheetOnBullet": 3
-        },
-        "MovementType": {
-            "Static": 1,
-            "Follow": 2
-        },
-        "rotationSpeed": 0,
-        "customAnchor": {
-            "x": 0.5,
-            "y": 0.5
-        },
-        "BlockType": {
-            "IgnoreEnemyBullets": 0,
-            "DestroyEnemyBullets": 1,
-            "DestroyEnemyBulletsAndDie": 2
-        },
-        "DirectionType": {
-            "FacingPlayer": 0,
-            "ClosestEnemy": 1,
-            "AngularSequence": 2,
-            "FacingAlternated": 3,
-            "FacingBackwards": 4,
-            "ParentAngle": 5,
-            "Hoaming": 6
-        },
-        "ExtendedBehaviour": {
-            "None": 0,
-            "Boomerang": 1
-        },
+[
+    {
+        "id": "PLAYER_AURA",
         "isMain": true,
-        "baseRange": 60,
-        "baseLifeSpan": -1,
-        "baseLifeRangeSpan": 50,
-        "basePower": 100,
-        "baseRadius": 15,
-        "baseBulletSpeed": 200,
-        "baseFrequency": 1,
-        "basePiercing": 10,
-        "baseAmount": 1,
-        "baseDamageZone": 100,
-        "baseDetectionZone": 500,
-        "baseDamageOverTime": 3,
-        "baseDirectionType": 0,
-        "baseBlockType": 0,
-        "baseBrustFire": {
-            "amount": 0,
-            "interval": 0
+        "icon": "vfx-b1",
+        "name": "Aura",
+        "type": "Magical",
+        "customConstructor": "AuraProjectile",
+        "overrider": "PLAYER_AURA_OVERRIDER",
+        "attributes": {
+            "baseRange": 50,
+            "baseRadius": 50,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 50,
+            "baseBulletSpeed": 0,
+            "baseFrequency": 3,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDamageZone": 80,
+            "baseDetectionZone": 500,
+            "baseDamageOverTime": 0.5,
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": false,
+            "baseForceFeedback": 0,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
         },
-        "baseExtendedBehaviour": 0,
-        "baseBaseShootArc": 0,
-        "baseGeneralOffset": 0,
-        "baseAngleOffset": 0.1,
-        "baseAngleNoise": 0.1,
-        "baseForceField": false,
-        "baseForceFeedback": 5
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "AURA_PACK_01"
+        }
     },
-    "list": [
-        {
-            "id": "PLAYER_AURA",
-            "isMain": true,
-            "icon": "vfx-b1",
-            "name": "Aura",
-            "type": "Magical",
-            "customConstructor": "AuraProjectile",
-            "overrider": "PLAYER_AURA_OVERRIDER",
-            "attributes": {
-                "baseRange": 50,
-                "baseRadius": 50,
-                "baseLifeSpan": 3,
-                "baseLifeRangeSpan": -1,
-                "basePower": 50,
-                "baseBulletSpeed": 0,
-                "baseFrequency": 3,
-                "basePiercing": 9999,
-                "baseAmount": 1,
-                "baseDamageZone": 80,
-                "baseDetectionZone": 500,
-                "baseDamageOverTime": 0.5,
-                "baseDirectionType": "FacingPlayer",
-                "baseBlockType": "IgnoreEnemyBullets",
-                "baseBrustFire": {
-                    "amount": 0,
-                    "interval": 0
-                },
-                "baseBaseShootArc": 0,
-                "baseGeneralOffset": 0,
-                "baseForceField": false,
-                "baseForceFeedback": 0,
-                "baseAngleOffset": 0,
-                "baseAngleNoise": 0
-            },
-            "view": {
-                "rotationSpeed": 0,
-                "standardVfxPack": "AURA_PACK_01"
-            }
-        },
-        {
-            "name": "Damage Aura",
-            "id": "PLAYER_AURA_BASE",
-            "type": 2,
-            "icon": "vfx-b1",
-            "customConstructor": 1,
-            "attributes": {
-                "baseLifeRangeSpan": -1,
-                "baseLifeSpan": 3,
-                "baseRadius": 80,
-                "baseBulletSpeed": 0,
-                "baseFrequency": 3,
-                "basePiercing": 99999,
-                "basePower": 25,
-                "baseDamageOverTime": 0.5,
-                "baseForceField": false,
-                "baseForceFeedback": 0
-            },
-            "overrider": {
-                "baseLifeSpan": 2,
-                "baseRadius": 50
-            },
-            "view": {
-                "rotationSpeed": 0,
-                "customAnchor": {
-                    "x": 0.5,
-                    "y": 0.5
-                },
-                "overrider": {
-                    "baseViewData": {
-                        "alpha": 0.1
-                    }
-                },
-                "standardVfxPack": "AURA_PACK_01"
-            }
-        },
-        {
-            "name": "Spread",
-            "id": "PLAYER_SPREAD",
-            "type": 2,
-            "icon": "vfx-c1",
-            "attributes": {
-                "baseLifeRangeSpan": 200,
-                "baseAmount": 1,
-                "baseFrequency": 1,
-                "basePiercing": 0,
-                "baseAngleOffset": 0.2,
-                "baseDirectionType": 2
-            },
-            "overrider": {},
-            "view": {
-                "overrider": {
-                    "baseViewData": {
-                        "alpha": 0.1,
-                        "offset": {
-                            "y": -20
-                        }
-                    }
-                },
-                "standardVfxPack": "WATER_BALL_PACK",
-                "spawnVfxPack": "SPAWN_IMPACT_PACK_02",
-                "destroyVfxPack": "SPAWN_IMPACT_PACK_02"
-            }
-        },
-        {
-
-            "name": "Multishot",
-            "id": "PLAYER_MULTISHOT",
-            "type": 1,
-            "icon": "tile_0131",
-
-    
-            "attributes": {
+    {
+        "id": "PLAYER_AURA_OVERRIDER",
+        "isMain": false,
+        "attributes": {
+            "baseRange": 20,
+            "baseRadius": 20,
+            "baseForceField": false
+        }
+    },
+    {
+        "id": "PLAYER_MULTISHOT",
+        "isMain": true,
+        "icon": "tile_0131",
+        "name": "Multishot",
+        "type": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "PLAYER_MULTISHOT_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
-            "baseAmount": 4,
             "basePower": 10,
-            "basePiercing": 0,
+            "baseBulletSpeed": 200,
             "baseFrequency": 1,
-            "baseAngleOffset": 0.4,
-            "baseDirectionType": 5
+            "basePiercing": 0,
+            "baseAmount": 4,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
             },
-    
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "BOMB_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseAmount": 2
-            },
-            "view": {
-                "overrider": {
-                    "baseViewData": {
-                        "viewData": "tile_0131",
-                        "offset": {
-                            "y": -20
-                        }
-                    }
-                },
-                "spawnVfxPack": "SPAWN_IMPACT_PACK_01"
+                "baseViewData": "ARROW_BASE_01"
             }
         }
-    ]
-}
+    },
+    {
+        "id": "PLAYER_MULTISHOT_OVERRIDER",
+        "isMain": false,
+        "attributes": {
+            "basePower": 15,
+            "baseAmount": 2
+        }
+    },
+    {
+        "id": "SMALL_BOMB",
+        "isMain": true,
+        "icon": "hit-d3",
+        "name": "Bomb",
+        "type": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "SMALL_BOMB_OVERRIDER",
+        "attributes": {
+            "baseRadius": 100,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "BOMB_PACK_01"
+        }
+    },
+    {
+        "id": "SMALL_BOMB_OVERRIDER",
+        "isMain": false,
+        "attributes": {
+            "baseRadius": 50
+        }
+    },
+    {
+        "id": "BOMB_THROWER",
+        "isMain": true,
+        "icon": "hit-d3",
+        "name": "Bomb",
+        "type": "Physical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "SMALL_BOMB",
+        "attributes": {
+            "baseRadius": 5,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 150,
+            "basePower": 150,
+            "baseBulletSpeed": 80,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "GravityBullet",
+        "view": {
+            "rotationSpeed": -20,
+            "overrider": {
+                "baseViewData": "BOMB_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "BOMB_THROWER_OVERRIDER",
+        "isMain": false,
+        "attributes": {
+            "baseLifeRangeSpan": 100,
+            "basePower": 100
+        }
+    }
+]

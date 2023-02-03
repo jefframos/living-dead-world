@@ -72,4 +72,14 @@ export default class Utils {
         }
         return 0;
     }
+    
+    static findValue(data) {
+        if (Array.isArray(data)) {
+            if (data.length == 1) {
+                return data[0];
+            }
+            return Math.random() * (data[1] - data[0]) + data[0];
+        }
+        return data;
+    }
 }

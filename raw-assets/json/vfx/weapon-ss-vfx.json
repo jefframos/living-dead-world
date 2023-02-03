@@ -1,96 +1,97 @@
-{
-    "list": [
-        {
-            "id": "BOMB_01",
-            "time": 0.5,
-            "startFrame": 1,
-            "endFrame": 5,
-            "spriteName": "hit-d",
-            "addZero": false,
-            "lifeSpan": 9999
+[
+    {
+        "id": "BOMB_01",
+        "spriteName": "hit-d",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 5,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": false
+    },
+    {
+        "id": "AURA_01",
+        "spriteName": "vfx-b",
+        "time": 3,
+        "frameTime": 0.2,
+        "startFrame": 1,
+        "endFrame": 6,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": false
+    },
+    {
+        "id": "MELEE_SWORD_SHOCK_01",
+        "spriteName": "slash",
+        "time": 0.75,
+        "startFrame": 1,
+        "endFrame": 12,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.2,
+            "y": 0.35
         },
-        {
-            "id": "AURA_01",
-            "time": 3,
-            "frameTime": 0.2,
-            "startFrame": 1,
-            "endFrame": 6,
-            "spriteName": "vfx-b",
-            "addZero": false,
-            "lifeSpan": 9999
-        },
-        {
-            "id": "AURA_01_END",
-            "time": 0.5,
-            "startFrame": 1,
-            "endFrame": 5,
-            "spriteName": "vfx-b",
-            "addZero": false,
-            "lifeSpan": 9999
-        },
-        {
-            "id": "MELEE_SWORD_SHOCK_01",
-            "time": 0.75,
-            "startFrame": 1,
-            "endFrame": 12,
-            "spriteName": "slash",
-            "addZero": false,
-            "lifeSpan": 9999,
-            "anchor": {
-                "x": 0.2,
-                "y": 0.35
-            }
-        },
-        {
-            "id": "SPAWN_IMPACT_01",
-            "time": 0.2,
-            "startFrame": 1,
-            "endFrame": 6,
-            "spriteName": "hit-l",
-            "addZero": false,
-            "lifeSpan": 9999
-        },
-        {
-            "id": "SPAWN_IMPACT_02",
-            "time": 0.2,
-            "startFrame": 1,
-            "endFrame": 5,
-            "spriteName": "hit-j",
-            "addZero": false,
-            "lifeSpan": 9999
-        },
-        {
-            "id": "THUNDER_BALL_01",
-            "time": 9999,
-            "frameTime": 0.5,
-            "startFrame": 1,
-            "endFrame": 12,
-            "spriteName": "small-spark",
-            "addZero": false,
-            "lifeSpan": 9999,
-            "loop": true
-        },
-        {
-            "id": "HOAMING_FIREBALL",
-            "time": 9999,
-            "frameTime": 0.5,
-            "startFrame": 1,
-            "endFrame": 5,
-            "spriteName": "fire-missile",
-            "addZero": false,
-            "lifeSpan": 9999,
-            "loop": true
-        },
-        {
-            "id": "WATER_BALL",
-            "time": 9999,
-            "frameTime": 0.5,
-            "startFrame": 1,
-            "endFrame": 6,
-            "spriteName": "vfx-c",
-            "addZero": false,
-            "lifeSpan": 9999,
-            "loop": true
-        }
-    ]
-}
+        "loop": false
+    },
+    {
+        "id": "SPAWN_IMPACT_01",
+        "spriteName": "hit-l",
+        "time": 0.2,
+        "startFrame": 1,
+        "endFrame": 5,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": false
+    },
+    {
+        "id": "SPAWN_IMPACT_02",
+        "spriteName": "hit-j",
+        "time": 0.2,
+        "startFrame": 1,
+        "endFrame": 5,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": false
+    },
+    {
+        "id": "THUNDER_BALL_01",
+        "spriteName": "small-spark",
+        "frameTime": 0.5,
+        "startFrame": 1,
+        "endFrame": 12,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": true
+    },
+    {
+        "id": "HOAMING_FIREBALL",
+        "spriteName": "fire-missile",
+        "frameTime": 0.5,
+        "startFrame": 1,
+        "endFrame": 5,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": true
+    },
+    {
+        "id": "WATER_BALL",
+        "spriteName": "vfx-c",
+        "frameTime": 0.5,
+        "startFrame": 1,
+        "endFrame": 6,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": true
+    },
+    {
+        "id": "SMOKE_01",
+        "spriteName": "hit-l",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 7,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": false
+    }
+]

@@ -15,6 +15,7 @@ export default class WeaponData {
         this.weaponType = WeaponData.WeaponType.Main;
         this.bulletComponent = Bullet;
         this.icon = 'knife';
+        this.onDestroyId = null;
         this.name = name;
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];

@@ -19,7 +19,9 @@ export default class GameStaticData {
     initialize() {
         let loadList = [
             { type:'entities', list: 'enemy', path: ['enemies1'] },
+            
             { type:'weapons', list: 'main', path: ['mainWeapons'] },
+            { type:'weapons',list: 'viewOverriders', path: ['weapon-view-overriders'] },
             
             { type:'animation',list: 'entity', path: ['entity-animation'], shared:true },
 

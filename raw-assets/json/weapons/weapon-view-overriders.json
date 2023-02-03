@@ -1,0 +1,19 @@
+[
+    {
+        "id": "ARROW_BASE_01",
+        "viewData": "tile_0131",
+        "offset": {
+            "y": -20
+        },
+        "scale": 0.5
+    },
+    {
+        "id": "BOMB_BASE_01",
+        "viewData": "tile_0116",
+        "offset": {
+            "y": -20
+        },
+        "maxHeight": 150,
+        "rotationSpeed": [-10,10]
+    }
+]

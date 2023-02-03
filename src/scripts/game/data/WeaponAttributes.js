@@ -32,18 +32,18 @@
 
 export default class WeaponAttributes {
     static BlockType = {
-        IgnoreEnemyBullets: 0,
-        DestroyEnemyBullets: 1,
-        DestroyEnemyBulletsAndDie: 2,
+        IgnoreEnemyBullets:'IgnoreEnemyBullets',
+        DestroyEnemyBullets:'DestroyEnemyBullets',
+        DestroyEnemyBulletsAndDie:'DestroyEnemyBulletsAndDie'
     }
     static DirectionType = {
-        FacingPlayer: 0,
-        ClosestEnemy: 1,
-        AngularSequence: 2,
-        FacingAlternated: 3,
-        FacingBackwards: 4,
-        ParentAngle: 5,
-        Hoaming: 6
+        FacingPlayer:'FacingPlayer',
+        ClosestEnemy:'ClosestEnemy',
+        AngularSequence:'AngularSequence',
+        FacingAlternated:'FacingAlternated',
+        FacingBackwards:'FacingBackwards',
+        ParentAngle:'ParentAngle',
+        Hoaming:'Hoaming'
     }
     static ExtendedBehaviour = {
         None: 0,
@@ -84,6 +84,7 @@ export default class WeaponAttributes {
     }
     makeOverrider(){
         this.overrider = this.clone();
+        this.overrider.isMain = false;
     }
     get brustFire(){
         return this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire

@@ -4,12 +4,12 @@ const assets = [
 	"url":"assets/json\\achievments.json"
 	},
 	{
-	"id":"localization_DE",
-	"url":"assets/json\\localization_DE.json"
-	},
-	{
 	"id":"enemies1",
 	"url":"assets/json\\enemies1.json"
+	},
+	{
+	"id":"localization_DE",
+	"url":"assets/json\\localization_DE.json"
 	},
 	{
 	"id":"localization_EN",
@@ -72,10 +72,6 @@ const assets = [
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
-	},
-	{
 	"id":"weapon-ss-vfx-packs",
 	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
 	},
@@ -84,8 +80,16 @@ const assets = [
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
 	},
 	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
 	"id":"mainWeapons",
 	"url":"assets/json\\weapons\\mainWeapons.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	}
 ];
 

@@ -33,8 +33,6 @@ export default class Bullet extends PhysicsEntity {
     build(weapon, parent) {
         super.build()
         this.weapon = weapon;
-
-        console.log('weapon.weaponViewData.baseViewData.targetLayer',weapon.weaponViewData.baseViewData.targetLayer)
         if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.BaseLayer) {
             if (this.gameView.layer != RenderModule.RenderLayers.Default) {
 
@@ -84,6 +82,11 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.visible = true;
 
         this.fromWeapon = this.spawnParent instanceof BaseWeapon
+
+        this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.rotationSpeed);
+        if(this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined){
+            this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
+        }
 
     }
     enable() {
@@ -141,7 +144,7 @@ export default class Bullet extends PhysicsEntity {
                     if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
                         let angle = 0;
                         if (this.forceField && this.fromWeapon) {
-                            angle = Math.atan2(collided.transform.position.z - this.weapon.transform.position.z, collided.transform.position.x - this.weapon.transform.position.x);
+                            angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
                         } else {
                             angle = Math.atan2(collided.transform.position.z, collided.transform.position.x);
                         }
@@ -204,8 +207,8 @@ export default class Bullet extends PhysicsEntity {
         }
 
 
-        if (this.weapon.weaponViewData.baseViewData.rotationSpeed) {
-            this.gameView.view.rotation += this.weapon.weaponViewData.baseViewData.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
+        if (this.rotationSpeed) {
+            this.gameView.view.rotation += this.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
         } else {
             this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
         }
@@ -254,6 +257,7 @@ export default class Bullet extends PhysicsEntity {
         this.angle = Utils.angleLerp(this.angle, ang, scale);
     }
     destroy() {
+        this.gameView.view.visible = false;
         this.onDestroy.dispatch(this);
         super.destroy();
     }
