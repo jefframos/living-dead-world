@@ -380,10 +380,10 @@
         }
     },
     {
-        "id": "DAGGER_HOAMING",
+        "id": "FIREBALL_HOAMING",
         "isMain": true,
         "icon": "tile_0106",
-        "name": "Dagger Hoaming",
+        "name": "Hoaming",
         "type": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -411,10 +411,11 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "standardVfxPack": "HOAMING_FIREBALL_PACK_01",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "DAGGER_BASE_01"
+                "baseViewData": "FIREBALL_HOAMING"
             }
         }
     },

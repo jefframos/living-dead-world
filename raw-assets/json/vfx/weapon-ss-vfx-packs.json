@@ -53,5 +53,16 @@
         },
         "scale": 1,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "HOAMING_FIREBALL_PACK_01",
+        "vfxData": "HOAMING_FIREBALL",
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "targetLayer": "GameplayLayer"
     }
 ]

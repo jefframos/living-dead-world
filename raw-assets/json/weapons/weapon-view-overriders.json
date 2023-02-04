@@ -42,6 +42,13 @@
         "rotationSpeed": 10
     },
     {
+        "id": "FIREBALL_HOAMING",
+        "offset": {
+            "y": -20
+        },
+        "angleOffset": -1.57
+    },
+    {
         "id": "TRANSPARENT",
         "alpha": 0
     }
