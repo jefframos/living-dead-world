@@ -173,7 +173,13 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
-            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
+                let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
+           
+                bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);
+                bullet.shoot(0, 0)
+
+            }else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
                 let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
                 let angle = Math.random() * Math.PI * 2;
                 if (closestEnemy.enemy) {
@@ -298,7 +304,7 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale } })
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset:baseData.viewOffset})
             } else {
                 EffectsManager.instance.emitParticles(
                     { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } }, baseData.targetLayer)
@@ -307,7 +313,7 @@ export default class BaseWeapon extends PhysicsEntity {
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
-            bullet.gameView.viewOffset.y = baseData.offset.y
+            bullet.gameView.viewOffset.y = baseData.viewOffset.y
 
             let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius * baseData.scale * 2)
             bullet.gameView.view.scale.set(scale)

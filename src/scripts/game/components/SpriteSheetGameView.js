@@ -19,6 +19,9 @@ export default class SpriteSheetGameView extends BaseComponent {
                 this.gameObject.gameView.view[key] = param[key];
             }
         }
+        if(param.viewOffset){
+            this.gameObject.gameView.viewOffset = param.viewOffset;
+        }
         this.descriptor = particleDescriptor;
 
         this.particle = Pool.instance.getElement(Particle);

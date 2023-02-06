@@ -29,6 +29,7 @@ export default class DeckView extends GameObject {
 
     }
     buildCards(data) {
+        return
         for (let i = 0; i < data.length; i++) {
             let a = new CardView();
             this.gameView.view.addChild(a);

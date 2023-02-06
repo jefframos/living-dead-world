@@ -31,7 +31,7 @@ export default class EntityViewData {
             viewData: 'hit-g1',
             viewType: EntityViewData.ViewType.None,
             movementType: EntityViewData.MovementType.Static,
-            offset: new Vector3(),
+            viewOffset: new Vector3(),
             alpha: 1,
             faceOrientation: true,
             scale: 1,
@@ -49,7 +49,7 @@ export default class EntityViewData {
 
     addSpawnVfx(vfxPack) {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
-        this.baseSpawnViewData.offset = vfxPack.offset;
+        this.baseSpawnViewData.viewOffset = vfxPack.viewOffset;
         this.baseSpawnViewData.scale = vfxPack.scale;
         this.baseSpawnViewData.lockRotation = vfxPack.lockRotation;
         this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
@@ -59,7 +59,7 @@ export default class EntityViewData {
 
     addDestroyVfx(vfxPack) {
         this.baseDestroyViewData.viewData = vfxPack.descriptor
-        this.baseDestroyViewData.offset = vfxPack.offset;
+        this.baseDestroyViewData.viewOffset = vfxPack.viewOffset;
         this.baseDestroyViewData.scale = vfxPack.scale;
         this.baseDestroyViewData.lockRotation = vfxPack.lockRotation;
         this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
@@ -71,7 +71,7 @@ export default class EntityViewData {
 
     addStandardVfx(vfxPack) {
         this.baseViewData.viewData = vfxPack.descriptor
-        this.baseViewData.offset = vfxPack.offset;
+        this.baseViewData.viewOffset = vfxPack.viewOffset;
         this.baseViewData.scale = vfxPack.scale;
         this.baseViewData.lockRotation = vfxPack.lockRotation;
         this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;

@@ -2,7 +2,7 @@
     {
         "id": "BOMB_PACK_01",
         "vfxData": "BOMB_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -14,7 +14,7 @@
     {
         "id": "AURA_PACK_01",
         "vfxData": "AURA_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -26,7 +26,7 @@
     {
         "id": "SPAWN_IMPACT_PACK_01",
         "vfxData": "SPAWN_IMPACT_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -38,7 +38,7 @@
     {
         "id": "SMOKE_PACK_01",
         "vfxData": "SMOKE_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -50,7 +50,7 @@
     {
         "id": "SWORD_MELEE_PACK_01",
         "vfxData": "MELEE_SWORD_SHOCK_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -62,7 +62,7 @@
     {
         "id": "HOAMING_FIREBALL_PACK_01",
         "vfxData": "HOAMING_FIREBALL",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -74,7 +74,7 @@
     {
         "id": "THUNDER_BALL_PACK",
         "vfxData": "THUNDER_BALL_01",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
@@ -86,13 +86,25 @@
     {
         "id": "ELECTRIC_SLASH_PACK",
         "vfxData": "ELECTRIC_SLASH",
-        "offset": {
+        "viewOffset": {
             "x": 0,
             "y": 0,
             "z": 0
         },
         "scale": 1,
         "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "WATER_BALL_PACK",
+        "vfxData": "WATER_BALL",
+        "viewOffset": {
+            "x": 0,
+            "y": -10,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": false,
         "targetLayer": "GameplayLayer"
     }
 ]

@@ -118,6 +118,7 @@ export default class Player extends GameAgent {
             this.activeWeapons[index].destroy();
         }
         this.activeWeapons = [];
+        this.refreshEquipment();
     }
     addWeapon(inGameWeapon) {
         if (!inGameWeapon.hasWeapon) {

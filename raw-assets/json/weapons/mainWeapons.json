@@ -499,13 +499,13 @@
         }
     },
     {
-        "id": "DISK_THROWER",
+        "id": "ICE_SHARD_THROWER",
         "isMain": true,
         "icon": "hit-d3",
         "name": "Disk",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
-        "onDestroyId": "DISK_THROWER_ROTATOR",
+        "onDestroyId": "ICE_SHARD_ROTATOR",
         "attributes": {
             "baseRadius": 20,
             "baseLifeSpan": -1,
@@ -537,7 +537,7 @@
         }
     },
     {
-        "id": "DISK_THROWER_ROTATOR",
+        "id": "ICE_SHARD_ROTATOR",
         "isMain": false,
         "icon": "hit-d3",
         "name": "Disk",
@@ -650,17 +650,17 @@
         "name": "Electric",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
-        "onDestroyId": "ELECTRIC_SLASH",
+        "overrider": "ELECTRIC_SLASH_OVERRIDER",
         "attributes": {
             "baseRadius": 60,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 200,
-            "basePower": 50,
-            "baseBulletSpeed": 2000,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": 0,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
             "baseFrequency": 3,
             "basePiercing": 9999,
             "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemy",
+            "baseDirectionType": "ClosestEnemySnap",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFire": {
                 "amount": 0,
@@ -671,43 +671,6 @@
             "baseForceField": true,
             "baseForceFeedback": 3,
             "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "GravityBullet",
-        "view": {
-            "rotationSpeed": 0,
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
-        }
-    },
-    {
-        "id": "ELECTRIC_SLASH",
-        "isMain": false,
-        "icon": "hit-d3",
-        "name": "Bomb",
-        "weaponType": "Magical",
-        "customConstructor": "BaseWeapon",
-        "overrider": "ELECTRIC_SLASH_OVERRIDER",
-        "attributes": {
-            "baseRadius": 80,
-            "baseLifeSpan": 0.5,
-            "baseLifeRangeSpan": -1,
-            "basePower": 150,
-            "baseBulletSpeed": 0,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDirectionType": "ParentAngle",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.3,
             "baseAngleNoise": 0
         },
         "bulletComponent": "Bullet",
@@ -754,6 +717,43 @@
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }
+        }
+    },
+    {
+        "id": "WATER_SINOID",
+        "isMain": true,
+        "icon": "vfx-c1",
+        "name": "Water Sinoid",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 800,
+            "basePower": 25,
+            "baseBulletSpeed": 200,
+            "baseFrequency": 3,
+            "basePiercing": 5,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 3,
+                "interval": 0.5
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "SinoidBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "WATER_BALL_PACK",
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01"
         }
     }
 ]

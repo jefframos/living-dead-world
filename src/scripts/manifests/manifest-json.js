@@ -28,20 +28,20 @@ const assets = [
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
 	},
 	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_TR",
@@ -64,16 +64,16 @@ const assets = [
 	"url":"assets/json\\vfx\\effects-descriptors.json"
 	},
 	{
+	"id":"entity-particle-descriptor",
+	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
+	},
+	{
 	"id":"vfx-behaviours",
 	"url":"assets/json\\vfx\\vfx-behaviours.json"
 	},
 	{
 	"id":"entity-ss-vfx",
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
-	"id":"entity-particle-descriptor",
-	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
 	},
 	{
 	"id":"weapon-ss-vfx-packs",
