@@ -93,5 +93,19 @@
         "lifeSpan": 99999,
         "addZero": false,
         "loop": false
+    },
+    {
+        "id": "ELECTRIC_SLASH",
+        "spriteName": "electric-slash",
+        "time": 0.75,
+        "startFrame": 1,
+        "endFrame": 15,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.9
+        },
+        "loop": false
     }
 ]

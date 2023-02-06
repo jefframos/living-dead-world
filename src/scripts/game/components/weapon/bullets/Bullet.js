@@ -42,7 +42,7 @@ export default class Bullet extends PhysicsEntity {
             this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Gameplay)
         }
 
-           //this.setDebug(this.weapon.weaponAttributes.radius)
+        //this.setDebug(this.weapon.weaponAttributes.radius)
         this.spawnParent = parent;
         this.safeTimer = 10;
 
@@ -146,7 +146,7 @@ export default class Bullet extends PhysicsEntity {
                         if (this.forceField && this.fromWeapon) {
                             angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
                         } else {
-                            angle = Math.atan2(collided.transform.position.z, collided.transform.position.x);
+                            angle = Math.atan2(collided.transform.position.z- this.transform.position.z, collided.transform.position.x- this.transform.position.x);
                         }
                         let forceBack = { x: Math.cos(angle) * this.weapon.weaponAttributes.forceFeedback, y: Math.sin(angle) * this.weapon.weaponAttributes.forceFeedback };
                         collided.applyForce(forceBack)

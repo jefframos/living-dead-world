@@ -1,6 +1,7 @@
 import Bullet from "./bullets/Bullet";
 import EffectsManager from "../../manager/EffectsManager";
 import EntityViewData from "../../data/EntityViewData";
+import GameManager from "../../manager/GameManager";
 import Layer from "../../core/Layer";
 import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import PhysicsEntity from "../../core/physics/PhysicsEntity";
@@ -21,23 +22,15 @@ export default class BaseWeapon extends PhysicsEntity {
         this.alternateFacing = 1;
         this.bulletAccum = 0;
         this.weaponData = null;
-        this.brustFire = {amount:0, interval:0};
+        this.brustFire = { amount: 0, interval: 0 };
 
     }
-    getClosestEnemy() {
-
+    getClosestEnemy(from) {
+        let target = from ? from.transform : this.transform
         let shootAngle = 0;
-        let first = null;
-        if (this.currentEnemiesColliding.length) {
-
-            Utils.collidingDistSort(this.transform.position, this.currentEnemiesColliding)
-            //let first = this.currentEnemiesColliding[Math.floor(Math.random() * this.currentEnemiesColliding.length)].transform.position
-            first = this.currentEnemiesColliding[0].entity
-
-            shootAngle = Math.atan2(first.transform.position.z - this.transform.position.z, first.transform.position.x - this.transform.position.x)
-        }
-
-        return { enemy: first, angle: shootAngle }
+        let closest = GameManager.instance.findClosestEnemy(target.position)
+        shootAngle = Math.atan2(closest.transform.position.z - target.position.z, closest.transform.position.x - target.position.x)
+        return { enemy: closest, angle: shootAngle }
     }
     static getFacing(currentWeapon, customTransform, alternate) {
         let facing = 1;
@@ -75,7 +68,7 @@ export default class BaseWeapon extends PhysicsEntity {
         }
         return facing;
     }
-    resetBrust(){
+    resetBrust() {
         this.brustFire.amount = this.weaponData.weaponAttributes.brustFire.amount;
         this.brustFire.interval = this.weaponData.weaponAttributes.brustFire.interval;
     }
@@ -125,19 +118,23 @@ export default class BaseWeapon extends PhysicsEntity {
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
-        weapon.weaponAttributes.isMain = isMain;
 
-        //EffectsManager.instance.popDamage(this.parent, 10)
-        
+        if (!isMain && weapon.onFixedDestroyWeapon.length) {
+
+            let temp = weapon.onFixedDestroyWeapon[0]
+            temp.onDestroyWeapon = weapon.onDestroyWeapon;
+            weapon = temp;
+        }
+        weapon.weaponAttributes.isMain = isMain;
         if (!customWeapon) {
-            if(this.brustFire.amount > 0){
+            if (this.brustFire.amount > 0) {
                 this.currentShootTimer = this.brustFire.interval;
-                this.brustFire.amount --;                
-                if(this.brustFire.amount <= 0){
-                this.currentShootTimer = this.shootFrequency;
+                this.brustFire.amount--;
+                if (this.brustFire.amount <= 0) {
+                    this.currentShootTimer = this.shootFrequency;
                     this.resetBrust();
                 }
-            }else{
+            } else {
                 this.currentShootTimer = this.shootFrequency;
             }
             this.alternateFacing *= -1;
@@ -177,15 +174,15 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
-                let closestEnemy = this.getClosestEnemy()//Math.random() * Math.PI * 2//
+                let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
                 let angle = Math.random() * Math.PI * 2;
-                if(closestEnemy.enemy){
+                if (closestEnemy.enemy) {
                     angle = closestEnemy.angle;
                 }
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(angle) * 20);
-                bullet.shoot(angle+angleNoise, this.physics.magnitude)
+                bullet.shoot(angle + angleNoise, this.physics.magnitude)
 
-            } else if(weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang){
+            } else if (weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang) {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
                 let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
@@ -193,16 +190,15 @@ export default class BaseWeapon extends PhysicsEntity {
                     facingAng = parentGameObject.angle;
                 }
 
-                bullet.shoot(facingAng + halfAngle + angleNoise , Math.abs(this.parent.physics.velocity.x))
-            }else
-            {
+                bullet.shoot(facingAng + halfAngle + angleNoise, Math.abs(this.parent.physics.velocity.x))
+            } else {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
                 let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
                 if (!isMain) {
                     facingAng = parentGameObject.angle;
                 }
-                bullet.shoot(facingAng +angleNoise+ halfAngle, Math.abs(this.parent.physics.velocity.x))
+                bullet.shoot(facingAng + angleNoise + halfAngle, Math.abs(this.parent.physics.velocity.x))
             }
 
             if (!customParent) {
@@ -219,7 +215,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z
 
-        if(this.debug){
+        if (this.debug) {
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
         }
@@ -257,7 +253,7 @@ export default class BaseWeapon extends PhysicsEntity {
             for (let index = 0; index < bullet.weapon.onDestroyWeapon.length; index++) {
                 const element = bullet.weapon.onDestroyWeapon[index];
                 let bullets = this.shoot(element, bullet)
-                
+
             }
         }
 
@@ -265,7 +261,7 @@ export default class BaseWeapon extends PhysicsEntity {
             for (let index = 0; index < bullet.weapon.onFixedDestroyWeapon.length; index++) {
                 const element = bullet.weapon.onFixedDestroyWeapon[index];
                 let bullets = this.shoot(element, bullet)
-                
+
             }
         }
 
@@ -283,28 +279,29 @@ export default class BaseWeapon extends PhysicsEntity {
         let weapon = customWeapon ? customWeapon : this.weaponData
 
         let isMain = weapon == this.weaponData;
-        
+
         //TODO: ADD OPTION TO GET THE TRANSFORM ANGLE FOR THE SPRITESHEET
         let baseData = weapon.weaponViewData[type]
         if (baseData.viewType == EntityViewData.ViewType.SpriteSheet) {
-            
+
             let target = bullet.transform.position
             //console.log(target.x)
             let scale = 1;
-            if(baseData.fitRadius){
+            if (baseData.fitRadius) {
                 let length = weapon.weaponAttributes.radius * 2;
-                if(baseData.viewData instanceof ParticleDescriptor){
-                    scale =  Math.min(length / baseData.width, length / baseData.height) * baseData.scale                   
-                }else{
-                    scale =  Math.min(length / bullet.gameView.view.width * bullet.gameView.view.scale.x, length / bullet.gameView.view.height * bullet.gameView.view.scale.y)
+                if (baseData.viewData instanceof ParticleDescriptor) {
+                    scale = Math.min(length / baseData.width, length / baseData.height) * baseData.scale
+                } else {
+                    scale = Math.min(length / bullet.gameView.view.width * bullet.gameView.view.scale.x, length / bullet.gameView.view.height * bullet.gameView.view.scale.y)
                 }
             }
-            if(baseData.movementType == EntityViewData.MovementType.Follow){
+            let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
+            if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData,{ rotation: bullet.angle, scale: {x:scale, y:scale} })
-            }else{                
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale } })
+            } else {
                 EffectsManager.instance.emitParticles(
-                    { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: bullet.angle, scale: {x:scale, y:scale} }, baseData.targetLayer)
+                    { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } }, baseData.targetLayer)
             }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
@@ -312,7 +309,7 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             bullet.gameView.viewOffset.y = baseData.offset.y
 
-            let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius* baseData.scale* 2)
+            let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius * baseData.scale * 2)
             bullet.gameView.view.scale.set(scale)
         }
     }

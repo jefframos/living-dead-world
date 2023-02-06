@@ -54,18 +54,28 @@ export default class WeaponBuilder {
         
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
+            window.magicFolder = window.GUI.addFolder("Magic");
+            window.weaponFolder.add(this, 'eraseWeapon')
 
             this.helpers = {};
 
-            window.weaponFolder.add(this, 'eraseWeapon')
             for (const key in this.weaponsData) {
                 if (this.weaponsData[key].isMain) {
                     this.helpers[key] = () => {
                         let data = this.weaponsData[key];
                         this.equipWeapon(data)
                     }
-                    window.weaponFolder.add(this.helpers, key)
 
+                    switch (this.weaponsData[key].weaponType) {
+                        case WeaponData.WeaponType.Physical:                            
+                            window.weaponFolder.add(this.helpers, key)
+                            break;
+                            case WeaponData.WeaponType.Magical:                            
+                            window.magicFolder.add(this.helpers, key)
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
         }
@@ -431,7 +441,8 @@ export default class WeaponBuilder {
             descriptor: new ParticleDescriptor(),
             offset: vfxPackData.offset,
             scale: vfxPackData.scale,
-            targetLayer: vfxPackData.targetLayer
+            targetLayer: vfxPackData.targetLayer,
+            lockRotation: vfxPackData.lockRotation
         }
         let spriteSheetParams = GameStaticData.instance.getDataById('vfx', 'weaponVFX', vfxPackData.vfxData)
         if (!spriteSheetParams) {
@@ -508,7 +519,7 @@ export default class WeaponBuilder {
 
 
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        this.mainWeapon.addWeapon(this.weaponsData['FIREBALL_HOAMING'])
+        this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
 
         if(window.isMobile){
 

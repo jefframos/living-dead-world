@@ -42,6 +42,14 @@
         "rotationSpeed": 10
     },
     {
+        "id": "DISC_TRHOWER",
+        "viewData": "hit-j2",
+        "offset": {
+            "y": -20
+        },
+        "rotationSpeed": 60
+    },
+    {
         "id": "FIREBALL_HOAMING",
         "offset": {
             "y": -20

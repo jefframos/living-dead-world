@@ -8,6 +8,7 @@
             "z": 0
         },
         "scale": 1,
+        "lockRotation": false,
         "targetLayer": "GameplayLayer"
     },
     {
@@ -19,6 +20,7 @@
             "z": 0
         },
         "scale": 1.2,
+        "lockRotation": false,
         "targetLayer": "BaseLayer"
     },
     {
@@ -30,6 +32,7 @@
             "z": 0
         },
         "scale": 1,
+        "lockRotation": false,
         "targetLayer": "BaseLayer"
     },
     {
@@ -41,6 +44,7 @@
             "z": 0
         },
         "scale": 1,
+        "lockRotation": false,
         "targetLayer": "GameplayLayer"
     },
     {
@@ -52,6 +56,7 @@
             "z": 0
         },
         "scale": 1,
+        "lockRotation": false,
         "targetLayer": "GameplayLayer"
     },
     {
@@ -63,6 +68,31 @@
             "z": 0
         },
         "scale": 1,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "THUNDER_BALL_PACK",
+        "vfxData": "THUNDER_BALL_01",
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "ELECTRIC_SLASH_PACK",
+        "vfxData": "ELECTRIC_SLASH",
+        "offset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
         "targetLayer": "GameplayLayer"
     }
 ]

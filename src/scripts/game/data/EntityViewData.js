@@ -37,6 +37,7 @@ export default class EntityViewData {
             scale: 1,
             angleOffset: 0,
             fitRadius: true,
+            lockRotation: false,
             width: 1,
             height: 1,
             maxHeight:0,
@@ -50,6 +51,7 @@ export default class EntityViewData {
         this.baseSpawnViewData.viewData = vfxPack.descriptor
         this.baseSpawnViewData.offset = vfxPack.offset;
         this.baseSpawnViewData.scale = vfxPack.scale;
+        this.baseSpawnViewData.lockRotation = vfxPack.lockRotation;
         this.baseSpawnViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
         this.baseSpawnViewData.viewType = EntityViewData.ViewType.SpriteSheet;
         this.extractDimensions(vfxPack.descriptor, this.baseSpawnViewData)
@@ -59,6 +61,7 @@ export default class EntityViewData {
         this.baseDestroyViewData.viewData = vfxPack.descriptor
         this.baseDestroyViewData.offset = vfxPack.offset;
         this.baseDestroyViewData.scale = vfxPack.scale;
+        this.baseDestroyViewData.lockRotation = vfxPack.lockRotation;
         this.baseDestroyViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
 
         this.baseDestroyViewData.viewType = EntityViewData.ViewType.SpriteSheet;
@@ -70,6 +73,7 @@ export default class EntityViewData {
         this.baseViewData.viewData = vfxPack.descriptor
         this.baseViewData.offset = vfxPack.offset;
         this.baseViewData.scale = vfxPack.scale;
+        this.baseViewData.lockRotation = vfxPack.lockRotation;
         this.baseViewData.targetLayer = vfxPack.targetLayer !== undefined ? vfxPack.targetLayer :  EffectsManager.TargetLayer.GameplayLayer;
         this.baseViewData.movementType = EntityViewData.MovementType.Follow;
 

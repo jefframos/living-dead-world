@@ -4,7 +4,7 @@
         "isMain": true,
         "icon": "vfx-b1",
         "name": "Aura",
-        "type": "Magical",
+        "weaponType": "Magical",
         "customConstructor": "AuraProjectile",
         "overrider": "PLAYER_AURA_OVERRIDER",
         "attributes": {
@@ -53,7 +53,7 @@
         "isMain": true,
         "icon": "tile_0131",
         "name": "Multishot",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
@@ -98,10 +98,10 @@
     },
     {
         "id": "SMALL_BOMB",
-        "isMain": true,
+        "isMain": false,
         "icon": "hit-d3",
         "name": "Bomb",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "SMALL_BOMB_OVERRIDER",
         "attributes": {
@@ -143,7 +143,7 @@
         "isMain": true,
         "icon": "hit-d3",
         "name": "Bomb",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "SMALL_BOMB",
         "attributes": {
@@ -188,7 +188,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Dagger",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
@@ -227,7 +227,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Dagger Gun",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
@@ -266,7 +266,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Dagger Shot",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
@@ -305,7 +305,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Dagger Sniper",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 5,
@@ -327,8 +327,8 @@
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 5,
-            "baseAngleOffset": 0.1,
-            "baseAngleNoise": 0.2
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
         },
         "bulletComponent": "Bullet",
         "view": {
@@ -345,7 +345,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Dagger Rotator",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 5,
@@ -384,7 +384,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "name": "Hoaming",
-        "type": "Physical",
+        "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
@@ -424,7 +424,7 @@
         "isMain": true,
         "icon": "tile_0118",
         "name": "Boomerang",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
@@ -465,7 +465,7 @@
         "isMain": true,
         "icon": "slash4",
         "name": "Melee",
-        "type": "Physical",
+        "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 50,
@@ -493,6 +493,264 @@
         "view": {
             "rotationSpeed": 0,
             "spawnVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "DISK_THROWER",
+        "isMain": true,
+        "icon": "hit-d3",
+        "name": "Disk",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "DISK_THROWER_ROTATOR",
+        "attributes": {
+            "baseRadius": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 150,
+            "basePower": 150,
+            "baseBulletSpeed": 50,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "DISC_TRHOWER"
+            }
+        }
+    },
+    {
+        "id": "DISK_THROWER_ROTATOR",
+        "isMain": false,
+        "icon": "hit-d3",
+        "name": "Disk",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 30,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "DISC_TRHOWER"
+            }
+        }
+    },
+    {
+        "id": "ORBIT",
+        "isMain": true,
+        "icon": "small-spark4",
+        "name": "Orbit",
+        "weaponType": "Magical",
+        "customConstructor": "FloatingProjectile",
+        "overrider": "ORBIT_OVERRIDER",
+        "attributes": {
+            "baseRadius": 30,
+            "baseLifeSpan": 4,
+            "baseLifeRangeSpan": -1,
+            "basePower": 50,
+            "baseBulletSpeed": 3.14,
+            "baseFrequency": 6,
+            "basePiercing": 9999,
+            "baseAmount": 3,
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 3,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "THUNDER_BALL_PACK"
+        }
+    },
+    {
+        "id": "ORBIT_OVERRIDER",
+        "isMain": false,
+        "icon": "small-spark4",
+        "name": "Orbit",
+        "weaponType": "Magical",
+        "customConstructor": "FloatingProjectile",
+        "attributes": {
+            "baseRadius": 50,
+            "baseLifeSpan": 4,
+            "baseLifeRangeSpan": -1,
+            "basePower": 50,
+            "baseBulletSpeed": 3.14,
+            "baseFrequency": 6,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 3,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "THUNDER_BALL_PACK"
+        }
+    },
+    {
+        "id": "LIGHTNING",
+        "isMain": true,
+        "icon": "electric-slash6",
+        "name": "Electric",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "ELECTRIC_SLASH",
+        "attributes": {
+            "baseRadius": 60,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 200,
+            "basePower": 50,
+            "baseBulletSpeed": 2000,
+            "baseFrequency": 3,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 3,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "GravityBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "ELECTRIC_SLASH",
+        "isMain": false,
+        "icon": "hit-d3",
+        "name": "Bomb",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "ELECTRIC_SLASH_OVERRIDER",
+        "attributes": {
+            "baseRadius": 80,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "ELECTRIC_SLASH_PACK",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "ELECTRIC_SLASH_OVERRIDER",
+        "isMain": false,
+        "icon": "hit-d3",
+        "name": "Bomb",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 50,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 100,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "ELECTRIC_SLASH_PACK",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }

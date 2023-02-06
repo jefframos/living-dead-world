@@ -5,14 +5,14 @@ import WeaponAttributes from "./WeaponAttributes";
 
 export default class WeaponData {
     static WeaponType = {
-        Main:1,
-        Magic:2
+        Physical:'Physical',
+        Magical:'Magical'
     }
     constructor(name = 'none') {
         this.weaponAttributes = new WeaponAttributes();
         this.weaponViewData = new EntityViewData();
         this.customConstructor = BaseWeapon;
-        this.weaponType = WeaponData.WeaponType.Main;
+        this.weaponType = WeaponData.WeaponType.Physical;
         this.bulletComponent = Bullet;
         this.icon = 'knife';
         this.onDestroyId = null;
