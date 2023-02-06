@@ -58,6 +58,15 @@ export default class PerspectiveCamera extends Camera {
             element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
             //this.transformView(element)
         });
+
+        this.renderModule.layers[RenderModule.RenderLayers.Shadow].gameViews.forEach(element => {
+            
+            if(element.gameObject){
+                element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+                element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+            }
+            //this.transformView(element)
+        });
     }
     transformView(gameView) {
         //console.log(gameView.gameObject)

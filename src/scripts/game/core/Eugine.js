@@ -87,7 +87,9 @@ export default class Eugine {
         gameObject.childAdded.addOnce(this.addGameObject.bind(this))
 
         this.gameObjects.push(gameObject);
-        this.parentGameObject.addChild(gameObject)
+        if(!gameObject.parent){
+            this.parentGameObject.addChild(gameObject)
+        }
 
         for (let index = 0; index < gameObject.children.length; index++) {
             const element = gameObject.children[index];

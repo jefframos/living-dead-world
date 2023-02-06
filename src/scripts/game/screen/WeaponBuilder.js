@@ -459,7 +459,7 @@ export default class WeaponBuilder {
             this.weaponsData['DAGGER_GUN'],
             this.weaponsData['DAGGER_THROW'],
             this.weaponsData['DAGGER_ROTATOR'],
-            this.weaponsData['DAGGER_HOAMING'],
+            this.weaponsData['FIREBALL_HOAMING'],
             this.weaponsData['PLAYER_MULTISHOT'],
             this.weaponsData['BOMB_THROWER'],
             // this.weaponsData['PLAYER_AURA']
@@ -500,7 +500,7 @@ export default class WeaponBuilder {
         //testWeapon.addWeapon(this.weaponsData['DAGGER_SHOTGUN'])
         //testWeapon.addWeapon(this.weaponsData['DAGGER_THROW'])
         //testWeapon.addWeapon(this.weaponsData['DAGGER_ROTATOR'])
-        // testWeapon.addWeapon(this.weaponsData['DAGGER_HOAMING'])
+        // testWeapon.addWeapon(this.weaponsData['FIREBALL_HOAMING'])
         // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
         // testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
         // testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
@@ -508,7 +508,7 @@ export default class WeaponBuilder {
 
 
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
+        this.mainWeapon.addWeapon(this.weaponsData['FIREBALL_HOAMING'])
 
         if(window.isMobile){
 

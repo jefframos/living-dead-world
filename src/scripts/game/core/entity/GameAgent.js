@@ -12,12 +12,6 @@ export default class GameAgent extends PhysicsEntity {
         this.gameView = new GameView(this)
         this.totalDirections = 6
         this.dying = false;
-        this.shadow = new PIXI.Sprite.from('shadow2')
-        this.shadow.anchor.set(0.5, 0.5)
-        this.shadow.alpha = 0.1
-        this.shadow.tint = 0;
-        this.shadow.scale.set(30 / this.shadow.width)
-        this.shadow.scale.y = this.shadow.scale.x * 0.4
         this.staticData = {};
         this.currentEnemiesColliding = [];
 
@@ -89,13 +83,7 @@ export default class GameAgent extends PhysicsEntity {
     }
     update(delta) {
         super.update(delta);
-
         this.gameView.update(delta)
-
-
-        this.shadow.x = this.transform.position.x
-        this.shadow.y = this.transform.position.z
-
         // if (this.view.init) {
         //     this.view.setLayer(this.calcFrame())
         //     this.view.update(delta)

@@ -145,11 +145,6 @@ export default class EffectsManager extends GameObject {
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 
-        //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y], 1);
-        //this.particleEmitter.emit(this.particleDescriptors['BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
-
-        //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
-
     }
 
     testParticles(entity, value) {

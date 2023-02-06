@@ -6,6 +6,7 @@ import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
+import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
@@ -56,6 +57,9 @@ export default class Player extends GameAgent {
         this.buildCircle(0, 0, 15);
 
         this.speed = 100
+
+        
+        this.addChild(this.engine.poolGameObject(Shadow))
 
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player

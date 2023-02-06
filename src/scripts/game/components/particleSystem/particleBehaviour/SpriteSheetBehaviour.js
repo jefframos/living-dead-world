@@ -16,6 +16,7 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
         this.startFrame = ParticleBehaviour.findValue(params.startFrame) || 1;
         this.endFrame = ParticleBehaviour.findValue(params.endFrame) || 1;
         this.spriteName = ParticleBehaviour.findValue(params.spriteName);
+        this.isLoop = params.loop;
         this.addZero = params.addZero;
         this.anchor = params.anchor ? params.anchor : {x:0.5,y:0.5}
         
@@ -48,5 +49,9 @@ export default class SpriteSheetBehaviour extends ParticleBehaviour {
         this.currentValue[0] = PIXI.Texture.from(this.frames[this.currentFrame]);
 
         this.currentValue[1] = this.anchor;
+
+        if(this.isLoop){
+            this.currentTime %= this.time;
+        }
     }
 }

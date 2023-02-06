@@ -4,6 +4,8 @@ import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import Layer from "../core/Layer";
 import Player from "./Player";
+import Pool from "../core/utils/Pool";
+import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
@@ -41,6 +43,9 @@ export default class BaseEnemy extends GameAgent {
         if (this.viewData.jumpHight) {
             this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
         }
+        
+       
+        
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
@@ -67,16 +72,25 @@ export default class BaseEnemy extends GameAgent {
         } else {
             this.gameView.view.anchor.set(0.5, 1)
         }
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * (this.viewData.scale ? this.viewData.scale : 1)));
+
+        let scale = this.viewData.scale ? this.viewData.scale : 1
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
+
+
+        let shadow = this.engine.poolGameObject(Shadow);
+        this.addChild(shadow);
+        shadow.updateScale(scale);
 
         if (this.viewData.offset) {
             if (this.viewData.offset.y) {
                 this.transform.position.y = this.viewData.offset.y
             }
         }
+
+
     }
 
     destroy() {

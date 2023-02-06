@@ -227,7 +227,7 @@ export default class Bullet extends PhysicsEntity {
                     }
 
 
-                    this.smoothAngle(Vector3.atan2XZ(targetPosition, this.transform.position), delta)
+                    this.smoothAngle(Vector3.atan2XZ(targetPosition, this.transform.position), delta * 2)
 
 
                     this.safeTimer -= delta;

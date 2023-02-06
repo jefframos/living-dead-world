@@ -169,6 +169,10 @@ export default class GameObject extends BaseComponent {
             this.parent.removeChild(this)
         }
         this.parent = newParent;
+        this.getNewParent(newParent);
+
+    }
+    getNewParent(newParent) {
 
     }
     get destroyed() {

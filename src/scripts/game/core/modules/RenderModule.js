@@ -6,6 +6,7 @@ export default class RenderModule extends GameObject {
     static RenderLayers = {
         Base: 'base',
         Debug: 'debug',
+        Shadow: '_p_shadow',
         Default: '_n_default',
         Floor: '_p_floor',
         Building: 'building',
@@ -57,6 +58,9 @@ export default class RenderModule extends GameObject {
 
         //     }
         // }
+
+        this.layers[RenderModule.RenderLayers.Shadow].container.tint = 0
+        this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.2
     }
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
@@ -81,9 +85,6 @@ export default class RenderModule extends GameObject {
                 this.layers[RenderModule.RenderLayers.Debug].addChild(element.debug)
             }
 
-            if (element.shadow) {
-                this.layers[RenderModule.RenderLayers.Floor].addChild(element.shadow)
-            }
         });
 
     }
@@ -100,10 +101,6 @@ export default class RenderModule extends GameObject {
 
         if (element.debug) {
             this.layers[RenderModule.RenderLayers.Debug].removeChild(element.debug)
-        }
-
-        if (element.shadow) {
-            this.layers[RenderModule.RenderLayers.Floor].removeChild(element.shadow)
         }
     }
     swapLayer(entity, layer){
