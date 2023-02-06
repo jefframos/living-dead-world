@@ -22,7 +22,7 @@ export default class WeaponData {
         this.onFixedDestroyWeapon = [];
     }
     get bulletBehaviourComponent(){
-        if(this.weaponAttributes.isMain){
+        if(this.weaponAttributes.isMain || !this.weaponAttributes.overrider.bulletComponent){
             return this.bulletComponent;
         }else{
             return this.weaponAttributes.overrider.bulletComponent;

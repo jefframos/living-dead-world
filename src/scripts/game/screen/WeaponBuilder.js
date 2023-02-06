@@ -172,7 +172,9 @@ console.log(this.weaponsArray)
 
         if (overrider) {
             let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
-            weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]
+            if(WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]){
+                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]
+            }
             if(!weapon.weaponAttributes.overrider.bulletComponent){
                 weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
             }
