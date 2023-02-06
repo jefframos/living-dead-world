@@ -183,6 +183,8 @@ console.log(this.weaponsArray)
                     weapon.weaponAttributes.overrider[key] = targetOverrider.attributes[key];
                 }
             }
+        }else{
+            weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
         }
 
         return weapon
