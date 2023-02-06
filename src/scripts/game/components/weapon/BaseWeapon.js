@@ -119,7 +119,7 @@ export default class BaseWeapon extends PhysicsEntity {
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
 
-        if (!isMain && weapon.onFixedDestroyWeapon.length) {
+        if (!isMain && weapon.onFixedDestroyWeapon.length ) {
 
             let temp = weapon.onFixedDestroyWeapon[0]
             temp.onDestroyWeapon = weapon.onDestroyWeapon;
@@ -146,7 +146,7 @@ export default class BaseWeapon extends PhysicsEntity {
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
 
-            let bullet = this.engine.poolGameObject(weapon.bulletComponent)
+            let bullet = this.engine.poolGameObject(weapon.bulletBehaviourComponent)
             bullet.build(weapon, parentGameObject);
             bullet.originWeapon = this;
 

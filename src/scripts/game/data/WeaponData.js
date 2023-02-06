@@ -21,6 +21,13 @@ export default class WeaponData {
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
     }
+    get bulletBehaviourComponent(){
+        if(this.weaponAttributes.isMain){
+            return this.bulletComponent;
+        }else{
+            return this.weaponAttributes.overrider.bulletComponent;
+        }
+    }
     addFixedDestroyedWeapon(weapon){
         this.onFixedDestroyWeapon.push(weapon);
     }

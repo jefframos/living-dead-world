@@ -347,6 +347,7 @@
         "name": "Dagger Rotator",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
+        "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 5,
             "baseLifeSpan": -1,
@@ -367,6 +368,45 @@
             "baseForceField": true,
             "baseForceFeedback": 5,
             "baseAngleOffset": 0.1,
+            "baseAngleNoise": 0.2
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "DAGGER_SNIPER_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "DAGGER_ROTATOR_OVERRIDER",
+        "isMain": false,
+        "icon": "tile_0106",
+        "name": "Dagger Rotator Overrider",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 5,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 200,
+            "basePower": 10,
+            "baseBulletSpeed": 300,
+            "baseFrequency": 0.1,
+            "basePiercing": 2,
+            "baseAmount": 2,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0.3,
             "baseAngleNoise": 0.2
         },
         "bulletComponent": "Bullet",
@@ -505,6 +545,7 @@
         "name": "Disk",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
+        "overrider": "ICE_SHARD_ROTATOR",
         "onDestroyId": "ICE_SHARD_ROTATOR",
         "attributes": {
             "baseRadius": 20,
@@ -612,19 +653,19 @@
         "id": "ORBIT_OVERRIDER",
         "isMain": false,
         "icon": "small-spark4",
-        "name": "Orbit",
+        "name": "Orbit Over",
         "weaponType": "Magical",
-        "customConstructor": "FloatingProjectile",
+        "customConstructor": "BaseWeapon",
         "attributes": {
-            "baseRadius": 50,
+            "baseRadius": 20,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
-            "basePower": 50,
-            "baseBulletSpeed": 3.14,
+            "basePower": 20,
+            "baseBulletSpeed": 250,
             "baseFrequency": 6,
             "basePiercing": 9999,
             "baseAmount": 1,
-            "baseDirectionType": "FacingPlayer",
+            "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFire": {
                 "amount": 0,
@@ -634,10 +675,10 @@
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 3,
-            "baseAngleOffset": 0,
+            "baseAngleOffset": 1.57,
             "baseAngleNoise": 0
         },
-        "bulletComponent": "Bullet",
+        "bulletComponent": "CircularBullet",
         "view": {
             "rotationSpeed": 0,
             "standardVfxPack": "THUNDER_BALL_PACK"
@@ -752,6 +793,43 @@
         "view": {
             "rotationSpeed": 0,
             "standardVfxPack": "WATER_BALL_PACK",
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01"
+        }
+    },
+    {
+        "id": "WIND_CIRCLE",
+        "isMain": true,
+        "icon": "vfx-c1",
+        "name": "Wind Circle",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 800,
+            "basePower": 25,
+            "baseBulletSpeed": 200,
+            "baseFrequency": 3,
+            "basePiercing": 5,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 3,
+                "interval": 0.5
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "CircularBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "FLASH_PACK",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01"
         }

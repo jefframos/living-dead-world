@@ -21349,7 +21349,7 @@ var Power4 = globals.Power4;
 var TweenPlugin = globals.TweenPlugin;
 var EventDispatcher = nonGlobals.events.EventDispatcher;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(245)(module), __webpack_require__(30)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(246)(module), __webpack_require__(30)))
 
 /***/ }),
 /* 22 */
@@ -22397,6 +22397,382 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _BaseEnemy = __webpack_require__(54);
+
+var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
+
+var _BaseWeapon = __webpack_require__(49);
+
+var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
+
+var _EffectsManager = __webpack_require__(19);
+
+var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
+
+var _GameManager = __webpack_require__(84);
+
+var _GameManager2 = _interopRequireDefault(_GameManager);
+
+var _GameView = __webpack_require__(22);
+
+var _GameView2 = _interopRequireDefault(_GameView);
+
+var _Layer = __webpack_require__(20);
+
+var _Layer2 = _interopRequireDefault(_Layer);
+
+var _PhysicsEntity2 = __webpack_require__(48);
+
+var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
+
+var _PhysicsModule = __webpack_require__(56);
+
+var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
+
+var _Player = __webpack_require__(26);
+
+var _Player2 = _interopRequireDefault(_Player);
+
+var _RenderModule = __webpack_require__(11);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _Utils = __webpack_require__(16);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _Vector = __webpack_require__(15);
+
+var _Vector2 = _interopRequireDefault(_Vector);
+
+var _WeaponAttributes = __webpack_require__(50);
+
+var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
+
+var _config = __webpack_require__(18);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _signals = __webpack_require__(6);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Bullet = function (_PhysicsEntity) {
+    (0, _inherits3.default)(Bullet, _PhysicsEntity);
+
+    function Bullet() {
+        (0, _classCallCheck3.default)(this, Bullet);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (Bullet.__proto__ || (0, _getPrototypeOf2.default)(Bullet)).call(this));
+
+        _this.gameView = new _GameView2.default(_this);
+        _this.gameView.view = new PIXI.Sprite();
+        _this.gameView.view.alpha = 1;
+        _this.hitting = false;
+        _this.enemiesShot = [];
+
+        _this.onSpawn = new _signals2.default.Signal();
+        _this.onDestroy = new _signals2.default.Signal();
+        _this.onDestroyOnHit = new _signals2.default.Signal();
+        _this.onHit = new _signals2.default.Signal();
+        //   this.setDebug(15)
+        return _this;
+    }
+
+    (0, _createClass3.default)(Bullet, [{
+        key: "build",
+        value: function build(weapon, parent) {
+            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "build", this).call(this);
+            this.weapon = weapon;
+            if (weapon.weaponViewData.baseViewData.targetLayer == _EffectsManager2.default.TargetLayer.BaseLayer) {
+                if (this.gameView.layer != _RenderModule2.default.RenderLayers.Default) {
+
+                    this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Default);
+                }
+            } else if (this.gameView.layer != _RenderModule2.default.RenderLayers.Gameplay) {
+                this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Gameplay);
+            }
+
+            //this.setDebug(this.weapon.weaponAttributes.radius)
+            this.spawnParent = parent;
+            this.safeTimer = 10;
+
+            this.originPosition = parent.transform.position.clone();
+
+            this.resetEvents();
+
+            this.buildCircle(0, 0, this.weapon.weaponAttributes.radius);
+
+            this.hitting = false;
+
+            this.piercing = this.weapon.weaponAttributes.piercing;
+            this.forceField = this.weapon.weaponAttributes.forceField;
+
+            this.distanceSpan = 0;
+            this.enemiesShot = [];
+            this.gameView.view.anchor.set(0.5);
+
+            this.rigidBody.collisionFilter.group = 2;
+            this.rigidBody.collisionFilter.mask = 3;
+
+            this.speed = this.weapon.weaponAttributes.bulletSpeed;
+            this.power = this.weapon.weaponAttributes.power;
+
+            this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
+            this.lifeSpan = this.weapon.weaponAttributes.lifeSpan;
+            this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;
+
+            this.layerCategory = _Layer2.default.Bullet;
+            this.layerMask = _Layer2.default.BulletCollision;
+
+            this.rigidBody.isSensor = true;
+
+            this.gameView.view.rotation = 0;
+            this.gameView.view.alpha = 1;
+            this.gameView.view.visible = true;
+
+            this.fromWeapon = this.spawnParent instanceof _BaseWeapon2.default;
+
+            this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.rotationSpeed);
+            if (this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined) {
+                this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
+            }
+        }
+    }, {
+        key: "enable",
+        value: function enable() {
+            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "enable", this).call(this);
+            this.gameView.view.visible = false;
+        }
+    }, {
+        key: "shoot",
+        value: function shoot(ang, magnitude) {
+            this.enemiesShot = [];
+
+            this.angle = ang;
+
+            //this.speed += this.speed * magnitude * 0.5
+            this.gameView.view.rotation = this.angle + Math.PI / 2;
+
+            this.physics.velocity.x = 0;
+            this.physics.velocity.y = 0;
+            this.physics.velocity.z = 0;
+
+            this.onSpawn.dispatch(this);
+        }
+    }, {
+        key: "collisionExit",
+        value: function collisionExit(collided) {
+            if (this.enemiesShot.filter(function (item) {
+                return item.entity == collided;
+            }).length <= 0) return;
+            //console.log(this.enemiesShot.filter(item => item.entity == collided))
+            this.enemiesShot = this.enemiesShot.filter(function (item) {
+                return item.entity !== collided;
+            });
+        }
+    }, {
+        key: "collisionEnter",
+        value: function collisionEnter(collided) {
+
+            if (collided.rigidBody.isSensor) {
+                return;
+            }
+            if (this.enemiesShot.filter(function (item) {
+                return item.entity == collided;
+            }).length > 0) {
+                return;
+            }
+            this.enemiesShot.push({ entity: collided, timer: this.weapon.weaponAttributes.damageOverTime });
+            if (false) {
+                this.destroy();
+            } else {
+                if (collided.die) {
+                    collided.damage(this.power);
+                    this.piercing--;
+                    this.onHit.dispatch(this);
+
+                    if (collided.dying) {
+
+                        // let enemy = GameManager.instance.spawnEnemy()
+                        // //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
+                        // let angle = Math.PI * 2 * Math.random();
+                        // enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
+                        // enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
+                    } else {
+                        if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
+                            var angle = 0;
+                            if (this.forceField && this.fromWeapon) {
+                                angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
+                            } else {
+                                angle = Math.atan2(collided.transform.position.z - this.transform.position.z, collided.transform.position.x - this.transform.position.x);
+                            }
+                            var forceBack = { x: Math.cos(angle) * this.weapon.weaponAttributes.forceFeedback, y: Math.sin(angle) * this.weapon.weaponAttributes.forceFeedback };
+                            collided.applyForce(forceBack);
+                        }
+                    }
+
+                    if (this.piercing <= 0) {
+                        this.onDestroyOnHit.dispatch(this);
+                        this.destroy();
+                    }
+                    //this.destroy()
+                } else {
+
+                    if (!collided.rigidBody.isStatic) {
+
+                        this.onDestroyOnHit.dispatch(this);
+                        collided.destroy();
+                    }
+                }
+                //this.destroy()
+            }
+
+            //console.log(this.enemiesShot)
+        }
+    }, {
+        key: "start",
+        value: function start() {
+            this.physicsModule = this.engine.findByType(_PhysicsModule2.default);
+            this.renderModule = this.engine.findByType(_RenderModule2.default);
+        }
+    }, {
+        key: "update",
+        value: function update(delta, unscaleDelta) {
+            var _this2 = this;
+
+            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "update", this).call(this, delta);
+            this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta;
+            this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta;
+
+            this.gameView.view.x = this.transform.position.x;
+            this.gameView.view.y = this.transform.position.z + this.viewOffset.y;
+
+            this.enemiesShot.forEach(function (element) {
+                if (element.entity.enabledAndAlive) {
+
+                    if (element.timer <= 0 && element.entity.damage) {
+                        element.entity.damage(_this2.power);
+                        element.timer = _this2.weapon.weaponAttributes.damageOverTime;
+                    } else {
+                        element.timer -= delta;
+                    }
+                }
+            });
+
+            if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Hoaming) {
+                var closest = _GameManager2.default.instance.findClosestEnemy(this.transform.position);
+                if (closest) {
+                    this.smoothAngle(_Vector2.default.atan2XZ(closest.transform.position, this.transform.position), delta);
+                }
+            }
+
+            if (this.rotationSpeed) {
+                this.gameView.view.rotation += this.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
+            } else {
+                this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
+            }
+            this.gameView.view.visible = true;
+            if (!this.usesTime) {
+
+                this.distanceSpan -= this.speed * delta;
+
+                if (this.distanceSpan <= 0) {
+                    if (this.weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.ExtendedBehaviour.Boomerang) {
+
+                        var targetPosition = this.originPosition;
+
+                        if (this.fromWeapon) {
+                            targetPosition = this.spawnParent.transform.position;
+                        }
+
+                        this.smoothAngle(_Vector2.default.atan2XZ(targetPosition, this.transform.position), delta * 2);
+
+                        this.safeTimer -= delta;
+                        if (_Vector2.default.distance(targetPosition, this.transform.position) < this.weapon.weaponAttributes.radius * 2 || this.safeTimer <= 0) {
+                            this.destroy();
+                        }
+                    } else {
+                        this.destroy();
+                    }
+                }
+            } else {
+                this.lifeSpan -= delta;
+                if (this.lifeSpan <= 0) {
+                    this.destroy();
+                }
+            }
+        }
+    }, {
+        key: "smoothAngle",
+        value: function smoothAngle(target, delta) {
+            var ang = target;
+
+            var scale = 1 / 60 / delta;
+            scale *= 0.05;
+            scale = Math.max(scale, 0.05);
+            scale = Math.min(scale, 0.95);
+            this.angle = _Utils2.default.angleLerp(this.angle, ang, scale);
+        }
+    }, {
+        key: "destroy",
+        value: function destroy() {
+            this.gameView.view.visible = false;
+            this.onDestroy.dispatch(this);
+            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "destroy", this).call(this);
+        }
+    }, {
+        key: "resetEvents",
+        value: function resetEvents() {
+            this.onSpawn.removeAll();
+            this.onDestroy.removeAll();
+            this.onDestroyOnHit.removeAll();
+            this.onHit.removeAll();
+        }
+    }]);
+    return Bullet;
+}(_PhysicsEntity3.default);
+
+exports.default = Bullet;
+module.exports = exports["default"];
+
+/***/ }),
+/* 28 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -22408,7 +22784,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23171,382 +23547,6 @@ exports.default = (_resizeToFitMaxAR$res = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _BaseEnemy = __webpack_require__(54);
-
-var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
-
-var _BaseWeapon = __webpack_require__(49);
-
-var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
-
-var _EffectsManager = __webpack_require__(19);
-
-var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
-
-var _GameManager = __webpack_require__(84);
-
-var _GameManager2 = _interopRequireDefault(_GameManager);
-
-var _GameView = __webpack_require__(22);
-
-var _GameView2 = _interopRequireDefault(_GameView);
-
-var _Layer = __webpack_require__(20);
-
-var _Layer2 = _interopRequireDefault(_Layer);
-
-var _PhysicsEntity2 = __webpack_require__(48);
-
-var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
-
-var _PhysicsModule = __webpack_require__(56);
-
-var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
-
-var _Player = __webpack_require__(26);
-
-var _Player2 = _interopRequireDefault(_Player);
-
-var _RenderModule = __webpack_require__(11);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _Utils = __webpack_require__(16);
-
-var _Utils2 = _interopRequireDefault(_Utils);
-
-var _Vector = __webpack_require__(15);
-
-var _Vector2 = _interopRequireDefault(_Vector);
-
-var _WeaponAttributes = __webpack_require__(50);
-
-var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
-
-var _config = __webpack_require__(18);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _signals = __webpack_require__(6);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Bullet = function (_PhysicsEntity) {
-    (0, _inherits3.default)(Bullet, _PhysicsEntity);
-
-    function Bullet() {
-        (0, _classCallCheck3.default)(this, Bullet);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Bullet.__proto__ || (0, _getPrototypeOf2.default)(Bullet)).call(this));
-
-        _this.gameView = new _GameView2.default(_this);
-        _this.gameView.view = new PIXI.Sprite();
-        _this.gameView.view.alpha = 1;
-        _this.hitting = false;
-        _this.enemiesShot = [];
-
-        _this.onSpawn = new _signals2.default.Signal();
-        _this.onDestroy = new _signals2.default.Signal();
-        _this.onDestroyOnHit = new _signals2.default.Signal();
-        _this.onHit = new _signals2.default.Signal();
-        //   this.setDebug(15)
-        return _this;
-    }
-
-    (0, _createClass3.default)(Bullet, [{
-        key: "build",
-        value: function build(weapon, parent) {
-            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "build", this).call(this);
-            this.weapon = weapon;
-            if (weapon.weaponViewData.baseViewData.targetLayer == _EffectsManager2.default.TargetLayer.BaseLayer) {
-                if (this.gameView.layer != _RenderModule2.default.RenderLayers.Default) {
-
-                    this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Default);
-                }
-            } else if (this.gameView.layer != _RenderModule2.default.RenderLayers.Gameplay) {
-                this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Gameplay);
-            }
-
-            //this.setDebug(this.weapon.weaponAttributes.radius)
-            this.spawnParent = parent;
-            this.safeTimer = 10;
-
-            this.originPosition = parent.transform.position.clone();
-
-            this.resetEvents();
-
-            this.buildCircle(0, 0, this.weapon.weaponAttributes.radius);
-
-            this.hitting = false;
-
-            this.piercing = this.weapon.weaponAttributes.piercing;
-            this.forceField = this.weapon.weaponAttributes.forceField;
-
-            this.distanceSpan = 0;
-            this.enemiesShot = [];
-            this.gameView.view.anchor.set(0.5);
-
-            this.rigidBody.collisionFilter.group = 2;
-            this.rigidBody.collisionFilter.mask = 3;
-
-            this.speed = this.weapon.weaponAttributes.bulletSpeed;
-            this.power = this.weapon.weaponAttributes.power;
-
-            this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
-            this.lifeSpan = this.weapon.weaponAttributes.lifeSpan;
-            this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;
-
-            this.layerCategory = _Layer2.default.Bullet;
-            this.layerMask = _Layer2.default.BulletCollision;
-
-            this.rigidBody.isSensor = true;
-
-            this.gameView.view.rotation = 0;
-            this.gameView.view.alpha = 1;
-            this.gameView.view.visible = true;
-
-            this.fromWeapon = this.spawnParent instanceof _BaseWeapon2.default;
-
-            this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.rotationSpeed);
-            if (this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined) {
-                this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
-            }
-        }
-    }, {
-        key: "enable",
-        value: function enable() {
-            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "enable", this).call(this);
-            this.gameView.view.visible = false;
-        }
-    }, {
-        key: "shoot",
-        value: function shoot(ang, magnitude) {
-            this.enemiesShot = [];
-
-            this.angle = ang;
-
-            //this.speed += this.speed * magnitude * 0.5
-            this.gameView.view.rotation = this.angle + Math.PI / 2;
-
-            this.physics.velocity.x = 0;
-            this.physics.velocity.y = 0;
-            this.physics.velocity.z = 0;
-
-            this.onSpawn.dispatch(this);
-        }
-    }, {
-        key: "collisionExit",
-        value: function collisionExit(collided) {
-            if (this.enemiesShot.filter(function (item) {
-                return item.entity == collided;
-            }).length <= 0) return;
-            //console.log(this.enemiesShot.filter(item => item.entity == collided))
-            this.enemiesShot = this.enemiesShot.filter(function (item) {
-                return item.entity !== collided;
-            });
-        }
-    }, {
-        key: "collisionEnter",
-        value: function collisionEnter(collided) {
-
-            if (collided.rigidBody.isSensor) {
-                return;
-            }
-            if (this.enemiesShot.filter(function (item) {
-                return item.entity == collided;
-            }).length > 0) {
-                return;
-            }
-            this.enemiesShot.push({ entity: collided, timer: this.weapon.weaponAttributes.damageOverTime });
-            if (false) {
-                this.destroy();
-            } else {
-                if (collided.die) {
-                    collided.damage(this.power);
-                    this.piercing--;
-                    this.onHit.dispatch(this);
-
-                    if (collided.dying) {
-
-                        // let enemy = GameManager.instance.spawnEnemy()
-                        // //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
-                        // let angle = Math.PI * 2 * Math.random();
-                        // enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
-                        // enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
-                    } else {
-                        if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
-                            var angle = 0;
-                            if (this.forceField && this.fromWeapon) {
-                                angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
-                            } else {
-                                angle = Math.atan2(collided.transform.position.z - this.transform.position.z, collided.transform.position.x - this.transform.position.x);
-                            }
-                            var forceBack = { x: Math.cos(angle) * this.weapon.weaponAttributes.forceFeedback, y: Math.sin(angle) * this.weapon.weaponAttributes.forceFeedback };
-                            collided.applyForce(forceBack);
-                        }
-                    }
-
-                    if (this.piercing <= 0) {
-                        this.onDestroyOnHit.dispatch(this);
-                        this.destroy();
-                    }
-                    //this.destroy()
-                } else {
-
-                    if (!collided.rigidBody.isStatic) {
-
-                        this.onDestroyOnHit.dispatch(this);
-                        collided.destroy();
-                    }
-                }
-                //this.destroy()
-            }
-
-            //console.log(this.enemiesShot)
-        }
-    }, {
-        key: "start",
-        value: function start() {
-            this.physicsModule = this.engine.findByType(_PhysicsModule2.default);
-            this.renderModule = this.engine.findByType(_RenderModule2.default);
-        }
-    }, {
-        key: "update",
-        value: function update(delta, unscaleDelta) {
-            var _this2 = this;
-
-            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "update", this).call(this, delta);
-            this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta;
-            this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta;
-
-            this.gameView.view.x = this.transform.position.x;
-            this.gameView.view.y = this.transform.position.z + this.viewOffset.y;
-
-            this.enemiesShot.forEach(function (element) {
-                if (element.entity.enabledAndAlive) {
-
-                    if (element.timer <= 0 && element.entity.damage) {
-                        element.entity.damage(_this2.power);
-                        element.timer = _this2.weapon.weaponAttributes.damageOverTime;
-                    } else {
-                        element.timer -= delta;
-                    }
-                }
-            });
-
-            if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Hoaming) {
-                var closest = _GameManager2.default.instance.findClosestEnemy(this.transform.position);
-                if (closest) {
-                    this.smoothAngle(_Vector2.default.atan2XZ(closest.transform.position, this.transform.position), delta);
-                }
-            }
-
-            if (this.rotationSpeed) {
-                this.gameView.view.rotation += this.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
-            } else {
-                this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
-            }
-            this.gameView.view.visible = true;
-            if (!this.usesTime) {
-
-                this.distanceSpan -= this.speed * delta;
-
-                if (this.distanceSpan <= 0) {
-                    if (this.weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.ExtendedBehaviour.Boomerang) {
-
-                        var targetPosition = this.originPosition;
-
-                        if (this.fromWeapon) {
-                            targetPosition = this.spawnParent.transform.position;
-                        }
-
-                        this.smoothAngle(_Vector2.default.atan2XZ(targetPosition, this.transform.position), delta * 2);
-
-                        this.safeTimer -= delta;
-                        if (_Vector2.default.distance(targetPosition, this.transform.position) < this.weapon.weaponAttributes.radius * 2 || this.safeTimer <= 0) {
-                            this.destroy();
-                        }
-                    } else {
-                        this.destroy();
-                    }
-                }
-            } else {
-                this.lifeSpan -= delta;
-                if (this.lifeSpan <= 0) {
-                    this.destroy();
-                }
-            }
-        }
-    }, {
-        key: "smoothAngle",
-        value: function smoothAngle(target, delta) {
-            var ang = target;
-
-            var scale = 1 / 60 / delta;
-            scale *= 0.05;
-            scale = Math.max(scale, 0.05);
-            scale = Math.min(scale, 0.95);
-            this.angle = _Utils2.default.angleLerp(this.angle, ang, scale);
-        }
-    }, {
-        key: "destroy",
-        value: function destroy() {
-            this.gameView.view.visible = false;
-            this.onDestroy.dispatch(this);
-            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "destroy", this).call(this);
-        }
-    }, {
-        key: "resetEvents",
-        value: function resetEvents() {
-            this.onSpawn.removeAll();
-            this.onDestroy.removeAll();
-            this.onDestroyOnHit.removeAll();
-            this.onHit.removeAll();
-        }
-    }]);
-    return Bullet;
-}(_PhysicsEntity3.default);
-
-exports.default = Bullet;
-module.exports = exports["default"];
-
-/***/ }),
 /* 30 */
 /***/ (function(module, exports) {
 
@@ -23577,7 +23577,7 @@ module.exports = g;
 /* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(27);
+var global = __webpack_require__(28);
 var core = __webpack_require__(17);
 var ctx = __webpack_require__(103);
 var hide = __webpack_require__(37);
@@ -24601,7 +24601,7 @@ var _config = __webpack_require__(18);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -24881,7 +24881,7 @@ module.exports = exports['default'];
 
 var store = __webpack_require__(70)('wks');
 var uid = __webpack_require__(53);
-var Symbol = __webpack_require__(27).Symbol;
+var Symbol = __webpack_require__(28).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -26164,7 +26164,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -26438,7 +26438,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -26609,7 +26609,7 @@ var BaseWeapon = function (_PhysicsEntity) {
             for (var index = 0; index < total; index++) {
                 var ang = Math.PI * 2 / total * index;
 
-                var bullet = this.engine.poolGameObject(weapon.bulletComponent);
+                var bullet = this.engine.poolGameObject(weapon.bulletBehaviourComponent);
                 bullet.build(weapon, parentGameObject);
                 bullet.originWeapon = this;
 
@@ -31108,7 +31108,7 @@ module.exports = function (key) {
 /* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(27);
+var global = __webpack_require__(28);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -31150,7 +31150,7 @@ exports.f = __webpack_require__(40);
 /* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(27);
+var global = __webpack_require__(28);
 var core = __webpack_require__(17);
 var LIBRARY = __webpack_require__(65);
 var wksExt = __webpack_require__(73);
@@ -43535,7 +43535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(122);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(246);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(247);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(125);
@@ -56262,7 +56262,7 @@ module.exports = !__webpack_require__(33) && !__webpack_require__(45)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(38);
-var document = __webpack_require__(27).document;
+var document = __webpack_require__(28).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -59389,7 +59389,7 @@ var _BaseWeapon = __webpack_require__(49);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -59445,6 +59445,15 @@ var WeaponData = function () {
             }
             weapon.onDestroyWeapon = [];
             return weapon;
+        }
+    }, {
+        key: "bulletBehaviourComponent",
+        get: function get() {
+            if (this.weaponAttributes.isMain) {
+                return this.bulletComponent;
+            } else {
+                return this.weaponAttributes.overrider.bulletComponent;
+            }
         }
     }]);
     return WeaponData;
@@ -64467,23 +64476,23 @@ var _MainScreenManager = __webpack_require__(195);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _SoundManager = __webpack_require__(252);
+var _SoundManager = __webpack_require__(253);
 
 var _SoundManager2 = _interopRequireDefault(_SoundManager);
 
-var _manifestAudio = __webpack_require__(255);
+var _manifestAudio = __webpack_require__(256);
 
 var _manifestAudio2 = _interopRequireDefault(_manifestAudio);
 
-var _globals = __webpack_require__(256);
+var _globals = __webpack_require__(257);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _manifestJson = __webpack_require__(257);
+var _manifestJson = __webpack_require__(258);
 
 var _manifestJson2 = _interopRequireDefault(_manifestJson);
 
-var _plugins = __webpack_require__(258);
+var _plugins = __webpack_require__(259);
 
 var _plugins2 = _interopRequireDefault(_plugins);
 
@@ -64491,7 +64500,7 @@ var _signals = __webpack_require__(6);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _manifest = __webpack_require__(259);
+var _manifest = __webpack_require__(260);
 
 var _manifest2 = _interopRequireDefault(_manifest);
 
@@ -74473,7 +74482,7 @@ module.exports = function (index, length) {
 /* 176 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(27).document;
+var document = __webpack_require__(28).document;
 module.exports = document && document.documentElement;
 
 
@@ -74482,7 +74491,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(178);
-var global = __webpack_require__(27);
+var global = __webpack_require__(28);
 var hide = __webpack_require__(37);
 var Iterators = __webpack_require__(66);
 var TO_STRING_TAG = __webpack_require__(40)('toStringTag');
@@ -74583,7 +74592,7 @@ module.exports = __webpack_require__(17).Symbol;
 "use strict";
 
 // ECMAScript 6 symbols shim
-var global = __webpack_require__(27);
+var global = __webpack_require__(28);
 var has = __webpack_require__(34);
 var DESCRIPTORS = __webpack_require__(33);
 var $export = __webpack_require__(31);
@@ -75117,11 +75126,11 @@ var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _ScreenManager2 = __webpack_require__(250);
+var _ScreenManager2 = __webpack_require__(251);
 
 var _ScreenManager3 = _interopRequireDefault(_ScreenManager2);
 
-var _ScreenTransition = __webpack_require__(251);
+var _ScreenTransition = __webpack_require__(252);
 
 var _ScreenTransition2 = _interopRequireDefault(_ScreenTransition);
 
@@ -75495,7 +75504,7 @@ var _BasicFloorRender = __webpack_require__(219);
 
 var _BasicFloorRender2 = _interopRequireDefault(_BasicFloorRender);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -75535,7 +75544,7 @@ var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PerspectiveCamera = __webpack_require__(239);
+var _PerspectiveCamera = __webpack_require__(240);
 
 var _PerspectiveCamera2 = _interopRequireDefault(_PerspectiveCamera);
 
@@ -75543,7 +75552,7 @@ var _Player = __webpack_require__(26);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerInventoryHud = __webpack_require__(241);
+var _PlayerInventoryHud = __webpack_require__(242);
 
 var _PlayerInventoryHud2 = _interopRequireDefault(_PlayerInventoryHud);
 
@@ -75555,7 +75564,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Screen2 = __webpack_require__(243);
+var _Screen2 = __webpack_require__(244);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
@@ -75563,15 +75572,15 @@ var _StaticPhysicObject = __webpack_require__(121);
 
 var _StaticPhysicObject2 = _interopRequireDefault(_StaticPhysicObject);
 
-var _TouchAxisInput = __webpack_require__(244);
+var _TouchAxisInput = __webpack_require__(245);
 
 var _TouchAxisInput2 = _interopRequireDefault(_TouchAxisInput);
 
-var _Trees = __webpack_require__(248);
+var _Trees = __webpack_require__(249);
 
 var _Trees2 = _interopRequireDefault(_Trees);
 
-var _UIButton = __webpack_require__(249);
+var _UIButton = __webpack_require__(250);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
@@ -76953,7 +76962,7 @@ var _grahamScan = __webpack_require__(224);
 
 var _grahamScan2 = _interopRequireDefault(_grahamScan);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -77555,7 +77564,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -79859,7 +79868,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -80659,15 +80668,19 @@ var _BaseWeapon = __webpack_require__(49);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
+
+var _CircularBullet = __webpack_require__(235);
+
+var _CircularBullet2 = _interopRequireDefault(_CircularBullet);
 
 var _EffectsManager = __webpack_require__(19);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _FloatingProjectile = __webpack_require__(235);
+var _FloatingProjectile = __webpack_require__(236);
 
 var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
 
@@ -80675,11 +80688,11 @@ var _GameStaticData = __webpack_require__(41);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GravityBullet = __webpack_require__(236);
+var _GravityBullet = __webpack_require__(237);
 
 var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
 
-var _InGameWeapon = __webpack_require__(237);
+var _InGameWeapon = __webpack_require__(238);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
@@ -80687,7 +80700,7 @@ var _ParticleDescriptor = __webpack_require__(47);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _SinoidBullet = __webpack_require__(238);
+var _SinoidBullet = __webpack_require__(239);
 
 var _SinoidBullet2 = _interopRequireDefault(_SinoidBullet);
 
@@ -80747,7 +80760,7 @@ var WeaponBuilder = function () {
                 this.weaponsArray.push(this.weaponsData[_key]);
             }
         }
-
+        console.log(this.weaponsArray);
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
             window.magicFolder = window.GUI.addFolder("Magic");
@@ -80823,7 +80836,7 @@ var WeaponBuilder = function () {
                             if (targetOverrider) {
                                 for (var overriderKey in targetOverrider) {
                                     if (weapon.weaponViewData[_key5][overriderKey] !== undefined) {
-                                        if (overriderKey == 'offset') {
+                                        if (overriderKey == 'viewOffset') {
                                             weapon.weaponViewData[_key5][overriderKey].x = targetOverrider[overriderKey].x || 0;
                                             weapon.weaponViewData[_key5][overriderKey].y = targetOverrider[overriderKey].y || 0;
                                             weapon.weaponViewData[_key5][overriderKey].z = targetOverrider[overriderKey].z || 0;
@@ -80861,6 +80874,10 @@ var WeaponBuilder = function () {
 
             if (overrider) {
                 var _targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'main', overrider);
+                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[_targetOverrider.bulletComponent];
+                if (!weapon.weaponAttributes.overrider.bulletComponent) {
+                    weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent];
+                }
                 for (var _key6 in _targetOverrider.attributes) {
                     if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, _key6)) {
                         weapon.weaponAttributes.overrider[_key6] = _targetOverrider.attributes[_key6];
@@ -81004,7 +81021,8 @@ var WeaponBuilder = function () {
 WeaponBuilder.BulletsAvailable = {
     Bullet: _Bullet2.default,
     GravityBullet: _GravityBullet2.default,
-    SinoidBullet: _SinoidBullet2.default
+    SinoidBullet: _SinoidBullet2.default,
+    CircularBullet: _CircularBullet2.default
 };
 WeaponBuilder.WeaponsAvailable = {
     BaseWeapon: _BaseWeapon2.default,
@@ -81053,7 +81071,7 @@ var _BaseWeapon2 = __webpack_require__(49);
 
 var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
 
-var _Bullet = __webpack_require__(29);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -81128,6 +81146,81 @@ module.exports = exports["default"];
 
 /***/ }),
 /* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _Bullet2 = __webpack_require__(27);
+
+var _Bullet3 = _interopRequireDefault(_Bullet2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var CircularBullet = function (_Bullet) {
+    (0, _inherits3.default)(CircularBullet, _Bullet);
+
+    function CircularBullet() {
+        (0, _classCallCheck3.default)(this, CircularBullet);
+        return (0, _possibleConstructorReturn3.default)(this, (CircularBullet.__proto__ || (0, _getPrototypeOf2.default)(CircularBullet)).call(this));
+    }
+
+    (0, _createClass3.default)(CircularBullet, [{
+        key: "build",
+        value: function build(weapon, parent) {
+            (0, _get3.default)(CircularBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(CircularBullet.prototype), "build", this).call(this, weapon, parent);
+
+            this.target = weapon;
+
+            this.sin = 0;
+        }
+    }, {
+        key: "update",
+        value: function update(delta) {
+            (0, _get3.default)(CircularBullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(CircularBullet.prototype), "update", this).call(this, delta);
+            this.sin += delta * 4;
+            this.sin %= Math.PI * 2;
+            var ang = this.angle + this.sin; //Math.cos(this.sin);
+            this.physics.velocity.x = Math.cos(ang) * this.speed * delta;
+            this.physics.velocity.z = Math.sin(ang) * this.speed * delta;
+        }
+    }]);
+    return CircularBullet;
+}(_Bullet3.default);
+
+exports.default = CircularBullet;
+module.exports = exports["default"];
+
+/***/ }),
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81277,7 +81370,7 @@ exports.default = FloatingProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81311,7 +81404,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(29);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -81380,7 +81473,7 @@ exports.default = GravityBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81461,7 +81554,7 @@ exports.default = InGameWeapon;
 module.exports = exports["default"];
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81495,7 +81588,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(29);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -81535,7 +81628,7 @@ exports.default = SinoidBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 239 */
+/* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81573,7 +81666,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Camera2 = __webpack_require__(240);
+var _Camera2 = __webpack_require__(241);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
@@ -81585,7 +81678,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -81735,7 +81828,7 @@ exports.default = PerspectiveCamera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 240 */
+/* 241 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81868,7 +81961,7 @@ exports.default = Camera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 241 */
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -81902,7 +81995,7 @@ var _pixi = __webpack_require__(7);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _PlayerInventorySlotEquipView = __webpack_require__(242);
+var _PlayerInventorySlotEquipView = __webpack_require__(243);
 
 var _PlayerInventorySlotEquipView2 = _interopRequireDefault(_PlayerInventorySlotEquipView);
 
@@ -81986,7 +82079,7 @@ exports.default = PlayerInventoryHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82088,7 +82181,7 @@ exports.default = PlayerInventorySlotEquipView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 243 */
+/* 244 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82237,7 +82330,7 @@ exports.default = Screen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 244 */
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82277,7 +82370,7 @@ var _signals = __webpack_require__(6);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -82440,7 +82533,7 @@ exports.default = TouchAxisInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 245 */
+/* 246 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -82470,14 +82563,14 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 246 */
+/* 247 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(247);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(125);
@@ -82545,7 +82638,7 @@ TweenMax._autoActivated = [__WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__["a" /*
 
 
 /***/ }),
-/* 247 */
+/* 248 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -83236,7 +83329,7 @@ var TweenMaxBase = TweenMax;
 
 
 /***/ }),
-/* 248 */
+/* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83332,7 +83425,7 @@ exports.default = Trees;
 module.exports = exports["default"];
 
 /***/ }),
-/* 249 */
+/* 250 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83374,7 +83467,7 @@ var _gsap = __webpack_require__(87);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -83671,7 +83764,7 @@ exports.default = UIButton1;
 module.exports = exports['default'];
 
 /***/ }),
-/* 250 */
+/* 251 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83807,7 +83900,7 @@ exports.default = ScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 251 */
+/* 252 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83980,7 +84073,7 @@ exports.default = ScreenTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 252 */
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84010,9 +84103,9 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _howler = __webpack_require__(253);
+var _howler = __webpack_require__(254);
 
-var _AbstractSoundManager2 = __webpack_require__(254);
+var _AbstractSoundManager2 = __webpack_require__(255);
 
 var _AbstractSoundManager3 = _interopRequireDefault(_AbstractSoundManager2);
 
@@ -84257,7 +84350,7 @@ exports.default = SoundManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 253 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -87507,7 +87600,7 @@ module.exports = exports['default'];
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)))
 
 /***/ }),
-/* 254 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87565,7 +87658,7 @@ exports.default = AbstractSoundManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 255 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87580,7 +87673,7 @@ exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 256 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87594,7 +87687,7 @@ var _config = __webpack_require__(18);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _utils = __webpack_require__(28);
+var _utils = __webpack_require__(29);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -87718,7 +87811,7 @@ window.LABELS.LABEL_DAMAGE = {
 };
 
 /***/ }),
-/* 257 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87734,20 +87827,20 @@ var assets = [{
 	"id": "enemies1",
 	"url": "assets/json\\enemies1.json"
 }, {
-	"id": "localization_DE",
-	"url": "assets/json\\localization_DE.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
+}, {
+	"id": "localization_DE",
+	"url": "assets/json\\localization_DE.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -87773,8 +87866,17 @@ var assets = [{
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
 	"id": "entity-particle-descriptor",
 	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
@@ -87782,27 +87884,18 @@ var assets = [{
 	"id": "vfx-behaviours",
 	"url": "assets/json\\vfx\\vfx-behaviours.json"
 }, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
-}, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 258 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87825,10 +87918,10 @@ exports.default = {}; /*
 module.exports = exports['default'];
 
 /***/ }),
-/* 259 */
+/* 260 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

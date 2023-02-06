@@ -107,5 +107,15 @@
             "y": 0.9
         },
         "loop": false
+    },
+    {
+        "id": "FLASH",
+        "spriteName": "flash",
+        "time": 1.25,
+        "startFrame": 1,
+        "endFrame": 14,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "loop": true
     }
 ]

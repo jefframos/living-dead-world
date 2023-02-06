@@ -1,6 +1,7 @@
 import AuraProjectile from "../components/weapon/AuraProjectile";
 import BaseWeapon from "../components/weapon/BaseWeapon";
 import Bullet from "../components/weapon/bullets/Bullet";
+import CircularBullet from "../components/weapon/bullets/CircularBullet";
 import EffectsManager from "../manager/EffectsManager";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import GameStaticData from "../data/GameStaticData";
@@ -18,7 +19,8 @@ export default class WeaponBuilder {
     static BulletsAvailable = {
         Bullet: Bullet,
         GravityBullet: GravityBullet,
-        SinoidBullet: SinoidBullet
+        SinoidBullet: SinoidBullet,
+        CircularBullet:CircularBullet
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,
@@ -59,7 +61,7 @@ export default class WeaponBuilder {
                 this.weaponsArray.push(this.weaponsData[key])
             }
         }
-
+console.log(this.weaponsArray)
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
             window.magicFolder = window.GUI.addFolder("Magic");
@@ -130,7 +132,7 @@ export default class WeaponBuilder {
                         if (targetOverrider) {
                             for (const overriderKey in targetOverrider) {
                                 if (weapon.weaponViewData[key][overriderKey] !== undefined) {
-                                    if (overriderKey == 'offset') {
+                                    if (overriderKey == 'viewOffset') {
                                         weapon.weaponViewData[key][overriderKey].x = targetOverrider[overriderKey].x || 0;
                                         weapon.weaponViewData[key][overriderKey].y = targetOverrider[overriderKey].y || 0;
                                         weapon.weaponViewData[key][overriderKey].z = targetOverrider[overriderKey].z || 0;
@@ -170,10 +172,13 @@ export default class WeaponBuilder {
 
         if (overrider) {
             let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
+            weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]
+            if(!weapon.weaponAttributes.overrider.bulletComponent){
+                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
+            }
             for (const key in targetOverrider.attributes) {
                 if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, key)) {
                     weapon.weaponAttributes.overrider[key] = targetOverrider.attributes[key];
-
                 }
             }
         }
