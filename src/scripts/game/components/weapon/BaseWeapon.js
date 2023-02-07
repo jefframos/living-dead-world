@@ -159,7 +159,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
             bullet.spawnOrder = index;
 
-            let facing = 0//BaseWeapon.getFacing(weapon, parentGameObject, this.alternateFacing);
+            let facing = 0
             let halfAngle = weapon.weaponAttributes.angleOffset * index - (weapon.weaponAttributes.angleOffset * (total - 1) / 2)
 
             let angleNoise = Math.random() * weapon.weaponAttributes.angleNoise - weapon.weaponAttributes.angleNoise * 0.5
@@ -173,7 +173,11 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
-            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Random) {           
+                bullet.setPosition(parentGameObject.transform.position.x, 0, parentGameObject.transform.position.z);
+                bullet.shoot(Math.random() * Math.PI * 2, 0)
+
+            }else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
                 let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
            
                 bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);

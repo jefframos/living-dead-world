@@ -22,6 +22,8 @@ export default class PerspectiveCamera extends Camera {
     }
     start() {
         this.renderModule = this.engine.findByType(RenderModule);
+        this.renderModule.onNewRenderEntityAdded.add(this.entityAdded.bind(this));
+        this.renderModule.onNewRenderEntityLateAdded.add(this.entityLateAdded.bind(this));
     }
     update(delta) {
         super.update(delta);
@@ -52,6 +54,18 @@ export default class PerspectiveCamera extends Camera {
         this.renderModule.container.pivot.x = this.followPoint.x
         this.renderModule.container.pivot.y = this.followPoint.z
     }
+    entityLateAdded(entityList){
+        entityList.forEach(entity => {
+            this.entityAdded(entity);
+        });
+    }
+    entityAdded(entity) {
+        if(entity.gameView.layer != RenderModule.RenderLayers.Gameplay && 
+            entity.gameView.layer != RenderModule.RenderLayers.Default) return; 
+
+        entity.gameView.view.x = entity.transform.position.x + entity.viewOffset.x
+        entity.gameView.view.y = entity.transform.position.z + entity.viewOffset.y + entity.transform.position.y
+    }
     onRender() {
         this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
             element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
@@ -60,8 +74,8 @@ export default class PerspectiveCamera extends Camera {
         });
 
         this.renderModule.layers[RenderModule.RenderLayers.Shadow].gameViews.forEach(element => {
-            
-            if(element.gameObject){
+
+            if (element.gameObject) {
                 element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
                 element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
             }

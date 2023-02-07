@@ -1,5 +1,6 @@
 import AuraProjectile from "../components/weapon/AuraProjectile";
 import BaseWeapon from "../components/weapon/BaseWeapon";
+import BounceBullet from "../components/weapon/bullets/BounceBullet";
 import Bullet from "../components/weapon/bullets/Bullet";
 import CircularBullet from "../components/weapon/bullets/CircularBullet";
 import EffectsManager from "../manager/EffectsManager";
@@ -20,7 +21,8 @@ export default class WeaponBuilder {
         Bullet: Bullet,
         GravityBullet: GravityBullet,
         SinoidBullet: SinoidBullet,
-        CircularBullet:CircularBullet
+        CircularBullet: CircularBullet,
+        BounceBullet: BounceBullet,
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,
@@ -57,11 +59,11 @@ export default class WeaponBuilder {
         }
 
         for (const key in this.weaponsData) {
-            if(this.weaponsData[key].isMain){
+            if (this.weaponsData[key].isMain) {
                 this.weaponsArray.push(this.weaponsData[key])
             }
         }
-console.log(this.weaponsArray)
+        console.log(this.weaponsArray)
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
             window.magicFolder = window.GUI.addFolder("Magic");
@@ -172,10 +174,10 @@ console.log(this.weaponsArray)
 
         if (overrider) {
             let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
-            if(WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]){
+            if (WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]) {
                 weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]
             }
-            if(!weapon.weaponAttributes.overrider.bulletComponent){
+            if (!weapon.weaponAttributes.overrider.bulletComponent) {
                 weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
             }
             for (const key in targetOverrider.attributes) {
@@ -183,7 +185,7 @@ console.log(this.weaponsArray)
                     weapon.weaponAttributes.overrider[key] = targetOverrider.attributes[key];
                 }
             }
-        }else{
+        } else {
             weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
         }
 
@@ -236,7 +238,7 @@ console.log(this.weaponsArray)
     }
     addWeapons(player) {
         this.player = player;
-       
+
         this.mainWeapon = new InGameWeapon();
 
         Utils.shuffle(this.weaponsArray)
@@ -268,7 +270,8 @@ console.log(this.weaponsArray)
 
 
         //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        
+        //this.mainWeapon.addWeapon(this.weaponsData['BOUNCE'])
+
         this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
 
         if (window.isMobile) {
@@ -304,7 +307,6 @@ console.log(this.weaponsArray)
         // player.addWeapon(this.multishot)
         // player.addWeapon(this.alternateMelee)
         // player.addWeapon(this.hoaming)
-
         player.addWeapon(this.mainWeapon)
 
 

@@ -84,7 +84,7 @@ export default class Bullet extends PhysicsEntity {
         this.fromWeapon = this.spawnParent instanceof BaseWeapon
 
         this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.rotationSpeed);
-        if(this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined){
+        if (this.weapon.weaponViewData.baseViewData.rotationSpeed !== undefined) {
             this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
         }
 
@@ -134,24 +134,21 @@ export default class Bullet extends PhysicsEntity {
                 this.onHit.dispatch(this);
 
                 if (collided.dying) {
-
-                    // let enemy = GameManager.instance.spawnEnemy()
-                    // //this.engine.poolAtRandomPosition(BaseEnemy, true, {minX:50, maxX: config.width, minY:50, maxY:config.height})
-                    // let angle = Math.PI * 2 * Math.random();
-                    // enemy.x = Player.MainPlayer.transform.position.x + Math.cos(angle) * config.width / 2
-                    // enemy.z = Player.MainPlayer.transform.position.z + Math.sin(angle) * config.height / 2
+                    //if kill enemy
                 } else {
                     if (collided.applyForce && this.weapon.weaponAttributes.forceFeedback) {
                         let angle = 0;
                         if (this.forceField && this.fromWeapon) {
                             angle = Math.atan2(collided.transform.position.z - this.spawnParent.transform.position.z, collided.transform.position.x - this.spawnParent.transform.position.x);
                         } else {
-                            angle = Math.atan2(collided.transform.position.z- this.transform.position.z, collided.transform.position.x- this.transform.position.x);
+                            angle = Math.atan2(collided.transform.position.z - this.transform.position.z, collided.transform.position.x - this.transform.position.x);
                         }
                         let forceBack = { x: Math.cos(angle) * this.weapon.weaponAttributes.forceFeedback, y: Math.sin(angle) * this.weapon.weaponAttributes.forceFeedback };
                         collided.applyForce(forceBack)
                     }
                 }
+
+                this.afterCollide(collided);
 
                 if (this.piercing <= 0) {
                     this.onDestroyOnHit.dispatch(this);
@@ -160,7 +157,7 @@ export default class Bullet extends PhysicsEntity {
                 //this.destroy()
             } else {
 
-                if(!collided.rigidBody.isStatic){
+                if (!collided.rigidBody.isStatic) {
 
                     this.onDestroyOnHit.dispatch(this);
                     collided.destroy();
@@ -171,6 +168,7 @@ export default class Bullet extends PhysicsEntity {
 
         //console.log(this.enemiesShot)
     }
+    afterCollide(entity){}
     start() {
         this.physicsModule = this.engine.findByType(PhysicsModule)
         this.renderModule = this.engine.findByType(RenderModule)

@@ -44,7 +44,8 @@ export default class WeaponAttributes {
         FacingBackwards:'FacingBackwards',
         ParentAngle:'ParentAngle',
         Hoaming:'Hoaming',
-        ClosestEnemySnap:'ClosestEnemySnap'
+        ClosestEnemySnap:'ClosestEnemySnap',
+        Random:'Random'
     }
     static ExtendedBehaviour = {
         None: 0,

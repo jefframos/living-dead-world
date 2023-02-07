@@ -73,8 +73,8 @@ export default class GameScreen extends Screen {
         this.physics = this.gameEngine.physics
         this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
-        this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
+        this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
 
         this.followPoint = new Vector3();
         this.camera.setFollowPoint(this.followPoint)

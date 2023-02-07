@@ -657,14 +657,14 @@
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
             "basePower": 20,
-            "baseBulletSpeed": 250,
+            "baseBulletSpeed": 200,
             "baseFrequency": 6,
             "basePiercing": 9999,
-            "baseAmount": 1,
+            "baseAmount": 2,
             "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFire": {
@@ -830,6 +830,44 @@
         "view": {
             "rotationSpeed": 0,
             "standardVfxPack": "FLASH_PACK",
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01"
+        }
+    },
+    {
+        "id": "BOUNCE",
+        "isMain": true,
+        "icon": "vfx-c1",
+        "name": "Bounce",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": 5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 25,
+            "baseBulletSpeed": 300,
+            "baseFrequency": 4,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDetectionZone": 300,
+            "baseDirectionType": "Random",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 3,
+                "interval": 0.05
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 3.14
+        },
+        "bulletComponent": "BounceBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "AURA_PACK_01",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01"
         }

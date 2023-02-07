@@ -202,6 +202,12 @@ export default class GameManager {
 
         return this.activeEnemies[closest];
     }
+    angleFromPlayer(point){
+        return Vector3.atan2XZ(point, this.player.transform.position);
+    }
+    distanceFromPlayer(point){
+        return Vector3.distance(point, this.player.transform.position);
+    }
     update(delta) {
         if (!this.init) {
             return;
