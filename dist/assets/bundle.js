@@ -59449,11 +59449,13 @@ var WeaponData = function () {
     }, {
         key: "bulletBehaviourComponent",
         get: function get() {
-            if (this.weaponAttributes.isMain) {
-                return this.bulletComponent;
+            var toReturn = null;
+            if (this.weaponAttributes.isMain || !this.weaponAttributes.overrider.bulletComponent) {
+                toReturn = this.bulletComponent;
             } else {
-                return this.weaponAttributes.overrider.bulletComponent;
+                toReturn = this.weaponAttributes.overrider.bulletComponent;
             }
+            return toReturn || _Bullet2.default;
         }
     }]);
     return WeaponData;
@@ -80874,7 +80876,9 @@ var WeaponBuilder = function () {
 
             if (overrider) {
                 var _targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'main', overrider);
-                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[_targetOverrider.bulletComponent];
+                if (WeaponBuilder.BulletsAvailable[_targetOverrider.bulletComponent]) {
+                    weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[_targetOverrider.bulletComponent];
+                }
                 if (!weapon.weaponAttributes.overrider.bulletComponent) {
                     weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent];
                 }
@@ -80883,6 +80887,8 @@ var WeaponBuilder = function () {
                         weapon.weaponAttributes.overrider[_key6] = _targetOverrider.attributes[_key6];
                     }
                 }
+            } else {
+                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent];
             }
 
             return weapon;
@@ -87827,20 +87833,20 @@ var assets = [{
 	"id": "enemies1",
 	"url": "assets/json\\enemies1.json"
 }, {
-	"id": "localization_EN",
-	"url": "assets/json\\localization_EN.json"
-}, {
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
+}, {
+	"id": "localization_EN",
+	"url": "assets/json\\localization_EN.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -87866,29 +87872,29 @@ var assets = [{
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
+	"id": "effects-descriptors",
+	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
+}, {
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
+}, {
+	"id": "weapon-ss-vfx-packs",
+	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
+}, {
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
+	"id": "weapon-ss-vfx",
+	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
 	"id": "mainWeapons",
 	"url": "assets/json\\weapons\\mainWeapons.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "effects-descriptors",
-	"url": "assets/json\\vfx\\effects-descriptors.json"
-}, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
-}, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
-}, {
-	"id": "weapon-ss-vfx-packs",
-	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
-}, {
-	"id": "weapon-ss-vfx",
-	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }];
 
 exports.default = assets;

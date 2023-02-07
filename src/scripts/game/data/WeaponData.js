@@ -5,8 +5,8 @@ import WeaponAttributes from "./WeaponAttributes";
 
 export default class WeaponData {
     static WeaponType = {
-        Physical:'Physical',
-        Magical:'Magical'
+        Physical: 'Physical',
+        Magical: 'Magical'
     }
     constructor(name = 'none') {
         this.weaponAttributes = new WeaponAttributes();
@@ -21,29 +21,31 @@ export default class WeaponData {
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
     }
-    get bulletBehaviourComponent(){
-        if(this.weaponAttributes.isMain || !this.weaponAttributes.overrider.bulletComponent){
-            return this.bulletComponent;
-        }else{
-            return this.weaponAttributes.overrider.bulletComponent;
+    get bulletBehaviourComponent() {
+        let toReturn = null;
+        if (this.weaponAttributes.isMain || !this.weaponAttributes.overrider.bulletComponent) {
+            toReturn = this.bulletComponent;
+        } else {
+            toReturn = this.weaponAttributes.overrider.bulletComponent;
         }
+        return toReturn || Bullet;
     }
-    addFixedDestroyedWeapon(weapon){
+    addFixedDestroyedWeapon(weapon) {
         this.onFixedDestroyWeapon.push(weapon);
     }
-    addWeaponOnDestroy(weapon){
+    addWeaponOnDestroy(weapon) {
         this.onDestroyWeapon.push(weapon);
     }
     clone() {
         let weapon = new WeaponData();
 
         for (const key in this) {
-            if(this[key] && this[key].clone){
+            if (this[key] && this[key].clone) {
                 weapon[key] = this[key].clone();
-            }else{
+            } else {
                 weapon[key] = this[key];
             }
-                
+
         }
         weapon.onDestroyWeapon = [];
         return weapon;
