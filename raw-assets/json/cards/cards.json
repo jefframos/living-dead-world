@@ -1,0 +1,74 @@
+[
+    {
+        "id": "AURA_CARD",
+        "weaponId": "PLAYER_AURA"
+    },
+    {
+        "id": "PLAYER_CROSS_SHOT_CARD",
+        "weaponId": "PLAYER_CROSS_SHOT"
+    },
+    {
+        "id": "PLAYER_MULTISHOT_CARD",
+        "weaponId": "PLAYER_MULTISHOT"
+    },
+    {
+        "id": "BOMB_THROWER_CARD",
+        "weaponId": "BOMB_THROWER"
+    },
+    {
+        "id": "DAGGER_THROW_CARD",
+        "weaponId": "DAGGER_THROW"
+    },
+    {
+        "id": "DAGGER_GUN_CARD",
+        "weaponId": "DAGGER_GUN"
+    },
+    {
+        "id": "DAGGER_SHOTGUN_CARD",
+        "weaponId": "DAGGER_SHOTGUN"
+    },
+    {
+        "id": "DAGGER_SNIPER_CARD",
+        "weaponId": "DAGGER_SNIPER"
+    },
+    {
+        "id": "DAGGER_ROTATOR_CARD",
+        "weaponId": "DAGGER_ROTATOR"
+    },
+    {
+        "id": "FIREBALL_HOAMING_CARD",
+        "weaponId": "FIREBALL_HOAMING"
+    },
+    {
+        "id": "BOOMERANG_AXE_CARD",
+        "weaponId": "BOOMERANG_AXE"
+    },
+    {
+        "id": "MELEE_SWORD_CARD",
+        "weaponId": "MELEE_SWORD"
+    },
+    {
+        "id": "ICE_SHARD_THROWER_CARD",
+        "weaponId": "ICE_SHARD_THROWER"
+    },
+    {
+        "id": "ORBIT_CARD",
+        "weaponId": "ORBIT"
+    },
+    {
+        "id": "LIGHTNING_CARD",
+        "weaponId": "LIGHTNING"
+    },
+    {
+        "id": "WATER_SINOID_CARD",
+        "weaponId": "WATER_SINOID"
+    },
+    {
+        "id": "FLASH_CIRCLE_CARD",
+        "weaponId": "FLASH_CIRCLE"
+    },
+    {
+        "id": "BOUNCE_CARD",
+        "weaponId": "BOUNCE"
+    }
+]

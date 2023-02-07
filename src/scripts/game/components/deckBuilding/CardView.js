@@ -30,7 +30,7 @@ export default class CardView extends PIXI.Container {
         this.cardImage.anchor.set(0.5)
         // this.cardImage.scale.set(0.5)
         this.cardImage.x = width / 2
-        this.cardImage.y = height / 2
+        this.cardImage.y = height / 2 - 30
 
         this.mouseOver = false;
 
@@ -39,6 +39,12 @@ export default class CardView extends PIXI.Container {
         InteractableView.addMouseOut(this, () => { this.mouseOver = false; })
         InteractableView.addMouseClick(this, () => { this.onCardClicked.dispatch(this)})
 
+        this.label = new PIXI.Text('', window.LABELS.LABEL1)
+        this.cardContainer.addChild(this.label);
+        this.label.style.wordWrap = width * 0.8
+        this.label.anchor.set(0.5)
+        this.label.x = width / 2
+        this.label.y = height / 2 + 30
 
         this.offset = { x: 0, y: 0 }
     }
@@ -51,6 +57,7 @@ export default class CardView extends PIXI.Container {
         this.cardData = cardData;
         this.updateTexture(cardData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
+        this.label.text = cardData.name
     }
     update(delta) {
         this.cardContainer.y = Utils.lerp(this.cardContainer.y, this.offset.y, 0.3);

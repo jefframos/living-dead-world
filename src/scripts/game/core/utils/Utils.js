@@ -15,6 +15,13 @@ export default class Utils {
             [a[i - 1], a[j]] = [a[j], a[i - 1]];
         }
     }
+    static cloneArray(toCopy) {
+        let array = [];
+        toCopy.forEach(element => {
+            array.push(element);
+        });
+        return array;
+    }
     static shortAngleDist(a0, a1) {
         var max = Math.PI * 2;
         var da = (a1 - a0) % max;

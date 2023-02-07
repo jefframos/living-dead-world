@@ -295,7 +295,6 @@ export default class BaseWeapon extends PhysicsEntity {
         if (baseData.viewType == EntityViewData.ViewType.SpriteSheet) {
 
             let target = bullet.transform.position
-            //console.log(target.x)
             let scale = 1;
             if (baseData.fitRadius) {
                 let length = weapon.weaponAttributes.radius * 2;

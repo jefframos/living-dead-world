@@ -1,10 +1,12 @@
 import CardView from "./CardView";
 import Game from "../../../Game";
 import GameObject from "../../core/gameObject/GameObject";
+import GameStaticData from "../../data/GameStaticData";
 import GameView from "../../core/view/GameView";
 import InteractableView from "../../view/card/InteractableView";
 import RenderModule from "../../core/modules/RenderModule";
 import Utils from "../../core/utils/Utils";
+import WeaponBuilder from "../../screen/WeaponBuilder";
 import signals from "signals";
 
 export default class CardPlacementSystem {
@@ -15,12 +17,14 @@ export default class CardPlacementSystem {
         this.cardPlacementView = cardPlacementView;
         this.enabled = false;
         this.player = null;
+
+        
     }
     build() {
 
     }
     onCardEquipped(cardData){
-        this.player.addWeaponData(cardData);
+        this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id]);
     }
     setPlayer(player){
         this.player = player;
@@ -28,11 +32,14 @@ export default class CardPlacementSystem {
     setWeapons(weapons){
         this.weapons = weapons;
 
-        this.deckView.buildCards(this.weapons.physical)        
     }
     show() {
         this.enabled = true;
 
+        this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
+        Utils.shuffle(this.currentData)
+        this.deckView.buildCards(this.currentData)        
+        
         this.deckView.setActive(true)
         this.cardPlacementView.setActive(true)        
     }

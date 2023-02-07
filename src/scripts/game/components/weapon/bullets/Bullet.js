@@ -208,7 +208,12 @@ export default class Bullet extends PhysicsEntity {
         if (this.rotationSpeed) {
             this.gameView.view.rotation += this.rotationSpeed * delta + this.weapon.weaponViewData.baseViewData.angleOffset;
         } else {
-            this.gameView.view.rotation = this.transform.angle + Math.PI / 2 + this.weapon.weaponViewData.baseViewData.angleOffset;
+            let targetAngle = 0;
+
+            if(!this.weapon.weaponViewData.baseViewData.lockRotation){
+                targetAngle = this.transform.angle + Math.PI / 2
+            }
+            this.gameView.view.rotation = targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
         }
         this.gameView.view.visible = true;
         if (!this.usesTime) {

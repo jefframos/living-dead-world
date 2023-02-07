@@ -1,6 +1,7 @@
 import EffectsManager from "../manager/EffectsManager";
 import GameAgent from "../core/entity/GameAgent";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
+import InGameWeapon from "../data/InGameWeapon";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
@@ -116,9 +117,21 @@ export default class Player extends GameAgent {
     clearWeapon() {
         for (let index = this.activeWeapons.length - 1; index >= 0; index--) {
             this.activeWeapons[index].destroy();
-        }
+        }        
         this.activeWeapons = [];
         this.refreshEquipment();
+    }
+    addWeaponData(weaponData) {
+
+        if(!this.currentInGameWeapon){
+
+            let mainWeapon = new InGameWeapon();
+            mainWeapon.addWeapon(weaponData)
+            this.addWeapon(mainWeapon)
+        }else{
+            console.log(weaponData)
+            this.currentInGameWeapon.addWeapon(weaponData);
+        }
     }
     addWeapon(inGameWeapon) {
         if (!inGameWeapon.hasWeapon) {
@@ -129,7 +142,8 @@ export default class Player extends GameAgent {
         this.addChild(weapon)
         weapon.build(weaponData)
 
-        inGameWeapon.onUpdateWeapon.add(() => {
+        this.currentInGameWeapon = inGameWeapon
+        this.currentInGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
 

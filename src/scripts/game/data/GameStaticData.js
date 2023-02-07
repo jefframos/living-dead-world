@@ -19,6 +19,7 @@ export default class GameStaticData {
     initialize() {
         let loadList = [
             { type:'entities', list: 'enemy', path: ['enemies1'] },
+            { type:'cards', list: 'cards', path: ['cards'] },
             
             { type:'weapons', list: 'main', path: ['mainWeapons'] },
             { type:'weapons',list: 'viewOverriders', path: ['weapon-view-overriders'] },
@@ -62,6 +63,9 @@ export default class GameStaticData {
         });
 
         console.log(this.staticAssets)
+    }
+    getAllCards(){
+        return this.getAllDataFrom('cards', 'cards');
     }
     getEntityByIndex(subtype = 'enemy', id = 0) {
         let type = 'entities';

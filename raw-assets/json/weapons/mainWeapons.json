@@ -49,6 +49,46 @@
         }
     },
     {
+        "id": "PLAYER_CROSS_SHOT",
+        "isMain": true,
+        "icon": "tile_0131",
+        "name": "CrossShot",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "PLAYER_MULTISHOT_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 150,
+            "basePower": 10,
+            "baseBulletSpeed": 200,
+            "baseFrequency": 1,
+            "basePiercing": 0,
+            "baseAmount": 4,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 1.57,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "BOMB_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "ARROW_BASE_01"
+            }
+        }
+    },
+    {
         "id": "PLAYER_MULTISHOT",
         "isMain": true,
         "icon": "tile_0131",
@@ -349,12 +389,12 @@
         "customConstructor": "BaseWeapon",
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
-            "baseRadius": 5,
+            "baseRadius": 15,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
             "baseBulletSpeed": 300,
-            "baseFrequency": 0.1,
+            "baseFrequency": 0.3,
             "basePiercing": 2,
             "baseAmount": 1,
             "baseDirectionType": "AngularSequence",
@@ -367,8 +407,8 @@
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 5,
-            "baseAngleOffset": 0.1,
-            "baseAngleNoise": 0.2
+            "baseAngleOffset": 0.2,
+            "baseAngleNoise": 0
         },
         "bulletComponent": "Bullet",
         "view": {
@@ -717,7 +757,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "ELECTRIC_SLASH_PACK",
+            "spawnVfxPack": "THUNDER_PACK",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }
@@ -754,7 +794,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "ELECTRIC_SLASH_PACK",
+            "spawnVfxPack": "THUNDER_PACK",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }
@@ -798,10 +838,10 @@
         }
     },
     {
-        "id": "WIND_CIRCLE",
+        "id": "FLASH_CIRCLE",
         "isMain": true,
-        "icon": "vfx-c1",
-        "name": "Wind Circle",
+        "icon": "flash7",
+        "name": "Flash Circle",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {

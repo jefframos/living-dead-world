@@ -29,8 +29,9 @@ export default class WeaponBuilder {
         AuraProjectile: AuraProjectile,
         FloatingProjectile: FloatingProjectile
     }
-    constructor() {
-
+    static instance;
+    constructor(engine) {
+        WeaponBuilder.instance = this;
         let vfxPackData = GameStaticData.instance.getAllDataFrom('vfx', 'weaponVFXPack');
         this.weaponVFXPackData = {};
         vfxPackData.forEach(element => {
@@ -240,37 +241,8 @@ export default class WeaponBuilder {
         this.player = player;
 
         this.mainWeapon = new InGameWeapon();
-
         Utils.shuffle(this.weaponsArray)
-        // Utils.shuffle(this.magical)
-        //testWeapon.addWeapon(this.floatingOrbit)
-        //testWeapon.addWeapon(this.uniformTimeSpread)
-        //testWeapon.addWeapon(this.multishot)
-        //testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.hoaming)
-        // testWeapon.addWeapon(this.bombThrow)
-        // testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.hoaming)
-        //testWeapon.addWeapon(this.multishot)
-        //testWeapon.addWeapon(this.smallBomb)
-        //testWeapon.addWeapon(this.damageAura)
-        //testWeapon.addWeapon(this.daggerThrow)
-        // testWeapon.addWeapon(this.damageAura)
-        //testWeapon.addWeapon(this.damageAura)
-        //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        //testWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
-        //testWeapon.addWeapon(this.weaponsData['DAGGER_SHOTGUN'])
-        //testWeapon.addWeapon(this.weaponsData['DAGGER_THROW'])
-        //testWeapon.addWeapon(this.weaponsData['DAGGER_ROTATOR'])
-        // testWeapon.addWeapon(this.weaponsData['FIREBALL_HOAMING'])
-        // testWeapon.addWeapon(this.weaponsData['PLAYER_MULTISHOT'])
-        // testWeapon.addWeapon(this.weaponsData['BOMB_THROWER'])
-        // testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-
-
-
-        //testWeapon.addWeapon(this.weaponsData['PLAYER_AURA'])
-        //this.mainWeapon.addWeapon(this.weaponsData['BOUNCE'])
+        //this.mainWeapon.addWeapon(this.weaponsData['FLASH_CIRCLE'])
 
         this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
 
@@ -280,37 +252,6 @@ export default class WeaponBuilder {
                 this.mainWeapon.addWeapon(this.weaponsArray[i])
             }
         }
-        // //Utils.shuffle(a)
-        // let testWeapon2 = new InGameWeapon();
-        // for (let i = 0; i < 3; i++) {
-        //     testWeapon2.addWeapon(this.magical[i])
-        // }
-        //testWeapon2.addWeapon(this.damageAura)
-
-
-        // testWeapon.addWeapon(this.alternateMelee)
-        //  testWeapon.addWeapon(this.uniformTimeSpread)
-        // testWeapon.addWeapon(this.smallBomb)
-        //testWeapon.addWeapon(this.hoaming)
-        // testWeapon.addWeapon(this.uniformTimeSpread)
-        // testWeapon.addWeapon(this.boomerangThrow)
-        //testWeapon.addWeapon(this.daggerThrow)
-        // testWeapon.addWeapon(this.multishot)
-        //testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.multishot)
-        //testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.smallBomb)
-        // testWeapon.addWeapon(this.multishot)
-        // testWeapon.addWeapon(this.smallBomb)
-
-        // player.addWeapon(this.multishot)
-        // player.addWeapon(this.alternateMelee)
-        // player.addWeapon(this.hoaming)
         player.addWeapon(this.mainWeapon)
-
-
-        // player.addWeapon(testWeapon2)
-
     }
 }

@@ -116,7 +116,19 @@
             "z": 0
         },
         "scale": 1,
-        "lockRotation": false,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "THUNDER_PACK",
+        "vfxData": "THUNDER",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
         "targetLayer": "GameplayLayer"
     }
 ]
