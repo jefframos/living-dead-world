@@ -8,6 +8,7 @@ import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import GameStaticData from "../data/GameStaticData";
 import GravityBullet from "../components/weapon/bullets/GravityBullet";
 import InGameWeapon from "../data/InGameWeapon";
+import LaserBean from "../components/weapon/bullets/LaserBean";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
 import SinoidBullet from "../components/weapon/bullets/SinoidBullet";
 import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
@@ -23,6 +24,7 @@ export default class WeaponBuilder {
         SinoidBullet: SinoidBullet,
         CircularBullet: CircularBullet,
         BounceBullet: BounceBullet,
+        LaserBean:LaserBean
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,
@@ -242,9 +244,10 @@ export default class WeaponBuilder {
 
         this.mainWeapon = new InGameWeapon();
         Utils.shuffle(this.weaponsArray)
-        //this.mainWeapon.addWeapon(this.weaponsData['FLASH_CIRCLE'])
+       // this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
+        //this.mainWeapon.addWeapon(this.weaponsData['LASER'])
 
-        this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
+       this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
 
         if (window.isMobile) {
 

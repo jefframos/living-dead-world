@@ -20,5 +20,18 @@
         "scale": 0.5,
         "texture": ["skull","arm","leg"],
         "baseAmount": 3
+    },
+    {
+        "id": "RED_FLOATING",
+        "lifeSpan": [0.5, 0.75],
+        "baseBehaviours": "SIMPLE_ALPHA_DELAY",
+        "velocityX": [-50,50],
+        "velocityY": [-80,-180],
+        "rotationSpeed": [-3,-5],
+        "gravity": 100,
+        "scale": 0.5,
+        "texture": "spark2",
+        "tint": "0xFF0000",
+        "baseAmount": 3
     }
 ]

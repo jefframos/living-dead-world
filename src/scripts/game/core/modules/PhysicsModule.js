@@ -96,11 +96,13 @@ export default class PhysicsModule extends GameObject {
     }
     
     removeAgent(agent) {
-        //console.log("REMOVE AGENT")
         Eugine.RemoveFromListById(this.nonStaticList, agent)
 
         Eugine.RemoveFromListById(this.collisionList, agent)
 
+        if(agent.constructor.name == "SensorRect"){
+            console.log('removeAgent', agent.rigidBody, this.physicsEngine.detector.bodies)
+        }
         Matter.World.remove(this.physicsEngine.world, agent.rigidBody)
     }
 

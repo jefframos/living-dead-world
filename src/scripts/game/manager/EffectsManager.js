@@ -52,8 +52,6 @@ export default class EffectsManager extends GameObject {
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
-
-
         descriptors.forEach(data => {
             this.particleDescriptors[data.id] = new ParticleDescriptor(data)
 
@@ -151,7 +149,13 @@ export default class EffectsManager extends GameObject {
         this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
-
+    emitByIdInRadius(position, radius, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
+        if (target == EffectsManager.TargetLayer.GameplayLayer) {
+            this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
+        } else {
+            this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
+        }
+    }
     emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
 
         if (target == EffectsManager.TargetLayer.GameplayLayer) {

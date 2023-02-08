@@ -271,6 +271,7 @@ export default class GameScreen extends Screen {
         })
     }
     addWorldElements() {
+        return
         let i = 5
         let j = 8
         let chunkX = (config.width * 2) / i

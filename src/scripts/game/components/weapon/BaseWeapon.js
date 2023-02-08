@@ -147,6 +147,7 @@ export default class BaseWeapon extends PhysicsEntity {
             let ang = Math.PI * 2 / total * index;
 
             let bullet = this.engine.poolGameObject(weapon.bulletBehaviourComponent)
+            bullet.spawnAngle = ang;
             bullet.build(weapon, parentGameObject);
             bullet.originWeapon = this;
 
@@ -155,7 +156,6 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.onDestroyOnHit.add(this.destroyBulletOnHit.bind(this))
             bullet.onHit.add(this.hitBullet.bind(this))
 
-            bullet.ang = ang;
 
             bullet.spawnOrder = index;
 

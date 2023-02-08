@@ -59,6 +59,7 @@ export default class WeaponAttributes {
         this.basePower = 100;
         this.baseRadius = 15;
         this.baseBulletSpeed = 200;
+        this.baseAngularSpeed = 0;
         this.baseFrequency = 1;
         this.basePiercing = 10;
         this.baseAmount = 1;
@@ -128,6 +129,9 @@ export default class WeaponAttributes {
     }
     get bulletSpeed() {
         return this.isMain ? this.baseBulletSpeed : this.overrider.baseBulletSpeed
+    }
+    get angularSpeed() {
+        return this.isMain ? this.baseAngularSpeed : this.overrider.baseAngularSpeed
     }
     get frequency() {
         return this.isMain ? this.baseFrequency : this.overrider.baseFrequency

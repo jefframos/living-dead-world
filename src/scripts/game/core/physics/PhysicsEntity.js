@@ -19,7 +19,7 @@ export default class PhysicsEntity extends GameObject {
     get bodyID() {
         return this.rigidBody.id;
     }
-    start(){
+    start() {
         super.start();
     }
     build() {
@@ -29,24 +29,24 @@ export default class PhysicsEntity extends GameObject {
 
         //improve this debug to fit the body
         if (!this.debug) {
-            this.debug = new PIXI.Graphics().lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
+            this.debug = new PIXI.Graphics();
             this.debug.tint = color;
-
-            // this.label = new PIXI.Text('')
-            // this.label.anchor.set(0.5, -1)
-            // this.label.alpha = 5
-
-            // this.label.style.fill = color;
-            // this.label.style.fontSize = 8
-            // this.debug.addChild(this.label)
-
-        }else{
-            this.debug.clear();
-            this.debug.lineStyle(1, 0xFFFFFF).drawCircle(0,0,radius)
         }
-        
-        // this.label.scale.set(1 / this.debug.scale.x)
-        // this.label.anchor.y = -1 / this.label.scale.x
+
+        this.debug.clear();
+
+        if (this.rigidBody) {
+
+            if (this.rigidBody.circleRadius) {
+                this.debug.lineStyle(1, 0xFFFFFF).drawCircle(0, 0, this.rigidBody.circleRadius)
+            } else {
+                let w = this.rigidBody.bounds.max.x - this.rigidBody.bounds.min.x
+                let h = this.rigidBody.bounds.max.y - this.rigidBody.bounds.min.y
+                this.debug.lineStyle(1, 0xFFFFFF).drawRect(this.rigidBody.bounds.min.x, this.rigidBody.bounds.min.y, w, h)
+            }
+        } else {
+            this.debug.lineStyle(1, 0xFFFFFF).drawCircle(0, 0, radius)
+        }
     }
     destroy() {
         super.destroy();
@@ -57,6 +57,17 @@ export default class PhysicsEntity extends GameObject {
     }
     buildRect(x, y, width, height, isStatic = false) {
         this.rigidBody = Matter.Bodies.rectangle(x, y, width, height, { isStatic: isStatic });
+        this.rigidBody.gameObject = this;
+        this.transform.position.x = this.rigidBody.position.x;
+        this.transform.position.z = this.rigidBody.position.y;
+        this.type = 'rect'
+
+        this.engine.physics.addAgent(this)
+
+        return this.rigidBody
+    }
+    buildVertices(x, y, vertices, isStatic = false) {
+        this.rigidBody = Matter.Bodies.fromVertices(x, y, vertices, { isStatic: isStatic });
         this.rigidBody.gameObject = this;
         this.transform.position.x = this.rigidBody.position.x;
         this.transform.position.z = this.rigidBody.position.y;
@@ -83,7 +94,7 @@ export default class PhysicsEntity extends GameObject {
         this.appliedForce.x = force.x
         this.appliedForce.y = force.z
     }
-    applyVelocity(force){
+    applyVelocity(force) {
         Matter.Body.setVelocity(this.rigidBody, force)
     }
     update(delta) {
@@ -105,23 +116,23 @@ export default class PhysicsEntity extends GameObject {
 
         this.physics.force.x = this.physics.velocity.x + this.appliedForce.x
         this.physics.force.z = this.physics.velocity.z + this.appliedForce.z
-        
+
         this.physics.force2D.x = this.physics.force.x
         this.physics.force2D.y = this.physics.force.z
 
         this.appliedForce.x = utils.lerp(this.appliedForce.x, 0, this.friction);
         this.appliedForce.z = utils.lerp(this.appliedForce.z, 0, this.friction);
-        
+
         this.applyVelocity(this.physics.force2D);
         this.physics.angle = this.transform.angle
 
         if (this.debug) {
-            
+
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
             this.debug.rotation = this.physics.angle
 
-            if(this.label){
+            if (this.label) {
                 this.label.rotation = - this.debug.rotation
                 this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
             }
@@ -156,10 +167,10 @@ export default class PhysicsEntity extends GameObject {
         return this.physics.facingVector;
     }
     get facingAngle() {
-        return this.physics.facing > 0 ? Math.PI :  0;
+        return this.physics.facing > 0 ? Math.PI : 0;
     }
     get facingAngleBack() {
-        return this.physics.facing < 0 ? Math.PI :  0;
+        return this.physics.facing < 0 ? Math.PI : 0;
     }
     /**
      * @param {number} value

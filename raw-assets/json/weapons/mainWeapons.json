@@ -911,5 +911,83 @@
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01"
         }
+    },
+    {
+        "id": "LASER",
+        "isMain": true,
+        "icon": "vfx-c1",
+        "name": "Laser",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "LASER_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 25,
+            "baseBulletSpeed": 0,
+            "baseAngularSpeed": 3.14,
+            "baseFrequency": 4,
+            "basePiercing": 9999,
+            "baseAmount": 3,
+            "baseDetectionZone": 150,
+            "baseDamageOverTime": 0.3,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 1.2,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "LaserBean",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "AURA_PACK_01",
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01"
+        }
+    },
+    {
+        "id": "LASER_OVERRIDER",
+        "isMain": false,
+        "icon": "vfx-c1",
+        "name": "Disk",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 30,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFire": {
+                "amount": 0,
+                "interval": 0
+            },
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "AURA_PACK_01",
+            "overrider": {
+                "baseViewData": "DISC_TRHOWER"
+            }
+        }
     }
 ]
