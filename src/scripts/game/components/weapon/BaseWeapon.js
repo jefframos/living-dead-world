@@ -28,7 +28,7 @@ export default class BaseWeapon extends PhysicsEntity {
     getClosestEnemy(from) {
         let target = from ? from.transform : this.transform
         let shootAngle = 0;
-        let closest = GameManager.instance.findClosestEnemy(target.position)
+        let closest = GameManager.instance.findClosestEnemy(target.position) || this
         shootAngle = Math.atan2(closest.transform.position.z - target.position.z, closest.transform.position.x - target.position.x)
         return { enemy: closest, angle: shootAngle }
     }

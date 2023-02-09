@@ -130,5 +130,17 @@
         "scale": 1,
         "lockRotation": true,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "AURA_PACK_02",
+        "vfxData": "AURA_01",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
     }
 ]

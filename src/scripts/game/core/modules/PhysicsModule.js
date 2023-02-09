@@ -32,13 +32,13 @@ export default class PhysicsModule extends GameObject {
             event.pairs.forEach((collision) => {
                 var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
                 if (elementPosA >= 0) {
-                    if(this.collisionList[elementPosA].collisionStay){
+                    if (this.collisionList[elementPosA].collisionStay) {
                         this.collisionList[elementPosA].collisionStay(collision.bodyB.gameObject)
                     }
                 }
                 var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
                 if (elementPosB >= 0) {
-                    if(this.collisionList[elementPosB].collisionStay){
+                    if (this.collisionList[elementPosB].collisionStay) {
                         this.collisionList[elementPosB].collisionStay(collision.bodyA.gameObject)
                     }
                 }
@@ -48,35 +48,35 @@ export default class PhysicsModule extends GameObject {
             event.pairs.forEach((collision) => {
                 var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
                 if (elementPosA >= 0) {
-                    if(this.collisionList[elementPosA].collisionExit){
+                    if (this.collisionList[elementPosA].collisionExit) {
                         this.collisionList[elementPosA].collisionExit(collision.bodyB.gameObject)
                     }
                 }
                 var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
                 if (elementPosB >= 0) {
-                    if(this.collisionList[elementPosB].collisionExit){
+                    if (this.collisionList[elementPosB].collisionExit) {
                         this.collisionList[elementPosB].collisionExit(collision.bodyA.gameObject)
                     }
                 }
             });
         });
-            Matter.Events.on(this.physicsEngine, 'collisionStart', (event) => {
+        Matter.Events.on(this.physicsEngine, 'collisionStart', (event) => {
             event.pairs.forEach((collision) => {
                 var elementPosA = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyA.id);
                 if (elementPosA >= 0) {
-                    if(this.collisionList[elementPosA].collisionEnter){
+                    if (this.collisionList[elementPosA].collisionEnter) {
                         this.collisionList[elementPosA].collisionEnter(collision.bodyB.gameObject)
                     }
                 }
                 var elementPosB = this.collisionList.map(function (x) { return x.bodyID; }).indexOf(collision.bodyB.id);
                 if (elementPosB >= 0) {
-                    if(this.collisionList[elementPosB].collisionEnter){
+                    if (this.collisionList[elementPosB].collisionEnter) {
                         this.collisionList[elementPosB].collisionEnter(collision.bodyA.gameObject)
                     }
                 }
             });
         });
-       
+
     }
     addPhysicBody(physicBody) {
         if (physicBody.collisionEnter || physicBody.collisionExit || physicBody.collisionStay) {
@@ -94,21 +94,23 @@ export default class PhysicsModule extends GameObject {
             this.removeAgent(this.nonStaticList[this.nonStaticList.length - 1]);
         }
     }
-    
+
     removeAgent(agent) {
         Eugine.RemoveFromListById(this.nonStaticList, agent)
-
-        Eugine.RemoveFromListById(this.collisionList, agent)
-
-        if(agent.constructor.name == "SensorRect"){
-            console.log('removeAgent', agent.rigidBody, this.physicsEngine.detector.bodies)
-        }
-        Matter.World.remove(this.physicsEngine.world, agent.rigidBody)
+        Eugine.RemoveFromListById(this.collisionList, agent)        
+        Matter.World.remove(this.physicsEngine.world, agent.rigidBody)        
     }
 
     addAgent(agent) {
+
+        var elementIndex = this.collisionList.map(function (x) { return x.engineID; }).indexOf(agent.engineID);
+        if (elementIndex >= 0) {
+            //this avoid duplicated elements
+            return
+        }
+
+
         this.addPhysicBody(agent)
-        //console.log("addAgent")
         if (!agent.rigidBody.isStatic) {
             this.nonStaticList.push(agent)
         }

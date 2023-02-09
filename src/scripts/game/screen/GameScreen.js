@@ -62,7 +62,7 @@ export default class GameScreen extends Screen {
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
 
         this.gameEngine = new Eugine();
-
+window.ENGINE = this.gameEngine;
 
         this.worldTestContainer = new PIXI.Container();
         //this.worldManager = new WorldManager(this.worldTestContainer)

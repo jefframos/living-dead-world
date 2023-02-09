@@ -130,13 +130,8 @@ export default class PhysicsEntity extends GameObject {
 
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
-            this.debug.rotation = this.physics.angle
-
-            if (this.label) {
-                this.label.rotation = - this.debug.rotation
-                this.label.text = this.rigidBody.circleRadius + " - " + this.rigidBody.position.x.toFixed(1) + " - " + this.rigidBody.position.y.toFixed(1)
-            }
-
+            this.debug.rotation = this.physics.angle            
+           
         }
 
     }

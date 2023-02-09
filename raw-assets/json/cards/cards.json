@@ -70,5 +70,9 @@
     {
         "id": "BOUNCE_CARD",
         "weaponId": "BOUNCE"
+    },
+    {
+        "id": "LASER_CARD",
+        "weaponId": "LASER"
     }
 ]

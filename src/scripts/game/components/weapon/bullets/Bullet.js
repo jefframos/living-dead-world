@@ -71,6 +71,7 @@ export default class Bullet extends PhysicsEntity {
         this.lifeSpan = this.weapon.weaponAttributes.lifeSpan
         this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;
 
+        this.normalizedKillTime = 1;
 
         this.layerCategory = Layer.Bullet
         this.layerMask = Layer.BulletCollision
@@ -219,8 +220,11 @@ export default class Bullet extends PhysicsEntity {
         if (!this.usesTime) {
 
             this.distanceSpan -= this.speed * delta;
+    
+            this.normalizedKillTime = this.distanceSpan / this.weapon.weaponAttributes.lifeRangeSpan;
 
             if (this.distanceSpan <= 0) {
+                this.normalizedKillTime = 0;
                 if (this.weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang) {
 
                     let targetPosition = this.originPosition
@@ -245,7 +249,11 @@ export default class Bullet extends PhysicsEntity {
 
         } else {
             this.lifeSpan -= delta
+            this.normalizedKillTime = this.lifeSpan / this.weapon.weaponAttributes.lifeSpan;
+
             if (this.lifeSpan <= 0) {
+                this.normalizedKillTime = 0;
+
                 this.destroy()
             }
         }

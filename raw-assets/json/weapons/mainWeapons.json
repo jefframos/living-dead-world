@@ -507,13 +507,13 @@
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
-            "baseRadius": 15,
+            "baseRadius": 10,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 250,
+            "baseLifeRangeSpan": 350,
             "basePower": 30,
-            "baseBulletSpeed": 80,
+            "baseBulletSpeed": 120,
             "baseFrequency": 2,
-            "basePiercing": 10,
+            "basePiercing": 9999,
             "baseAmount": 1,
             "baseDamageOverTime": 0.5,
             "baseDirectionType": "ClosestEnemy",
@@ -886,7 +886,7 @@
             "baseLifeSpan": 5,
             "baseLifeRangeSpan": -1,
             "basePower": 25,
-            "baseBulletSpeed": 300,
+            "baseBulletSpeed": 120,
             "baseFrequency": 4,
             "basePiercing": 9999,
             "baseAmount": 1,
@@ -907,7 +907,7 @@
         "bulletComponent": "BounceBullet",
         "view": {
             "rotationSpeed": 0,
-            "standardVfxPack": "AURA_PACK_01",
+            "standardVfxPack": "AURA_PACK_02",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01"
         }
@@ -921,7 +921,7 @@
         "customConstructor": "BaseWeapon",
         "overrider": "LASER_OVERRIDER",
         "attributes": {
-            "baseRadius": 15,
+            "baseRadius": 10,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 25,
@@ -945,12 +945,14 @@
             "baseAngleOffset": 1.2,
             "baseAngleNoise": 0
         },
-        "bulletComponent": "LaserBean",
+        "bulletComponent": "LaserBeam",
         "view": {
             "rotationSpeed": 0,
-            "standardVfxPack": "AURA_PACK_01",
             "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01"
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
         }
     },
     {
@@ -961,13 +963,15 @@
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
-            "baseRadius": 30,
-            "baseLifeSpan": 3,
+            "baseRadius": 8,
+            "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
-            "basePower": 150,
+            "basePower": 10,
             "baseBulletSpeed": 0,
+            "baseAngularSpeed": 3.14,
             "basePiercing": 9999,
             "baseAmount": 1,
+            "baseDetectionZone": 80,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFire": {
@@ -981,12 +985,11 @@
             "baseAngleOffset": 0.3,
             "baseAngleNoise": 0
         },
-        "bulletComponent": "Bullet",
+        "bulletComponent": "LaserBeam",
         "view": {
             "rotationSpeed": 0,
-            "standardVfxPack": "AURA_PACK_01",
             "overrider": {
-                "baseViewData": "DISC_TRHOWER"
+                "baseViewData": "TRANSPARENT"
             }
         }
     }

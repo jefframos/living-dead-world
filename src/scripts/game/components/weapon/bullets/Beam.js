@@ -1,6 +1,7 @@
 import BeamView from "../../view/BeamView";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
+import PhysicsProperties from "../../../core/physics/PhysicsProperties";
 import Sensor from "../../../core/utils/Sensor";
 import signals from "signals";
 
@@ -15,40 +16,41 @@ export default class Beam extends Sensor {
     }
 
     build(width = 50, height = 50, anchor = { x: 0, y: 0 }) {
-        super.build()
+        this.physics = new PhysicsProperties();
 
-        this.buildRect(-anchor.x * width, - anchor.y * height, width, height)
-
+        this.buildRect(-anchor.x * width, 0, width, height) 
+        
+        this.gameView.view.scale.set(1)
         this.beamWidth = width
         this.beamHeight = height
-        
+
         this.rigidBody.isSensor = true;
         this.autoSetAngle = false;
         this.layerCategory = Layer.Sensor
         this.layerMask = Layer.Enemy - Layer.Player
-        this.beamView.build(this.beamWidth , 0)
+        this.beamView.build(this.beamWidth, 0)
         this.beamView.visible = false;
-       
-
-    }    
-    hide(){
+    }
+    hide() {
         this.gameView.view.alpha = 0
         this.beamView.visible = false;
 
     }
-    show(){
+    show() {
         this.gameView.view.alpha = 1
     }
-    updateBeam(distance){
+    updateBeam(from, distance) {
+
+        this.beamView.fromTo(from, distance)
         this.beamView.build(distance, this.beamHeight)
         this.beamView.visible = true;
     }
-    update(delta, unscaleDelta){
+    update(delta, unscaleDelta) {
         super.update(delta, unscaleDelta)
         this.gameView.view.rotation = this.physics.angle
         this.beamView.update(delta)
     }
-    destroy(){
+    destroy() {
         super.destroy()
     }
 }

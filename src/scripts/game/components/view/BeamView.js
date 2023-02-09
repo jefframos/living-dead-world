@@ -24,12 +24,33 @@ export default class BeamView extends PIXI.Sprite {
         this.startShape.tint = 0xFF0000
         this.endShape.tint = 0xFF0000
         this.tiledTexture.tint = 0xFF0000
-        // this.startShape.alpha = 0.1
-        // this.endShape.alpha = 0.1
+         //this.startShape.alpha = 0.1
+         //this.endShape.alpha = 0.1
+         //this.tiledTexture.alpha = 0.5
+    }
+    fromTo(positionStart, distance, positionEnd){
+        this.startShape.y = 0
+        
+        this.endShape.x = distance
+        this.endShape.y = 0
+        
+        
+        this.tiledTexture.tileScale.set( this.beamHeight / 64)
+        this.tiledTexture.width = this.beamWidth * 2 - 50*this.tiledTexture.tileScale.y
+        this.tiledTexture.height =  this.beamHeight    
+        this.tiledTexture.x = 50*this.tiledTexture.tileScale.y
+        
+        this.startShape.x = -distance +  50*this.tiledTexture.tileScale.y
+        if(this.beamHeight){
+            this.startShape.scale.set(Utils.scaleToFit(this.startShape, this.beamHeight))
+            this.endShape.scale.set(this.startShape.scale.x)
+        }
     }
     build(width, height){
+
         this.beamWidth = width
         this.beamHeight = height
+        return
 
         this.startShape.x = -width / 2 + 30   
 
@@ -45,7 +66,7 @@ export default class BeamView extends PIXI.Sprite {
 
         this.tiledTexture.width = width * 2 - 80
         this.tiledTexture.height = height* 2     
-        this.tiledTexture.x = 20
+        this.tiledTexture.x = 0
 
         this.tiledTexture.scale.set( height / 64)
     }

@@ -89,8 +89,8 @@ export default class GameManager {
                             spawnParameters: {
                                 limitSpawn: 0,
                                 areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 150,
-                                total: 50
+                                radius: 400,
+                                total: 80
                             }
 
                         },
@@ -100,7 +100,7 @@ export default class GameManager {
                             spawnParameters: {
                                 limitSpawn: 0,
                                 areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 150,
+                                radius: 400,
                                 total: 50
                             }
 
@@ -223,6 +223,7 @@ export default class GameManager {
     }
 
     updateLevelPhase() {
+        //return
         let phase = this.levelStructure.phases[this.currentPhase];
         if (this.gameplayTime > phase.duration && this.currentPhase < this.levelStructure.phases.length - 1) {
             this.currentPhase++

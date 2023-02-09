@@ -13,7 +13,7 @@ export default class FloatingProjectile extends BaseWeapon {
         let bullets = super.shoot(customWeapon, customParent);
         bullets.forEach(bullet => {
             if (bullet.weapon == this.weaponData) {
-                this.interactiveProjectiles.push({ angle: bullet.ang, projectile: bullet, distance: 0 })
+                this.interactiveProjectiles.push({ angle: bullet.spawnAngle, projectile: bullet, distance: 0 })
                 bullet.physics.velocity.x = 0
                 bullet.physics.velocity.y = 0
                 bullet.physics.velocity.z = 0
