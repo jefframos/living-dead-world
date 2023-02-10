@@ -1,4 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
+import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
@@ -79,7 +80,7 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
 
-
+        
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);
         shadow.updateScale(scale);

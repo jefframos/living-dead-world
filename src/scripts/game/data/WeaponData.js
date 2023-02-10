@@ -15,6 +15,8 @@ export default class WeaponData {
         this.weaponType = WeaponData.WeaponType.Physical;
         this.bulletComponent = Bullet;
         this.icon = 'knife';
+        this.ingameIcon = 'knife';
+        this.inGameRotation = 0;
         this.onDestroyId = null;
         this.isMain = true;
         this.name = name;

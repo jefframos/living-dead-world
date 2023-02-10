@@ -1,4 +1,5 @@
 import EffectsManager from "../../manager/EffectsManager";
+import FlashOnDamage from "../../components/view/FlashOnDamage";
 import GameView from "../view/GameView";
 import Health from "../../components/Health";
 import PhysicsEntity from "../physics/PhysicsEntity";
@@ -39,6 +40,7 @@ export default class GameAgent extends PhysicsEntity {
     damage(value) {
         EffectsManager.instance.popDamage(this, value)
         this.playVfx('onHit')
+        this.flashOnDamage.startFlash()
         return this.health.damage(value);
     }
     die() {
@@ -78,6 +80,8 @@ export default class GameAgent extends PhysicsEntity {
         this.speed = 20 * Math.random() + 10
         this.speedAdjust = 1;
         this.dying = false;
+
+        this.flashOnDamage = this.addComponent(FlashOnDamage);
 
 
     }

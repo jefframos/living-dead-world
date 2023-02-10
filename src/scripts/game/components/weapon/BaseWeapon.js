@@ -2,6 +2,7 @@ import Bullet from "./bullets/Bullet";
 import EffectsManager from "../../manager/EffectsManager";
 import EntityViewData from "../../data/EntityViewData";
 import GameManager from "../../manager/GameManager";
+import GameView from "../../core/view/GameView";
 import Layer from "../../core/Layer";
 import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import PhysicsEntity from "../../core/physics/PhysicsEntity";
@@ -10,6 +11,7 @@ import Utils from "../../core/utils/Utils";
 import Vector3 from "../../core/gameObject/Vector3";
 import WeaponAttributes from "../../data/WeaponAttributes";
 import WeaponData from "../../data/WeaponData";
+import WeaponInGameView from "./WeaponInGameView";
 
 export default class BaseWeapon extends PhysicsEntity {
     constructor() {
@@ -23,6 +25,10 @@ export default class BaseWeapon extends PhysicsEntity {
         this.bulletAccum = 0;
         this.weaponData = null;
         this.brustFire = { amount: 0, interval: 0 };
+
+        this.gameView = new GameView(this);
+        this.gameView.view = new PIXI.Sprite();
+
 
     }
     getClosestEnemy(from) {
@@ -83,6 +89,13 @@ export default class BaseWeapon extends PhysicsEntity {
             this.weaponData = new WeaponData();
         }
 
+
+        if(this.weaponData.ingameIcon){
+            this.inGameView = this.addComponent(WeaponInGameView);
+            this.inGameView.setContainer(this.gameView.view);
+            this.inGameView.setData(this.weaponData);
+        }
+
         this.resetBrust();
 
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
@@ -119,7 +132,7 @@ export default class BaseWeapon extends PhysicsEntity {
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
 
-        if (!isMain && weapon.onFixedDestroyWeapon.length ) {
+        if (!isMain && weapon.onFixedDestroyWeapon.length) {
 
             let temp = weapon.onFixedDestroyWeapon[0]
             temp.onDestroyWeapon = weapon.onDestroyWeapon;
@@ -173,17 +186,19 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
-            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Random) {           
-                bullet.setPosition(parentGameObject.transform.position.x, 0, parentGameObject.transform.position.z);
-                bullet.shoot(Math.random() * Math.PI * 2, 0)
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Random) {
 
-            }else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
+                let rndAng = Math.random() * Math.PI * 2
+                bullet.setPosition(parentGameObject.transform.position.x+ Math.cos(rndAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(rndAng) * 20);
+                bullet.shoot(rndAng, 0)
+
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
                 let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
-           
+
                 bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);
                 bullet.shoot(0, 0)
 
-            }else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
+            } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemy) {
                 let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
                 let angle = Math.random() * Math.PI * 2;
                 if (closestEnemy.enemy) {
@@ -208,7 +223,11 @@ export default class BaseWeapon extends PhysicsEntity {
                 if (!isMain) {
                     facingAng = parentGameObject.angle;
                 }
+
+                let finalAng = facingAng + angleNoise + halfAngle;
                 bullet.shoot(facingAng + angleNoise + halfAngle, Math.abs(this.parent.physics.velocity.x))
+
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20+ Math.cos(finalAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * 20);
             }
 
             if (!customParent) {
@@ -216,6 +235,12 @@ export default class BaseWeapon extends PhysicsEntity {
             }
             spawnedBullets.push(bullet)
             this.activeProjectiles.push(bullet)
+
+            if (isMain && this.inGameView) {
+                this.inGameView.updateBullets(spawnedBullets);
+            }
+
+
         }
         return spawnedBullets
     }
@@ -224,6 +249,10 @@ export default class BaseWeapon extends PhysicsEntity {
 
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z
+
+        if(this.inGameView){
+            this.inGameView.update(delta)
+        }
 
         if (this.debug) {
             this.debug.x = this.transform.position.x
@@ -235,7 +264,6 @@ export default class BaseWeapon extends PhysicsEntity {
         } else {
             this.shoot();
         }
-
 
         for (let index = this.activeProjectiles.length - 1; index >= 0; index--) {
             const bullet = this.activeProjectiles[index];
@@ -307,7 +335,7 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset:baseData.viewOffset})
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: baseData.viewOffset })
             } else {
                 EffectsManager.instance.emitParticles(
                     { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } }, baseData.targetLayer)

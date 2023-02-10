@@ -24,5 +24,5 @@ export default class GameView {
     applyScale(){
         this.baseScale.x = this.view.scale.x;
         this.baseScale.y = this.view.scale.y;
-    }
+    }    
 }

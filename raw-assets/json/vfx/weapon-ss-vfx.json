@@ -18,7 +18,7 @@
         "endFrame": 6,
         "lifeSpan": 99999,
         "addZero": false,
-        "loop": false
+        "loop": true
     },
     {
         "id": "MELEE_SWORD_SHOCK_01",
@@ -29,8 +29,8 @@
         "lifeSpan": 99999,
         "addZero": false,
         "anchor": {
-            "x": 0.2,
-            "y": 0.35
+            "x": 0.5,
+            "y": 0.5
         },
         "loop": false
     },

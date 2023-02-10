@@ -32,7 +32,7 @@ export default class EffectsManager extends GameObject {
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
-            fontSize: 14,
+            fontSize: 12,
             dropShadowDistance: 2,
             fill: "#ffffff",
             //fill: "#febc15",

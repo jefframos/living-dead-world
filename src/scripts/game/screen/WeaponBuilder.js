@@ -243,11 +243,13 @@ export default class WeaponBuilder {
         this.player = player;
 
         this.mainWeapon = new InGameWeapon();
+        this.mainWeapon2 = new InGameWeapon();
         Utils.shuffle(this.weaponsArray)
        // this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
-       // this.mainWeapon.addWeapon(this.weaponsData['BOUNCE'])
+       // this.mainWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
 
        this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
+       this.mainWeapon2.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
 
         if (window.isMobile) {
 
@@ -256,5 +258,6 @@ export default class WeaponBuilder {
             }
         }
         player.addWeapon(this.mainWeapon)
+        player.addWeapon(this.mainWeapon2)
     }
 }

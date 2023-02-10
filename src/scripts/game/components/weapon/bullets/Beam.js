@@ -2,13 +2,16 @@ import BeamView from "../../view/BeamView";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
 import PhysicsProperties from "../../../core/physics/PhysicsProperties";
+import RenderModule from "../../../core/modules/RenderModule";
 import Sensor from "../../../core/utils/Sensor";
 import signals from "signals";
 
 export default class Beam extends Sensor {
     constructor() {
         super();
+        
         this.gameView = new GameView(this)
+        //this.gameView.layer = RenderModule.RenderLayers.Base;
         this.gameView.view = new PIXI.Sprite()
         this.gameView.view.alpha = 1
         this.beamView = new BeamView();

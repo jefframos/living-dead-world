@@ -1,4 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
+import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import InGameWeapon from "../data/InGameWeapon";
@@ -7,6 +8,7 @@ import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
+import Shaders from "../shader/Shaders";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
@@ -36,6 +38,9 @@ export default class Player extends GameAgent {
         window.GUI.add(this.playerStats, 'deaths').listen();
 
         this.isPlayer = true;
+
+
+       
     }
     build(radius = 15) {
 
@@ -59,7 +64,7 @@ export default class Player extends GameAgent {
 
         this.speed = 100
 
-        
+
         this.addChild(this.engine.poolGameObject(Shadow))
 
         this.transform.angle = -Math.PI / 2
@@ -71,10 +76,9 @@ export default class Player extends GameAgent {
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
-
         this.anchorOffset = 0
 
-
+        //this.addComponent(FlashOnDamage)
         this.addComponent(SpriteJump)
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1
@@ -117,18 +121,18 @@ export default class Player extends GameAgent {
     clearWeapon() {
         for (let index = this.activeWeapons.length - 1; index >= 0; index--) {
             this.activeWeapons[index].destroy();
-        }        
+        }
         this.activeWeapons = [];
         this.refreshEquipment();
     }
     addWeaponData(weaponData) {
 
-        if(!this.currentInGameWeapon){
+        if (!this.currentInGameWeapon) {
 
             let mainWeapon = new InGameWeapon();
             mainWeapon.addWeapon(weaponData)
             this.addWeapon(mainWeapon)
-        }else{
+        } else {
             console.log(weaponData)
             this.currentInGameWeapon.addWeapon(weaponData);
         }
