@@ -42578,6 +42578,9 @@ var FlashOnDamage = function (_BaseComponent) {
         key: 'enable',
         value: function enable() {
             (0, _get3.default)(FlashOnDamage.prototype.__proto__ || (0, _getPrototypeOf2.default)(FlashOnDamage.prototype), 'enable', this).call(this);
+            this.intensity = 0;
+            this.flashCurrentTime = 0;
+
             this.setMatrix();
 
             if (this.gameObject.gameView && this.gameObject.gameView.view) {
@@ -88900,20 +88903,20 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_DE",
-	"url": "assets/json\\localization_DE.json"
-}, {
 	"id": "enemies1",
 	"url": "assets/json\\enemies1.json"
+}, {
+	"id": "localization_DE",
+	"url": "assets/json\\localization_DE.json"
 }, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -88921,11 +88924,11 @@ var assets = [{
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
@@ -88939,11 +88942,11 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
@@ -88954,11 +88957,11 @@ var assets = [{
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
-	"id": "weapon-ss-vfx-packs",
-	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
-}, {
 	"id": "vfx-behaviours",
 	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
+	"id": "weapon-ss-vfx-packs",
+	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"

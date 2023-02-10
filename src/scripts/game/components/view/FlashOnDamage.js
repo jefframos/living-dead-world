@@ -20,6 +20,9 @@ export default class FlashOnDamage extends BaseComponent {
     }
     enable() {
         super.enable();
+        this.intensity = 0;
+        this.flashCurrentTime = 0;
+
         this.setMatrix();
 
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
