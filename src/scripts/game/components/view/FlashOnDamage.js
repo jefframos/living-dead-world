@@ -7,10 +7,16 @@ export default class FlashOnDamage extends BaseComponent {
         super();
         this.intensity = 0;
 
-        this.filter = new PIXI.filters.ColorMatrixFilter();
+        //this.filter = new PIXI.filters.ColorMatrixFilter();
 
         this.flashTime = 0.3;
         this.flashCurrentTime = 0;
+
+        this.currentRGB = { r: 0, g: 0, b: 0 }
+
+
+        this.startValue = this.toRGB(0xFFFFFF);
+        this.endValue = this.toRGB(0xFF0000);
     }
     setMatrix() {
         this.filter.matrix = [
@@ -24,23 +30,28 @@ export default class FlashOnDamage extends BaseComponent {
         this.intensity = 0;
         this.flashCurrentTime = 0;
 
-        this.setMatrix();
+        // this.setMatrix();
 
-        
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.uniforms = Shaders.ENTITY_SPRITE_UNIFORMS;
-            this.uniforms.intensity = 0.5;
-            this.gameObject.gameView.view.filters = [new PIXI.Filter('',Shaders.ENTITY_SPRITE_SHADER,this.uniforms)]
-            console.log(this.gameObject.gameView.view)
-        }
+            this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+            //this.gameObject.gameView.view.skew.set(0.65, -0.3);
 
-        
+            //this.gameObject.gameView.view.filters = []
+        }
+        // if (this.gameObject.gameView && this.gameObject.gameView.view) {
+        //     this.uniforms = Shaders.ENTITY_SPRITE_UNIFORMS;
+        //     this.uniforms.intensity = 0.5;
+        //     this.gameObject.gameView.view.filters = [new PIXI.Filter('',Shaders.ENTITY_SPRITE_SHADER,this.uniforms)]
+        //     console.log(this.gameObject.gameView.view)
+        // }
+
+
     }
     startFlash() {
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            //this.gameObject.gameView.view.filters = [this.filter]
+            this.gameObject.gameView.view.tint = this.rgbToColor(this.endValue);
         }
     }
     update(delta) {
@@ -51,20 +62,39 @@ export default class FlashOnDamage extends BaseComponent {
             this.intensity = this.easeOutBack(this.flashCurrentTime / this.flashTime)
 
             this.intensity = Math.max(0, this.intensity)
-            //this.setMatrix();
 
+            this.currentRGB.r = Math.floor(this.intensity * (this.endValue.r - this.startValue.r) + this.startValue.r);
+            this.currentRGB.g = Math.floor(this.intensity * (this.endValue.g - this.startValue.g) + this.startValue.g);
+            this.currentRGB.b = Math.floor(this.intensity * (this.endValue.b - this.startValue.b) + this.startValue.b);
+    
+            this.currentValue = this.rgbToColor(this.currentRGB);
 
-            this.uniforms.intensity = this.intensity;
-
-            if(this.flashCurrentTime <= 0){
-                this.uniforms.intensity = 0;
+            if (this.flashCurrentTime <= 0) {
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                    //this.gameObject.gameView.view.filters = []
+                    this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+                }
+            }else{
+                if (this.gameObject.gameView && this.gameObject.gameView.view) {
+                    this.gameObject.gameView.view.tint = this.currentValue;
                 }
             }
         }
     }
 
+
+    toRGB(rgb) {
+        var r = rgb >> 16 & 0xFF;
+        var g = rgb >> 8 & 0xFF;
+        var b = rgb & 0xFF;
+        return {
+            r: r,
+            g: g,
+            b: b
+        };
+    }
+    rgbToColor(color) {
+        return color.r << 16 | color.g << 8 | color.b;
+    }
     easeOutBack(x) {
         const c1 = 1.70158;
         const c3 = c1 + 1;

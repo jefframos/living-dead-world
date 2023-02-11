@@ -42566,10 +42566,15 @@ var FlashOnDamage = function (_BaseComponent) {
 
         _this.intensity = 0;
 
-        _this.filter = new PIXI.filters.ColorMatrixFilter();
+        //this.filter = new PIXI.filters.ColorMatrixFilter();
 
         _this.flashTime = 0.3;
         _this.flashCurrentTime = 0;
+
+        _this.currentRGB = { r: 0, g: 0, b: 0 };
+
+        _this.startValue = _this.toRGB(0xFFFFFF);
+        _this.endValue = _this.toRGB(0xFF0000);
         return _this;
     }
 
@@ -42585,14 +42590,21 @@ var FlashOnDamage = function (_BaseComponent) {
             this.intensity = 0;
             this.flashCurrentTime = 0;
 
-            this.setMatrix();
+            // this.setMatrix();
 
             if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                this.uniforms = _Shaders2.default.ENTITY_SPRITE_UNIFORMS;
-                this.uniforms.intensity = 0.5;
-                this.gameObject.gameView.view.filters = [new PIXI.Filter('', _Shaders2.default.ENTITY_SPRITE_SHADER, this.uniforms)];
-                console.log(this.gameObject.gameView.view);
+                this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+                //this.gameObject.gameView.view.skew.set(0.65, -0.3);
+
+                //this.gameObject.gameView.view.filters = []
             }
+            // if (this.gameObject.gameView && this.gameObject.gameView.view) {
+            //     this.uniforms = Shaders.ENTITY_SPRITE_UNIFORMS;
+            //     this.uniforms.intensity = 0.5;
+            //     this.gameObject.gameView.view.filters = [new PIXI.Filter('',Shaders.ENTITY_SPRITE_SHADER,this.uniforms)]
+            //     console.log(this.gameObject.gameView.view)
+            // }
+
         }
     }, {
         key: 'startFlash',
@@ -42600,7 +42612,7 @@ var FlashOnDamage = function (_BaseComponent) {
             this.intensity = 1;
             this.flashCurrentTime = this.flashTime;
             if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                //this.gameObject.gameView.view.filters = [this.filter]
+                this.gameObject.gameView.view.tint = this.rgbToColor(this.endValue);
             }
         }
     }, {
@@ -42613,18 +42625,40 @@ var FlashOnDamage = function (_BaseComponent) {
                 this.intensity = this.easeOutBack(this.flashCurrentTime / this.flashTime);
 
                 this.intensity = Math.max(0, this.intensity);
-                //this.setMatrix();
 
+                this.currentRGB.r = Math.floor(this.intensity * (this.endValue.r - this.startValue.r) + this.startValue.r);
+                this.currentRGB.g = Math.floor(this.intensity * (this.endValue.g - this.startValue.g) + this.startValue.g);
+                this.currentRGB.b = Math.floor(this.intensity * (this.endValue.b - this.startValue.b) + this.startValue.b);
 
-                this.uniforms.intensity = this.intensity;
+                this.currentValue = this.rgbToColor(this.currentRGB);
 
                 if (this.flashCurrentTime <= 0) {
-                    this.uniforms.intensity = 0;
                     if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                        //this.gameObject.gameView.view.filters = []
+                        this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+                    }
+                } else {
+                    if (this.gameObject.gameView && this.gameObject.gameView.view) {
+                        this.gameObject.gameView.view.tint = this.currentValue;
                     }
                 }
             }
+        }
+    }, {
+        key: 'toRGB',
+        value: function toRGB(rgb) {
+            var r = rgb >> 16 & 0xFF;
+            var g = rgb >> 8 & 0xFF;
+            var b = rgb & 0xFF;
+            return {
+                r: r,
+                g: g,
+                b: b
+            };
+        }
+    }, {
+        key: 'rgbToColor',
+        value: function rgbToColor(color) {
+            return color.r << 16 | color.g << 8 | color.b;
         }
     }, {
         key: 'easeOutBack',
@@ -42797,8 +42831,7 @@ var GameAgent = function (_PhysicsEntity) {
             this.speedAdjust = 1;
             this.dying = false;
 
-            //this.flashOnDamage = this.addComponent(FlashOnDamage);
-
+            this.flashOnDamage = this.addComponent(_FlashOnDamage2.default);
         }
     }, {
         key: "update",
@@ -76605,6 +76638,8 @@ var GameScreen = function (_Screen) {
             window.GUI.close();
             window.GUI.hide();
             _this.addChild(_this.helperButtonList);
+
+            _this.camera.targetZoom = 1.5;
         }
 
         _this.container.scale.set(1);
@@ -88957,11 +88992,11 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
@@ -88971,9 +89006,6 @@ var assets = [{
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
-}, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
@@ -88987,11 +89019,14 @@ var assets = [{
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
 }];
 
 exports.default = assets;
@@ -89024,7 +89059,7 @@ module.exports = exports['default'];
 /* 268 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

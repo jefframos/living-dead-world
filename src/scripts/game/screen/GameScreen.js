@@ -185,6 +185,8 @@ window.ENGINE = this.gameEngine;
             window.GUI.close()
             window.GUI.hide()
             this.addChild(this.helperButtonList)
+
+            this.camera.targetZoom = 1.5
         }
 
         this.container.scale.set(1)
