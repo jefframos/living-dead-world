@@ -82,7 +82,7 @@ export default class GameAgent extends PhysicsEntity {
         this.speedAdjust = 1;
         this.dying = false;
 
-        this.flashOnDamage = this.addComponent(FlashOnDamage);
+        //this.flashOnDamage = this.addComponent(FlashOnDamage);
 
 
     }

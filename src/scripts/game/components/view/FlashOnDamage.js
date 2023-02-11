@@ -1,4 +1,5 @@
 import BaseComponent from '../../core/gameObject/BaseComponent';
+import Shaders from '../../shader/Shaders';
 import Utils from '../../core/utils/Utils';
 
 export default class FlashOnDamage extends BaseComponent {
@@ -26,12 +27,20 @@ export default class FlashOnDamage extends BaseComponent {
         this.setMatrix();
 
         
+        if (this.gameObject.gameView && this.gameObject.gameView.view) {
+            this.uniforms = Shaders.ENTITY_SPRITE_UNIFORMS;
+            this.uniforms.intensity = 0.5;
+            this.gameObject.gameView.view.filters = [new PIXI.Filter('',Shaders.ENTITY_SPRITE_SHADER,this.uniforms)]
+            console.log(this.gameObject.gameView.view)
+        }
+
+        
     }
     startFlash() {
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.gameObject.gameView.view.filters = [this.filter]
+            //this.gameObject.gameView.view.filters = [this.filter]
         }
     }
     update(delta) {
@@ -42,11 +51,15 @@ export default class FlashOnDamage extends BaseComponent {
             this.intensity = this.easeOutBack(this.flashCurrentTime / this.flashTime)
 
             this.intensity = Math.max(0, this.intensity)
-            this.setMatrix();
+            //this.setMatrix();
+
+
+            this.uniforms.intensity = this.intensity;
 
             if(this.flashCurrentTime <= 0){
+                this.uniforms.intensity = 0;
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                    this.gameObject.gameView.view.filters = []
+                    //this.gameObject.gameView.view.filters = []
                 }
             }
         }
