@@ -42582,16 +42582,15 @@ var FlashOnDamage = function (_BaseComponent) {
             this.flashCurrentTime = 0;
 
             this.setMatrix();
-
-            if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                this.gameObject.gameView.view.filters = [this.filter];
-            }
         }
     }, {
         key: 'startFlash',
         value: function startFlash() {
             this.intensity = 1;
             this.flashCurrentTime = this.flashTime;
+            if (this.gameObject.gameView && this.gameObject.gameView.view) {
+                this.gameObject.gameView.view.filters = [this.filter];
+            }
         }
     }, {
         key: 'update',
@@ -42604,6 +42603,12 @@ var FlashOnDamage = function (_BaseComponent) {
 
                 this.intensity = Math.max(0, this.intensity);
                 this.setMatrix();
+
+                if (this.flashCurrentTime <= 0) {
+                    if (this.gameObject.gameView && this.gameObject.gameView.view) {
+                        this.gameObject.gameView.view.filters = [];
+                    }
+                }
             }
         }
     }, {
@@ -42726,7 +42731,7 @@ var GameAgent = function (_PhysicsEntity) {
         value: function damage(value) {
             _EffectsManager2.default.instance.popDamage(this, value);
             this.playVfx('onHit');
-            this.flashOnDamage.startFlash();
+            if (this.flashOnDamage) this.flashOnDamage.startFlash();
             return this.health.damage(value);
         }
     }, {
@@ -88912,26 +88917,26 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
+}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
-}, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
@@ -88948,17 +88953,17 @@ var assets = [{
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
-	"id": "effects-descriptors",
-	"url": "assets/json\\vfx\\effects-descriptors.json"
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "entity-particle-descriptor",
 	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
+	"id": "effects-descriptors",
+	"url": "assets/json\\vfx\\effects-descriptors.json"
 }, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
@@ -88966,11 +88971,11 @@ var assets = [{
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
 }];
 
 exports.default = assets;

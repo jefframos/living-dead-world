@@ -25,13 +25,14 @@ export default class FlashOnDamage extends BaseComponent {
 
         this.setMatrix();
 
-        if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.gameObject.gameView.view.filters = [this.filter]
-        }
+        
     }
     startFlash() {
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
+        if (this.gameObject.gameView && this.gameObject.gameView.view) {
+            this.gameObject.gameView.view.filters = [this.filter]
+        }
     }
     update(delta) {
 
@@ -42,6 +43,12 @@ export default class FlashOnDamage extends BaseComponent {
 
             this.intensity = Math.max(0, this.intensity)
             this.setMatrix();
+
+            if(this.flashCurrentTime <= 0){
+                if (this.gameObject.gameView && this.gameObject.gameView.view) {
+                    this.gameObject.gameView.view.filters = []
+                }
+            }
         }
     }
 
