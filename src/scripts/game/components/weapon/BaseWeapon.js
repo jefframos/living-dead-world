@@ -31,10 +31,13 @@ export default class BaseWeapon extends PhysicsEntity {
 
 
     }
-    getClosestEnemy(from) {
+    getClosestEnemy(from, distanceLimit = 999999) {
         let target = from ? from.transform : this.transform
         let shootAngle = 0;
         let closest = GameManager.instance.findClosestEnemy(target.position) || this
+        if(closest != this && Vector3.distance(closest.transform.position, this.transform.position) > distanceLimit){
+            closest = this;
+        }
         shootAngle = Math.atan2(closest.transform.position.z - target.position.z, closest.transform.position.x - target.position.x)
         return { enemy: closest, angle: shootAngle }
     }
@@ -75,8 +78,8 @@ export default class BaseWeapon extends PhysicsEntity {
         return facing;
     }
     resetBrust() {
-        this.brustFire.amount = this.weaponData.weaponAttributes.brustFire.amount;
-        this.brustFire.interval = this.weaponData.weaponAttributes.brustFire.interval;
+        this.brustFire.amount = this.weaponData.weaponAttributes.brustFireAmount;
+        this.brustFire.interval = this.weaponData.weaponAttributes.brustFireInterval;
     }
     build(weaponData) {
         super.build();
@@ -193,8 +196,7 @@ export default class BaseWeapon extends PhysicsEntity {
                 bullet.shoot(rndAng, 0)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
-                let closestEnemy = this.getClosestEnemy(parentGameObject)//Math.random() * Math.PI * 2//
-
+                let closestEnemy = this.getClosestEnemy(parentGameObject, weapon.weaponAttributes.detectionZone|| 100)
                 bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);
                 bullet.shoot(0, 0)
 
@@ -225,7 +227,10 @@ export default class BaseWeapon extends PhysicsEntity {
                 }
 
                 let finalAng = facingAng + angleNoise + halfAngle;
-                bullet.shoot(facingAng + angleNoise + halfAngle, Math.abs(this.parent.physics.velocity.x))
+                if( weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards){
+                    finalAng += Math.PI;
+                }
+                bullet.shoot(finalAng, Math.abs(this.parent.physics.velocity.x))
 
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20+ Math.cos(finalAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * 20);
             }

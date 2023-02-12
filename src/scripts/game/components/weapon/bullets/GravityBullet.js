@@ -1,4 +1,5 @@
 import Bullet from "./Bullet";
+import Shadow from "../../view/Shadow";
 
 export default class GravityBullet extends Bullet {
     constructor() {
@@ -10,7 +11,9 @@ export default class GravityBullet extends Bullet {
         this.target = weapon;
 
         this.timeToFall = weapon.weaponAttributes.baseLifeRangeSpan / weapon.weaponAttributes.baseBulletSpeed;
-        this.currentTime = 0;        
+        this.currentTime = 0;       
+        
+        this.addChild(this.engine.poolGameObject(Shadow))
 
         this.high = weapon.weaponViewData.baseViewData.maxHeight;
     }

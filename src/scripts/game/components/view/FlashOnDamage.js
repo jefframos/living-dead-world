@@ -31,6 +31,9 @@ export default class FlashOnDamage extends BaseComponent {
         this.flashCurrentTime = 0;
 
         // this.setMatrix();
+        if(this.gameObject.health){
+            this.gameObject.health.gotDamaged.add(this.startFlash.bind(this))
+        }
 
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
             this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
@@ -46,6 +49,10 @@ export default class FlashOnDamage extends BaseComponent {
         // }
 
 
+    }
+    destroy(){
+        super.destroy();
+        this.gameObject.health.gotDamaged.remove(this.startFlash.bind(this))
     }
     startFlash() {
         this.intensity = 1;

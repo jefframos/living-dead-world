@@ -40,8 +40,6 @@ export default class GameAgent extends PhysicsEntity {
     damage(value) {
         EffectsManager.instance.popDamage(this, value)
         this.playVfx('onHit')
-        if(this.flashOnDamage)
-        this.flashOnDamage.startFlash()
         return this.health.damage(value);
     }
     die() {

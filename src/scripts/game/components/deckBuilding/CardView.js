@@ -47,6 +47,15 @@ export default class CardView extends PIXI.Container {
         this.label.y = height / 2 + 30
 
         this.offset = { x: 0, y: 0 }
+
+        // let zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
+        // this.addChild(zero)
+
+        this.cardContainer.x = -width/2
+        this.cardContainer.pivot.y = height
+
+        this.safeShape.x = -width/2
+        this.safeShape.pivot.y = height
     }
 
     updateTexture(textureID) {
@@ -63,7 +72,7 @@ export default class CardView extends PIXI.Container {
         this.cardContainer.y = Utils.lerp(this.cardContainer.y, this.offset.y, 0.3);
 
         if (this.mouseOver) {
-            this.offset.y = -80
+            this.offset.y = -20
         } else {
             this.offset.y = 0
         }

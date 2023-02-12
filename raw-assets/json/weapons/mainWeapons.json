@@ -24,10 +24,8 @@
             "baseDamageOverTime": 0.5,
             "baseDirectionType": "FacingPlayer",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": false,
@@ -73,10 +71,8 @@
             "baseAmount": 4,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -114,10 +110,8 @@
             "baseAmount": 4,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -164,10 +158,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -210,10 +202,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -259,10 +249,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 5,
-                "interval": 0.5
-            },
+            "baseBrustFireAmount": 5,
+            "baseBrustFireInterval": 0.5,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -299,10 +287,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 8,
-                "interval": 0.25
-            },
+            "baseBrustFireAmount": 8,
+            "baseBrustFireInterval": 0.25,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -339,10 +325,8 @@
             "baseAmount": 4,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 2,
-                "interval": 0.05
-            },
+            "baseBrustFireAmount": 2,
+            "baseBrustFireInterval": 0.05,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -380,10 +364,8 @@
             "baseDetectionZone": 800,
             "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 2,
-                "interval": 1
-            },
+            "baseBrustFireAmount": 2,
+            "baseBrustFireInterval": 1,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -421,10 +403,8 @@
             "baseAmount": 1,
             "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -461,10 +441,8 @@
             "baseAmount": 2,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -501,10 +479,8 @@
             "baseAmount": 1,
             "baseDirectionType": "Hoaming",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 3,
-                "interval": 0.5
-            },
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.5,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -545,10 +521,8 @@
             "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseExtendedBehaviour": "Boomerang",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -586,10 +560,8 @@
             "baseAmount": 1,
             "baseDirectionType": "FacingPlayer",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -626,12 +598,10 @@
             "baseFrequency": 2,
             "basePiercing": 9999,
             "baseAmount": 1,
-            "baseDirectionType": "ParentAngle",
+            "baseDirectionType": "FacingBackwards",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -666,10 +636,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -706,10 +674,8 @@
             "baseAmount": 3,
             "baseDirectionType": "FacingPlayer",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -743,10 +709,8 @@
             "baseAmount": 2,
             "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -779,12 +743,11 @@
             "baseFrequency": 3,
             "basePiercing": 9999,
             "baseAmount": 1,
+            "baseDetectionZone": 500,
             "baseDirectionType": "ClosestEnemySnap",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -820,10 +783,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -860,10 +821,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 3,
-                "interval": 0.5
-            },
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.5,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -899,10 +858,8 @@
             "baseAmount": 1,
             "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 3,
-                "interval": 0.5
-            },
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.5,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -939,10 +896,8 @@
             "baseDetectionZone": 300,
             "baseDirectionType": "Random",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 3,
-                "interval": 0.05
-            },
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.05,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -982,10 +937,8 @@
             "baseDamageOverTime": 0.3,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -1024,10 +977,8 @@
             "baseDetectionZone": 80,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFire": {
-                "amount": 0,
-                "interval": 0
-            },
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,

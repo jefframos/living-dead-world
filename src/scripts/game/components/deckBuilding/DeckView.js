@@ -22,8 +22,8 @@ export default class DeckView extends GameObject {
 
 
         //this.gameView.view.x = Game.Screen.width / 2
-        this.gameView.view.y = Game.Screen.height / 2 - 100
-
+        this.gameView.view.y = Game.Screen.height / 2 + 200
+        this.gameView.view.x =  0//Game.Screen.width / 2
         // InteractableView.addMouseEnter(this.gameView.view, () => { console.log("test") })
         // InteractableView.addMouseOut(this.gameView.view, () => { console.log("test2") })
         this.onCardClicked = new signals.Signal();
@@ -41,7 +41,7 @@ export default class DeckView extends GameObject {
             let dt = GameStaticData.instance.getDataById('weapons', 'main', data[i].weaponId);
             let a = new CardView();
             this.gameView.view.addChild(a);
-            a.x = 100 * i
+            a.x = 120 * i
             a.onCardClicked.add((card) => {
                 this.onCardClicked.dispatch(card.cardData)
                 card.visible = false;
@@ -56,13 +56,25 @@ export default class DeckView extends GameObject {
     }
 
     update(delta, unscaleDelta) {
-        this.gameView.view.x = Utils.lerp(this.gameView.view.x, -this.gameView.view.width / 2, 0.1);
 
+        let w = this.handCards[this.handCards.length-1].x - this.handCards[0].x
+        this.gameView.view.x = Utils.lerp(this.gameView.view.x, -w / 2, 0.3);
+        this.gameView.view.y = Utils.lerp(this.gameView.view.y, Game.Screen.height / 2 - 20, 0.3);
+
+        let arc = 1
+        let rotChunk = arc / this.handCards.length
         for (let index = this.handCards.length - 1; index >= 0; index--) {
             const element = this.handCards[index];
             element.update(unscaleDelta)
 
-            element.x = Utils.lerp(element.x, 100 * index, 0.5)
+            element.x = Utils.lerp(element.x, 80 * index, 0.5)
+
+            let rot =  (rotChunk * index) - (arc / 2) + rotChunk/2
+
+            element.rotation = rot
+
+            element.y = Utils.lerp(element.y, Math.cos(rot) * -200 + 200, 0.5)
+
         }
     }
     disable() {

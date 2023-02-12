@@ -5,6 +5,7 @@ import DeckView from "../components/deckBuilding/DeckView";
 import Eugine from "../core/Eugine";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
+import HudButtons from "../components/ui/HudButtons";
 import InputModule from "../core/modules/InputModule";
 import Player from "../entity/Player";
 import RenderModule from "../core/modules/RenderModule";
@@ -40,10 +41,21 @@ export default class GameplaySessionController extends GameObject {
         this.deckView = this.engine.poolGameObject(DeckView, true)
         this.deckView.setActive(false);
 
+        this.hudButtons = this.engine.poolGameObject(HudButtons, true)
+        
+        this.hudButtons.addCallbackButton(()=>{
+            this.toggleDeck();
+        }, config.assets.button.primarySquare)
+
+        this.hudButtons.addCallbackButton(()=>{
+            this.player.clearWeapon();
+        }, config.assets.button.warningSquare)
+
         this.cardPlacementView = this.engine.poolGameObject(CardPlacementView, true)
         this.cardPlacementView.setActive(false);
 
         this.cardPlacementSystem = new CardPlacementSystem(this.deckView, this.cardPlacementView);
+        this.cardPlacementSystem.onHide.add(this.onHidePanel.bind(this))
 
         this.player = this.engine.findByType(Player);
 
@@ -69,6 +81,8 @@ export default class GameplaySessionController extends GameObject {
             this.cardPlacementSystem.setPlayer(this.player);
             this.cardPlacementSystem.setWeapons(this.weaponBuilder);
             this.player.refreshEquipment();
+
+            this.toggleDeck();
         }, 1);
     }
     start() {
@@ -83,6 +97,9 @@ export default class GameplaySessionController extends GameObject {
                 this.toggleDeck();
             }
         })
+    }
+    onHidePanel() {
+        Eugine.TimeScale = 1;
     }
     toggleDeck() {
         if (!this.cardPlacementSystem.enabled) {

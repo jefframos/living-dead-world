@@ -223,7 +223,7 @@ export default class GameManager {
     }
 
     updateLevelPhase() {
-        //return
+        if(window.noEnemy) return;
         let phase = this.levelStructure.phases[this.currentPhase];
         if (this.gameplayTime > phase.duration && this.currentPhase < this.levelStructure.phases.length - 1) {
             this.currentPhase++

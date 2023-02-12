@@ -50,6 +50,7 @@ export default class Player extends GameAgent {
         this.distanceWalked = 0;
 
         this.activeWeapons = [];
+        this.weaponsGameObject = [];
 
         this.health.reset()
 
@@ -104,37 +105,21 @@ export default class Player extends GameAgent {
         spriteSheet.setData(animData);
     }
 
-    addWeaponData(weaponData) {
-        // let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-
-        // if (weaponData.type == WeaponData.WeaponType.Main) {
-        //     this.addChild(weapon)
-        //     weapon.build(weaponData)
-        //     this.activeWeapons[0].addWeapon(weaponData)
-        // } else {
-        //     this.addChild(weapon)
-        //     weapon.build(weaponData)
-        //     this.activeWeapons[1].addWeapon(weaponData)
-        // }
-        // this.refreshEquipment();
-    }
     clearWeapon() {
-        for (let index = this.activeWeapons.length - 1; index >= 0; index--) {
-            this.activeWeapons[index].destroy();
+        for (let index = this.weaponsGameObject.length - 1; index >= 0; index--) {
+            this.weaponsGameObject[index].destroy();
         }
         this.activeWeapons = [];
         this.refreshEquipment();
     }
-    addWeaponData(weaponData) {
+    addWeaponData(weaponData, slotID = 0) {
 
-        if (!this.currentInGameWeapon) {
-
+        if (this.activeWeapons.length < slotID + 1) {
             let mainWeapon = new InGameWeapon();
             mainWeapon.addWeapon(weaponData)
             this.addWeapon(mainWeapon)
         } else {
-            console.log(weaponData)
-            this.currentInGameWeapon.addWeapon(weaponData);
+            this.activeWeapons[slotID].addWeapon(weaponData);
         }
     }
     addWeapon(inGameWeapon) {
@@ -142,16 +127,17 @@ export default class Player extends GameAgent {
             return;
         }
         let weaponData = inGameWeapon.mainWeapon
+
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
+        this.weaponsGameObject.push(weapon);
         weapon.build(weaponData)
 
-        this.currentInGameWeapon = inGameWeapon
-        this.currentInGameWeapon.onUpdateWeapon.add(() => {
+        inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
 
-        this.activeWeapons.push(weapon)
+        this.activeWeapons.push(inGameWeapon)
         this.refreshEquipment();
     }
     refreshEquipment() {

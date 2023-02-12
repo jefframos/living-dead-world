@@ -227,6 +227,7 @@ export default class WeaponBuilder {
         }
     }
     eraseWeapon() {
+
         if (this.mainWeapon) {
             this.mainWeapon.clear()
         }
@@ -241,6 +242,7 @@ export default class WeaponBuilder {
     }
     addWeapons(player) {
         this.player = player;
+        return
 
         this.mainWeapon = new InGameWeapon();
         this.mainWeapon2 = new InGameWeapon();

@@ -47,9 +47,8 @@ export default class MainScreenManager extends ScreenManager {
 
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams) {
-            if (urlParams.get('debug')) {
-                this.mergeScreen.helperButtonList.visible = true
-                window.isDebug = true;
+            if (urlParams.get('noEnemy')) {
+                window.noEnemy = true;
             }
         }
 
