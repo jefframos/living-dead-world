@@ -27369,7 +27369,7 @@ var InteractableView = function () {
 
             element.interactive = true;
             element.buttonMode = true;
-            element.on('pointertap', callback).on('tap', callback);
+            element.on('pointertap', callback); //.on('tap', callback);
         }
     }]);
     return InteractableView;
@@ -60096,7 +60096,7 @@ var DeckView = function (_GameObject) {
         _this.handCards = [];
 
         //this.gameView.view.x = Game.Screen.width / 2
-        _this.gameView.view.y = _Game2.default.Screen.height / 2 + 200;
+        _this.gameView.view.y = _Game2.default.Screen.height / 2;
         _this.gameView.view.x = 0; //Game.Screen.width / 2
         // InteractableView.addMouseEnter(this.gameView.view, () => { console.log("test") })
         // InteractableView.addMouseOut(this.gameView.view, () => { console.log("test2") })
@@ -60141,7 +60141,7 @@ var DeckView = function (_GameObject) {
 
             var w = this.handCards[this.handCards.length - 1].x - this.handCards[0].x;
             this.gameView.view.x = _Utils2.default.lerp(this.gameView.view.x, -w / 2, 0.3);
-            this.gameView.view.y = _Utils2.default.lerp(this.gameView.view.y, _Game2.default.Screen.height / 2 - 20, 0.3);
+            this.gameView.view.y = _Utils2.default.lerp(this.gameView.view.y, _Game2.default.Screen.height / 2 - 400, 0.3);
 
             var arc = 1;
             var rotChunk = arc / this.handCards.length;
@@ -82887,13 +82887,14 @@ var HudButtons = function (_GameObject) {
         //this.gameView.view.y = Game.Screen.height / 2 - 40
 
 
+        _this.buttonSize = 80;
         _this.buttonsList = new _UIList2.default();
         _this.buttonsList.w = 100;
-        _this.buttonsList.h = 40;
+        _this.buttonsList.h = _this.buttonSize;
         _this.gameView.view.addChild(_this.buttonsList);
 
         _this.buttonsList.x = -_Game2.default.Screen.width / 2 + 20;
-        _this.buttonsList.y = _Game2.default.Screen.height / 2 - 60;
+        _this.buttonsList.y = _Game2.default.Screen.height / 2 - _this.buttonSize - 20;
         return _this;
     }
 
@@ -82902,12 +82903,12 @@ var HudButtons = function (_GameObject) {
         value: function addCallbackButton(callback) {
             var texture = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'square_0006';
 
-            this.openDeckButton = new _BaseButton2.default(texture, 40, 40);
+            this.openDeckButton = new _BaseButton2.default(texture, this.buttonSize, this.buttonSize);
             this.buttonsList.addElement(this.openDeckButton);
             this.openDeckButton.onButtonClicked.add(function () {
                 callback();
             });
-            this.buttonsList.w = this.buttonsList.elementsList.length * 60;
+            this.buttonsList.w = this.buttonsList.elementsList.length * (this.buttonSize + 20);
             this.buttonsList.updateHorizontalList();
         }
     }]);
@@ -89257,17 +89258,14 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
@@ -89281,14 +89279,17 @@ var assets = [{
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
-}, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }, {
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "mainWeapons",
 	"url": "assets/json\\weapons\\mainWeapons.json"
@@ -89327,7 +89328,7 @@ module.exports = exports['default'];
 /* 270 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

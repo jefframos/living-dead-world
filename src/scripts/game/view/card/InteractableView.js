@@ -14,6 +14,6 @@ export default class InteractableView {
     static addMouseClick(element, callback = () => { }) {
         element.interactive = true;
         element.buttonMode = true;
-        element.on('pointertap', callback).on('tap', callback);
+        element.on('pointertap', callback);//.on('tap', callback);
     }
 }

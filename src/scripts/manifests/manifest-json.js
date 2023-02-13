@@ -44,20 +44,16 @@ const assets = [
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
 	},
 	{
-	"id":"modifyers",
-	"url":"assets/json\\modifyers.json"
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
+	"id":"modifyers",
+	"url":"assets/json\\modifyers.json"
 	},
 	{
 	"id":"cards",
@@ -76,16 +72,20 @@ const assets = [
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
-	},
-	{
 	"id":"weapon-ss-vfx-packs",
 	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
 	},
 	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	},
+	{
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
 	"id":"mainWeapons",
