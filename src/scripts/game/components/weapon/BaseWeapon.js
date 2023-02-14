@@ -340,14 +340,15 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: baseData.viewOffset })
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: baseData.viewOffset, color:baseData.color?baseData.color:0xFFFFFF })
             } else {
                 EffectsManager.instance.emitParticles(
-                    { x: target.x, y: target.z }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } }, baseData.targetLayer)
+                    { x: target.x + baseData.viewOffset.x, y: target.z+baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } , tint:baseData.color?baseData.color:0xFFFFFF}, baseData.targetLayer)
             }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
+            bullet.gameView.view.tint = baseData.color?baseData.color:0xFFFFFF;
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             bullet.gameView.viewOffset.y = baseData.viewOffset.y
 

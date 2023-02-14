@@ -13,6 +13,7 @@ export default class BaseComponent {
     start() { }
     onRender() { }
     destroy() { }
+    afterDestroy() { }
     removeAllSignals() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {

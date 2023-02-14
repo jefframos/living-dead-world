@@ -8,6 +8,8 @@ export default class SpriteSheetGameView extends BaseComponent {
         super();
         this.descriptor = null;
         this.particle = null;
+
+        this.colorOverride = 0xFFFFFF;
     }
     enable() {
         super.enable();
@@ -15,17 +17,24 @@ export default class SpriteSheetGameView extends BaseComponent {
     }
     setDescriptor(particleDescriptor, param) {
         for (const key in param) {
-            if (Object.hasOwnProperty.call(param, key) &&  this.gameObject.gameView.view[key]!== undefined) {
+            if (Object.hasOwnProperty.call(param, key) && this.gameObject.gameView.view[key] !== undefined) {
                 this.gameObject.gameView.view[key] = param[key];
             }
         }
-        if(param.viewOffset){
+        if (param.viewOffset) {
             this.gameObject.gameView.viewOffset = param.viewOffset;
         }
+
         this.descriptor = particleDescriptor;
 
         this.particle = Pool.instance.getElement(Particle);
         this.particle.build(particleDescriptor)
+        if (param.color) {
+            this.gameObject.gameView.view.tint = param.color;
+            this.colorOverride = param.color;
+        }else{
+            this.colorOverride = 0xFFFFFF;
+        }
     }
     update(delta) {
         delta *= Eugine.PhysicsTimeScale;

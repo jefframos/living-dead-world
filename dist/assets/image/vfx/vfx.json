@@ -1144,7 +1144,7 @@
 	"spriteSourceSize": {"x":9,"y":26,"w":13,"h":14},
 	"sourceSize": {"w":50,"h":50}
 },
-"slash1/slash1.png":
+"melee_white/slash1.png":
 {
 	"frame": {"x":797,"y":228,"w":11,"h":19},
 	"rotated": false,
@@ -1152,7 +1152,7 @@
 	"spriteSourceSize": {"x":12,"y":8,"w":11,"h":19},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash2.png":
+"melee_white/slash2.png":
 {
 	"frame": {"x":1232,"y":216,"w":22,"h":23},
 	"rotated": false,
@@ -1160,7 +1160,7 @@
 	"spriteSourceSize": {"x":7,"y":6,"w":22,"h":23},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash3.png":
+"melee_white/slash3.png":
 {
 	"frame": {"x":490,"y":98,"w":73,"h":53},
 	"rotated": false,
@@ -1168,7 +1168,7 @@
 	"spriteSourceSize": {"x":17,"y":5,"w":73,"h":53},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash4.png":
+"melee_white/slash4.png":
 {
 	"frame": {"x":1461,"y":1,"w":67,"h":85},
 	"rotated": false,
@@ -1176,7 +1176,7 @@
 	"spriteSourceSize": {"x":28,"y":5,"w":67,"h":85},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash5.png":
+"melee_white/slash5.png":
 {
 	"frame": {"x":565,"y":93,"w":54,"h":72},
 	"rotated": true,
@@ -1184,7 +1184,7 @@
 	"spriteSourceSize": {"x":36,"y":17,"w":54,"h":72},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash6.png":
+"melee_white/slash6.png":
 {
 	"frame": {"x":412,"y":98,"w":76,"h":38},
 	"rotated": false,
@@ -1192,7 +1192,7 @@
 	"spriteSourceSize": {"x":13,"y":53,"w":76,"h":38},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash7.png":
+"melee_white/slash7.png":
 {
 	"frame": {"x":939,"y":176,"w":53,"h":27},
 	"rotated": false,
@@ -1200,7 +1200,7 @@
 	"spriteSourceSize": {"x":12,"y":66,"w":53,"h":27},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash8.png":
+"melee_white/slash8.png":
 {
 	"frame": {"x":1168,"y":160,"w":25,"h":23},
 	"rotated": true,
@@ -1208,7 +1208,7 @@
 	"spriteSourceSize": {"x":4,"y":56,"w":25,"h":23},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash9.png":
+"melee_white/slash9.png":
 {
 	"frame": {"x":1418,"y":191,"w":24,"h":23},
 	"rotated": true,
@@ -1216,7 +1216,7 @@
 	"spriteSourceSize": {"x":6,"y":60,"w":24,"h":23},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash10.png":
+"melee_white/slash10.png":
 {
 	"frame": {"x":1479,"y":120,"w":30,"h":29},
 	"rotated": false,
@@ -1224,7 +1224,7 @@
 	"spriteSourceSize": {"x":2,"y":54,"w":30,"h":29},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash11.png":
+"melee_white/slash11.png":
 {
 	"frame": {"x":810,"y":227,"w":32,"h":28},
 	"rotated": false,
@@ -1232,7 +1232,7 @@
 	"spriteSourceSize": {"x":1,"y":53,"w":32,"h":28},
 	"sourceSize": {"w":95,"h":96}
 },
-"slash1/slash12.png":
+"melee_white/slash12.png":
 {
 	"frame": {"x":649,"y":194,"w":32,"h":23},
 	"rotated": false,
@@ -1572,7 +1572,7 @@
 	"flash/flash": ["flash/flash1.png","flash/flash2.png","flash/flash3.png","flash/flash4.png","flash/flash5.png","flash/flash6.png","flash/flash7.png","flash/flash8.png","flash/flash9.png","flash/flash10.png","flash/flash11.png","flash/flash12.png","flash/flash13.png","flash/flash14.png"],
 	"hit1/hit-h": ["hit1/hit-h1.png","hit1/hit-h2.png","hit1/hit-h3.png","hit1/hit-h4.png","hit1/hit-h5.png"],
 	"hit_claws/hit_claws": ["hit_claws/hit_claws_01.png","hit_claws/hit_claws_02.png","hit_claws/hit_claws_03.png","hit_claws/hit_claws_04.png","hit_claws/hit_claws_05.png","hit_claws/hit_claws_06.png","hit_claws/hit_claws_07.png","hit_claws/hit_claws_08.png","hit_claws/hit_claws_09.png","hit_claws/hit_claws_10.png","hit_claws/hit_claws_11.png","hit_claws/hit_claws_12.png","hit_claws/hit_claws_13.png","hit_claws/hit_claws_14.png","hit_claws/hit_claws_15.png","hit_claws/hit_claws_16.png","hit_claws/hit_claws_17.png","hit_claws/hit_claws_18.png","hit_claws/hit_claws_19.png","hit_claws/hit_claws_20.png","hit_claws/hit_claws_21.png","hit_claws/hit_claws_22.png","hit_claws/hit_claws_23.png","hit_claws/hit_claws_24.png","hit_claws/hit_claws_25.png","hit_claws/hit_claws_26.png","hit_claws/hit_claws_27.png","hit_claws/hit_claws_28.png","hit_claws/hit_claws_29.png","hit_claws/hit_claws_30.png","hit_claws/hit_claws_31.png","hit_claws/hit_claws_32.png","hit_claws/hit_claws_33.png","hit_claws/hit_claws_34.png","hit_claws/hit_claws_35.png","hit_claws/hit_claws_36.png","hit_claws/hit_claws_37.png","hit_claws/hit_claws_38.png","hit_claws/hit_claws_39.png","hit_claws/hit_claws_40.png","hit_claws/hit_claws_41.png","hit_claws/hit_claws_42.png","hit_claws/hit_claws_43.png","hit_claws/hit_claws_44.png","hit_claws/hit_claws_45.png","hit_claws/hit_claws_46.png","hit_claws/hit_claws_47.png","hit_claws/hit_claws_48.png","hit_claws/hit_claws_49.png","hit_claws/hit_claws_50.png","hit_claws/hit_claws_51.png","hit_claws/hit_claws_52.png","hit_claws/hit_claws_53.png","hit_claws/hit_claws_54.png","hit_claws/hit_claws_55.png","hit_claws/hit_claws_56.png","hit_claws/hit_claws_57.png","hit_claws/hit_claws_58.png","hit_claws/hit_claws_59.png","hit_claws/hit_claws_60.png"],
-	"slash1/slash": ["slash1/slash1.png","slash1/slash2.png","slash1/slash3.png","slash1/slash4.png","slash1/slash5.png","slash1/slash6.png","slash1/slash7.png","slash1/slash8.png","slash1/slash9.png","slash1/slash10.png","slash1/slash11.png","slash1/slash12.png"],
+	"melee_white/slash": ["melee_white/slash1.png","melee_white/slash2.png","melee_white/slash3.png","melee_white/slash4.png","melee_white/slash5.png","melee_white/slash6.png","melee_white/slash7.png","melee_white/slash8.png","melee_white/slash9.png","melee_white/slash10.png","melee_white/slash11.png","melee_white/slash12.png"],
 	"small-spark/small-spark": ["small-spark/small-spark1.png","small-spark/small-spark2.png","small-spark/small-spark3.png","small-spark/small-spark4.png","small-spark/small-spark5.png","small-spark/small-spark6.png","small-spark/small-spark7.png","small-spark/small-spark8.png","small-spark/small-spark9.png","small-spark/small-spark10.png","small-spark/small-spark11.png","small-spark/small-spark12.png"],
 	"smokeTrail/hit-l": ["smokeTrail/hit-l1.png","smokeTrail/hit-l2.png","smokeTrail/hit-l3.png","smokeTrail/hit-l4.png","smokeTrail/hit-l5.png","smokeTrail/hit-l6.png","smokeTrail/hit-l7.png"],
 	"thunder/thunde": ["thunder/thunde1.png","thunder/thunde2.png","thunder/thunde3.png","thunder/thunde4.png","thunder/thunde5.png","thunder/thunde6.png","thunder/thunde7.png","thunder/thunde8.png","thunder/thunde9.png","thunder/thunde10.png","thunder/thunde11.png","thunder/thunde12.png","thunder/thunde13.png","thunder/thunde14.png","thunder/thunde15.png"],
@@ -1585,6 +1585,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1530,"h":256},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:96b574230e6b18bf03b10ce18d77a2f6:92e38c14bbb47aed0998b05d32796eb6:e8a10d8fa8e9d60843a1977c276b63e3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:ecee0d352ea31a1259e2ee26f986a7cb:d67b221930625a03ea15d73e420fc133:e8a10d8fa8e9d60843a1977c276b63e3$"
 }
 }

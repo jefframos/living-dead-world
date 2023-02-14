@@ -1,4 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
+import EntityLifebar from "../components/ui/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameStaticData from "../data/GameStaticData";
@@ -81,6 +82,13 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.applyScale();
 
         
+
+        // this.lifeBar = this.engine.poolGameObject(EntityLifebar)
+        // this.addChild(this.lifeBar)
+        // this.lifeBar.build(this.attributes.radius * 2,5,2);
+
+
+
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);
         shadow.updateScale(scale);

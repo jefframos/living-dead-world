@@ -149,8 +149,8 @@ export default class GameObject extends BaseComponent {
             this.removeComponent(element)
         });
         this.disable();
-        Pool.instance.returnElement(this)
         super.destroy();
+        Pool.instance.returnElement(this)
     }
 
     removeChild(child) {

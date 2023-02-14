@@ -43,4 +43,12 @@ export default class Sensor extends PhysicsEntity {
         }
         this.onCollisionEnter.dispatch(collided)
     }
+    update(delta, unscaled){
+        super.update(delta, unscaled)
+        for(var i = this.collisionList.length-1; i >=0;i--){
+            if(this.collisionList[i].dying){
+                this.collisionList.splice(i,1);
+            }
+        }
+    }
 }

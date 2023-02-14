@@ -59,7 +59,7 @@ export default class DeckView extends GameObject {
 
         let w = this.handCards[this.handCards.length-1].x - this.handCards[0].x
         this.gameView.view.x = Utils.lerp(this.gameView.view.x, -w / 2, 0.3);
-        this.gameView.view.y = Utils.lerp(this.gameView.view.y, Game.Screen.height / 2 - 400, 0.3);
+        this.gameView.view.y = Utils.lerp(this.gameView.view.y, Game.Screen.height / 2 - 220, 0.3);
 
         let arc = 1
         let rotChunk = arc / this.handCards.length

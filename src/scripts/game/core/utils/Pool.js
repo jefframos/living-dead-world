@@ -15,7 +15,7 @@ export default class Pool {
         if (this.pool[constructor.name]) {
             let elements = this.pool[constructor.name];
             if (elements.length > 0) {
-                let element = elements.pop();
+                let element = elements.shift();
                 return element;
             }
         } else {

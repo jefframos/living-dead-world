@@ -1,4 +1,5 @@
 import BaseComponent from '../../core/gameObject/BaseComponent';
+import Color from '../../core/utils/Color';
 import Shaders from '../../shader/Shaders';
 import Utils from '../../core/utils/Utils';
 
@@ -15,8 +16,8 @@ export default class FlashOnDamage extends BaseComponent {
         this.currentRGB = { r: 0, g: 0, b: 0 }
 
 
-        this.startValue = this.toRGB(0xFFFFFF);
-        this.endValue = this.toRGB(0xFF0000);
+        this.startValue = Color.toRGB(0xFFFFFF);
+        this.endValue = Color.toRGB(0xFF0000);
     }
     setMatrix() {
         this.filter.matrix = [
@@ -36,7 +37,7 @@ export default class FlashOnDamage extends BaseComponent {
         }
 
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+            this.gameObject.gameView.view.tint = Color.rgbToColor(this.startValue);
             //this.gameObject.gameView.view.skew.set(0.65, -0.3);
 
             //this.gameObject.gameView.view.filters = []
@@ -58,7 +59,7 @@ export default class FlashOnDamage extends BaseComponent {
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.gameObject.gameView.view.tint = this.rgbToColor(this.endValue);
+            this.gameObject.gameView.view.tint = Color.rgbToColor(this.endValue);
         }
     }
     update(delta) {
@@ -74,11 +75,11 @@ export default class FlashOnDamage extends BaseComponent {
             this.currentRGB.g = Math.floor(this.intensity * (this.endValue.g - this.startValue.g) + this.startValue.g);
             this.currentRGB.b = Math.floor(this.intensity * (this.endValue.b - this.startValue.b) + this.startValue.b);
     
-            this.currentValue = this.rgbToColor(this.currentRGB);
+            this.currentValue = Color.rgbToColor(this.currentRGB);
 
             if (this.flashCurrentTime <= 0) {
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
-                    this.gameObject.gameView.view.tint = this.rgbToColor(this.startValue);
+                    this.gameObject.gameView.view.tint = Color.rgbToColor(this.startValue);
                 }
             }else{
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
@@ -89,19 +90,6 @@ export default class FlashOnDamage extends BaseComponent {
     }
 
 
-    toRGB(rgb) {
-        var r = rgb >> 16 & 0xFF;
-        var g = rgb >> 8 & 0xFF;
-        var b = rgb & 0xFF;
-        return {
-            r: r,
-            g: g,
-            b: b
-        };
-    }
-    rgbToColor(color) {
-        return color.r << 16 | color.g << 8 | color.b;
-    }
     easeOutBack(x) {
         const c1 = 1.70158;
         const c3 = c1 + 1;

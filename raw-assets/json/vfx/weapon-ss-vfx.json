@@ -29,7 +29,7 @@
         "lifeSpan": 99999,
         "addZero": false,
         "anchor": {
-            "x": 0.5,
+            "x": 0.1,
             "y": 0.5
         },
         "loop": false

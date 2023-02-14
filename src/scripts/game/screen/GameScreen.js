@@ -327,7 +327,7 @@ window.ENGINE = this.gameEngine;
     }
     update(delta) {
         delta *= this.debug.timeScale;
-        this.gameManager.update(delta)
+        this.gameManager.update(delta * Eugine.TimeScale)
         this.gameEngine.update(delta)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length

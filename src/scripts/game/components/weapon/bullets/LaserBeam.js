@@ -33,14 +33,15 @@ export default class LaserBeam extends Bullet {
 
     }
     onSensorCollisionEnter(collided) {
+        if (collided.dying) return;
         this.collisionEnter(collided)
 
-        console.log("onSensorCollisionEnter")
+        //console.log("onSensorCollisionEnter",collided)
 
     }
     update(delta) {
-        
-        let origin = this.originPosition ;
+
+        let origin = this.originPosition;
         let end;
         this.beamDistance = Utils.lerp(this.beamDistance, this.weapon.weaponAttributes.detectionZone / 2, 0.1)
         if (this.fromWeapon) {
@@ -56,7 +57,7 @@ export default class LaserBeam extends Bullet {
             this.beam.x = this.source.transform.position.x + Math.cos(this.angle) * this.beamDistance
             this.beam.z = this.source.transform.position.z + Math.sin(this.angle) * this.beamDistance
 
-            this.beam.updateBeam(origin,this.beamDistance);
+            this.beam.updateBeam(origin, this.beamDistance);
 
 
 
@@ -70,7 +71,7 @@ export default class LaserBeam extends Bullet {
             this.beam.x = this.transform.position.x + Math.cos(this.angle) * this.beamDistance
             this.beam.z = this.transform.position.z + Math.sin(this.angle) * this.beamDistance
 
-            this.beam.updateBeam(origin,this.beamDistance);
+            this.beam.updateBeam(origin, this.beamDistance);
 
         }
 

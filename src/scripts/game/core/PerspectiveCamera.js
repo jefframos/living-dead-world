@@ -67,25 +67,40 @@ export default class PerspectiveCamera extends Camera {
         entity.gameView.view.y = entity.transform.position.z + entity.viewOffset.y + entity.transform.position.y
     }
     onRender() {
-        this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
-            element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
-            element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
-            //this.transformView(element)
-        });
 
-        this.renderModule.layers[RenderModule.RenderLayers.Shadow].gameViews.forEach(element => {
-            if (element.gameObject) {
-                element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
-                element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+        for (const key in this.renderModule.layers) {
+            if (Object.hasOwnProperty.call(this.renderModule.layers, key)) {
+                const layer = this.renderModule.layers[key];
+                if(layer.cameraUpdate){
+                    layer.gameViews.forEach(element => {
+                        if (element.gameObject) {
+                            element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+                            element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+                        }
+                    });
+                }
             }
-        });
+        }
+       
+        // this.renderModule.layers[RenderModule.RenderLayers.Gameplay].gameViews.forEach(element => {
+        //     element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+        //     element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+        //     //this.transformView(element)
+        // });
 
-        this.renderModule.layers[RenderModule.RenderLayers.Base].gameViews.forEach(element => {
-            if (element.gameObject) {
-                element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
-                element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
-            }
-        });
+        // this.renderModule.layers[RenderModule.RenderLayers.Shadow].gameViews.forEach(element => {
+        //     if (element.gameObject) {
+        //         element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+        //         element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+        //     }
+        // });
+
+        // this.renderModule.layers[RenderModule.RenderLayers.Base].gameViews.forEach(element => {
+        //     if (element.gameObject) {
+        //         element.view.x = element.gameObject.transform.position.x + element.viewOffset.x
+        //         element.view.y = element.gameObject.transform.position.z + element.viewOffset.y + element.gameObject.transform.position.y
+        //     }
+        // });
     }
     transformView(gameView) {
         //console.log(gameView.gameObject)

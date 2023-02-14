@@ -12,6 +12,7 @@ export default class Health extends BaseComponent {
         this.gotKilledParticles = new signals.Signal();
     }
     get isDead() { return this.currentHealth <= 0 }
+    get normal() { return Math.max(0, this.currentHealth / this.standrdHealth) }
     reset() {
         this.currentHealth = this.standrdHealth;
     }
@@ -28,7 +29,7 @@ export default class Health extends BaseComponent {
         this.gotDamaged.dispatch(this, value);
         this.currentHealth -= value;
         if (this.currentHealth <= 0) {
-            if(this.gameObject.isPlayer){
+            if (this.gameObject.isPlayer) {
                 console.log('KILL PLAYER')
             }
             this.gotKilled.dispatch(this);

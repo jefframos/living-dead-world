@@ -1,4 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
+import EntityLifebar from "../components/ui/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
@@ -63,6 +64,13 @@ export default class Player extends GameAgent {
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
+
+        this.lifeBar = this.engine.poolGameObject(EntityLifebar)
+        this.addChild(this.lifeBar)
+        this.lifeBar.build(30,4,2);
+
+
+
         this.speed = 100
 
 
@@ -85,6 +93,7 @@ export default class Player extends GameAgent {
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
+        
         this.framesAfterStart = 0;
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
@@ -149,6 +158,9 @@ export default class Player extends GameAgent {
         super.die();
 
         Player.Deaths++;
+    }
+    damage(value){
+        super.damage(value);
     }
     start() {
         this.input = this.engine.findByType(InputModule)

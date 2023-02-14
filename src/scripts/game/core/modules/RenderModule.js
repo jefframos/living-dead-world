@@ -5,13 +5,14 @@ import signals from "signals";
 
 export default class RenderModule extends GameObject {
     static RenderLayers = {
-        Base: 'base',
-        Debug: 'debug',
-        Shadow: '_p_shadow',
+        Base: '_u_base',
+        Debug: '_u_debug',
+        Shadow: '_u__p_shadow',
         Default: '_n_default',
         Floor: '_p_floor',
         Building: 'building',
-        Gameplay: 'gameplay',
+        Gameplay: '_u_gameplay',
+        FrontLayer: '_u_front',
         Particles: 'particles'
     }
     static UILayer = 'UI';
@@ -29,6 +30,7 @@ export default class RenderModule extends GameObject {
             const element = RenderModule.RenderLayers[key];
             let container = null;
             let sortable = element.indexOf('_n_') < 0;
+            let cameraUpdate = element.indexOf('_u_') >= 0;
             if (element.indexOf('_p_') >= 0) {
                 container = new PIXI.ParticleContainer(800, { tint: true });
                 sortable = false;
@@ -37,6 +39,7 @@ export default class RenderModule extends GameObject {
             }
 
             let layer = new Layer(element, container, sortable)
+            layer.cameraUpdate = cameraUpdate;
             this.container.addChild(layer.container)
             this.layers[element] = layer;
             this.layersArray.push(layer)

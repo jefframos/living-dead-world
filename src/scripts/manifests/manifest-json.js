@@ -60,32 +60,32 @@ const assets = [
 	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"effects-descriptors",
-	"url":"assets/json\\vfx\\effects-descriptors.json"
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
-	"id":"entity-particle-descriptor",
-	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
+	"id":"effects-descriptors",
+	"url":"assets/json\\vfx\\effects-descriptors.json"
 	},
 	{
 	"id":"entity-ss-vfx",
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
-	"id":"weapon-ss-vfx-packs",
-	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
+	"id":"entity-particle-descriptor",
+	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
 	},
 	{
 	"id":"vfx-behaviours",
 	"url":"assets/json\\vfx\\vfx-behaviours.json"
 	},
 	{
-	"id":"weapon-ss-vfx",
-	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	"id":"weapon-ss-vfx-packs",
+	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
+	"id":"weapon-ss-vfx",
+	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
 	},
 	{
 	"id":"mainWeapons",

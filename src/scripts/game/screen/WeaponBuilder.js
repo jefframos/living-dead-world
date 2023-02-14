@@ -206,7 +206,8 @@ export default class WeaponBuilder {
             viewOffset: vfxPackData.viewOffset,
             scale: vfxPackData.scale,
             targetLayer: vfxPackData.targetLayer,
-            lockRotation: vfxPackData.lockRotation
+            lockRotation: vfxPackData.lockRotation,
+            color:vfxPackData.color
         }
         let spriteSheetParams = GameStaticData.instance.getDataById('vfx', 'weaponVFX', vfxPackData.vfxData)
         if (!spriteSheetParams) {
