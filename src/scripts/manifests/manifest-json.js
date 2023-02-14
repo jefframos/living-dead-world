@@ -24,12 +24,12 @@ const assets = [
 	"url":"assets/json\\localization_FR.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_KO",
@@ -44,12 +44,12 @@ const assets = [
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
+	},
+	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
 	},
 	{
 	"id":"modifyers",
@@ -64,20 +64,20 @@ const assets = [
 	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
-	"id":"effects-descriptors",
-	"url":"assets/json\\vfx\\effects-descriptors.json"
-	},
-	{
-	"id":"entity-ss-vfx",
-	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
 	"id":"entity-particle-descriptor",
 	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
 	},
 	{
+	"id":"effects-descriptors",
+	"url":"assets/json\\vfx\\effects-descriptors.json"
+	},
+	{
 	"id":"vfx-behaviours",
 	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
+	"id":"entity-ss-vfx",
+	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
 	"id":"weapon-ss-vfx-packs",

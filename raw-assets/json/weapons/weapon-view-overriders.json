@@ -44,9 +44,6 @@
     {
         "id": "DISC_TRHOWER",
         "viewData": "hit-j2",
-        "viewOffset": {
-            "y": -20
-        },
         "rotationSpeed": 60
     },
     {
