@@ -36,6 +36,7 @@ export default class WeaponInGameView extends BaseComponent {
             spring.default = sprite.scale.y;
             spring.x = sprite.scale.y;
             spring.tx = sprite.scale.y;
+            sprite.visible = false;
             this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring })
 
         }
@@ -54,6 +55,8 @@ export default class WeaponInGameView extends BaseComponent {
             spriteElement.targetAngle = element.angle;
             spriteElement.spring.x = 0.15 * spriteElement.spring.default;
             spriteElement.spring.tx = spriteElement.spring.default;
+
+            spriteElement.sprite.visible = true;
         }
     }
     calcAngle() {

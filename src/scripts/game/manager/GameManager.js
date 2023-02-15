@@ -22,11 +22,11 @@ export default class GameManager {
             Phase: 0,
             Time: 0,
         }
-         window.gameplayFolder.add(this.gameManagerStats, 'GMtotalGameObjects').listen();
-         window.gameplayFolder.add(this.gameManagerStats, 'GMenemiesDeaths').listen();
+        window.gameplayFolder.add(this.gameManagerStats, 'GMtotalGameObjects').listen();
+        window.gameplayFolder.add(this.gameManagerStats, 'GMenemiesDeaths').listen();
 
-         window.gameplayFolder.add(this.gameManagerStats, 'Phase').listen();
-         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
+        window.gameplayFolder.add(this.gameManagerStats, 'Phase').listen();
+        window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
 
@@ -202,19 +202,16 @@ export default class GameManager {
 
         return this.activeEnemies[closest];
     }
-    angleFromPlayer(point){
+    angleFromPlayer(point) {
         return Vector3.atan2XZ(point, this.player.transform.position);
     }
-    distanceFromPlayer(point){
+    distanceFromPlayer(point) {
         return Vector3.distance(point, this.player.transform.position);
     }
     update(delta) {
         if (!this.init) {
             return;
         }
-        this.gameplayTime += delta;
-
-        this.gameManagerStats.Time = this.gameplayTime
 
         if (this.gameplayTime > 0) {
             this.updateLevelPhase();
@@ -222,8 +219,15 @@ export default class GameManager {
         this.gameManagerStats.Phase = this.currentPhase
     }
 
+    lateUpdate(delta) {
+        this.gameplayTime += delta;
+
+        this.gameManagerStats.Time = this.gameplayTime
+
+    }
+
     updateLevelPhase() {
-        if(window.noEnemy) return;
+        if (window.noEnemy) return;
         let phase = this.levelStructure.phases[this.currentPhase];
         if (this.gameplayTime > phase.duration && this.currentPhase < this.levelStructure.phases.length - 1) {
             this.currentPhase++
@@ -231,8 +235,8 @@ export default class GameManager {
         }
         phase.spawnData.forEach(spawnerData => {
             let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnerData.id)
-            if(!enemyData){
-                console.log('No enemy data',spawnerData);
+            if (!enemyData) {
+                console.log('No enemy data', spawnerData);
                 return;
             }
             if (!this.entitiesByType[enemyData.id] ||

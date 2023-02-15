@@ -15,7 +15,7 @@ export default class GameAgent extends PhysicsEntity {
         this.dying = false;
         this.staticData = {};
         this.currentEnemiesColliding = [];
-
+        this.invencibleSpawnTime = 0;
 
         if (debug) {
             this.setDebug(15)
@@ -38,6 +38,9 @@ export default class GameAgent extends PhysicsEntity {
     }
 
     damage(value) {
+        if(this.invencibleSpawnTime > 0){
+            return this.health.currentHealth;
+        }
         EffectsManager.instance.popDamage(this, value)
         this.playVfx('onHit')
         return this.health.damage(value);
@@ -66,6 +69,7 @@ export default class GameAgent extends PhysicsEntity {
     build() {
         super.build();
 
+        this.invencibleSpawnTime = 0.5;
 
         this.health = this.addComponent(Health)
         this.health.removeAllSignals();
@@ -86,30 +90,16 @@ export default class GameAgent extends PhysicsEntity {
     }
     update(delta) {
         super.update(delta);
-        this.gameView.update(delta)
-        // if (this.view.init) {
-        //     this.view.setLayer(this.calcFrame())
-        //     this.view.update(delta)
-        // }
+        if(this.invencibleSpawnTime > 0){
+            this.invencibleSpawnTime -= delta;
+        }
     }
-    injectAnimations(animations, flipped) {
-        animations.forEach(element => {
-            for (let index = this.totalDirections; index >= 1; index--) {
-                let angId = Math.round(index * ((flipped ? 180 : 360) / this.totalDirections))
-                this.view.addLayer(element.id, this.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop)
-            }
-        });
-
-        this.view.setLayer(0)
-        this.view.randomStartFrame();
-    }
+  
     onRender() {
     }
     destroy() {
         if (this.isDestroyed) return;
         super.destroy();
-
-        //this.view.visible = false;
     }
 
     calcFrame() {

@@ -62,7 +62,7 @@ export default class GameScreen extends Screen {
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
 
         this.gameEngine = new Eugine();
-window.ENGINE = this.gameEngine;
+        window.ENGINE = this.gameEngine;
 
         this.worldTestContainer = new PIXI.Container();
         //this.worldManager = new WorldManager(this.worldTestContainer)
@@ -120,16 +120,16 @@ window.ENGINE = this.gameEngine;
                 this.effectsManager.testParticles(this.player);
             }
         }
-         window.gameplayFolder.add(this.debug, 'timeScale', 0.1, 10);
-         window.gameplayFolder.add(this.debug, 'enemiesPool').listen();
-         window.gameplayFolder.add(this.debug, 'bulletsPool').listen();
-         window.gameplayFolder.add(this.debug, 'REMOVE_ENEMIES');
-         window.gameplayFolder.add(this.debug, 'ADD_ENEMIES');
-         window.gameplayFolder.add(this.debug, 'ADD_ONE_ENEMY');
-         window.gameplayFolder.add(this.debug, 'RESPAWN');
-         window.gameplayFolder.add(this.debug, 'DAMAGE_PLAYER');
-         window.gameplayFolder.add(this.debug, 'KILL_ALL_ENEMIES');
-         window.gameplayFolder.add(this.debug, 'BLOOD_SPLAT');
+        window.gameplayFolder.add(this.debug, 'timeScale', 0.1, 10);
+        window.gameplayFolder.add(this.debug, 'enemiesPool').listen();
+        window.gameplayFolder.add(this.debug, 'bulletsPool').listen();
+        window.gameplayFolder.add(this.debug, 'REMOVE_ENEMIES');
+        window.gameplayFolder.add(this.debug, 'ADD_ENEMIES');
+        window.gameplayFolder.add(this.debug, 'ADD_ONE_ENEMY');
+        window.gameplayFolder.add(this.debug, 'RESPAWN');
+        window.gameplayFolder.add(this.debug, 'DAMAGE_PLAYER');
+        window.gameplayFolder.add(this.debug, 'KILL_ALL_ENEMIES');
+        window.gameplayFolder.add(this.debug, 'BLOOD_SPLAT');
 
         //window.GUI.close()
 
@@ -232,7 +232,7 @@ window.ENGINE = this.gameEngine;
     }
     spawnPlayer() {
 
-        console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
+        //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
@@ -329,6 +329,7 @@ window.ENGINE = this.gameEngine;
         delta *= this.debug.timeScale;
         this.gameManager.update(delta * Eugine.TimeScale)
         this.gameEngine.update(delta)
+        this.gameManager.lateUpdate(delta * Eugine.TimeScale)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
@@ -340,7 +341,7 @@ window.ENGINE = this.gameEngine;
             if (this.touchAxisInput.angle) {
             }
             this.inputModule.direction = this.touchAxisInput.angle
-            this.touchAxisInput.visible = true;
+            this.touchAxisInput.visible = Eugine.TimeScale > 0;
         } else {
             this.touchAxisInput.visible = false;
         }

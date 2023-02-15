@@ -17,8 +17,7 @@ import ZombieWalk from "../components/ZombieWalk";
 export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
-        this.gameView.view = new PIXI.Sprite()
-
+        this.gameView.view = new PIXI.Sprite()        
     }
     build(enemyData) {
         super.build();

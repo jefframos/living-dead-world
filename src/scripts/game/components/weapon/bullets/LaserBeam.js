@@ -33,10 +33,12 @@ export default class LaserBeam extends Bullet {
 
     }
     onSensorCollisionEnter(collided) {
-        if (collided.dying) return;
+      
         this.collisionEnter(collided)
 
-        //console.log("onSensorCollisionEnter",collided)
+        if (collided.dying || collided.destroyed) {
+            this.collisionExit(collided);
+        }
 
     }
     update(delta) {

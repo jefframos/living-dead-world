@@ -5,21 +5,23 @@ import signals from "signals";
 export default class Sensor extends PhysicsEntity {
     constructor() {
         super();
-       // this.view = new PIXI.Sprite.from('tile_0085')
-       
-       this.onTrigger = new signals.Signal();
-       this.onCollisionEnter = new signals.Signal();
-       
-       this.collisionList = []
-       
+        this.onTrigger = new signals.Signal();
+        this.onCollisionEnter = new signals.Signal();
+        this.collisionList = []
+
+        
     }
     build(radius = 50) {
         super.build()
+        this.collisionList = []
         this.buildCircle(0, 0, radius)
         this.rigidBody.isSensor = true;
         this.layerCategory = Layer.Sensor
         this.layerMask = Layer.Enemy - Layer.Player// &! Layer.Environment
 
+    }
+    resetCollisionList(){
+        this.collisionList = []
     }
     collisionExit(collided) {
         var collidedID = this.collisionList.map(function (x) { return x.engineID; }).indexOf(collided.engineID);
@@ -27,8 +29,8 @@ export default class Sensor extends PhysicsEntity {
             this.collisionList.splice(collidedID, 1)
         }
     }
-    collisionStay(collided){
-        if(collided.rigidBody.isStatic) return
+    collisionStay(collided) {
+        if (collided.rigidBody.isStatic) return
         var collidedID = this.collisionList.map(function (x) { return x.engineID; }).indexOf(collided.engineID);
         if (collidedID < 0) {
             this.collisionList.push(collided)
@@ -36,18 +38,18 @@ export default class Sensor extends PhysicsEntity {
         }
     }
     collisionEnter(collided) {
-        if(collided.rigidBody.isStatic) return
+        if (collided.rigidBody.isStatic) return
         var collidedID = this.collisionList.map(function (x) { return x.engineID; }).indexOf(collided.engineID);
         if (collidedID < 0) {
             this.collisionList.push(collided)
         }
         this.onCollisionEnter.dispatch(collided)
     }
-    update(delta, unscaled){
+    update(delta, unscaled) {
         super.update(delta, unscaled)
-        for(var i = this.collisionList.length-1; i >=0;i--){
-            if(this.collisionList[i].dying){
-                this.collisionList.splice(i,1);
+        for (var i = this.collisionList.length - 1; i >= 0; i--) {
+            if (this.collisionList[i].dying || this.collisionList[i].destroyed) {
+                this.collisionList.splice(i, 1);
             }
         }
     }

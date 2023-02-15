@@ -27924,7 +27924,6 @@ var BaseEnemy = function (_GameAgent) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (BaseEnemy.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy)).call(this));
 
         _this.gameView.view = new PIXI.Sprite();
-
         return _this;
     }
 
@@ -28755,14 +28754,18 @@ var GameManager = function () {
             if (!this.init) {
                 return;
             }
-            this.gameplayTime += delta;
-
-            this.gameManagerStats.Time = this.gameplayTime;
 
             if (this.gameplayTime > 0) {
                 this.updateLevelPhase();
             }
             this.gameManagerStats.Phase = this.currentPhase;
+        }
+    }, {
+        key: "lateUpdate",
+        value: function lateUpdate(delta) {
+            this.gameplayTime += delta;
+
+            this.gameManagerStats.Time = this.gameplayTime;
         }
     }, {
         key: "updateLevelPhase",
@@ -43083,6 +43086,7 @@ var GameAgent = function (_PhysicsEntity) {
         _this.dying = false;
         _this.staticData = {};
         _this.currentEnemiesColliding = [];
+        _this.invencibleSpawnTime = 0;
 
         if (debug) {
             _this.setDebug(15);
@@ -43109,6 +43113,9 @@ var GameAgent = function (_PhysicsEntity) {
     }, {
         key: "damage",
         value: function damage(value) {
+            if (this.invencibleSpawnTime > 0) {
+                return this.health.currentHealth;
+            }
             _EffectsManager2.default.instance.popDamage(this, value);
             this.playVfx('onHit');
             return this.health.damage(value);
@@ -43148,6 +43155,8 @@ var GameAgent = function (_PhysicsEntity) {
         value: function build() {
             (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "build", this).call(this);
 
+            this.invencibleSpawnTime = 0.5;
+
             this.health = this.addComponent(_Health2.default);
             this.health.removeAllSignals();
 
@@ -43167,26 +43176,9 @@ var GameAgent = function (_PhysicsEntity) {
         key: "update",
         value: function update(delta) {
             (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "update", this).call(this, delta);
-            this.gameView.update(delta);
-            // if (this.view.init) {
-            //     this.view.setLayer(this.calcFrame())
-            //     this.view.update(delta)
-            // }
-        }
-    }, {
-        key: "injectAnimations",
-        value: function injectAnimations(animations, flipped) {
-            var _this2 = this;
-
-            animations.forEach(function (element) {
-                for (var index = _this2.totalDirections; index >= 1; index--) {
-                    var angId = Math.round(index * ((flipped ? 180 : 360) / _this2.totalDirections));
-                    _this2.view.addLayer(element.id, _this2.characterAnimationID + '_' + element.name + '_' + angId + '_', { min: 0, max: element.frames - 1 }, element.speed, element.loop);
-                }
-            });
-
-            this.view.setLayer(0);
-            this.view.randomStartFrame();
+            if (this.invencibleSpawnTime > 0) {
+                this.invencibleSpawnTime -= delta;
+            }
         }
     }, {
         key: "onRender",
@@ -43196,8 +43188,6 @@ var GameAgent = function (_PhysicsEntity) {
         value: function destroy() {
             if (this.isDestroyed) return;
             (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "destroy", this).call(this);
-
-            //this.view.visible = false;
         }
     }, {
         key: "calcFrame",
@@ -43522,13 +43512,10 @@ var Sensor = function (_PhysicsEntity) {
     function Sensor() {
         (0, _classCallCheck3.default)(this, Sensor);
 
-        // this.view = new PIXI.Sprite.from('tile_0085')
-
         var _this = (0, _possibleConstructorReturn3.default)(this, (Sensor.__proto__ || (0, _getPrototypeOf2.default)(Sensor)).call(this));
 
         _this.onTrigger = new _signals2.default.Signal();
         _this.onCollisionEnter = new _signals2.default.Signal();
-
         _this.collisionList = [];
 
         return _this;
@@ -43540,10 +43527,16 @@ var Sensor = function (_PhysicsEntity) {
             var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 50;
 
             (0, _get3.default)(Sensor.prototype.__proto__ || (0, _getPrototypeOf2.default)(Sensor.prototype), "build", this).call(this);
+            this.collisionList = [];
             this.buildCircle(0, 0, radius);
             this.rigidBody.isSensor = true;
             this.layerCategory = _Layer2.default.Sensor;
             this.layerMask = _Layer2.default.Enemy - _Layer2.default.Player; // &! Layer.Environment
+        }
+    }, {
+        key: "resetCollisionList",
+        value: function resetCollisionList() {
+            this.collisionList = [];
         }
     }, {
         key: "collisionExit",
@@ -43584,7 +43577,7 @@ var Sensor = function (_PhysicsEntity) {
         value: function update(delta, unscaled) {
             (0, _get3.default)(Sensor.prototype.__proto__ || (0, _getPrototypeOf2.default)(Sensor.prototype), "update", this).call(this, delta, unscaled);
             for (var i = this.collisionList.length - 1; i >= 0; i--) {
-                if (this.collisionList[i].dying) {
+                if (this.collisionList[i].dying || this.collisionList[i].destroyed) {
                     this.collisionList.splice(i, 1);
                 }
             }
@@ -77125,7 +77118,7 @@ var GameScreen = function (_Screen) {
         value: function spawnPlayer() {
             var _this2 = this;
 
-            console.log(_Eugine2.default.PhysicsTimeScale, "<--- implement timeScale");
+            //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
             if (this.player && !this.player.isDead) {
                 this.player.destroy();
             }
@@ -77223,6 +77216,7 @@ var GameScreen = function (_Screen) {
             delta *= this.debug.timeScale;
             this.gameManager.update(delta * _Eugine2.default.TimeScale);
             this.gameEngine.update(delta);
+            this.gameManager.lateUpdate(delta * _Eugine2.default.TimeScale);
 
             this.debug.enemiesPool = _Pool2.default.instance.getPool(_BaseEnemy2.default).length;
             this.debug.bulletsPool = _Pool2.default.instance.getPool(_Bullet2.default).length;
@@ -77232,7 +77226,7 @@ var GameScreen = function (_Screen) {
                 this.inputModule.touchAxisDown = this.touchAxisInput.dragging;
                 if (this.touchAxisInput.angle) {}
                 this.inputModule.direction = this.touchAxisInput.angle;
-                this.touchAxisInput.visible = true;
+                this.touchAxisInput.visible = _Eugine2.default.TimeScale > 0;
             } else {
                 this.touchAxisInput.visible = false;
             }
@@ -81162,6 +81156,7 @@ var WeaponInGameView = function (_BaseComponent) {
                 spring.default = sprite.scale.y;
                 spring.x = sprite.scale.y;
                 spring.tx = sprite.scale.y;
+                sprite.visible = false;
                 this.spriteList.push({ sprite: sprite, angle: 0, targetAngle: 0, spring: spring });
             }
 
@@ -81179,6 +81174,8 @@ var WeaponInGameView = function (_BaseComponent) {
                 spriteElement.targetAngle = element.angle;
                 spriteElement.spring.x = 0.15 * spriteElement.spring.default;
                 spriteElement.spring.tx = spriteElement.spring.default;
+
+                spriteElement.sprite.visible = true;
             }
         }
     }, {
@@ -82811,10 +82808,12 @@ var LaserBeam = function (_Bullet) {
     }, {
         key: "onSensorCollisionEnter",
         value: function onSensorCollisionEnter(collided) {
-            if (collided.dying) return;
+
             this.collisionEnter(collided);
 
-            //console.log("onSensorCollisionEnter",collided)
+            if (collided.dying || collided.destroyed) {
+                this.collisionExit(collided);
+            }
         }
     }, {
         key: "update",
@@ -84349,7 +84348,7 @@ var TouchAxisInput = function (_PIXI$Container) {
         _this.onStopDrag = new _signals2.default();
 
         _this.id = Math.random();
-        _this.mainScale = 100 / _this.background.height;
+        _this.mainScale = 150 / _this.background.height;
         _this.scale.set(_this.mainScale);
         _this.maxDist = _this.center.width * 2; //* this.mainScale;
         return _this;
@@ -89795,17 +89794,17 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
@@ -89825,11 +89824,11 @@ var assets = [{
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
-}, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
 }];
 
 exports.default = assets;
@@ -89862,7 +89861,7 @@ module.exports = exports['default'];
 /* 274 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/terrain/terrain.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

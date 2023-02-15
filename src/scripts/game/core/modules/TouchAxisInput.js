@@ -33,7 +33,7 @@ export default class TouchAxisInput extends PIXI.Container {
         this.onStopDrag = new Signals();
 
         this.id = Math.random();
-        this.mainScale = 100 / this.background.height;
+        this.mainScale = 150 / this.background.height;
         this.scale.set(this.mainScale);
         this.maxDist = (this.center.width * 2); //* this.mainScale;
     }
