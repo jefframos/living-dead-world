@@ -1,7 +1,9 @@
 import BaseComponent from '../../core/gameObject/BaseComponent';
+import BaseWeapon from './BaseWeapon';
 import Eugine from '../../core/Eugine';
 import Spring from '../../core/utils/Spring';
 import Utils from '../../core/utils/Utils';
+import WeaponAttributes from '../../data/WeaponAttributes';
 import signals from 'signals';
 
 export default class WeaponInGameView extends BaseComponent {
@@ -19,9 +21,12 @@ export default class WeaponInGameView extends BaseComponent {
     setContainer(container) {
         this.container = container;
     }
-    setData(weapon) {
+    setData(weapon, parent) {
+        this.parent = parent;
         this.weapon = weapon;
-        for (var i = 0; i < weapon.weaponAttributes.amount; i++) {
+
+        let amount = weapon.ingameAmountIconOverrider >= 0 ? weapon.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
+        for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(this.weapon.ingameIcon);
             sprite.anchor.set(0.5)
             sprite.scale.set(Utils.scaleToFit(sprite, 15))
@@ -51,15 +56,35 @@ export default class WeaponInGameView extends BaseComponent {
             spriteElement.spring.tx = spriteElement.spring.default;
         }
     }
+    calcAngle() {
+        if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle) {
+            const totalBullets = this.spriteList.length;
+            for (let index = 0; index < totalBullets; index++) {
+                let facingAng = BaseWeapon.getFacingAngle(this.weapon, this.parent, this.alternateFacing);
+
+                let halfAngle = this.weapon.weaponAttributes.angleOffset * index - (this.weapon.weaponAttributes.angleOffset * (totalBullets - 1) / 2)
+
+                let finalAng = facingAng + halfAngle;
+                if (this.weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards) {
+                    finalAng += Math.PI;
+                }
+                let ang = finalAng + this.weapon.weaponAttributes.angleStart;
+
+                this.spriteList[index].targetAngle = ang;
+            }
+        }
+    }
     update(delta) {
         delta *= Eugine.PhysicsTimeScale;
         for (let index = 0; index < this.currentBulletList.length; index++) {
             if (index >= this.spriteList.length) continue;
+
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
             spriteElement.targetAngle = element.angle;
         }
-
+        this.calcAngle();
+        //console.log(this.parent.shootNormal)
         this.spriteList.forEach(element => {
             element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.2);
             element.spring.update()

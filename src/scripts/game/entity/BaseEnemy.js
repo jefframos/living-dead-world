@@ -1,5 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
-import EntityLifebar from "../components/ui/EntityLifebar";
+import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameStaticData from "../data/GameStaticData";
@@ -17,10 +17,6 @@ import ZombieWalk from "../components/ZombieWalk";
 export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
-        //this.setDebug(15)
-
-        this.enemies = ['cat', 'dog', 'elephant', 'poney', 'rabbit', 'sheep']
-        //this.enemies = ['tile_0122', 'tile_0109','tile_0110','tile_0111','tile_0112','tile_0120','tile_0121','tile_0122','tile_0123','tile_0124']
         this.gameView.view = new PIXI.Sprite()
 
     }

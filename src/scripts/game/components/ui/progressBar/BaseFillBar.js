@@ -1,9 +1,9 @@
-import BaseComponent from "../../core/gameObject/BaseComponent";
-import Color from "../../core/utils/Color";
-import GameObject from "../../core/gameObject/GameObject";
-import GameView from "../../core/view/GameView";
-import RenderModule from "../../core/modules/RenderModule";
-import Utils from "../../core/utils/Utils";
+import BaseComponent from "../../../core/gameObject/BaseComponent";
+import Color from "../../../core/utils/Color";
+import GameObject from "../../../core/gameObject/GameObject";
+import GameView from "../../../core/view/GameView";
+import RenderModule from "../../../core/modules/RenderModule";
+import Utils from "../../../core/utils/Utils";
 
 export default class BaseFillBar extends GameObject {
     constructor() {
@@ -44,6 +44,8 @@ export default class BaseFillBar extends GameObject {
 
         this.maxWidth = 50
         this.maxHeight = 10
+
+        this.offset = { x: 0, y: -50 }
     }
 
     build(width = 50, height = 10, border = 1) {
@@ -51,8 +53,8 @@ export default class BaseFillBar extends GameObject {
         this.maxWidth = width
         this.maxHeight = height
 
-        this.backBar.width = width + border*2
-        this.backBar.height = height + border*2
+        this.backBar.width = width + border * 2
+        this.backBar.height = height + border * 2
 
         this.backBar.x = -border
         this.backBar.y = -border
@@ -61,9 +63,20 @@ export default class BaseFillBar extends GameObject {
         this.fillBar.height = height
 
         this.barContainer.x = -width / 2 - border;
+        this.barNormal = 1;
 
         this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b }
-        this.barNormal = 1;
+        this.fillBar.tint = Color.rgbToColor(this.startValue);
+    }
+    updateView(offset, startColor = 0x8636f0, endColor = 0xFF0000) {
+        this.offset = offset;
+
+        this.barContainer.y = this.offset.y;
+
+        this.startValue = Color.toRGB(startColor);
+        this.endValue = Color.toRGB(endColor);
+
+        this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b }
         this.fillBar.tint = Color.rgbToColor(this.startValue);
     }
     destroy() {
@@ -85,7 +98,7 @@ export default class BaseFillBar extends GameObject {
         this.transform.position.copy(this.parent.transform.position)
     }
 
-    set normal(value){
+    set normal(value) {
         this.barNormal = value;
     }
 }

@@ -1,10 +1,4 @@
-import BaseComponent from "../../core/gameObject/BaseComponent";
 import BaseFillBar from "./BaseFillBar";
-import Color from "../../core/utils/Color";
-import GameObject from "../../core/gameObject/GameObject";
-import GameView from "../../core/view/GameView";
-import RenderModule from "../../core/modules/RenderModule";
-import Utils from "../../core/utils/Utils";
 
 export default class EntityLifebar extends BaseFillBar {
     constructor() {

@@ -1,5 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
-import EntityLifebar from "../components/ui/EntityLifebar";
+import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
@@ -14,6 +14,7 @@ import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
+import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
 
@@ -56,7 +57,7 @@ export default class Player extends GameAgent {
         this.health.reset()
 
         this.currentEnemiesColliding = []
-
+        this.weaponLoadingBars = [];
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -67,10 +68,11 @@ export default class Player extends GameAgent {
 
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         this.addChild(this.lifeBar)
+
         this.lifeBar.build(30,4,2);
+        this.lifeBar.updateView({x:0, y:-50},  0x8636f0,  0xFF0000);
 
-
-
+       
         this.speed = 100
 
 
@@ -116,8 +118,19 @@ export default class Player extends GameAgent {
 
     clearWeapon() {
         for (let index = this.weaponsGameObject.length - 1; index >= 0; index--) {
-            this.weaponsGameObject[index].destroy();
+            if(!this.weaponsGameObject[index].destroyed){
+
+                this.weaponsGameObject[index].destroy();
+            }
         }
+        for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
+            if(!this.weaponLoadingBars[index].destroyed){
+
+                this.weaponLoadingBars[index].destroy();
+            }
+        }
+        this.weaponLoadingBars = [];
+        this.weaponsGameObject = [];
         this.activeWeapons = [];
         this.refreshEquipment();
     }
@@ -141,6 +154,16 @@ export default class Player extends GameAgent {
         this.addChild(weapon)
         this.weaponsGameObject.push(weapon);
         weapon.build(weaponData)
+
+
+        let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
+        this.addChild(weaponTimeBar)
+        weaponTimeBar.build(30,4,2);
+        weaponTimeBar.updateView({x:0, y:-60 - (this.weaponLoadingBars.length * 10)},  0x00FF00,  0x5555FF);
+        weaponTimeBar.setWeapon(weapon);
+
+        this.weaponLoadingBars.push(weaponTimeBar)
+
 
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();

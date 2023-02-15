@@ -12,8 +12,8 @@ export default class PlayerInventorySlotEquipView extends PIXI.Container {
 
         this.cardBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(config.assets.bars.background), 20, 20, 20, 20);
         this.addChild(this.cardBackground);
-        this.cardBackground.width = 50
-        this.cardBackground.height = 50
+        this.cardBackground.width = 20
+        this.cardBackground.height = 20
 
         this.cardImage = new PIXI.Sprite();
 
@@ -27,6 +27,7 @@ export default class PlayerInventorySlotEquipView extends PIXI.Container {
 
         this.text = new PIXI.Text('', window.LABELS.LABEL1)
         this.addChild(this.text)
+        this.text.style.fontSize = 14
         this.text.anchor.set(0, 0.5)
         this.text.x = this.cardBackground.width + 10
         this.text.y = this.cardBackground.height / 2;
@@ -34,9 +35,8 @@ export default class PlayerInventorySlotEquipView extends PIXI.Container {
     }
 
     registerItem(weaponData, isMaster) {
-        console.log(weaponData)
         this.cardImage.texture = PIXI.Texture.from(weaponData.icon)
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 30))
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 15))
         this.text.text = weaponData.name
         if(isMaster){
             this.cardBackground.texture = PIXI.Texture.from(config.assets.bars.extra)

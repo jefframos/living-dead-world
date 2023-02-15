@@ -21,6 +21,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.activeProjectiles = []
         this.currentEnemiesColliding = []
         this.currentShootTimer = 0;
+        this.realShootTimer = 0;
         this.alternateFacing = 1;
         this.bulletAccum = 0;
         this.weaponData = null;
@@ -96,13 +97,14 @@ export default class BaseWeapon extends PhysicsEntity {
         if(this.weaponData.ingameIcon){
             this.inGameView = this.addComponent(WeaponInGameView);
             this.inGameView.setContainer(this.gameView.view);
-            this.inGameView.setData(this.weaponData);
+            this.inGameView.setData(this.weaponData, this);
         }
 
         this.resetBrust();
 
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
         this.currentShootTimer = this.shootFrequency * 0.1
+        this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
 
@@ -129,6 +131,9 @@ export default class BaseWeapon extends PhysicsEntity {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
+    calcShootAngle(){
+        
+    }
     shoot(customWeapon, customParent) {
 
         let weapon = customWeapon ? customWeapon : this.weaponData
@@ -150,8 +155,11 @@ export default class BaseWeapon extends PhysicsEntity {
                     this.currentShootTimer = this.shootFrequency;
                     this.resetBrust();
                 }
+                this.realShootTimer = 0;
             } else {
                 this.currentShootTimer = this.shootFrequency;
+
+                this.realShootTimer = this.currentShootTimer;
             }
             this.alternateFacing *= -1;
         }
@@ -217,7 +225,7 @@ export default class BaseWeapon extends PhysicsEntity {
                     facingAng = parentGameObject.angle;
                 }
 
-                bullet.shoot(facingAng + halfAngle + angleNoise, Math.abs(this.parent.physics.velocity.x))
+                bullet.shoot(facingAng + halfAngle + angleNoise + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
             } else {
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
                 let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
@@ -230,7 +238,7 @@ export default class BaseWeapon extends PhysicsEntity {
                 if( weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards){
                     finalAng += Math.PI;
                 }
-                bullet.shoot(finalAng, Math.abs(this.parent.physics.velocity.x))
+                bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
 
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20+ Math.cos(finalAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * 20);
             }
@@ -265,9 +273,14 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         if (this.currentShootTimer > 0) {
-            this.currentShootTimer -= delta;
+            this.currentShootTimer -= delta;            
         } else {
             this.shoot();
+        }
+
+        
+        if(this.brustFire.amount == this.weaponData.weaponAttributes.brustFireAmount){
+            this.realShootTimer = this.currentShootTimer;
         }
 
         for (let index = this.activeProjectiles.length - 1; index >= 0; index--) {
@@ -277,6 +290,12 @@ export default class BaseWeapon extends PhysicsEntity {
             }
 
         }
+    }
+    get shootNormal(){
+        return 1 - this.realShootTimer / this.shootFrequency;
+    }
+    get shootNormalWithBrust(){
+        return 1 - this.currentShootTimer / this.shootFrequency;
     }
     destroy() {
         super.destroy();

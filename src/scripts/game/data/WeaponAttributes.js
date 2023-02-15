@@ -32,20 +32,20 @@
 
 export default class WeaponAttributes {
     static BlockType = {
-        IgnoreEnemyBullets:'IgnoreEnemyBullets',
-        DestroyEnemyBullets:'DestroyEnemyBullets',
-        DestroyEnemyBulletsAndDie:'DestroyEnemyBulletsAndDie'
+        IgnoreEnemyBullets: 'IgnoreEnemyBullets',
+        DestroyEnemyBullets: 'DestroyEnemyBullets',
+        DestroyEnemyBulletsAndDie: 'DestroyEnemyBulletsAndDie'
     }
     static DirectionType = {
-        FacingPlayer:'FacingPlayer',
-        ClosestEnemy:'ClosestEnemy',
-        AngularSequence:'AngularSequence',
-        FacingAlternated:'FacingAlternated',
-        FacingBackwards:'FacingBackwards',
-        ParentAngle:'ParentAngle',
-        Hoaming:'Hoaming',
-        ClosestEnemySnap:'ClosestEnemySnap',
-        Random:'Random'
+        FacingPlayer: 'FacingPlayer',
+        ClosestEnemy: 'ClosestEnemy',
+        AngularSequence: 'AngularSequence',
+        FacingAlternated: 'FacingAlternated',
+        FacingBackwards: 'FacingBackwards',
+        ParentAngle: 'ParentAngle',
+        Hoaming: 'Hoaming',
+        ClosestEnemySnap: 'ClosestEnemySnap',
+        Random: 'Random'
     }
     static ExtendedBehaviour = {
         None: 0,
@@ -68,56 +68,67 @@ export default class WeaponAttributes {
         this.baseDamageOverTime = 3;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
-        
-        
+
+
         this.baseBrustFire = {
-            amount:0,
-            interval:0
+            amount: 0,
+            interval: 0
         };
         this.baseExtendedBehaviour = WeaponAttributes.ExtendedBehaviour.None;
         this.baseBrustFireAmount = 0;
         this.baseBrustFireInterval = 0;
         this.baseBaseShootArc = 0;
         this.baseGeneralOffset = 0;
+        this.baseAngleStart = 0;
         this.baseAngleOffset = 0.1;
         this.baseAngleNoise = 0.1;
         this.baseForceField = false;
         this.baseForceFeedback = 5;
 
+        this.level = 1;
+
         this.overrider = null;
     }
-    makeOverrider(){
+    makeOverrider() {
         this.overrider = this.clone();
         this.overrider.isMain = false;
     }
-    findAttributeValue(att){
-        return this.isMain ? this[att] : this.overrider[att]
+    findAttributeValue(att) {
+        const attribute = this.isMain ? this[att] : this.overrider[att]
+        if (Array.isArray(attribute)) {
+            const level = Math.min(this.level, attribute.length - 1)
+            return attribute[level]
+        }
+        return attribute
     }
-    get brustFireInterval(){
+    get brustFireInterval() {
         return this.findAttributeValue('baseBrustFireInterval')//this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire
     }
-    get brustFireAmount(){
+    get brustFireAmount() {
         return this.findAttributeValue('baseBrustFireAmount')//this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire
     }
     get extendedBehaviour() {
         return this.findAttributeValue('baseExtendedBehaviour')//this.isMain ? this.baseExtendedBehaviour : this.overrider.baseExtendedBehaviour
     }
-    get baseShootArc(){
+    get baseShootArc() {
         return this.findAttributeValue('baseBaseShootArc')//this.isMain ? this.baseBaseShootArc : this.overrider.baseBaseShootArc
     }
-    get generalOffset(){
+    get generalOffset() {
         return this.findAttributeValue('baseGeneralOffset')//this.isMain ? this.baseGeneralOffset : this.overrider.baseGeneralOffset
+    }    
+    get angleStart() {
+        return this.findAttributeValue('baseAngleStart')//this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset
     }
-    get angleOffset(){
+    get angleOffset() {
         return this.findAttributeValue('baseAngleOffset')//this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset
     }
-    get angleNoise(){
+    get angleNoise() {
         return this.findAttributeValue('baseAngleNoise')//this.isMain ? this.baseAngleNoise : this.overrider.baseAngleNoise
     }
-    get forceField(){
+    get forceField() {
         return this.findAttributeValue('baseForceField')//this.isMain ? this.baseForceField : this.overrider.baseForceField
     }
-    get forceFeedback(){
+    get forceFeedback() {
         return this.findAttributeValue('baseForceFeedback')//this.isMain ? this.baseForceFeedback : this.overrider.baseForceFeedback
     }
     get range() {

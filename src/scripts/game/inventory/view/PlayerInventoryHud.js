@@ -56,7 +56,7 @@ export default class PlayerInventoryHud extends PIXI.Container {
         line.anchorX = 0
 
         list.addElement(line)
-        list.h += 50;
+        list.h += 25;
 
         if (weapon.onDestroyWeapon.length > 0) {
             this.addLine(weapon.onDestroyWeapon[weapon.onDestroyWeapon.length - 1], false, list)
