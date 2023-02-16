@@ -33,6 +33,8 @@ export default class GameViewSpriteSheet extends BaseComponent {
                 this.spriteSheet.addLayer(key, element.spriteName, element.params);                
             }
         }
+
+        this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
     }
     update(delta) {
         if(!this.spriteSheet){
@@ -41,6 +43,7 @@ export default class GameViewSpriteSheet extends BaseComponent {
         this.spriteSheet.update(delta);
         if(this.spriteSheet.currentFrame){
             this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
+            this.view.anchor = this.spriteSheet.anchor;
         }
 
         if (this.gameObject.physics.magnitude > 0) {

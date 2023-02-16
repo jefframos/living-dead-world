@@ -22669,37 +22669,37 @@ var Player = function (_GameAgent) {
             this.layerCategory = _Layer2.default.Player;
             this.layerMask = _Layer2.default.PlayerCollision;
 
+            this.framesAfterStart = 0;
+            var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
+
+            var animData = {};
+            animData[_GameViewSpriteSheet2.default.AnimationType.Idle] = {
+                spriteName: 'tile00',
+                params: {
+                    totalFramesRange: { min: 0, max: 3 }, time: 0.2, loop: true, anchor: { x: 0.3, y: 1 }
+                }
+            };
+            animData[_GameViewSpriteSheet2.default.AnimationType.Running] = {
+                spriteName: 'rtile00',
+                params: {
+                    totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true, anchor: { x: 0.3, y: 1 }
+                }
+            };
+
+            spriteSheet.setData(animData);
+
             this.gameView.view.anchor.set(0.5, 1);
-            this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2);
+            this.gameView.view.scale.set(60 / this.gameView.view.width * this.gameView.view.scale.x);
             this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
             this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
             this.gameView.applyScale();
             this.anchorOffset = 0;
 
             //this.addComponent(FlashOnDamage)
-            this.addComponent(_SpriteJump2.default);
+            this.addComponent(_SpriteJump2.default).jumpHight = 5;
             var spriteFacing = this.addComponent(_SpriteFacing2.default);
             spriteFacing.lerp = 1;
             spriteFacing.startScaleX = -1;
-
-            this.framesAfterStart = 0;
-            var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
-
-            var animData = {};
-            animData[_GameViewSpriteSheet2.default.AnimationType.Idle] = {
-                spriteName: 'knight_idle_anim_f',
-                params: {
-                    totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
-                }
-            };
-            animData[_GameViewSpriteSheet2.default.AnimationType.Running] = {
-                spriteName: 'knight_run_anim_f',
-                params: {
-                    totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
-                }
-            };
-
-            spriteSheet.setData(animData);
         }
     }, {
         key: "clearWeapon",
@@ -27989,7 +27989,7 @@ var BaseEnemy = function (_GameAgent) {
 
             var shadow = this.engine.poolGameObject(_Shadow2.default);
             this.addChild(shadow);
-            shadow.updateScale(scale);
+            //shadow.updateScale(scale);
 
             if (this.viewData.offset) {
                 if (this.viewData.offset.y) {
@@ -43733,9 +43733,11 @@ var SpriteJump = function (_BaseComponent) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (SpriteJump.__proto__ || (0, _getPrototypeOf2.default)(SpriteJump)).call(this));
 
         _this.acc = 0;
-        _this.offsetSin = Math.random() * Math.PI * 2;
+        _this.offsetSin = Math.random() * Math.PI;
         _this.rnd = Math.random();
         _this.jumpHight = 20;
+
+        _this.sinSpeed = 0.8 + Math.random() * 0.2;
         return _this;
     }
 
@@ -43743,7 +43745,7 @@ var SpriteJump = function (_BaseComponent) {
         key: 'enable',
         value: function enable() {
             (0, _get3.default)(SpriteJump.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteJump.prototype), 'enable', this).call(this);
-            this.offsetSin = Math.random() * Math.PI * 2;
+            this.offsetSin = Math.random() * Math.PI;
         }
     }, {
         key: 'update',
@@ -43751,7 +43753,7 @@ var SpriteJump = function (_BaseComponent) {
             delta *= _Eugine2.default.PhysicsTimeScale;
             if (this.gameObject.gameView.view) {
                 if (this.gameObject.physics.magnitude > 0) {
-                    this.offsetSin += delta * 8;
+                    this.offsetSin += delta * 4 * this.sinSpeed;
                     this.offsetSin %= Math.PI;
                 } else {
                     this.offsetSin = utils.lerp(this.offsetSin, 0, 0.5);
@@ -60183,6 +60185,8 @@ var GameViewSpriteSheet = function (_BaseComponent) {
                     this.spriteSheet.addLayer(key, element.spriteName, element.params);
                 }
             }
+
+            this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame);
         }
     }, {
         key: 'update',
@@ -60193,6 +60197,7 @@ var GameViewSpriteSheet = function (_BaseComponent) {
             this.spriteSheet.update(delta);
             if (this.spriteSheet.currentFrame) {
                 this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame);
+                this.view.anchor = this.spriteSheet.anchor;
             }
 
             if (this.gameObject.physics.magnitude > 0) {
@@ -77902,14 +77907,15 @@ var SpriteSheetAnimation = function () {
     }, {
         key: 'addLayer',
         value: function addLayer(state, spriteName) {
-            var param = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false };
+            var param = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } };
 
             var animLayer = {
                 currentAnimationTime: 0,
                 currentFrame: 0,
                 animationFrames: [],
                 frameTime: param.time,
-                loop: param.loop
+                loop: param.loop,
+                anchor: param.anchor || { x: 0.5, y: 1 }
             };
             for (var index = param.totalFramesRange.min; index <= param.totalFramesRange.max; index++) {
                 var id = index;
@@ -77985,6 +77991,11 @@ var SpriteSheetAnimation = function () {
                 return;
             }
             this.updateAnimation(delta);
+        }
+    }, {
+        key: 'anchor',
+        get: function get() {
+            return this.currentAnimation.anchor;
         }
     }, {
         key: 'currentFrame',
@@ -78215,11 +78226,12 @@ var BasicFloorRender = function (_GameObject) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (BasicFloorRender.__proto__ || (0, _getPrototypeOf2.default)(BasicFloorRender)).call(this));
 
         _this.gameView = new _GameView2.default();
-        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 128, 128);
+        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('IndustrialTile_73'), 32, 32);
         _this.gameView.view.anchor.set(0.5);
         _this.gameView.view.tileScale.set(1.5);
         _this.gameView.view.width = 5000;
         _this.gameView.view.height = 5000;
+        _this.gameView.view.alpha = 0.3;
 
         _this.tileSize = 128 * _this.gameView.view.tileScale.x;
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Base;
@@ -89794,17 +89806,23 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
+}, {
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
@@ -89823,12 +89841,6 @@ var assets = [{
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
 }];
 
 exports.default = assets;
@@ -89861,7 +89873,7 @@ module.exports = exports['default'];
 /* 274 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/terrain/terrain.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

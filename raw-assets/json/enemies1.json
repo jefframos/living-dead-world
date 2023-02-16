@@ -1,6 +1,6 @@
 [
     {
-        "id": "GOBLIN_01",
+        "id": "RAT_01",
         "name": "Goblin",
         "description": "Green, greedy, groovy",
         "ranking": 1,
@@ -17,12 +17,12 @@
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
-            "jumpHight": 10,
-            "scale": 1.5
+            "jumpHight": 0,
+            "scale": 2
         },
         "animationData": {
-            "idle": "GOBLIN_IDLE_01",
-            "run": "GOBLIN_RUN_01"
+            "idle": "RAT_01",
+            "run": "RAT_01"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -30,7 +30,7 @@
         }
     },
     {
-        "id": "BAT_01",
+        "id": "BIRD_01",
         "name": "Bat",
         "description": "Green, greedy, groovy",
         "ranking": 1,
@@ -47,11 +47,12 @@
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
-            "jumpHight": 10
+            "jumpHight": 20,
+            "scale": 1.5
         },
         "animationData": {
-            "idle": "BAT_IDLE_01",
-            "run": "BAT_RUN_01"
+            "idle": "BIRD_01",
+            "run": "BIRD_01"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -59,7 +60,7 @@
         }
     },
     {
-        "id": "SLIME_01",
+        "id": "RAT_02",
         "name": "Slime",
         "description": "Green, greedy, groovy",
         "ranking": 1,
@@ -77,15 +78,11 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 0,
-            "offset": {
-                "y": 5
-            },
-            "scale": 1,
-            "zombieWalk": 2
+            "scale": 2
         },
         "animationData": {
-            "idle": "SLIME_IDLE_01",
-            "run": "SLIME_RUN_01"
+            "idle": "RAT_02",
+            "run": "RAT_02"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",

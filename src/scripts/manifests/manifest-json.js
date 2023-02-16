@@ -48,12 +48,12 @@ const assets = [
 	"url":"assets/json\\localization_TR.json"
 	},
 	{
-	"id":"modifyers",
-	"url":"assets/json\\modifyers.json"
-	},
-	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
+	},
+	{
+	"id":"modifyers",
+	"url":"assets/json\\modifyers.json"
 	},
 	{
 	"id":"cards",
@@ -62,6 +62,14 @@ const assets = [
 	{
 	"id":"entity-animation",
 	"url":"assets/json\\animation\\entity-animation.json"
+	},
+	{
+	"id":"mainWeapons",
+	"url":"assets/json\\weapons\\mainWeapons.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	},
 	{
 	"id":"effects-descriptors",
@@ -86,14 +94,6 @@ const assets = [
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
-	},
-	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
-	"id":"mainWeapons",
-	"url":"assets/json\\weapons\\mainWeapons.json"
 	}
 ];
 

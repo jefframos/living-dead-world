@@ -1,7 +1,7 @@
 [
     {
         "id": "ARROW_BASE_01",
-        "viewData": "tile_0131",
+        "viewData": "bullett",
         "viewOffset": {
             "y": -20
         },
@@ -18,7 +18,7 @@
     },
     {
         "id": "DAGGER_BASE_01",
-        "viewData": "tile_0106",
+        "viewData": "bullett",
         "viewOffset": {
             "y": -20
         },
@@ -26,7 +26,7 @@
     },
     {
         "id": "DAGGER_SNIPER_BASE_01",
-        "viewData": "tile_0106",
+        "viewData": "bullett",
         "viewOffset": {
             "y": -20
         },

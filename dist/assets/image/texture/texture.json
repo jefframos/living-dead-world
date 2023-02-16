@@ -23,14 +23,57 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
 	"sourceSize": {"w":128,"h":128}
+},
+"IndustrialTile_11.png":
+{
+	"frame": {"x":1,"y":197,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"IndustrialTile_26.png":
+{
+	"frame": {"x":35,"y":197,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"IndustrialTile_41.png":
+{
+	"frame": {"x":69,"y":197,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"IndustrialTile_65.png":
+{
+	"frame": {"x":103,"y":197,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
+},
+"IndustrialTile_73.png":
+{
+	"frame": {"x":131,"y":1,"w":32,"h":32},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
+	"sourceSize": {"w":32,"h":32}
 }},
+"animations": {
+	"IndustrialTile": ["IndustrialTile_11.png","IndustrialTile_26.png","IndustrialTile_41.png","IndustrialTile_65.png","IndustrialTile_73.png"]
+},
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "texture.png",
 	"format": "RGBA8888",
-	"size": {"w":132,"h":196},
+	"size": {"w":164,"h":230},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:62cb7bbfd15c6d23b3996748d7ac0cf9:6e38e28651e2f8115038d396903b09bd:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:c61dd8e13f542adc2190fa8f695ccc58:36ee2a3b100d62db37d2c97c7df8bbfb:88db1022cd6b660616541d2788fcd4f7$"
 }
 }

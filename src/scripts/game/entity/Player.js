@@ -42,7 +42,7 @@ export default class Player extends GameAgent {
         this.isPlayer = true;
 
 
-       
+
     }
     build(radius = 15) {
 
@@ -69,10 +69,10 @@ export default class Player extends GameAgent {
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         this.addChild(this.lifeBar)
 
-        this.lifeBar.build(30,4,2);
-        this.lifeBar.updateView({x:0, y:-50},  0x8636f0,  0xFF0000);
+        this.lifeBar.build(30, 4, 2);
+        this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
 
-       
+
         this.speed = 100
 
 
@@ -82,49 +82,53 @@ export default class Player extends GameAgent {
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
 
+
+        this.framesAfterStart = 0;
+        let spriteSheet = this.addComponent(GameViewSpriteSheet);
+
+        let animData = {}
+        animData[GameViewSpriteSheet.AnimationType.Idle] = {
+            spriteName: 'tile00',
+            params: {
+                totalFramesRange: { min: 0, max: 3 }, time: 0.2, loop: true, anchor: { x: 0.3, y: 1 }
+            }
+        }
+        animData[GameViewSpriteSheet.AnimationType.Running] = {
+            spriteName: 'rtile00',
+            params: {
+                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true, anchor: { x: 0.3, y: 1 }
+            }
+        }
+
+        spriteSheet.setData(animData);
+        
+
         this.gameView.view.anchor.set(0.5, 1);
-        this.gameView.view.scale.set(15 / this.gameView.view.width * this.gameView.view.scale.x * 2);
+        this.gameView.view.scale.set(60 / this.gameView.view.width * this.gameView.view.scale.x);
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
         this.anchorOffset = 0
 
         //this.addComponent(FlashOnDamage)
-        this.addComponent(SpriteJump)
+        this.addComponent(SpriteJump).jumpHight = 5
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
-        
-        this.framesAfterStart = 0;
-        let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
-        let animData = {}
-        animData[GameViewSpriteSheet.AnimationType.Idle] = {
-            spriteName: 'knight_idle_anim_f',
-            params: {
-                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
-            }
-        }
-        animData[GameViewSpriteSheet.AnimationType.Running] = {
-            spriteName: 'knight_run_anim_f',
-            params: {
-                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true
-            }
-        }
-
-        spriteSheet.setData(animData);
+       
     }
 
     clearWeapon() {
         for (let index = this.weaponsGameObject.length - 1; index >= 0; index--) {
-            if(!this.weaponsGameObject[index].destroyed){
+            if (!this.weaponsGameObject[index].destroyed) {
 
                 this.weaponsGameObject[index].destroy();
             }
         }
         for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
-            if(!this.weaponLoadingBars[index].destroyed){
+            if (!this.weaponLoadingBars[index].destroyed) {
 
                 this.weaponLoadingBars[index].destroy();
             }
@@ -158,8 +162,8 @@ export default class Player extends GameAgent {
 
         let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
         this.addChild(weaponTimeBar)
-        weaponTimeBar.build(30,4,2);
-        weaponTimeBar.updateView({x:0, y:-60 - (this.weaponLoadingBars.length * 10)},  0x00FF00,  0x5555FF);
+        weaponTimeBar.build(30, 4, 2);
+        weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
         weaponTimeBar.setWeapon(weapon);
 
         this.weaponLoadingBars.push(weaponTimeBar)
@@ -182,7 +186,7 @@ export default class Player extends GameAgent {
 
         Player.Deaths++;
     }
-    damage(value){
+    damage(value) {
         super.damage(value);
     }
     start() {

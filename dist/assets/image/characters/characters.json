@@ -1,56 +1,72 @@
 {"frames": {
 
-"cat.png":
+"enemies/bird1/bird1000.png":
 {
-	"frame": {"x":543,"y":1,"w":50,"h":62},
+	"frame": {"x":1,"y":509,"w":28,"h":16},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":62},
-	"sourceSize": {"w":50,"h":62}
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":12,"w":28,"h":16},
+	"sourceSize": {"w":32,"h":32}
 },
-"daddy.png":
+"enemies/bird1/bird1001.png":
 {
-	"frame": {"x":31,"y":1,"w":120,"h":148},
-	"rotated": true,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":120,"h":148},
-	"sourceSize": {"w":120,"h":148}
-},
-"dog.png":
-{
-	"frame": {"x":557,"y":65,"w":50,"h":60},
+	"frame": {"x":1,"y":467,"w":28,"h":20},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":60},
-	"sourceSize": {"w":50,"h":60}
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":9,"w":28,"h":20},
+	"sourceSize": {"w":32,"h":32}
 },
-"elephant.png":
+"enemies/bird1/bird1002.png":
 {
-	"frame": {"x":434,"y":1,"w":55,"h":68},
+	"frame": {"x":31,"y":510,"w":28,"h":15},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":55,"h":68},
-	"sourceSize": {"w":55,"h":68}
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":15,"w":28,"h":15},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/bird1/bird1003.png":
+{
+	"frame": {"x":1,"y":489,"w":28,"h":18},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":12,"w":28,"h":18},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/bird1/bird1004.png":
+{
+	"frame": {"x":31,"y":490,"w":28,"h":18},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":11,"w":28,"h":18},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/bird1/bird1005.png":
+{
+	"frame": {"x":1,"y":527,"w":28,"h":15},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":11,"w":28,"h":15},
+	"sourceSize": {"w":32,"h":32}
 },
 "enemies/flying creature/fly_anim_f0.png":
 {
-	"frame": {"x":307,"y":103,"w":22,"h":20},
-	"rotated": true,
+	"frame": {"x":1,"y":576,"w":22,"h":20},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":5,"w":22,"h":20},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/flying creature/fly_anim_f1.png":
 {
-	"frame": {"x":737,"y":31,"w":26,"h":18},
-	"rotated": true,
+	"frame": {"x":1,"y":556,"w":26,"h":18},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":7,"w":26,"h":18},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/flying creature/fly_anim_f2.png":
 {
-	"frame": {"x":761,"y":1,"w":22,"h":20},
+	"frame": {"x":1,"y":598,"w":22,"h":20},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":7,"w":22,"h":20},
@@ -58,15 +74,15 @@
 },
 "enemies/flying creature/fly_anim_f3.png":
 {
-	"frame": {"x":738,"y":59,"w":26,"h":16},
-	"rotated": true,
+	"frame": {"x":29,"y":567,"w":26,"h":16},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":9,"w":26,"h":16},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/goblin/goblin_idle_anim_f0.png":
 {
-	"frame": {"x":673,"y":1,"w":28,"h":28},
+	"frame": {"x":35,"y":184,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -74,7 +90,7 @@
 },
 "enemies/goblin/goblin_idle_anim_f1.png":
 {
-	"frame": {"x":673,"y":1,"w":28,"h":28},
+	"frame": {"x":35,"y":184,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -82,7 +98,7 @@
 },
 "enemies/goblin/goblin_idle_anim_f2.png":
 {
-	"frame": {"x":677,"y":31,"w":28,"h":26},
+	"frame": {"x":35,"y":334,"w":28,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":28,"h":26},
@@ -90,7 +106,7 @@
 },
 "enemies/goblin/goblin_idle_anim_f3.png":
 {
-	"frame": {"x":707,"y":31,"w":28,"h":26},
+	"frame": {"x":1,"y":411,"w":28,"h":26},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":3,"w":28,"h":26},
@@ -98,7 +114,7 @@
 },
 "enemies/goblin/goblin_idle_anim_f4.png":
 {
-	"frame": {"x":651,"y":59,"w":28,"h":28},
+	"frame": {"x":35,"y":214,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -106,7 +122,7 @@
 },
 "enemies/goblin/goblin_idle_anim_f5.png":
 {
-	"frame": {"x":651,"y":59,"w":28,"h":28},
+	"frame": {"x":35,"y":214,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -114,15 +130,15 @@
 },
 "enemies/goblin/goblin_knife.png":
 {
-	"frame": {"x":761,"y":25,"w":16,"h":20},
-	"rotated": true,
+	"frame": {"x":23,"y":598,"w":16,"h":20},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":7,"w":16,"h":20},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/goblin/goblin_run_anim_f0.png":
 {
-	"frame": {"x":703,"y":1,"w":28,"h":28},
+	"frame": {"x":35,"y":244,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -130,7 +146,7 @@
 },
 "enemies/goblin/goblin_run_anim_f1.png":
 {
-	"frame": {"x":757,"y":43,"w":28,"h":25},
+	"frame": {"x":38,"y":1,"w":28,"h":25},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":28,"h":25},
@@ -138,15 +154,15 @@
 },
 "enemies/goblin/goblin_run_anim_f2.png":
 {
-	"frame": {"x":733,"y":1,"w":28,"h":26},
-	"rotated": true,
+	"frame": {"x":31,"y":412,"w":28,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/goblin/goblin_run_anim_f3.png":
 {
-	"frame": {"x":673,"y":89,"w":28,"h":28},
+	"frame": {"x":35,"y":274,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
@@ -154,7 +170,7 @@
 },
 "enemies/goblin/goblin_run_anim_f4.png":
 {
-	"frame": {"x":711,"y":59,"w":28,"h":25},
+	"frame": {"x":38,"y":31,"w":28,"h":25},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":28,"h":25},
@@ -162,47 +178,111 @@
 },
 "enemies/goblin/goblin_run_anim_f5.png":
 {
-	"frame": {"x":681,"y":59,"w":28,"h":28},
+	"frame": {"x":35,"y":304,"w":28,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":28,"h":28},
 	"sourceSize": {"w":32,"h":32}
 },
+"enemies/rat1/rat000.png":
+{
+	"frame": {"x":1,"y":544,"w":27,"h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":22,"w":27,"h":10},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat1/rat001.png":
+{
+	"frame": {"x":31,"y":527,"w":27,"h":12},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":20,"w":27,"h":12},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat1/rat002.png":
+{
+	"frame": {"x":31,"y":541,"w":27,"h":12},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":20,"w":27,"h":12},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat1/rat003.png":
+{
+	"frame": {"x":30,"y":555,"w":27,"h":10},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":22,"w":27,"h":10},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat2/rat2000.png":
+{
+	"frame": {"x":41,"y":605,"w":20,"h":7},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":25,"w":20,"h":7},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat2/rat2001.png":
+{
+	"frame": {"x":41,"y":585,"w":20,"h":8},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":24,"w":20,"h":8},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat2/rat2002.png":
+{
+	"frame": {"x":41,"y":595,"w":20,"h":8},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":24,"w":20,"h":8},
+	"sourceSize": {"w":32,"h":32}
+},
+"enemies/rat2/rat2003.png":
+{
+	"frame": {"x":41,"y":614,"w":20,"h":7},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":25,"w":20,"h":7},
+	"sourceSize": {"w":32,"h":32}
+},
 "enemies/slime/slime_idle_anim_f0.png":
 {
-	"frame": {"x":329,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":173,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_idle_anim_f1.png":
 {
-	"frame": {"x":329,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":173,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_idle_anim_f2.png":
 {
-	"frame": {"x":357,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":201,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_idle_anim_f3.png":
 {
-	"frame": {"x":357,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":201,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_idle_anim_f4.png":
 {
-	"frame": {"x":385,"y":88,"w":32,"h":24},
+	"frame": {"x":38,"y":61,"w":32,"h":24},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":32,"h":24},
@@ -210,7 +290,7 @@
 },
 "enemies/slime/slime_idle_anim_f5.png":
 {
-	"frame": {"x":385,"y":88,"w":32,"h":24},
+	"frame": {"x":38,"y":61,"w":32,"h":24},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":32,"h":24},
@@ -218,23 +298,23 @@
 },
 "enemies/slime/slime_run_anim_f0.png":
 {
-	"frame": {"x":357,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":201,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_run_anim_f1.png":
 {
-	"frame": {"x":357,"y":89,"w":32,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":201,"w":32,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":5,"w":32,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_run_anim_f2.png":
 {
-	"frame": {"x":181,"y":103,"w":32,"h":22},
+	"frame": {"x":1,"y":311,"w":32,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":9,"w":32,"h":22},
@@ -242,7 +322,7 @@
 },
 "enemies/slime/slime_run_anim_f3.png":
 {
-	"frame": {"x":181,"y":103,"w":32,"h":22},
+	"frame": {"x":1,"y":311,"w":32,"h":22},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":9,"w":32,"h":22},
@@ -250,31 +330,23 @@
 },
 "enemies/slime/slime_run_anim_f4.png":
 {
-	"frame": {"x":411,"y":88,"w":32,"h":24},
-	"rotated": true,
+	"frame": {"x":1,"y":285,"w":32,"h":24},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":32,"h":24},
 	"sourceSize": {"w":32,"h":32}
 },
 "enemies/slime/slime_run_anim_f5.png":
 {
-	"frame": {"x":411,"y":88,"w":32,"h":24},
-	"rotated": true,
+	"frame": {"x":1,"y":285,"w":32,"h":24},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":32,"h":24},
 	"sourceSize": {"w":32,"h":32}
 },
-"george.png":
-{
-	"frame": {"x":609,"y":59,"w":40,"h":41},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":40,"h":41},
-	"sourceSize": {"w":40,"h":41}
-},
 "heroes/knight/knight_idle_anim_f0.png":
 {
-	"frame": {"x":215,"y":103,"w":22,"h":29},
+	"frame": {"x":1,"y":387,"w":22,"h":29},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":0,"w":22,"h":29},
@@ -282,7 +354,7 @@
 },
 "heroes/knight/knight_idle_anim_f1.png":
 {
-	"frame": {"x":215,"y":103,"w":22,"h":29},
+	"frame": {"x":1,"y":387,"w":22,"h":29},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":0,"w":22,"h":29},
@@ -290,7 +362,7 @@
 },
 "heroes/knight/knight_idle_anim_f2.png":
 {
-	"frame": {"x":277,"y":103,"w":22,"h":28},
+	"frame": {"x":31,"y":466,"w":22,"h":28},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":1,"w":22,"h":28},
@@ -298,7 +370,7 @@
 },
 "heroes/knight/knight_idle_anim_f3.png":
 {
-	"frame": {"x":277,"y":103,"w":22,"h":28},
+	"frame": {"x":31,"y":466,"w":22,"h":28},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":1,"w":22,"h":28},
@@ -306,7 +378,7 @@
 },
 "heroes/knight/knight_idle_anim_f4.png":
 {
-	"frame": {"x":246,"y":103,"w":22,"h":29},
+	"frame": {"x":32,"y":388,"w":22,"h":29},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":0,"w":22,"h":29},
@@ -314,7 +386,7 @@
 },
 "heroes/knight/knight_idle_anim_f5.png":
 {
-	"frame": {"x":246,"y":103,"w":22,"h":29},
+	"frame": {"x":32,"y":388,"w":22,"h":29},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":0,"w":22,"h":29},
@@ -322,7 +394,7 @@
 },
 "heroes/knight/knight_run_anim_f0.png":
 {
-	"frame": {"x":609,"y":102,"w":24,"h":30},
+	"frame": {"x":1,"y":335,"w":24,"h":30},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":24,"h":30},
@@ -330,15 +402,15 @@
 },
 "heroes/knight/knight_run_anim_f1.png":
 {
-	"frame": {"x":756,"y":73,"w":26,"h":27},
-	"rotated": false,
+	"frame": {"x":36,"y":130,"w":26,"h":27},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":26,"h":27},
 	"sourceSize": {"w":32,"h":32}
 },
 "heroes/knight/knight_run_anim_f2.png":
 {
-	"frame": {"x":647,"y":33,"w":24,"h":28},
+	"frame": {"x":31,"y":440,"w":24,"h":28},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":24,"h":28},
@@ -346,7 +418,7 @@
 },
 "heroes/knight/knight_run_anim_f3.png":
 {
-	"frame": {"x":641,"y":102,"w":24,"h":30},
+	"frame": {"x":1,"y":361,"w":24,"h":30},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":24,"h":30},
@@ -354,7 +426,7 @@
 },
 "heroes/knight/knight_run_anim_f4.png":
 {
-	"frame": {"x":731,"y":102,"w":24,"h":27},
+	"frame": {"x":36,"y":158,"w":24,"h":27},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":24,"h":27},
@@ -362,101 +434,121 @@
 },
 "heroes/knight/knight_run_anim_f5.png":
 {
-	"frame": {"x":647,"y":1,"w":24,"h":30},
-	"rotated": false,
+	"frame": {"x":33,"y":362,"w":24,"h":30},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":1,"w":24,"h":30},
 	"sourceSize": {"w":32,"h":32}
 },
 "heroes/knight/weapon_sword_1.png":
 {
-	"frame": {"x":703,"y":89,"w":28,"h":26},
-	"rotated": true,
+	"frame": {"x":1,"y":439,"w":28,"h":26},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":3,"w":28,"h":26},
 	"sourceSize": {"w":32,"h":32}
 },
-"knife.png":
+"news/idle/tile000.png":
 {
-	"frame": {"x":1,"y":1,"w":28,"h":123},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":123},
-	"sourceSize": {"w":28,"h":123}
-},
-"momm.png":
-{
-	"frame": {"x":181,"y":1,"w":100,"h":132},
+	"frame": {"x":1,"y":49,"w":21,"h":35},
 	"rotated": true,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":132},
-	"sourceSize": {"w":100,"h":132}
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":13,"w":21,"h":35},
+	"sourceSize": {"w":48,"h":48}
 },
-"peppa.png":
+"news/idle/tile001.png":
 {
-	"frame": {"x":437,"y":71,"w":50,"h":66},
+	"frame": {"x":1,"y":1,"w":22,"h":35},
 	"rotated": true,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":66},
-	"sourceSize": {"w":50,"h":66}
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":13,"w":22,"h":35},
+	"sourceSize": {"w":48,"h":48}
 },
-"peppa1.png":
+"news/idle/tile002.png":
 {
-	"frame": {"x":505,"y":69,"w":50,"h":57},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":57},
-	"sourceSize": {"w":50,"h":57}
+	"frame": {"x":1,"y":25,"w":22,"h":35},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":13,"w":22,"h":35},
+	"sourceSize": {"w":48,"h":48}
 },
-"peppa2.png":
+"news/idle/tile003.png":
 {
-	"frame": {"x":367,"y":1,"w":65,"h":85},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":85},
-	"sourceSize": {"w":65,"h":85}
+	"frame": {"x":1,"y":72,"w":21,"h":35},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":13,"w":21,"h":35},
+	"sourceSize": {"w":48,"h":48}
 },
-"poney.png":
+"news/run/rtile000.png":
 {
-	"frame": {"x":595,"y":1,"w":50,"h":56},
+	"frame": {"x":36,"y":95,"w":27,"h":33},
 	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":56},
-	"sourceSize": {"w":50,"h":56}
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":15,"w":27,"h":33},
+	"sourceSize": {"w":48,"h":48}
 },
-"rabbit.png":
+"news/run/rtile001.png":
 {
-	"frame": {"x":315,"y":1,"w":50,"h":86},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":86},
-	"sourceSize": {"w":50,"h":86}
+	"frame": {"x":1,"y":129,"w":20,"h":33},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":15,"w":20,"h":33},
+	"sourceSize": {"w":48,"h":48}
 },
-"sheep.png":
+"news/run/rtile002.png":
 {
-	"frame": {"x":491,"y":1,"w":50,"h":66},
-	"rotated": false,
-	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":66},
-	"sourceSize": {"w":50,"h":66}
+	"frame": {"x":1,"y":229,"w":26,"h":32},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":16,"w":26,"h":32},
+	"sourceSize": {"w":48,"h":48}
+},
+"news/run/rtile003.png":
+{
+	"frame": {"x":1,"y":95,"w":32,"h":33},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":15,"w":32,"h":33},
+	"sourceSize": {"w":48,"h":48}
+},
+"news/run/rtile004.png":
+{
+	"frame": {"x":1,"y":151,"w":20,"h":33},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":15,"w":20,"h":33},
+	"sourceSize": {"w":48,"h":48}
+},
+"news/run/rtile005.png":
+{
+	"frame": {"x":1,"y":257,"w":26,"h":32},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":2,"y":16,"w":26,"h":32},
+	"sourceSize": {"w":48,"h":48}
 }},
 "animations": {
+	"enemies/bird1/bird": ["enemies/bird1/bird1000.png","enemies/bird1/bird1001.png","enemies/bird1/bird1002.png","enemies/bird1/bird1003.png","enemies/bird1/bird1004.png","enemies/bird1/bird1005.png"],
 	"enemies/flying creature/fly_anim_f": ["enemies/flying creature/fly_anim_f0.png","enemies/flying creature/fly_anim_f1.png","enemies/flying creature/fly_anim_f2.png","enemies/flying creature/fly_anim_f3.png"],
 	"enemies/goblin/goblin_idle_anim_f": ["enemies/goblin/goblin_idle_anim_f0.png","enemies/goblin/goblin_idle_anim_f1.png","enemies/goblin/goblin_idle_anim_f2.png","enemies/goblin/goblin_idle_anim_f3.png","enemies/goblin/goblin_idle_anim_f4.png","enemies/goblin/goblin_idle_anim_f5.png"],
 	"enemies/goblin/goblin_run_anim_f": ["enemies/goblin/goblin_run_anim_f0.png","enemies/goblin/goblin_run_anim_f1.png","enemies/goblin/goblin_run_anim_f2.png","enemies/goblin/goblin_run_anim_f3.png","enemies/goblin/goblin_run_anim_f4.png","enemies/goblin/goblin_run_anim_f5.png"],
+	"enemies/rat1/rat": ["enemies/rat1/rat000.png","enemies/rat1/rat001.png","enemies/rat1/rat002.png","enemies/rat1/rat003.png"],
+	"enemies/rat2/rat": ["enemies/rat2/rat2000.png","enemies/rat2/rat2001.png","enemies/rat2/rat2002.png","enemies/rat2/rat2003.png"],
 	"enemies/slime/slime_idle_anim_f": ["enemies/slime/slime_idle_anim_f0.png","enemies/slime/slime_idle_anim_f1.png","enemies/slime/slime_idle_anim_f2.png","enemies/slime/slime_idle_anim_f3.png","enemies/slime/slime_idle_anim_f4.png","enemies/slime/slime_idle_anim_f5.png"],
 	"enemies/slime/slime_run_anim_f": ["enemies/slime/slime_run_anim_f0.png","enemies/slime/slime_run_anim_f1.png","enemies/slime/slime_run_anim_f2.png","enemies/slime/slime_run_anim_f3.png","enemies/slime/slime_run_anim_f4.png","enemies/slime/slime_run_anim_f5.png"],
 	"heroes/knight/knight_idle_anim_f": ["heroes/knight/knight_idle_anim_f0.png","heroes/knight/knight_idle_anim_f1.png","heroes/knight/knight_idle_anim_f2.png","heroes/knight/knight_idle_anim_f3.png","heroes/knight/knight_idle_anim_f4.png","heroes/knight/knight_idle_anim_f5.png"],
 	"heroes/knight/knight_run_anim_f": ["heroes/knight/knight_run_anim_f0.png","heroes/knight/knight_run_anim_f1.png","heroes/knight/knight_run_anim_f2.png","heroes/knight/knight_run_anim_f3.png","heroes/knight/knight_run_anim_f4.png","heroes/knight/knight_run_anim_f5.png"],
-	"peppa": ["peppa1.png","peppa2.png"]
+	"news/idle/tile": ["news/idle/tile000.png","news/idle/tile001.png","news/idle/tile002.png","news/idle/tile003.png"],
+	"news/run/rtile": ["news/run/rtile000.png","news/run/rtile001.png","news/run/rtile002.png","news/run/rtile003.png","news/run/rtile004.png","news/run/rtile005.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "characters.png",
 	"format": "RGBA8888",
-	"size": {"w":783,"h":127},
+	"size": {"w":64,"h":622},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:14df05054579aa9cc2fcd077f6a23a3b:a162064bf5c1ba02162a511a7c84bc8f:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:f7c4bb92f1914409c8d7eda435c8e14e:80b43b15770b064d2e25b5182bb049ba:a5fe7db4b869eb0f3e0b2940b9577ea8$"
 }
 }

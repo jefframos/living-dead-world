@@ -86,7 +86,7 @@ export default class BaseEnemy extends GameAgent {
 
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);
-        shadow.updateScale(scale);
+        //shadow.updateScale(scale);
 
         if (this.viewData.offset) {
             if (this.viewData.offset.y) {
