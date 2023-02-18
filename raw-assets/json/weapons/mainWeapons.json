@@ -4,6 +4,7 @@
         "isMain": true,
         "icon": "vfx-b1",
         "ingameIcon": "vfx-b1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Aura",
@@ -44,6 +45,7 @@
         "id": "PLAYER_AURA_OVERRIDER",
         "isMain": false,
         "ingameIcon": "vfx-b1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "attributes": {
@@ -57,6 +59,7 @@
         "isMain": true,
         "icon": "cross",
         "ingameIcon": "cross",
+        "ingameBaseWidth": 15,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "CrossShot",
@@ -97,7 +100,8 @@
         "isMain": true,
         "icon": "multi",
         "ingameIcon": "multi",
-        "ingameAmountIconOverrider": -1,
+        "ingameBaseWidth": 15,
+        "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
         "name": "Multishot",
         "weaponType": "Physical",
@@ -111,7 +115,7 @@
             "baseBulletSpeed": 200,
             "baseFrequency": 1,
             "basePiercing": 0,
-            "baseAmount": [3,8],
+            "baseAmount": [3,4],
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 0,
@@ -136,6 +140,7 @@
         "id": "PLAYER_MULTISHOT_OVERRIDER",
         "isMain": false,
         "ingameIcon": "vfx-b1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "attributes": {
@@ -148,6 +153,7 @@
         "isMain": false,
         "icon": "hit-d3",
         "ingameIcon": "tile_0116",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Bomb",
@@ -186,6 +192,7 @@
         "id": "SMALL_BOMB_OVERRIDER",
         "isMain": false,
         "ingameIcon": "vfx-b1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "attributes": {
@@ -195,8 +202,9 @@
     {
         "id": "BOMB_THROWER",
         "isMain": true,
-        "icon": "bombT",
-        "ingameIcon": "bombT",
+        "icon": "flameThrower",
+        "ingameIcon": "flameThrower",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Bomb",
@@ -234,6 +242,7 @@
         "id": "BOMB_THROWER_OVERRIDER",
         "isMain": false,
         "ingameIcon": "vfx-b1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "attributes": {
@@ -242,13 +251,14 @@
         }
     },
     {
-        "id": "DAGGER_THROW",
+        "id": "PISTOL_01",
         "isMain": true,
-        "icon": "tile_0106",
-        "ingameIcon": "tile_0106",
+        "icon": "pistol1",
+        "ingameIcon": "pistol1",
+        "ingameBaseWidth": 15,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
-        "name": "Dagger",
+        "name": "Lame Pistol",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -274,20 +284,22 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "DAGGER_BASE_01"
+                "baseViewData": "PISTOL_BASE_01"
             }
         }
     },
     {
-        "id": "DAGGER_GUN",
+        "id": "SEMI_AUTO_PISTOL_01",
         "isMain": true,
-        "icon": "7_1",
-        "ingameIcon": "7_1",
+        "icon": "pistol6",
+        "ingameIcon": "pistol6",
+        "ingameBaseWidth": 15,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
-        "name": "Dagger Gun",
+        "name": "Semi Auto Pistol",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -313,20 +325,63 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "DAGGER_BASE_01"
+                "baseViewData": "PISTOL_BASE_06"
             }
         }
     },
     {
-        "id": "DAGGER_SHOTGUN",
+        "id": "SUB_MACHINE_GUN_01",
         "isMain": true,
-        "icon": "3_1",
-        "ingameIcon": "3_1",
+        "icon": "submachine1",
+        "ingameIcon": "submachine1",
+        "ingameBaseWidth": 40,
+        "ingameAmountIconOverrider": -1,
+        "inGameRotation": 0,
+        "name": "Sub-Machine Gun",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 250,
+            "basePower": 10,
+            "baseBulletSpeed": 350,
+            "baseFrequency": 4,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 12,
+            "baseBrustFireInterval": 0.15,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0.3
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "SUBMACHINE_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "SHOTGUN_01",
+        "isMain": true,
+        "icon": "shotgun1",
+        "ingameIcon": "shotgun1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
-        "name": "Dagger Shot",
+        "name": "Shotgun",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -340,7 +395,7 @@
             "baseAmount": 4,
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 2,
+            "baseBrustFireAmount": 0,
             "baseBrustFireInterval": 0,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
@@ -352,20 +407,22 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "DAGGER_BASE_01"
+                "baseViewData": "SHOTGUN_BASE_01"
             }
         }
     },
     {
-        "id": "DAGGER_SNIPER",
+        "id": "SNIPER_01",
         "isMain": true,
-        "icon": "sniper",
-        "ingameIcon": "sniper",
+        "icon": "sniper2",
+        "ingameIcon": "sniper2",
+        "ingameBaseWidth": 40,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
-        "name": "Dagger Sniper",
+        "name": "Sniper",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -392,20 +449,22 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "DAGGER_SNIPER_BASE_01"
+                "baseViewData": "SNIPER_BASE_01"
             }
         }
     },
     {
-        "id": "DAGGER_ROTATOR",
+        "id": "MINIGUN_01",
         "isMain": true,
-        "icon": "10_1",
-        "ingameIcon": "10_1",
+        "icon": "minigun",
+        "ingameIcon": "minigun",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
-        "name": "Dagger Rotator",
+        "name": "Minigun",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
@@ -432,6 +491,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
                 "baseViewData": "DAGGER_BASE_01"
@@ -443,6 +503,7 @@
         "isMain": false,
         "icon": "tile_0106",
         "ingameIcon": "tile_0106",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Dagger Rotator Overrider",
@@ -471,6 +532,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
                 "baseViewData": "DAGGER_BASE_01"
@@ -482,6 +544,7 @@
         "isMain": true,
         "icon": "tile_0106",
         "ingameIcon": "tile_0106",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Hoaming",
@@ -523,6 +586,7 @@
         "isMain": true,
         "icon": "tile_0118",
         "ingameIcon": "tile_0118",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Boomerang",
@@ -565,6 +629,7 @@
         "isMain": true,
         "icon": "slash4",
         "ingameIcon": "slash4",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Melee",
@@ -605,6 +670,7 @@
         "isMain": true,
         "icon": "hit-d3",
         "ingameIcon": "hit-d3",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Disk",
@@ -645,6 +711,7 @@
         "isMain": false,
         "icon": "hit-d3",
         "ingameIcon": "hit-d3",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Disk",
@@ -682,6 +749,7 @@
         "isMain": true,
         "icon": "small-spark4",
         "ingameIcon": "small-spark4",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 6,
         "name": "Orbit",
@@ -719,6 +787,7 @@
         "isMain": false,
         "icon": "small-spark4",
         "ingameIcon": "small-spark4",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 6,
         "name": "Orbit Over",
@@ -755,6 +824,7 @@
         "isMain": true,
         "icon": "electric-slash6",
         "ingameIcon": "electric-slash6",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Electric",
@@ -796,6 +866,7 @@
         "isMain": false,
         "icon": "hit-d3",
         "ingameIcon": "hit-d3",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Bomb",
@@ -834,6 +905,7 @@
         "isMain": true,
         "icon": "vfx-c1",
         "ingameIcon": "vfx-c1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Water Sinoid",
@@ -872,6 +944,7 @@
         "isMain": true,
         "icon": "flash7",
         "ingameIcon": "flash7",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Flash Circle",
@@ -910,6 +983,7 @@
         "isMain": true,
         "icon": "vfx-c1",
         "ingameIcon": "vfx-c1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "name": "Bounce",
@@ -949,6 +1023,7 @@
         "isMain": true,
         "icon": "vfx-c1",
         "ingameIcon": "vfx-c1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Laser",
@@ -993,6 +1068,7 @@
         "isMain": false,
         "icon": "vfx-c1",
         "ingameIcon": "vfx-c1",
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "name": "Disk",

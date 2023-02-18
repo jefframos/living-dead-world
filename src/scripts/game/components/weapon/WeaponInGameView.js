@@ -1,25 +1,30 @@
 import BaseComponent from '../../core/gameObject/BaseComponent';
 import BaseWeapon from './BaseWeapon';
 import Eugine from '../../core/Eugine';
+import GameObject from '../../core/gameObject/GameObject';
+import GameView from '../../core/view/GameView';
 import Spring from '../../core/utils/Spring';
 import Utils from '../../core/utils/Utils';
 import WeaponAttributes from '../../data/WeaponAttributes';
 import signals from 'signals';
 
-export default class WeaponInGameView extends BaseComponent {
+export default class WeaponInGameView extends GameObject {
     constructor() {
         super();
         this.spriteList = [];
 
+        this.gameView = new GameView(this)
+        this.gameView.view = new PIXI.Container()
         this.currentBulletList = []
 
         this.offset = { x: 0, y: 0 }
+        this.viewOffset = { x: 0, y: 0 }
     }
     enable() {
         super.enable();
     }
     setContainer(container) {
-        this.container = container;
+        this.container = this.gameView.view//container;
     }
     setData(weapon, parent) {
         this.parent = parent;
@@ -28,8 +33,8 @@ export default class WeaponInGameView extends BaseComponent {
         let amount = weapon.ingameAmountIconOverrider >= 0 ? weapon.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(this.weapon.ingameIcon);
-            sprite.anchor.set(0.5)
-            sprite.scale.set(Utils.scaleToFit(sprite, 15))
+            sprite.anchor.set(0.5, 0.1)
+            sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameBaseWidth || 30))
             this.container.addChild(sprite)
 
             let spring = new Spring()
@@ -53,7 +58,7 @@ export default class WeaponInGameView extends BaseComponent {
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
             spriteElement.targetAngle = element.angle;
-            spriteElement.spring.x = 0.15 * spriteElement.spring.default;
+            spriteElement.spring.x = 0.5 * spriteElement.spring.default;
             spriteElement.spring.tx = spriteElement.spring.default;
 
             spriteElement.sprite.visible = true;
@@ -96,11 +101,21 @@ export default class WeaponInGameView extends BaseComponent {
             } else {
                 element.sprite.rotation = element.angle + Math.PI / 2
             }
-            element.sprite.scale.y = element.spring.x;
-            element.sprite.scale.x = element.spring.x * 0.5 + element.spring.default * 0.5;
 
-            element.sprite.x = Math.cos(element.angle) * 20 + this.offset.x
-            element.sprite.y = Math.sin(element.angle) * 20 + this.offset.y
+            
+            let yScale = element.sprite.rotation < 0 ? -1 : 1
+            element.sprite.scale.y = element.spring.x// * yScale;
+            element.sprite.scale.x = (element.spring.x * 0.2 + element.spring.default * 0.8) * yScale;
+            
+            element.sprite.x = Math.cos(element.angle) * 40 + this.offset.x
+            element.sprite.y = Math.sin(element.angle) * 40 + this.offset.y
+            let radToAng = ((element.angle) * 180 / 3.14) % 360;
+            if(radToAng < 180){
+                this.z = this.parent.transform.position.z + 1;
+            }else{
+                this.z = this.parent.transform.position.z - 1;
+
+            }
         });
     }
     destroy() {

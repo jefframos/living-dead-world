@@ -19,25 +19,25 @@ export default class CardPlacementSystem {
         this.player = null;
 
         this.onHide = new signals.Signal();
-        
+
     }
     build() {
 
     }
-    onCardEquipped(cardData){
+    onCardEquipped(cardData) {
         let currentID = 0;
         this.player.activeWeapons.forEach(element => {
-            if(element.stackWeapons.length >= 3){
+            if (element.stackWeapons.length >= 3) {
                 currentID++;
             }
         });
-        this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id],currentID);
+        this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id], currentID);
         this.hide();
     }
-    setPlayer(player){
+    setPlayer(player) {
         this.player = player;
     }
-    setWeapons(weapons){
+    setWeapons(weapons) {
         this.weapons = weapons;
 
     }
@@ -46,10 +46,16 @@ export default class CardPlacementSystem {
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
         Utils.shuffle(this.currentData)
-        this.deckView.buildCards(this.currentData)        
-        
+
+        for (let index = this.currentData.length - 1; index >= 0; index--) {
+            if (!this.currentData[index]) {
+                this.currentData.splice(index, 1);
+            }
+        }
+        this.deckView.buildCards(this.currentData)
+
         this.deckView.setActive(true)
-        this.cardPlacementView.setActive(true)        
+        this.cardPlacementView.setActive(true)
     }
     hide() {
         this.enabled = false;

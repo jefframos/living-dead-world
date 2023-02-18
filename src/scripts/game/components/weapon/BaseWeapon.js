@@ -95,9 +95,11 @@ export default class BaseWeapon extends PhysicsEntity {
 
 
         if(this.weaponData.ingameIcon){
-            this.inGameView = this.addComponent(WeaponInGameView);
+            //poolGameObject
+            this.inGameView = this.engine.poolGameObject(WeaponInGameView);
             this.inGameView.setContainer(this.gameView.view);
             this.inGameView.setData(this.weaponData, this);
+            this.addChild(this.inGameView)
         }
 
         this.resetBrust();
@@ -136,6 +138,7 @@ export default class BaseWeapon extends PhysicsEntity {
     }
     shoot(customWeapon, customParent) {
 
+        let gunDistance = 40;
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
@@ -194,13 +197,13 @@ export default class BaseWeapon extends PhysicsEntity {
                     targetAngle = parentGameObject.angle;
                 }
 
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * gunDistance);
                 bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Random) {
 
                 let rndAng = Math.random() * Math.PI * 2
-                bullet.setPosition(parentGameObject.transform.position.x+ Math.cos(rndAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(rndAng) * 20);
+                bullet.setPosition(parentGameObject.transform.position.x+ Math.cos(rndAng) * gunDistance, 0, parentGameObject.transform.position.z+ Math.sin(rndAng) * gunDistance);
                 bullet.shoot(rndAng, 0)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
@@ -214,11 +217,11 @@ export default class BaseWeapon extends PhysicsEntity {
                 if (closestEnemy.enemy) {
                     angle = closestEnemy.angle;
                 }
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(angle) * 20);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(angle) * gunDistance);
                 bullet.shoot(angle + angleNoise, this.physics.magnitude)
 
             } else if (weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.ExtendedBehaviour.Boomerang) {
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance, 0, parentGameObject.transform.position.z);
                 let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
                 if (!isMain) {
@@ -227,7 +230,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
                 bullet.shoot(facingAng + halfAngle + angleNoise + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
             } else {
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance, 0, parentGameObject.transform.position.z);
                 let facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
                 if (!isMain) {
@@ -238,9 +241,9 @@ export default class BaseWeapon extends PhysicsEntity {
                 if( weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards){
                     finalAng += Math.PI;
                 }
+                
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance+ Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * gunDistance);
                 bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
-
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20+ Math.cos(finalAng) * 20, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * 20);
             }
 
             if (!customParent) {
@@ -264,7 +267,10 @@ export default class BaseWeapon extends PhysicsEntity {
         this.z = this.parent.transform.position.z
 
         if(this.inGameView){
+            this.inGameView.x = this.transform.position.x
+            this.inGameView.z = this.transform.position.z
             this.inGameView.update(delta)
+
         }
 
         if (this.debug) {
@@ -371,7 +377,8 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             bullet.gameView.viewOffset.y = baseData.viewOffset.y
 
-            let scale = Utils.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius * baseData.scale * 2)
+            let maxWidth = Math.min(baseData.maxWidth, weapon.weaponAttributes.radius * baseData.scale * 2)
+            let scale = Utils.scaleToFit(bullet.gameView.view, maxWidth)
             bullet.gameView.view.scale.set(scale)
         }
     }

@@ -16826,6 +16826,80 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _pixi = __webpack_require__(7);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _RenderModule = __webpack_require__(10);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _TagManager = __webpack_require__(48);
+
+var _TagManager2 = _interopRequireDefault(_TagManager);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameView = function () {
+    function GameView(gameObject) {
+        (0, _classCallCheck3.default)(this, GameView);
+
+        this.tag = _TagManager2.default.Tags.Untagged;
+        this.layer = _RenderModule2.default.RenderLayers.Gameplay;
+        this.viewOffset = { x: 0, y: 0 };
+        this.view = null;
+        this.gameObject = gameObject;
+        this.anchorOffset = 0;
+        this.baseScale = { x: 0, y: 0 };
+    }
+
+    (0, _createClass3.default)(GameView, [{
+        key: 'update',
+        value: function update(delta) {}
+    }, {
+        key: 'applyScale',
+        value: function applyScale() {
+            this.baseScale.x = this.view.scale.x;
+            this.baseScale.y = this.view.scale.y;
+        }
+    }, {
+        key: 'x',
+        get: function get() {
+            return this.view.x;
+        }
+    }, {
+        key: 'y',
+        get: function get() {
+            return this.view.y;
+        }
+    }]);
+    return GameView;
+}();
+
+exports.default = GameView;
+module.exports = exports['default'];
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vector3 = function () {
@@ -16890,80 +16964,6 @@ var Vector3 = function () {
 
 exports.default = Vector3;
 module.exports = exports["default"];
-
-/***/ }),
-/* 15 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _RenderModule = __webpack_require__(10);
-
-var _RenderModule2 = _interopRequireDefault(_RenderModule);
-
-var _TagManager = __webpack_require__(48);
-
-var _TagManager2 = _interopRequireDefault(_TagManager);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameView = function () {
-    function GameView(gameObject) {
-        (0, _classCallCheck3.default)(this, GameView);
-
-        this.tag = _TagManager2.default.Tags.Untagged;
-        this.layer = _RenderModule2.default.RenderLayers.Gameplay;
-        this.viewOffset = { x: 0, y: 0 };
-        this.view = null;
-        this.gameObject = gameObject;
-        this.anchorOffset = 0;
-        this.baseScale = { x: 0, y: 0 };
-    }
-
-    (0, _createClass3.default)(GameView, [{
-        key: 'update',
-        value: function update(delta) {}
-    }, {
-        key: 'applyScale',
-        value: function applyScale() {
-            this.baseScale.x = this.view.scale.x;
-            this.baseScale.y = this.view.scale.y;
-        }
-    }, {
-        key: 'x',
-        get: function get() {
-            return this.view.x;
-        }
-    }, {
-        key: 'y',
-        get: function get() {
-            return this.view.y;
-        }
-    }]);
-    return GameView;
-}();
-
-exports.default = GameView;
-module.exports = exports['default'];
 
 /***/ }),
 /* 16 */
@@ -19601,7 +19601,7 @@ var _GameManager = __webpack_require__(60);
 
 var _GameManager2 = _interopRequireDefault(_GameManager);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -19629,7 +19629,7 @@ var _Utils = __webpack_require__(9);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -22584,7 +22584,7 @@ var _SpriteJump = __webpack_require__(86);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -25473,7 +25473,7 @@ var _GameManager = __webpack_require__(60);
 
 var _GameManager2 = _interopRequireDefault(_GameManager);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -25497,7 +25497,7 @@ var _Utils = __webpack_require__(9);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -25573,9 +25573,11 @@ var BaseWeapon = function (_PhysicsEntity) {
             }
 
             if (this.weaponData.ingameIcon) {
-                this.inGameView = this.addComponent(_WeaponInGameView2.default);
+                //poolGameObject
+                this.inGameView = this.engine.poolGameObject(_WeaponInGameView2.default);
                 this.inGameView.setContainer(this.gameView.view);
                 this.inGameView.setData(this.weaponData, this);
+                this.addChild(this.inGameView);
             }
 
             this.resetBrust();
@@ -25624,6 +25626,7 @@ var BaseWeapon = function (_PhysicsEntity) {
         key: "shoot",
         value: function shoot(customWeapon, customParent) {
 
+            var gunDistance = 40;
             var weapon = customWeapon ? customWeapon : this.weaponData;
             var parentGameObject = customParent ? customParent : this;
             var isMain = parentGameObject == this;
@@ -25681,12 +25684,12 @@ var BaseWeapon = function (_PhysicsEntity) {
                         targetAngle = parentGameObject.angle;
                     }
 
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * 20, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * 20);
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * gunDistance);
                     bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Random) {
 
                     var rndAng = Math.random() * Math.PI * 2;
-                    bullet.setPosition(parentGameObject.transform.position.x + Math.cos(rndAng) * 20, 0, parentGameObject.transform.position.z + Math.sin(rndAng) * 20);
+                    bullet.setPosition(parentGameObject.transform.position.x + Math.cos(rndAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(rndAng) * gunDistance);
                     bullet.shoot(rndAng, 0);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ClosestEnemySnap) {
                     var closestEnemy = this.getClosestEnemy(parentGameObject, weapon.weaponAttributes.detectionZone || 100);
@@ -25698,10 +25701,10 @@ var BaseWeapon = function (_PhysicsEntity) {
                     if (_closestEnemy.enemy) {
                         angle = _closestEnemy.angle;
                     }
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * 20, 0, parentGameObject.transform.position.z + Math.sin(angle) * 20);
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(angle) * gunDistance);
                     bullet.shoot(angle + angleNoise, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.ExtendedBehaviour.Boomerang) {
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance, 0, parentGameObject.transform.position.z);
                     var facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
                     if (!isMain) {
@@ -25710,7 +25713,7 @@ var BaseWeapon = function (_PhysicsEntity) {
 
                     bullet.shoot(facingAng + halfAngle + angleNoise + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 } else {
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20, 0, parentGameObject.transform.position.z);
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance, 0, parentGameObject.transform.position.z);
                     var _facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
 
                     if (!isMain) {
@@ -25721,9 +25724,9 @@ var BaseWeapon = function (_PhysicsEntity) {
                     if (weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.DirectionType.FacingBackwards) {
                         finalAng += Math.PI;
                     }
-                    bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
 
-                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * 20 + Math.cos(finalAng) * 20, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * 20);
+                    bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
+                    bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 }
 
                 if (!customParent) {
@@ -25746,6 +25749,8 @@ var BaseWeapon = function (_PhysicsEntity) {
             this.z = this.parent.transform.position.z;
 
             if (this.inGameView) {
+                this.inGameView.x = this.transform.position.x;
+                this.inGameView.z = this.transform.position.z;
                 this.inGameView.update(delta);
             }
 
@@ -25849,7 +25854,8 @@ var BaseWeapon = function (_PhysicsEntity) {
                 bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData);
                 bullet.gameView.viewOffset.y = baseData.viewOffset.y;
 
-                var _scale = _Utils2.default.scaleToFit(bullet.gameView.view, weapon.weaponAttributes.radius * baseData.scale * 2);
+                var maxWidth = Math.min(baseData.maxWidth, weapon.weaponAttributes.radius * baseData.scale * 2);
+                var _scale = _Utils2.default.scaleToFit(bullet.gameView.view, maxWidth);
                 bullet.gameView.view.scale.set(_scale);
             }
         }
@@ -27046,7 +27052,7 @@ var _PhysicsProperties = __webpack_require__(123);
 
 var _PhysicsProperties2 = _interopRequireDefault(_PhysicsProperties);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -27335,7 +27341,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -27905,7 +27911,7 @@ var _Utils = __webpack_require__(9);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -28520,7 +28526,7 @@ var _Player = __webpack_require__(27);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -43052,7 +43058,7 @@ var _FlashOnDamage = __webpack_require__(81);
 
 var _FlashOnDamage2 = _interopRequireDefault(_FlashOnDamage);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -43799,7 +43805,7 @@ var _SpriteSheetBehaviour = __webpack_require__(59);
 
 var _SpriteSheetBehaviour2 = _interopRequireDefault(_SpriteSheetBehaviour);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -43837,6 +43843,7 @@ var EntityViewData = function () {
                 width: 1,
                 height: 1,
                 maxHeight: 0,
+                maxWidth: 100,
                 rotationSpeed: 0,
                 color: 0,
                 targetLayer: _EffectsManager2.default.TargetLayer.GameplayLayer
@@ -59793,7 +59800,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -60043,7 +60050,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -60350,6 +60357,7 @@ var WeaponData = function () {
         this.ingameIcon = 'knife';
         this.ingameAmountIconOverrider = -1;
         this.inGameRotation = 0;
+        this.ingameBaseWidth = 20;
         this.onDestroyId = null;
         this.isMain = true;
         this.name = name;
@@ -60455,7 +60463,7 @@ var _GameStaticData = __webpack_require__(30);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -60652,7 +60660,7 @@ var _Utils = __webpack_require__(9);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -60963,7 +60971,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -76901,7 +76909,7 @@ var _UIList = __webpack_require__(61);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -77485,7 +77493,7 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -78199,7 +78207,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -81095,9 +81103,9 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseComponent2 = __webpack_require__(19);
+var _BaseComponent = __webpack_require__(19);
 
-var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
+var _BaseComponent2 = _interopRequireDefault(_BaseComponent);
 
 var _BaseWeapon = __webpack_require__(43);
 
@@ -81106,6 +81114,14 @@ var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 var _Eugine = __webpack_require__(38);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
+
+var _GameObject2 = __webpack_require__(13);
+
+var _GameObject3 = _interopRequireDefault(_GameObject2);
+
+var _GameView = __webpack_require__(14);
+
+var _GameView2 = _interopRequireDefault(_GameView);
 
 var _Spring = __webpack_require__(236);
 
@@ -81125,8 +81141,8 @@ var _signals2 = _interopRequireDefault(_signals);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var WeaponInGameView = function (_BaseComponent) {
-    (0, _inherits3.default)(WeaponInGameView, _BaseComponent);
+var WeaponInGameView = function (_GameObject) {
+    (0, _inherits3.default)(WeaponInGameView, _GameObject);
 
     function WeaponInGameView() {
         (0, _classCallCheck3.default)(this, WeaponInGameView);
@@ -81135,9 +81151,12 @@ var WeaponInGameView = function (_BaseComponent) {
 
         _this.spriteList = [];
 
+        _this.gameView = new _GameView2.default(_this);
+        _this.gameView.view = new PIXI.Container();
         _this.currentBulletList = [];
 
         _this.offset = { x: 0, y: 0 };
+        _this.viewOffset = { x: 0, y: 0 };
         return _this;
     }
 
@@ -81149,7 +81168,7 @@ var WeaponInGameView = function (_BaseComponent) {
     }, {
         key: 'setContainer',
         value: function setContainer(container) {
-            this.container = container;
+            this.container = this.gameView.view; //container;
         }
     }, {
         key: 'setData',
@@ -81160,8 +81179,8 @@ var WeaponInGameView = function (_BaseComponent) {
             var amount = weapon.ingameAmountIconOverrider >= 0 ? weapon.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
             for (var i = 0; i < amount; i++) {
                 var sprite = new PIXI.Sprite.from(this.weapon.ingameIcon);
-                sprite.anchor.set(0.5);
-                sprite.scale.set(_Utils2.default.scaleToFit(sprite, 15));
+                sprite.anchor.set(0.5, 0.1);
+                sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameBaseWidth || 30));
                 this.container.addChild(sprite);
 
                 var spring = new _Spring2.default();
@@ -81184,7 +81203,7 @@ var WeaponInGameView = function (_BaseComponent) {
                 var element = this.currentBulletList[index];
                 var spriteElement = this.spriteList[index];
                 spriteElement.targetAngle = element.angle;
-                spriteElement.spring.x = 0.15 * spriteElement.spring.default;
+                spriteElement.spring.x = 0.5 * spriteElement.spring.default;
                 spriteElement.spring.tx = spriteElement.spring.default;
 
                 spriteElement.sprite.visible = true;
@@ -81233,11 +81252,19 @@ var WeaponInGameView = function (_BaseComponent) {
                 } else {
                     element.sprite.rotation = element.angle + Math.PI / 2;
                 }
-                element.sprite.scale.y = element.spring.x;
-                element.sprite.scale.x = element.spring.x * 0.5 + element.spring.default * 0.5;
 
-                element.sprite.x = Math.cos(element.angle) * 20 + _this2.offset.x;
-                element.sprite.y = Math.sin(element.angle) * 20 + _this2.offset.y;
+                var yScale = element.sprite.rotation < 0 ? -1 : 1;
+                element.sprite.scale.y = element.spring.x; // * yScale;
+                element.sprite.scale.x = (element.spring.x * 0.2 + element.spring.default * 0.8) * yScale;
+
+                element.sprite.x = Math.cos(element.angle) * 40 + _this2.offset.x;
+                element.sprite.y = Math.sin(element.angle) * 40 + _this2.offset.y;
+                var radToAng = element.angle * 180 / 3.14 % 360;
+                if (radToAng < 180) {
+                    _this2.z = _this2.parent.transform.position.z + 1;
+                } else {
+                    _this2.z = _this2.parent.transform.position.z - 1;
+                }
             });
         }
     }, {
@@ -81255,7 +81282,7 @@ var WeaponInGameView = function (_BaseComponent) {
         }
     }]);
     return WeaponInGameView;
-}(_BaseComponent3.default);
+}(_GameObject3.default);
 
 exports.default = WeaponInGameView;
 module.exports = exports['default'];
@@ -81509,7 +81536,7 @@ var _SpriteJump = __webpack_require__(86);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -81703,7 +81730,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -82067,7 +82094,7 @@ var _GameStaticData = __webpack_require__(30);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -82139,6 +82166,12 @@ var CardPlacementSystem = function () {
 
             this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
             _Utils2.default.shuffle(this.currentData);
+
+            for (var index = this.currentData.length - 1; index >= 0; index--) {
+                if (!this.currentData[index]) {
+                    this.currentData.splice(index, 1);
+                }
+            }
             this.deckView.buildCards(this.currentData);
 
             this.deckView.setActive(true);
@@ -82337,7 +82370,7 @@ var _Shadow = __webpack_require__(51);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -82781,7 +82814,7 @@ var _Utils = __webpack_require__(9);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _Vector = __webpack_require__(14);
+var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
@@ -82922,7 +82955,7 @@ var _BeamView = __webpack_require__(249);
 
 var _BeamView2 = _interopRequireDefault(_BeamView);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -83277,7 +83310,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -83384,7 +83417,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -85312,7 +85345,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameView = __webpack_require__(15);
+var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -89812,17 +89845,11 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
@@ -89841,6 +89868,12 @@ var assets = [{
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
+	"id": "mainWeapons",
+	"url": "assets/json\\weapons\\mainWeapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -89873,7 +89906,7 @@ module.exports = exports['default'];
 /* 274 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);
