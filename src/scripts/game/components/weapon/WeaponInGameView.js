@@ -1,3 +1,4 @@
+import BaseBarView from '../ui/progressBar/BaseBarView';
 import BaseComponent from '../../core/gameObject/BaseComponent';
 import BaseWeapon from './BaseWeapon';
 import Eugine from '../../core/Eugine';
@@ -32,19 +33,27 @@ export default class WeaponInGameView extends GameObject {
 
         let amount = weapon.ingameViewDataStatic.ingameAmountIconOverrider >= 0 ? weapon.ingameViewDataStatic.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
 
+        this.loadBars = [];
+
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
-            sprite.anchor.set(0.5, 0.1)
+            sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
+            sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
             sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
             this.container.addChild(sprite)
-
+            
             let spring = new Spring()
             spring.default = sprite.scale.y;
             spring.x = sprite.scale.y;
             spring.tx = sprite.scale.y;
             sprite.visible = false;
             this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring })
-
+            
+            let bar = new BaseBarView();
+            sprite.addChild(bar)
+            bar.build(8,2,0)
+            bar.rotation = Math.PI / 2
+            bar.y = 0//30//sprite.anchor.y * sprite.height
         }
 
         this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x

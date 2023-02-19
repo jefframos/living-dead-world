@@ -55,7 +55,7 @@
             "y": -20,
             "z": 0
         },
-        "scale": 0.5,
+        "scale": 0.7,
         "lockRotation": false,
         "targetLayer": "GameplayLayer"
     },

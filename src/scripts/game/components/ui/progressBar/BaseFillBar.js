@@ -1,3 +1,4 @@
+import BaseBarView from "./BaseBarView";
 import BaseComponent from "../../../core/gameObject/BaseComponent";
 import Color from "../../../core/utils/Color";
 import GameObject from "../../../core/gameObject/GameObject";
@@ -17,31 +18,12 @@ export default class BaseFillBar extends GameObject {
         this.flashTime = 0.3;
         this.flashCurrentTime = 0;
 
-        this.currentRGB = { r: 0, g: 0, b: 0 }
-
-
-        this.startValue = Color.toRGB(0x8636f0);
-        this.endValue = Color.toRGB(0xFF0000);
-
 
         this.gameView.view = new PIXI.Container();
-        this.barContainer = new PIXI.Container();
-        this.gameView.view.addChild(this.barContainer)
-        this.barContainer.y = -50
 
-
-        this.backBar = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 5, 5, 5, 5);
-        this.backBar.width = 50
-        this.backBar.height = 10
-        this.backBar.tint = 0;
-        this.barContainer.addChild(this.backBar);
-
-        this.fillBar = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 5, 5, 5, 5);
-        this.fillBar.width = 50
-        this.fillBar.height = 10
-        this.fillBar.tint = Color.rgbToColor(this.startValue);
-        this.barContainer.addChild(this.fillBar);
-
+        this.bar = new BaseBarView();
+        this.gameView.view.addChild(this.bar);
+        this.bar.setColors(0x8636f0, 0xFF0000)
         this.maxWidth = 50
         this.maxHeight = 10
 
@@ -53,31 +35,16 @@ export default class BaseFillBar extends GameObject {
         this.maxWidth = width
         this.maxHeight = height
 
-        this.backBar.width = width + border * 2
-        this.backBar.height = height + border * 2
+        this.bar.build(width , height , border);
 
-        this.backBar.x = -border
-        this.backBar.y = -border
-
-        this.fillBar.width = width
-        this.fillBar.height = height
-
-        this.barContainer.x = -width / 2 - border;
+        this.bar.x = -width / 2 - border;
         this.barNormal = 1;
 
-        this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b }
-        this.fillBar.tint = Color.rgbToColor(this.startValue);
     }
     updateView(offset, startColor = 0x8636f0, endColor = 0xFF0000) {
         this.offset = offset;
-
-        this.barContainer.y = this.offset.y;
-
-        this.startValue = Color.toRGB(startColor);
-        this.endValue = Color.toRGB(endColor);
-
-        this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b }
-        this.fillBar.tint = Color.rgbToColor(this.startValue);
+        this.bar.y = this.offset.y;
+        this.bar.setColors(startColor, endColor)       
     }
     destroy() {
         super.destroy();
@@ -86,15 +53,8 @@ export default class BaseFillBar extends GameObject {
 
     update(delta, unscaled) {
         super.update(delta, unscaled);
-
-
-        Color.colorLerp(this.currentRGB, this.endValue, this.startValue, this.barNormal);
-
-
-        this.fillBar.width = Utils.lerp(this.fillBar.width, this.maxWidth * this.barNormal, 0.5);
-
-        this.fillBar.tint = Color.rgbToColor(this.currentRGB);
-
+        this.bar.updateNormal(this.barNormal)
+        this.bar.update(delta)
         this.transform.position.copy(this.parent.transform.position)
     }
 

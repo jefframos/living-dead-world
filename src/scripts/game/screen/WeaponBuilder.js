@@ -109,7 +109,6 @@ export default class WeaponBuilder {
         if (weaponData.ingameViewData) {
             let targetInGameViewData = GameStaticData.instance.getDataById('weapons', 'inGameView', weaponData.ingameViewData)
             if (targetInGameViewData) {
-                console.log(targetInGameViewData, weapon.ingameViewData)
                 for (const key in targetInGameViewData) {
                     if (weapon.ingameViewDataStatic[key] != undefined) {
                         weapon.ingameViewDataStatic[key] = targetInGameViewData[key];

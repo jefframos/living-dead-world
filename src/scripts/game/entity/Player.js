@@ -159,14 +159,13 @@ export default class Player extends GameAgent {
         this.weaponsGameObject.push(weapon);
         weapon.build(weaponData)
 
+        // let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
+        // this.addChild(weaponTimeBar)
+        // weaponTimeBar.build(30, 4, 2);
+        // weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
+        // weaponTimeBar.setWeapon(weapon);
 
-        let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
-        this.addChild(weaponTimeBar)
-        weaponTimeBar.build(30, 4, 2);
-        weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
-        weaponTimeBar.setWeapon(weapon);
-
-        this.weaponLoadingBars.push(weaponTimeBar)
+        // this.weaponLoadingBars.push(weaponTimeBar)
 
 
         inGameWeapon.onUpdateWeapon.add(() => {

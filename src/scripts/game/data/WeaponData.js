@@ -20,7 +20,8 @@ export default class WeaponData {
             ingameIcon: 'knife',
             ingameAmountIconOverrider: -1,
             inGameRotation: 0,
-            ingameBaseWidth: 20
+            ingameBaseWidth: 20,
+            anchor:{x:0.15, y:0.01}
         }
         this.onDestroyId = null;
         this.isMain = true;
