@@ -24,7 +24,7 @@ export default class WeaponBuilder {
         SinoidBullet: SinoidBullet,
         CircularBullet: CircularBullet,
         BounceBullet: BounceBullet,
-        LaserBeam:LaserBeam
+        LaserBeam: LaserBeam
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,
@@ -104,10 +104,24 @@ export default class WeaponBuilder {
     }
     makeWeapon(weaponData) {
         let weapon = new WeaponData(weaponData.name);
+
+
+        if (weaponData.ingameViewData) {
+            let targetInGameViewData = GameStaticData.instance.getDataById('weapons', 'inGameView', weaponData.ingameViewData)
+            if (targetInGameViewData) {
+                console.log(targetInGameViewData, weapon.ingameViewData)
+                for (const key in targetInGameViewData) {
+                    if (weapon.ingameViewDataStatic[key] != undefined) {
+                        weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                    }
+                }
+            }
+        }
+
+        
         for (const key in weaponData) {
             if (Object.hasOwnProperty.call(weapon, key)) {
                 weapon[key] = weaponData[key];
-
             }
         }
 
@@ -121,6 +135,7 @@ export default class WeaponBuilder {
             }
         }
 
+        
         if (weaponData.view) {
             for (const key in weaponData.view) {
                 if (Object.hasOwnProperty.call(weapon.weaponViewData, key)) {
@@ -207,7 +222,7 @@ export default class WeaponBuilder {
             scale: vfxPackData.scale,
             targetLayer: vfxPackData.targetLayer,
             lockRotation: vfxPackData.lockRotation,
-            color:vfxPackData.color
+            color: vfxPackData.color
         }
         let spriteSheetParams = GameStaticData.instance.getDataById('vfx', 'weaponVFX', vfxPackData.vfxData)
         if (!spriteSheetParams) {
@@ -248,11 +263,11 @@ export default class WeaponBuilder {
         this.mainWeapon = new InGameWeapon();
         this.mainWeapon2 = new InGameWeapon();
         Utils.shuffle(this.weaponsArray)
-       // this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
-       // this.mainWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
+        // this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
+        // this.mainWeapon.addWeapon(this.weaponsData['DAGGER_SNIPER'])
 
-       this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
-       this.mainWeapon2.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
+        this.mainWeapon.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
+        this.mainWeapon2.addWeapon(this.weaponsArray[Math.floor(Math.random() * this.weaponsArray.length)])
 
         if (window.isMobile) {
 

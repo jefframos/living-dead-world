@@ -23707,7 +23707,7 @@ var GameStaticData = function () {
         value: function initialize() {
             var _this = this;
 
-            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'cards', list: 'cards', path: ['cards'] }, { type: 'weapons', list: 'main', path: ['mainWeapons'] }, { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] }, { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
+            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'cards', list: 'cards', path: ['cards'] }, { type: 'weapons', list: 'main', path: ['mainWeapons'] }, { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] }, { type: 'weapons', list: 'inGameView', path: ['weapon-ingame-view'] }, { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
             //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
             { type: 'vfx', list: 'particleDescriptors', path: ['effects-descriptors'] }, { type: 'vfx', list: 'behaviours', path: ['vfx-behaviours'] }];
 
@@ -25572,7 +25572,7 @@ var BaseWeapon = function (_PhysicsEntity) {
                 this.weaponData = new _WeaponData2.default();
             }
 
-            if (this.weaponData.ingameIcon) {
+            if (this.weaponData.ingameViewDataStatic.ingameIcon) {
                 //poolGameObject
                 this.inGameView = this.engine.poolGameObject(_WeaponInGameView2.default);
                 this.inGameView.setContainer(this.gameView.view);
@@ -60354,10 +60354,12 @@ var WeaponData = function () {
         this.bulletComponent = _Bullet2.default;
         this.icon = 'knife';
         this.bulletIcon = 'knife';
-        this.ingameIcon = 'knife';
-        this.ingameAmountIconOverrider = -1;
-        this.inGameRotation = 0;
-        this.ingameBaseWidth = 20;
+        this.ingameViewDataStatic = {
+            ingameIcon: 'knife',
+            ingameAmountIconOverrider: -1,
+            inGameRotation: 0,
+            ingameBaseWidth: 20
+        };
         this.onDestroyId = null;
         this.isMain = true;
         this.name = name;
@@ -60754,42 +60756,55 @@ var WeaponBuilder = function () {
         key: "makeWeapon",
         value: function makeWeapon(weaponData) {
             var weapon = new _WeaponData2.default(weaponData.name);
-            for (var key in weaponData) {
-                if (Object.hasOwnProperty.call(weapon, key)) {
-                    weapon[key] = weaponData[key];
+
+            if (weaponData.ingameViewData) {
+                var targetInGameViewData = _GameStaticData2.default.instance.getDataById('weapons', 'inGameView', weaponData.ingameViewData);
+                if (targetInGameViewData) {
+                    console.log(targetInGameViewData, weapon.ingameViewData);
+                    for (var key in targetInGameViewData) {
+                        if (weapon.ingameViewDataStatic[key] != undefined) {
+                            weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                        }
+                    }
+                }
+            }
+
+            for (var _key3 in weaponData) {
+                if (Object.hasOwnProperty.call(weapon, _key3)) {
+                    weapon[_key3] = weaponData[_key3];
                 }
             }
 
             var att = weaponData.attributes;
             var overrider = weaponData.overrider;
 
-            for (var _key3 in att) {
-                if (Object.hasOwnProperty.call(weapon.weaponAttributes, _key3)) {
-                    weapon.weaponAttributes[_key3] = att[_key3];
+            for (var _key4 in att) {
+                if (Object.hasOwnProperty.call(weapon.weaponAttributes, _key4)) {
+                    weapon.weaponAttributes[_key4] = att[_key4];
                 }
             }
 
             if (weaponData.view) {
-                for (var _key4 in weaponData.view) {
-                    if (Object.hasOwnProperty.call(weapon.weaponViewData, _key4)) {
-                        weapon.weaponViewData[_key4] = weaponData.view[_key4];
+                for (var _key5 in weaponData.view) {
+                    if (Object.hasOwnProperty.call(weapon.weaponViewData, _key5)) {
+                        weapon.weaponViewData[_key5] = weaponData.view[_key5];
                     }
                 }
 
                 if (weaponData.view.overrider) {
 
-                    for (var _key5 in weaponData.view.overrider) {
-                        if (weapon.weaponViewData[_key5] && weaponData.view.overrider[_key5]) {
-                            var targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'viewOverriders', weaponData.view.overrider[_key5]);
+                    for (var _key6 in weaponData.view.overrider) {
+                        if (weapon.weaponViewData[_key6] && weaponData.view.overrider[_key6]) {
+                            var targetOverrider = _GameStaticData2.default.instance.getDataById('weapons', 'viewOverriders', weaponData.view.overrider[_key6]);
                             if (targetOverrider) {
                                 for (var overriderKey in targetOverrider) {
-                                    if (weapon.weaponViewData[_key5][overriderKey] !== undefined) {
+                                    if (weapon.weaponViewData[_key6][overriderKey] !== undefined) {
                                         if (overriderKey == 'viewOffset') {
-                                            weapon.weaponViewData[_key5][overriderKey].x = targetOverrider[overriderKey].x || 0;
-                                            weapon.weaponViewData[_key5][overriderKey].y = targetOverrider[overriderKey].y || 0;
-                                            weapon.weaponViewData[_key5][overriderKey].z = targetOverrider[overriderKey].z || 0;
+                                            weapon.weaponViewData[_key6][overriderKey].x = targetOverrider[overriderKey].x || 0;
+                                            weapon.weaponViewData[_key6][overriderKey].y = targetOverrider[overriderKey].y || 0;
+                                            weapon.weaponViewData[_key6][overriderKey].z = targetOverrider[overriderKey].z || 0;
                                         } else {
-                                            weapon.weaponViewData[_key5][overriderKey] = targetOverrider[overriderKey];
+                                            weapon.weaponViewData[_key6][overriderKey] = targetOverrider[overriderKey];
                                         }
                                     }
                                 }
@@ -60828,9 +60843,9 @@ var WeaponBuilder = function () {
                 if (!weapon.weaponAttributes.overrider.bulletComponent) {
                     weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent];
                 }
-                for (var _key6 in _targetOverrider.attributes) {
-                    if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, _key6)) {
-                        weapon.weaponAttributes.overrider[_key6] = _targetOverrider.attributes[_key6];
+                for (var _key7 in _targetOverrider.attributes) {
+                    if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, _key7)) {
+                        weapon.weaponAttributes.overrider[_key7] = _targetOverrider.attributes[_key7];
                     }
                 }
             } else {
@@ -81176,11 +81191,12 @@ var WeaponInGameView = function (_GameObject) {
             this.parent = parent;
             this.weapon = weapon;
 
-            var amount = weapon.ingameAmountIconOverrider >= 0 ? weapon.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
+            var amount = weapon.ingameViewDataStatic.ingameAmountIconOverrider >= 0 ? weapon.ingameViewDataStatic.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
+
             for (var i = 0; i < amount; i++) {
-                var sprite = new PIXI.Sprite.from(this.weapon.ingameIcon);
+                var sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
                 sprite.anchor.set(0.5, 0.1);
-                sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameBaseWidth || 30));
+                sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30));
                 this.container.addChild(sprite);
 
                 var spring = new _Spring2.default();
@@ -81243,12 +81259,13 @@ var WeaponInGameView = function (_GameObject) {
                 spriteElement.targetAngle = element.angle;
             }
             this.calcAngle();
+
             //console.log(this.parent.shootNormal)
             this.spriteList.forEach(function (element) {
                 element.angle = _Utils2.default.angleLerp(element.angle, element.targetAngle, 0.2);
                 element.spring.update();
-                if (_this2.weapon.inGameRotation) {
-                    element.sprite.rotation += delta * _this2.weapon.inGameRotation;
+                if (_this2.weapon.ingameViewDataStatic.inGameRotation) {
+                    element.sprite.rotation += delta * _this2.weapon.ingameViewDataStatic.inGameRotation;
                 } else {
                     element.sprite.rotation = element.angle + Math.PI / 2;
                 }
@@ -81259,11 +81276,12 @@ var WeaponInGameView = function (_GameObject) {
 
                 element.sprite.x = Math.cos(element.angle) * 40 + _this2.offset.x;
                 element.sprite.y = Math.sin(element.angle) * 40 + _this2.offset.y;
-                var radToAng = element.angle * 180 / 3.14 % 360;
-                if (radToAng < 180) {
-                    _this2.z = _this2.parent.transform.position.z + 1;
+                var radToAng = element.sprite.rotation * 180 / Math.PI % 360;
+
+                if (radToAng < 270 && radToAng > 90) {
+                    _this2.z = _this2.parent.transform.position.z + 3;
                 } else {
-                    _this2.z = _this2.parent.transform.position.z - 1;
+                    _this2.z = _this2.parent.transform.position.z - 3;
                 }
             });
         }
@@ -89872,6 +89890,9 @@ var assets = [{
 	"id": "mainWeapons",
 	"url": "assets/json\\weapons\\mainWeapons.json"
 }, {
+	"id": "weapon-ingame-view",
+	"url": "assets/json\\weapons\\weapon-ingame-view.json"
+}, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
@@ -89906,7 +89927,7 @@ module.exports = exports['default'];
 /* 274 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/characters/characters.json","image/environment/environment.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

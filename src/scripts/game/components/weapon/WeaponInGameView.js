@@ -30,11 +30,12 @@ export default class WeaponInGameView extends GameObject {
         this.parent = parent;
         this.weapon = weapon;
 
-        let amount = weapon.ingameAmountIconOverrider >= 0 ? weapon.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
+        let amount = weapon.ingameViewDataStatic.ingameAmountIconOverrider >= 0 ? weapon.ingameViewDataStatic.ingameAmountIconOverrider : weapon.weaponAttributes.amount;
+
         for (var i = 0; i < amount; i++) {
-            let sprite = new PIXI.Sprite.from(this.weapon.ingameIcon);
+            let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
             sprite.anchor.set(0.5, 0.1)
-            sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameBaseWidth || 30))
+            sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
             this.container.addChild(sprite)
 
             let spring = new Spring()
@@ -92,12 +93,13 @@ export default class WeaponInGameView extends GameObject {
             spriteElement.targetAngle = element.angle;
         }
         this.calcAngle();
+        
         //console.log(this.parent.shootNormal)
         this.spriteList.forEach(element => {
             element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.2);
             element.spring.update()
-            if (this.weapon.inGameRotation) {
-                element.sprite.rotation += delta * this.weapon.inGameRotation
+            if (this.weapon.ingameViewDataStatic.inGameRotation) {
+                element.sprite.rotation += delta * this.weapon.ingameViewDataStatic.inGameRotation
             } else {
                 element.sprite.rotation = element.angle + Math.PI / 2
             }
@@ -109,11 +111,12 @@ export default class WeaponInGameView extends GameObject {
             
             element.sprite.x = Math.cos(element.angle) * 40 + this.offset.x
             element.sprite.y = Math.sin(element.angle) * 40 + this.offset.y
-            let radToAng = ((element.angle) * 180 / 3.14) % 360;
-            if(radToAng < 180){
-                this.z = this.parent.transform.position.z + 1;
+            let radToAng = ((element.sprite.rotation) * 180 / Math.PI) % 360;
+            
+            if(radToAng < 270 && radToAng > 90){
+                this.z = this.parent.transform.position.z + 3;
             }else{
-                this.z = this.parent.transform.position.z - 1;
+                this.z = this.parent.transform.position.z - 3;
 
             }
         });

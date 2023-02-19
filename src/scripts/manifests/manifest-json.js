@@ -92,6 +92,10 @@ const assets = [
 	"url":"assets/json\\weapons\\mainWeapons.json"
 	},
 	{
+	"id":"weapon-ingame-view",
+	"url":"assets/json\\weapons\\weapon-ingame-view.json"
+	},
+	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	}

@@ -23,6 +23,7 @@ export default class GameStaticData {
             
             { type:'weapons', list: 'main', path: ['mainWeapons'] },
             { type:'weapons',list: 'viewOverriders', path: ['weapon-view-overriders'] },
+            { type:'weapons',list: 'inGameView', path: ['weapon-ingame-view'] },
             
             { type:'animation',list: 'entity', path: ['entity-animation'], shared:true },
 

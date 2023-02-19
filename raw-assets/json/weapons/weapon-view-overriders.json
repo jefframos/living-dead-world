@@ -91,7 +91,7 @@
         "viewOffset": {
             "y": -20
         },
-        "maxHeight": 150,
+        "maxHeight": 80,
         "rotationSpeed": [-10,10]
     },
     {

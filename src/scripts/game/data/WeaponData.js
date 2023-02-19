@@ -16,10 +16,12 @@ export default class WeaponData {
         this.bulletComponent = Bullet;
         this.icon = 'knife';
         this.bulletIcon = 'knife';
-        this.ingameIcon = 'knife';
-        this.ingameAmountIconOverrider = -1;
-        this.inGameRotation = 0;
-        this.ingameBaseWidth = 20;
+        this.ingameViewDataStatic = {
+            ingameIcon: 'knife',
+            ingameAmountIconOverrider: -1,
+            inGameRotation: 0,
+            ingameBaseWidth: 20
+        }
         this.onDestroyId = null;
         this.isMain = true;
         this.name = name;

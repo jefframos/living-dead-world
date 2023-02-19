@@ -94,7 +94,7 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
 
-        if(this.weaponData.ingameIcon){
+        if(this.weaponData.ingameViewDataStatic.ingameIcon){
             //poolGameObject
             this.inGameView = this.engine.poolGameObject(WeaponInGameView);
             this.inGameView.setContainer(this.gameView.view);
