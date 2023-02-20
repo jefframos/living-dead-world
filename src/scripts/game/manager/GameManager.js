@@ -213,7 +213,7 @@ export default class GameManager {
             return;
         }
 
-        if (this.gameplayTime > 0) {
+        if (this.gameplayTime > 0.1) {
             this.updateLevelPhase();
         }
         this.gameManagerStats.Phase = this.currentPhase

@@ -19029,7 +19029,7 @@ var EffectsManager = function (_GameObject) {
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
-            fontSize: 12,
+            fontSize: 18,
             dropShadowDistance: 2,
             fill: "#ffffff",
             //fill: "#febc15",
@@ -19144,6 +19144,7 @@ var EffectsManager = function (_GameObject) {
             text.y = entity.gameView.y + Math.sin(ang) * dist;
             text.timer = 1;
             text.anchor.set(0.5);
+            text.scale.set(0.5);
             this.labels.push(text);
             this.effectsContainer.addChild(text);
         }
@@ -22658,7 +22659,7 @@ var Player = function (_GameAgent) {
             this.lifeBar = this.engine.poolGameObject(_EntityLifebar2.default);
             this.addChild(this.lifeBar);
 
-            this.lifeBar.build(30, 4, 1);
+            this.lifeBar.build(20, 3, 1);
             this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
 
             this.speed = 100;
@@ -25726,6 +25727,10 @@ var BaseWeapon = function (_PhysicsEntity) {
                         finalAng += Math.PI;
                     }
 
+                    if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.SameParentPosition) {
+                        gunDistance = 0;
+                    }
+
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                     bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 }
@@ -26195,7 +26200,8 @@ WeaponAttributes.DirectionType = {
     ParentAngle: 'ParentAngle',
     Hoaming: 'Hoaming',
     ClosestEnemySnap: 'ClosestEnemySnap',
-    Random: 'Random'
+    Random: 'Random',
+    SameParentPosition: 'SameParentPosition'
 };
 WeaponAttributes.ExtendedBehaviour = {
     None: 0,
@@ -27976,6 +27982,7 @@ var BaseEnemy = function (_GameAgent) {
 
             spriteSheet.setData(animData1);
             spriteSheet.update(0.1);
+            spriteSheet.update(0.1);
 
             if (this.viewData.anchor) {
                 this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y);
@@ -28763,7 +28770,7 @@ var GameManager = function () {
                 return;
             }
 
-            if (this.gameplayTime > 0) {
+            if (this.gameplayTime > 0.1) {
                 this.updateLevelPhase();
             }
             this.gameManagerStats.Phase = this.currentPhase;
@@ -80952,7 +80959,7 @@ var EnemyGlobalSpawner = function () {
 
         this.gameManager = gameManager;
 
-        this.distanceToSpawn = 800;
+        this.distanceToSpawn = 400;
     }
 
     (0, _createClass3.default)(EnemyGlobalSpawner, [{
@@ -83764,7 +83771,7 @@ var PerspectiveCamera = function (_Camera) {
             }
         }
         _this.zoom = 1;
-        _this.targetZoom = 1;
+        _this.targetZoom = 1.5;
         window.GUI.add(_this, 'targetZoom', 0.5, 3).listen();
         return _this;
     }
@@ -89943,14 +89950,14 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -89967,17 +89974,17 @@ var assets = [{
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
@@ -89994,11 +90001,11 @@ var assets = [{
 	"id": "mainWeapons",
 	"url": "assets/json\\weapons\\mainWeapons.json"
 }, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
 	"id": "weapon-ingame-view",
 	"url": "assets/json\\weapons\\weapon-ingame-view.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;

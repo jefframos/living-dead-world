@@ -69,7 +69,7 @@ export default class Player extends GameAgent {
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         this.addChild(this.lifeBar)
 
-        this.lifeBar.build(30, 4, 1);
+        this.lifeBar.build(20, 3, 1);
         this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
 
 

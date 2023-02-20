@@ -63,6 +63,7 @@ export default class BaseEnemy extends GameAgent {
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
+        spriteSheet.update(0.1);
 
         if (this.viewData.anchor) {
             this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)

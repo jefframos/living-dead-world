@@ -32,7 +32,7 @@ export default class EffectsManager extends GameObject {
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
-            fontSize: 12,
+            fontSize: 18,
             dropShadowDistance: 2,
             fill: "#ffffff",
             //fill: "#febc15",
@@ -140,6 +140,7 @@ export default class EffectsManager extends GameObject {
         text.y = entity.gameView.y + Math.sin(ang) * dist
         text.timer = 1
         text.anchor.set(0.5)
+        text.scale.set(0.5)
         this.labels.push(text)
         this.effectsContainer.addChild(text)
 

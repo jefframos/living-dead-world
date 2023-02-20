@@ -16,7 +16,7 @@ export default class EnemyGlobalSpawner {
     constructor(gameManager) {
         this.gameManager = gameManager;
 
-        this.distanceToSpawn = 800
+        this.distanceToSpawn = 400
 
     }
     spawnRandom(){
