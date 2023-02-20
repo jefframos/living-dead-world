@@ -58,6 +58,9 @@ export default class GameAgent extends PhysicsEntity {
     }
     playVfx(type) {
         if (!this.staticData || !this.staticData.vfx || !this.staticData.vfx[type]) { return }
+        let centerPosition = this.gameView.view.position
+        //centerPosition.x -= (this.gameView.view.anchor.x * this.gameView.view.width) + (this.gameView.view.width * 0.5)
+        //centerPosition.y -= (this.gameView.view.anchor.y * this.gameView.view.height) + (this.gameView.view.height * 0.5)
         EffectsManager.instance.emitById(this.gameView.view.position, this.staticData.vfx[type])
     }
 

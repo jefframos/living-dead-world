@@ -22658,7 +22658,7 @@ var Player = function (_GameAgent) {
             this.lifeBar = this.engine.poolGameObject(_EntityLifebar2.default);
             this.addChild(this.lifeBar);
 
-            this.lifeBar.build(30, 4, 2);
+            this.lifeBar.build(30, 4, 1);
             this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
 
             this.speed = 100;
@@ -27998,8 +27998,9 @@ var BaseEnemy = function (_GameAgent) {
             this.addChild(shadow);
             //shadow.updateScale(scale);
 
-            if (this.viewData.offset) {
-                if (this.viewData.offset.y) {
+            this.transform.position.y = 0;
+            if (this.viewData.offset != undefined) {
+                if (this.viewData.offset.y != undefined) {
                     this.transform.position.y = this.viewData.offset.y;
                 }
             }
@@ -43203,6 +43204,9 @@ var GameAgent = function (_PhysicsEntity) {
             if (!this.staticData || !this.staticData.vfx || !this.staticData.vfx[type]) {
                 return;
             }
+            var centerPosition = this.gameView.view.position;
+            //centerPosition.x -= (this.gameView.view.anchor.x * this.gameView.view.width) + (this.gameView.view.width * 0.5)
+            //centerPosition.y -= (this.gameView.view.anchor.y * this.gameView.view.height) + (this.gameView.view.height * 0.5)
             _EffectsManager2.default.instance.emitById(this.gameView.view.position, this.staticData.vfx[type]);
         }
     }, {
@@ -78336,7 +78340,7 @@ var BasicFloorRender = function (_GameObject) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (BasicFloorRender.__proto__ || (0, _getPrototypeOf2.default)(BasicFloorRender)).call(this));
 
         _this.gameView = new _GameView2.default();
-        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('IndustrialTile_73'), 32, 32);
+        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
         _this.gameView.view.anchor.set(0.5);
         _this.gameView.view.tileScale.set(1.5);
         _this.gameView.view.width = 5000;
@@ -89945,17 +89949,14 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
-}, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
@@ -89963,8 +89964,14 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
+}, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "entity-particle-descriptor",
 	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
@@ -89987,14 +89994,11 @@ var assets = [{
 	"id": "mainWeapons",
 	"url": "assets/json\\weapons\\mainWeapons.json"
 }, {
-	"id": "weapon-ingame-view",
-	"url": "assets/json\\weapons\\weapon-ingame-view.json"
-}, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "weapon-ingame-view",
+	"url": "assets/json\\weapons\\weapon-ingame-view.json"
 }];
 
 exports.default = assets;
@@ -90027,7 +90031,7 @@ module.exports = exports['default'];
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/texture/texture.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

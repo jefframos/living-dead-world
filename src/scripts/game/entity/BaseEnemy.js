@@ -88,8 +88,9 @@ export default class BaseEnemy extends GameAgent {
         this.addChild(shadow);
         //shadow.updateScale(scale);
 
-        if (this.viewData.offset) {
-            if (this.viewData.offset.y) {
+        this.transform.position.y = 0;
+        if (this.viewData.offset != undefined) {
+            if (this.viewData.offset.y != undefined) {
                 this.transform.position.y = this.viewData.offset.y
             }
         }

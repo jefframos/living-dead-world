@@ -32,20 +32,16 @@ const assets = [
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
-	},
-	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_TR",
@@ -56,8 +52,16 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
+	},
+	{
 	"id":"entity-animation",
 	"url":"assets/json\\animation\\entity-animation.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"entity-particle-descriptor",
@@ -88,16 +92,12 @@ const assets = [
 	"url":"assets/json\\weapons\\mainWeapons.json"
 	},
 	{
-	"id":"weapon-ingame-view",
-	"url":"assets/json\\weapons\\weapon-ingame-view.json"
-	},
-	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"weapon-ingame-view",
+	"url":"assets/json\\weapons\\weapon-ingame-view.json"
 	}
 ];
 
