@@ -10,6 +10,7 @@ import DeckView from '../components/deckBuilding/DeckView';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import GameManager from '../manager/GameManager';
+import GameStaticData from '../data/GameStaticData';
 import GameplaySessionController from '../manager/GameplaySessionController';
 import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
@@ -236,7 +237,7 @@ export default class GameScreen extends Screen {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, null)
+        this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
         this.gameSessionController.playerReady()
         this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
@@ -247,9 +248,9 @@ export default class GameScreen extends Screen {
         let angle = Math.PI * 2 * Math.random();
         // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
-        // this.companion = this.gameManager.addEntity(Companion, true)
-        // this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
-        // this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
+        this.companion = this.gameManager.addEntity(Companion, true)
+        this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
+        this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
 
         setTimeout(() => {
 
@@ -264,7 +265,6 @@ export default class GameScreen extends Screen {
                 //this.addRandomAgents(1)
             }
         }, 5000)
-        //this.companion.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.heigh);
         //this.debug.ADD_ENEMIES();
         this.player.onDie.addOnce(() => {
             setTimeout(() => {

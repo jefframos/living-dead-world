@@ -10,7 +10,7 @@ export default class FlashOnDamage extends BaseComponent {
 
         //this.filter = new PIXI.filters.ColorMatrixFilter();
 
-        this.flashTime = 0.3;
+        this.flashTime = 0.2;
         this.flashCurrentTime = 0;
 
         this.currentRGB = { r: 0, g: 0, b: 0 }
@@ -18,13 +18,12 @@ export default class FlashOnDamage extends BaseComponent {
 
         this.startValue = Color.toRGB(0xFFFFFF);
         this.endValue = Color.toRGB(0xFF0000);
-    }
-    setMatrix() {
-        this.filter.matrix = [
-            1, this.intensity, this.intensity, this.intensity, this.intensity,
-            this.intensity, 1, this.intensity, this.intensity, this.intensity,
-            this.intensity, this.intensity, 1, this.intensity, this.intensity,
-            0, 0, 0, 1, 0]
+
+        this.uniformGroup = {
+            intensity:0
+        }
+        this.shader =   new PIXI.Filter(null, Shaders.ENTITY_SPRITE_SHADER, this.uniformGroup)
+
     }
     enable() {
         super.enable();
@@ -39,16 +38,9 @@ export default class FlashOnDamage extends BaseComponent {
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
             this.gameObject.gameView.view.tint = Color.rgbToColor(this.startValue);
             //this.gameObject.gameView.view.skew.set(0.65, -0.3);
-
-            //this.gameObject.gameView.view.filters = []
+            this.intensity = 1;
+            //this.gameObject.gameView.view.filters = [this.shader]
         }
-        // if (this.gameObject.gameView && this.gameObject.gameView.view) {
-        //     this.uniforms = Shaders.ENTITY_SPRITE_UNIFORMS;
-        //     this.uniforms.intensity = 0.5;
-        //     this.gameObject.gameView.view.filters = [new PIXI.Filter('',Shaders.ENTITY_SPRITE_SHADER,this.uniforms)]
-        //     console.log(this.gameObject.gameView.view)
-        // }
-
 
     }
     destroy(){
@@ -56,6 +48,7 @@ export default class FlashOnDamage extends BaseComponent {
         this.gameObject.health.gotDamaged.remove(this.startFlash.bind(this))
     }
     startFlash() {
+        if(this.gameObject.health.isDead) return;
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
@@ -70,6 +63,10 @@ export default class FlashOnDamage extends BaseComponent {
             this.intensity = this.easeOutBack(this.flashCurrentTime / this.flashTime)
 
             this.intensity = Math.max(0, this.intensity)
+
+            if(this.uniformGroup){
+                this.uniformGroup.intensity = this.intensity;
+            }
 
             this.currentRGB.r = Math.floor(this.intensity * (this.endValue.r - this.startValue.r) + this.startValue.r);
             this.currentRGB.g = Math.floor(this.intensity * (this.endValue.g - this.startValue.g) + this.startValue.g);

@@ -46,12 +46,15 @@ export default class EffectsManager extends GameObject {
         this.particleDescriptors = {};
         this.makeDescriptors();
 
+        console.log(this.particleDescriptors)
+
         this.labels = [];
         this.news = 0
         this.damageFontPool = [];
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
+        console.log(descriptors)
         descriptors.forEach(data => {
             this.particleDescriptors[data.id] = new ParticleDescriptor(data)
 

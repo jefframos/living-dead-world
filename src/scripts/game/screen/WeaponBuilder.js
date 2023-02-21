@@ -243,16 +243,16 @@ export default class WeaponBuilder {
     }
     eraseWeapon() {
 
-        if (this.mainWeapon) {
-            this.mainWeapon.clear()
-        }
-        this.mainWeapon = null;
-        this.player.clearWeapon();
-        //this.mainWeapon = new InGameWeapon();
+        // if (this.mainWeapon) {
+        //     this.mainWeapon.clear()
+        // }
+        // this.mainWeapon = null;
+        // this.player.clearWeapon();
+        // //this.mainWeapon = new InGameWeapon();
 
-        if (window.isMobile) {
-            this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
-        }
+        // if (window.isMobile) {
+        //     this.mainWeapon.addWeapon(this.weaponsData['MELEE_SWORD'])
+        // }
         //this.player.addWeapon(this.mainWeapon)
     }
     addWeapons(player) {

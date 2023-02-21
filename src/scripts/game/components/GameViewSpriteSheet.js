@@ -1,5 +1,6 @@
 import BaseComponent from '../core/gameObject/BaseComponent';
 import Pool from '../core/utils/Pool';
+import Shaders from '../shader/Shaders';
 import SpriteSheetAnimation from './utils/SpriteSheetAnimation';
 import SpriteSheetBehaviour from './particleSystem/particleBehaviour/SpriteSheetBehaviour';
 import Utils from '../core/utils/Utils';
@@ -51,5 +52,6 @@ export default class GameViewSpriteSheet extends BaseComponent {
         } else {
             this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle)
         }
+
     }
 }

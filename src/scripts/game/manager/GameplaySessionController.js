@@ -23,7 +23,8 @@ export default class GameplaySessionController extends GameObject {
         super()
         this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
         this.tileSize = 45
-
+        
+        this.weaponBuilder = new WeaponBuilder();
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Building
         this.gameView.view = new PIXI.Container();
@@ -62,7 +63,6 @@ export default class GameplaySessionController extends GameObject {
         if (!this.player) {
             this.engine.callbackWhenAdding(Player, (player) => {
                 this.player = player[0];
-                //this.playerReady();
             });
         }
         //this.setBuildingMode();
@@ -75,7 +75,6 @@ export default class GameplaySessionController extends GameObject {
                 this.weaponBuilder.eraseWeapon()
             } else{
 
-                this.weaponBuilder = new WeaponBuilder();
                 this.weaponBuilder.addWeapons(this.player)
             }  
             this.cardPlacementSystem.setPlayer(this.player);

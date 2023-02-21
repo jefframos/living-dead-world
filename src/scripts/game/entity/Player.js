@@ -16,6 +16,7 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
+import WeaponBuilder from "../screen/WeaponBuilder";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
@@ -52,12 +53,10 @@ export default class Player extends GameAgent {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
-        
 
         this.staticData = playerData;
         this.attributes = playerData.attributes;
         this.viewData = playerData.view;
-
         Player.MainPlayer = this;
         super.build()
 
@@ -132,8 +131,7 @@ export default class Player extends GameAgent {
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
-
-
+        this.addWeaponData(WeaponBuilder.instance.weaponsData[playerData.weapon.id])
     }
 
     clearWeapon() {
@@ -174,20 +172,9 @@ export default class Player extends GameAgent {
         this.addChild(weapon)
         this.weaponsGameObject.push(weapon);
         weapon.build(weaponData)
-
-        // let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
-        // this.addChild(weaponTimeBar)
-        // weaponTimeBar.build(30, 4, 2);
-        // weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
-        // weaponTimeBar.setWeapon(weapon);
-
-        // this.weaponLoadingBars.push(weaponTimeBar)
-
-
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
-
         this.activeWeapons.push(inGameWeapon)
         this.refreshEquipment();
     }
@@ -280,7 +267,7 @@ export default class Player extends GameAgent {
 
         if (this.distanceWalked > 50) {
             EffectsManager.instance.emitById(Vector3.XZtoXY(
-                Vector3.sum(Vector3.sum(this.transform.position, this.facingVector), new Vector3(0, 0, -20))
+                Vector3.sum(Vector3.sum(this.transform.position, this.facingVector), new Vector3(0, 0, 0))
             ), 'SMOKE_01', 1)
 
             this.distanceWalked = 0;

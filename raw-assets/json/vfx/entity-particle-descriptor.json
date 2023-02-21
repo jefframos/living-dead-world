@@ -59,7 +59,7 @@
         {
             "id": "BLOOD_SPLAT",
             "lifeSpan": 999,
-            "scale": 1,
+            "scale": 0.5,
             "behaviours": [
                 {
                     "behaviourId": 4,
@@ -70,7 +70,7 @@
         {
             "id": "SMOKE_01",
             "lifeSpan": 999,
-            "scale": 1,
+            "scale": 0.2,
             "behaviours": [
                 {
                     "behaviourId": 4,

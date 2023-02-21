@@ -15,7 +15,7 @@ export default class ParticleBehaviour {
 
         this.normalValue = 0;
 
-        this.anchor = {x:0.5, y:0.5}
+        this.anchor = { x: 0.5, y: 0.5 }
 
         this.autoKill = false;
         this.shouldKill = false;
@@ -31,13 +31,13 @@ export default class ParticleBehaviour {
     }
     build(params) {
         this.delay = ParticleBehaviour.findValue(params.delay);
-        if(!this.delay) {
+        if (!this.delay) {
             this.delay = 0;
         }
     }
     update(delta) {
         if (this.currentTime >= this.time) {
-            if(this.autoKill){
+            if (this.autoKill) {
                 this.shouldKill = true;
             }
             return;
@@ -48,13 +48,13 @@ export default class ParticleBehaviour {
             this.currentValue = this.normalValue * (this.endValue - this.startValue) + this.startValue;
         }
 
-        if(this.delay <= 0){
+        if (this.delay <= 0) {
             this.currentTime += delta;
-        }else{
+        } else {
             this.delay -= delta;
         }
 
-        
+
     }
 
 
@@ -80,7 +80,11 @@ export default class ParticleBehaviour {
             if (data.length == 1) {
                 return data[0];
             }
-            return Math.random() * (data[1] - data[0]) + data[0];
+            if (typeof data[0] === 'string' || data[0] instanceof String) {
+                return data[Math.floor(Math.random() * data.length)]
+            } else {
+                return Math.random() * ([1] - data[0]) + data[0];
+            }
         }
         return data;
     }
