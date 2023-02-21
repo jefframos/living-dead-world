@@ -51,6 +51,7 @@ export default class BaseEnemy extends GameAgent {
         if (this.viewData.zombieWalk) {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
+
         let animData1 = {}
         animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
 

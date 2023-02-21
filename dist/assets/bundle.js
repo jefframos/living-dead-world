@@ -18985,7 +18985,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -19618,7 +19618,7 @@ var _PhysicsModule = __webpack_require__(58);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -22501,6 +22501,180 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _pixi = __webpack_require__(7);
+
+var _EnemyStaticData = __webpack_require__(221);
+
+var _EnemyStaticData2 = _interopRequireDefault(_EnemyStaticData);
+
+var _Game = __webpack_require__(35);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameStaticData = function () {
+    (0, _createClass3.default)(GameStaticData, null, [{
+        key: 'instance',
+        get: function get() {
+            if (!GameStaticData._instance) {
+                GameStaticData._instance = new GameStaticData();
+            }
+            return GameStaticData._instance;
+        }
+    }]);
+
+    function GameStaticData() {
+        (0, _classCallCheck3.default)(this, GameStaticData);
+
+        this.staticAssets = {};
+    }
+
+    (0, _createClass3.default)(GameStaticData, [{
+        key: 'initialize',
+        value: function initialize() {
+            var _this = this;
+
+            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'entities', list: 'player', path: ['players'] }, { type: 'cards', list: 'cards', path: ['cards'] }, { type: 'weapons', list: 'main', path: ['main-weapons'] }, { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] }, { type: 'weapons', list: 'inGameView', path: ['weapon-ingame-view'] }, { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true }, { type: 'animation', list: 'player', path: ['player-animation'], shared: true }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
+            //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
+            { type: 'vfx', list: 'particleDescriptors', path: ['effects-descriptors'] }, { type: 'vfx', list: 'behaviours', path: ['vfx-behaviours'] }];
+
+            loadList.forEach(function (element) {
+                if (!_this.staticAssets[element.type]) {
+                    _this.staticAssets[element.type] = {
+                        sharedData: {}
+                    };
+                }
+                if (!_this.staticAssets[element.type][element.list]) {
+                    _this.staticAssets[element.type][element.list] = {
+                        allElements: []
+                    };
+                }
+
+                element.path.forEach(function (jsonPath) {
+                    var data = _Game2.default.MainLoader.resources[jsonPath].data.list;
+                    if (!data) {
+                        data = _Game2.default.MainLoader.resources[jsonPath].data;
+                    }
+                    data.forEach(function (row) {
+                        _this.staticAssets[element.type][element.list].allElements.push(row);
+                        _this.staticAssets[element.type][element.list][row.id] = row;
+                        if (element.shared) {
+                            _this.staticAssets[element.type].sharedData[row.id] = row;
+                        }
+                    });
+                });
+            });
+
+            console.log(this.staticAssets);
+        }
+    }, {
+        key: 'getAllCards',
+        value: function getAllCards() {
+            return this.getAllDataFrom('cards', 'cards');
+        }
+    }, {
+        key: 'getEntityByIndex',
+        value: function getEntityByIndex() {
+            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
+            var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+
+            var type = 'entities';
+            var data = this.staticAssets[type][subtype].allElements[id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getEntityById',
+        value: function getEntityById() {
+            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
+            var id = arguments[1];
+
+            var type = 'entities';
+            var data = this.staticAssets[type][subtype][id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getDataByIndex',
+        value: function getDataByIndex(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+            var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+
+            var data = this.staticAssets[type][subtype].allElements[id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getDataById',
+        value: function getDataById(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+            var id = arguments[2];
+
+            var data = this.staticAssets[type][subtype][id];
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getSharedDataById',
+        value: function getSharedDataById(type, id) {
+            var data = this.staticAssets[type].sharedData[id];
+            if (!data) {
+                console.error('unable to find sharedData of', type, id);
+            } else {
+                return data;
+            }
+        }
+    }, {
+        key: 'getAllDataFrom',
+        value: function getAllDataFrom(type) {
+            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
+
+            var data = this.staticAssets[type][subtype].allElements;
+            if (!data) {
+                console.error('unable to find data of', type, subtype, id);
+            } else {
+                return data;
+            }
+        }
+    }]);
+    return GameStaticData;
+}();
+
+exports.default = GameStaticData;
+module.exports = exports['default'];
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
 var _getPrototypeOf = __webpack_require__(2);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -22540,6 +22714,10 @@ var _FlashOnDamage2 = _interopRequireDefault(_FlashOnDamage);
 var _GameAgent2 = __webpack_require__(83);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
+
+var _GameStaticData = __webpack_require__(27);
+
+var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
 var _GameViewSpriteSheet = __webpack_require__(125);
 
@@ -22585,6 +22763,10 @@ var _SpriteJump = __webpack_require__(87);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
+var _Utils = __webpack_require__(9);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
 var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
@@ -22604,276 +22786,287 @@ var _signals2 = _interopRequireDefault(_signals);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Player = function (_GameAgent) {
-    (0, _inherits3.default)(Player, _GameAgent);
+        (0, _inherits3.default)(Player, _GameAgent);
 
-    function Player() {
-        (0, _classCallCheck3.default)(this, Player);
+        function Player() {
+                (0, _classCallCheck3.default)(this, Player);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (Player.__proto__ || (0, _getPrototypeOf2.default)(Player)).call(this));
+                var _this = (0, _possibleConstructorReturn3.default)(this, (Player.__proto__ || (0, _getPrototypeOf2.default)(Player)).call(this));
 
-        _this.activeWeapons = [];
+                _this.activeWeapons = [];
 
-        _this.onUpdateEquipment = new _signals2.default.Signal();
-        _this.totalDirections = 8;
-        _this.autoSetAngle = false;
-        _this.gameView.layer = _RenderModule2.default.RenderLayers.Gameplay;
-        _this.gameView.view = new PIXI.Sprite.from('knight_idle_anim_f0');
-        //this.setDebug(15)        
-        _this.playerStats = {
-            health: 0,
-            deaths: 0
-        };
-        window.GUI.add(_this.playerStats, 'health').listen();
-        window.GUI.add(_this.playerStats, 'deaths').listen();
+                _this.onUpdateEquipment = new _signals2.default.Signal();
+                _this.totalDirections = 8;
+                _this.autoSetAngle = false;
+                _this.gameView.layer = _RenderModule2.default.RenderLayers.Gameplay;
+                _this.gameView.view = new PIXI.Sprite.from('knight_idle_anim_f0');
+                //this.setDebug(15)        
+                _this.playerStats = {
+                        health: 0,
+                        deaths: 0
+                };
+                window.GUI.add(_this.playerStats, 'health').listen();
+                window.GUI.add(_this.playerStats, 'deaths').listen();
 
-        _this.isPlayer = true;
+                _this.isPlayer = true;
 
-        return _this;
-    }
+                return _this;
+        }
 
-    (0, _createClass3.default)(Player, [{
-        key: "build",
-        value: function build() {
-            var radius = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 15;
+        (0, _createClass3.default)(Player, [{
+                key: "build",
+                value: function build(playerData) {
 
+                        if (!playerData) {
+                                playerData = _GameStaticData2.default.instance.getEntityByIndex('player', Math.floor(Math.random() * 5));
+                        }
 
-            Player.MainPlayer = this;
-            (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "build", this).call(this);
+                        this.staticData = playerData;
+                        this.attributes = playerData.attributes;
+                        this.viewData = playerData.view;
 
-            this.distanceWalked = 0;
+                        Player.MainPlayer = this;
+                        (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "build", this).call(this);
 
-            this.activeWeapons = [];
-            this.weaponsGameObject = [];
+                        this.distanceWalked = 0;
 
-            this.health.reset();
+                        this.activeWeapons = [];
+                        this.weaponsGameObject = [];
 
-            this.currentEnemiesColliding = [];
-            this.weaponLoadingBars = [];
+                        this.health.reset();
 
-            this.sensor = this.engine.poolGameObject(_Sensor2.default);
-            this.sensor.build(250);
-            this.sensor.onTrigger.add(this.onSensorTrigger.bind(this));
-            this.addChild(this.sensor);
-            this.buildCircle(0, 0, 15);
+                        this.currentEnemiesColliding = [];
+                        this.weaponLoadingBars = [];
 
-            this.lifeBar = this.engine.poolGameObject(_EntityLifebar2.default);
-            this.addChild(this.lifeBar);
+                        this.sensor = this.engine.poolGameObject(_Sensor2.default);
+                        this.sensor.build(250);
+                        this.sensor.onTrigger.add(this.onSensorTrigger.bind(this));
+                        this.addChild(this.sensor);
+                        this.buildCircle(0, 0, 15);
 
-            this.lifeBar.build(20, 3, 1);
-            this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
+                        this.lifeBar = this.engine.poolGameObject(_EntityLifebar2.default);
+                        this.addChild(this.lifeBar);
 
-            this.speed = 100;
+                        this.lifeBar.build(20, 3, 1);
+                        this.lifeBar.updateView({ x: 0, y: -60 }, 0x8636f0, 0xFF0000);
 
-            this.addChild(this.engine.poolGameObject(_Shadow2.default));
+                        this.speed = this.attributes.speed;
 
-            this.transform.angle = -Math.PI / 2;
-            this.layerCategory = _Layer2.default.Player;
-            this.layerMask = _Layer2.default.PlayerCollision;
+                        this.addChild(this.engine.poolGameObject(_Shadow2.default));
 
-            this.framesAfterStart = 0;
-            var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
+                        this.transform.angle = -Math.PI / 2;
+                        this.layerCategory = _Layer2.default.Player;
+                        this.layerMask = _Layer2.default.PlayerCollision;
 
-            var animData = {};
-            animData[_GameViewSpriteSheet2.default.AnimationType.Idle] = {
-                spriteName: 'tile00',
-                params: {
-                    totalFramesRange: { min: 0, max: 3 }, time: 0.2, loop: true, anchor: { x: 0.3, y: 1 }
+                        this.framesAfterStart = 0;
+                        var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
+
+                        var animData1 = {};
+                        animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = _GameStaticData2.default.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData;
+
+                        console.log(animData1);
+
+                        var run = _GameStaticData2.default.instance.getSharedDataById('animation', this.staticData.animationData.run);
+                        if (run) {
+                                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = run.animationData;
+                        } else {
+                                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = animData1[_GameViewSpriteSheet2.default.AnimationType.Idle];
+                        }
+
+                        spriteSheet.setData(animData1);
+                        spriteSheet.update(0.1);
+
+                        if (this.viewData.anchor) {
+                                this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y);
+                        } else {
+                                this.gameView.view.anchor.set(0.5, 1);
+                        }
+
+                        var scale = this.viewData.scale ? this.viewData.scale : 1;
+                        this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+                        this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
+                        this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
+                        this.gameView.applyScale();
+                        this.anchorOffset = 0;
+
+                        //this.addComponent(FlashOnDamage)
+                        this.addComponent(_SpriteJump2.default).jumpHight = 5;
+                        var spriteFacing = this.addComponent(_SpriteFacing2.default);
+                        spriteFacing.lerp = 1;
+                        spriteFacing.startScaleX = -1;
                 }
-            };
-            animData[_GameViewSpriteSheet2.default.AnimationType.Running] = {
-                spriteName: 'rtile00',
-                params: {
-                    totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true, anchor: { x: 0.3, y: 1 }
+        }, {
+                key: "clearWeapon",
+                value: function clearWeapon() {
+                        for (var index = this.weaponsGameObject.length - 1; index >= 0; index--) {
+                                if (!this.weaponsGameObject[index].destroyed) {
+
+                                        this.weaponsGameObject[index].destroy();
+                                }
+                        }
+                        for (var _index = this.weaponLoadingBars.length - 1; _index >= 0; _index--) {
+                                if (!this.weaponLoadingBars[_index].destroyed) {
+
+                                        this.weaponLoadingBars[_index].destroy();
+                                }
+                        }
+                        this.weaponLoadingBars = [];
+                        this.weaponsGameObject = [];
+                        this.activeWeapons = [];
+                        this.refreshEquipment();
                 }
-            };
+        }, {
+                key: "addWeaponData",
+                value: function addWeaponData(weaponData) {
+                        var slotID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
-            spriteSheet.setData(animData);
 
-            this.gameView.view.anchor.set(0.5, 1);
-            this.gameView.view.scale.set(60 / this.gameView.view.width * this.gameView.view.scale.x);
-            this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
-            this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
-            this.gameView.applyScale();
-            this.anchorOffset = 0;
-
-            //this.addComponent(FlashOnDamage)
-            this.addComponent(_SpriteJump2.default).jumpHight = 5;
-            var spriteFacing = this.addComponent(_SpriteFacing2.default);
-            spriteFacing.lerp = 1;
-            spriteFacing.startScaleX = -1;
-        }
-    }, {
-        key: "clearWeapon",
-        value: function clearWeapon() {
-            for (var index = this.weaponsGameObject.length - 1; index >= 0; index--) {
-                if (!this.weaponsGameObject[index].destroyed) {
-
-                    this.weaponsGameObject[index].destroy();
+                        if (this.activeWeapons.length < slotID + 1) {
+                                var mainWeapon = new _InGameWeapon2.default();
+                                mainWeapon.addWeapon(weaponData);
+                                this.addWeapon(mainWeapon);
+                        } else {
+                                this.activeWeapons[slotID].addWeapon(weaponData);
+                        }
                 }
-            }
-            for (var _index = this.weaponLoadingBars.length - 1; _index >= 0; _index--) {
-                if (!this.weaponLoadingBars[_index].destroyed) {
+        }, {
+                key: "addWeapon",
+                value: function addWeapon(inGameWeapon) {
+                        var _this2 = this;
 
-                    this.weaponLoadingBars[_index].destroy();
+                        if (!inGameWeapon.hasWeapon) {
+                                return;
+                        }
+                        var weaponData = inGameWeapon.mainWeapon;
+
+                        var weapon = this.engine.poolGameObject(weaponData.customConstructor);
+                        this.addChild(weapon);
+                        this.weaponsGameObject.push(weapon);
+                        weapon.build(weaponData);
+
+                        // let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
+                        // this.addChild(weaponTimeBar)
+                        // weaponTimeBar.build(30, 4, 2);
+                        // weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
+                        // weaponTimeBar.setWeapon(weapon);
+
+                        // this.weaponLoadingBars.push(weaponTimeBar)
+
+
+                        inGameWeapon.onUpdateWeapon.add(function () {
+                                _this2.refreshEquipment();
+                        });
+
+                        this.activeWeapons.push(inGameWeapon);
+                        this.refreshEquipment();
                 }
-            }
-            this.weaponLoadingBars = [];
-            this.weaponsGameObject = [];
-            this.activeWeapons = [];
-            this.refreshEquipment();
-        }
-    }, {
-        key: "addWeaponData",
-        value: function addWeaponData(weaponData) {
-            var slotID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-
-            if (this.activeWeapons.length < slotID + 1) {
-                var mainWeapon = new _InGameWeapon2.default();
-                mainWeapon.addWeapon(weaponData);
-                this.addWeapon(mainWeapon);
-            } else {
-                this.activeWeapons[slotID].addWeapon(weaponData);
-            }
-        }
-    }, {
-        key: "addWeapon",
-        value: function addWeapon(inGameWeapon) {
-            var _this2 = this;
-
-            if (!inGameWeapon.hasWeapon) {
-                return;
-            }
-            var weaponData = inGameWeapon.mainWeapon;
-
-            var weapon = this.engine.poolGameObject(weaponData.customConstructor);
-            this.addChild(weapon);
-            this.weaponsGameObject.push(weapon);
-            weapon.build(weaponData);
-
-            // let weaponTimeBar = this.engine.poolGameObject(WeaponLoadingBar)
-            // this.addChild(weaponTimeBar)
-            // weaponTimeBar.build(30, 4, 2);
-            // weaponTimeBar.updateView({ x: 0, y: -60 - (this.weaponLoadingBars.length * 10) }, 0x00FF00, 0x5555FF);
-            // weaponTimeBar.setWeapon(weapon);
-
-            // this.weaponLoadingBars.push(weaponTimeBar)
-
-
-            inGameWeapon.onUpdateWeapon.add(function () {
-                _this2.refreshEquipment();
-            });
-
-            this.activeWeapons.push(inGameWeapon);
-            this.refreshEquipment();
-        }
-    }, {
-        key: "refreshEquipment",
-        value: function refreshEquipment() {
-            this.onUpdateEquipment.dispatch(this);
-        }
-    }, {
-        key: "onSensorTrigger",
-        value: function onSensorTrigger(element) {}
-    }, {
-        key: "die",
-        value: function die() {
-            (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "die", this).call(this);
-
-            Player.Deaths++;
-        }
-    }, {
-        key: "damage",
-        value: function damage(value) {
-            (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "damage", this).call(this, value);
-        }
-    }, {
-        key: "start",
-        value: function start() {
-            this.input = this.engine.findByType(_InputModule2.default);
-            this.physicsModule = this.engine.findByType(_PhysicsModule2.default);
-        }
-    }, {
-        key: "collisionEnter",
-        value: function collisionEnter(collided) {
-            if (collided.layerCategory != _Layer2.default.Enemy) return;
-            if (this.findInCollision(collided)) return;
-            this.currentEnemiesColliding.push({ entity: collided, timer: 0 });
-        }
-    }, {
-        key: "collisionExit",
-        value: function collisionExit(collided) {
-            if (collided.layerCategory != _Layer2.default.Enemy) return;
-            if (!this.findInCollision(collided)) return;
-            this.currentEnemiesColliding = this.currentEnemiesColliding.filter(function (item) {
-                return item.entity !== collided;
-            });
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            this.framesAfterStart++;
-            if (this.framesAfterStart == 1) {
-                this.sensor.collisionList.forEach(function (element) {
-                    if (element.destroy && !element.destroyed) {
-                        element.destroy();
-                    }
-                });
-            }
-
-            for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
-                var element = this.currentEnemiesColliding[index];
-                if (element.timer <= 0) {
-                    var dead = this.damage(element.entity.attributes.power);
-                    if (dead) {
-                        return;
-                    }
-                    element.timer = 1;
-                } else {
-                    element.timer -= delta;
+        }, {
+                key: "refreshEquipment",
+                value: function refreshEquipment() {
+                        this.onUpdateEquipment.dispatch(this);
                 }
-            }
+        }, {
+                key: "onSensorTrigger",
+                value: function onSensorTrigger(element) {}
+        }, {
+                key: "die",
+                value: function die() {
+                        (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "die", this).call(this);
 
-            this.playerStats.health = this.health.currentHealth;
-            this.playerStats.deaths = Player.Deaths;
+                        Player.Deaths++;
+                }
+        }, {
+                key: "damage",
+                value: function damage(value) {
+                        (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "damage", this).call(this, value);
+                }
+        }, {
+                key: "start",
+                value: function start() {
+                        this.input = this.engine.findByType(_InputModule2.default);
+                        this.physicsModule = this.engine.findByType(_PhysicsModule2.default);
+                }
+        }, {
+                key: "collisionEnter",
+                value: function collisionEnter(collided) {
+                        if (collided.layerCategory != _Layer2.default.Enemy) return;
+                        if (this.findInCollision(collided)) return;
+                        this.currentEnemiesColliding.push({ entity: collided, timer: 0 });
+                }
+        }, {
+                key: "collisionExit",
+                value: function collisionExit(collided) {
+                        if (collided.layerCategory != _Layer2.default.Enemy) return;
+                        if (!this.findInCollision(collided)) return;
+                        this.currentEnemiesColliding = this.currentEnemiesColliding.filter(function (item) {
+                                return item.entity !== collided;
+                        });
+                }
+        }, {
+                key: "update",
+                value: function update(delta) {
+                        this.framesAfterStart++;
+                        if (this.framesAfterStart == 1) {
+                                this.sensor.collisionList.forEach(function (element) {
+                                        if (element.destroy && !element.destroyed) {
+                                                element.destroy();
+                                        }
+                                });
+                        }
 
-            this.sensor.x = this.transform.position.x;
-            this.sensor.z = this.transform.position.z;
+                        for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
+                                var element = this.currentEnemiesColliding[index];
+                                if (element.timer <= 0) {
+                                        var dead = this.damage(element.entity.attributes.power);
+                                        if (dead) {
+                                                return;
+                                        }
+                                        element.timer = 1;
+                                } else {
+                                        element.timer -= delta;
+                                }
+                        }
 
-            this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.z, this.input.mousePosition.x - this.transform.position.x);
-            if (window.isMobile && this.input.touchAxisDown) {
-                this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta;
-                this.physics.velocity.z = Math.sin(this.input.direction) * this.speed * delta;
-                this.transform.angle = this.input.direction;
-            } else if (this.input.isMouseDown) {
+                        this.playerStats.health = this.health.currentHealth;
+                        this.playerStats.deaths = Player.Deaths;
 
-                //from the middle
-                this.transform.angle = Math.atan2(this.input.mousePosition.y - _config2.default.height / 2, this.input.mousePosition.x - _config2.default.width / 2);
-                this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta;
-                this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta;
-            } else if (this.input.magnitude > 0) {
-                this.transform.angle = this.input.direction;
+                        this.sensor.x = this.transform.position.x;
+                        this.sensor.z = this.transform.position.z;
 
-                this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta;
-                this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta;
-            } else {
-                this.transform.angle = this.input.direction;
-                this.physics.velocity.x = 0;
-                this.physics.velocity.z = 0;
-            }
+                        this.transform.angle = Math.atan2(this.input.mousePosition.y - this.transform.position.z, this.input.mousePosition.x - this.transform.position.x);
+                        if (window.isMobile && this.input.touchAxisDown) {
+                                this.physics.velocity.x = Math.cos(this.input.direction) * this.speed * delta;
+                                this.physics.velocity.z = Math.sin(this.input.direction) * this.speed * delta;
+                                this.transform.angle = this.input.direction;
+                        } else if (this.input.isMouseDown) {
 
-            this.distanceWalked += this.physics.magnitude * this.speed * delta;
+                                //from the middle
+                                this.transform.angle = Math.atan2(this.input.mousePosition.y - _config2.default.height / 2, this.input.mousePosition.x - _config2.default.width / 2);
+                                this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta;
+                                this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta;
+                        } else if (this.input.magnitude > 0) {
+                                this.transform.angle = this.input.direction;
 
-            if (this.distanceWalked > 50) {
-                _EffectsManager2.default.instance.emitById(_Vector2.default.XZtoXY(_Vector2.default.sum(_Vector2.default.sum(this.transform.position, this.facingVector), new _Vector2.default(0, 0, -20))), 'SMOKE_01', 1);
+                                this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta;
+                                this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta;
+                        } else {
+                                this.transform.angle = this.input.direction;
+                                this.physics.velocity.x = 0;
+                                this.physics.velocity.z = 0;
+                        }
 
-                this.distanceWalked = 0;
-            }
+                        this.distanceWalked += this.physics.magnitude * this.speed * delta;
 
-            (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "update", this).call(this, delta);
-        }
-    }]);
-    return Player;
+                        if (this.distanceWalked > 50) {
+                                _EffectsManager2.default.instance.emitById(_Vector2.default.XZtoXY(_Vector2.default.sum(_Vector2.default.sum(this.transform.position, this.facingVector), new _Vector2.default(0, 0, -20))), 'SMOKE_01', 1);
+
+                                this.distanceWalked = 0;
+                        }
+
+                        (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "update", this).call(this, delta);
+                }
+        }]);
+        return Player;
 }(_GameAgent3.default);
 
 Player.MainPlayer = undefined;
@@ -22882,7 +23075,7 @@ exports.default = Player;
 module.exports = exports["default"];
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -22894,7 +23087,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23657,180 +23850,6 @@ exports.default = (_resizeToFitMaxAR$res = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(7);
-
-var _EnemyStaticData = __webpack_require__(221);
-
-var _EnemyStaticData2 = _interopRequireDefault(_EnemyStaticData);
-
-var _Game = __webpack_require__(35);
-
-var _Game2 = _interopRequireDefault(_Game);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameStaticData = function () {
-    (0, _createClass3.default)(GameStaticData, null, [{
-        key: 'instance',
-        get: function get() {
-            if (!GameStaticData._instance) {
-                GameStaticData._instance = new GameStaticData();
-            }
-            return GameStaticData._instance;
-        }
-    }]);
-
-    function GameStaticData() {
-        (0, _classCallCheck3.default)(this, GameStaticData);
-
-        this.staticAssets = {};
-    }
-
-    (0, _createClass3.default)(GameStaticData, [{
-        key: 'initialize',
-        value: function initialize() {
-            var _this = this;
-
-            var loadList = [{ type: 'entities', list: 'enemy', path: ['enemies1'] }, { type: 'cards', list: 'cards', path: ['cards'] }, { type: 'weapons', list: 'main', path: ['mainWeapons'] }, { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] }, { type: 'weapons', list: 'inGameView', path: ['weapon-ingame-view'] }, { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true }, { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true }, { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true }, { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
-            //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
-            { type: 'vfx', list: 'particleDescriptors', path: ['effects-descriptors'] }, { type: 'vfx', list: 'behaviours', path: ['vfx-behaviours'] }];
-
-            loadList.forEach(function (element) {
-                if (!_this.staticAssets[element.type]) {
-                    _this.staticAssets[element.type] = {
-                        sharedData: {}
-                    };
-                }
-                if (!_this.staticAssets[element.type][element.list]) {
-                    _this.staticAssets[element.type][element.list] = {
-                        allElements: []
-                    };
-                }
-
-                element.path.forEach(function (jsonPath) {
-                    var data = _Game2.default.MainLoader.resources[jsonPath].data.list;
-                    if (!data) {
-                        data = _Game2.default.MainLoader.resources[jsonPath].data;
-                    }
-                    data.forEach(function (row) {
-                        _this.staticAssets[element.type][element.list].allElements.push(row);
-                        _this.staticAssets[element.type][element.list][row.id] = row;
-                        if (element.shared) {
-                            _this.staticAssets[element.type].sharedData[row.id] = row;
-                        }
-                    });
-                });
-            });
-
-            console.log(this.staticAssets);
-        }
-    }, {
-        key: 'getAllCards',
-        value: function getAllCards() {
-            return this.getAllDataFrom('cards', 'cards');
-        }
-    }, {
-        key: 'getEntityByIndex',
-        value: function getEntityByIndex() {
-            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
-            var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
-            var type = 'entities';
-            var data = this.staticAssets[type][subtype].allElements[id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getEntityById',
-        value: function getEntityById() {
-            var subtype = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'enemy';
-            var id = arguments[1];
-
-            var type = 'entities';
-            var data = this.staticAssets[type][subtype][id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getDataByIndex',
-        value: function getDataByIndex(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-            var id = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
-
-            var data = this.staticAssets[type][subtype].allElements[id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getDataById',
-        value: function getDataById(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-            var id = arguments[2];
-
-            var data = this.staticAssets[type][subtype][id];
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getSharedDataById',
-        value: function getSharedDataById(type, id) {
-            var data = this.staticAssets[type].sharedData[id];
-            if (!data) {
-                console.error('unable to find sharedData of', type, id);
-            } else {
-                return data;
-            }
-        }
-    }, {
-        key: 'getAllDataFrom',
-        value: function getAllDataFrom(type) {
-            var subtype = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'enemy';
-
-            var data = this.staticAssets[type][subtype].allElements;
-            if (!data) {
-                console.error('unable to find data of', type, subtype, id);
-            } else {
-                return data;
-            }
-        }
-    }]);
-    return GameStaticData;
-}();
-
-exports.default = GameStaticData;
-module.exports = exports['default'];
-
-/***/ }),
 /* 31 */
 /***/ (function(module, exports) {
 
@@ -23861,7 +23880,7 @@ module.exports = g;
 /* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(28);
+var global = __webpack_require__(29);
 var core = __webpack_require__(21);
 var ctx = __webpack_require__(106);
 var hide = __webpack_require__(40);
@@ -23983,7 +24002,7 @@ var _config = __webpack_require__(22);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -25413,7 +25432,7 @@ module.exports = function (it) {
 
 var store = __webpack_require__(73)('wks');
 var uid = __webpack_require__(55);
-var Symbol = __webpack_require__(28).Symbol;
+var Symbol = __webpack_require__(29).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -27063,7 +27082,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -27882,7 +27901,7 @@ var _GameAgent2 = __webpack_require__(83);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -27894,7 +27913,7 @@ var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -27970,6 +27989,7 @@ var BaseEnemy = function (_GameAgent) {
             if (this.viewData.zombieWalk) {
                 this.addComponent(_ZombieWalk2.default).speed = this.viewData.zombieWalk;
             }
+
             var animData1 = {};
             animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = _GameStaticData2.default.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData;
 
@@ -28523,7 +28543,7 @@ var _EnemyGlobalSpawner = __webpack_require__(234);
 
 var _EnemyGlobalSpawner2 = _interopRequireDefault(_EnemyGlobalSpawner);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -28531,7 +28551,7 @@ var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -32014,7 +32034,7 @@ module.exports = function (key) {
 /* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(28);
+var global = __webpack_require__(29);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -32056,7 +32076,7 @@ exports.f = __webpack_require__(42);
 /* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(28);
+var global = __webpack_require__(29);
 var core = __webpack_require__(21);
 var LIBRARY = __webpack_require__(68);
 var wksExt = __webpack_require__(76);
@@ -56894,7 +56914,7 @@ module.exports = !__webpack_require__(34) && !__webpack_require__(47)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(41);
-var document = __webpack_require__(28).document;
+var document = __webpack_require__(29).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -60560,7 +60580,7 @@ var _GameObject2 = __webpack_require__(13);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -60729,7 +60749,7 @@ var _FloatingProjectile = __webpack_require__(246);
 
 var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -75917,7 +75937,7 @@ module.exports = function (index, length) {
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(28).document;
+var document = __webpack_require__(29).document;
 module.exports = document && document.documentElement;
 
 
@@ -75926,7 +75946,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(187);
-var global = __webpack_require__(28);
+var global = __webpack_require__(29);
 var hide = __webpack_require__(40);
 var Iterators = __webpack_require__(69);
 var TO_STRING_TAG = __webpack_require__(42)('toStringTag');
@@ -76027,7 +76047,7 @@ module.exports = __webpack_require__(21).Symbol;
 "use strict";
 
 // ECMAScript 6 symbols shim
-var global = __webpack_require__(28);
+var global = __webpack_require__(29);
 var has = __webpack_require__(36);
 var DESCRIPTORS = __webpack_require__(34);
 var $export = __webpack_require__(32);
@@ -76557,7 +76577,7 @@ var _GameScreen = __webpack_require__(217);
 
 var _GameScreen2 = _interopRequireDefault(_GameScreen);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -76982,7 +77002,7 @@ var _PerspectiveCamera = __webpack_require__(255);
 
 var _PerspectiveCamera2 = _interopRequireDefault(_PerspectiveCamera);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -77248,7 +77268,7 @@ var GameScreen = function (_Screen) {
             if (this.player && !this.player.isDead) {
                 this.player.destroy();
             }
-            this.player = this.gameManager.addEntity(_Player2.default, true);
+            this.player = this.gameManager.addEntity(_Player2.default, null);
             this.gameSessionController.playerReady();
             this.playerInventoryHud.registerPlayer(this.player);
             this.player.refreshEquipment();
@@ -78324,7 +78344,7 @@ var _GameView = __webpack_require__(14);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -78414,7 +78434,7 @@ var _grahamScan = __webpack_require__(233);
 
 var _grahamScan2 = _interopRequireDefault(_grahamScan);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -79016,7 +79036,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -80943,7 +80963,7 @@ var _BaseEnemy = __webpack_require__(56);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -81520,7 +81540,7 @@ var _BaseComponent2 = __webpack_require__(19);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -81645,7 +81665,7 @@ var _Layer = __webpack_require__(20);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -81871,7 +81891,7 @@ var _InputModule = __webpack_require__(84);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -82219,7 +82239,7 @@ var _GameObject = __webpack_require__(13);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
-var _GameStaticData = __webpack_require__(30);
+var _GameStaticData = __webpack_require__(27);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
@@ -83738,7 +83758,7 @@ var _Camera2 = __webpack_require__(256);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
-var _Player = __webpack_require__(27);
+var _Player = __webpack_require__(28);
 
 var _Player2 = _interopRequireDefault(_Player);
 
@@ -83746,7 +83766,7 @@ var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -84481,7 +84501,7 @@ var _signals = __webpack_require__(6);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -85578,7 +85598,7 @@ var _gsap = __webpack_require__(90);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -89798,7 +89818,7 @@ var _config = __webpack_require__(22);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _utils = __webpack_require__(29);
+var _utils = __webpack_require__(30);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -89950,17 +89970,17 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
+}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
@@ -89968,17 +89988,23 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "player-animation",
+	"url": "assets/json\\animation\\player-animation.json"
+}, {
+	"id": "players",
+	"url": "assets/json\\player\\players.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "effects-descriptors",
 	"url": "assets/json\\vfx\\effects-descriptors.json"
@@ -89989,17 +90015,17 @@ var assets = [{
 	"id": "entity-ss-vfx",
 	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
-}, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
+}, {
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }, {
-	"id": "mainWeapons",
-	"url": "assets/json\\weapons\\mainWeapons.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
 	"id": "weapon-ingame-view",
 	"url": "assets/json\\weapons\\weapon-ingame-view.json"

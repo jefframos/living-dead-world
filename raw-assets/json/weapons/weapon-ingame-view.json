@@ -135,10 +135,10 @@
     },
     {
         "id": "MELEE_SWORD",
-        "ingameIcon": "slash4",
+        "ingameIcon": "weapon_sword_1",
         "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
-        "inGameRotation": 6,
+        "inGameRotation": 0,
         "anchor": {
             "x": 0.5,
             "y": 0.5

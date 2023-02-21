@@ -2,6 +2,7 @@ import EffectsManager from "../manager/EffectsManager";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
+import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import InGameWeapon from "../data/InGameWeapon";
 import InputModule from "../core/modules/InputModule";
@@ -13,6 +14,7 @@ import Shaders from "../shader/Shaders";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
@@ -44,7 +46,17 @@ export default class Player extends GameAgent {
 
 
     }
-    build(radius = 15) {
+    build(playerData) {
+
+        if (!playerData) {
+            playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 5))
+        }
+
+        
+
+        this.staticData = playerData;
+        this.attributes = playerData.attributes;
+        this.viewData = playerData.view;
 
         Player.MainPlayer = this;
         super.build()
@@ -70,10 +82,10 @@ export default class Player extends GameAgent {
         this.addChild(this.lifeBar)
 
         this.lifeBar.build(20, 3, 1);
-        this.lifeBar.updateView({ x: 0, y: -50 }, 0x8636f0, 0xFF0000);
+        this.lifeBar.updateView({ x: 0, y: -60 }, 0x8636f0, 0xFF0000);
 
 
-        this.speed = 100
+        this.speed = this.attributes.speed
 
 
         this.addChild(this.engine.poolGameObject(Shadow))
@@ -86,25 +98,29 @@ export default class Player extends GameAgent {
         this.framesAfterStart = 0;
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
-        let animData = {}
-        animData[GameViewSpriteSheet.AnimationType.Idle] = {
-            spriteName: 'tile00',
-            params: {
-                totalFramesRange: { min: 0, max: 3 }, time: 0.2, loop: true, anchor: { x: 0.3, y: 1 }
-            }
-        }
-        animData[GameViewSpriteSheet.AnimationType.Running] = {
-            spriteName: 'rtile00',
-            params: {
-                totalFramesRange: { min: 0, max: 5 }, time: 0.1, loop: true, anchor: { x: 0.3, y: 1 }
-            }
+        let animData1 = {}
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
+
+        console.log(animData1)
+
+        let run = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.run);
+        if (run) {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
+        } else {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
         }
 
-        spriteSheet.setData(animData);
-        
+        spriteSheet.setData(animData1);
+        spriteSheet.update(0.1);
 
-        this.gameView.view.anchor.set(0.5, 1);
-        this.gameView.view.scale.set(60 / this.gameView.view.width * this.gameView.view.scale.x);
+        if (this.viewData.anchor) {
+            this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)
+        } else {
+            this.gameView.view.anchor.set(0.5, 1)
+        }
+
+        let scale = this.viewData.scale ? this.viewData.scale : 1
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
@@ -117,7 +133,7 @@ export default class Player extends GameAgent {
         spriteFacing.startScaleX = -1
 
 
-       
+
     }
 
     clearWeapon() {

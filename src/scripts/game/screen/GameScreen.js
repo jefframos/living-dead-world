@@ -236,7 +236,7 @@ export default class GameScreen extends Screen {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, true)
+        this.player = this.gameManager.addEntity(Player, null)
         this.gameSessionController.playerReady()
         this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
