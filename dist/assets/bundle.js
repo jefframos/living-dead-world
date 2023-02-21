@@ -22818,7 +22818,7 @@ var Player = function (_GameAgent) {
                 value: function build(playerData) {
 
                         if (!playerData) {
-                                playerData = _GameStaticData2.default.instance.getEntityByIndex('player', Math.floor(Math.random() * 5));
+                                playerData = _GameStaticData2.default.instance.getEntityByIndex('player', Math.floor(Math.random() * 7));
                         }
 
                         this.staticData = playerData;
@@ -89988,11 +89988,11 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
@@ -90000,29 +90000,8 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "players",
-	"url": "assets/json\\player\\players.json"
-}, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "effects-descriptors",
-	"url": "assets/json\\vfx\\effects-descriptors.json"
-}, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
-}, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
-	"id": "weapon-ss-vfx-packs",
-	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
-}, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
-}, {
-	"id": "weapon-ss-vfx",
-	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -90032,6 +90011,27 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "players",
+	"url": "assets/json\\player\\players.json"
+}, {
+	"id": "effects-descriptors",
+	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
+}, {
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
+}, {
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
+	"id": "weapon-ss-vfx",
+	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
+	"id": "weapon-ss-vfx-packs",
+	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }];
 
 exports.default = assets;
@@ -90064,7 +90064,7 @@ module.exports = exports['default'];
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/characters/characters.json","image/vfx/vfx.json","image/entities/entities.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

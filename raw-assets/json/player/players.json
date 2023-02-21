@@ -143,7 +143,7 @@
             "mass": 1,
             "defense": 8,
             "radius": 20,
-            "speed": 100
+            "speed": 55
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -153,6 +153,66 @@
         "animationData": {
             "idle": "STRONG_JOFF_IDLE",
             "run": "STRONG_JOFF_WALK"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
+    },
+    {
+        "id": "JIMMY",
+        "weapon": {
+            "id": "MINIGUN_01"
+        },
+        "attributes": {
+            "power": 10,
+            "hp": 150,
+            "magicDefense": 2,
+            "mass": 1,
+            "defense": 8,
+            "radius": 20,
+            "speed": 100
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 10,
+            "scale": 1.5
+        },
+        "animationData": {
+            "idle": "JIMMY_IDLE",
+            "run": "JIMMY_WALK"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
+    },
+    {
+        "id": "DANIEL_COOLER",
+        "name": "Soldier",
+        "ranking": 1,
+        "tier": 1,
+        "title": "Logan Jett",
+        "weapon": {
+            "id": "ORBIT"
+        },
+        "attributes": {
+            "power": 10,
+            "hp": 120,
+            "magicDefense": 2,
+            "mass": 1,
+            "defense": 8,
+            "radius": 20,
+            "speed": 95
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 10,
+            "scale": 1.5
+        },
+        "animationData": {
+            "idle": "DANIEL_COOLER_IDLE",
+            "run": "DANIEL_COOLER_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",

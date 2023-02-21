@@ -49,7 +49,7 @@ export default class Player extends GameAgent {
     build(playerData) {
 
         if (!playerData) {
-            playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 5))
+            playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
         

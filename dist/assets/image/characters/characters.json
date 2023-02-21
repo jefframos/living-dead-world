@@ -552,6 +552,86 @@
 	"spriteSourceSize": {"x":0,"y":0,"w":28,"h":54},
 	"sourceSize": {"w":28,"h":54}
 },
+"heroes/daniel-cooler/daniel-cooler-idle_0.png":
+{
+	"frame": {"x":500,"y":214,"w":40,"h":69},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":27,"w":40,"h":69},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-idle_1.png":
+{
+	"frame": {"x":515,"y":143,"w":42,"h":69},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":27,"w":42,"h":69},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-idle_2.png":
+{
+	"frame": {"x":555,"y":72,"w":42,"h":69},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":27,"w":42,"h":69},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-idle_3.png":
+{
+	"frame": {"x":571,"y":214,"w":40,"h":69},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":27,"w":40,"h":69},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_0.png":
+{
+	"frame": {"x":713,"y":72,"w":52,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":31,"w":52,"h":65},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_1.png":
+{
+	"frame": {"x":745,"y":139,"w":38,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":31,"w":38,"h":65},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_2.png":
+{
+	"frame": {"x":833,"y":133,"w":50,"h":63},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":33,"w":50,"h":63},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_3.png":
+{
+	"frame": {"x":681,"y":143,"w":62,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":31,"w":62,"h":65},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_4.png":
+{
+	"frame": {"x":741,"y":1,"w":38,"h":65},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":15,"y":31,"w":38,"h":65},
+	"sourceSize": {"w":96,"h":96}
+},
+"heroes/daniel-cooler/daniel-cooler-run_5.png":
+{
+	"frame": {"x":867,"y":67,"w":50,"h":63},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":33,"w":50,"h":63},
+	"sourceSize": {"w":96,"h":96}
+},
 "heroes/flight-drone/fly-drone_0.png":
 {
 	"frame": {"x":1281,"y":59,"w":50,"h":44},
@@ -626,7 +706,7 @@
 },
 "heroes/jeff-strong/jeff-strong-walk_0.png":
 {
-	"frame": {"x":515,"y":143,"w":42,"h":69},
+	"frame": {"x":583,"y":1,"w":42,"h":69},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":9,"y":27,"w":42,"h":69},
@@ -890,7 +970,7 @@
 },
 "heroes/josie-kiwi/josie-kiwi-walk_3.png":
 {
-	"frame": {"x":555,"y":72,"w":42,"h":69},
+	"frame": {"x":559,"y":143,"w":42,"h":69},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":27,"w":42,"h":69},
@@ -1223,86 +1303,6 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":9,"y":25,"w":46,"h":71},
 	"sourceSize": {"w":96,"h":96}
-},
-"news/idle/tile000.png":
-{
-	"frame": {"x":500,"y":214,"w":40,"h":69},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":27,"w":40,"h":69},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/idle/tile001.png":
-{
-	"frame": {"x":583,"y":1,"w":42,"h":69},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":27,"w":42,"h":69},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/idle/tile002.png":
-{
-	"frame": {"x":559,"y":143,"w":42,"h":69},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":27,"w":42,"h":69},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/idle/tile003.png":
-{
-	"frame": {"x":571,"y":214,"w":40,"h":69},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":27,"w":40,"h":69},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile000.png":
-{
-	"frame": {"x":713,"y":72,"w":52,"h":65},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":31,"w":52,"h":65},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile001.png":
-{
-	"frame": {"x":745,"y":139,"w":38,"h":65},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":15,"y":31,"w":38,"h":65},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile002.png":
-{
-	"frame": {"x":833,"y":133,"w":50,"h":63},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":33,"w":50,"h":63},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile003.png":
-{
-	"frame": {"x":681,"y":143,"w":62,"h":65},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":3,"y":31,"w":62,"h":65},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile004.png":
-{
-	"frame": {"x":741,"y":1,"w":38,"h":65},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":15,"y":31,"w":38,"h":65},
-	"sourceSize": {"w":96,"h":96}
-},
-"news/run/rtile005.png":
-{
-	"frame": {"x":867,"y":67,"w":50,"h":63},
-	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":5,"y":33,"w":50,"h":63},
-	"sourceSize": {"w":96,"h":96}
 }},
 "animations": {
 	"enemies/bird1/bird": ["enemies/bird1/bird1000.png","enemies/bird1/bird1001.png","enemies/bird1/bird1002.png","enemies/bird1/bird1003.png","enemies/bird1/bird1004.png","enemies/bird1/bird1005.png"],
@@ -1314,6 +1314,8 @@
 	"enemies/slime/slime_idle_anim_f": ["enemies/slime/slime_idle_anim_f0.png","enemies/slime/slime_idle_anim_f1.png","enemies/slime/slime_idle_anim_f2.png","enemies/slime/slime_idle_anim_f3.png","enemies/slime/slime_idle_anim_f4.png","enemies/slime/slime_idle_anim_f5.png"],
 	"enemies/slime/slime_run_anim_f": ["enemies/slime/slime_run_anim_f0.png","enemies/slime/slime_run_anim_f1.png","enemies/slime/slime_run_anim_f2.png","enemies/slime/slime_run_anim_f3.png","enemies/slime/slime_run_anim_f4.png","enemies/slime/slime_run_anim_f5.png"],
 	"guns/guns/pistol": ["guns/guns/pistol1.png","guns/guns/pistol2.png","guns/guns/pistol3.png","guns/guns/pistol4.png","guns/guns/pistol6.png"],
+	"heroes/daniel-cooler/daniel-cooler-idle": ["heroes/daniel-cooler/daniel-cooler-idle_0.png","heroes/daniel-cooler/daniel-cooler-idle_1.png","heroes/daniel-cooler/daniel-cooler-idle_2.png","heroes/daniel-cooler/daniel-cooler-idle_3.png"],
+	"heroes/daniel-cooler/daniel-cooler-run": ["heroes/daniel-cooler/daniel-cooler-run_0.png","heroes/daniel-cooler/daniel-cooler-run_1.png","heroes/daniel-cooler/daniel-cooler-run_2.png","heroes/daniel-cooler/daniel-cooler-run_3.png","heroes/daniel-cooler/daniel-cooler-run_4.png","heroes/daniel-cooler/daniel-cooler-run_5.png"],
 	"heroes/flight-drone/fly-drone": ["heroes/flight-drone/fly-drone_0.png","heroes/flight-drone/fly-drone_1.png","heroes/flight-drone/fly-drone_2.png","heroes/flight-drone/fly-drone_3.png"],
 	"heroes/jeff-strong/jeff-strong-idle": ["heroes/jeff-strong/jeff-strong-idle_0.png","heroes/jeff-strong/jeff-strong-idle_1.png","heroes/jeff-strong/jeff-strong-idle_2.png","heroes/jeff-strong/jeff-strong-idle_3.png","heroes/jeff-strong/jeff-strong-idle_4.png"],
 	"heroes/jeff-strong/jeff-strong-walk": ["heroes/jeff-strong/jeff-strong-walk_0.png","heroes/jeff-strong/jeff-strong-walk_1.png","heroes/jeff-strong/jeff-strong-walk_2.png","heroes/jeff-strong/jeff-strong-walk_3.png","heroes/jeff-strong/jeff-strong-walk_4.png","heroes/jeff-strong/jeff-strong-walk_5.png"],
@@ -1329,9 +1331,7 @@
 	"heroes/logan-jett/logan-jett-walk": ["heroes/logan-jett/logan-jett-walk_0.png","heroes/logan-jett/logan-jett-walk_1.png","heroes/logan-jett/logan-jett-walk_2.png","heroes/logan-jett/logan-jett-walk_3.png","heroes/logan-jett/logan-jett-walk_4.png","heroes/logan-jett/logan-jett-walk_5.png"],
 	"heroes/logan-jett/logan-jett_idle": ["heroes/logan-jett/logan-jett_idle_0.png","heroes/logan-jett/logan-jett_idle_1.png","heroes/logan-jett/logan-jett_idle_2.png","heroes/logan-jett/logan-jett_idle_3.png"],
 	"heroes/smoker-rick/smoker-rick-walk": ["heroes/smoker-rick/smoker-rick-walk_0.png","heroes/smoker-rick/smoker-rick-walk_1.png","heroes/smoker-rick/smoker-rick-walk_2.png","heroes/smoker-rick/smoker-rick-walk_3.png","heroes/smoker-rick/smoker-rick-walk_4.png","heroes/smoker-rick/smoker-rick-walk_5.png"],
-	"heroes/smoker-rick/somker-rick": ["heroes/smoker-rick/somker-rick_1.png","heroes/smoker-rick/somker-rick_2.png","heroes/smoker-rick/somker-rick_3.png","heroes/smoker-rick/somker-rick_4.png","heroes/smoker-rick/somker-rick_5.png","heroes/smoker-rick/somker-rick_6.png"],
-	"news/idle/tile": ["news/idle/tile000.png","news/idle/tile001.png","news/idle/tile002.png","news/idle/tile003.png"],
-	"news/run/rtile": ["news/run/rtile000.png","news/run/rtile001.png","news/run/rtile002.png","news/run/rtile003.png","news/run/rtile004.png","news/run/rtile005.png"]
+	"heroes/smoker-rick/somker-rick": ["heroes/smoker-rick/somker-rick_1.png","heroes/smoker-rick/somker-rick_2.png","heroes/smoker-rick/somker-rick_3.png","heroes/smoker-rick/somker-rick_4.png","heroes/smoker-rick/somker-rick_5.png","heroes/smoker-rick/somker-rick_6.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
@@ -1340,6 +1340,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1409,"h":255},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:187c4a8d0a555741b1353e1cb364aa8b:482f0f1ff8ff7bd6ff94832b92a07e11:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a5d42274a32415e8dbe858b2bbe88545:6ea6358b5a8d5617f6da19ec118fb28b:a5fe7db4b869eb0f3e0b2940b9577ea8$"
 }
 }
