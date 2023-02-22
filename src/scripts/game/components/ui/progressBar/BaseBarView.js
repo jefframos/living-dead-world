@@ -22,7 +22,6 @@ export default class BaseBarView extends PIXI.Container {
         this.barContainer.addChild(this.fillBar);
     }
     setColors(startColor, endColor) {
-        console.log("ET")
         this.startValue = Color.toRGB(startColor);
         this.endValue = Color.toRGB(endColor);
         this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b }

@@ -110,6 +110,7 @@ export default class GameAgent extends PhysicsEntity {
     afterBuild(){        
         super.afterBuild();
         this.flashOnDamage = this.addComponent(FlashOnDamage);
+        this.flashOnDamage.startFlash(0x0000FF)
     }
     update(delta) {
         super.update(delta);
@@ -149,15 +150,17 @@ export default class GameAgent extends PhysicsEntity {
     makeAnimations(data){
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
         let animData1 = {} 
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
+
+        let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
         
         let run = data.animationData.run ? GameStaticData.instance.getSharedDataById('animation', data.animationData.run) : null;
         if (run) {
             animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
         } else {
-            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
+            animData1[GameViewSpriteSheet.AnimationType.Running] = idle;
         }
-
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = idle;
+        
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
 

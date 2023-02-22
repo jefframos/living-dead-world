@@ -34,5 +34,23 @@
                 "loop": true
             }
         }
+    },
+    {
+        "id": "SNIPER_DRONE",
+        "animationData": {
+            "spriteName": "Walk_scan_",
+            "params": {
+                "totalFramesRange": {
+                    "min": 0,
+                    "max": 7
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.3,
+                "loop": true
+            }
+        }
     }
 ]

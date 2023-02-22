@@ -30,7 +30,7 @@ export default class FlashOnDamage extends BaseComponent {
 
 
         this.startValue = Color.toRGB(0xFFFFFF);
-        this.endValue = Color.toRGB(0xFF0000);
+        
 
         this.uniformGroup = {
             intensity: 0
@@ -82,13 +82,15 @@ export default class FlashOnDamage extends BaseComponent {
         super.destroy();
         this.gameObject.health.gotDamaged.remove(this.startFlash.bind(this))
     }
-    startFlash() {
+    startFlash(targetColor = 0xFF0000) {
         if (this.gameObject.health.isDead) return;
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
+        this.endValue = Color.toRGB(targetColor);
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
             this.gameObject.gameView.view.tint = Color.rgbToColor(this.endValue);
         }
+
     }
     update(delta) {
 

@@ -5,6 +5,7 @@
         "viewOffset": {
             "y": -20
         },
+        "maxWidth": 6,
         "scale": 0.5
     },
     {
@@ -72,7 +73,7 @@
         "viewOffset": {
             "y": -20
         },
-        "maxWidth": 8
+        "maxWidth": 9
     },
     {
         "id": "SNIPER_BASE_02",
@@ -80,7 +81,7 @@
         "viewOffset": {
             "y": -20
         },
-        "maxWidth": 8
+        "maxWidth": 9
     },
     {
         "id": "LASER_BASE_01"
@@ -100,6 +101,7 @@
         "viewOffset": {
             "y": -20
         },
+        "maxWidth": 7,
         "scale": 0.5
     },
     {

@@ -20,12 +20,12 @@ const assets = [
 	"url":"assets/json\\localization_FR.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_KO",
@@ -44,12 +44,12 @@ const assets = [
 	"url":"assets/json\\localization_TR.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
+	},
+	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
 	},
 	{
 	"id":"entity-animation",
@@ -66,6 +66,18 @@ const assets = [
 	{
 	"id":"cards",
 	"url":"assets/json\\cards\\cards.json"
+	},
+	{
+	"id":"companions",
+	"url":"assets/json\\entities\\companions.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entities\\enemies.json"
+	},
+	{
+	"id":"players",
+	"url":"assets/json\\entities\\players.json"
 	},
 	{
 	"id":"main-weapons",
@@ -102,18 +114,6 @@ const assets = [
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
-	},
-	{
-	"id":"companions",
-	"url":"assets/json\\entities\\companions.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entities\\enemies.json"
-	},
-	{
-	"id":"players",
-	"url":"assets/json\\entities\\players.json"
 	}
 ];
 

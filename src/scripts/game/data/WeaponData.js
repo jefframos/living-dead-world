@@ -21,7 +21,16 @@ export default class WeaponData {
             ingameAmountIconOverrider: -1,
             inGameRotation: 0,
             ingameBaseWidth: 20,
-            anchor:{x:0.15, y:0.01}
+            anchor:{x:0.15, y:0.01},
+            progressBar:{
+                active:false,
+                rotation:0,
+                width:20,
+                height:4,
+                x:0,
+                y:0
+            }
+
         }
         this.onDestroyId = null;
         this.isMain = true;

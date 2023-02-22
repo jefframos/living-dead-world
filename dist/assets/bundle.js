@@ -22919,12 +22919,13 @@ var Player = function (_GameAgent) {
 
             this.addWeaponData(_WeaponBuilder2.default.instance.weaponsData[playerData.weapon.id]);
 
-            for (var index = 0; index < 2; index++) {
+            for (var index = 0; index < 3; index++) {
                 var companion = this.engine.poolGameObject(_Companion2.default);
-                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index % 2));
+                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index % 3));
                 this.addChild(companion);
-                companion.x = Math.cos(Math.random()) * 100;
-                companion.z = Math.sin(Math.random()) * 100;
+                var ang = Math.random() * Math.PI * 2;
+                companion.x = Math.cos(ang) * 100;
+                companion.z = Math.sin(ang) * 100;
             }
         }
     }, {
@@ -27639,7 +27640,15 @@ var WeaponBuilder = function () {
                 if (targetInGameViewData) {
                     for (var key in targetInGameViewData) {
                         if (weapon.ingameViewDataStatic[key] != undefined) {
-                            weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                            if (key == 'progressBar') {
+                                for (var progressBarKey in targetInGameViewData[key]) {
+                                    if (weapon.ingameViewDataStatic[key][progressBarKey] != undefined) {
+                                        weapon.ingameViewDataStatic[key][progressBarKey] = targetInGameViewData[key][progressBarKey];
+                                    }
+                                }
+                            } else {
+                                weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                            }
                         }
                     }
                 }
@@ -43579,7 +43588,6 @@ var FlashOnDamage = function (_BaseComponent) {
         _this.currentRGB = { r: 0, g: 0, b: 0 };
 
         _this.startValue = _Color2.default.toRGB(0xFFFFFF);
-        _this.endValue = _Color2.default.toRGB(0xFF0000);
 
         _this.uniformGroup = {
             intensity: 0
@@ -43637,9 +43645,12 @@ var FlashOnDamage = function (_BaseComponent) {
     }, {
         key: 'startFlash',
         value: function startFlash() {
+            var targetColor = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
+
             if (this.gameObject.health.isDead) return;
             this.intensity = 1;
             this.flashCurrentTime = this.flashTime;
+            this.endValue = _Color2.default.toRGB(targetColor);
             if (this.gameObject.gameView && this.gameObject.gameView.view) {
                 this.gameObject.gameView.view.tint = _Color2.default.rgbToColor(this.endValue);
             }
@@ -43944,6 +43955,7 @@ var GameAgent = function (_PhysicsEntity) {
         value: function afterBuild() {
             (0, _get3.default)(GameAgent.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameAgent.prototype), "afterBuild", this).call(this);
             this.flashOnDamage = this.addComponent(_FlashOnDamage2.default);
+            this.flashOnDamage.startFlash(0x0000FF);
         }
     }, {
         key: "update",
@@ -43989,14 +44001,16 @@ var GameAgent = function (_PhysicsEntity) {
         value: function makeAnimations(data) {
             var spriteSheet = this.addComponent(_GameViewSpriteSheet2.default);
             var animData1 = {};
-            animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = _GameStaticData2.default.instance.getSharedDataById('animation', data.animationData.idle).animationData;
+
+            var idle = _GameStaticData2.default.instance.getSharedDataById('animation', data.animationData.idle).animationData;
 
             var run = data.animationData.run ? _GameStaticData2.default.instance.getSharedDataById('animation', data.animationData.run) : null;
             if (run) {
                 animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = run.animationData;
             } else {
-                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = animData1[_GameViewSpriteSheet2.default.AnimationType.Idle];
+                animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = idle;
             }
+            animData1[_GameViewSpriteSheet2.default.AnimationType.Idle] = idle;
 
             spriteSheet.setData(animData1);
             spriteSheet.update(0.1);
@@ -60813,7 +60827,6 @@ var BaseBarView = function (_PIXI$Container) {
         (0, _createClass3.default)(BaseBarView, [{
                 key: 'setColors',
                 value: function setColors(startColor, endColor) {
-                        console.log("ET");
                         this.startValue = _Color2.default.toRGB(startColor);
                         this.endValue = _Color2.default.toRGB(endColor);
                         this.currentRGB = { r: this.startValue.r, g: this.startValue.g, b: this.startValue.b };
@@ -61212,7 +61225,16 @@ var WeaponData = function () {
             ingameAmountIconOverrider: -1,
             inGameRotation: 0,
             ingameBaseWidth: 20,
-            anchor: { x: 0.15, y: 0.01 }
+            anchor: { x: 0.15, y: 0.01 },
+            progressBar: {
+                active: false,
+                rotation: 0,
+                width: 20,
+                height: 4,
+                x: 0,
+                y: 0
+            }
+
         };
         this.onDestroyId = null;
         this.isMain = true;
@@ -78908,14 +78930,21 @@ var WeaponInGameView = function (_GameObject) {
                 spring.default = sprite.scale.y;
                 spring.x = sprite.scale.y;
                 spring.tx = sprite.scale.y;
-                sprite.visible = false;
-                this.spriteList.push({ sprite: sprite, angle: 0, targetAngle: 0, spring: spring });
+                // sprite.visible = false;
 
-                var bar = new _BaseBarView2.default();
-                sprite.addChild(bar);
-                bar.build(8, 2, 0);
-                bar.rotation = Math.PI / 2;
-                bar.y = 0; //30//sprite.anchor.y * sprite.height
+                console.log(weapon.ingameViewDataStatic);
+                var bar = null;
+                if (weapon.ingameViewDataStatic.progressBar.active) {
+                    var barData = weapon.ingameViewDataStatic.progressBar;
+                    bar = new _BaseBarView2.default();
+                    bar.build(barData.width, barData.height, 0);
+                    bar.rotation = barData.rotation;
+                    bar.setColors(0xFF00FF, 0xFF0F0F);
+                    bar.x = barData.x;
+                    bar.y = barData.y;
+                    sprite.addChild(bar);
+                }
+                this.spriteList.push({ sprite: sprite, angle: 0, targetAngle: 0, spring: spring, bar: bar });
             }
 
             this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x;
@@ -78992,14 +79021,18 @@ var WeaponInGameView = function (_GameObject) {
 
                 element.sprite.x = Math.cos(element.angle) * _this2.spawnDistance + _this2.offset.x;
                 element.sprite.y = Math.sin(element.angle) * _this2.spawnDistance + _this2.offset.y;
-                var radToAng = element.sprite.rotation * 180 / Math.PI % 360;
+                var radToAng = Math.round(element.sprite.rotation * 180 / Math.PI % 360);
 
                 _this2.x = _this2.parent.transform.position.x;
-
-                if (radToAng < 270 && radToAng > 90) {
+                if (radToAng < 265 && radToAng > 85 || radToAng >= -90 && radToAng <= -85) {
                     _this2.z = _this2.parent.transform.position.z + 1;
                 } else {
                     _this2.z = _this2.parent.transform.position.z - 1;
+                }
+
+                if (element.bar) {
+                    element.bar.updateNormal(_this2.parent.shootNormal);
+                    element.bar.update(delta);
                 }
             });
         }
@@ -83533,10 +83566,11 @@ var CardPlacementSystem = function () {
             this.enabled = true;
 
             this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
+
             _Utils2.default.shuffle(this.currentData);
 
             for (var index = this.currentData.length - 1; index >= 0; index--) {
-                if (!this.currentData[index]) {
+                if (!this.currentData[index] && !this.currentData[index].enabled) {
                     this.currentData.splice(index, 1);
                 }
             }
@@ -90134,11 +90168,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -90152,11 +90186,11 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
@@ -90169,6 +90203,15 @@ var assets = [{
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entities\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entities\\enemies.json"
+}, {
+	"id": "players",
+	"url": "assets/json\\entities\\players.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -90196,15 +90239,6 @@ var assets = [{
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
-}, {
-	"id": "companions",
-	"url": "assets/json\\entities\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entities\\enemies.json"
-}, {
-	"id": "players",
-	"url": "assets/json\\entities\\players.json"
 }];
 
 exports.default = assets;
@@ -90237,7 +90271,7 @@ module.exports = exports['default'];
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

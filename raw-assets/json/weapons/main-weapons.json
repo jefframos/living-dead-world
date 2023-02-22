@@ -61,7 +61,7 @@
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 30,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 10,
@@ -278,7 +278,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 15,
+            "baseSpawnDistance": 25,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -434,12 +434,51 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 5,
-            "baseSpawnDistance": 30,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 320,
             "basePower": 250,
             "baseBulletSpeed": 500,
             "baseFrequency": 3,
+            "basePiercing": 2,
+            "baseAmount": 1,
+            "baseDetectionZone": 800,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 2,
+            "baseBrustFireInterval": 1,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "SNIPER_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "SNIPER_01_COMPANION",
+        "isMain": true,
+        "icon": "sniper2",
+        "name": "Sniper",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 5,
+            "baseSpawnDistance": 0,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 320,
+            "basePower": 250,
+            "baseBulletSpeed": 500,
+            "baseFrequency": 5,
             "basePiercing": 2,
             "baseAmount": 1,
             "baseDetectionZone": 800,
@@ -1042,7 +1081,7 @@
     {
         "id": "LASER",
         "isMain": true,
-        "icon": "vfx-c1",
+        "icon": "laserGun1",
         "ingameViewData": "LASER",
         "name": "Laser",
         "weaponType": "Physical",

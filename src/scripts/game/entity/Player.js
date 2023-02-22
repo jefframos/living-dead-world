@@ -136,12 +136,13 @@ export default class Player extends GameAgent {
 
 
 
-        for (let index = 0; index < 2; index++) {
+        for (let index = 0; index < 3; index++) {
             let companion = this.engine.poolGameObject(Companion)
-            companion.build(GameStaticData.instance.getEntityByIndex('companions', index % 2));
+            companion.build(GameStaticData.instance.getEntityByIndex('companions', index % 3));
             this.addChild(companion)
-            companion.x = Math.cos(Math.random()) * 100
-            companion.z = Math.sin(Math.random()) * 100
+            let ang = Math.random() * Math.PI * 2
+            companion.x = Math.cos(ang) * 100
+            companion.z = Math.sin(ang) * 100
         }
         
     }

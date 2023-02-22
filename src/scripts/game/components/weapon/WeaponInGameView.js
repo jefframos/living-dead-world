@@ -43,19 +43,26 @@ export default class WeaponInGameView extends GameObject {
             sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
             sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
             this.container.addChild(sprite)
-            
+
             let spring = new Spring()
             spring.default = sprite.scale.y;
             spring.x = sprite.scale.y;
             spring.tx = sprite.scale.y;
-            sprite.visible = false;
-            this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring })
-            
-            let bar = new BaseBarView();
-            sprite.addChild(bar)
-            bar.build(8,2,0)
-            bar.rotation = Math.PI / 2
-            bar.y = 0//30//sprite.anchor.y * sprite.height
+            // sprite.visible = false;
+
+            console.log(weapon.ingameViewDataStatic)
+            let bar = null;
+            if (weapon.ingameViewDataStatic.progressBar.active) {
+                const barData = weapon.ingameViewDataStatic.progressBar
+                bar = new BaseBarView();
+                bar.build(barData.width, barData.height, 0)
+                bar.rotation = barData.rotation
+                bar.setColors(0xFF00FF, 0xFF0F0F)
+                bar.x = barData.x;
+                bar.y = barData.y;
+                sprite.addChild(bar)
+            }
+            this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring, bar })
         }
 
         this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x
@@ -91,8 +98,8 @@ export default class WeaponInGameView extends GameObject {
                 let ang = finalAng + this.weapon.weaponAttributes.angleStart;
 
                 this.spriteList[index].targetAngle = ang;
-            }        
-        }else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer) {
+            }
+        } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer) {
             const totalBullets = this.spriteList.length;
             for (let index = 0; index < totalBullets; index++) {
                 this.spriteList[index].targetAngle = this.parent.facingAngle;
@@ -109,7 +116,7 @@ export default class WeaponInGameView extends GameObject {
             spriteElement.targetAngle = element.angle;
         }
         this.calcAngle();
-        
+
         //console.log(this.parent.shootNormal)
         this.spriteList.forEach(element => {
             element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.1);
@@ -120,23 +127,26 @@ export default class WeaponInGameView extends GameObject {
                 element.sprite.rotation = element.angle + Math.PI / 2
             }
 
-            
+
             let yScale = element.sprite.rotation < 0 ? -1 : 1
             element.sprite.scale.y = element.spring.x// * yScale;
             element.sprite.scale.x = (element.spring.x * 0.2 + element.spring.default * 0.8) * yScale;
-            
+
             element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
             element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
-            let radToAng = ((element.sprite.rotation) * 180 / Math.PI) % 360;
-            
+            let radToAng = Math.round(((element.sprite.rotation) * 180 / Math.PI) % 360)
+
 
             this.x = this.parent.transform.position.x
-
-            if(radToAng < 270 && radToAng > 90){
+            if ((radToAng < 265 && radToAng > 85) || (radToAng >= -90 && radToAng <= -85)) {
                 this.z = this.parent.transform.position.z + 1;
-            }else{
+            } else {
                 this.z = this.parent.transform.position.z - 1;
+            }
 
+            if(element.bar){
+                element.bar.updateNormal(this.parent.shootNormal)
+                element.bar.update(delta)
             }
         });
     }

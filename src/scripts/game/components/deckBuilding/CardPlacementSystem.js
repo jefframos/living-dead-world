@@ -45,10 +45,11 @@ export default class CardPlacementSystem {
         this.enabled = true;
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
+
         Utils.shuffle(this.currentData)
 
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (!this.currentData[index]) {
+            if (!this.currentData[index] && !this.currentData[index].enabled) {
                 this.currentData.splice(index, 1);
             }
         }

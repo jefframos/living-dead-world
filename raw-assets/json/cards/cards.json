@@ -2,7 +2,7 @@
     {
         "id": "AURA_CARD",
         "weaponId": "PLAYER_AURA",
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "PLAYER_CROSS_SHOT_CARD",
@@ -30,8 +30,13 @@
         "enabled": true
     },
     {
-        "id": "SHOTGUN_CARD",
+        "id": "SUBMACHINE_CARD",
         "weaponId": "SUB_MACHINE_GUN_01",
+        "enabled": true
+    },
+    {
+        "id": "SHOTGUN_CARD",
+        "weaponId": "SHOTGUN_01",
         "enabled": true
     },
     {
@@ -72,7 +77,7 @@
     {
         "id": "LIGHTNING_CARD",
         "weaponId": "LIGHTNING",
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "WATER_SINOID_CARD",
@@ -82,7 +87,7 @@
     {
         "id": "FLASH_CIRCLE_CARD",
         "weaponId": "FLASH_CIRCLE",
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "BOUNCE_CARD",

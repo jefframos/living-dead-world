@@ -111,7 +111,16 @@ export default class WeaponBuilder {
             if (targetInGameViewData) {
                 for (const key in targetInGameViewData) {
                     if (weapon.ingameViewDataStatic[key] != undefined) {
-                        weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                        if(key == 'progressBar'){
+                            for (const progressBarKey in targetInGameViewData[key]) {
+                                if (weapon.ingameViewDataStatic[key][progressBarKey] != undefined) {
+                                    weapon.ingameViewDataStatic[key][progressBarKey] = targetInGameViewData[key][progressBarKey];
+                                }
+                            }
+
+                        }else{
+                            weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
+                        }
                     }
                 }
             }
