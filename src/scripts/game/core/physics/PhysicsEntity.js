@@ -23,6 +23,7 @@ export default class PhysicsEntity extends GameObject {
         super.start();
     }
     build() {
+        super.build();
         this.physics = new PhysicsProperties();
     }
     setDebug(radius = 15, color = 0xFFFFFF) {

@@ -2,6 +2,7 @@ import EffectsManager from "../../manager/EffectsManager";
 import FlashOnDamage from "../../components/view/FlashOnDamage";
 import GameView from "../view/GameView";
 import Health from "../../components/Health";
+import InGameWeapon from "../../data/InGameWeapon";
 import PhysicsEntity from "../physics/PhysicsEntity";
 import signals from "signals";
 
@@ -19,7 +20,7 @@ export default class GameAgent extends PhysicsEntity {
 
         if (debug) {
             this.setDebug(15)
-        }
+        }        
 
     }
     get isDead() { return this.health.currentHealth <= 0 }
@@ -36,7 +37,21 @@ export default class GameAgent extends PhysicsEntity {
     die() {
         super.die();
     }
+    addWeaponData(weaponData) {
 
+        let mainWeapon = new InGameWeapon();
+        mainWeapon.addWeapon(weaponData)
+        this.addWeapon(mainWeapon)
+    }
+    addWeapon(inGameWeapon) {
+        if (!inGameWeapon.hasWeapon) {
+            return;
+        }
+        let weaponData = inGameWeapon.mainWeapon
+        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
+        this.addChild(weapon)
+        weapon.build(weaponData)
+    }
     damage(value) {
         if(this.invencibleSpawnTime > 0){
             return this.health.currentHealth;
@@ -87,9 +102,12 @@ export default class GameAgent extends PhysicsEntity {
         this.speedAdjust = 1;
         this.dying = false;
 
+        
+        
+    }
+    afterBuild(){        
+        super.afterBuild();
         this.flashOnDamage = this.addComponent(FlashOnDamage);
-
-
     }
     update(delta) {
         super.update(delta);

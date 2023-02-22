@@ -1,3 +1,4 @@
+import Companion from "./Companion";
 import EffectsManager from "../manager/EffectsManager";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
@@ -64,8 +65,8 @@ export default class Player extends GameAgent {
 
         this.activeWeapons = [];
         this.weaponsGameObject = [];
-
-        this.health.reset()
+        
+        this.health.setNewHealth(this.attributes.hp)
 
         this.currentEnemiesColliding = []
         this.weaponLoadingBars = [];
@@ -97,17 +98,14 @@ export default class Player extends GameAgent {
         this.framesAfterStart = 0;
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
-        let animData1 = {}
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
-
-        console.log(animData1)
-
+        let animData1 = {} 
         let run = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.run);
         if (run) {
             animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
         } else {
             animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
         }
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
@@ -132,6 +130,14 @@ export default class Player extends GameAgent {
         spriteFacing.startScaleX = -1
 
         this.addWeaponData(WeaponBuilder.instance.weaponsData[playerData.weapon.id])
+
+
+
+
+        this.companion = this.engine.poolGameObject(Companion, true)
+        this.addChild(this.companion)
+        this.companion.x = Math.cos(Math.random()) * 100
+        this.companion.z = Math.sin(Math.random()) * 100
     }
 
     clearWeapon() {

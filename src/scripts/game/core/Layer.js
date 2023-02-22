@@ -10,6 +10,7 @@ export default class Layer {
     static Environment = 0b0010;
     static Bullet = 0b0100;
     static Sensor = 0b0101;
+    static FlightCompanion = 0b1001;
 
     static EnvironmentCollision = Layer.Player | Layer.Default | Layer.Enemy | Layer.Bullet
     static PlayerCollision = Layer.Environment | Layer.Default | Layer.Enemy

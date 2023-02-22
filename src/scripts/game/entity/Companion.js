@@ -6,6 +6,7 @@ import Layer from "../core/Layer";
 import Player from "./Player";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
+import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
@@ -15,7 +16,7 @@ export default class Companion extends GameAgent {
     constructor() {
         super();
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('daniel-cooler-idle_0')
+        this.gameView.view = new PIXI.Sprite.from('fly-drone_0')
     }
     build() {
         super.build()
@@ -24,11 +25,8 @@ export default class Companion extends GameAgent {
 
         this.currentEnemiesColliding = []
 
-
-
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
-        //this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
@@ -37,38 +35,31 @@ export default class Companion extends GameAgent {
         this.shootBaseTime = 2
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
-        this.layerCategory = Layer.Player
-        this.layerMask = Layer.PlayerCollision
+        this.layerCategory = Layer.FlightCompanion
+        this.layerMask = Layer.Nothing
 
-        this.gameView.view.anchor.set(0.5, 1)
+        this.rigidBody.isSensor = true
+
+        this.gameView.view.anchor.set(0.3, 1)
         this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2)
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.applyScale();
 
         this.anchorOffset = 0
 
-        this.addComponent(SpriteJump)
         this.addComponent(SpriteFacing)
+        this.addChild(this.engine.poolGameObject(Shadow))
 
-        
+        this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
 
-        this.addWeaponData(WeaponBuilder.instance.weaponsData['PISTOL_01'])
+        this.targetAngle = Math.random() * Math.PI * 2;
 
+        this.targetPosition = new Vector3();
     }
-    addWeaponData(weaponData) {
+    
+    afterBuild() {
+        this.targetPosition.copy(this.parent.transform.position)
 
-        let mainWeapon = new InGameWeapon();
-        mainWeapon.addWeapon(weaponData)
-        this.addWeapon(mainWeapon)      
-    }
-    addWeapon(inGameWeapon) {
-        if (!inGameWeapon.hasWeapon) {
-            return;
-        }
-        let weaponData = inGameWeapon.mainWeapon
-        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-        this.addChild(weapon)
-        weapon.build(weaponData)
     }
     collisionEnter(collided) {
         if (collided.layerCategory != Layer.Enemy) return;
@@ -93,12 +84,20 @@ export default class Companion extends GameAgent {
             }
         });
 
+        this.targetPosition.copy(this.parent.transform.position)
+
+        this.targetAngle += delta;
+        this.targetAngle %= Math.PI * 2;
+
+        this.targetPosition.x +=  Math.cos(this.targetAngle) * 150
+        this.targetPosition.z +=  Math.sin(this.targetAngle) * 150
 
         this.sensor.x = this.transform.position.x
         this.sensor.z = this.transform.position.z
+        this.transform.position.y = -50
 
-        if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 100) {
-            this.transform.angle = Vector3.atan2XZ(Player.MainPlayer.transform.position, this.transform.position)
+        if (Vector3.distance(this.transform.position, this.targetPosition) > 20) {
+            this.transform.angle = Vector3.atan2XZ(this.targetPosition, this.transform.position)
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
             this.physics.velocity.z = Math.sin(this.transform.angle) * this.speed * delta
         } else {

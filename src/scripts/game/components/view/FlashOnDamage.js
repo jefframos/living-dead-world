@@ -4,8 +4,21 @@ import Shaders from '../../shader/Shaders';
 import Utils from '../../core/utils/Utils';
 
 export default class FlashOnDamage extends BaseComponent {
+    static FlashTextures = {}
+    static ColorFilter = null;
     constructor() {
         super();
+
+        if (!FlashOnDamage.ColorFilter) {
+            FlashOnDamage.ColorFilter = new PIXI.filters.ColorMatrixFilter();
+            let colorIntensity = 1;
+            FlashOnDamage.ColorFilter.matrix = [
+                1, colorIntensity, colorIntensity, colorIntensity, colorIntensity,
+                colorIntensity, 1, colorIntensity, colorIntensity, colorIntensity,
+                colorIntensity, colorIntensity, 1, colorIntensity, colorIntensity,
+                0, 0, 0, 1, 0]
+        }
+
         this.intensity = 0;
 
         //this.filter = new PIXI.filters.ColorMatrixFilter();
@@ -20,35 +33,57 @@ export default class FlashOnDamage extends BaseComponent {
         this.endValue = Color.toRGB(0xFF0000);
 
         this.uniformGroup = {
-            intensity:0
+            intensity: 0
         }
-        this.shader =   new PIXI.Filter(null, Shaders.ENTITY_SPRITE_SHADER, this.uniformGroup)
+        this.shader = new PIXI.Filter(null, Shaders.ENTITY_SPRITE_SHADER, this.uniformGroup)
+
+    }
+    generateTextureFromContainer(id, content) {
+        if (FlashOnDamage.FlashTextures[id]) {
+            return FlashOnDamage.FlashTextures[id]
+        }
+        let texture = renderer.renderer.generateTexture(content);
+        FlashOnDamage.FlashTextures[id] = texture;
+
+        return texture;
 
     }
     enable() {
         super.enable();
         this.intensity = 0;
         this.flashCurrentTime = 0;
-
-        // this.setMatrix();
-        if(this.gameObject.health){
+        this.flashTexture = null;
+        if (this.gameObject.health) {
             this.gameObject.health.gotDamaged.add(this.startFlash.bind(this))
+
+
         }
 
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
-            this.gameObject.gameView.view.tint = Color.rgbToColor(this.startValue);
-            //this.gameObject.gameView.view.skew.set(0.65, -0.3);
+            this.gameObject.gameView.view.tint = 0xFFFFFF
             this.intensity = 1;
-            //this.gameObject.gameView.view.filters = [this.shader]
         }
 
+        if (this.gameObject.gameView.view.texture.textureCacheIds[0]) {
+            var filename = this.gameObject.gameView.view.texture.textureCacheIds[0].replace(/^.*[\\\/]/, '').replace(/\.[^/.]+$/, "")
+            this.currentTextureID = filename + '-flash'
+            if (!FlashOnDamage.FlashTextures[this.currentTextureID]) {
+                let flashImage = new PIXI.Sprite.from(filename)
+                flashImage.filters = [FlashOnDamage.ColorFilter]                
+                this.flashTexture = this.generateTextureFromContainer(this.currentTextureID, flashImage)
+            } else {
+                this.flashTexture = FlashOnDamage.FlashTextures[this.currentTextureID];
+            }
+        }
+
+
     }
-    destroy(){
+    destroy() {
         super.destroy();
         this.gameObject.health.gotDamaged.remove(this.startFlash.bind(this))
     }
     startFlash() {
-        if(this.gameObject.health.isDead) return;
+        if (this.gameObject.health.isDead) return;
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
@@ -64,23 +99,24 @@ export default class FlashOnDamage extends BaseComponent {
 
             this.intensity = Math.max(0, this.intensity)
 
-            if(this.uniformGroup){
+            if (this.uniformGroup) {
                 this.uniformGroup.intensity = this.intensity;
             }
 
             this.currentRGB.r = Math.floor(this.intensity * (this.endValue.r - this.startValue.r) + this.startValue.r);
             this.currentRGB.g = Math.floor(this.intensity * (this.endValue.g - this.startValue.g) + this.startValue.g);
             this.currentRGB.b = Math.floor(this.intensity * (this.endValue.b - this.startValue.b) + this.startValue.b);
-    
+
             this.currentValue = Color.rgbToColor(this.currentRGB);
 
             if (this.flashCurrentTime <= 0) {
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
                     this.gameObject.gameView.view.tint = Color.rgbToColor(this.startValue);
                 }
-            }else{
+            } else {
                 if (this.gameObject.gameView && this.gameObject.gameView.view) {
                     this.gameObject.gameView.view.tint = this.currentValue;
+                    this.gameObject.gameView.view.texture = this.flashTexture
                 }
             }
         }

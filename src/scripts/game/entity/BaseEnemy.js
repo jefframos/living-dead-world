@@ -12,12 +12,13 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
+import WeaponBuilder from "../screen/WeaponBuilder";
 import ZombieWalk from "../components/ZombieWalk";
 
 export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
-        this.gameView.view = new PIXI.Sprite()        
+        this.gameView.view = new PIXI.Sprite()
     }
     build(enemyData) {
         super.build();
@@ -40,9 +41,9 @@ export default class BaseEnemy extends GameAgent {
         if (this.viewData.jumpHight) {
             this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
         }
-        
-       
-        
+
+
+
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
@@ -53,14 +54,13 @@ export default class BaseEnemy extends GameAgent {
         }
 
         let animData1 = {}
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
-
         let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
         if (run) {
             animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
         } else {
             animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
         }
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
@@ -78,7 +78,7 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
 
-        
+
 
         // this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         // this.addChild(this.lifeBar)
@@ -98,8 +98,12 @@ export default class BaseEnemy extends GameAgent {
         }
 
 
-    }
 
+    }
+    afterBuild() {
+        super.afterBuild()
+        //this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
+    }
     destroy() {
         super.destroy();
     }

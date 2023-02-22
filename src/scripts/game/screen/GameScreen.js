@@ -248,9 +248,7 @@ export default class GameScreen extends Screen {
         let angle = Math.PI * 2 * Math.random();
         // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
-        this.companion = this.gameManager.addEntity(Companion, true)
-        this.companion.x = config.width / 2 + Math.cos(angle) * config.width + 100
-        this.companion.z = config.height / 2 + Math.sin(angle) * config.height + 100
+        
 
         setTimeout(() => {
 

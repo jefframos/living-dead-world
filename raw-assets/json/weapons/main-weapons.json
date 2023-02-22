@@ -790,6 +790,44 @@
         }
     },
     {
+        "id": "LIGHTNING_IN_PLACE",
+        "isMain": true,
+        "icon": "electric-slash6",
+        "name": "Electric",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "ELECTRIC_SLASH_OVERRIDER",
+        "attributes": {
+            "baseRadius": 30,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": 0,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "baseFrequency": 3,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDetectionZone": 300,
+            "baseDirectionType": "SameParentPosition",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 3,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "THUNDER_PACK",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
         "id": "ELECTRIC_SLASH_OVERRIDER",
         "isMain": false,
         "icon": "hit-d3",

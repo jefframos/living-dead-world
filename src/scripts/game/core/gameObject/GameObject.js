@@ -96,7 +96,7 @@ export default class GameObject extends BaseComponent {
         this.z = z
     }
     update(delta) {
-
+        super.update(delta);
         //this was causing double update
         // this.children.forEach(element => {
         //     if (element.enabled) {
