@@ -111,7 +111,7 @@
     {
         "id": "DAGGER_ROTATOR_OVERRIDER",
         "ingameIcon": "tile_0106",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": 20,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0
     },
@@ -136,7 +136,7 @@
     {
         "id": "MELEE_SWORD",
         "ingameIcon": "dagger",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": 15,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "anchor": {

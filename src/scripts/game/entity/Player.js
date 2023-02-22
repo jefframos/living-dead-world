@@ -65,7 +65,7 @@ export default class Player extends GameAgent {
 
         this.activeWeapons = [];
         this.weaponsGameObject = [];
-        
+
         this.health.setNewHealth(this.attributes.hp)
 
         this.currentEnemiesColliding = []
@@ -136,14 +136,14 @@ export default class Player extends GameAgent {
 
 
 
-for (let index = 0; index < 2; index++) {
-    let companion = this.engine.poolGameObject(Companion)
-    companion.build(GameStaticData.instance.getEntityByIndex('companions', index));
-    this.addChild(companion)
-    companion.x = Math.cos(Math.random()) * 100
-    companion.z = Math.sin(Math.random()) * 100
-    
-}
+        for (let index = 0; index < 2; index++) {
+            let companion = this.engine.poolGameObject(Companion)
+            companion.build(GameStaticData.instance.getEntityByIndex('companions', index % 2));
+            this.addChild(companion)
+            companion.x = Math.cos(Math.random()) * 100
+            companion.z = Math.sin(Math.random()) * 100
+        }
+        
     }
 
     clearWeapon() {

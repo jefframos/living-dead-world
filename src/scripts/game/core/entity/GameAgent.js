@@ -51,8 +51,8 @@ export default class GameAgent extends PhysicsEntity {
         }
         let weaponData = inGameWeapon.mainWeapon
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-        this.addChild(weapon)
         weapon.build(weaponData)
+        this.addChild(weapon)
     }
     damage(value) {
         if(this.invencibleSpawnTime > 0){

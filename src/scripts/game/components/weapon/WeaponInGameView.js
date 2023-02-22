@@ -91,6 +91,11 @@ export default class WeaponInGameView extends GameObject {
                 let ang = finalAng + this.weapon.weaponAttributes.angleStart;
 
                 this.spriteList[index].targetAngle = ang;
+            }        
+        }else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer) {
+            const totalBullets = this.spriteList.length;
+            for (let index = 0; index < totalBullets; index++) {
+                this.spriteList[index].targetAngle = this.parent.facingAngle;
             }
         }
     }
@@ -124,6 +129,9 @@ export default class WeaponInGameView extends GameObject {
             element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
             let radToAng = ((element.sprite.rotation) * 180 / Math.PI) % 360;
             
+
+            this.x = this.parent.transform.position.x
+
             if(radToAng < 270 && radToAng > 90){
                 this.z = this.parent.transform.position.z + 1;
             }else{

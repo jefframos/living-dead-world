@@ -36,7 +36,7 @@ export default class BaseWeapon extends PhysicsEntity {
         let target = from ? from.transform : this.transform
         let shootAngle = 0;
         let closest = GameManager.instance.findClosestEnemy(target.position) || this
-        if(closest != this && Vector3.distance(closest.transform.position, this.transform.position) > distanceLimit){
+        if (closest != this && Vector3.distance(closest.transform.position, this.transform.position) > distanceLimit) {
             closest = this;
         }
         shootAngle = Math.atan2(closest.transform.position.z - target.position.z, closest.transform.position.x - target.position.x)
@@ -94,18 +94,20 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
 
-        if(this.weaponData.ingameViewDataStatic.ingameIcon){
+        if (this.weaponData.ingameViewDataStatic.ingameIcon) {
             //poolGameObject
             this.inGameView = this.engine.poolGameObject(WeaponInGameView);
             this.inGameView.setContainer(this.gameView.view);
             this.inGameView.setData(this.weaponData, this);
             this.addChild(this.inGameView)
+        }else{
+            this.inGameView = null;
         }
 
         this.resetBrust();
 
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
-        this.currentShootTimer = this.shootFrequency * 0.1
+        this.currentShootTimer = this.shootFrequency * 0.5 + 0.1;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
@@ -133,17 +135,17 @@ export default class BaseWeapon extends PhysicsEntity {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
-    calcShootAngle(){
-        
+    calcShootAngle() {
+
     }
     shoot(customWeapon, customParent) {
 
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
-        
+
         if (!isMain && weapon.onFixedDestroyWeapon.length) {
-            
+
             let temp = weapon.onFixedDestroyWeapon[0]
             temp.onDestroyWeapon = weapon.onDestroyWeapon;
             weapon = temp;
@@ -160,7 +162,7 @@ export default class BaseWeapon extends PhysicsEntity {
                 this.realShootTimer = 0;
             } else {
                 this.currentShootTimer = this.shootFrequency;
-                
+
                 this.realShootTimer = this.currentShootTimer;
             }
             this.alternateFacing *= -1;
@@ -204,11 +206,11 @@ export default class BaseWeapon extends PhysicsEntity {
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Random) {
 
                 let rndAng = Math.random() * Math.PI * 2
-                bullet.setPosition(parentGameObject.transform.position.x+ Math.cos(rndAng) * gunDistance, 0, parentGameObject.transform.position.z+ Math.sin(rndAng) * gunDistance);
+                bullet.setPosition(parentGameObject.transform.position.x + Math.cos(rndAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(rndAng) * gunDistance);
                 bullet.shoot(rndAng, 0)
 
             } else if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ClosestEnemySnap) {
-                let closestEnemy = this.getClosestEnemy(parentGameObject, weapon.weaponAttributes.detectionZone|| 100)
+                let closestEnemy = this.getClosestEnemy(parentGameObject, weapon.weaponAttributes.detectionZone || 100)
                 bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);
                 bullet.shoot(0, 0)
 
@@ -239,15 +241,15 @@ export default class BaseWeapon extends PhysicsEntity {
                 }
 
                 let finalAng = facingAng + angleNoise + halfAngle;
-                if( weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards){
+                if (weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards) {
                     finalAng += Math.PI;
                 }
-                
-                if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.SameParentPosition){
+
+                if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.SameParentPosition) {
                     gunDistance = 0;
                 }
 
-                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance+ Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z+ Math.sin(finalAng) * gunDistance);
+                bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                 bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
             }
 
@@ -271,11 +273,8 @@ export default class BaseWeapon extends PhysicsEntity {
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z
 
-        if(this.inGameView){
-            this.inGameView.x = this.transform.position.x
-            this.inGameView.z = this.transform.position.z
+        if (this.inGameView) {
             this.inGameView.update(delta)
-
         }
 
         if (this.debug) {
@@ -284,13 +283,13 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         if (this.currentShootTimer > 0) {
-            this.currentShootTimer -= delta;            
+            this.currentShootTimer -= delta;
         } else {
             this.shoot();
         }
 
-        
-        if(this.brustFire.amount == this.weaponData.weaponAttributes.brustFireAmount){
+
+        if (this.brustFire.amount == this.weaponData.weaponAttributes.brustFireAmount) {
             this.realShootTimer = this.currentShootTimer;
         }
 
@@ -302,15 +301,16 @@ export default class BaseWeapon extends PhysicsEntity {
 
         }
     }
-    get shootNormal(){
+    get shootNormal() {
         return 1 - this.realShootTimer / this.shootFrequency;
     }
-    get shootNormalWithBrust(){
+    get shootNormalWithBrust() {
         return 1 - this.currentShootTimer / this.shootFrequency;
     }
     destroy() {
         super.destroy();
         this.activeProjectiles = [];
+
     }
 
     spawnBullet(bullet) {
@@ -370,15 +370,15 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: baseData.viewOffset, color:baseData.color?baseData.color:0xFFFFFF })
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: {x:baseData.viewOffset.x, y:baseData.viewOffset.y}, color: baseData.color ? baseData.color : 0xFFFFFF })
             } else {
                 EffectsManager.instance.emitParticles(
-                    { x: target.x + baseData.viewOffset.x, y: target.z+baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale } , tint:baseData.color?baseData.color:0xFFFFFF}, baseData.targetLayer)
+                    { x: target.x + baseData.viewOffset.x, y: target.z + baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
             }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
-            bullet.gameView.view.tint = baseData.color?baseData.color:0xFFFFFF;
+            bullet.gameView.view.tint = baseData.color ? baseData.color : 0xFFFFFF;
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             bullet.gameView.viewOffset.y = baseData.viewOffset.y
 

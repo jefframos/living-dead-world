@@ -562,11 +562,11 @@
 },
 "guns/weapons/dagger.png":
 {
-	"frame": {"x":455,"y":220,"w":12,"h":32},
-	"rotated": false,
+	"frame": {"x":455,"y":220,"w":32,"h":12},
+	"rotated": true,
 	"trimmed": false,
-	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":32},
-	"sourceSize": {"w":12,"h":32}
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":12},
+	"sourceSize": {"w":32,"h":12}
 },
 "guns/weapons/disk.png":
 {
@@ -1380,6 +1380,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1456,"h":254},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:f36cdf01b4d8fbc6a8736f4764af933e:32a82dd5e2858fff674cd6ec0585ada9:a5fe7db4b869eb0f3e0b2940b9577ea8$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6a646b038f8f62c1c1c759f0a9271326:68657b3a1dbe8eb522994da3c0c827f1:a5fe7db4b869eb0f3e0b2940b9577ea8$"
 }
 }

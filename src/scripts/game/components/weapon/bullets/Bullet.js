@@ -42,15 +42,15 @@ export default class Bullet extends PhysicsEntity {
             this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Gameplay)
         }
 
-        //this.setDebug(this.weapon.weaponAttributes.radius)
         this.spawnParent = parent;
         this.safeTimer = 10;
-
+        
         this.originPosition = parent.transform.position.clone()
-
+        
         this.resetEvents();
-
+        
         this.buildCircle(0, 0, this.weapon.weaponAttributes.radius)
+        //this.setDebug()
 
         this.hitting = false;
 

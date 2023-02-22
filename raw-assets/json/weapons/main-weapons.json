@@ -636,7 +636,7 @@
             "baseRadius": 20,
             "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 50,
+            "baseLifeRangeSpan": 60,
             "basePower": 120,
             "baseBulletSpeed": 150,
             "baseFrequency": 2,
@@ -650,14 +650,14 @@
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 5,
-            "baseAngleStart": [0,1.57],
-            "baseAngleOffset": [0,3.14],
+            "baseAngleStart": [0,0,1.57],
+            "baseAngleOffset": [0,0,3.14],
             "baseAngleNoise": 0
         },
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SWORD_MELEE_PACK_01",
+            "standardVfxPack": "SWORD_MELEE_PACK_01",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }

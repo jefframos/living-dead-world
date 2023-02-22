@@ -36,28 +36,20 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"modifyers",
-	"url":"assets/json\\modifyers.json"
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
-	},
-	{
-	"id":"player-animation",
-	"url":"assets/json\\animation\\player-animation.json"
+	"id":"modifyers",
+	"url":"assets/json\\modifyers.json"
 	},
 	{
 	"id":"entity-animation",
@@ -68,16 +60,12 @@ const assets = [
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
-	"id":"enemies",
-	"url":"assets/json\\entities\\enemies.json"
+	"id":"player-animation",
+	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"companions",
-	"url":"assets/json\\entities\\companions.json"
-	},
-	{
-	"id":"players",
-	"url":"assets/json\\entities\\players.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"main-weapons",
@@ -100,12 +88,12 @@ const assets = [
 	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
 	},
 	{
-	"id":"entity-ss-vfx",
-	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
 	"id":"vfx-behaviours",
 	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
+	"id":"entity-ss-vfx",
+	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
 	"id":"weapon-ss-vfx-packs",
@@ -114,6 +102,18 @@ const assets = [
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	},
+	{
+	"id":"companions",
+	"url":"assets/json\\entities\\companions.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entities\\enemies.json"
+	},
+	{
+	"id":"players",
+	"url":"assets/json\\entities\\players.json"
 	}
 ];
 

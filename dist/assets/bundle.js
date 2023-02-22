@@ -19873,7 +19873,6 @@ var Bullet = function (_PhysicsEntity) {
                 this.renderModule.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Gameplay);
             }
 
-            //this.setDebug(this.weapon.weaponAttributes.radius)
             this.spawnParent = parent;
             this.safeTimer = 10;
 
@@ -19882,6 +19881,7 @@ var Bullet = function (_PhysicsEntity) {
             this.resetEvents();
 
             this.buildCircle(0, 0, this.weapon.weaponAttributes.radius);
+            //this.setDebug()
 
             this.hitting = false;
 
@@ -22921,7 +22921,7 @@ var Player = function (_GameAgent) {
 
             for (var index = 0; index < 2; index++) {
                 var companion = this.engine.poolGameObject(_Companion2.default);
-                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index));
+                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index % 2));
                 this.addChild(companion);
                 companion.x = Math.cos(Math.random()) * 100;
                 companion.z = Math.sin(Math.random()) * 100;
@@ -25620,12 +25620,14 @@ var BaseWeapon = function (_PhysicsEntity) {
                 this.inGameView.setContainer(this.gameView.view);
                 this.inGameView.setData(this.weaponData, this);
                 this.addChild(this.inGameView);
+            } else {
+                this.inGameView = null;
             }
 
             this.resetBrust();
 
             this.shootFrequency = this.weaponData.weaponAttributes.frequency;
-            this.currentShootTimer = this.shootFrequency * 0.1;
+            this.currentShootTimer = this.shootFrequency * 0.5 + 0.1;
             this.realShootTimer = this.currentShootTimer;
             this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone);
             //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
@@ -25796,8 +25798,6 @@ var BaseWeapon = function (_PhysicsEntity) {
             this.z = this.parent.transform.position.z;
 
             if (this.inGameView) {
-                this.inGameView.x = this.transform.position.x;
-                this.inGameView.z = this.transform.position.z;
                 this.inGameView.update(delta);
             }
 
@@ -25891,7 +25891,7 @@ var BaseWeapon = function (_PhysicsEntity) {
                 var targetAngle = baseData.lockRotation ? 0 : bullet.angle;
                 if (baseData.movementType == _EntityViewData2.default.MovementType.Follow) {
                     var spriteSheet = bullet.addComponent(_SpriteSheetGameView2.default);
-                    spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: baseData.viewOffset, color: baseData.color ? baseData.color : 0xFFFFFF });
+                    spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF });
                 } else {
                     _EffectsManager2.default.instance.emitParticles({ x: target.x + baseData.viewOffset.x, y: target.z + baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer);
                 }
@@ -29282,7 +29282,7 @@ var GameManager = function () {
                 return;
             }
 
-            if (this.gameplayTime > 0.1) {
+            if (this.gameplayTime > 0.5) {
                 this.updateLevelPhase();
             }
             this.gameManagerStats.Phase = this.currentPhase;
@@ -43873,8 +43873,8 @@ var GameAgent = function (_PhysicsEntity) {
             }
             var weaponData = inGameWeapon.mainWeapon;
             var weapon = this.engine.poolGameObject(weaponData.customConstructor);
-            this.addChild(weapon);
             weapon.build(weaponData);
+            this.addChild(weapon);
         }
     }, {
         key: "damage",
@@ -78954,6 +78954,11 @@ var WeaponInGameView = function (_GameObject) {
 
                     this.spriteList[index].targetAngle = ang;
                 }
+            } else if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.FacingPlayer) {
+                var _totalBullets = this.spriteList.length;
+                for (var _index = 0; _index < _totalBullets; _index++) {
+                    this.spriteList[_index].targetAngle = this.parent.facingAngle;
+                }
             }
         }
     }, {
@@ -78988,6 +78993,8 @@ var WeaponInGameView = function (_GameObject) {
                 element.sprite.x = Math.cos(element.angle) * _this2.spawnDistance + _this2.offset.x;
                 element.sprite.y = Math.sin(element.angle) * _this2.spawnDistance + _this2.offset.y;
                 var radToAng = element.sprite.rotation * 180 / Math.PI % 360;
+
+                _this2.x = _this2.parent.transform.position.x;
 
                 if (radToAng < 270 && radToAng > 90) {
                     _this2.z = _this2.parent.transform.position.z + 1;
@@ -90139,23 +90146,17 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "player-animation",
-	"url": "assets/json\\animation\\player-animation.json"
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
@@ -90163,14 +90164,11 @@ var assets = [{
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
-	"id": "enemies",
-	"url": "assets/json\\entities\\enemies.json"
+	"id": "player-animation",
+	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entities\\companions.json"
-}, {
-	"id": "players",
-	"url": "assets/json\\entities\\players.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -90187,17 +90185,26 @@ var assets = [{
 	"id": "entity-particle-descriptor",
 	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
 }, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
 	"id": "vfx-behaviours",
 	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
 }, {
 	"id": "weapon-ss-vfx-packs",
 	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
 }, {
 	"id": "weapon-ss-vfx",
 	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entities\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entities\\enemies.json"
+}, {
+	"id": "players",
+	"url": "assets/json\\entities\\players.json"
 }];
 
 exports.default = assets;
@@ -90230,7 +90237,7 @@ module.exports = exports['default'];
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);
