@@ -2,7 +2,6 @@
     {
         "id": "BLOOD_SPLAT",
         "lifeSpan": 999,
-        "scale": 0.5,
         "baseBehaviours": "SS_BLOD_SPLAT_01"
     },
     {
@@ -20,7 +19,7 @@
         "rotationSpeed": [-3,-5],
         "gravity": 200,
         "scale": 0.5,
-        "texture": ["skull","arm","leg"],
+        "texture": "spark2",
         "baseAmount": 3
     },
     {

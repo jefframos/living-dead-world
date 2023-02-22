@@ -18,8 +18,10 @@ export default class GameStaticData {
 
     initialize() {
         let loadList = [
-            { type:'entities', list: 'enemy', path: ['enemies1'] },
+            { type:'entities', list: 'enemy', path: ['enemies'] },
             { type:'entities', list: 'player', path: ['players'] },
+            { type:'entities', list: 'companions', path: ['companions'] },
+            
             { type:'cards', list: 'cards', path: ['cards'] },
             
             { type:'weapons', list: 'main', path: ['main-weapons'] },
@@ -28,6 +30,7 @@ export default class GameStaticData {
             
             { type:'animation',list: 'entity', path: ['entity-animation'], shared:true },
             { type:'animation',list: 'player', path: ['player-animation'], shared:true },
+            { type:'animation',list: 'companion', path: ['companion-animation'], shared:true },
 
             { type:'vfx',list: 'weaponVFX', path: ['weapon-ss-vfx'], shared:true },
             { type:'vfx',list: 'entityVFXPack', path: ['entity-ss-vfx'] , shared:true},

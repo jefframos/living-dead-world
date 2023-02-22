@@ -1,6 +1,8 @@
 import EffectsManager from "../../manager/EffectsManager";
 import FlashOnDamage from "../../components/view/FlashOnDamage";
+import GameStaticData from "../../data/GameStaticData";
 import GameView from "../view/GameView";
+import GameViewSpriteSheet from "../../components/GameViewSpriteSheet";
 import Health from "../../components/Health";
 import InGameWeapon from "../../data/InGameWeapon";
 import PhysicsEntity from "../physics/PhysicsEntity";
@@ -144,6 +146,23 @@ export default class GameAgent extends PhysicsEntity {
         return layer;
     }
 
+    makeAnimations(data){
+        let spriteSheet = this.addComponent(GameViewSpriteSheet);
+        let animData1 = {} 
+        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
+        
+        let run = data.animationData.run ? GameStaticData.instance.getSharedDataById('animation', data.animationData.run) : null;
+        if (run) {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
+        } else {
+            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
+        }
+
+        spriteSheet.setData(animData1);
+        spriteSheet.update(0.1);
+
+        
+    }
     // calcFrame() {
     //     //aif(this.physics.magnitude == 0) return -1;
 

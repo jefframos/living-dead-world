@@ -112,7 +112,7 @@
     },
     {
         "id": "AXE_BOOMERANG",
-        "viewData": "tile_0118",
+        "viewData": "boomerang",
         "viewOffset": {
             "y": -20
         },
@@ -120,8 +120,17 @@
         "rotationSpeed": 10
     },
     {
+        "id": "ORBIT",
+        "viewData": "orbitGreen",
+        "viewOffset": {
+            "y": -20
+        },
+        "scale": 0.5,
+        "rotationSpeed": 10
+    },
+    {
         "id": "DISC_TRHOWER",
-        "viewData": "hit-j2",
+        "viewData": "disk",
         "rotationSpeed": 60
     },
     {

@@ -35,6 +35,8 @@ export default class WeaponInGameView extends GameObject {
 
         this.loadBars = [];
 
+        this.spawnDistance = weapon.weaponAttributes.spawnDistance
+
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
             sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
@@ -105,7 +107,7 @@ export default class WeaponInGameView extends GameObject {
         
         //console.log(this.parent.shootNormal)
         this.spriteList.forEach(element => {
-            element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.2);
+            element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.1);
             element.spring.update()
             if (this.weapon.ingameViewDataStatic.inGameRotation) {
                 element.sprite.rotation += delta * this.weapon.ingameViewDataStatic.inGameRotation
@@ -118,14 +120,14 @@ export default class WeaponInGameView extends GameObject {
             element.sprite.scale.y = element.spring.x// * yScale;
             element.sprite.scale.x = (element.spring.x * 0.2 + element.spring.default * 0.8) * yScale;
             
-            element.sprite.x = Math.cos(element.angle) * 40 + this.offset.x
-            element.sprite.y = Math.sin(element.angle) * 40 + this.offset.y
+            element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
+            element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
             let radToAng = ((element.sprite.rotation) * 180 / Math.PI) % 360;
             
             if(radToAng < 270 && radToAng > 90){
-                this.z = this.parent.transform.position.z + 3;
+                this.z = this.parent.transform.position.z + 1;
             }else{
-                this.z = this.parent.transform.position.z - 3;
+                this.z = this.parent.transform.position.z - 1;
 
             }
         });

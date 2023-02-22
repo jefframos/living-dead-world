@@ -85,6 +85,7 @@ export default class WeaponAttributes {
         this.baseAngleNoise = 0.1;
         this.baseForceField = false;
         this.baseForceFeedback = 5;
+        this.baseSpawnDistance = 20;
 
         this.level = 1;
 
@@ -102,83 +103,86 @@ export default class WeaponAttributes {
         }
         return attribute
     }
+    get spawnDistance() {
+        return this.findAttributeValue('baseSpawnDistance');
+    }
     get brustFireInterval() {
-        return this.findAttributeValue('baseBrustFireInterval')//this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire
+        return this.findAttributeValue('baseBrustFireInterval');
     }
     get brustFireAmount() {
-        return this.findAttributeValue('baseBrustFireAmount')//this.isMain ? this.baseBrustFire : this.overrider.baseBrustFire
+        return this.findAttributeValue('baseBrustFireAmount');
     }
     get extendedBehaviour() {
-        return this.findAttributeValue('baseExtendedBehaviour')//this.isMain ? this.baseExtendedBehaviour : this.overrider.baseExtendedBehaviour
+        return this.findAttributeValue('baseExtendedBehaviour');
     }
     get baseShootArc() {
-        return this.findAttributeValue('baseBaseShootArc')//this.isMain ? this.baseBaseShootArc : this.overrider.baseBaseShootArc
+        return this.findAttributeValue('baseBaseShootArc');
     }
     get generalOffset() {
-        return this.findAttributeValue('baseGeneralOffset')//this.isMain ? this.baseGeneralOffset : this.overrider.baseGeneralOffset
+        return this.findAttributeValue('baseGeneralOffset');
     }    
     get angleStart() {
-        return this.findAttributeValue('baseAngleStart')//this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset
+        return this.findAttributeValue('baseAngleStart');
     }
     get angleOffset() {
-        return this.findAttributeValue('baseAngleOffset')//this.isMain ? this.baseAngleOffset : this.overrider.baseAngleOffset
+        return this.findAttributeValue('baseAngleOffset');
     }
     get angleNoise() {
-        return this.findAttributeValue('baseAngleNoise')//this.isMain ? this.baseAngleNoise : this.overrider.baseAngleNoise
+        return this.findAttributeValue('baseAngleNoise');
     }
     get forceField() {
-        return this.findAttributeValue('baseForceField')//this.isMain ? this.baseForceField : this.overrider.baseForceField
+        return this.findAttributeValue('baseForceField');
     }
     get forceFeedback() {
-        return this.findAttributeValue('baseForceFeedback')//this.isMain ? this.baseForceFeedback : this.overrider.baseForceFeedback
+        return this.findAttributeValue('baseForceFeedback');
     }
     get range() {
-        return this.findAttributeValue('baseRange')//this.isMain ? this.baseRange : this.overrider.baseRange
+        return this.findAttributeValue('baseRange');
     }
     get lifeSpan() {
-        return this.findAttributeValue('baseLifeSpan')//this.isMain ? this.baseLifeSpan : this.overrider.baseLifeSpan
+        return this.findAttributeValue('baseLifeSpan');
     }
     get lifeRangeSpan() {
-        return this.findAttributeValue('baseLifeRangeSpan')//this.isMain ? this.baseLifeRangeSpan : this.overrider.baseLifeRangeSpan
+        return this.findAttributeValue('baseLifeRangeSpan');
     }
     get power() {
-        return this.findAttributeValue('basePower')//this.isMain ? this.basePower : this.overrider.basePower
+        return this.findAttributeValue('basePower');
     }
     get radius() {
-        return this.findAttributeValue('baseRadius')//this.isMain ? this.baseRadius : this.overrider.baseRadius
+        return this.findAttributeValue('baseRadius');
     }
     get bulletSpeed() {
-        return this.findAttributeValue('baseBulletSpeed')//this.isMain ? this.baseBulletSpeed : this.overrider.baseBulletSpeed
+        return this.findAttributeValue('baseBulletSpeed');
     }
     get angularSpeed() {
-        return this.findAttributeValue('baseAngularSpeed')//this.isMain ? this.baseAngularSpeed : this.overrider.baseAngularSpeed
+        return this.findAttributeValue('baseAngularSpeed');
     }
     get frequency() {
-        return this.findAttributeValue('baseFrequency')//this.isMain ? this.baseFrequency : this.overrider.baseFrequency
+        return this.findAttributeValue('baseFrequency');
     }
     get piercing() {
-        return this.findAttributeValue('basePiercing')//this.isMain ? this.basePiercing : this.overrider.basePiercing
+        return this.findAttributeValue('basePiercing');
     }
     get amount() {
-        return this.findAttributeValue('baseAmount')//this.isMain ? this.baseAmount : this.overrider.baseAmount
+        return this.findAttributeValue('baseAmount');
     }
     get damageZone() {
-        return this.findAttributeValue('baseDamageZone')//this.isMain ? this.baseDamageZone : this.overrider.baseDamageZone
+        return this.findAttributeValue('baseDamageZone');
     }
     get detectionZone() {
-        return this.findAttributeValue('baseDetectionZone')//this.isMain ? this.baseDetectionZone : this.overrider.baseDetectionZone
+        return this.findAttributeValue('baseDetectionZone');
     }
     get directionType() {
-        return this.findAttributeValue('baseDirectionType')//this.isMain ? this.baseDirectionType : this.overrider.baseDirectionType
+        return this.findAttributeValue('baseDirectionType');
     }
     get blockType() {
-        return this.findAttributeValue('baseBlockType')//this.isMain ? this.baseBlockType : this.overrider.baseBlockType
+        return this.findAttributeValue('baseBlockType');
     }
     get shootArc() {
-        return this.findAttributeValue('baseShootArc')//this.isMain ? this.baseShootArc : this.overrider.baseShootArc
+        return this.findAttributeValue('baseShootArc');
     }
     get damageOverTime() {
-        return this.findAttributeValue('baseDamageOverTime')//this.isMain ? this.baseDamageOverTime : this.overrider.baseDamageOverTime
+        return this.findAttributeValue('baseDamageOverTime');
     }
 
     clone() {

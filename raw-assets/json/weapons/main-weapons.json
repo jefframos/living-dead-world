@@ -11,6 +11,7 @@
         "attributes": {
             "baseRange": 50,
             "baseRadius": 50,
+            "baseSpawnDistance": 0,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 50,
@@ -45,6 +46,7 @@
         "attributes": {
             "baseRange": 20,
             "baseRadius": 20,
+            "baseSpawnDistance": 0,
             "baseForceField": false
         }
     },
@@ -59,6 +61,7 @@
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 10,
@@ -97,6 +100,7 @@
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 10,
@@ -129,6 +133,7 @@
         "isMain": false,
         "ingameViewData": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
+            "baseSpawnDistance": 20,
             "basePower": 15,
             "baseAmount": 2
         }
@@ -144,6 +149,7 @@
         "overrider": "SMALL_BOMB_OVERRIDER",
         "attributes": {
             "baseRadius": 100,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 0.5,
             "baseLifeRangeSpan": -1,
             "basePower": 150,
@@ -175,7 +181,8 @@
         "isMain": false,
         "ingameViewData": "SMALL_BOMB_OVERRIDER",
         "attributes": {
-            "baseRadius": 50
+            "baseRadius": 50,
+            "baseSpawnDistance": 20
         }
     },
     {
@@ -189,6 +196,7 @@
         "onDestroyId": "SMALL_BOMB",
         "attributes": {
             "baseRadius": 5,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 150,
@@ -215,10 +223,47 @@
         }
     },
     {
+        "id": "BOMB_THROWER_COMPANION",
+        "isMain": true,
+        "icon": "flameThrower",
+        "name": "Bomb",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "SMALL_BOMB",
+        "attributes": {
+            "baseRadius": 5,
+            "baseSpawnDistance": 0,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 150,
+            "basePower": 150,
+            "baseBulletSpeed": 80,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": [0,0],
+            "baseBrustFireInterval": [0,0],
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "GravityBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "BOMB_BASE_01"
+            }
+        }
+    },
+    {
         "id": "BOMB_THROWER_OVERRIDER",
         "isMain": false,
         "ingameViewData": "BOMB_THROWER_OVERRIDER",
         "attributes": {
+            "baseSpawnDistance": 20,
             "baseLifeRangeSpan": 100,
             "basePower": 100
         }
@@ -233,6 +278,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 15,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -271,6 +317,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 250,
             "basePower": 10,
@@ -309,6 +356,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 30,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 250,
             "basePower": 10,
@@ -347,6 +395,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 25,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 100,
             "basePower": 50,
@@ -385,6 +434,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 5,
+            "baseSpawnDistance": 30,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 320,
             "basePower": 250,
@@ -425,6 +475,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -463,6 +514,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 5,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -501,6 +553,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 8,
             "baseLifeRangeSpan": -1,
             "basePower": 80,
@@ -533,13 +586,14 @@
     {
         "id": "BOOMERANG_AXE",
         "isMain": true,
-        "icon": "tile_0118",
+        "icon": "rotateRed",
         "ingameViewData": "BOOMERANG_AXE",
         "name": "Boomerang",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 10,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 250,
             "basePower": 30,
@@ -573,13 +627,14 @@
     {
         "id": "MELEE_SWORD",
         "isMain": true,
-        "icon": "slash4",
+        "icon": "dagger",
         "ingameViewData": "MELEE_SWORD",
         "name": "Melee",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 20,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 50,
             "basePower": 120,
@@ -611,7 +666,7 @@
     {
         "id": "ICE_SHARD_THROWER",
         "isMain": true,
-        "icon": "hit-d3",
+        "icon": "disk",
         "ingameViewData": "ICE_SHARD_THROWER",
         "name": "Disk",
         "weaponType": "Magical",
@@ -620,6 +675,7 @@
         "onDestroyId": "ICE_SHARD_ROTATOR",
         "attributes": {
             "baseRadius": 20,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 150,
@@ -656,6 +712,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 20,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 150,
@@ -684,7 +741,7 @@
     {
         "id": "ORBIT",
         "isMain": true,
-        "icon": "small-spark4",
+        "icon": "orbitGreen",
         "ingameViewData": "ORBIT",
         "name": "Orbit",
         "weaponType": "Magical",
@@ -692,6 +749,7 @@
         "overrider": "ORBIT_OVERRIDER",
         "attributes": {
             "baseRadius": 30,
+            "baseSpawnDistance": 10,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
             "basePower": 50,
@@ -713,7 +771,9 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "standardVfxPack": "THUNDER_BALL_PACK"
+            "overrider": {
+                "baseViewData": "ORBIT"
+            }
         }
     },
     {
@@ -726,6 +786,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 30,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
             "basePower": 20,
@@ -761,6 +822,7 @@
         "overrider": "ELECTRIC_SLASH_OVERRIDER",
         "attributes": {
             "baseRadius": 60,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 0.5,
             "baseLifeRangeSpan": 0,
             "basePower": 150,
@@ -799,6 +861,7 @@
         "overrider": "ELECTRIC_SLASH_OVERRIDER",
         "attributes": {
             "baseRadius": 30,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 0.5,
             "baseLifeRangeSpan": 0,
             "basePower": 150,
@@ -837,6 +900,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 50,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 0.5,
             "baseLifeRangeSpan": -1,
             "basePower": 100,
@@ -873,6 +937,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -909,6 +974,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -945,6 +1011,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 5,
             "baseLifeRangeSpan": -1,
             "basePower": 25,
@@ -983,6 +1050,7 @@
         "overrider": "LASER_OVERRIDER",
         "attributes": {
             "baseRadius": 10,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 25,
@@ -990,7 +1058,7 @@
             "baseAngularSpeed": 3.14,
             "baseFrequency": 4,
             "basePiercing": 9999,
-            "baseAmount": 3,
+            "baseAmount": 1,
             "baseDetectionZone": 150,
             "baseDamageOverTime": 0.3,
             "baseDirectionType": "AngularSequence",
@@ -1024,6 +1092,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 8,
+            "baseSpawnDistance": 20,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
             "basePower": 10,

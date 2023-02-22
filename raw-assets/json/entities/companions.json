@@ -1,0 +1,60 @@
+[
+    {
+        "id": "FLY_DRONE",
+        "name": "Goblin",
+        "description": "Green, greedy, groovy",
+        "ranking": 1,
+        "tier": 1,
+        "title": "Jhonatan Goblin",
+        "weapon": {
+            "id": "LIGHTNING_IN_PLACE"
+        },
+        "attributes": {
+            "power": 10,
+            "hp": 80,
+            "magicDefense": 2,
+            "mass": 1,
+            "defense": 8,
+            "radius": 10,
+            "speed": 90
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 50,
+            "scale": 2
+        },
+        "animationData": {
+            "idle": "FLY_DRONE_IDLE",
+            "run": "FLY_DRONE_IDLE"
+        }
+    },
+    {
+        "id": "LAND_DRONE",
+        "name": "Goblin",
+        "description": "Green, greedy, groovy",
+        "ranking": 1,
+        "tier": 1,
+        "title": "Jhonatan Goblin",
+        "weapon": {
+            "id": "BOMB_THROWER_COMPANION"
+        },
+        "attributes": {
+            "power": 10,
+            "hp": 150,
+            "magicDefense": 2,
+            "mass": 1,
+            "defense": 8,
+            "radius": 10,
+            "speed": 50
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 0,
+            "scale": 2
+        },
+        "animationData": {
+            "idle": "LAND_DRONE_IDLE",
+            "run": "LAND_DRONE_IDLE"
+        }
+    }
+]

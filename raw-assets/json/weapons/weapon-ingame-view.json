@@ -83,7 +83,7 @@
     {
         "id": "SUB_MACHINE_GUN_01",
         "ingameIcon": "submachine1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": 20,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0
     },
@@ -124,10 +124,10 @@
     },
     {
         "id": "BOOMERANG_AXE",
-        "ingameIcon": "tile_0118",
-        "ingameBaseWidth": 30,
+        "ingameIcon": "boomerang",
+        "ingameBaseWidth": 20,
         "ingameAmountIconOverrider": -1,
-        "inGameRotation": 6,
+        "inGameRotation": 0,
         "anchor": {
             "x": 0.5,
             "y": 0.5
@@ -135,7 +135,7 @@
     },
     {
         "id": "MELEE_SWORD",
-        "ingameIcon": "weapon_sword_1",
+        "ingameIcon": "dagger",
         "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -146,10 +146,9 @@
     },
     {
         "id": "ICE_SHARD_THROWER",
-        "ingameIcon": "hit-d3",
-        "ingameBaseWidth": 30,
+        "ingameIcon": "disk",
+        "ingameBaseWidth": 10,
         "ingameAmountIconOverrider": -1,
-        "inGameRotation": 6,
         "anchor": {
             "x": 0.5,
             "y": 0.5
@@ -157,10 +156,9 @@
     },
     {
         "id": "ICE_SHARD_ROTATOR",
-        "ingameIcon": "hit-d3",
-        "ingameBaseWidth": 30,
+        "ingameIcon": "disk",
+        "ingameBaseWidth": 10,
         "ingameAmountIconOverrider": -1,
-        "inGameRotation": 6,
         "anchor": {
             "x": 0.5,
             "y": 0.5
@@ -168,10 +166,10 @@
     },
     {
         "id": "ORBIT",
-        "ingameIcon": "small-spark4",
-        "ingameBaseWidth": 30,
+        "ingameIcon": "orbitGreen",
+        "ingameBaseWidth": 10,
         "ingameAmountIconOverrider": 1,
-        "inGameRotation": 6,
+        "inGameRotation": 0,
         "anchor": {
             "x": 0.5,
             "y": 0.5
@@ -179,10 +177,10 @@
     },
     {
         "id": "ORBIT_OVERRIDER",
-        "ingameIcon": "small-spark4",
-        "ingameBaseWidth": 30,
+        "ingameIcon": "orbitGreen",
+        "ingameBaseWidth": 10,
         "ingameAmountIconOverrider": 1,
-        "inGameRotation": 6,
+        "inGameRotation": 0,
         "anchor": {
             "x": 0.5,
             "y": 0.5

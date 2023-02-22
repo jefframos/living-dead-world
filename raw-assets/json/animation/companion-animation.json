@@ -1,0 +1,38 @@
+[
+    {
+        "id": "FLY_DRONE_IDLE",
+        "animationData": {
+            "spriteName": "fly-drone_",
+            "params": {
+                "totalFramesRange": {
+                    "min": 0,
+                    "max": 3
+                },
+                "anchor": {
+                    "x": 0.3,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true
+            }
+        }
+    },
+    {
+        "id": "LAND_DRONE_IDLE",
+        "animationData": {
+            "spriteName": "land-drone_",
+            "params": {
+                "totalFramesRange": {
+                    "min": 0,
+                    "max": 3
+                },
+                "anchor": {
+                    "x": 0.3,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true
+            }
+        }
+    }
+]

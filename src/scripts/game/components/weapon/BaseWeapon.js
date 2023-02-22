@@ -138,13 +138,12 @@ export default class BaseWeapon extends PhysicsEntity {
     }
     shoot(customWeapon, customParent) {
 
-        let gunDistance = 40;
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
-
+        
         if (!isMain && weapon.onFixedDestroyWeapon.length) {
-
+            
             let temp = weapon.onFixedDestroyWeapon[0]
             temp.onDestroyWeapon = weapon.onDestroyWeapon;
             weapon = temp;
@@ -161,11 +160,13 @@ export default class BaseWeapon extends PhysicsEntity {
                 this.realShootTimer = 0;
             } else {
                 this.currentShootTimer = this.shootFrequency;
-
+                
                 this.realShootTimer = this.currentShootTimer;
             }
             this.alternateFacing *= -1;
         }
+
+        let gunDistance = weapon.weaponAttributes.spawnDistance;
 
         let total = weapon.weaponAttributes.amount;
 

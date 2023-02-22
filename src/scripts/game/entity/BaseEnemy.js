@@ -48,23 +48,25 @@ export default class BaseEnemy extends GameAgent {
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
-        let spriteSheet = this.addComponent(GameViewSpriteSheet);
         if (this.viewData.zombieWalk) {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
+        
+        // let spriteSheet = this.addComponent(GameViewSpriteSheet);
+        // let animData1 = {}
+        // let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
+        // if (run) {
+        //     animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
+        // } else {
+        //     animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
+        // }
+        // animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
 
-        let animData1 = {}
-        let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
-        if (run) {
-            animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
-        } else {
-            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
-        }
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
+        // spriteSheet.setData(animData1);
+        // spriteSheet.update(0.1);
+        // spriteSheet.update(0.1);
 
-        spriteSheet.setData(animData1);
-        spriteSheet.update(0.1);
-        spriteSheet.update(0.1);
+        this.makeAnimations(this.staticData)
 
         if (this.viewData.anchor) {
             this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)

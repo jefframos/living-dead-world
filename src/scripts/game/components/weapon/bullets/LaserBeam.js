@@ -48,12 +48,13 @@ export default class LaserBeam extends Bullet {
         this.beamDistance = Utils.lerp(this.beamDistance, this.weapon.weaponAttributes.detectionZone / 2, 0.1)
         if (this.fromWeapon) {
             //if is related with player >>> this.source.physics.magnitude != 0 || 
-            if (this.angleModifier == 0) {
-                this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, this.angleModifier ? 0.1 : 1)
-                this.angleModifier = 1;
-            } else {
-                this.angle += delta * this.weapon.weaponAttributes.angularSpeed;
-            }
+            //this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, this.angleModifier ? 0.1 : 1)
+            this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)
+            // if (this.angleModifier == 0) {
+            //     this.angleModifier = 1;
+            // } else {
+            //     this.angle += delta * this.weapon.weaponAttributes.angularSpeed;
+            // }
             this.x = this.source.transform.position.x + Math.cos(this.angle) * this.beamDistance * 2
             this.z = this.source.transform.position.z + Math.sin(this.angle) * this.beamDistance * 2
             this.beam.x = this.source.transform.position.x + Math.cos(this.angle) * this.beamDistance

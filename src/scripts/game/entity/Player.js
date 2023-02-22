@@ -96,19 +96,22 @@ export default class Player extends GameAgent {
 
 
         this.framesAfterStart = 0;
-        let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
-        let animData1 = {} 
-        let run = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.run);
-        if (run) {
-            animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
-        } else {
-            animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
-        }
-        animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
+        // let spriteSheet = this.addComponent(GameViewSpriteSheet);
 
-        spriteSheet.setData(animData1);
-        spriteSheet.update(0.1);
+        // let animData1 = {} 
+        // let run = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.run);
+        // if (run) {
+        //     animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
+        // } else {
+        //     animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
+        // }
+        // animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
+
+        // spriteSheet.setData(animData1);
+        // spriteSheet.update(0.1);
+
+        this.makeAnimations(this.staticData)
 
         if (this.viewData.anchor) {
             this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)
@@ -133,11 +136,14 @@ export default class Player extends GameAgent {
 
 
 
-
-        this.companion = this.engine.poolGameObject(Companion, true)
-        this.addChild(this.companion)
-        this.companion.x = Math.cos(Math.random()) * 100
-        this.companion.z = Math.sin(Math.random()) * 100
+for (let index = 0; index < 2; index++) {
+    let companion = this.engine.poolGameObject(Companion)
+    companion.build(GameStaticData.instance.getEntityByIndex('companions', index));
+    this.addChild(companion)
+    companion.x = Math.cos(Math.random()) * 100
+    companion.z = Math.sin(Math.random()) * 100
+    
+}
     }
 
     clearWeapon() {

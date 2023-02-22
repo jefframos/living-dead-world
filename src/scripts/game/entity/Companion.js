@@ -1,5 +1,6 @@
 import Bullet from "../components/weapon/bullets/Bullet";
 import EffectsManager from "../manager/EffectsManager";
+import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import GameAgent from "../core/entity/GameAgent";
 import InGameWeapon from "../data/InGameWeapon";
 import Layer from "../core/Layer";
@@ -18,8 +19,14 @@ export default class Companion extends GameAgent {
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
         this.gameView.view = new PIXI.Sprite.from('fly-drone_0')
     }
-    build() {
+    build(companionData) {
         super.build()
+
+
+        this.staticData = companionData;
+        this.attributes = companionData.attributes;
+        this.viewData = companionData.view;
+
 
         this.health.reset()
 
@@ -30,13 +37,32 @@ export default class Companion extends GameAgent {
         this.addChild(this.sensor)
         this.buildCircle(0, 0, 15);
 
-        this.speed = 50
+        this.speed = this.attributes.speed
 
         this.shootBaseTime = 2
         this.shootTimer = 0.5
         this.transform.angle = -Math.PI / 2
-        this.layerCategory = Layer.FlightCompanion
-        this.layerMask = Layer.Nothing
+
+        if (this.viewData.jumpHight) {
+
+            this.layerCategory = Layer.FlightCompanion
+            this.layerMask = Layer.Nothing
+            this.transform.position.y = -this.viewData.jumpHight
+
+        } else {
+            this.transform.position.y = 0;
+
+            this.layerCategory = Layer.Player
+            this.layerMask = Layer.PlayerCollision
+
+            this.lifeBar = this.engine.poolGameObject(EntityLifebar)
+            this.addChild(this.lifeBar)
+
+            
+            this.lifeBar.build(20, 3, 1);
+            this.lifeBar.updateView({ x: 0, y: -30 }, 0x8636f0, 0xFF0000);
+        }
+
 
         this.rigidBody.isSensor = true
 
@@ -47,16 +73,21 @@ export default class Companion extends GameAgent {
 
         this.anchorOffset = 0
 
-        this.addComponent(SpriteFacing)
         this.addChild(this.engine.poolGameObject(Shadow))
 
-        this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
+        this.makeAnimations(this.staticData)
+
+        if (this.staticData.weapon) {
+
+            this.addWeaponData(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
+        }
 
         this.targetAngle = Math.random() * Math.PI * 2;
 
         this.targetPosition = new Vector3();
+
     }
-    
+
     afterBuild() {
         this.targetPosition.copy(this.parent.transform.position)
 
@@ -89,12 +120,11 @@ export default class Companion extends GameAgent {
         this.targetAngle += delta;
         this.targetAngle %= Math.PI * 2;
 
-        this.targetPosition.x +=  Math.cos(this.targetAngle) * 150
-        this.targetPosition.z +=  Math.sin(this.targetAngle) * 150
+        this.targetPosition.x += Math.cos(this.targetAngle) * 150
+        this.targetPosition.z += Math.sin(this.targetAngle) * 150
 
         this.sensor.x = this.transform.position.x
         this.sensor.z = this.transform.position.z
-        this.transform.position.y = -50
 
         if (Vector3.distance(this.transform.position, this.targetPosition) > 20) {
             this.transform.angle = Vector3.atan2XZ(this.targetPosition, this.transform.position)
