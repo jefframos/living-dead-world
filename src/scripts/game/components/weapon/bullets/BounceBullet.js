@@ -7,10 +7,13 @@ export default class BounceBullet extends Bullet {
     constructor() {
         super();
         this.sin = 0;
+        this.rotation = 0;
     }
     build(weapon, parent) {
         super.build(weapon, parent);
         this.addChild(this.engine.poolGameObject(Shadow))
+
+        this.rotation = 0;
 
         this.deafultScale = {x:this.gameView.view.scale.x, y: this.gameView.view.scale.y}
     }
@@ -27,10 +30,11 @@ export default class BounceBullet extends Bullet {
         }
         this.sin += delta * 7
         this.sin %= Math.PI
-
+        
         let value = this.easeOutQuad(this.normalizedKillTime);
+        this.rotation -= delta * 7 * value
         this.transform.position.y = Math.sin(this.sin) * -40 * value - this.weapon.weaponAttributes.radius
-        this.gameView.view.rotation = 0       
+        this.gameView.view.rotation = this.rotation      
     }
 
     easeOutQuad(x) {

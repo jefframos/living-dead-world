@@ -98,5 +98,10 @@
         "id": "LASER_CARD",
         "weaponId": "LASER",
         "enabled": true
+    },
+    {
+        "id": "NUKE_CARD",
+        "weaponId": "FALL_NUKE",
+        "enabled": true
     }
 ]

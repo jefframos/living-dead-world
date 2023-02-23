@@ -4,6 +4,7 @@ import BounceBullet from "../components/weapon/bullets/BounceBullet";
 import Bullet from "../components/weapon/bullets/Bullet";
 import CircularBullet from "../components/weapon/bullets/CircularBullet";
 import EffectsManager from "../manager/EffectsManager";
+import FallingProjectile from "../components/weapon/bullets/FallingProjectile";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import GameStaticData from "../data/GameStaticData";
 import GravityBullet from "../components/weapon/bullets/GravityBullet";
@@ -24,7 +25,8 @@ export default class WeaponBuilder {
         SinoidBullet: SinoidBullet,
         CircularBullet: CircularBullet,
         BounceBullet: BounceBullet,
-        LaserBeam: LaserBeam
+        LaserBeam: LaserBeam,
+        FallingProjectile:FallingProjectile
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,

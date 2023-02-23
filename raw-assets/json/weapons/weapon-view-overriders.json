@@ -96,12 +96,20 @@
         "rotationSpeed": [-10,10]
     },
     {
+        "id": "NUKE_BASE_01",
+        "viewData": "nukeBomb",
+        "viewOffset": {
+            "y": -20
+        },
+        "maxHeight": 300
+    },
+    {
         "id": "LAND_MINE_BASE",
         "viewData": "landMine",
-        "angleOffset":-1.57,
         "viewOffset": {
             "y": 0
-        }
+        },
+        "angleOffset": -1.57
     },
     {
         "id": "DAGGER_BASE_01",
@@ -149,6 +157,10 @@
         "viewOffset": {
             "y": -20
         }
+    },
+    {
+        "id": "BOUNCE_BASE",
+        "viewData": "bounceBomb"
     },
     {
         "id": "TRANSPARENT",
