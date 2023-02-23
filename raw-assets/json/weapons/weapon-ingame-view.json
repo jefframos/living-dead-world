@@ -106,7 +106,7 @@
     {
         "id": "PISTOL_01",
         "ingameIcon": "pistol1",
-        "ingameBaseWidth": 10,
+        "ingameBaseWidth": 15,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "progressBar": {
@@ -159,7 +159,7 @@
             "rotation": 1.57,
             "width": 20,
             "height": 3,
-            "x": 4 ,
+            "x": 4,
             "y": 4
         }
     },
@@ -171,11 +171,7 @@
         "inGameRotation": 0,
         "progressBar": {
             "active": true,
-            "rotation": 1.57,
-            "width": 15,
-            "height": 6,
-            "x": 2 ,
-            "y": 30
+            "rotation": 1.57
         }
     },
     {
@@ -200,7 +196,7 @@
     },
     {
         "id": "FIREBALL_HOAMING",
-        "ingameIcon": "tile_0106",
+        "ingameIcon": "hoamingGun",
         "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,

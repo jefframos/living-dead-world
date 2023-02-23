@@ -88,12 +88,20 @@
     },
     {
         "id": "BOMB_BASE_01",
-        "viewData": "tile_0116",
+        "viewData": "granade",
         "viewOffset": {
             "y": -20
         },
         "maxHeight": 80,
         "rotationSpeed": [-10,10]
+    },
+    {
+        "id": "LAND_MINE_BASE",
+        "viewData": "landMine",
+        "angleOffset":-1.57,
+        "viewOffset": {
+            "y": 0
+        }
     },
     {
         "id": "DAGGER_BASE_01",
@@ -137,10 +145,10 @@
     },
     {
         "id": "FIREBALL_HOAMING",
+        "viewData": "hoamingMissel",
         "viewOffset": {
             "y": -20
-        },
-        "angleOffset": -1.57
+        }
     },
     {
         "id": "TRANSPARENT",

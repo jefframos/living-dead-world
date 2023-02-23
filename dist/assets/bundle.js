@@ -22919,9 +22919,9 @@ var Player = function (_GameAgent) {
 
             this.addWeaponData(_WeaponBuilder2.default.instance.weaponsData[playerData.weapon.id]);
 
-            for (var index = 0; index < 3; index++) {
+            for (var index = 0; index < 5; index++) {
                 var companion = this.engine.poolGameObject(_Companion2.default);
-                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index % 3));
+                companion.build(_GameStaticData2.default.instance.getEntityByIndex('companions', index % 5));
                 this.addChild(companion);
                 var ang = Math.random() * Math.PI * 2;
                 companion.x = Math.cos(ang) * 100;
@@ -61060,7 +61060,7 @@ var Companion = function (_GameAgent) {
                         this.sensor = this.engine.poolGameObject(_Sensor2.default);
                         this.sensor.build(250);
                         this.addChild(this.sensor);
-                        this.buildCircle(0, 0, 15);
+                        this.buildCircle(0, 0, this.attributes.radius);
 
                         this.speed = this.attributes.speed;
 
@@ -61082,20 +61082,24 @@ var Companion = function (_GameAgent) {
                                 this.lifeBar = this.engine.poolGameObject(_EntityLifebar2.default);
                                 this.addChild(this.lifeBar);
 
-                                this.lifeBar.build(20, 3, 1);
+                                this.lifeBar.build(this.attributes.radius, 3, 1);
                                 this.lifeBar.updateView({ x: 0, y: -30 }, 0x8636f0, 0xFF0000);
                         }
 
                         this.rigidBody.isSensor = true;
 
                         this.gameView.view.anchor.set(0.3, 1);
-                        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2);
+                        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2 * (this.viewData.scale || 1));
                         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
                         this.gameView.applyScale();
 
                         this.anchorOffset = 0;
 
                         this.addChild(this.engine.poolGameObject(_Shadow2.default));
+
+                        var spriteFacing = this.addComponent(_SpriteFacing2.default);
+                        spriteFacing.lerp = 1;
+                        spriteFacing.startScaleX = -1;
 
                         this.makeAnimations(this.staticData);
 
@@ -90168,11 +90172,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -90186,23 +90190,23 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entities\\companions.json"
@@ -90213,6 +90217,24 @@ var assets = [{
 	"id": "players",
 	"url": "assets/json\\entities\\players.json"
 }, {
+	"id": "effects-descriptors",
+	"url": "assets/json\\vfx\\effects-descriptors.json"
+}, {
+	"id": "entity-particle-descriptor",
+	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
+}, {
+	"id": "entity-ss-vfx",
+	"url": "assets/json\\vfx\\entity-ss-vfx.json"
+}, {
+	"id": "vfx-behaviours",
+	"url": "assets/json\\vfx\\vfx-behaviours.json"
+}, {
+	"id": "weapon-ss-vfx-packs",
+	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
+}, {
+	"id": "weapon-ss-vfx",
+	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
+}, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
@@ -90221,24 +90243,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "effects-descriptors",
-	"url": "assets/json\\vfx\\effects-descriptors.json"
-}, {
-	"id": "entity-particle-descriptor",
-	"url": "assets/json\\vfx\\entity-particle-descriptor.json"
-}, {
-	"id": "vfx-behaviours",
-	"url": "assets/json\\vfx\\vfx-behaviours.json"
-}, {
-	"id": "entity-ss-vfx",
-	"url": "assets/json\\vfx\\entity-ss-vfx.json"
-}, {
-	"id": "weapon-ss-vfx-packs",
-	"url": "assets/json\\vfx\\weapon-ss-vfx-packs.json"
-}, {
-	"id": "weapon-ss-vfx",
-	"url": "assets/json\\vfx\\weapon-ss-vfx.json"
 }];
 
 exports.default = assets;
@@ -90271,7 +90275,7 @@ module.exports = exports['default'];
 /* 275 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
+module.exports = {"default":["image/particles/particles.json","image/terrain/terrain.json","image/texture/texture.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

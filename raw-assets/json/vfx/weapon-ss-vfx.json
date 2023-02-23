@@ -131,5 +131,61 @@
             "y": 0.7
         },
         "loop": false
+    },
+    {
+        "id": "ELECTRIC_SPARK",
+        "spriteName": "electric-spark-blast__",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 9,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": true
+    },
+    {
+        "id": "NUKE_BLAST",
+        "spriteName": "nuke-explosion-1__",
+        "time": 0.5,
+        "startFrame": 0,
+        "endFrame": 7,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "IMPACT_BOMB",
+        "spriteName": "impact-bomb-1__",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 8,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "LAND_MINE_LOOP",
+        "spriteName": "land_mine_green__",
+        "time": 0.5,
+        "startFrame": 0,
+        "endFrame": 3,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 1
+        },
+        "loop": true
     }
 ]

@@ -154,5 +154,53 @@
         "scale": 1,
         "lockRotation": false,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "NUKE_PACK",
+        "vfxData": "NUKE_BLAST",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "ELECTRIC_PACK",
+        "vfxData": "ELECTRIC_SPARK",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "IMPACT_BOMB",
+        "vfxData": "IMPACT_BOMB",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "LAND_MINE_PACK",
+        "vfxData": "LAND_MINE_LOOP",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
     }
 ]

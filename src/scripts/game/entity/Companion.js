@@ -35,7 +35,7 @@ export default class Companion extends GameAgent {
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
         this.addChild(this.sensor)
-        this.buildCircle(0, 0, 15);
+        this.buildCircle(0, 0, this.attributes.radius);
 
         this.speed = this.attributes.speed
 
@@ -59,7 +59,7 @@ export default class Companion extends GameAgent {
             this.addChild(this.lifeBar)
 
             
-            this.lifeBar.build(20, 3, 1);
+            this.lifeBar.build(this.attributes.radius, 3, 1);
             this.lifeBar.updateView({ x: 0, y: -30 }, 0x8636f0, 0xFF0000);
         }
 
@@ -67,13 +67,17 @@ export default class Companion extends GameAgent {
         this.rigidBody.isSensor = true
 
         this.gameView.view.anchor.set(0.3, 1)
-        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2)
+        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2 * (this.viewData.scale || 1))
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.applyScale();
 
         this.anchorOffset = 0
 
         this.addChild(this.engine.poolGameObject(Shadow))
+
+        let spriteFacing = this.addComponent(SpriteFacing);
+        spriteFacing.lerp = 1
+        spriteFacing.startScaleX = -1
 
         this.makeAnimations(this.staticData)
 

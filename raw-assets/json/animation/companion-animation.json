@@ -52,5 +52,77 @@
                 "loop": true
             }
         }
+    },
+    {
+        "id": "LAND_MINE_DRONE",
+        "animationData": {
+            "spriteName": "land_drone_3__",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.3,
+                "loop": true
+            }
+        }
+    },
+    {
+        "id": "LASER_DRONE",
+        "animationData": {
+            "spriteName": "laser_fly_drone__",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.3,
+                "loop": true
+            }
+        }
+    },
+    {
+        "id": "SPIDER_DRONE",
+        "animationData": {
+            "spriteName": "land_drone_2__",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.3,
+                "loop": true
+            }
+        }
+    },
+    {
+        "id": "ORANGE_DRONE",
+        "animationData": {
+            "spriteName": "fly_drone_orange__",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.3,
+                "loop": true
+            }
+        }
     }
 ]

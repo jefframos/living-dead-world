@@ -139,6 +139,41 @@
         }
     },
     {
+        "id": "LAND_MINE",
+        "isMain": true,
+        "icon": "flameThrower",
+        "name": "Bomb",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "SMALL_BOMB",
+        "attributes": {
+            "baseRadius": 10,
+            "baseSpawnDistance": 0,
+            "baseLifeSpan": 8,
+            "baseLifeRangeSpan": 0,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "baseFrequency": 8,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "SameParentPosition",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "LAND_MINE_PACK"
+        }
+    },
+    {
         "id": "SMALL_BOMB",
         "isMain": false,
         "icon": "hit-d3",
@@ -170,7 +205,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "BOMB_PACK_01",
+            "spawnVfxPack": "IMPACT_BOMB",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }
@@ -585,13 +620,14 @@
     {
         "id": "FIREBALL_HOAMING",
         "isMain": true,
-        "icon": "tile_0106",
+        "icon": "hoamingMissel",
         "ingameViewData": "FIREBALL_HOAMING",
         "name": "Hoaming",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
+        "onDestroyId": "SMALL_BOMB",
         "attributes": {
-            "baseRadius": 15,
+            "baseRadius": 10,
             "baseSpawnDistance": 20,
             "baseLifeSpan": 8,
             "baseLifeRangeSpan": -1,
@@ -614,7 +650,6 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "standardVfxPack": "HOAMING_FIREBALL_PACK_01",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
@@ -1082,13 +1117,54 @@
         "id": "LASER",
         "isMain": true,
         "icon": "laserGun1",
-        "ingameViewData": "LASER",
         "name": "Laser",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "LASER_OVERRIDER",
         "attributes": {
-            "baseRadius": 10,
+            "baseRadius": 8,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 25,
+            "baseBulletSpeed": 0,
+            "baseAngularSpeed": 3.14,
+            "baseFrequency": 4,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDetectionZone": 150,
+            "baseDamageOverTime": 0.3,
+            "baseDirectionType": "AngularSequence",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 1.2,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "LaserBeam",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "LASER_DRONE",
+        "isMain": true,
+        "icon": "laserGun1",
+        "name": "Laser",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "LASER_OVERRIDER",
+        "attributes": {
+            "baseRadius": 8,
             "baseSpawnDistance": 20,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
@@ -1125,12 +1201,11 @@
         "id": "LASER_OVERRIDER",
         "isMain": false,
         "icon": "vfx-c1",
-        "ingameViewData": "LASER_OVERRIDER",
         "name": "Disk",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
-            "baseRadius": 8,
+            "baseRadius": 5,
             "baseSpawnDistance": 20,
             "baseLifeSpan": 4,
             "baseLifeRangeSpan": -1,
