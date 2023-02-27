@@ -35,9 +35,25 @@ export default class CardView extends PIXI.Container {
         this.mouseOver = false;
 
         this.onCardClicked = new signals.Signal();
+        this.onStartDrag = new signals.Signal();
+        this.onEndDrag = new signals.Signal();
         InteractableView.addMouseEnter(this, () => { this.mouseOver = true; })
         InteractableView.addMouseOut(this, () => { this.mouseOver = false; })
-        InteractableView.addMouseClick(this, () => { this.onCardClicked.dispatch(this)})
+        //InteractableView.addMouseClick(this, () => { this.onCardClicked.dispatch(this)})
+        InteractableView.addMouseDown(this, () => { 
+            this.onStartDrag.dispatch(this) 
+        })
+        // InteractableView.addMouseUp(this, () => {
+        //     if(!this.mouseOver){
+        //         return;
+        //     }
+        //     console.log("addMouseUp")
+        //     this.onEndDrag.dispatch(this)
+        // })
+        // InteractableView.addMouseUpOutside(this, () => {
+        //     console.log("addMouseUpOutside")
+        //     this.onEndDrag.dispatch(this)
+        // })
 
         this.label = new PIXI.Text('', window.LABELS.LABEL1)
         this.cardContainer.addChild(this.label);
@@ -51,10 +67,10 @@ export default class CardView extends PIXI.Container {
         // let zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
         // this.addChild(zero)
 
-        this.cardContainer.x = -width/2
+        this.cardContainer.x = -width / 2
         this.cardContainer.pivot.y = height
 
-        this.safeShape.x = -width/2
+        this.safeShape.x = -width / 2
         this.safeShape.pivot.y = height
     }
 

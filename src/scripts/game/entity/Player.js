@@ -136,18 +136,34 @@ export default class Player extends GameAgent {
 
 
 
-        for (let index = 0; index < 5; index++) {
+        for (let index = 0; index < 1; index++) {
             let companion = this.engine.poolGameObject(Companion)
-            companion.build(GameStaticData.instance.getEntityByIndex('companions', index % 5));
+            companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
             this.addChild(companion)
             let ang = Math.random() * Math.PI * 2
             companion.x = Math.cos(ang) * 100
             companion.z = Math.sin(ang) * 100
         }
-        
-    }
 
+    }
+    rebuildWeaponGrid(grid) {
+        this.clearWeapon();
+
+        for (let i = 0; i < grid.length; i++) {
+            const list = grid[i];
+            for (let j = 0; j < list.length; j++) {
+                const element = list[j];
+                if (element) {
+                    console.log("add at", element.name, i)
+                    this.addWeaponData(element, i)
+                }
+
+            }
+        }
+
+    }
     clearWeapon() {
+        console.log("clearWeapon")
         for (let index = this.weaponsGameObject.length - 1; index >= 0; index--) {
             if (!this.weaponsGameObject[index].destroyed) {
 
@@ -162,20 +178,22 @@ export default class Player extends GameAgent {
         }
         this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
-        this.activeWeapons = [];
+        this.activeWeapons = [null, null, null];
         this.refreshEquipment();
     }
     addWeaponData(weaponData, slotID = 0) {
 
-        if (this.activeWeapons.length < slotID + 1) {
+       // console.log(this.activeWeapons[slotID], slotID)
+        //if (this.activeWeapons.length < slotID + 1) {
+        if (!this.activeWeapons[slotID]) {
             let mainWeapon = new InGameWeapon();
             mainWeapon.addWeapon(weaponData)
-            this.addWeapon(mainWeapon)
+            this.addWeapon(mainWeapon, slotID)
         } else {
             this.activeWeapons[slotID].addWeapon(weaponData);
         }
     }
-    addWeapon(inGameWeapon) {
+    addWeapon(inGameWeapon, slotID = 0) {
         if (!inGameWeapon.hasWeapon) {
             return;
         }
@@ -188,7 +206,7 @@ export default class Player extends GameAgent {
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
-        this.activeWeapons.push(inGameWeapon)
+        this.activeWeapons[slotID] = inGameWeapon
         this.refreshEquipment();
     }
     refreshEquipment() {

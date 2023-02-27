@@ -12,6 +12,7 @@ export default class InputModule extends GameObject {
         this.axis = { x: 0, y: 0 }
         this.direction = 0;
         this.globalMousePos = { x: 0, y: 0 }
+        this.localMousePos = { x: 0, y: 0 }
 
         document.addEventListener('keydown', (event) => {
             this.getKey(event);
@@ -58,15 +59,20 @@ export default class InputModule extends GameObject {
     }
     sortPosition(e) {
 
-
+        
         if (!Game.IsPortrait) {
             this.globalMousePos.x = e.data.global.x / this.container.worldTransform.a - this.container.worldTransform.tx / this.container.worldTransform.a
             this.globalMousePos.y = e.data.global.y - this.container.worldTransform.ty
-
+            
+            this.localMousePos.x = e.data.global.x/ this.container.worldTransform.a- this.container.worldTransform.tx/ this.container.worldTransform.a
+            this.localMousePos.y = e.data.global.y/ this.container.worldTransform.d - this.container.worldTransform.ty
         } else {
 
             this.globalMousePos.x = e.data.global.x - this.container.worldTransform.tx
             this.globalMousePos.y = e.data.global.y / this.container.worldTransform.d - this.container.worldTransform.ty / this.container.worldTransform.d
+
+            this.localMousePos.x = e.data.global.x - this.container.worldTransform.tx / this.container.worldTransform.a// this.container.worldTransform.a - this.container.worldTransform.tx this.container.worldTransform.a
+            this.localMousePos.y = e.data.global.y/ this.container.worldTransform.d - this.container.worldTransform.ty
         }
 
 
@@ -150,5 +156,10 @@ export default class InputModule extends GameObject {
         //this.globalMousePos.x = this.mouse.position.x * Game.GlobalScale.x //- Game.GlobalContainerPosition.x
         //this.globalMousePos.y = Game.GlobalScale.y * this.mouse.position.y - Game.GlobalContainerPosition.y
         return this.globalMousePos;
+    }
+    get localMousePosition() {
+        //this.globalMousePos.x = this.mouse.position.x * Game.GlobalScale.x //- Game.GlobalContainerPosition.x
+        //this.globalMousePos.y = Game.GlobalScale.y * this.mouse.position.y - Game.GlobalContainerPosition.y
+        return this.localMousePos;
     }
 }

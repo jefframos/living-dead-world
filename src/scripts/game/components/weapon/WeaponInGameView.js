@@ -50,7 +50,7 @@ export default class WeaponInGameView extends GameObject {
             spring.tx = sprite.scale.y;
             // sprite.visible = false;
 
-            console.log(weapon.ingameViewDataStatic)
+            //console.log(weapon.ingameViewDataStatic)
             let bar = null;
             if (weapon.ingameViewDataStatic.progressBar.active) {
                 const barData = weapon.ingameViewDataStatic.progressBar
