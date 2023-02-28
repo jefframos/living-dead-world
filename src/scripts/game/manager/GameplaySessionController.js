@@ -8,6 +8,8 @@ import GameView from "../core/view/GameView";
 import HudButtons from "../components/ui/HudButtons";
 import InputModule from "../core/modules/InputModule";
 import Player from "../entity/Player";
+import PlayerInventoryHud from "../inventory/view/PlayerInventoryHud";
+import PlayerSessionData from "../data/PlayerSessionData";
 import RenderModule from "../core/modules/RenderModule";
 import WeaponBuilder from "../screen/WeaponBuilder";
 import config from "../../config";
@@ -23,15 +25,19 @@ export default class GameplaySessionController extends GameObject {
         super()
         this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
         this.tileSize = 45
-        
+
         this.weaponBuilder = new WeaponBuilder();
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Building
         this.gameView.view = new PIXI.Container();
 
+        this.playerSessionData = new PlayerSessionData();
+
         this.onPlayerReady = new signals.Signal();
         this.onPlayerDead = new signals.Signal();
         this.onGameStart = new signals.Signal();
+
+        
     }
     build() {
 
@@ -39,16 +45,20 @@ export default class GameplaySessionController extends GameObject {
         this.buildingComponent.setGameView(this.gameView.view);
 
 
+        this.playerInventoryHud = this.engine.poolGameObject(PlayerInventoryHud, true)
+        //this.addChild(this.playerInventoryHud)
+
+
         this.deckView = this.engine.poolGameObject(DeckController, true)
         this.deckView.setActive(false);
 
         this.hudButtons = this.engine.poolGameObject(HudButtons, true)
-        
-        this.hudButtons.addCallbackButton(()=>{
+
+        this.hudButtons.addCallbackButton(() => {
             this.toggleDeck();
         }, config.assets.button.primarySquare)
 
-        this.hudButtons.addCallbackButton(()=>{
+        this.hudButtons.addCallbackButton(() => {
             this.player.clearWeapon();
         }, config.assets.button.warningSquare)
 
@@ -63,27 +73,36 @@ export default class GameplaySessionController extends GameObject {
         if (!this.player) {
             this.engine.callbackWhenAdding(Player, (player) => {
                 this.player = player[0];
+
             });
         }
+
+
         //this.setBuildingMode();
         //this.toggleDeck();
     }
     playerReady() {
-    
-        setTimeout(() => {       
-            if(this.weaponBuilder){
+
+        setTimeout(() => {
+            if (this.weaponBuilder) {
                 this.weaponBuilder.eraseWeapon()
-            } else{
+            } else {
 
                 this.weaponBuilder.addWeapons(this.player)
-            }  
+            }
+
+            this.playerSessionData.reset();
+            this.player.sessionData = this.playerSessionData;
+
+            this.playerInventoryHud.registerPlayer(this.player)
+
             this.cardPlacementSystem.setPlayer(this.player);
             this.cardPlacementSystem.setWeapons(this.weaponBuilder);
-            this.player.refreshEquipment();
 
+            this.player.refreshEquipment();
             this.player.sessionData.onLevelUp.add(this.onPlayerLevelUp.bind(this))
 
-            if(window.debugMode){                
+            if (window.debugMode) {
                 this.toggleDeck();
             }
         }, 1);

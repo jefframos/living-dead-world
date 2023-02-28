@@ -2,13 +2,19 @@ import * as PIXI from 'pixi.js';
 
 import BaseBarView from '../../components/ui/progressBar/BaseBarView';
 import Game from '../../../Game';
+import GameObject from '../../core/gameObject/GameObject';
+import GameView from '../../core/view/GameView';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
+import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
 
-export default class PlayerInventoryHud extends PIXI.Container {
+export default class PlayerInventoryHud extends GameObject {
     constructor() {
         super()
 
+        this.gameView = new GameView(this)
+        this.gameView.layer = RenderModule.UILayer;
+        this.gameView.view = new PIXI.Container();
         this.weaponGrid = [];
 
         for (let index = 0; index < 5; index++) {
@@ -17,7 +23,7 @@ export default class PlayerInventoryHud extends PIXI.Container {
             list.h = 100;
 
             this.weaponGrid.push(list)
-            this.addChild(list)
+            this.gameView.view.addChild(list)
 
             list.y = 40
 
@@ -25,20 +31,25 @@ export default class PlayerInventoryHud extends PIXI.Container {
 
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
-        // this.addChild(this.zero)
+        // this.gameView.view.addChild(this.zero)
 
         this.baseBarView = new BaseBarView()
-        this.addChild(this.baseBarView)
+        this.gameView.view.addChild(this.baseBarView)
         this.baseBarView.build(Game.Screen.width, 30, 4)
         this.baseBarView.setColors(0xFF00FF, 0x00FFFF)
         this.baseBarView.forceUpdateNormal(0);
 
         this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1)
-        this.addChild(this.text)
+        this.gameView.view.addChild(this.text)
         this.text.style.fontSize = 24
         this.text.x = 20
     }
+    build() {
+        super.build();
 
+        this.gameView.view.x = -Game.Screen.width / 2
+        this.gameView.view.y = -Game.Screen.height / 2
+    }
     registerPlayer(player) {
         this.player = player;
         this.text.text = 'Level 1';

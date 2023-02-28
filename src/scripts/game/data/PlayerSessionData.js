@@ -47,8 +47,8 @@ export default class PlayerSessionData {
         let nextLevel = this.xpData.currentLevel;
         for (var i = 0; i < this.levelBreaks.length - 1; i++) {
             if (nextXp >= this.levelBreaks[i] && nextXp < this.levelBreaks[i + 1]) {
-                console.log(this.levelBreaks[i], this.levelBreaks[i + 1])
-                nextLevel = i;                
+                nextLevel = i; 
+                break;               
             }
         }
 

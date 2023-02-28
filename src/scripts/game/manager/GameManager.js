@@ -33,7 +33,6 @@ export default class GameManager {
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
 
-        this.playerSessionData = new PlayerSessionData();
 
         this.gameplayTime = 0;
 
@@ -120,9 +119,8 @@ export default class GameManager {
     }
     start(player) {
         this.player = player;
-        this.playerSessionData.reset();
-        this.player.sessionData = this.playerSessionData;
-        
+
+
         this.init = true;
         this.gameplayTime = 0;
         this.currentPhase = 0;
@@ -136,8 +134,8 @@ export default class GameManager {
         this.activeEnemies = [];
         this.entitiesByType = {}
     }
-    onPlayerLevelUp(xpData){
-        
+    onPlayerLevelUp(xpData) {
+
     }
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();

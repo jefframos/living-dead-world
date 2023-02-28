@@ -9,9 +9,12 @@ export default class GridView extends PIXI.Container {
     makeGrid(equipmentList) {
         let gridWidth = 100
         this.slotOver = null;
-        this.children = [];
+        for (let i = this.children.length - 1; i >=0;i--){
+            this.removeChildAt(i)
+        }
         this.gridArray = [];
         this.gridSlots = [];
+        
         for (var i = 0; i < equipmentList.length; i++) {
             let temp = [];
             for (var j = 0; j < equipmentList[i].length; j++) {
@@ -32,9 +35,8 @@ export default class GridView extends PIXI.Container {
             element.release()
         });
     }
-    updateEquipment(equipmentList) {
+    updateEquipment(equipmentList) {        
         for (var i = 0; i < equipmentList.length; i++) {
-            let temp = [];
             for (var j = 0; j < equipmentList[i].length; j++) {
                 let equip = equipmentList[i][j]
                 let gridSlot = this.gridArray[i][j]

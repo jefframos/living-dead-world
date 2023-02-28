@@ -152,14 +152,18 @@ export default class DeckController extends GameObject {
     setPlayer(player) {
         this.player = player
         this.player.sessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-        this.gridView = new GridView();
+    
+        if(!this.gridView){
+            this.gridView = new GridView();
+        }
         this.gridView.makeGrid(this.player.sessionData.equipmentList)
 
         this.gridContainer.addChild(this.gridView);
-        this.rebuildWeaponGrid(this.player.sessionData.equipmentList)
-
+        
         this.gridContainer.pivot.x = this.gridContainer.width / 2
         this.gridContainer.pivot.y = this.gridContainer.height / 2
+
+        this.rebuildWeaponGrid(this.player.sessionData.equipmentList)
     }
     rebuildWeaponGrid(data) {
 

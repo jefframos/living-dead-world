@@ -53,6 +53,10 @@ export default class Player extends GameAgent {
     }
     set sessionData(value) {
         this.currentSessionData = value;
+        this.currentSessionData.equipmentUpdated.removeAll();
+        this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
+
+        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id],1,0)
     }
     build(playerData) {
 
@@ -128,11 +132,6 @@ export default class Player extends GameAgent {
     }
     afterBuild(){
         super.afterBuild()
-
-        this.currentSessionData.equipmentUpdated.removeAll();
-        this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-
-        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id],1,0)
     
         for (let index = 0; index < 1; index++) {
             let companion = this.engine.poolGameObject(Companion)

@@ -194,8 +194,7 @@ export default class GameScreen extends Screen {
 
         this.container.scale.set(1)
 
-        this.playerInventoryHud = new PlayerInventoryHud();
-        this.addChild(this.playerInventoryHud)
+       
     }
 
     onAdded() {
@@ -245,7 +244,7 @@ export default class GameScreen extends Screen {
         this.player.setPositionXZ(0, 0)
         
         this.gameManager.start(this.player);
-        this.playerInventoryHud.registerPlayer(this.player)
+        //this.playerInventoryHud.registerPlayer(this.player)
 
         let angle = Math.PI * 2 * Math.random();
         // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
