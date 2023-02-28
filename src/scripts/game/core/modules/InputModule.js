@@ -51,6 +51,11 @@ export default class InputModule extends GameObject {
             this.mouseDown = true;
         })
 
+        this.container.on("touchmove", (e) => {
+            this.sortPosition(e)
+            this.mouseDown = true;
+        })
+
         this.container.on("pointerup", (e) => {
 
             this.sortPosition(e)

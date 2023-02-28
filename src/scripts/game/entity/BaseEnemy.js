@@ -126,6 +126,7 @@ export default class BaseEnemy extends GameAgent {
             this.physics.velocity.z = 0
         }
 
+        this.gameView.view.visible = true;
         super.update(delta)
     }
 }

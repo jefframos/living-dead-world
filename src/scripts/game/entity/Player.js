@@ -45,8 +45,14 @@ export default class Player extends GameAgent {
 
         this.isPlayer = true;
 
+        this.currentSessionData
 
-
+    }
+    get sessionData() {
+        return this.currentSessionData
+    }
+    set sessionData(value) {
+        this.currentSessionData = value;
     }
     build(playerData) {
 
@@ -97,20 +103,6 @@ export default class Player extends GameAgent {
 
         this.framesAfterStart = 0;
 
-        // let spriteSheet = this.addComponent(GameViewSpriteSheet);
-
-        // let animData1 = {} 
-        // let run = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.run);
-        // if (run) {
-        //     animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
-        // } else {
-        //     animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
-        // }
-        // animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', this.staticData.animationData.idle).animationData
-
-        // spriteSheet.setData(animData1);
-        // spriteSheet.update(0.1);
-
         this.makeAnimations(this.staticData)
 
         if (this.viewData.anchor) {
@@ -132,10 +124,16 @@ export default class Player extends GameAgent {
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
-        this.addWeaponData(WeaponBuilder.instance.weaponsData[playerData.weapon.id])
+        
+    }
+    afterBuild(){
+        super.afterBuild()
 
+        this.currentSessionData.equipmentUpdated.removeAll();
+        this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
 
-
+        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id],1,0)
+    
         for (let index = 0; index < 1; index++) {
             let companion = this.engine.poolGameObject(Companion)
             companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
@@ -144,17 +142,14 @@ export default class Player extends GameAgent {
             companion.x = Math.cos(ang) * 100
             companion.z = Math.sin(ang) * 100
         }
-
     }
-    rebuildWeaponGrid(grid) {
+    rebuildWeaponGrid(equipmentGrid) {
         this.clearWeapon();
-
-        for (let i = 0; i < grid.length; i++) {
-            const list = grid[i];
+        for (let i = 0; i < equipmentGrid.length; i++) {
+            const list = equipmentGrid[i];
             for (let j = 0; j < list.length; j++) {
                 const element = list[j];
                 if (element) {
-                    console.log("add at", element.name, i)
                     this.addWeaponData(element, i)
                 }
 
@@ -163,7 +158,6 @@ export default class Player extends GameAgent {
 
     }
     clearWeapon() {
-        console.log("clearWeapon")
         for (let index = this.weaponsGameObject.length - 1; index >= 0; index--) {
             if (!this.weaponsGameObject[index].destroyed) {
 
@@ -183,7 +177,7 @@ export default class Player extends GameAgent {
     }
     addWeaponData(weaponData, slotID = 0) {
 
-       // console.log(this.activeWeapons[slotID], slotID)
+        // console.log(this.activeWeapons[slotID], slotID)
         //if (this.activeWeapons.length < slotID + 1) {
         if (!this.activeWeapons[slotID]) {
             let mainWeapon = new InGameWeapon();

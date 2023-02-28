@@ -1,7 +1,7 @@
 import BuildingComponent from "../components/building/BuildingComponent";
 import CardPlacementSystem from "../components/deckBuilding/CardPlacementSystem";
 import CardPlacementView from "../components/deckBuilding/CardPlacementView";
-import DeckView from "../components/deckBuilding/DeckView";
+import DeckController from "../components/deckBuilding/DeckController";
 import Eugine from "../core/Eugine";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
@@ -39,7 +39,7 @@ export default class GameplaySessionController extends GameObject {
         this.buildingComponent.setGameView(this.gameView.view);
 
 
-        this.deckView = this.engine.poolGameObject(DeckView, true)
+        this.deckView = this.engine.poolGameObject(DeckController, true)
         this.deckView.setActive(false);
 
         this.hudButtons = this.engine.poolGameObject(HudButtons, true)
@@ -81,9 +81,18 @@ export default class GameplaySessionController extends GameObject {
             this.cardPlacementSystem.setWeapons(this.weaponBuilder);
             this.player.refreshEquipment();
 
-            this.toggleDeck();
+            this.player.sessionData.onLevelUp.add(this.onPlayerLevelUp.bind(this))
+
+            if(window.debugMode){                
+                this.toggleDeck();
+            }
         }, 1);
     }
+    onPlayerLevelUp(xpData) {
+        this.cardPlacementSystem.show();
+        Eugine.TimeScale = 0;
+    }
+
     start() {
         this.input = this.engine.findByType(InputModule);
         this.input.onKeyUp.add((e) => {

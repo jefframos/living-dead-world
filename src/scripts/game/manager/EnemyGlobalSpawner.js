@@ -54,10 +54,6 @@ export default class EnemyGlobalSpawner {
     spawnSingleEntityFromSpawner(spawnData) {
 
         let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnData.id);
-
-
-        
-
         //find out if uses baseEnemy
         let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
 

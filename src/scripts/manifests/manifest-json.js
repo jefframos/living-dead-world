@@ -36,6 +36,10 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
+	},
+	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
 	},
@@ -44,12 +48,12 @@ const assets = [
 	"url":"assets/json\\localization_ZH.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
-	},
-	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"entity-animation",
@@ -64,32 +68,16 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"enemies",
+	"url":"assets/json\\entities\\enemies.json"
 	},
 	{
 	"id":"companions",
 	"url":"assets/json\\entities\\companions.json"
 	},
 	{
-	"id":"enemies",
-	"url":"assets/json\\entities\\enemies.json"
-	},
-	{
 	"id":"players",
 	"url":"assets/json\\entities\\players.json"
-	},
-	{
-	"id":"weapon-ingame-view",
-	"url":"assets/json\\weapons\\weapon-ingame-view.json"
-	},
-	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
-	"id":"main-weapons",
-	"url":"assets/json\\weapons\\main-weapons.json"
 	},
 	{
 	"id":"effects-descriptors",
@@ -100,20 +88,32 @@ const assets = [
 	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
 	},
 	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
-	},
-	{
 	"id":"entity-ss-vfx",
 	"url":"assets/json\\vfx\\entity-ss-vfx.json"
+	},
+	{
+	"id":"weapon-ss-vfx-packs",
+	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
+	},
+	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
 	},
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
 	},
 	{
-	"id":"weapon-ss-vfx-packs",
-	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
+	"id":"main-weapons",
+	"url":"assets/json\\weapons\\main-weapons.json"
+	},
+	{
+	"id":"weapon-ingame-view",
+	"url":"assets/json\\weapons\\weapon-ingame-view.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	}
 ];
 

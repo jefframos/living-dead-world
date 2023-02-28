@@ -13,7 +13,7 @@ export default class CardPlacementSystem {
     constructor(deckView, cardPlacementView) {
         this.deckView = deckView;
 
-        this.deckView.onCardClicked.add(this.onCardEquipped.bind(this))
+        this.deckView.onConfirmLoudout.add(this.onCardEquipped.bind(this))
         this.cardPlacementView = cardPlacementView;
         this.enabled = false;
         this.player = null;
@@ -25,17 +25,18 @@ export default class CardPlacementSystem {
 
     }
     onCardEquipped(cardData) {
-        let currentID = 0;
-        this.player.activeWeapons.forEach(element => {
-            if (element.stackWeapons.length >= 3) {
-                currentID++;
-            }
-        });
-        this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id], currentID);
+        // let currentID = 0;
+        // this.player.activeWeapons.forEach(element => {
+        //     if (element.stackWeapons.length >= 3) {
+        //         currentID++;
+        //     }
+        // });
+        // this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id], currentID);
         this.hide();
     }
     setPlayer(player) {
         this.player = player;
+        this.deckView.setPlayer(this.player)
     }
     setWeapons(weapons) {
         this.weapons = weapons;

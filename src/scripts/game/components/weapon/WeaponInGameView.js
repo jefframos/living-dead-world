@@ -52,7 +52,7 @@ export default class WeaponInGameView extends GameObject {
 
             //console.log(weapon.ingameViewDataStatic)
             let bar = null;
-            if (weapon.ingameViewDataStatic.progressBar.active) {
+            if (false && weapon.ingameViewDataStatic.progressBar.active) {
                 const barData = weapon.ingameViewDataStatic.progressBar
                 bar = new BaseBarView();
                 bar.build(barData.width, barData.height, 0)
@@ -65,8 +65,8 @@ export default class WeaponInGameView extends GameObject {
             this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring, bar })
         }
 
-        this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x
-        this.offset.y = this.weapon.weaponViewData.baseViewData.viewOffset.y || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.y
+        this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x || weapon.ingameViewDataStatic.viewOffset.x
+        this.offset.y = this.weapon.weaponViewData.baseViewData.viewOffset.y || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.y || weapon.ingameViewDataStatic.viewOffset.y
 
 
     }

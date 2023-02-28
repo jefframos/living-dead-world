@@ -187,5 +187,19 @@
             "y": 1
         },
         "loop": true
+    },
+    {
+        "id": "TARGET_SHOOT",
+        "spriteName": "targetShoot",
+        "time": 0.5,
+        "startFrame": 0,
+        "endFrame": 0,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": true
     }
 ]

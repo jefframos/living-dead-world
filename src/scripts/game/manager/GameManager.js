@@ -1,9 +1,11 @@
 import BaseEnemy from "../entity/BaseEnemy";
+import Collectable from "../entity/Collectable";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
 import GameStaticData from "../data/GameStaticData";
 import Layer from "../core/Layer";
 import Player from "../entity/Player";
+import PlayerSessionData from "../data/PlayerSessionData";
 import Vector3 from "../core/gameObject/Vector3";
 
 export default class GameManager {
@@ -14,6 +16,7 @@ export default class GameManager {
         this.gameplayEntities = [];
         this.entityRegister = [];
         this.activeEnemies = [];
+        this.collectables = [];
         this.entitiesByType = {};
 
         this.gameManagerStats = {
@@ -29,6 +32,8 @@ export default class GameManager {
         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
+
+        this.playerSessionData = new PlayerSessionData();
 
         this.gameplayTime = 0;
 
@@ -115,13 +120,24 @@ export default class GameManager {
     }
     start(player) {
         this.player = player;
+        this.playerSessionData.reset();
+        this.player.sessionData = this.playerSessionData;
+        
         this.init = true;
         this.gameplayTime = 0;
         this.currentPhase = 0;
         for (var i = this.activeEnemies.length - 1; i >= 0; i--) {
             this.activeEnemies[i].destroy();
         }
+        for (var i = this.collectables.length - 1; i >= 0; i--) {
+            this.collectables[i].destroy();
+        }
+        this.collectables = [];
+        this.activeEnemies = [];
         this.entitiesByType = {}
+    }
+    onPlayerLevelUp(xpData){
+        
     }
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();
@@ -162,7 +178,8 @@ export default class GameManager {
             //entity.health.gotDamaged.remove(this.entityDamaged)
 
             entity.health.gotDamaged.add(this.entityDamaged.bind(this))
-            entity.health.gotKilledParticles.add(this.entityKilled.bind(this))
+            entity.health.gotKilled.add(this.entityKilled.bind(this))
+            // entity.health.gotKilledParticles.add(this.entityKilled.bind(this))
 
             this.entityRegister.push(entity);
 
@@ -183,7 +200,11 @@ export default class GameManager {
         // EffectsManager.instance.popDamage(entity.gameObject, value)
     }
 
-    entityKilled(entity, value) {
+    entityKilled(health, value) {
+        if (Math.random() > 0.3) return;
+        let collectable = this.addEntity(Collectable);
+        collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
+        this.collectables.push(collectable);
         // this.gameManagerStats.GMenemiesDeaths++;
         // EffectsManager.instance.popKill(entity.gameObject, value)
     }
@@ -217,13 +238,17 @@ export default class GameManager {
             this.updateLevelPhase();
         }
         this.gameManagerStats.Phase = this.currentPhase
+
+        for (var i = this.collectables.length - 1; i >= 0; i--) {
+            if (this.collectables[i].isDestroyed) {
+                this.collectables.splice(i, 1);
+            }
+        }
     }
 
     lateUpdate(delta) {
         this.gameplayTime += delta;
-
         this.gameManagerStats.Time = this.gameplayTime
-
     }
 
     updateLevelPhase() {

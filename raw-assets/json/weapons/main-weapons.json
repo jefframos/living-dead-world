@@ -206,7 +206,7 @@
         "view": {
             "rotationSpeed": 0,
             "overrider": {
-                "baseViewData": "NUKE_BASE_01"
+                "baseViewData": "TRANSPARENT"
             }
         }
     },
@@ -1191,13 +1191,14 @@
         "id": "LASER",
         "isMain": true,
         "icon": "laserGun1",
+        "ingameViewData": "LASER",
         "name": "Laser",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "LASER_OVERRIDER",
         "attributes": {
             "baseRadius": 8,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
             "basePower": 25,

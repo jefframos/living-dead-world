@@ -50,6 +50,10 @@ export default class MainScreenManager extends ScreenManager {
             if (urlParams.get('noEnemy')) {
                 window.noEnemy = true;
             }
+
+            if (urlParams.get('debug')) {
+                window.debugMode = true;
+            }
         }
 
 
@@ -67,6 +71,10 @@ export default class MainScreenManager extends ScreenManager {
         // this.addChild(this.screenTransition);
 
         // this.screenTransition.x = config.width/2;
+
+        if(!window.debugMode){
+            window.GUI.hide()
+        }
 
        
 

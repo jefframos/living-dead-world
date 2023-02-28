@@ -6,7 +6,6 @@ import BasicFloorRender from '../manager/BasicFloorRender';
 import Bullet from '../components/weapon/bullets/Bullet';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Companion from '../entity/Companion';
-import DeckView from '../components/deckBuilding/DeckView';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import GameManager from '../manager/GameManager';
@@ -183,9 +182,12 @@ export default class GameScreen extends Screen {
         this.helperButtonList.y = 80
 
         if (window.isMobile) {
+
+            if(window.debugMode){                                
+                this.addChild(this.helperButtonList)
+            }
             window.GUI.close()
             window.GUI.hide()
-            this.addChild(this.helperButtonList)
 
             this.camera.targetZoom = 1.5
         }
@@ -239,11 +241,11 @@ export default class GameScreen extends Screen {
         }
         this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
         this.gameSessionController.playerReady()
-        this.playerInventoryHud.registerPlayer(this.player)
         this.player.refreshEquipment()
         this.player.setPositionXZ(0, 0)
-
+        
         this.gameManager.start(this.player);
+        this.playerInventoryHud.registerPlayer(this.player)
 
         let angle = Math.PI * 2 * Math.random();
         // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)

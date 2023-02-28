@@ -1,5 +1,5 @@
 import Bullet from "./Bullet";
-import Shadow from "../../view/Shadow";
+import FloorTarget from "../../view/FloorTarget";
 
 export default class FallingProjectile extends Bullet {
     constructor() {
@@ -11,23 +11,29 @@ export default class FallingProjectile extends Bullet {
         this.target = weapon;
 
         this.timeToFall = 3;
-        this.currentTime = 0;       
-        
-        this.addChild(this.engine.poolGameObject(Shadow))
+        this.currentTime = 0;
+
+        let target = this.engine.poolGameObject(FloorTarget)
+        this.addChild(target)
+        target.updateScale(2)
 
         this.high = weapon.weaponViewData.baseViewData.maxHeight;
 
         this.transform.position.y = -this.high
+        this.gameView.view.visible = false;
 
+        
+        
     }
     collisionEnter() { }
     update(delta) {
         super.update(delta);
-
+        
+        this.gameView.view.visible = true;
         this.currentTime += delta;
         this.normalized = this.currentTime / this.timeToFall;
-        this.transform.position.y = this.easeOutBack(1-this.normalized) * -this.high;
-this.gameView.view.rotation = Math.PI
+        this.transform.position.y = this.easeOutCubic(1 - this.normalized) * -this.high;
+        this.gameView.view.rotation = Math.PI
         if (this.currentTime <= 0) {
             this.destroy();
         }
@@ -44,5 +50,8 @@ this.gameView.view.rotation = Math.PI
 
     easeInQuad(x) {
         return x * x;
+    }
+    easeOutCubic(x) {
+        return 1 - Math.pow(1 - x, 3);
     }
 }

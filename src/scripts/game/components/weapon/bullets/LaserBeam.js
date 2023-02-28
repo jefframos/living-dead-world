@@ -27,9 +27,11 @@ export default class LaserBeam extends Bullet {
 
 
 
-        this.beamDistance = 10;
+        this.beamDistance = 20;
 
         this.beam.show();
+
+        this.beam.transform.position.y = -20
 
     }
     onSensorCollisionEnter(collided) {
@@ -45,7 +47,7 @@ export default class LaserBeam extends Bullet {
 
         let origin = this.originPosition;
         let end;
-        this.beamDistance = Utils.lerp(this.beamDistance, this.weapon.weaponAttributes.detectionZone / 2, 0.1)
+        this.beamDistance = Utils.lerp(this.beamDistance, this.weapon.weaponAttributes.detectionZone / 2, 0.05)
         if (this.fromWeapon) {
             //if is related with player >>> this.source.physics.magnitude != 0 || 
             //this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, this.angleModifier ? 0.1 : 1)
@@ -83,6 +85,7 @@ export default class LaserBeam extends Bullet {
 
 
         if (Math.random() < 0.5) {
+            //EffectsManager.instance.emitByIdInRadius(this.gameView.view.position, 1, 'RED_FLOATING')
             //EffectsManager.instance.emitByIdInRadius(this.gameView.view.position, 20, 'RED_FLOATING')
         }
 

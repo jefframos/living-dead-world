@@ -34,26 +34,36 @@ export default class GridSlotView extends PIXI.Container {
         //     this.onMouseEnter.dispatch(this);
         //     this.mouseOver();
         // })
-        
+
         // InteractableView.addMouseMove(this, () => {
         // })
 
         // InteractableView.addMouseOut(this, () => {
         //     console.log("OUT")
-            
+
         //     this.onMouseOut.dispatch(this);
         //     this.mouseOut();
-            
+
         // })
     }
-    mouseOver(){
-        this.cardBackground.alpha = 0.5
-        
+    holding(){
+        this.cardImage.alpha = 0.1
     }
-    mouseOut(){
-      this.cardBackground.alpha = 0.3
+    release(){
+        this.cardImage.alpha = 1
+    }
+    mouseOver() {
+        this.cardBackground.alpha = 0.5
 
-  }
+    }
+    mouseOut() {
+        this.cardBackground.alpha = 0.3
+
+    }
+    wipe() {
+        this.cardData = null;
+        this.cardImage.texture = null
+    }
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }

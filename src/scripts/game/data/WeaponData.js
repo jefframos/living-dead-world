@@ -21,6 +21,7 @@ export default class WeaponData {
             ingameAmountIconOverrider: -1,
             inGameRotation: 0,
             ingameBaseWidth: 20,
+            viewOffset: {x:0, y:0},
             anchor:{x:0.15, y:0.01},
             progressBar:{
                 active:false,

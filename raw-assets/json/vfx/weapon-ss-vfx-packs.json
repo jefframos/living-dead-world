@@ -165,7 +165,7 @@
         },
         "scale": 1,
         "lockRotation": true,
-        "targetLayer": "GameplayLayer"
+        "targetLayer": "BaseLayer"
     },
     {
         "id": "ELECTRIC_PACK",
@@ -202,5 +202,17 @@
         "scale": 1,
         "lockRotation": true,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "TARGET_PACK",
+        "vfxData": "TARGET_SHOOT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": true,
+        "targetLayer": "BaseLayer"
     }
 ]

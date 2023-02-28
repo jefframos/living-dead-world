@@ -29,6 +29,11 @@ export default class HudButtons extends GameObject {
 
         this.buttonsList.x = -Game.Screen.width / 2 + 20
         this.buttonsList.y = Game.Screen.height / 2 - this.buttonSize - 20
+
+
+        if(!window.debugMode){
+            this.gameView.view.visible = false;
+        }
     }
 
     addCallbackButton(callback, texture = 'square_0006'){

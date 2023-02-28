@@ -42,6 +42,12 @@ export default class BaseBarView extends PIXI.Container {
 
 
     }
+    forceUpdateNormal(value) {
+        this.barNormal = value;
+        Color.colorLerp(this.currentRGB, this.endValue, this.startValue, this.barNormal);
+        this.fillBar.width = this.maxWidth * this.barNormal;
+        this.fillBar.tint = Color.rgbToColor(this.currentRGB);
+    }
     updateNormal(value) {
         this.barNormal = value;
     }
