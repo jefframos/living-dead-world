@@ -18,6 +18,7 @@ import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import WeaponBuilder from "../screen/WeaponBuilder";
+import WeaponData from "../data/WeaponData";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
@@ -74,6 +75,7 @@ export default class Player extends GameAgent {
         this.distanceWalked = 0;
 
         this.activeWeapons = [];
+        this.activeCompanions = [];
         this.weaponsGameObject = [];
 
         this.health.setNewHealth(this.attributes.hp)
@@ -133,14 +135,24 @@ export default class Player extends GameAgent {
     afterBuild(){
         super.afterBuild()
     
-        for (let index = 0; index < 1; index++) {
-            let companion = this.engine.poolGameObject(Companion)
-            companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
-            this.addChild(companion)
-            let ang = Math.random() * Math.PI * 2
-            companion.x = Math.cos(ang) * 100
-            companion.z = Math.sin(ang) * 100
-        }
+        // for (let index = 0; index < 1; index++) {
+        //     let companion = this.engine.poolGameObject(Companion)
+        //     companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
+        //     this.addChild(companion)
+        //     let ang = Math.random() * Math.PI * 2
+        //     companion.x = Math.cos(ang) * 100
+        //     companion.z = Math.sin(ang) * 100
+        // }
+    }
+    addCompanion(companionID){
+        let companion = this.engine.poolGameObject(Companion)
+        companion.build(GameStaticData.instance.getEntityById('companions', companionID));
+        this.addChild(companion)
+        let ang = Math.random() * Math.PI * 2
+        companion.x = Math.cos(ang) * 100
+        companion.z = Math.sin(ang) * 100
+
+        this.activeCompanions.push(companion)
     }
     rebuildWeaponGrid(equipmentGrid) {
         this.clearWeapon();
@@ -148,8 +160,12 @@ export default class Player extends GameAgent {
             const list = equipmentGrid[i];
             for (let j = 0; j < list.length; j++) {
                 const element = list[j];
-                if (element) {
+                if(!element) continue;
+                if (element instanceof WeaponData) {
                     this.addWeaponData(element, i)
+                }else{
+                    console.log(element.id)
+                    this.addCompanion(element.id)
                 }
 
             }
@@ -163,6 +179,12 @@ export default class Player extends GameAgent {
                 this.weaponsGameObject[index].destroy();
             }
         }
+        for (let index = this.activeCompanions.length - 1; index >= 0; index--) {
+            if (!this.activeCompanions[index].destroyed) {
+
+                this.activeCompanions[index].destroy();
+            }
+        }
         for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
             if (!this.weaponLoadingBars[index].destroyed) {
 
@@ -171,6 +193,7 @@ export default class Player extends GameAgent {
         }
         this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
+        this.activeCompanions = [];
         this.activeWeapons = [null, null, null];
         this.refreshEquipment();
     }

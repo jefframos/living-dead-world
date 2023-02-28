@@ -73,7 +73,6 @@ export default class DeckController extends GameObject {
             if (!this.cardHolding) {
                 if (this.holdingData) {
                     if (this.gridView.slotOver) {
-
                         let onSlotEquipment = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
                         this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
                         this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
@@ -94,8 +93,19 @@ export default class DeckController extends GameObject {
                 //this.gridView.slotOver.setData(this.holdingData)
                 this.cardHolding.parent.removeChild(this.cardHolding)
 
+
+                console.log(this.holdingData, this.cardHolding)
+
+
                 let onSlotEquipment = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
-                this.player.sessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.holdingData.id], this.gridView.slotOver.i, this.gridView.slotOver.j);
+
+                let weaponData = WeaponBuilder.instance.weaponsData[this.holdingData.id]
+                if (weaponData) {
+                    this.player.sessionData.addEquipment(weaponData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                } else {
+                    this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                }
+                
                 if (onSlotEquipment) {
                     let nextSlot = this.player.sessionData.findEmptySlotAtCol(this.gridView.slotOver.i)
                     if (nextSlot) {
@@ -131,14 +141,14 @@ export default class DeckController extends GameObject {
         this.holdingData = null;
         this.originData = { i: -1, j: -1 };
 
-        
+
 
         this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, 0, 20)
 
 
-        this.openDeckButton = new BaseButton('square_0002s',200,80);
+        this.openDeckButton = new BaseButton('square_0002s', 200, 80);
         this.gameView.view.addChild(this.openDeckButton)
-        this.openDeckButton.onButtonClicked.add(()=>{
+        this.openDeckButton.onButtonClicked.add(() => {
             this.onConfirmLoudout.dispatch();
         })
         this.openDeckButton.pivot.x = this.openDeckButton.width / 2;
@@ -152,14 +162,14 @@ export default class DeckController extends GameObject {
     setPlayer(player) {
         this.player = player
         this.player.sessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-    
-        if(!this.gridView){
+
+        if (!this.gridView) {
             this.gridView = new GridView();
         }
         this.gridView.makeGrid(this.player.sessionData.equipmentList)
 
         this.gridContainer.addChild(this.gridView);
-        
+
         this.gridContainer.pivot.x = this.gridContainer.width / 2
         this.gridContainer.pivot.y = this.gridContainer.height / 2
 
@@ -181,7 +191,18 @@ export default class DeckController extends GameObject {
         this.gridView.slotOver = null;
         this.handCards = [];
         for (let i = 0; i < 3; i++) {
-            let dt = GameStaticData.instance.getDataById('weapons', 'main', data[i].weaponId);
+            let dt = null;
+            if (data[i].weaponId) {
+                dt = GameStaticData.instance.getDataById('weapons', 'main', data[i].weaponId);
+            } else if (data[i].companionId) {
+
+                dt = GameStaticData.instance.getEntityById('companions', data[i].companionId);
+            }
+            if (!dt) {
+                //i--
+                //continue;
+            }
+            //console.log(dt)
             let a = new CardView();
             this.cardsContainer.addChild(a);
             a.x = 120 * i
@@ -199,7 +220,7 @@ export default class DeckController extends GameObject {
                 this.holdingData = card.cardData;
             })
             this.handCards.push(a)
-            a.setData(dt);
+            a.setData(dt, data[i]);
         }
 
         this.cardsContainer.y = Game.Screen.height / 2

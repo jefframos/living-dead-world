@@ -1,7 +1,7 @@
 [
     {
         "id": "FLY_DRONE",
-        "name": "Goblin",
+        "name": "Light",
         "description": "Green, greedy, groovy",
         "ranking": 1,
         "tier": 1,
@@ -18,7 +18,7 @@
             "radius": 10,
             "speed": 90
         },
-        "icon": "goblin_idle_anim_f0",
+        "icon": "fly-drone_icon",
         "view": {
             "jumpHight": 50,
             "scale": 1
@@ -30,7 +30,7 @@
     },
     {
         "id": "LAND_DRONE",
-        "name": "Goblin",
+        "name": "Land Granade",
         "description": "Green, greedy, groovy",
         "ranking": 1,
         "tier": 1,
@@ -47,7 +47,7 @@
             "radius": 10,
             "speed": 50
         },
-        "icon": "goblin_idle_anim_f0",
+        "icon": "land-drone_icon",
         "view": {
             "jumpHight": 1,
             "scale": 1
@@ -59,7 +59,7 @@
     },
     {
         "id": "SNIPER_DRONE",
-        "name": "Goblin",
+        "name": "Sniper",
         "description": "Green, greedy, groovy",
         "ranking": 1,
         "tier": 1,
@@ -76,7 +76,7 @@
             "radius": 10,
             "speed": 70
         },
-        "icon": "goblin_idle_anim_f0",
+        "icon": "Walk_scan_0",
         "view": {
             "jumpHight": 10,
             "scale": 1
@@ -88,7 +88,7 @@
     },
     {
         "id": "LAND_MINE_DRONE",
-        "name": "Goblin",
+        "name": "Land Mine",
         "description": "Green, greedy, groovy",
         "ranking": 1,
         "tier": 1,
@@ -105,10 +105,10 @@
             "radius": 10,
             "speed": 50
         },
-        "icon": "goblin_idle_anim_f0",
+        "icon": "land_drone_3__1",
         "view": {
             "jumpHight": 1,
-            "scale": 1
+            "scale": 0.8
         },
         "animationData": {
             "idle": "LAND_MINE_DRONE",
@@ -117,13 +117,13 @@
     },
     {
         "id": "LASER_DRONE",
-        "name": "Goblin",
+        "name": "Laser",
         "description": "Green, greedy, groovy",
         "ranking": 1,
         "tier": 1,
         "title": "Jhonatan Goblin",
         "weapon": {
-            "id": "LASER_DRONE"
+            "id": "LASER_DRONE_WEAPON"
         },
         "attributes": {
             "power": 10,
@@ -134,10 +134,10 @@
             "radius": 10,
             "speed": 50
         },
-        "icon": "goblin_idle_anim_f0",
+        "icon": "laser_fly_drone__2",
         "view": {
             "jumpHight": 1,
-            "scale": 1
+            "scale": 0.8
         },
         "animationData": {
             "idle": "LASER_DRONE",

@@ -1231,7 +1231,7 @@
         }
     },
     {
-        "id": "LASER_DRONE",
+        "id": "LASER_DRONE_WEAPON",
         "isMain": true,
         "icon": "laserGun1",
         "name": "Laser",

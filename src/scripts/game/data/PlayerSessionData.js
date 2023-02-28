@@ -73,6 +73,8 @@ export default class PlayerSessionData {
     addEquipment(equipment, i, j) {
         this.equipmentList[i][j] = equipment;
         this.equipmentUpdated.dispatch(this.equipmentList);
+
+        console.log(this.equipmentList)
     }
     removeEquipment(i, j) {
         this.equipmentList[i][j] = null;

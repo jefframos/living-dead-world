@@ -16,6 +16,8 @@ export default class CardView extends PIXI.Container {
 
         this.cardData = null;
 
+        this.textures = ['square_0001','square_0002','square_0003','square_0004','square_0005']
+
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
 
@@ -43,17 +45,6 @@ export default class CardView extends PIXI.Container {
         InteractableView.addMouseDown(this, () => { 
             this.onStartDrag.dispatch(this) 
         })
-        // InteractableView.addMouseUp(this, () => {
-        //     if(!this.mouseOver){
-        //         return;
-        //     }
-        //     console.log("addMouseUp")
-        //     this.onEndDrag.dispatch(this)
-        // })
-        // InteractableView.addMouseUpOutside(this, () => {
-        //     console.log("addMouseUpOutside")
-        //     this.onEndDrag.dispatch(this)
-        // })
 
         this.label = new PIXI.Text('', window.LABELS.LABEL1)
         this.cardContainer.addChild(this.label);
@@ -78,7 +69,9 @@ export default class CardView extends PIXI.Container {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
 
-    setData(cardData) {
+    setData(cardData, card) {
+console.log(cardData)
+        this.cardBackground.texture = PIXI.Texture.from(this.textures[!card ? 0 : card.tier-1] || 'square_0001');
         this.cardData = cardData;
         this.updateTexture(cardData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
