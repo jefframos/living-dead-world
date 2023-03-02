@@ -21,6 +21,9 @@ export default class Health extends BaseComponent {
         this.currentHealth = this.standrdHealth;
 
     }
+    updateMaxHealth(value){
+        this.standrdHealth = value;
+    }
     damage(value) {
         if (this.currentHealth <= 0) {
             return true;

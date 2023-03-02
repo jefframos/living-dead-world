@@ -1,4 +1,5 @@
 import EffectsManager from "../manager/EffectsManager";
+import EntityBuilder from "../screen/EntityBuilder";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
@@ -12,7 +13,6 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
-import WeaponBuilder from "../screen/WeaponBuilder";
 import ZombieWalk from "../components/ZombieWalk";
 
 export default class BaseEnemy extends GameAgent {
@@ -24,7 +24,7 @@ export default class BaseEnemy extends GameAgent {
         super.build();
 
         this.staticData = enemyData;
-        this.attributes = enemyData.attributes;
+        this.attributes.reset(enemyData.attributes);
         this.viewData = enemyData.view;
 
         this.buildCircle(0, 0, this.attributes.radius);
@@ -35,7 +35,7 @@ export default class BaseEnemy extends GameAgent {
 
 
         this.speed = this.attributes.speed;
-        this.health.setNewHealth(this.attributes.hp)
+        this.health.setNewHealth(this.attributes.health)
 
         //view related attributes
         if (this.viewData.jumpHight) {

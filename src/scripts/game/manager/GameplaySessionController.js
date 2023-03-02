@@ -2,6 +2,7 @@ import BuildingComponent from "../components/building/BuildingComponent";
 import CardPlacementSystem from "../components/deckBuilding/CardPlacementSystem";
 import CardPlacementView from "../components/deckBuilding/CardPlacementView";
 import DeckController from "../components/deckBuilding/DeckController";
+import EntityBuilder from "../screen/EntityBuilder";
 import Eugine from "../core/Eugine";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
@@ -11,7 +12,6 @@ import Player from "../entity/Player";
 import PlayerInventoryHud from "../inventory/view/PlayerInventoryHud";
 import PlayerSessionData from "../data/PlayerSessionData";
 import RenderModule from "../core/modules/RenderModule";
-import WeaponBuilder from "../screen/WeaponBuilder";
 import config from "../../config";
 import signals from "signals";
 
@@ -26,7 +26,7 @@ export default class GameplaySessionController extends GameObject {
         this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
         this.tileSize = 45
 
-        this.weaponBuilder = new WeaponBuilder();
+        this.entityBuilder = new EntityBuilder();
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Building
         this.gameView.view = new PIXI.Container();
@@ -84,11 +84,11 @@ export default class GameplaySessionController extends GameObject {
     playerReady() {
 
         setTimeout(() => {
-            if (this.weaponBuilder) {
-                this.weaponBuilder.eraseWeapon()
+            if (this.entityBuilder) {
+                this.entityBuilder.eraseWeapon()
             } else {
 
-                this.weaponBuilder.addWeapons(this.player)
+                this.entityBuilder.addWeapons(this.player)
             }
 
             this.playerSessionData.reset();
@@ -97,7 +97,7 @@ export default class GameplaySessionController extends GameObject {
             this.playerInventoryHud.registerPlayer(this.player)
 
             this.cardPlacementSystem.setPlayer(this.player);
-            this.cardPlacementSystem.setWeapons(this.weaponBuilder);
+            this.cardPlacementSystem.setWeapons(this.entityBuilder);
 
             this.player.refreshEquipment();
             this.player.sessionData.onLevelUp.add(this.onPlayerLevelUp.bind(this))

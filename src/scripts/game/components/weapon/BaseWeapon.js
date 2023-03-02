@@ -1,11 +1,15 @@
+import AttributeData from "../../data/AttributeData";
 import Bullet from "./bullets/Bullet";
 import EffectsManager from "../../manager/EffectsManager";
+import EntityAttributes from "../../data/EntityAttributes";
+import EntityMultipliers from "../../data/EntityMultipliers";
 import EntityViewData from "../../data/EntityViewData";
 import GameManager from "../../manager/GameManager";
 import GameView from "../../core/view/GameView";
 import Layer from "../../core/Layer";
 import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import PhysicsEntity from "../../core/physics/PhysicsEntity";
+import Player from "../../entity/Player";
 import SpriteSheetGameView from "../SpriteSheetGameView";
 import Utils from "../../core/utils/Utils";
 import Vector3 from "../../core/gameObject/Vector3";
@@ -30,6 +34,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.gameView = new GameView(this);
         this.gameView.view = new PIXI.Sprite();
 
+        this.attributesMultiplier = new EntityMultipliers();
 
     }
     getClosestEnemy(from, distanceLimit = 999999) {
@@ -87,12 +92,21 @@ export default class BaseWeapon extends PhysicsEntity {
         this.interactiveProjectiles = [];
         this.activeProjectiles = [];
 
+        
+        
         if (weaponData) {
             this.weaponData = weaponData;
         } else {
             this.weaponData = new WeaponData();
         }
+        
+        if( this.parent instanceof  Player){
+            this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
+        }else{
+            this.attributesMultiplier.reset();
+        }
 
+        weaponData.addMultiplier(this.attributesMultiplier);
 
         if (this.weaponData.ingameViewDataStatic.ingameIcon) {
             //poolGameObject
@@ -105,8 +119,8 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         this.resetBrust();
-
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
+        console.log( this.shootFrequency)
         this.currentShootTimer = this.shootFrequency * 0.5 + 0.1;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
@@ -171,6 +185,7 @@ export default class BaseWeapon extends PhysicsEntity {
         let gunDistance = weapon.weaponAttributes.spawnDistance;
 
         let total = weapon.weaponAttributes.amount;
+        console.log(total);
 
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {

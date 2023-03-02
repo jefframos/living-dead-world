@@ -8,12 +8,12 @@ const assets = [
 	"url":"assets/json\\localization_DE.json"
 	},
 	{
-	"id":"localization_ES",
-	"url":"assets/json\\localization_ES.json"
-	},
-	{
 	"id":"localization_EN",
 	"url":"assets/json\\localization_EN.json"
+	},
+	{
+	"id":"localization_ES",
+	"url":"assets/json\\localization_ES.json"
 	},
 	{
 	"id":"localization_FR",
@@ -24,16 +24,16 @@ const assets = [
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
+	},
+	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
-	},
-	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
 	},
 	{
 	"id":"localization_RU",
@@ -64,44 +64,20 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"attribute-modifiers",
+	"url":"assets/json\\entities\\attribute-modifiers.json"
 	},
 	{
 	"id":"companions",
 	"url":"assets/json\\entities\\companions.json"
 	},
 	{
-	"id":"enemies",
-	"url":"assets/json\\entities\\enemies.json"
-	},
-	{
 	"id":"players",
 	"url":"assets/json\\entities\\players.json"
 	},
 	{
-	"id":"effects-descriptors",
-	"url":"assets/json\\vfx\\effects-descriptors.json"
-	},
-	{
-	"id":"entity-ss-vfx",
-	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
-	"id":"entity-particle-descriptor",
-	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
-	},
-	{
-	"id":"weapon-ss-vfx-packs",
-	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
-	},
-	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
-	},
-	{
-	"id":"weapon-ss-vfx",
-	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	"id":"enemies",
+	"url":"assets/json\\entities\\enemies.json"
 	},
 	{
 	"id":"main-weapons",
@@ -114,6 +90,34 @@ const assets = [
 	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
+	},
+	{
+	"id":"entity-particle-descriptor",
+	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
+	},
+	{
+	"id":"entity-ss-vfx",
+	"url":"assets/json\\vfx\\entity-ss-vfx.json"
+	},
+	{
+	"id":"effects-descriptors",
+	"url":"assets/json\\vfx\\effects-descriptors.json"
+	},
+	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
+	"id":"weapon-ss-vfx-packs",
+	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
+	},
+	{
+	"id":"weapon-ss-vfx",
+	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
 	}
 ];
 

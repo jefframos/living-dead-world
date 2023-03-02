@@ -1,24 +1,27 @@
 [
     {
         "id": "FLY_DRONE",
-        "name": "Light",
-        "description": "Green, greedy, groovy",
-        "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
+        "entityData": {
+            "name": "Light",
+            "description": "Green, greedy, groovy",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "title": "Jhonatan Goblin",
+            "icon": "fly-drone_icon"
+        },
         "weapon": {
             "id": "LIGHTNING_IN_PLACE"
         },
         "attributes": {
-            "power": 10,
-            "hp": 80,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 90
+            "basePower": 10,
+            "baseHealth": 80,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 90
         },
-        "icon": "fly-drone_icon",
         "view": {
             "jumpHight": 50,
             "scale": 1
@@ -30,24 +33,27 @@
     },
     {
         "id": "LAND_DRONE",
-        "name": "Land Granade",
-        "description": "Green, greedy, groovy",
-        "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
+        "entityData": {
+            "name": "Land Granade",
+            "description": "Green, greedy, groovy",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "title": "Jhonatan Goblin",
+            "icon": "land-drone_icon"
+        },
         "weapon": {
             "id": "BOMB_THROWER_COMPANION"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 50
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 50
         },
-        "icon": "land-drone_icon",
         "view": {
             "jumpHight": 1,
             "scale": 1
@@ -59,24 +65,27 @@
     },
     {
         "id": "SNIPER_DRONE",
-        "name": "Sniper",
-        "description": "Green, greedy, groovy",
-        "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
+        "entityData": {
+            "name": "Sniper",
+            "description": "Green, greedy, groovy",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "title": "Jhonatan Goblin",
+            "icon": "Walk_scan_0"
+        },
         "weapon": {
             "id": "SNIPER_01_COMPANION"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 70
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 70
         },
-        "icon": "Walk_scan_0",
         "view": {
             "jumpHight": 10,
             "scale": 1
@@ -88,24 +97,27 @@
     },
     {
         "id": "LAND_MINE_DRONE",
-        "name": "Land Mine",
-        "description": "Green, greedy, groovy",
-        "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
+        "entityData": {
+            "name": "Land Mine",
+            "description": "Green, greedy, groovy",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "title": "Jhonatan Goblin",
+            "icon": "land_drone_3__1"
+        },
         "weapon": {
             "id": "LAND_MINE"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 50
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 50
         },
-        "icon": "land_drone_3__1",
         "view": {
             "jumpHight": 1,
             "scale": 0.8
@@ -117,24 +129,27 @@
     },
     {
         "id": "LASER_DRONE",
-        "name": "Laser",
-        "description": "Green, greedy, groovy",
-        "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
+        "entityData": {
+            "name": "Laser",
+            "description": "Green, greedy, groovy",
+            "ranking": 1,
+            "tier": 2,
+            "type": "Companion",
+            "title": "Jhonatan Goblin",
+            "icon": "laser_fly_drone__2"
+        },
         "weapon": {
             "id": "LASER_DRONE_WEAPON"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 50
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 50
         },
-        "icon": "laser_fly_drone__2",
         "view": {
             "jumpHight": 1,
             "scale": 0.8

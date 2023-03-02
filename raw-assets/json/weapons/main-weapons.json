@@ -1,10 +1,14 @@
 [
     {
         "id": "PLAYER_AURA",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "vfx-b1",
+            "name": "Aura"
+        },
         "isMain": true,
-        "icon": "vfx-b1",
         "ingameViewData": "PLAYER_AURA",
-        "name": "Aura",
         "weaponType": "Magical",
         "customConstructor": "AuraProjectile",
         "overrider": "PLAYER_AURA_OVERRIDER",
@@ -14,7 +18,7 @@
             "baseSpawnDistance": 0,
             "baseLifeSpan": 3,
             "baseLifeRangeSpan": -1,
-            "basePower": 50,
+            "basePower": 10,
             "baseBulletSpeed": 0,
             "baseFrequency": 3,
             "basePiercing": 9999,
@@ -41,6 +45,10 @@
     },
     {
         "id": "PLAYER_AURA_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2
+        },
         "isMain": false,
         "ingameViewData": "PLAYER_AURA_OVERRIDER",
         "attributes": {
@@ -52,10 +60,14 @@
     },
     {
         "id": "PLAYER_CROSS_SHOT",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "cross",
+            "name": "CrossShot"
+        },
         "isMain": true,
-        "icon": "cross",
         "ingameViewData": "PLAYER_CROSS_SHOT",
-        "name": "CrossShot",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
@@ -91,10 +103,14 @@
     },
     {
         "id": "PLAYER_MULTISHOT",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "multi",
+            "name": "Multishot"
+        },
         "isMain": true,
-        "icon": "multi",
         "ingameViewData": "PLAYER_MULTISHOT",
-        "name": "Multishot",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
@@ -130,6 +146,10 @@
     },
     {
         "id": "PLAYER_MULTISHOT_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2
+        },
         "isMain": false,
         "ingameViewData": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
@@ -140,9 +160,13 @@
     },
     {
         "id": "LAND_MINE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "flameThrower",
+            "name": "Bomb"
+        },
         "isMain": true,
-        "icon": "flameThrower",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "SMALL_BOMB",
@@ -175,9 +199,13 @@
     },
     {
         "id": "FALL_NUKE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "nukeBomb",
+            "name": "Bomb"
+        },
         "isMain": true,
-        "icon": "nukeBomb",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "FALL_NUKE_EXPLOSION",
@@ -212,9 +240,13 @@
     },
     {
         "id": "FALL_NUKE_EXPLOSION",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flameThrower",
+            "name": "Bomb"
+        },
         "isMain": true,
-        "icon": "flameThrower",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -248,10 +280,14 @@
     },
     {
         "id": "SMALL_BOMB",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "hit-d3",
+            "name": "Bomb"
+        },
         "isMain": false,
-        "icon": "hit-d3",
         "ingameViewData": "SMALL_BOMB",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "SMALL_BOMB_OVERRIDER",
@@ -286,6 +322,10 @@
     },
     {
         "id": "SMALL_BOMB_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2
+        },
         "isMain": false,
         "ingameViewData": "SMALL_BOMB_OVERRIDER",
         "attributes": {
@@ -295,10 +335,14 @@
     },
     {
         "id": "BOMB_THROWER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flameThrower",
+            "name": "Bomb"
+        },
         "isMain": true,
-        "icon": "flameThrower",
         "ingameViewData": "BOMB_THROWER",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "SMALL_BOMB",
@@ -332,9 +376,13 @@
     },
     {
         "id": "BOMB_THROWER_COMPANION",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flameThrower",
+            "name": "Bomb"
+        },
         "isMain": true,
-        "icon": "flameThrower",
-        "name": "Bomb",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "SMALL_BOMB",
@@ -368,6 +416,10 @@
     },
     {
         "id": "BOMB_THROWER_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2
+        },
         "isMain": false,
         "ingameViewData": "BOMB_THROWER_OVERRIDER",
         "attributes": {
@@ -378,10 +430,14 @@
     },
     {
         "id": "PISTOL_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "pistol1",
+            "name": "Lame Pistol"
+        },
         "isMain": true,
-        "icon": "pistol1",
         "ingameViewData": "PISTOL_01",
-        "name": "Lame Pistol",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -417,10 +473,14 @@
     },
     {
         "id": "SEMI_AUTO_PISTOL_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "pistol6",
+            "name": "Semi Auto Pistol"
+        },
         "isMain": true,
-        "icon": "pistol6",
         "ingameViewData": "SEMI_AUTO_PISTOL_01",
-        "name": "Semi Auto Pistol",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -456,10 +516,14 @@
     },
     {
         "id": "SUB_MACHINE_GUN_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "submachine1",
+            "name": "Sub-Machine Gun"
+        },
         "isMain": true,
-        "icon": "submachine1",
         "ingameViewData": "SUB_MACHINE_GUN_01",
-        "name": "Sub-Machine Gun",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -495,10 +559,14 @@
     },
     {
         "id": "SHOTGUN_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "shotgun1",
+            "name": "Shotgun"
+        },
         "isMain": true,
-        "icon": "shotgun1",
         "ingameViewData": "SHOTGUN_01",
-        "name": "Shotgun",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -534,10 +602,14 @@
     },
     {
         "id": "SNIPER_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "sniper2",
+            "name": "Sniper"
+        },
         "isMain": true,
-        "icon": "sniper2",
         "ingameViewData": "SNIPER_01",
-        "name": "Sniper",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -574,9 +646,13 @@
     },
     {
         "id": "SNIPER_01_COMPANION",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "sniper2",
+            "name": "Sniper"
+        },
         "isMain": true,
-        "icon": "sniper2",
-        "name": "Sniper",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -613,10 +689,14 @@
     },
     {
         "id": "MINIGUN_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "minigun",
+            "name": "Minigun"
+        },
         "isMain": true,
-        "icon": "minigun",
         "ingameViewData": "MINIGUN_01",
-        "name": "Minigun",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
@@ -653,10 +733,14 @@
     },
     {
         "id": "DAGGER_ROTATOR_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "tile_0106",
+            "name": "Dagger Rotator Overrider"
+        },
         "isMain": false,
-        "icon": "tile_0106",
         "ingameViewData": "DAGGER_ROTATOR_OVERRIDER",
-        "name": "Dagger Rotator Overrider",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -692,10 +776,14 @@
     },
     {
         "id": "FIREBALL_HOAMING",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "hoamingMissel",
+            "name": "Hoaming"
+        },
         "isMain": true,
-        "icon": "hoamingMissel",
         "ingameViewData": "FIREBALL_HOAMING",
-        "name": "Hoaming",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "onDestroyId": "SMALL_BOMB",
@@ -732,10 +820,14 @@
     },
     {
         "id": "BOOMERANG_AXE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "rotateRed",
+            "name": "Boomerang"
+        },
         "isMain": true,
-        "icon": "rotateRed",
         "ingameViewData": "BOOMERANG_AXE",
-        "name": "Boomerang",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -773,10 +865,14 @@
     },
     {
         "id": "MELEE_SWORD",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "dagger",
+            "name": "Melee"
+        },
         "isMain": true,
-        "icon": "dagger",
         "ingameViewData": "MELEE_SWORD",
-        "name": "Melee",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -812,10 +908,14 @@
     },
     {
         "id": "ICE_SHARD_THROWER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "disk",
+            "name": "Disk"
+        },
         "isMain": true,
-        "icon": "disk",
         "ingameViewData": "ICE_SHARD_THROWER",
-        "name": "Disk",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "overrider": "ICE_SHARD_ROTATOR",
@@ -851,10 +951,14 @@
     },
     {
         "id": "ICE_SHARD_ROTATOR",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "hit-d3",
+            "name": "Disk"
+        },
         "isMain": false,
-        "icon": "hit-d3",
         "ingameViewData": "ICE_SHARD_ROTATOR",
-        "name": "Disk",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -887,10 +991,14 @@
     },
     {
         "id": "ORBIT",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "orbitGreen",
+            "name": "Orbit"
+        },
         "isMain": true,
-        "icon": "orbitGreen",
         "ingameViewData": "ORBIT",
-        "name": "Orbit",
         "weaponType": "Magical",
         "customConstructor": "FloatingProjectile",
         "overrider": "ORBIT_OVERRIDER",
@@ -925,10 +1033,14 @@
     },
     {
         "id": "ORBIT_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "small-spark4",
+            "name": "Orbit Over"
+        },
         "isMain": false,
-        "icon": "small-spark4",
         "ingameViewData": "ORBIT_OVERRIDER",
-        "name": "Orbit Over",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -960,10 +1072,14 @@
     },
     {
         "id": "LIGHTNING",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "electric-slash6",
+            "name": "Electric"
+        },
         "isMain": true,
-        "icon": "electric-slash6",
         "ingameViewData": "LIGHTNING",
-        "name": "Electric",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "overrider": "ELECTRIC_SLASH_OVERRIDER",
@@ -1000,9 +1116,13 @@
     },
     {
         "id": "LIGHTNING_IN_PLACE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "electric-slash6",
+            "name": "Electric"
+        },
         "isMain": true,
-        "icon": "electric-slash6",
-        "name": "Electric",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "overrider": "ELECTRIC_SLASH_OVERRIDER",
@@ -1039,10 +1159,14 @@
     },
     {
         "id": "ELECTRIC_SLASH_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "hit-d3",
+            "name": "Bomb"
+        },
         "isMain": false,
-        "icon": "hit-d3",
         "ingameViewData": "ELECTRIC_SLASH_OVERRIDER",
-        "name": "Bomb",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -1076,10 +1200,14 @@
     },
     {
         "id": "WATER_SINOID",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "vfx-c1",
+            "name": "Sinoid"
+        },
         "isMain": true,
-        "icon": "vfx-c1",
         "ingameViewData": "WATER_SINOID",
-        "name": "Water Sinoid",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -1113,10 +1241,14 @@
     },
     {
         "id": "FLASH_CIRCLE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flash7",
+            "name": "Flash Circle"
+        },
         "isMain": true,
-        "icon": "flash7",
         "ingameViewData": "FLASH_CIRCLE",
-        "name": "Flash Circle",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -1150,9 +1282,13 @@
     },
     {
         "id": "BOUNCE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 4,
+            "icon": "bounceBomb",
+            "name": "Bounce"
+        },
         "isMain": true,
-        "icon": "bounceBomb",
-        "name": "Bounce",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -1189,10 +1325,14 @@
     },
     {
         "id": "LASER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 5,
+            "icon": "laserGun1",
+            "name": "Laser"
+        },
         "isMain": true,
-        "icon": "laserGun1",
         "ingameViewData": "LASER",
-        "name": "Laser",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "LASER_OVERRIDER",
@@ -1232,9 +1372,13 @@
     },
     {
         "id": "LASER_DRONE_WEAPON",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "laserGun1",
+            "name": "Laser"
+        },
         "isMain": true,
-        "icon": "laserGun1",
-        "name": "Laser",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "overrider": "LASER_OVERRIDER",
@@ -1274,9 +1418,13 @@
     },
     {
         "id": "LASER_OVERRIDER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "vfx-c1",
+            "name": "Disk"
+        },
         "isMain": false,
-        "icon": "vfx-c1",
-        "name": "Disk",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {

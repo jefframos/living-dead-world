@@ -23,6 +23,7 @@ export default class GameStaticData {
             { type:'entities', list: 'companions', path: ['companions'] },
             
             { type:'cards', list: 'cards', path: ['cards'] },
+            { type:'modifiers', list: 'attributes', path: ['attribute-modifiers'] , shared:true},
             
             { type:'weapons', list: 'main', path: ['main-weapons'] },
             { type:'weapons',list: 'viewOverriders', path: ['weapon-view-overriders'] },

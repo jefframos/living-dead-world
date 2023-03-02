@@ -6,7 +6,6 @@ import GameView from "../../core/view/GameView";
 import InteractableView from "../../view/card/InteractableView";
 import RenderModule from "../../core/modules/RenderModule";
 import Utils from "../../core/utils/Utils";
-import WeaponBuilder from "../../screen/WeaponBuilder";
 import signals from "signals";
 
 export default class CardPlacementSystem {
@@ -31,7 +30,7 @@ export default class CardPlacementSystem {
         //         currentID++;
         //     }
         // });
-        // this.player.addWeaponData(WeaponBuilder.instance.weaponsData[cardData.id], currentID);
+        // this.player.addWeaponData(EntityBuilder.instance.weaponsData[cardData.id], currentID);
         this.hide();
     }
     setPlayer(player) {
@@ -50,7 +49,7 @@ export default class CardPlacementSystem {
         Utils.shuffle(this.currentData)
 
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (!this.currentData[index] && !this.currentData[index].enabled) {
+            if (this.currentData[index] && !this.currentData[index].enabled) {
                 this.currentData.splice(index, 1);
             }
         }

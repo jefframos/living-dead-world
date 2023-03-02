@@ -1,4 +1,5 @@
 import EffectsManager from "../../manager/EffectsManager";
+import EntityAttributes from "../../data/EntityAttributes";
 import FlashOnDamage from "../../components/view/FlashOnDamage";
 import GameStaticData from "../../data/GameStaticData";
 import GameView from "../view/GameView";
@@ -10,7 +11,7 @@ import signals from "signals";
 
 export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
-        super(debug);
+        super(debug);        
         this.onDie = new signals.Signal();
 
         this.gameView = new GameView(this)
@@ -23,6 +24,9 @@ export default class GameAgent extends PhysicsEntity {
         if (debug) {
             this.setDebug(15)
         }        
+
+        this.attributes = new EntityAttributes();
+
 
     }
     get isDead() { return this.health.currentHealth <= 0 }
@@ -103,8 +107,6 @@ export default class GameAgent extends PhysicsEntity {
         this.speed = 20 * Math.random() + 10
         this.speedAdjust = 1;
         this.dying = false;
-
-        
         
     }
     afterBuild(){        

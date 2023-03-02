@@ -154,5 +154,41 @@
         "companionId": "LASER_DRONE",
         "tier": 4,
         "enabled": true
+    },
+    {
+        "id": "ATTACK_MODIFIER",
+        "attributeId": "ATTACK_UP_MODIFIER",
+        "tier": 1,
+        "enabled": false
+    },
+    {
+        "id": "SPEED_MODIFIER",
+        "attributeId": "SPEED_UP_MODIFIER",
+        "tier": 1,
+        "enabled": false
+    },
+    {
+        "id": "HP_MODIFIER",
+        "attributeId": "HP_UP_MODIFIER",
+        "tier": 1,
+        "enabled": false
+    },
+    {
+        "id": "RADIUS_MODIFIER",
+        "attributeId": "RADIUS_MODIFIER",
+        "tier": 1,
+        "enabled": false
+    },
+    {
+        "id": "AMOUNT_MODIFIER",
+        "attributeId": "AMOUNT_MODIFIER",
+        "tier": 1,
+        "enabled": false
+    },
+    {
+        "id": "FREQUENCY_MODIFIER",
+        "attributeId": "FREQUENCY_MODIFIER",
+        "tier": 1,
+        "enabled": false
     }
 ]

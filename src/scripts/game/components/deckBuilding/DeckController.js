@@ -1,5 +1,6 @@
 import BaseButton from "../ui/BaseButton";
 import CardView from "./CardView";
+import EntityBuilder from "../../screen/EntityBuilder";
 import Game from "../../../Game";
 import GameObject from "../../core/gameObject/GameObject";
 import GameStaticData from "../../data/GameStaticData";
@@ -11,7 +12,6 @@ import InteractableView from "../../view/card/InteractableView";
 import Player from "../../entity/Player";
 import RenderModule from "../../core/modules/RenderModule";
 import Utils from "../../core/utils/Utils";
-import WeaponBuilder from "../../screen/WeaponBuilder";
 import signals from "signals";
 
 export default class DeckController extends GameObject {
@@ -90,16 +90,10 @@ export default class DeckController extends GameObject {
             }
             this.cardHolding.interactive = true;
             if (this.gridView.slotOver) {
-                //this.gridView.slotOver.setData(this.holdingData)
                 this.cardHolding.parent.removeChild(this.cardHolding)
-
-
-                console.log(this.holdingData, this.cardHolding)
-
-
                 let onSlotEquipment = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
 
-                let weaponData = WeaponBuilder.instance.weaponsData[this.holdingData.id]
+                let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
                 if (weaponData) {
                     this.player.sessionData.addEquipment(weaponData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                 } else {
@@ -193,16 +187,12 @@ export default class DeckController extends GameObject {
         for (let i = 0; i < 3; i++) {
             let dt = null;
             if (data[i].weaponId) {
-                dt = GameStaticData.instance.getDataById('weapons', 'main', data[i].weaponId);
-            } else if (data[i].companionId) {
-
-                dt = GameStaticData.instance.getEntityById('companions', data[i].companionId);
+                dt = EntityBuilder.instance.getWeapon(data[i].weaponId)
+            } else if (data[i].companionId) {                
+                dt = EntityBuilder.instance.getCompanion(data[i].companionId)
+            } if (data[i].attributeId) {                
+                dt = EntityBuilder.instance.getAttribute(data[i].attributeId)
             }
-            if (!dt) {
-                //i--
-                //continue;
-            }
-            //console.log(dt)
             let a = new CardView();
             this.cardsContainer.addChild(a);
             a.x = 120 * i

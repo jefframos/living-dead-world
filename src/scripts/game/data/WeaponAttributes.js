@@ -2,6 +2,10 @@
 //fast low range attack facing player, piercing
 //
 
+import EntityAttributes from "./EntityAttributes";
+import EntityData from "./EntityData";
+import EntityMultipliers from "./EntityMultipliers";
+
 //longSword: knight
 //unleash high range attack every x sec
 //slow, high range attack facing player, piercing
@@ -46,7 +50,7 @@ export default class WeaponAttributes {
         Hoaming: 'Hoaming',
         ClosestEnemySnap: 'ClosestEnemySnap',
         Random: 'Random',
-        SameParentPosition:'SameParentPosition'
+        SameParentPosition: 'SameParentPosition'
     }
     static ExtendedBehaviour = {
         None: 0,
@@ -54,6 +58,7 @@ export default class WeaponAttributes {
     }
     constructor() {
         this.isMain = true;
+
         this.baseRange = 60;
         this.baseLifeSpan = -1;
         this.baseLifeRangeSpan = 50;
@@ -90,6 +95,9 @@ export default class WeaponAttributes {
         this.level = 1;
 
         this.overrider = null;
+
+        this.attributesMultiplier = new EntityMultipliers();
+        this.attributesMultiplier.reset();
     }
     makeOverrider() {
         this.overrider = this.clone();
@@ -97,11 +105,17 @@ export default class WeaponAttributes {
     }
     findAttributeValue(att) {
         const attribute = this.isMain ? this[att] : this.overrider[att]
+        //console.log(att,mult)
         if (Array.isArray(attribute)) {
             const level = Math.min(this.level, attribute.length - 1)
-            return attribute[level]
+
+            return attribute[level] //* mult
         }
-        return attribute
+
+        return attribute //* mult
+    }
+    addMultiplier(mult) {
+        this.attributesMultiplier = mult;
     }
     get spawnDistance() {
         return this.findAttributeValue('baseSpawnDistance');
@@ -110,6 +124,10 @@ export default class WeaponAttributes {
         return this.findAttributeValue('baseBrustFireInterval');
     }
     get brustFireAmount() {
+        let tempAmount = this.findAttributeValue('baseBrustFireAmount');
+        if(this.baseBrustFireAmount > 0){
+            return this.findAttributeValue('baseBrustFireAmount') + this.attributesMultiplier.amount;
+        }
         return this.findAttributeValue('baseBrustFireAmount');
     }
     get extendedBehaviour() {
@@ -120,7 +138,7 @@ export default class WeaponAttributes {
     }
     get generalOffset() {
         return this.findAttributeValue('baseGeneralOffset');
-    }    
+    }
     get angleStart() {
         return this.findAttributeValue('baseAngleStart');
     }
@@ -146,10 +164,10 @@ export default class WeaponAttributes {
         return this.findAttributeValue('baseLifeRangeSpan');
     }
     get power() {
-        return this.findAttributeValue('basePower');
+        return this.findAttributeValue('basePower') * this.attributesMultiplier.power;
     }
     get radius() {
-        return this.findAttributeValue('baseRadius');
+        return this.findAttributeValue('baseRadius') * this.attributesMultiplier.radius;
     }
     get bulletSpeed() {
         return this.findAttributeValue('baseBulletSpeed');
@@ -158,13 +176,17 @@ export default class WeaponAttributes {
         return this.findAttributeValue('baseAngularSpeed');
     }
     get frequency() {
-        return this.findAttributeValue('baseFrequency');
+        return this.findAttributeValue('baseFrequency') / this.attributesMultiplier.frequency;
     }
     get piercing() {
-        return this.findAttributeValue('basePiercing');
+        return this.findAttributeValue('basePiercing') + this.attributesMultiplier.piercing;
     }
     get amount() {
-        return this.findAttributeValue('baseAmount');
+        let tempAmount = this.findAttributeValue('baseAmount')
+        if(this.baseBrustFireAmount > 0){
+            return tempAmount;
+        }
+        return tempAmount + this.attributesMultiplier.amount;
     }
     get damageZone() {
         return this.findAttributeValue('baseDamageZone');

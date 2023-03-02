@@ -2,8 +2,8 @@
     "default": [
         "image/terrain/terrain.json",
         "image/texture/texture.json",
-        "image/environment/environment.json",
         "image/particles/particles.json",
+        "image/environment/environment.json",
         "image/characters/characters.json",
         "image/entities/entities.json",
         "image/vfx/vfx.json",

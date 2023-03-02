@@ -1,19 +1,22 @@
 [
     {
         "id": "RAT_01",
-        "name": "Goblin",
-        "description": "Green, greedy, groovy",
+        "entityData": {
+            "name": "Goblin",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 1,
+            "title": "Jhonatan Goblin"
+        },
         "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
         "attributes": {
-            "power": 10,
-            "hp": 80,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 15
+            "basePower": 10,
+            "baseHealth": 80,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 15
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -31,19 +34,22 @@
     },
     {
         "id": "BIRD_01",
-        "name": "Bat",
-        "description": "Green, greedy, groovy",
+        "entityData": {
+            "name": "Bat",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 1,
+            "title": "Jhonatan Goblin"
+        },
         "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
         "attributes": {
-            "power": 5,
-            "hp": 15,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 30
+            "basePower": 5,
+            "baseHealth": 15,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 30
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -61,19 +67,22 @@
     },
     {
         "id": "RAT_02",
-        "name": "Slime",
-        "description": "Green, greedy, groovy",
+        "entityData": {
+            "name": "Slime",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 1,
+            "title": "Jhonatan Goblin"
+        },
         "ranking": 1,
-        "tier": 1,
-        "title": "Jhonatan Goblin",
         "attributes": {
-            "power": 8,
-            "hp": 80,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 10,
-            "speed": 10
+            "basePower": 8,
+            "baseHealth": 80,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 10
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

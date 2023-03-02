@@ -135,7 +135,7 @@
             "y": -20
         },
         "scale": 1.5,
-        "rotationSpeed": 10
+        "rotationSpeed": 50
     },
     {
         "id": "ORBIT",

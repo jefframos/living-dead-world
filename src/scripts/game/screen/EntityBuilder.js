@@ -1,8 +1,10 @@
+import AttributeData from "../data/AttributeData";
 import AuraProjectile from "../components/weapon/AuraProjectile";
 import BaseWeapon from "../components/weapon/BaseWeapon";
 import BounceBullet from "../components/weapon/bullets/BounceBullet";
 import Bullet from "../components/weapon/bullets/Bullet";
 import CircularBullet from "../components/weapon/bullets/CircularBullet";
+import CompanionData from "../data/CompanionData";
 import EffectsManager from "../manager/EffectsManager";
 import FallingProjectile from "../components/weapon/bullets/FallingProjectile";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
@@ -18,7 +20,7 @@ import Vector3 from "../core/gameObject/Vector3";
 import WeaponAttributes from "../data/WeaponAttributes";
 import WeaponData from "../data/WeaponData";
 
-export default class WeaponBuilder {
+export default class EntityBuilder {
     static BulletsAvailable = {
         Bullet: Bullet,
         GravityBullet: GravityBullet,
@@ -35,7 +37,7 @@ export default class WeaponBuilder {
     }
     static instance;
     constructor(engine) {
-        WeaponBuilder.instance = this;
+        EntityBuilder.instance = this;
         let vfxPackData = GameStaticData.instance.getAllDataFrom('vfx', 'weaponVFXPack');
         this.weaponVFXPackData = {};
         vfxPackData.forEach(element => {
@@ -48,14 +50,29 @@ export default class WeaponBuilder {
 
 
         let weapons = GameStaticData.instance.getAllDataFrom('weapons', 'main');
-
+        let companions = GameStaticData.instance.getAllDataFrom('entities', 'companions');
+        let attributes = GameStaticData.instance.getAllDataFrom('modifiers', 'attributes');
+        
         this.weaponsData = {};
+        this.companionsData = {};
+        this.attributeModifiersData = {};
         weapons.forEach(element => {
             if (this.weaponsData[element.id]) {
 
             } else {
                 this.weaponsData[element.id] = this.makeWeapon(element)
             }
+        });
+
+        
+        companions.forEach(element => {
+            let companionData = new CompanionData(element)
+            this.companionsData[element.id] = companionData;
+        });
+
+        attributes.forEach(element => {
+            let attData = new AttributeData(element)
+            this.attributeModifiersData[element.id] = attData;
         });
 
         this.weaponsArray = []
@@ -68,7 +85,7 @@ export default class WeaponBuilder {
                 this.weaponsArray.push(this.weaponsData[key])
             }
         }
-        console.log(this.weaponsArray)
+        console.log(this)
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
             window.magicFolder = window.GUI.addFolder("Magic");
@@ -98,6 +115,15 @@ export default class WeaponBuilder {
             }
         }
 
+    }
+    getWeapon(id){
+        return this.weaponsData[id];
+    }
+    getCompanion(id){
+        return this.companionsData[id];
+    }
+    getAttribute(id){
+        return this.attributeModifiersData[id];
     }
     findDestroyWeapon(weapon) {
         if (weapon.onDestroyId) {
@@ -188,25 +214,25 @@ export default class WeaponBuilder {
             }
         }
         if (weaponData.customConstructor) {
-            weapon.customConstructor = WeaponBuilder.WeaponsAvailable[weaponData.customConstructor]
+            weapon.customConstructor = EntityBuilder.WeaponsAvailable[weaponData.customConstructor]
         } else {
-            weapon.customConstructor = WeaponBuilder.WeaponsAvailable.BaseWeapon;
+            weapon.customConstructor = EntityBuilder.WeaponsAvailable.BaseWeapon;
         }
         if (weaponData.bulletComponent) {
-            weapon.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
+            weapon.bulletComponent = EntityBuilder.BulletsAvailable[weaponData.bulletComponent]
         } else {
-            weapon.bulletComponent = WeaponBuilder.BulletsAvailable.Bullet;
+            weapon.bulletComponent = EntityBuilder.BulletsAvailable.Bullet;
         }
 
         weapon.weaponAttributes.makeOverrider()
 
         if (overrider) {
             let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
-            if (WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]) {
-                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[targetOverrider.bulletComponent]
+            if (EntityBuilder.BulletsAvailable[targetOverrider.bulletComponent]) {
+                weapon.weaponAttributes.overrider.bulletComponent = EntityBuilder.BulletsAvailable[targetOverrider.bulletComponent]
             }
             if (!weapon.weaponAttributes.overrider.bulletComponent) {
-                weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
+                weapon.weaponAttributes.overrider.bulletComponent = EntityBuilder.BulletsAvailable[weaponData.bulletComponent]
             }
             for (const key in targetOverrider.attributes) {
                 if (Object.hasOwnProperty.call(weapon.weaponAttributes.overrider, key)) {
@@ -214,7 +240,7 @@ export default class WeaponBuilder {
                 }
             }
         } else {
-            weapon.weaponAttributes.overrider.bulletComponent = WeaponBuilder.BulletsAvailable[weaponData.bulletComponent]
+            weapon.weaponAttributes.overrider.bulletComponent = EntityBuilder.BulletsAvailable[weaponData.bulletComponent]
         }
 
         return weapon

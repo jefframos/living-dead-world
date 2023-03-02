@@ -34,8 +34,8 @@ export default class PlayerInventorySlotEquipView extends PIXI.Container {
 
     }
 
-    registerItem(weaponData, isMaster) {
-        this.cardImage.texture = PIXI.Texture.from(weaponData.icon)
+    registerItem(entity, isMaster) {
+        this.cardImage.texture = PIXI.Texture.from(entity.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 15))
         //this.text.text = weaponData.name
         if(isMaster){

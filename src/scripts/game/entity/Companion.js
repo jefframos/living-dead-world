@@ -1,5 +1,7 @@
 import Bullet from "../components/weapon/bullets/Bullet";
 import EffectsManager from "../manager/EffectsManager";
+import EntityAttributes from "../data/EntityAttributes";
+import EntityBuilder from "../screen/EntityBuilder";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import GameAgent from "../core/entity/GameAgent";
 import InGameWeapon from "../data/InGameWeapon";
@@ -11,7 +13,6 @@ import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
-import WeaponBuilder from "../screen/WeaponBuilder";
 
 export default class Companion extends GameAgent {
     constructor() {
@@ -22,9 +23,9 @@ export default class Companion extends GameAgent {
     build(companionData) {
         super.build()
 
-
+console.log(companionData);
         this.staticData = companionData;
-        this.attributes = companionData.attributes;
+        this.attributes.reset(companionData.attributes);
         this.viewData = companionData.view;
 
 
@@ -83,7 +84,7 @@ export default class Companion extends GameAgent {
 
         if (this.staticData.weapon) {
 
-            this.addWeaponData(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
+            this.addWeaponData(EntityBuilder.instance.weaponsData[this.staticData.weapon.id])
         }
 
         this.targetAngle = Math.random() * Math.PI * 2;

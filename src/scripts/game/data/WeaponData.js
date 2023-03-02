@@ -1,6 +1,8 @@
 import BaseWeapon from "../components/weapon/BaseWeapon";
 import Bullet from "../components/weapon/bullets/Bullet";
+import EntityData from "./EntityData";
 import EntityViewData from "./EntityViewData";
+import InGameViewDataStatic from "./InGameViewDataStatic";
 import WeaponAttributes from "./WeaponAttributes";
 
 export default class WeaponData {
@@ -14,28 +16,10 @@ export default class WeaponData {
         this.customConstructor = BaseWeapon;
         this.weaponType = WeaponData.WeaponType.Physical;
         this.bulletComponent = Bullet;
-        this.icon = 'knife';
-        this.bulletIcon = 'knife';
-        this.ingameViewDataStatic = {
-            ingameIcon: '',
-            ingameAmountIconOverrider: -1,
-            inGameRotation: 0,
-            ingameBaseWidth: 20,
-            viewOffset: {x:0, y:0},
-            anchor:{x:0.15, y:0.01},
-            progressBar:{
-                active:false,
-                rotation:0,
-                width:20,
-                height:4,
-                x:0,
-                y:0
-            }
-
-        }
+        this.entityData = new EntityData();
+        this.ingameViewDataStatic =new InGameViewDataStatic()    
         this.onDestroyId = null;
         this.isMain = true;
-        this.name = name;
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
     }
@@ -47,6 +31,9 @@ export default class WeaponData {
             toReturn = this.weaponAttributes.overrider.bulletComponent;
         }
         return toReturn || Bullet;
+    }
+    addMultiplier(multpliers){
+        this.weaponAttributes.addMultiplier(multpliers);
     }
     addFixedDestroyedWeapon(weapon) {
         this.onFixedDestroyWeapon.push(weapon);

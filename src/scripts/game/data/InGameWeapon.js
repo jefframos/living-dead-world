@@ -26,6 +26,11 @@ export default class InGameWeapon {
 
         this.onUpdateWeapon.dispatch();
     }
+    applyMultipliers(multipliers){
+        this.stackWeapons.forEach(element => {
+            element.addMultipliers(multipliers);
+        });
+    }
     clear(){
         this.stackWeapons = []
         this.onUpdateWeapon.dispatch();

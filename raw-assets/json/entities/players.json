@@ -1,21 +1,24 @@
 [
     {
         "id": "LOGAN_JETT",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "PISTOL_01"
         },
         "attributes": {
-            "power": 10,
-            "hp": 100,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 75
+            "basePower": 10,
+            "baseHealth": 100,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 75
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -33,21 +36,24 @@
     },
     {
         "id": "JOSIE_KIWI",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "MELEE_SWORD"
         },
         "attributes": {
-            "power": 10,
-            "hp": 100,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 90
+            "basePower": 10,
+            "baseHealth": 100,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 90
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -65,21 +71,24 @@
     },
     {
         "id": "SMOKER_RICK",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "BOMB_THROWER"
         },
         "attributes": {
-            "power": 10,
-            "hp": 120,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 70
+            "basePower": 10,
+            "baseHealth": 120,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 70
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -97,21 +106,24 @@
     },
     {
         "id": "JOHN_BARD",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "FIREBALL_HOAMING"
         },
         "attributes": {
-            "power": 10,
-            "hp": 120,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 60
+            "basePower": 10,
+            "baseHealth": 120,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 60
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -128,22 +140,25 @@
         }
     },
     {
-        "id": "JOFF_STRONG",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "id": "TAMAS_UNBORKERER",
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "SHOTGUN_01"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 55
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 55
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -161,17 +176,21 @@
     },
     {
         "id": "JIMMY",
+        "entityData": {
+            "type": "Player",
+            "tier": 1
+        },
         "weapon": {
             "id": "MINIGUN_01"
         },
         "attributes": {
-            "power": 10,
-            "hp": 150,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 100
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 100
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -189,21 +208,24 @@
     },
     {
         "id": "DANIEL_COOLER",
-        "name": "Soldier",
-        "ranking": 1,
-        "tier": 1,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
         "title": "Logan Jett",
         "weapon": {
             "id": "ORBIT"
         },
         "attributes": {
-            "power": 10,
-            "hp": 120,
-            "magicDefense": 2,
-            "mass": 1,
-            "defense": 8,
-            "radius": 20,
-            "speed": 95
+            "basePower": 10,
+            "baseHealth": 120,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 95
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

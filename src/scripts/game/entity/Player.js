@@ -1,5 +1,8 @@
 import Companion from "./Companion";
 import EffectsManager from "../manager/EffectsManager";
+import EntityAttributes from "../data/EntityAttributes";
+import EntityBuilder from "../screen/EntityBuilder";
+import EntityData from "../data/EntityData";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
@@ -17,7 +20,7 @@ import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
-import WeaponBuilder from "../screen/WeaponBuilder";
+import WeaponBuilder from "../screen/EntityBuilder";
 import WeaponData from "../data/WeaponData";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
@@ -46,7 +49,8 @@ export default class Player extends GameAgent {
 
         this.isPlayer = true;
 
-        this.currentSessionData
+        this.currentSessionData = null;
+
 
     }
     get sessionData() {
@@ -57,7 +61,7 @@ export default class Player extends GameAgent {
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
 
-        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id],1,0)
+        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id], 1, 0)
     }
     build(playerData) {
 
@@ -67,7 +71,7 @@ export default class Player extends GameAgent {
 
 
         this.staticData = playerData;
-        this.attributes = playerData.attributes;
+        this.attributes.reset(playerData.attributes);
         this.viewData = playerData.view;
         Player.MainPlayer = this;
         super.build()
@@ -78,7 +82,7 @@ export default class Player extends GameAgent {
         this.activeCompanions = [];
         this.weaponsGameObject = [];
 
-        this.health.setNewHealth(this.attributes.hp)
+        this.health.setNewHealth(this.attributes.health)
 
         this.currentEnemiesColliding = []
         this.weaponLoadingBars = [];
@@ -130,11 +134,11 @@ export default class Player extends GameAgent {
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
 
-        
+
     }
-    afterBuild(){
+    afterBuild() {
         super.afterBuild()
-    
+
         // for (let index = 0; index < 1; index++) {
         //     let companion = this.engine.poolGameObject(Companion)
         //     companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
@@ -143,10 +147,13 @@ export default class Player extends GameAgent {
         //     companion.x = Math.cos(ang) * 100
         //     companion.z = Math.sin(ang) * 100
         // }
+
     }
-    addCompanion(companionID){
+    addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)
-        companion.build(GameStaticData.instance.getEntityById('companions', companionID));
+
+        console.log(EntityBuilder.instance.getCompanion(companionID), companionID)
+        companion.build(EntityBuilder.instance.getCompanion(companionID));
         this.addChild(companion)
         let ang = Math.random() * Math.PI * 2
         companion.x = Math.cos(ang) * 100
@@ -160,12 +167,14 @@ export default class Player extends GameAgent {
             const list = equipmentGrid[i];
             for (let j = 0; j < list.length; j++) {
                 const element = list[j];
-                if(!element) continue;
-                if (element instanceof WeaponData) {
-                    this.addWeaponData(element, i)
-                }else{
-                    console.log(element.id)
-                    this.addCompanion(element.id)
+                if (!element) continue;
+                switch (element.entityData.type) {
+                    case EntityData.EntityDataType.Weapon:
+                        this.addWeaponData(element, i)
+                        break;
+                    case EntityData.EntityDataType.Companion:
+                        this.addCompanion(element.staticData.id)
+                        break;
                 }
 
             }
@@ -198,9 +207,6 @@ export default class Player extends GameAgent {
         this.refreshEquipment();
     }
     addWeaponData(weaponData, slotID = 0) {
-
-        // console.log(this.activeWeapons[slotID], slotID)
-        //if (this.activeWeapons.length < slotID + 1) {
         if (!this.activeWeapons[slotID]) {
             let mainWeapon = new InGameWeapon();
             mainWeapon.addWeapon(weaponData)
@@ -226,7 +232,14 @@ export default class Player extends GameAgent {
         this.refreshEquipment();
     }
     refreshEquipment() {
+        
+        if(this.sessionData){
+            console.log(this.sessionData.attributesMultiplier)
+
+            this.attributes.addMultiplyer(this.sessionData.attributesMultiplier)
+        }
         this.onUpdateEquipment.dispatch(this);
+
     }
     onSensorTrigger(element) {
     }

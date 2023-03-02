@@ -44,11 +44,11 @@ export default class Bullet extends PhysicsEntity {
 
         this.spawnParent = parent;
         this.safeTimer = 10;
-        
+
         this.originPosition = parent.transform.position.clone()
-        
+
         this.resetEvents();
-        
+
         this.buildCircle(0, 0, this.weapon.weaponAttributes.radius)
         //this.setDebug()
 
@@ -169,7 +169,7 @@ export default class Bullet extends PhysicsEntity {
 
         //console.log(this.enemiesShot)
     }
-    afterCollide(entity){}
+    afterCollide(entity) { }
     start() {
         this.physicsModule = this.engine.findByType(PhysicsModule)
         this.renderModule = this.engine.findByType(RenderModule)
@@ -211,7 +211,7 @@ export default class Bullet extends PhysicsEntity {
         } else {
             let targetAngle = 0;
 
-            if(!this.weapon.weaponViewData.baseViewData.lockRotation){
+            if (!this.weapon.weaponViewData.baseViewData.lockRotation) {
                 targetAngle = this.transform.angle + Math.PI / 2
             }
             this.gameView.view.rotation = targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
@@ -220,7 +220,7 @@ export default class Bullet extends PhysicsEntity {
         if (!this.usesTime) {
 
             this.distanceSpan -= this.speed * delta;
-    
+
             this.normalizedKillTime = this.distanceSpan / this.weapon.weaponAttributes.lifeRangeSpan;
 
             if (this.distanceSpan <= 0) {
@@ -262,10 +262,10 @@ export default class Bullet extends PhysicsEntity {
         let ang = target
 
         let scale = 1 / 60 / delta;
-        scale *= 0.05;
+        scale *= 0.1;
         scale = Math.max(scale, 0.05)
         scale = Math.min(scale, 0.95)
-        this.angle = Utils.angleLerp(this.angle, ang, scale);
+        this.angle = Utils.angleLerp(this.angle, ang, scale * 2);
     }
     destroy() {
         this.gameView.view.visible = false;

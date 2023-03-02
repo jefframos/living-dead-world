@@ -70,7 +70,7 @@ export default class GridSlotView extends PIXI.Container {
 
     setData(cardData) {
         this.cardData = cardData;
-        this.updateTexture(cardData.icon)
+        this.updateTexture(cardData.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
     }
 }

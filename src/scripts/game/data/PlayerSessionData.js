@@ -1,12 +1,10 @@
+import EntityAttributes from "./EntityAttributes";
+import EntityData from "./EntityData";
+import EntityMultipliers from "./EntityMultipliers";
 import signals from "signals";
 
 export default class PlayerSessionData {
     constructor() {
-        this.healthMultiplier = 1;
-        this.defenseMultiplier = 1;
-        this.speedMultiplier = 1;
-        this.bulletSpeedMultiplier = 1;
-        this.bulletFrenquencyMultiplier = 1;
 
         this.equipmentList = [
             [null, null, null],
@@ -17,6 +15,7 @@ export default class PlayerSessionData {
         this.equipmentUpdated = new signals.Signal();
         this.xpUpdated = new signals.Signal();
         this.onLevelUp = new signals.Signal();
+        this.attributesMultiplier = new EntityMultipliers();
     }
     reset() {
         this.healthMultiplier = 1;
@@ -24,6 +23,7 @@ export default class PlayerSessionData {
         this.speedMultiplier = 1;
         this.bulletSpeedMultiplier = 1;
         this.bulletFrenquencyMultiplier = 1;
+        this.attributesMultiplier.reset();
 
         this.equipmentList = [
             [null, null, null],
@@ -39,8 +39,9 @@ export default class PlayerSessionData {
         }
         this.levelBreaks = [0];
         for (var i = 0; i < 100; i++) {
-            this.levelBreaks.push(10 + i * 10);
+            this.levelBreaks.push(10 + (i * 10 + i));
         }
+
     }
     updateExp(amount) {
         let nextXp = this.xpData.xp + amount;
@@ -70,18 +71,38 @@ export default class PlayerSessionData {
         }
 
     }
+    equipmentUpdate(){
+        this.findAttributes()
+        this.equipmentUpdated.dispatch(this.equipmentList);
+    }
     addEquipment(equipment, i, j) {
         this.equipmentList[i][j] = equipment;
-        this.equipmentUpdated.dispatch(this.equipmentList);
-
-        console.log(this.equipmentList)
+        this.equipmentUpdate();
     }
     removeEquipment(i, j) {
         this.equipmentList[i][j] = null;
-        this.equipmentUpdated.dispatch(this.equipmentList);
+        this.equipmentUpdate();
     }
     getEquipment(i, j) {
         return this.equipmentList[i][j];
+    }
+    findAttributes() {
+        this.attributesMultiplier.reset();
+        for (var i = 0; i < this.equipmentList.length; i++) {
+            for (var j = 0; j < this.equipmentList[i].length; j++) {
+                let equip = this.equipmentList[i][j];
+                if(!equip){
+                    continue;
+                }
+                if (equip.entityData.type == EntityData.EntityDataType.Attribute) {
+                    console.log("Attribute", equip.attributeEffect, equip.modifierValue[0])
+                    this.attributesMultiplier.addMultiplyer(equip.attributeEffect, equip.modifierValue[0])
+                    
+                }
+            }
+        }
+
+        console.log(this.attributesMultiplier)
     }
     findAnyEmptySlot() {
         for (var i = 0; i < this.equipmentList.length; i++) {
