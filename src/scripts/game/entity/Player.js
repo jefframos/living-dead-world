@@ -149,8 +149,8 @@ export default class Player extends GameAgent {
         companion.build(EntityBuilder.instance.getCompanion(companionID));
         this.addChild(companion)
         let ang = Math.random() * Math.PI * 2
-        companion.x = Math.cos(ang) * 100
-        companion.z = Math.sin(ang) * 100
+        companion.x = this.transform.position.x + Math.cos(ang) * 100
+        companion.z = this.transform.position.z + Math.sin(ang) * 100
 
         this.activeCompanions.push(companion)
     }
