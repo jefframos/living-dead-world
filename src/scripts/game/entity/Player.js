@@ -18,6 +18,7 @@ import Shaders from "../shader/Shaders";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import StatsModifier from "../components/StatsModifier";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import WeaponBuilder from "../screen/EntityBuilder";
@@ -135,19 +136,11 @@ export default class Player extends GameAgent {
         spriteFacing.startScaleX = -1
 
 
+        this.addComponent(StatsModifier);
+
     }
     afterBuild() {
         super.afterBuild()
-
-        // for (let index = 0; index < 1; index++) {
-        //     let companion = this.engine.poolGameObject(Companion)
-        //     companion.build(GameStaticData.instance.getEntityByIndex('companions', Math.floor(Math.random() * 5)));
-        //     this.addChild(companion)
-        //     let ang = Math.random() * Math.PI * 2
-        //     companion.x = Math.cos(ang) * 100
-        //     companion.z = Math.sin(ang) * 100
-        // }
-
     }
     addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)
@@ -234,9 +227,16 @@ export default class Player extends GameAgent {
     refreshEquipment() {
         
         if(this.sessionData){
-            console.log(this.sessionData.attributesMultiplier)
+            //find all attributes and add the multipliers here
+            this.attributes.multipliers = this.sessionData.attributesMultiplier;
 
-            this.attributes.addMultiplyer(this.sessionData.attributesMultiplier)
+
+            let normal = this.health.normal;
+            this.health.updateMaxHealth(this.attributes.health)
+            this.health.health = Math.round(normal * this.attributes.health);
+
+            this.speed = this.attributes.speed;
+
         }
         this.onUpdateEquipment.dispatch(this);
 
@@ -245,11 +245,12 @@ export default class Player extends GameAgent {
     }
     die() {
         super.die();
-
         Player.Deaths++;
     }
     damage(value) {
-        super.damage(value);
+        let def = value - this.attributes.defense;
+        def = Math.floor(Math.max(def, 1));
+        super.damage(def);
     }
     start() {
         this.input = this.engine.findByType(InputModule)

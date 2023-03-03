@@ -2,11 +2,13 @@ import * as PIXI from 'pixi.js';
 
 import BaseBarView from '../../components/ui/progressBar/BaseBarView';
 import Game from '../../../Game';
+import GameManager from '../../manager/GameManager';
 import GameObject from '../../core/gameObject/GameObject';
 import GameView from '../../core/view/GameView';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
+import Utils from '../../core/utils/Utils';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -43,6 +45,19 @@ export default class PlayerInventoryHud extends GameObject {
         this.gameView.view.addChild(this.text)
         this.text.style.fontSize = 24
         this.text.x = 20
+
+        this.timer = new PIXI.Text('', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.timer)
+        this.timer.style.fontSize = 24
+        this.timer.x = 200
+
+        this.playerAttributes = new PIXI.Text('', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.playerAttributes)
+        this.playerAttributes.style.fontSize = 12
+        this.playerAttributes.x = 150
+        this.playerAttributes.y = 40
+
+        
     }
     build() {
         super.build();
@@ -56,10 +71,22 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
         this.player.sessionData.xpUpdated.add(this.updateXp.bind(this))
         this.player.sessionData.addXp(0)
+        this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
     }
     updateXp(xpData) {
         this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
-        this.text.text = 'Level ' + (xpData.currentLevel + 1);
+        this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+    }
+    updatePlayerHealth() {
+        this.updatePlayerAttributes();
+    }
+    updatePlayerAttributes() {
+        let attributes = '';
+        attributes += "HP: " +this.player.health.currentHealth +" / "+ Math.round(this.player.attributes.health) + "\n";
+        attributes += "SPEED: " +Math.round(this.player.attributes.speed)+"\n";
+        attributes += "POWER: " +Math.round(this.player.attributes.power)+"\n";
+        attributes += "DEFENSE: " +Math.round(this.player.attributes.defense)+"\n";
+        this.playerAttributes.text = attributes;
     }
     updatePlayerEquip(player) {
         if (!player.activeWeapons.length) {
@@ -67,6 +94,9 @@ export default class PlayerInventoryHud extends GameObject {
                 element.removeAllElements();
             });
         }
+
+        this.updatePlayerAttributes();
+
         for (let index = 0; index < player.activeWeapons.length; index++) {
 
             const element = player.activeWeapons[index];
@@ -96,5 +126,11 @@ export default class PlayerInventoryHud extends GameObject {
         if (weapon.onDestroyWeapon.length > 0) {
             this.addLine(weapon.onDestroyWeapon[weapon.onDestroyWeapon.length - 1], false, list)
         }
+    }
+
+    update(delta){
+        this.timer.text = Utils.floatToTime(Math.floor(GameManager.instance.gameplayTime));
+
+        
     }
 }

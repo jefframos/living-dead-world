@@ -159,19 +159,19 @@
         "id": "ATTACK_MODIFIER",
         "attributeId": "ATTACK_UP_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "SPEED_MODIFIER",
         "attributeId": "SPEED_UP_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "HP_MODIFIER",
         "attributeId": "HP_UP_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "RADIUS_MODIFIER",
@@ -183,11 +183,23 @@
         "id": "AMOUNT_MODIFIER",
         "attributeId": "AMOUNT_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "FREQUENCY_MODIFIER",
         "attributeId": "FREQUENCY_MODIFIER",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "DEFENSE_MODIFIER",
+        "attributeId": "DEFENSE_UP_MODIFIER",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "PIERCE_MODIFIER",
+        "attributeId": "PIERCE_MODIFIER",
         "tier": 1,
         "enabled": false
     }

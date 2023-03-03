@@ -164,7 +164,7 @@ export default class WeaponAttributes {
         return this.findAttributeValue('baseLifeRangeSpan');
     }
     get power() {
-        return this.findAttributeValue('basePower') * this.attributesMultiplier.power;
+        return Math.ceil(this.findAttributeValue('basePower') * this.attributesMultiplier.power);
     }
     get radius() {
         return this.findAttributeValue('baseRadius') * this.attributesMultiplier.radius;

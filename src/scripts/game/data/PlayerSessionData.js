@@ -35,13 +35,15 @@ export default class PlayerSessionData {
             xp: 0,
             currentLevel: 0,
             untilNext: 0,
-            normalUntilNext: 0
+            normalUntilNext: 0,
+            nextLevelXP:0,
+            currentLevelXP:0,
+            levelsXpDiff:0
         }
         this.levelBreaks = [0];
         for (var i = 0; i < 100; i++) {
-            this.levelBreaks.push(10 + (i * 10 + i));
+            this.levelBreaks.push(10 + (i * (10 + i) ));
         }
-
     }
     updateExp(amount) {
         let nextXp = this.xpData.xp + amount;
@@ -49,6 +51,9 @@ export default class PlayerSessionData {
         for (var i = 0; i < this.levelBreaks.length - 1; i++) {
             if (nextXp >= this.levelBreaks[i] && nextXp < this.levelBreaks[i + 1]) {
                 nextLevel = i; 
+                this.xpData.currentLevelXP = this.levelBreaks[i];
+                this.xpData.nextLevelXP = this.levelBreaks[i + 1];
+                this.xpData.levelsXpDiff = this.levelBreaks[i + 1] - this.levelBreaks[i];
                 break;               
             }
         }

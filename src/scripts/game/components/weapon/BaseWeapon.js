@@ -185,7 +185,6 @@ export default class BaseWeapon extends PhysicsEntity {
         let gunDistance = weapon.weaponAttributes.spawnDistance;
 
         let total = weapon.weaponAttributes.amount;
-        console.log(total);
 
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {

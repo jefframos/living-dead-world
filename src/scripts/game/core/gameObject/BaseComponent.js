@@ -5,23 +5,31 @@ export default class BaseComponent {
         this.enabled
         this.buildFrame = 0;
         this.gameObject = null;
+        this.shouldBeRemoved = false;
     }
-    reset() { }
+    reset() {
+        this.shouldBeRemoved = false;
+    }
     disable() { this.enabled = false; }
-    enable() { this.enabled = true; }
+    enable() {
+        this.enabled = true;
+        this.shouldBeRemoved = false;
+    }
     update() {
-        if(this.buildFrame == 0){
-            this.buildFrame ++;
+        if (this.buildFrame == 0) {
+            this.buildFrame++;
             this.afterBuild();
         }
-     }
+    }
     build() {
         this.buildFrame = 0;
+        this.shouldBeRemoved = false;
     }
     afterBuild() { }
     start() { }
     onRender() { }
     destroy() { }
+    remove() { this.shouldBeRemoved = true; }
     afterDestroy() { }
     removeAllSignals() {
         for (const key in this) {

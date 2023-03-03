@@ -97,17 +97,16 @@ export default class GameObject extends BaseComponent {
     }
     update(delta) {
         super.update(delta);
-        //this was causing double update
-        // this.children.forEach(element => {
-        //     if (element.enabled) {
-        //         element.update(delta);
-        //     }
-        // });
-        this.components.forEach(element => {
+        for (let i = this.components.length - 1; i >= 0; i--) {
+            const element = this.components[i];
+            if(element.shouldBeRemoved){
+                this.components.splice(i,1);
+                continue;
+            }
             if (element.enabled) {
                 element.update(delta);
             }
-        });
+        }
     }
     enable() {
         this.enabled = true;

@@ -27,7 +27,7 @@ export default class EffectsManager extends GameObject {
         this.gameContainer = gameContainer;
         this.effectsContainer.alpha = true;
 
-        PIXI.BitmapFont.from('damage2', {
+        PIXI.BitmapFont.from('DAMAGE', {
             fontFamily: 'retro',
             align: "center",
             dropShadow: true,
@@ -40,7 +40,19 @@ export default class EffectsManager extends GameObject {
             letterSpacing: 2,
             strokeThickness: 3,
         });
-
+        PIXI.BitmapFont.from('HEAL', {
+            fontFamily: 'retro',
+            align: "center",
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            fontSize: 18,
+            dropShadowDistance: 2,
+            fill: "#00FF00",
+            //fill: "#febc15",
+            fontWeight: 800,
+            letterSpacing: 2,
+            strokeThickness: 3,
+        });
 
 
         this.particleDescriptors = {};
@@ -50,7 +62,8 @@ export default class EffectsManager extends GameObject {
 
         this.labels = [];
         this.news = 0
-        this.damageFontPool = [];
+        this.fontPool = {};
+        //this.damageFontPool = [];
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
@@ -116,7 +129,10 @@ export default class EffectsManager extends GameObject {
                 this.labels[index].alpha = this.labels[index].timer * 2;
             }
             if (this.labels[index].timer <= 0) {
-                this.damageFontPool.push(this.labels[index]);
+
+                //_fontName
+                this.fontPool[this.labels[index]._fontName].push(this.labels[index]);
+                //this.damageFontPool.push(this.labels[index]);
                 this.labels.splice(index, 1)
             }
 
@@ -132,23 +148,27 @@ export default class EffectsManager extends GameObject {
         return
 
     }
-    popDamage(entity, value) {
-        // console.log(entity.engineID)
+    popLabel(textLabel, entity, value) {
         let ang = Math.random() * Math.PI * 2;
         let dist = Math.random() * 30;
-        let text = this.getDamageFont()
-        text.alpha = 1
-        text.text = value
-        text.x = entity.gameView.x + Math.cos(ang) * dist
-        text.y = entity.gameView.y + Math.sin(ang) * dist
-        text.timer = 1
-        text.anchor.set(0.5)
-        text.scale.set(0.5)
-        this.labels.push(text)
-        this.effectsContainer.addChild(text)
+        textLabel.alpha = 1
+        textLabel.text = value
+        textLabel.x = entity.gameView.x + Math.cos(ang) * dist
+        textLabel.y = entity.gameView.y + Math.sin(ang) * dist
+        textLabel.timer = 1
+        textLabel.anchor.set(0.5)
+        textLabel.scale.set(0.5)
+        this.labels.push(textLabel)
+        this.effectsContainer.addChild(textLabel)
+    }
+    popDamage(entity, value) {
+        this.popLabel(this.getBitmapFont('DAMAGE'), entity, value)
 
     }
+    popHeal(entity, value) {
+        this.popLabel(this.getBitmapFont('HEAL'), entity, value)
 
+    }
     testParticles(entity, value) {
         this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
@@ -177,13 +197,15 @@ export default class EffectsManager extends GameObject {
         }
     }
 
-    getDamageFont() {
-
-        if (this.damageFontPool.length > 0) {
-            let element = this.damageFontPool.pop();
+    getBitmapFont(type = 'DAMAGE') {
+        if (!this.fontPool[type]) {
+            this.fontPool[type] = [];
+        }
+        if (this.fontPool[type].length > 0) {
+            let element = this.fontPool[type].pop();
             return element;
         }
-        let newElement = new PIXI.BitmapText("150", { fontName: 'damage2' });
+        let newElement = new PIXI.BitmapText("150", { fontName: type });
         this.news++
         return newElement;
 

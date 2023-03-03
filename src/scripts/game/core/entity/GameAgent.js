@@ -58,6 +58,14 @@ export default class GameAgent extends PhysicsEntity {
         weapon.build(weaponData)
         this.addChild(weapon)
     }
+    heal(value){
+        if(!this.health.canHeal){
+            return;
+        }
+        EffectsManager.instance.popHeal(this, value)
+        this.playVfx('onHeal')
+        return this.health.heal(value);
+    }
     damage(value) {
         if(this.invencibleSpawnTime > 0){
             return this.health.currentHealth;

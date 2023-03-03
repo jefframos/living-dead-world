@@ -68,5 +68,25 @@
         },
         "attributeEffect": "baseAmount",
         "modifierValue": [1,2,3,4,5]
+    },
+    {
+        "id": "DEFENSE_MODIFIER",
+        "entityData": {
+            "name": "DEFENSE",
+            "type": "Attribute",
+            "tier": 1
+        },
+        "attributeEffect": "baseDefense",
+        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+    },
+    {
+        "id": "PIERCE_MODIFIER",
+        "entityData": {
+            "name": "PIERCE",
+            "type": "Attribute",
+            "tier": 1
+        },
+        "attributeEffect": "basePiercing",
+        "modifierValue": [1,2,3,4,5]
     }
 ]

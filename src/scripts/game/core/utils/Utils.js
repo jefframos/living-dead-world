@@ -79,7 +79,7 @@ export default class Utils {
         }
         return 0;
     }
-    
+
     static findValue(data) {
         if (Array.isArray(data)) {
             if (data.length == 1) {
@@ -88,5 +88,12 @@ export default class Utils {
             return Math.random() * (data[1] - data[0]) + data[0];
         }
         return data;
+    }
+
+    static floatToTime(value) {
+        let hours = Math.floor(value / 60);
+        let minutes = value % 60;
+
+        return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
     }
 }
