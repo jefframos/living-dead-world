@@ -786,7 +786,6 @@
         "ingameViewData": "FIREBALL_HOAMING",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
-        "onDestroyId": "SMALL_BOMB",
         "attributes": {
             "baseRadius": 10,
             "baseSpawnDistance": 20,
@@ -812,7 +811,7 @@
         "view": {
             "rotationSpeed": 0,
             "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "IMPACT_BOMB",
             "overrider": {
                 "baseViewData": "FIREBALL_HOAMING"
             }

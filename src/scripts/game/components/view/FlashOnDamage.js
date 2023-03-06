@@ -90,7 +90,6 @@ export default class FlashOnDamage extends BaseComponent {
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
             this.gameObject.gameView.view.tint = Color.rgbToColor(this.endValue);
         }
-
     }
     update(delta) {
 

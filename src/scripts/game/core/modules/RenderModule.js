@@ -16,11 +16,13 @@ export default class RenderModule extends GameObject {
         Particles: 'particles'
     }
     static UILayer = 'UI';
-    constructor(container, uiContainer) {
+    static UILayerOverlay = 'UIOverlay';
+    constructor(container, uiContainer, uiOverlay) {
         super();
 
         this.container = container;
         this.uiContainer = uiContainer;
+        this.uiOverlay = uiOverlay;
 
         this.views = [];
 
@@ -82,6 +84,9 @@ export default class RenderModule extends GameObject {
                 if (element.gameView.layer == RenderModule.UILayer) {
                     this.uiContainer.addChild(element.gameView.view)
 
+                } else if (element.gameView.layer == RenderModule.UILayerOverlay) {
+                    this.uiOverlay.addChild(element.gameView.view)
+
                 } else {
                     this.layers[element.gameView.layer].addGameView(element.gameView)
                     this.onNewRenderEntityAdded.dispatch(element);
@@ -102,6 +107,9 @@ export default class RenderModule extends GameObject {
         if (element.gameView.layer == RenderModule.UILayer) {
             this.uiContainer.removeChild(element.gameView.view)
 
+        } else if (element.gameView.layer == RenderModule.UILayerOverlay) {
+            this.uiOverlay.removeChild(element.gameView.view)
+
         } else if (element.gameView) {
             this.layers[element.gameView.layer].removeGameView(element.gameView)
 
@@ -114,6 +122,7 @@ export default class RenderModule extends GameObject {
         }
     }
     swapLayer(entity, layer) {
+
         this.layers[entity.layer].removeGameView(entity)
         this.layers[layer].addGameView(entity)
 
@@ -129,7 +138,7 @@ export default class RenderModule extends GameObject {
         this.renderStats.totalRenderEntities = this.layers[RenderModule.RenderLayers.Gameplay].children.length;
 
 
-        if(this.lateAdded.length){
+        if (this.lateAdded.length) {
             this.onNewRenderEntityLateAdded.dispatch(this.lateAdded)
             this.lateAdded.length = 0;
         }

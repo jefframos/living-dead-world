@@ -40,7 +40,11 @@ export default class BaseBarView extends PIXI.Container {
         this.fillBar.width = width
         this.fillBar.height = height
 
+    }
 
+    rebuild(width, height, border) {
+        this.build(width, height, border);
+        this.forceUpdateNormal(this.barNormal)
     }
     forceUpdateNormal(value) {
         this.barNormal = value;

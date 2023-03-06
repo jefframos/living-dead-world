@@ -11,6 +11,7 @@ import Pool from "../core/utils/Pool";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import StatsModifier from "../components/StatsModifier";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import ZombieWalk from "../components/ZombieWalk";
@@ -51,7 +52,7 @@ export default class BaseEnemy extends GameAgent {
         if (this.viewData.zombieWalk) {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
-        
+
         // let spriteSheet = this.addComponent(GameViewSpriteSheet);
         // let animData1 = {}
         // let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
@@ -102,12 +103,29 @@ export default class BaseEnemy extends GameAgent {
 
 
     }
+    getShot(value) {
+        super.getShot(value)
+
+        // let stats = this.engine.poolGameObject(StatsModifier)
+        // this.addChild(stats)
+        // stats.build({
+        //     type: StatsModifier.ModifierType.Health,
+        //     value: 1,
+        //     interval: 1
+        // });
+    }
     afterBuild() {
         super.afterBuild()
         //this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
     }
     destroy() {
         super.destroy();
+
+        for (let index = this.activeStatsEffect.length - 1; index >= 0; index--) {
+            if (!this.activeStatsEffect[index].destroyed) {
+                this.activeStatsEffect[index].destroy();
+            }
+        }
     }
     update(delta) {
 

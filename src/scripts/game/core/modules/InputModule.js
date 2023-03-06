@@ -80,7 +80,6 @@ export default class InputModule extends GameObject {
             this.localMousePos.y = e.data.global.y/ this.container.worldTransform.d - this.container.worldTransform.ty
         }
 
-
         this.marker.x = this.globalMousePos.x
         this.marker.y = this.globalMousePos.y
 

@@ -15,7 +15,7 @@ export default class PlayerInventoryHud extends GameObject {
         super()
 
         this.gameView = new GameView(this)
-        this.gameView.layer = RenderModule.UILayer;
+        this.gameView.layer = RenderModule.UILayerOverlay;
         this.gameView.view = new PIXI.Container();
         this.weaponGrid = [];
 
@@ -52,18 +52,30 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.x = 200
 
         this.playerAttributes = new PIXI.Text('', window.LABELS.LABEL1)
-        this.gameView.view.addChild(this.playerAttributes)
+        //this.gameView.view.addChild(this.playerAttributes)
+        Game.UIOverlayContainer.addChild(this.playerAttributes)
         this.playerAttributes.style.fontSize = 12
+        this.playerAttributes.style.align = 'left'
         this.playerAttributes.x = 150
         this.playerAttributes.y = 40
 
-        
+
+        this.tl = new PIXI.Graphics().beginFill(0xFFff00).drawCircle(0, 0, 50)
+        this.bl = new PIXI.Graphics().beginFill(0x000fff).drawCircle(0, 0, 50)
+        this.br = new PIXI.Graphics().beginFill(0xFF0ff0).drawCircle(0, 0, 50)
+        this.tr = new PIXI.Graphics().beginFill(0x0Ff00f).drawCircle(0, 0, 50)
+        // this.gameView.view.addChild(this.tl)
+        // this.gameView.view.addChild(this.tr)
+        // this.gameView.view.addChild(this.bl)
+        // this.gameView.view.addChild(this.br)
+
+
     }
     build() {
         super.build();
 
-        this.gameView.view.x = -Game.Screen.width / 2
-        this.gameView.view.y = -Game.Screen.height / 2
+        this.gameView.view.x = 0//-Game.Screen.width / 2
+        this.gameView.view.y = 0//-Game.Screen.height / 2
     }
     registerPlayer(player) {
         this.player = player;
@@ -82,10 +94,11 @@ export default class PlayerInventoryHud extends GameObject {
     }
     updatePlayerAttributes() {
         let attributes = '';
-        attributes += "HP: " +this.player.health.currentHealth +" / "+ Math.round(this.player.attributes.health) + "\n";
-        attributes += "SPEED: " +Math.round(this.player.attributes.speed)+"\n";
-        attributes += "POWER: " +Math.round(this.player.attributes.power)+"\n";
-        attributes += "DEFENSE: " +Math.round(this.player.attributes.defense)+"\n";
+        attributes += "HP: " + this.player.health.currentHealth + " / " + Math.round(this.player.attributes.health) + "\n";
+        attributes += "SPEED: " + Math.round(this.player.attributes.speed) + "\n";
+        attributes += "POWER: " + Math.round(this.player.attributes.power) + "\n";
+        attributes += "DEFENSE: " + Math.round(this.player.attributes.defense) + "\n";
+        attributes += "SHOOT SPEED: x" + this.player.sessionData.attributesMultiplier.baseFrequency.toFixed(1) + "\n";
         this.playerAttributes.text = attributes;
     }
     updatePlayerEquip(player) {
@@ -128,9 +141,29 @@ export default class PlayerInventoryHud extends GameObject {
         }
     }
 
-    update(delta){
+    update(delta) {
         this.timer.text = Utils.floatToTime(Math.floor(GameManager.instance.gameplayTime));
 
-        
+        this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
+        this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+
+
+        if(this.baseBarView.maxWidth != Game.Borders.width){
+            this.baseBarView.rebuild(Game.Borders.width, 30, 4)
+        }
+
+        //debug borders
+        // this.tl.x = Game.Borders.topLeft.x
+        // this.tl.y = Game.Borders.topLeft.y
+
+        // this.tr.x = Game.Borders.topRight.x
+        // this.tr.y = Game.Borders.topRight.y
+
+        // this.bl.x = Game.Borders.bottomLeft.x
+        // this.bl.y = Game.Borders.bottomLeft.y
+
+        // this.br.x = Game.Borders.bottomRight.x
+        // this.br.y = Game.Borders.bottomRight.y
+
     }
 }

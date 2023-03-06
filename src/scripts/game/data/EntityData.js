@@ -8,6 +8,7 @@ export default class EntityData {
         Weapon: 'Weapon',
         Companion: 'Companion',
         Attribute: 'Attribute',
+        Acessory:'Acessory'
     }
     constructor() {
         this.icon = 'icon_confirm';

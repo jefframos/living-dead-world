@@ -1,3 +1,4 @@
+import AcessoryData from "../data/AcessoryData";
 import AttributeData from "../data/AttributeData";
 import AuraProjectile from "../components/weapon/AuraProjectile";
 import BaseWeapon from "../components/weapon/BaseWeapon";
@@ -52,10 +53,12 @@ export default class EntityBuilder {
         let weapons = GameStaticData.instance.getAllDataFrom('weapons', 'main');
         let companions = GameStaticData.instance.getAllDataFrom('entities', 'companions');
         let attributes = GameStaticData.instance.getAllDataFrom('modifiers', 'attributes');
+        let acessories = GameStaticData.instance.getAllDataFrom('misc', 'acessories');
         
         this.weaponsData = {};
         this.companionsData = {};
         this.attributeModifiersData = {};
+        this.acessoriesData = {};
         weapons.forEach(element => {
             if (this.weaponsData[element.id]) {
 
@@ -64,7 +67,6 @@ export default class EntityBuilder {
             }
         });
 
-        
         companions.forEach(element => {
             let companionData = new CompanionData(element)
             this.companionsData[element.id] = companionData;
@@ -73,6 +75,11 @@ export default class EntityBuilder {
         attributes.forEach(element => {
             let attData = new AttributeData(element)
             this.attributeModifiersData[element.id] = attData;
+        });
+
+        acessories.forEach(element => {
+            let attData = new AcessoryData(element)
+            this.acessoriesData[element.id] = attData;
         });
 
         this.weaponsArray = []
@@ -124,6 +131,9 @@ export default class EntityBuilder {
     }
     getAttribute(id){
         return this.attributeModifiersData[id];
+    }
+    getAcessory(id){
+        return this.acessoriesData[id];
     }
     findDestroyWeapon(weapon) {
         if (weapon.onDestroyId) {

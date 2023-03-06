@@ -29,6 +29,8 @@ export default class GridSlotView extends PIXI.Container {
         this.cardImage.x = width / 2
         this.cardImage.y = height / 2
 
+        this.text = new PIXI.Text('')
+        this.container.addChild(this.text)
         // InteractableView.addMouseEnter(this, () => {
         //     console.log("ENTER")
         //     this.onMouseEnter.dispatch(this);
@@ -55,6 +57,7 @@ export default class GridSlotView extends PIXI.Container {
     mouseOver() {
         this.cardBackground.alpha = 0.5
 
+        
     }
     mouseOut() {
         this.cardBackground.alpha = 0.3
@@ -66,11 +69,17 @@ export default class GridSlotView extends PIXI.Container {
     }
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
+        
     }
 
     setData(cardData) {
         this.cardData = cardData;
         this.updateTexture(cardData.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
+    }
+    update(){
+        // this.text.text = Math.floor(this.worldTransform.tx)+'\n'+this.x+'\n'+ Math.floor(this.worldTransform.tx / this.worldTransform.a)
+        // this.text.style.fontSize = 14
+        // this.text.style.fill = 0xFFFFFF
     }
 }

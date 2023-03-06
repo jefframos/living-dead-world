@@ -1,10 +1,12 @@
 import * as PIXI from 'pixi.js';
 
+import Game from '../../../../Game';
 import GridSlotView from './GridSlotView';
 
 export default class GridView extends PIXI.Container {
     constructor() {
         super()
+
     }
     makeGrid(equipmentList) {
         let gridWidth = 100
@@ -29,6 +31,8 @@ export default class GridView extends PIXI.Container {
             }
             this.gridArray.push(temp)
         }
+        // this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, -20, 20)
+        // this.addChild(this.zero)
     }
     mouseUp(){
         this.gridSlots.forEach(element => {
@@ -49,15 +53,14 @@ export default class GridView extends PIXI.Container {
         }
     }
     findMouseCollision(mousePosition) {
-
         let temp = null;
-
+        
         this.gridSlots.forEach(element => {
+            element.update()
             if (this.isPointInsideAABB(mousePosition, element)) {
                 temp = element
             }
-        });
-
+        });        
         if (this.slotOver && !temp) {
             this.slotOver.mouseOut();
             this.slotOver = null;
@@ -73,10 +76,10 @@ export default class GridView extends PIXI.Container {
 
     isPointInsideAABB(point, box) {
         return (
-            point.x >= box.worldTransform.tx &&
-            point.x <= box.worldTransform.tx + box.width &&
-            point.y >= box.worldTransform.ty &&
-            point.y <= box.worldTransform.ty + box.height
+            point.x >= box.x &&
+            point.x <= box.x + box.width&&
+            point.y >= box.y &&
+            point.y <= box.y + box.height
         )
     }
 }

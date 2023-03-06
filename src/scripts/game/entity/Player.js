@@ -66,23 +66,26 @@ export default class Player extends GameAgent {
     }
     build(playerData) {
 
+
+        
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
-
-
+        
+        
         this.staticData = playerData;
         this.attributes.reset(playerData.attributes);
         this.viewData = playerData.view;
         Player.MainPlayer = this;
         super.build()
-
+        
         this.distanceWalked = 0;
-
+        
         this.activeWeapons = [];
         this.activeCompanions = [];
         this.weaponsGameObject = [];
-
+        this.activeStatsEffect = [];
+        
         this.health.setNewHealth(this.attributes.health)
 
         this.currentEnemiesColliding = []
@@ -136,7 +139,8 @@ export default class Player extends GameAgent {
         spriteFacing.startScaleX = -1
 
 
-        this.addComponent(StatsModifier);
+
+//        this.addStatsModifier('HEAL')  
 
     }
     afterBuild() {
@@ -145,7 +149,7 @@ export default class Player extends GameAgent {
     addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)
 
-        console.log(EntityBuilder.instance.getCompanion(companionID), companionID)
+        //console.log(EntityBuilder.instance.getCompanion(companionID), companionID)
         companion.build(EntityBuilder.instance.getCompanion(companionID));
         this.addChild(companion)
         let ang = Math.random() * Math.PI * 2
@@ -167,6 +171,9 @@ export default class Player extends GameAgent {
                         break;
                     case EntityData.EntityDataType.Companion:
                         this.addCompanion(element.staticData.id)
+                        break;
+                        case EntityData.EntityDataType.Acessory:
+                            this.addStatsModifier(element.effectId)
                         break;
                 }
 
@@ -193,9 +200,16 @@ export default class Player extends GameAgent {
                 this.weaponLoadingBars[index].destroy();
             }
         }
+        for (let index = this.activeStatsEffect.length - 1; index >= 0; index--) {
+            if (!this.activeStatsEffect[index].destroyed) {
+
+                this.activeStatsEffect[index].destroy();
+            }
+        }
         this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
+        this.activeStatsEffect = [];
         this.activeWeapons = [null, null, null];
         this.refreshEquipment();
     }
@@ -225,8 +239,8 @@ export default class Player extends GameAgent {
         this.refreshEquipment();
     }
     refreshEquipment() {
-        
-        if(this.sessionData){
+
+        if (this.sessionData) {
             //find all attributes and add the multipliers here
             this.attributes.multipliers = this.sessionData.attributesMultiplier;
 

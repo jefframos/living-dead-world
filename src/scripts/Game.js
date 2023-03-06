@@ -4,14 +4,23 @@ import config from './config';
 import utils from './utils';
 
 export default class Game {
-    static GlobalScale = {x:1, y:1}
-    static GlobalContainerPosition = {x:0, y:0}
-    static Screen = {width:0, height:0}
+    static GlobalScale = { x: 1, y: 1 }
+    static GlobalContainerPosition = { x: 0, y: 0 }
+    static Screen = { width: 0, height: 0 }
     static IsPortrait = false;
-    static MainLoader =  new PIXI.Loader();
+    static MainLoader = new PIXI.Loader();
+    static UIOverlayContainer = new PIXI.Container();;
+    static Borders = {
+        topLeft: { x: 0, y: 0 },
+        bottomLeft: { x: 0, y: 0 },
+        topRight: { x: 0, y: 0 },
+        bottomRight: { x: 0, y: 0 },
+        width: 0,
+        height: 0
+    }
     constructor(config, screenManager) {
-        Game.GlobalScale = {x:1, y:1}
-        Game.GlobalContainerPosition = {x:0, y:0}
+        Game.GlobalScale = { x: 1, y: 1 }
+        Game.GlobalContainerPosition = { x: 0, y: 0 }
         this.screenManager = screenManager;
 
         const Renderer = (config.webgl) ? PIXI.autoDetectRenderer : PIXI.CanvasRenderer;
@@ -23,7 +32,7 @@ export default class Game {
 
         Game.Screen.width = config.width
         Game.Screen.height = config.height
-        
+
         this.ratio = config.width / config.height;
         window.renderer = new PIXI.Application({
             width: config.width,
@@ -46,12 +55,7 @@ export default class Game {
 
         this.latestWidth = 0;
 
-        this.borders = {
-            topLeft: { x: 0, y: 0 },
-            bottomLeft: { x: 0, y: 0 },
-            topRight: { x: 0, y: 0 },
-            bottomRight: { x: 0, y: 0 },
-        }
+
         this.makeLoader();
         this.resize()
     }
@@ -69,7 +73,7 @@ export default class Game {
         // this.loaderContainer.addChild(this.logo)
         this.stage.addChild(this.loaderContainer);
 
-        this.loaderContainer.x = Game.Screen.width/2
+        this.loaderContainer.x = Game.Screen.width / 2
     }
     updateLoader(progress) {
         this.fillLoader.scale.x = progress / 100
@@ -174,13 +178,18 @@ export default class Game {
             this.loaderContainer.scale.y = newScaleY//this.ratio
 
 
-            this.loaderContainer.x = Game.Screen.width/2 - this.loaderContainer.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
-            this.loaderContainer.y =  Game.Screen.height - this.loaderContainer.height - 50
+            this.loaderContainer.x = Game.Screen.width / 2 - this.loaderContainer.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+            this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50
 
 
         }
 
         if (this.screenManager) {
+
+            if (!Game.UIOverlayContainer.parent) {
+                this.stage.addChild(Game.UIOverlayContainer)
+            }
+
             //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
             //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
             //  let min = Math.min(sclX, sclY);
@@ -193,10 +202,10 @@ export default class Game {
             this.screenManager.scale.y = newScaleY//this.ratio
 
 
-            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2          
+            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
 
             Game.IsPortrait = window.isPortrait;
-            
+
             this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
             //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
             this.screenManager.y = this.desktopResolution.height / 2 - (this.desktopResolution.height / 2 * newScaleY)
@@ -205,28 +214,33 @@ export default class Game {
 
 
             Game.GlobalScale.x = config.width / this.innerResolution.width
-            Game.GlobalScale.y =  config.height / this.innerResolution.height
+            Game.GlobalScale.y = config.height / this.innerResolution.height
 
             Game.GlobalContainerPosition.x = this.screenManager.x
             Game.GlobalContainerPosition.y = this.screenManager.y
-            
 
 
-
-            
             // 	//console.log(window.appScale)
 
             this.screenManager.resize(this.resolution, this.innerResolution);
-            this.borders.topRight.x = config.width + this.screenManager.x / this.screenManager.scale.x
-            this.borders.bottomRight.x = config.width + this.screenManager.x / this.screenManager.scale.x
-            this.borders.bottomRight.y = config.height
-            this.borders.bottomLeft.y = config.height
+            Game.UIOverlayContainer.scale.x = this.screenManager.scale.x
+            Game.UIOverlayContainer.scale.y = this.screenManager.scale.y
+
+            Game.Borders.topRight.x = config.width / Game.UIOverlayContainer.scale.x
+
+            Game.Borders.bottomRight.x = Game.Borders.topRight.x
+            Game.Borders.bottomRight.y = config.height / Game.UIOverlayContainer.scale.y
+
+            Game.Borders.bottomLeft.y = Game.Borders.bottomRight.y
+
+            Game.Borders.width = Game.Borders.topRight.x
+            Game.Borders.height = Game.Borders.bottomLeft.y
 
         }
     }
 
     getBorder(type, parent) {
-        var toGlobal = this.screenManager.toGlobal(this.borders[type])
+        var toGlobal = this.screenManager.toGlobal(Game.Borders[type])
         return parent.toLocal(toGlobal)
     }
     /**

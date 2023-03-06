@@ -130,9 +130,9 @@ export default class Bullet extends PhysicsEntity {
 
         } else {
             if (collided.die) {
-                collided.damage(this.power);
+                collided.getShot(this.power);
                 this.piercing--;
-                this.onHit.dispatch(this);
+                this.onHit.dispatch(this, collided);
 
                 if (collided.dying) {
                     //if kill enemy

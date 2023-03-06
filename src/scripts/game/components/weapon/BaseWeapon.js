@@ -357,8 +357,10 @@ export default class BaseWeapon extends PhysicsEntity {
         // console.log("destroyBulletOnHit")
 
     }
-    hitBullet(bullet) {
-        //console.log("hitBullet")
+    hitBullet(bullet, target) {
+        if(this.parent.weaponHitted){
+            this.parent.weaponHitted(target);
+        }
     }
 
     sortGraphics(type, bullet, customWeapon) {

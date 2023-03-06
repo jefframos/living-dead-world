@@ -1,9 +1,9 @@
 export default {
-	width: 750 * 0.9,
-	height: 1334 * 0.9,
+	width: 750,
+	height: 1334,
 	mobileRes:{
-		width: 750 * 0.9,
-		height: 1334 * 0.9
+		width: 750 ,
+		height: 1334 
 	},
 	desktopRes:{
 		width: 1024,

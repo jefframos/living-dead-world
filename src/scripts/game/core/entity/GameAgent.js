@@ -7,11 +7,12 @@ import GameViewSpriteSheet from "../../components/GameViewSpriteSheet";
 import Health from "../../components/Health";
 import InGameWeapon from "../../data/InGameWeapon";
 import PhysicsEntity from "../physics/PhysicsEntity";
+import StatsModifier from "../../components/StatsModifier";
 import signals from "signals";
 
 export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
-        super(debug);        
+        super(debug);
         this.onDie = new signals.Signal();
 
         this.gameView = new GameView(this)
@@ -23,7 +24,7 @@ export default class GameAgent extends PhysicsEntity {
 
         if (debug) {
             this.setDebug(15)
-        }        
+        }
 
         this.attributes = new EntityAttributes();
 
@@ -58,16 +59,19 @@ export default class GameAgent extends PhysicsEntity {
         weapon.build(weaponData)
         this.addChild(weapon)
     }
-    heal(value){
-        if(!this.health.canHeal){
+    heal(value) {
+        if (!this.health.canHeal) {
             return;
         }
         EffectsManager.instance.popHeal(this, value)
         this.playVfx('onHeal')
         return this.health.heal(value);
     }
+    getShot(value) {
+        this.damage(value)
+    }
     damage(value) {
-        if(this.invencibleSpawnTime > 0){
+        if (this.invencibleSpawnTime > 0) {
             return this.health.currentHealth;
         }
         EffectsManager.instance.popDamage(this, value)
@@ -92,15 +96,34 @@ export default class GameAgent extends PhysicsEntity {
         //centerPosition.y -= (this.gameView.view.anchor.y * this.gameView.view.height) + (this.gameView.view.height * 0.5)
         EffectsManager.instance.emitById(this.gameView.view.position, this.staticData.vfx[type])
     }
+    addStatsModifier(statId, unique = false) {
 
+        console.log(" if unique, dont add if already added one stat, just reset the values")
+        let stat = GameStaticData.instance.getDataById('misc', 'buffs', statId);
+        let statsGO = this.engine.poolGameObject(StatsModifier)
+        this.addChild(statsGO)
+
+        statsGO.build(stat);
+        if(stat.effectOnHit){
+            statsGO.effectOnHit = GameStaticData.instance.getDataById('misc', 'buffs', stat.effectOnHit);
+        }
+        this.activeStatsEffect.push(statsGO);
+    }
     onAnimationEnd(animation, state) { }
     start() {
         super.start();
         // this.view.visible = true;
     }
+    weaponHitted(target){
+        this.activeStatsEffect.forEach(element => {
+            element.weaponHitted(target);
+        });
+    }
     build() {
         super.build();
 
+        this.activeStatsEffect = [];
+        
         this.invencibleSpawnTime = 0.5;
 
         this.health = this.addComponent(Health)
@@ -115,20 +138,20 @@ export default class GameAgent extends PhysicsEntity {
         this.speed = 20 * Math.random() + 10
         this.speedAdjust = 1;
         this.dying = false;
-        
+
     }
-    afterBuild(){        
+    afterBuild() {
         super.afterBuild();
         this.flashOnDamage = this.addComponent(FlashOnDamage);
         this.flashOnDamage.startFlash(0x0000FF)
     }
     update(delta) {
         super.update(delta);
-        if(this.invencibleSpawnTime > 0){
+        if (this.invencibleSpawnTime > 0) {
             this.invencibleSpawnTime -= delta;
         }
     }
-  
+
     onRender() {
     }
     destroy() {
@@ -157,12 +180,12 @@ export default class GameAgent extends PhysicsEntity {
         return layer;
     }
 
-    makeAnimations(data){
+    makeAnimations(data) {
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
-        let animData1 = {} 
+        let animData1 = {}
 
         let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
-        
+
         let run = data.animationData.run ? GameStaticData.instance.getSharedDataById('animation', data.animationData.run) : null;
         if (run) {
             animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
@@ -170,11 +193,11 @@ export default class GameAgent extends PhysicsEntity {
             animData1[GameViewSpriteSheet.AnimationType.Running] = idle;
         }
         animData1[GameViewSpriteSheet.AnimationType.Idle] = idle;
-        
+
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
 
-        
+
     }
     // calcFrame() {
     //     //aif(this.physics.magnitude == 0) return -1;

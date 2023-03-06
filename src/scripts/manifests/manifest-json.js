@@ -12,12 +12,12 @@ const assets = [
 	"url":"assets/json\\localization_EN.json"
 	},
 	{
-	"id":"localization_FR",
-	"url":"assets/json\\localization_FR.json"
-	},
-	{
 	"id":"localization_ES",
 	"url":"assets/json\\localization_ES.json"
+	},
+	{
+	"id":"localization_FR",
+	"url":"assets/json\\localization_FR.json"
 	},
 	{
 	"id":"localization_IT",
@@ -28,48 +28,48 @@ const assets = [
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
-	},
-	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
 	},
 	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"modifyers",
-	"url":"assets/json\\modifyers.json"
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
+	},
+	{
+	"id":"modifyers",
+	"url":"assets/json\\modifyers.json"
 	},
 	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
+	},
+	{
 	"id":"player-animation",
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"companions",
-	"url":"assets/json\\entities\\companions.json"
-	},
-	{
 	"id":"attribute-modifiers",
 	"url":"assets/json\\entities\\attribute-modifiers.json"
+	},
+	{
+	"id":"companions",
+	"url":"assets/json\\entities\\companions.json"
 	},
 	{
 	"id":"enemies",
@@ -84,12 +84,36 @@ const assets = [
 	"url":"assets/json\\cards\\cards.json"
 	},
 	{
+	"id":"weapon-ingame-view",
+	"url":"assets/json\\weapons\\weapon-ingame-view.json"
+	},
+	{
+	"id":"main-weapons",
+	"url":"assets/json\\weapons\\main-weapons.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	},
+	{
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
+	},
+	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
+	},
+	{
 	"id":"effects-descriptors",
 	"url":"assets/json\\vfx\\effects-descriptors.json"
 	},
 	{
 	"id":"entity-particle-descriptor",
 	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
+	},
+	{
+	"id":"entity-ss-vfx",
+	"url":"assets/json\\vfx\\entity-ss-vfx.json"
 	},
 	{
 	"id":"vfx-behaviours",
@@ -102,22 +126,6 @@ const assets = [
 	{
 	"id":"weapon-ss-vfx",
 	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
-	},
-	{
-	"id":"entity-ss-vfx",
-	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
-	"id":"main-weapons",
-	"url":"assets/json\\weapons\\main-weapons.json"
-	},
-	{
-	"id":"weapon-ingame-view",
-	"url":"assets/json\\weapons\\weapon-ingame-view.json"
-	},
-	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	}
 ];
 

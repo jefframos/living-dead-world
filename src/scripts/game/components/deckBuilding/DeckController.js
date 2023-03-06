@@ -1,6 +1,7 @@
 import BaseButton from "../ui/BaseButton";
 import CardView from "./CardView";
 import EntityBuilder from "../../screen/EntityBuilder";
+import EntityData from "../../data/EntityData";
 import Game from "../../../Game";
 import GameObject from "../../core/gameObject/GameObject";
 import GameStaticData from "../../data/GameStaticData";
@@ -44,7 +45,8 @@ export default class DeckController extends GameObject {
         this.transitionContainer.addChild(this.fromGridCard)
         this.fromGridCard.visible = false;
 
-        this.gridContainer.y = -100
+        this.localMousePosition = { x: 0, y: 0 }
+        //this.gridContainer.y = -100
 
         this.offsetDeck = 0;
 
@@ -99,7 +101,7 @@ export default class DeckController extends GameObject {
                 } else {
                     this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                 }
-                
+
                 if (onSlotEquipment) {
                     let nextSlot = this.player.sessionData.findEmptySlotAtCol(this.gridView.slotOver.i)
                     if (nextSlot) {
@@ -138,7 +140,7 @@ export default class DeckController extends GameObject {
 
 
         this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, 0, 20)
-
+        //this.gridContainer.addChild(this.zero);
 
         this.openDeckButton = new BaseButton('square_0002s', 200, 80);
         this.gameView.view.addChild(this.openDeckButton)
@@ -164,8 +166,8 @@ export default class DeckController extends GameObject {
 
         this.gridContainer.addChild(this.gridView);
 
-        this.gridContainer.pivot.x = this.gridContainer.width / 2
-        this.gridContainer.pivot.y = this.gridContainer.height / 2
+        //this.gridContainer.pivot.x = this.gridContainer.width / 2
+        //this.gridContainer.pivot.y = this.gridContainer.height / 2
 
         this.rebuildWeaponGrid(this.player.sessionData.equipmentList)
     }
@@ -179,20 +181,35 @@ export default class DeckController extends GameObject {
             if (this.handCards[i].parent) {
                 this.handCards[i].parent.removeChild(this.handCards[i]);
             }
+
         }
         this.cardHolding = null;
         this.holdingData = null;
         this.gridView.slotOver = null;
         this.handCards = [];
         for (let i = 0; i < 3; i++) {
-            let dt = null;
-            if (data[i].weaponId) {
-                dt = EntityBuilder.instance.getWeapon(data[i].weaponId)
-            } else if (data[i].companionId) {                
-                dt = EntityBuilder.instance.getCompanion(data[i].companionId)
-            } if (data[i].attributeId) {                
-                dt = EntityBuilder.instance.getAttribute(data[i].attributeId)
+            let dt = null
+            switch (data[i].entityData.type) {
+                case EntityData.EntityDataType.Weapon:
+
+                    dt = EntityBuilder.instance.getWeapon(data[i].weaponId)
+                    break;
+                case EntityData.EntityDataType.Companion:
+                    dt = EntityBuilder.instance.getCompanion(data[i].companionId)
+
+                    break;
+                case EntityData.EntityDataType.Attribute:
+                    dt = EntityBuilder.instance.getAttribute(data[i].attributeId)
+
+                    break;
+                case EntityData.EntityDataType.Acessory:
+                    dt = EntityBuilder.instance.getAcessory(data[i].acessoryId)
+
+                    break;
             }
+
+
+
             let a = new CardView();
             this.cardsContainer.addChild(a);
             a.x = 120 * i
@@ -221,18 +238,24 @@ export default class DeckController extends GameObject {
 
     }
     checkGridCollision() {
-        this.gridView.findMouseCollision(this.input.localMousePosition);
+        this.localMousePosition.x = this.input.localMousePosition.x - Game.Screen.width / 2 - this.gridContainer.x
+        this.localMousePosition.y = this.input.localMousePosition.y - Game.Screen.height / 2 - this.gridContainer.y
+        this.gridView.findMouseCollision(this.localMousePosition);
     }
     update(delta, unscaleDelta) {
 
+        this.gridContainer.x = -this.gridContainer.width / 2
+        this.gridContainer.y = -this.gridContainer.height / 2 - 100
         this.checkGridCollision();
 
         let targetY = Game.Screen.height / 2 + this.offsetDeck;
         if (Game.IsPortrait) {
             targetY -= 150;
         }
+
+
         this.cardsContainer.y = Utils.lerp(this.cardsContainer.y, targetY, 0.3);
-        this.zero.x = this.input.localMousePosition.x - Game.Screen.width / 2
+        this.zero.x = this.input.localMousePosition.x - Game.Screen.width / 2 + 200
         this.zero.y = this.input.localMousePosition.y - Game.Screen.height / 2
         if (this.cardHolding) {
             this.cardHolding.rotation = Utils.angleLerp(this.cardHolding.rotation, 0, 0.5)

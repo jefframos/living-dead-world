@@ -15,7 +15,7 @@ export default class SpriteSheetGameView extends BaseComponent {
         super.enable();
 
     }
-    setDescriptor(particleDescriptor, param) {
+    setDescriptor(particleDescriptor, param = {}) {
         for (const key in param) {
             if (Object.hasOwnProperty.call(param, key) && this.gameObject.gameView.view[key] !== undefined) {
                 this.gameObject.gameView.view[key] = param[key];

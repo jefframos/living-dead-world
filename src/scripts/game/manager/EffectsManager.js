@@ -58,7 +58,7 @@ export default class EffectsManager extends GameObject {
         this.particleDescriptors = {};
         this.makeDescriptors();
 
-        console.log(this.particleDescriptors)
+        //console.log(this.particleDescriptors)
 
         this.labels = [];
         this.news = 0
@@ -67,7 +67,7 @@ export default class EffectsManager extends GameObject {
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
-        console.log(descriptors)
+        //console.log(descriptors)
         descriptors.forEach(data => {
             this.particleDescriptors[data.id] = new ParticleDescriptor(data)
 
@@ -174,26 +174,40 @@ export default class EffectsManager extends GameObject {
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
     emitByIdInRadius(position, radius, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-        if (target == EffectsManager.TargetLayer.GameplayLayer) {
-            this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
-        } else {
-            this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
+        if(quant <= 0){
+            quant = this.particleDescriptors[descriptor].baseData.baseAmount;
+        }
+        for (let index = 0; index < quant; index++) {
+            if (target == EffectsManager.TargetLayer.GameplayLayer) {
+                this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
+            } else {
+                this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x - radius, maxX: position.x + radius, minY: position.y - radius, maxY: position.y + radius }, 1, overrides);
+            }
         }
     }
     emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-
-        if (target == EffectsManager.TargetLayer.GameplayLayer) {
-            this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-        } else {
-            this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        if(quant <= 0){
+            quant = descriptor.baseData.baseAmount;
+        }
+        for (let index = 0; index < quant; index++) {
+            if (target == EffectsManager.TargetLayer.GameplayLayer) {
+                this.particleEmitter.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            } else {
+                this.particleEmitterBottom.emit(descriptor, { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            }
         }
     }
 
     emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-        if (target == EffectsManager.TargetLayer.GameplayLayer) {
-            this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
-        } else {
-            this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+        if(quant <= 0){
+            quant = descriptor.baseData.baseAmount;
+        }
+        for (let index = 0; index < quant; index++) {
+            if (target == EffectsManager.TargetLayer.GameplayLayer) {
+                this.particleEmitter.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            } else {
+                this.particleEmitterBottom.emit(this.particleDescriptors[descriptor], { minX: position.x, maxX: position.x, minY: position.y, maxY: position.y }, 1, overrides);
+            }
         }
     }
 

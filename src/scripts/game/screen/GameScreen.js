@@ -8,6 +8,7 @@ import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Companion from '../entity/Companion';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
+import Game from '../../Game';
 import GameManager from '../manager/GameManager';
 import GameStaticData from '../data/GameStaticData';
 import GameplaySessionController from '../manager/GameplaySessionController';
@@ -71,7 +72,7 @@ export default class GameScreen extends Screen {
 
 
         this.physics = this.gameEngine.physics
-        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer))
+        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer, Game.UIOverlayContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())

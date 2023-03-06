@@ -100,14 +100,10 @@ export default class PlayerSessionData {
                     continue;
                 }
                 if (equip.entityData.type == EntityData.EntityDataType.Attribute) {
-                    console.log("Attribute", equip.attributeEffect, equip.modifierValue[0])
-                    this.attributesMultiplier.addMultiplyer(equip.attributeEffect, equip.modifierValue[0])
-                    
+                    this.attributesMultiplier.addMultiplyer(equip.attributeEffect, equip.modifierValue[0])                    
                 }
             }
         }
-
-        console.log(this.attributesMultiplier)
     }
     findAnyEmptySlot() {
         for (var i = 0; i < this.equipmentList.length; i++) {
