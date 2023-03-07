@@ -2,38 +2,64 @@
     {
         "id": "POISON",
         "interval": 1,
-        "value": 1,
+        "isRelative": true,
+        "chance": 1,
+        "value": 0.05,
         "timeActive": 10,
         "type": "Health",
-        "vfx": "ELECTRIC_SPARK",
-        "actionType": "OverTime"
+        "vfxSpawnOnAction": false,
+        "vfxAlt": "POISON_01",
+        "actionType": "OverTime",
+        "customFont": "POISON"
     },
     {
         "id": "HEAL",
-        "interval": 1,
-        "value": -1,
+        "interval": 5,
+        "isRelative": true,
+        "chance": 1,
+        "value": -0.1,
         "timeActive": 999999,
         "type": "Health",
-        "vfx": "TARGET_SHOOT",
-        "actionType": "OverTime"
+        "vfxSpawnOnAction": true,
+        "vfx": "THUNDER",
+        "actionType": "OverTime",
+        "customFont": "HEAL"
     },
     {
         "id": "BURN",
-        "interval": 1,
-        "value": 1,
+        "interval": 2,
+        "isRelative": true,
+        "chance": 1,
+        "value": [0.05, 0.1, 0.8],
         "timeActive": 10,
         "type": "Health",
-        "vfx": "ELECTRIC_SPARK",
-        "actionType": "OverTime"
+        "vfxSpawnOnAction": false,
+        "vfxAlt": "BURN_01",
+        "actionType": "OverTime",
+        "customFont": "BURN"
     },
     {
         "id": "BURN_ON_SHOOT",
         "interval": 0,
+        "isRelative": true,
+        "chance": 0.5,
         "value": 0,
         "timeActive": 999999,
         "type": "Health",
-        "vfx": "ELECTRIC_SPARK",
+        "vfxSpawnOnAction": false,
         "actionType": "OnHitEnemy",
         "effectOnHit": "BURN"
+    },
+    {
+        "id": "POISON_ON_SHOOT",
+        "interval": 0,
+        "isRelative": true,
+        "chance": 0.5,
+        "value": 0,
+        "timeActive": 999999,
+        "type": "Health",
+        "vfxSpawnOnAction": false,
+        "actionType": "OnHitEnemy",
+        "effectOnHit": "POISON"
     }
 ]

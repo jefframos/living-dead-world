@@ -120,7 +120,6 @@ export default class BaseWeapon extends PhysicsEntity {
 
         this.resetBrust();
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
-        console.log( this.shootFrequency)
         this.currentShootTimer = this.shootFrequency * 0.5 + 0.1;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)

@@ -92,7 +92,7 @@ export default class WeaponAttributes {
         this.baseForceFeedback = 5;
         this.baseSpawnDistance = 20;
 
-        this.level = 1;
+        this.level = 0;
 
         this.overrider = null;
 

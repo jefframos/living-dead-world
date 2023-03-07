@@ -107,6 +107,17 @@ export default class GameObject extends BaseComponent {
                 element.update(delta);
             }
         }
+
+        for (let i = this.components.length - 1; i >= 0; i--) {
+            const element = this.components[i];
+            if(element.shouldBeRemoved){
+                this.components.splice(i,1);
+                continue;
+            }
+            if (element.enabled) {
+                element.lateUpdate(delta);
+            }
+        }
     }
     enable() {
         this.enabled = true;

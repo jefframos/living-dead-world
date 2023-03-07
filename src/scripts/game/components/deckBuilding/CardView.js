@@ -70,8 +70,8 @@ export default class CardView extends PIXI.Container {
     }
 
     setData(cardData) {
-        this.cardBackground.texture = PIXI.Texture.from(this.textures[cardData.entityData.tier] || 'square_0001');
         this.cardData = cardData;
+        this.cardBackground.texture = PIXI.Texture.from(this.textures[cardData.entityData.tier] || 'square_0001');
         this.updateTexture(cardData.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
         this.label.text = cardData.entityData.name

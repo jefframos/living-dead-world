@@ -10,7 +10,7 @@ export default class WeaponData {
         Physical: 'Physical',
         Magical: 'Magical'
     }
-    constructor(name = 'none') {
+    constructor(name = 'none', id = '-') {
         this.weaponAttributes = new WeaponAttributes();
         this.weaponViewData = new EntityViewData();
         this.customConstructor = BaseWeapon;
@@ -22,6 +22,17 @@ export default class WeaponData {
         this.isMain = true;
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
+        this.id = id;
+        this._ingameData = null;
+    }
+    set ingameData(value){
+        this.weaponAttributes.level = value.level;
+    }
+    get level(){
+        return this.weaponAttributes.level;
+    }
+    set level(value){
+        this.weaponAttributes.level = value;
     }
     get bulletBehaviourComponent() {
         let toReturn = null;

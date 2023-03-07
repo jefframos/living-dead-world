@@ -38,6 +38,12 @@ export default class ParticleDescriptor {
 
         }
     }
+    resetBehaviours(){
+        this.behaviours.forEach(element => {
+            element.reset();
+        });
+    }
+
     addBaseBehaviours(behavior, params) {
         this.baseBehaviours.push({ behavior, params });
     }

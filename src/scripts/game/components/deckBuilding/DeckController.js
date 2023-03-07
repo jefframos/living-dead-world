@@ -6,6 +6,7 @@ import Game from "../../../Game";
 import GameObject from "../../core/gameObject/GameObject";
 import GameStaticData from "../../data/GameStaticData";
 import GameView from "../../core/view/GameView";
+import GameplayItem from "../../data/GameplayItem";
 import GridSlotView from "./grid/GridSlotView";
 import GridView from "./grid/GridView";
 import InputModule from "../../core/modules/InputModule";
@@ -13,6 +14,7 @@ import InteractableView from "../../view/card/InteractableView";
 import Player from "../../entity/Player";
 import RenderModule from "../../core/modules/RenderModule";
 import Utils from "../../core/utils/Utils";
+import conversionUtils from "../../../conversionUtils";
 import signals from "signals";
 
 export default class DeckController extends GameObject {
@@ -55,14 +57,15 @@ export default class DeckController extends GameObject {
             setTimeout(() => {
                 this.checkGridCollision();
                 if (this.gridView.slotOver) {
-                    this.holdingData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j)
-                    if (!this.holdingData) {
+                    let slotData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j)
+                    if (!slotData || !slotData.item) {
                         return;
                     }
+                    this.holdingData = slotData
                     this.originData.i = this.gridView.slotOver.i
                     this.originData.j = this.gridView.slotOver.j
                     this.gridView.slotOver.holding()
-                    this.fromGridCard.setData(this.holdingData)
+                    this.fromGridCard.setData(this.holdingData.item)
                     this.fromGridCard.visible = true;
                 }
             }, 1);
@@ -74,17 +77,35 @@ export default class DeckController extends GameObject {
             }
             if (!this.cardHolding) {
                 if (this.holdingData) {
-                    if (this.gridView.slotOver) {
-                        let onSlotEquipment = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
+                    if (this.gridView.slotOver && this.gridView.slotOver.isTrash) {
                         this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
-                        this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
-                        if (onSlotEquipment) {
-                            this.player.sessionData.addEquipment(onSlotEquipment, this.originData.i, this.originData.j);
+                    } else {
+                        if (this.gridView.slotOver) {
+                            let slotData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j)
+                            let onSlotEquipment = null;
+                            if (slotData && slotData.item) {
+                                onSlotEquipment = slotData
+                            }
+                            if (onSlotEquipment && onSlotEquipment.item.id == this.holdingData.item.id) {
+                                
+                                this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                                //this.player.sessionData.addEquipment(onSlotEquipment, this.originData.i, this.originData.j);
+                                this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
+                                //this.player.sessionData.removeEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
+                            } else {
+                                this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                                if (onSlotEquipment) {
+                                    this.player.sessionData.addEquipment(onSlotEquipment, this.originData.i, this.originData.j);
+                                }else{
+                                    this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
+                                }
+
+                            }
 
                         }
                     }
-
                     this.fromGridCard.visible = false;
+                    this.holdingData = null;
                 }
 
                 this.gridView.slotOver = null;
@@ -93,30 +114,44 @@ export default class DeckController extends GameObject {
             this.cardHolding.interactive = true;
             if (this.gridView.slotOver) {
                 this.cardHolding.parent.removeChild(this.cardHolding)
-                let onSlotEquipment = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
 
-                let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
-                if (weaponData) {
-                    this.player.sessionData.addEquipment(weaponData, this.gridView.slotOver.i, this.gridView.slotOver.j);
-                } else {
-                    this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                let slotData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j)
+                let onSlotEquipment = null;
+                if (slotData && slotData.item) {
+                    onSlotEquipment = slotData
                 }
 
+                
                 if (onSlotEquipment) {
-                    let nextSlot = this.player.sessionData.findEmptySlotAtCol(this.gridView.slotOver.i)
-                    if (nextSlot) {
-                        this.player.sessionData.addEquipment(onSlotEquipment, nextSlot.i, nextSlot.j);
+                                        
+                    if (onSlotEquipment && onSlotEquipment.item.id == this.holdingData.item.id) {
+                        this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                     } else {
-                        nextSlot = this.player.sessionData.findEmptySlotAtLine(this.gridView.slotOver.j)
+                        this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                        let nextSlot = this.player.sessionData.findEmptySlotAtCol(this.gridView.slotOver.i)
                         if (nextSlot) {
                             this.player.sessionData.addEquipment(onSlotEquipment, nextSlot.i, nextSlot.j);
                         } else {
-                            nextSlot = this.player.sessionData.findAnyEmptySlot()
+                            nextSlot = this.player.sessionData.findEmptySlotAtLine(this.gridView.slotOver.j)
                             if (nextSlot) {
                                 this.player.sessionData.addEquipment(onSlotEquipment, nextSlot.i, nextSlot.j);
+                            } else {
+                                nextSlot = this.player.sessionData.findAnyEmptySlot()
+                                if (nextSlot) {
+                                    this.player.sessionData.addEquipment(onSlotEquipment, nextSlot.i, nextSlot.j);
+                                }
                             }
                         }
                     }
+                }else{
+                    let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
+
+                    if (weaponData) {
+                        this.player.sessionData.addEquipment(weaponData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                    } else {
+                        this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
+                    }
+    
                 }
                 //complete card drop
                 this.openDeckButton.visible = true;
@@ -224,7 +259,7 @@ export default class DeckController extends GameObject {
                 this.handCards.splice(card.id, 1);
                 this.transitionContainer.addChild(card);
                 this.cardHolding.interactive = false;
-                this.holdingData = card.cardData;
+                this.holdingData = new GameplayItem(card.cardData);
             })
             this.handCards.push(a)
             a.setData(dt, data[i]);
@@ -244,7 +279,7 @@ export default class DeckController extends GameObject {
     }
     update(delta, unscaleDelta) {
 
-        this.gridContainer.x = -this.gridContainer.width / 2
+        this.gridContainer.x = -this.gridContainer.width / 2 + 60
         this.gridContainer.y = -this.gridContainer.height / 2 - 100
         this.checkGridCollision();
 

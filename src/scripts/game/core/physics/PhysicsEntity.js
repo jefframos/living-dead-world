@@ -131,12 +131,14 @@ export default class PhysicsEntity extends GameObject {
 
             this.debug.x = this.transform.position.x
             this.debug.y = this.transform.position.z
-            this.debug.rotation = this.physics.angle            
-           
+            this.debug.rotation = this.physics.angle
+
         }
 
     }
-
+    get radius() {
+        this.rigidBody.circleRadius;
+    }
     set layerMask(value) {
         this.rigidBody.collisionFilter.mask = value;
     }

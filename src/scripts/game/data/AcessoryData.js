@@ -6,14 +6,19 @@ export default class AcessoryData {
     constructor(staticData) {
         this.entityData = new EntityData();
         this.entityData.copyOver(staticData.entityData)
-
+        this.ingameData = null;
         for (const key in staticData) {
             if (this[key] == undefined) {
                 this[key] = staticData[key];
             }
         }
     }
-
+    get level() {
+        if (this.ingameData) {
+            return this.ingameData.level;
+        }
+        return 0;
+    }
     clone() {
         let attributes = new AcessoryData();
 

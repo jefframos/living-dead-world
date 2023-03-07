@@ -141,7 +141,7 @@ export default class EntityBuilder {
         }
     }
     makeWeapon(weaponData) {
-        let weapon = new WeaponData(weaponData.name);
+        let weapon = new WeaponData(weaponData.name, weaponData.id);
 
 
         if (weaponData.ingameViewData) {

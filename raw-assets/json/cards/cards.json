@@ -6,7 +6,7 @@
         },
         "weaponId": "PLAYER_AURA",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "PLAYER_CROSS_SHOT_CARD",
@@ -15,7 +15,7 @@
         },
         "weaponId": "PLAYER_CROSS_SHOT",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "PLAYER_MULTISHOT_CARD",
@@ -24,7 +24,7 @@
         },
         "weaponId": "PLAYER_MULTISHOT",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "BOMB_THROWER_CARD",
@@ -33,7 +33,7 @@
         },
         "weaponId": "BOMB_THROWER",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "PISTOL_01_CARD",
@@ -42,7 +42,7 @@
         },
         "weaponId": "PISTOL_01",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SEMI_AUTO_PISTOL_CARD",
@@ -51,7 +51,7 @@
         },
         "weaponId": "SEMI_AUTO_PISTOL_01",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SUBMACHINE_CARD",
@@ -60,7 +60,7 @@
         },
         "weaponId": "SUB_MACHINE_GUN_01",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SHOTGUN_CARD",
@@ -69,7 +69,7 @@
         },
         "weaponId": "SHOTGUN_01",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SNIPER_CARD",
@@ -78,7 +78,7 @@
         },
         "weaponId": "SNIPER_01",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "MINIGUN_CARD",
@@ -96,7 +96,7 @@
         },
         "weaponId": "FIREBALL_HOAMING",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "BOOMERANG_AXE_CARD",
@@ -105,7 +105,7 @@
         },
         "weaponId": "BOOMERANG_AXE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "MELEE_SWORD_CARD",
@@ -114,7 +114,7 @@
         },
         "weaponId": "MELEE_SWORD",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "ICE_SHARD_THROWER_CARD",
@@ -123,7 +123,7 @@
         },
         "weaponId": "ICE_SHARD_THROWER",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "ORBIT_CARD",
@@ -132,7 +132,7 @@
         },
         "weaponId": "ORBIT",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LIGHTNING_CARD",
@@ -141,7 +141,7 @@
         },
         "weaponId": "LIGHTNING",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "WATER_SINOID_CARD",
@@ -150,7 +150,7 @@
         },
         "weaponId": "WATER_SINOID",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "FLASH_CIRCLE_CARD",
@@ -159,7 +159,7 @@
         },
         "weaponId": "FLASH_CIRCLE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "BOUNCE_CARD",
@@ -168,7 +168,7 @@
         },
         "weaponId": "BOUNCE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LASER_CARD",
@@ -177,7 +177,7 @@
         },
         "weaponId": "LASER",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "NUKE_CARD",
@@ -186,7 +186,7 @@
         },
         "weaponId": "FALL_NUKE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "FLY_DRONE",
@@ -195,7 +195,7 @@
         },
         "companionId": "FLY_DRONE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LAND_DRONE",
@@ -204,7 +204,7 @@
         },
         "companionId": "LAND_DRONE",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SNIPER_DRONE",
@@ -213,7 +213,7 @@
         },
         "companionId": "SNIPER_DRONE",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LAND_MINE_DRONE",
@@ -222,7 +222,7 @@
         },
         "companionId": "LAND_MINE_DRONE",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LASER_DRONE",
@@ -231,7 +231,7 @@
         },
         "companionId": "LASER_DRONE",
         "tier": 4,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "ATTACK_MODIFIER",
@@ -240,7 +240,7 @@
         },
         "attributeId": "ATTACK_UP_MODIFIER",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "SPEED_MODIFIER",
@@ -249,7 +249,7 @@
         },
         "attributeId": "SPEED_UP_MODIFIER",
         "tier": 1,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "HP_MODIFIER",
@@ -312,6 +312,24 @@
         },
         "acessoryId": "HEALING_RING",
         "tier": 1,
-        "enabled": false
+        "enabled": true
+    },
+    {
+        "id": "POISON_RING",
+        "entityData": {
+            "type": "Acessory"
+        },
+        "acessoryId": "POISON_SHOOT",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "BURN_RING",
+        "entityData": {
+            "type": "Acessory"
+        },
+        "acessoryId": "BURN_SHOOT",
+        "tier": 1,
+        "enabled": true
     }
 ]

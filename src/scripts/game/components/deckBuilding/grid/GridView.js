@@ -31,6 +31,14 @@ export default class GridView extends PIXI.Container {
             }
             this.gridArray.push(temp)
         }
+        
+        this.trash = new GridSlotView();
+        this.trash.isTrash = true;
+        this.trash.updateTexture('icon-trash')
+        this.gridSlots.push(this.trash);
+        this.addChild(this.trash)
+
+        this.trash.x = -120
         // this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, -20, 20)
         // this.addChild(this.zero)
     }
@@ -39,12 +47,13 @@ export default class GridView extends PIXI.Container {
             element.release()
         });
     }
-    updateEquipment(equipmentList) {        
+    updateEquipment(equipmentList) {
+        console.log(equipmentList)        
         for (var i = 0; i < equipmentList.length; i++) {
             for (var j = 0; j < equipmentList[i].length; j++) {
                 let equip = equipmentList[i][j]
                 let gridSlot = this.gridArray[i][j]
-                if (equip) {
+                if (equip.item) {
                     gridSlot.setData(equip)
                 } else {
                     gridSlot.wipe();

@@ -20,6 +20,14 @@ export default class Particle {
         return this.descriptor.shouldDestroy;
 
     }
+    get behaviours(){
+        return this.descriptor.behaviours;
+    }
+    reset(){
+        if(this.descriptor){
+            this.descriptor.resetBehaviours();
+        }
+    }
     build(descriptor) {
         this.descriptor = Pool.instance.getElement(ParticleDescriptor);
         this.descriptor.reset()

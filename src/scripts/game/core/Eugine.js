@@ -170,6 +170,12 @@ export default class Eugine {
             }
         });
 
+        this.gameObjects.forEach(element => {
+            if (element.lateUpdate && element.enabled) {
+                element.lateUpdate(delta * Eugine.TimeScale, delta);
+            }
+        });
+
         this.engineStats.totalGameObjects = this.gameObjects.length;
     }
 

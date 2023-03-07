@@ -21,6 +21,9 @@ export default class BaseComponent {
             this.afterBuild();
         }
     }
+    lateUpdate(){
+        
+    }
     build() {
         this.buildFrame = 0;
         this.shouldBeRemoved = false;

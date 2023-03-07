@@ -4,16 +4,30 @@ import Particle from './particleSystem/Particle';
 import Pool from '../core/utils/Pool';
 
 export default class SpriteSheetGameView extends BaseComponent {
+    static total = 0;
     constructor() {
         super();
         this.descriptor = null;
         this.particle = null;
-
+        this.autoDestroy = false;
         this.colorOverride = 0xFFFFFF;
+
+        this.particle = Pool.instance.getElement(Particle);
+
+        this.idTest = SpriteSheetGameView.total
+
+        this.text = new PIXI.Text('');
+        this.text.style.fill = '#FFFFFF';
+        SpriteSheetGameView.total++
     }
     enable() {
         super.enable();
+    }
+    restart() {
 
+
+        this.particle.reset();
+        this.gameObject.gameView.view.texture = PIXI.Texture.EMPTY;
     }
     setDescriptor(particleDescriptor, param = {}) {
         for (const key in param) {
@@ -27,21 +41,28 @@ export default class SpriteSheetGameView extends BaseComponent {
 
         this.descriptor = particleDescriptor;
 
-        this.particle = Pool.instance.getElement(Particle);
+
         this.particle.build(particleDescriptor)
         if (param.color) {
             this.gameObject.gameView.view.tint = param.color;
             this.colorOverride = param.color;
-        }else{
+        } else {
             this.colorOverride = 0xFFFFFF;
         }
+
+        this.gameObject.gameView.view.addChild(this.text)
     }
     update(delta) {
-        delta *= Eugine.PhysicsTimeScale;
-
         if (this.particle) {
+            delta *= Eugine.PhysicsTimeScale;
+           // console.log(this.idTest)
+           this.text.text = this.idTest
             this.particle.update(delta);
-            this.gameObject.gameView.view.texture = this.particle.sprite.texture
+            if (!this.particle.behaviours[0].isLoop && this.particle.behaviours[0].normalTime >= 1) {
+                this.gameObject.gameView.view.texture = PIXI.Texture.EMPTY;
+            } else {
+                this.gameObject.gameView.view.texture = this.particle.sprite.texture
+            }
         }
     }
 }

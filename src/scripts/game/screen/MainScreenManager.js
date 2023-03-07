@@ -46,11 +46,15 @@ export default class MainScreenManager extends ScreenManager {
 
 
         const urlParams = new URLSearchParams(window.location.search);
+        console.log(urlParams, urlParams.get('char'))
         if (urlParams) {
             if (urlParams.get('noEnemy')) {
                 window.noEnemy = true;
             }
 
+            if (urlParams.get('char') !== null) {
+                window.customChar = parseInt(urlParams.get('char'));
+            }
             if (urlParams.get('debug')) {
                 window.debugMode = true;
             }

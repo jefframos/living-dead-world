@@ -11,6 +11,7 @@ export default class EntityMultipliers {
         this.damageZone = 1;
         this.basePiercing = 0;
         this.baseAmount = 0;
+        this.level = 0;
         this.writeDefaults();
     }
     writeDefaults() {

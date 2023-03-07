@@ -26,35 +26,6 @@ export default class EffectsManager extends GameObject {
         this.effectsContainer = container;
         this.gameContainer = gameContainer;
         this.effectsContainer.alpha = true;
-
-        PIXI.BitmapFont.from('DAMAGE', {
-            fontFamily: 'retro',
-            align: "center",
-            dropShadow: true,
-            dropShadowAngle: 1.5,
-            fontSize: 18,
-            dropShadowDistance: 2,
-            fill: "#ffffff",
-            //fill: "#febc15",
-            fontWeight: 800,
-            letterSpacing: 2,
-            strokeThickness: 3,
-        });
-        PIXI.BitmapFont.from('HEAL', {
-            fontFamily: 'retro',
-            align: "center",
-            dropShadow: true,
-            dropShadowAngle: 1.5,
-            fontSize: 18,
-            dropShadowDistance: 2,
-            fill: "#00FF00",
-            //fill: "#febc15",
-            fontWeight: 800,
-            letterSpacing: 2,
-            strokeThickness: 3,
-        });
-
-
         this.particleDescriptors = {};
         this.makeDescriptors();
 
@@ -64,6 +35,38 @@ export default class EffectsManager extends GameObject {
         this.news = 0
         this.fontPool = {};
         //this.damageFontPool = [];
+
+        this.fontDefault = {
+            fontFamily: 'retro',
+            align: "center",
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            fontSize: 18,
+            dropShadowDistance: 2,
+            fill: "#00FF00",
+            fontWeight: 800,
+            letterSpacing: 2,
+            strokeThickness: 3,
+        }
+
+        this.addBitmapFont('HEAL', {fill: "#00FF00"});
+        this.addBitmapFont('DAMAGE', {fill: "#ffffff"});
+        this.addBitmapFont('BURN', {fill: "#f97b1a"});
+        this.addBitmapFont('POISON', {fill: "#a71af9"});
+    }
+    addBitmapFont(name, overrides) {
+
+        let copyDefault = {};
+        for (const key in this.fontDefault) {
+            if (Object.hasOwnProperty.call(this.fontDefault, key)) {
+                if (overrides && overrides[key] !== undefined) {
+                    copyDefault[key] = overrides[key];
+                } else {
+                    copyDefault[key] = this.fontDefault[key];
+                }
+            }
+        }
+        PIXI.BitmapFont.from(name, copyDefault);
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')
@@ -161,20 +164,21 @@ export default class EffectsManager extends GameObject {
         this.labels.push(textLabel)
         this.effectsContainer.addChild(textLabel)
     }
+    popCustomLabel(label, entity, value) {
+        this.popLabel(this.getBitmapFont(label), entity, value)
+    }
     popDamage(entity, value) {
         this.popLabel(this.getBitmapFont('DAMAGE'), entity, value)
-
     }
     popHeal(entity, value) {
         this.popLabel(this.getBitmapFont('HEAL'), entity, value)
-
     }
     testParticles(entity, value) {
         this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);
         //this.particleEmitter.emit(this.bloodSplat, { minX: entity.gameView.x, maxX: entity.gameView.x, minY: entity.gameView.y, maxY: entity.gameView.y }, 1);
     }
     emitByIdInRadius(position, radius, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-        if(quant <= 0){
+        if (quant <= 0) {
             quant = this.particleDescriptors[descriptor].baseData.baseAmount;
         }
         for (let index = 0; index < quant; index++) {
@@ -185,8 +189,9 @@ export default class EffectsManager extends GameObject {
             }
         }
     }
+
     emitParticles(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-        if(quant <= 0){
+        if (quant <= 0) {
             quant = descriptor.baseData.baseAmount;
         }
         for (let index = 0; index < quant; index++) {
@@ -199,7 +204,7 @@ export default class EffectsManager extends GameObject {
     }
 
     emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
-        if(quant <= 0){
+        if (quant <= 0) {
             quant = descriptor.baseData.baseAmount;
         }
         for (let index = 0; index < quant; index++) {

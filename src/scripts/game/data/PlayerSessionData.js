@@ -1,6 +1,8 @@
 import EntityAttributes from "./EntityAttributes";
 import EntityData from "./EntityData";
 import EntityMultipliers from "./EntityMultipliers";
+import GameplayItem from "./GameplayItem";
+import Utils from "../core/utils/Utils";
 import signals from "signals";
 
 export default class PlayerSessionData {
@@ -26,9 +28,9 @@ export default class PlayerSessionData {
         this.attributesMultiplier.reset();
 
         this.equipmentList = [
-            [null, null, null],
-            [null, null, null],
-            [null, null, null]
+            [new GameplayItem(), new GameplayItem(), new GameplayItem()],
+            [new GameplayItem(), new GameplayItem(), new GameplayItem()],
+            [new GameplayItem(), new GameplayItem(), new GameplayItem()]
         ]
 
         this.xpData = {
@@ -36,13 +38,13 @@ export default class PlayerSessionData {
             currentLevel: 0,
             untilNext: 0,
             normalUntilNext: 0,
-            nextLevelXP:0,
-            currentLevelXP:0,
-            levelsXpDiff:0
+            nextLevelXP: 0,
+            currentLevelXP: 0,
+            levelsXpDiff: 0
         }
         this.levelBreaks = [0];
         for (var i = 0; i < 100; i++) {
-            this.levelBreaks.push(10 + (i * (10 + i) ));
+            this.levelBreaks.push(10 + (i * (10 + i)));
         }
     }
     updateExp(amount) {
@@ -50,11 +52,11 @@ export default class PlayerSessionData {
         let nextLevel = this.xpData.currentLevel;
         for (var i = 0; i < this.levelBreaks.length - 1; i++) {
             if (nextXp >= this.levelBreaks[i] && nextXp < this.levelBreaks[i + 1]) {
-                nextLevel = i; 
+                nextLevel = i;
                 this.xpData.currentLevelXP = this.levelBreaks[i];
                 this.xpData.nextLevelXP = this.levelBreaks[i + 1];
                 this.xpData.levelsXpDiff = this.levelBreaks[i + 1] - this.levelBreaks[i];
-                break;               
+                break;
             }
         }
 
@@ -66,41 +68,57 @@ export default class PlayerSessionData {
 
         this.xpData.xp = nextXp;
 
-        let range = this.levelBreaks[this.xpData.currentLevel+1] - this.levelBreaks[this.xpData.currentLevel]
+        let range = this.levelBreaks[this.xpData.currentLevel + 1] - this.levelBreaks[this.xpData.currentLevel]
         let diffFrom = this.levelBreaks[this.xpData.currentLevel] ? nextXp % this.levelBreaks[this.xpData.currentLevel] : nextXp
         this.xpData.untilNext = range - diffFrom;
         this.xpData.normalUntilNext = 1 - this.xpData.untilNext / range;
 
-        if(willLevelUp){
+        if (willLevelUp) {
             this.onLevelUp.dispatch(this.xpData);
         }
 
     }
-    equipmentUpdate(){
+    equipmentUpdate() {
         this.findAttributes()
         this.equipmentUpdated.dispatch(this.equipmentList);
     }
     addEquipment(equipment, i, j) {
-        this.equipmentList[i][j] = equipment;
+        if(this.equipmentList[i][j].item == equipment.item){
+            this.equipmentList[i][j].level ++;
+        }else{
+            this.equipmentList[i][j].level = equipment.level;
+        }
+        this.equipmentList[i][j].item = equipment.item
+
+        this.equipmentList[i][j].item.ingameData = this.equipmentList[i][j];
+
         this.equipmentUpdate();
     }
     removeEquipment(i, j) {
-        this.equipmentList[i][j] = null;
+        if(this.equipmentList[i][j].item){
+            this.equipmentList[i][j].item.ingameData = null;
+        }
+        this.equipmentList[i][j].item = null;
+        this.equipmentList[i][j].level = 0;
         this.equipmentUpdate();
     }
     getEquipment(i, j) {
-        return this.equipmentList[i][j];
+        const copy = new GameplayItem(this.equipmentList[i][j].item);
+        copy.level = this.equipmentList[i][j].level;
+        return copy;
     }
     findAttributes() {
         this.attributesMultiplier.reset();
         for (var i = 0; i < this.equipmentList.length; i++) {
             for (var j = 0; j < this.equipmentList[i].length; j++) {
-                let equip = this.equipmentList[i][j];
-                if(!equip){
+                let ingameData = this.equipmentList[i][j];
+                if (!ingameData || !ingameData.item) {
                     continue;
                 }
-                if (equip.entityData.type == EntityData.EntityDataType.Attribute) {
-                    this.attributesMultiplier.addMultiplyer(equip.attributeEffect, equip.modifierValue[0])                    
+                if (ingameData.item.entityData.type == EntityData.EntityDataType.Attribute) {
+                    this.attributesMultiplier.addMultiplyer(ingameData.item.attributeEffect, Utils.findValueByLevel(ingameData.item.modifierValue, ingameData.level));
+
+                    console.log( this.attributesMultiplier)
                 }
             }
         }
@@ -108,7 +126,7 @@ export default class PlayerSessionData {
     findAnyEmptySlot() {
         for (var i = 0; i < this.equipmentList.length; i++) {
             for (var j = 0; j < this.equipmentList[i].length; j++) {
-                if (!this.equipmentList[i][j]) {
+                if (!this.equipmentList[i][j].item) {
                     return { i: i, j: j };
                 }
             }
@@ -117,7 +135,7 @@ export default class PlayerSessionData {
     }
     findEmptySlotAtLine(j) {
         for (var i = 0; i < this.equipmentList.length; i++) {
-            if (!this.equipmentList[i][j]) {
+            if (!this.equipmentList[i][j].item) {
                 return { i: i, j: j };
             }
         }
@@ -126,7 +144,7 @@ export default class PlayerSessionData {
     findEmptySlotAtCol(i) {
         for (var j = 0; j < this.equipmentList[i].length; j++) {
 
-            if (!this.equipmentList[i][j]) {
+            if (!this.equipmentList[i][j].item) {
                 return { i: i, j: j };
             }
         }

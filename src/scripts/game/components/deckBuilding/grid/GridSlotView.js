@@ -66,16 +66,20 @@ export default class GridSlotView extends PIXI.Container {
     wipe() {
         this.cardData = null;
         this.cardImage.texture = null
+        this.text.text = "";
     }
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
-        
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))        
     }
 
-    setData(cardData) {
-        this.cardData = cardData;
-        this.updateTexture(cardData.entityData.icon)
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
+    setData(cardData) {        
+        this.cardData = cardData.item;
+        if(this.cardData){
+            this.updateTexture(this.cardData.entityData.icon)
+            this.text.text = "Level "+(cardData.level+1)
+        }
+
     }
     update(){
         // this.text.text = Math.floor(this.worldTransform.tx)+'\n'+this.x+'\n'+ Math.floor(this.worldTransform.tx / this.worldTransform.a)

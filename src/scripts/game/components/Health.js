@@ -37,6 +37,7 @@ export default class Health extends BaseComponent {
         }
 
         this.currentHealth += value;
+        this.currentHealth = Math.min(this.maxHealth, this.currentHealth);
         this.gotHealed.dispatch(this, value);
         this.healthUpdated.dispatch(this, value);
 

@@ -27,7 +27,7 @@ export default class GameAgent extends PhysicsEntity {
         }
 
         this.attributes = new EntityAttributes();
-
+        this.statsDictionary = {}
 
     }
     get isDead() { return this.health.currentHealth <= 0 }
@@ -59,22 +59,32 @@ export default class GameAgent extends PhysicsEntity {
         weapon.build(weaponData)
         this.addChild(weapon)
     }
-    heal(value) {
+    heal(value, customFont) {
         if (!this.health.canHeal) {
             return;
         }
-        EffectsManager.instance.popHeal(this, value)
+        if (customFont) {
+            EffectsManager.instance.popCustomLabel(customFont, this, value)
+        } else {
+            EffectsManager.instance.popHeal(this, value)
+        }
         this.playVfx('onHeal')
         return this.health.heal(value);
+
+
     }
     getShot(value) {
         this.damage(value)
     }
-    damage(value) {
+    damage(value, customFont) {
         if (this.invencibleSpawnTime > 0) {
             return this.health.currentHealth;
         }
-        EffectsManager.instance.popDamage(this, value)
+        if (customFont) {
+            EffectsManager.instance.popCustomLabel(customFont, this, value)
+        } else {
+            EffectsManager.instance.popDamage(this, value)
+        }
         this.playVfx('onHit')
         return this.health.damage(value);
     }
@@ -94,27 +104,50 @@ export default class GameAgent extends PhysicsEntity {
         let centerPosition = this.gameView.view.position
         //centerPosition.x -= (this.gameView.view.anchor.x * this.gameView.view.width) + (this.gameView.view.width * 0.5)
         //centerPosition.y -= (this.gameView.view.anchor.y * this.gameView.view.height) + (this.gameView.view.height * 0.5)
-        EffectsManager.instance.emitById(this.gameView.view.position, this.staticData.vfx[type])
+        EffectsManager.instance.emitById(this.gameView.view.position, this.staticData.vfx[type], 1, { scale: { x: 0.5, y: 0.5 } })
     }
-    addStatsModifier(statId, unique = false) {
+    cleanStats() {
+        for (let index = this.activeStatsEffect.length - 1; index >= 0; index--) {
+            if (!this.activeStatsEffect[index].destroyed) {
 
-        console.log(" if unique, dont add if already added one stat, just reset the values")
-        let stat = GameStaticData.instance.getDataById('misc', 'buffs', statId);
-        let statsGO = this.engine.poolGameObject(StatsModifier)
-        this.addChild(statsGO)
-
-        statsGO.build(stat);
-        if(stat.effectOnHit){
-            statsGO.effectOnHit = GameStaticData.instance.getDataById('misc', 'buffs', stat.effectOnHit);
+                this.activeStatsEffect[index].destroy();
+            }
         }
-        this.activeStatsEffect.push(statsGO);
+        this.activeStatsEffect = [];
+        this.statsDictionary = {};
+    }
+    addStatsModifier(statId, level = 0, unique = false) {
+        //rebuild the list every time
+        let stat = GameStaticData.instance.getDataById('misc', 'buffs', statId);
+        if (this.statsDictionary[statId]) {
+            this.statsDictionary[statId].build(stat);
+            if (stat.effectOnHit) {
+                this.statsDictionary[statId].effectOnHit = GameStaticData.instance.getDataById('misc', 'buffs', stat.effectOnHit);
+            }
+            this.statsDictionary[statId].restart();
+        } else {
+            let statsGO = this.engine.poolGameObject(StatsModifier)
+            this.addChild(statsGO)
+            statsGO.build(stat);
+            if (stat.effectOnHit) {
+                statsGO.effectOnHit = GameStaticData.instance.getDataById('misc', 'buffs', stat.effectOnHit);
+            }
+            this.statsDictionary[statId] = statsGO;
+        }
+        this.statsDictionary[statId].level = level;
+        this.activeStatsEffect = [];
+        for (const key in this.statsDictionary) {
+            if (this.statsDictionary[key]) {
+                this.activeStatsEffect.push(this.statsDictionary[key]);
+            }
+        }
     }
     onAnimationEnd(animation, state) { }
     start() {
         super.start();
         // this.view.visible = true;
     }
-    weaponHitted(target){
+    weaponHitted(target) {
         this.activeStatsEffect.forEach(element => {
             element.weaponHitted(target);
         });
@@ -123,7 +156,8 @@ export default class GameAgent extends PhysicsEntity {
         super.build();
 
         this.activeStatsEffect = [];
-        
+        this.statsDictionary = {}
+
         this.invencibleSpawnTime = 0.5;
 
         this.health = this.addComponent(Health)
@@ -143,20 +177,41 @@ export default class GameAgent extends PhysicsEntity {
     afterBuild() {
         super.afterBuild();
         this.flashOnDamage = this.addComponent(FlashOnDamage);
-        this.flashOnDamage.startFlash(0x0000FF)
+        //this.flashOnDamage.startFlash(null,null,0x00FFFF)
     }
     update(delta) {
         super.update(delta);
         if (this.invencibleSpawnTime > 0) {
             this.invencibleSpawnTime -= delta;
         }
+        if (this.isPlayer) {
+            //console.log(this.activeStatsEffect)
+        }
+
+       
     }
 
+    lateUpdate(delta) {
+        super.lateUpdate(delta);
+        for (let index = this.activeStatsEffect.length - 1; index >= 0; index--) {
+            const element = this.activeStatsEffect[index];
+            if (element.isDestroyed) {
+                this.activeStatsEffect.splice(index, 1);
+                this.statsDictionary[element.statModifierData.id] = null;
+            }
+        }
+    }
     onRender() {
     }
     destroy() {
         if (this.isDestroyed) return;
         super.destroy();
+
+        this.activeStatsEffect.forEach(element => {
+            if(!element.isDestroyed){
+                element.destroy();
+            }
+        });
     }
 
     calcFrame() {

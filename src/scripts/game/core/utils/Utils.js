@@ -90,6 +90,23 @@ export default class Utils {
         return data;
     }
 
+    static findValueByLevel(data, level = -1) {
+
+        if (Array.isArray(data)) {
+            level = Math.max(level, 0)
+            level = Math.min(level, data.length - 1)
+            if (data.length == 1) {
+                return data[0];
+            }
+            if (level < 0) {
+                return data[0];
+            } else {
+                return data[level];
+            }
+        }
+        return data;
+    }
+
     static floatToTime(value) {
         let hours = Math.floor(value / 60);
         let minutes = value % 60;

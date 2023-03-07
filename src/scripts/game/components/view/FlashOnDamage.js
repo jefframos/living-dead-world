@@ -20,14 +20,10 @@ export default class FlashOnDamage extends BaseComponent {
         }
 
         this.intensity = 0;
-
-        //this.filter = new PIXI.filters.ColorMatrixFilter();
-
-        this.flashTime = 0.2;
+        this.flashTime = 0.25;
         this.flashCurrentTime = 0;
 
         this.currentRGB = { r: 0, g: 0, b: 0 }
-
 
         this.startValue = Color.toRGB(0xFFFFFF);
         
@@ -55,8 +51,6 @@ export default class FlashOnDamage extends BaseComponent {
         this.flashTexture = null;
         if (this.gameObject.health) {
             this.gameObject.health.gotDamaged.add(this.startFlash.bind(this))
-
-
         }
 
         if (this.gameObject.gameView && this.gameObject.gameView.view) {
@@ -82,7 +76,7 @@ export default class FlashOnDamage extends BaseComponent {
         super.destroy();
         this.gameObject.health.gotDamaged.remove(this.startFlash.bind(this))
     }
-    startFlash(targetColor = 0xFF0000) {
+    startFlash(ignore, ignore2, targetColor = 0xFF0000) {
         if (this.gameObject.health.isDead) return;
         this.intensity = 1;
         this.flashCurrentTime = this.flashTime;
@@ -91,7 +85,7 @@ export default class FlashOnDamage extends BaseComponent {
             this.gameObject.gameView.view.tint = Color.rgbToColor(this.endValue);
         }
     }
-    update(delta) {
+    lateUpdate(delta) {
 
         if (this.flashCurrentTime > 0) {
             this.flashCurrentTime -= delta;

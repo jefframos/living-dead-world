@@ -1,1 +1,1 @@
-[{"id":"HEALING_RING","entityData":{"icon":"healing-donnut","name":"Healing Ring","type":"Acessory","tier":1},"effectId":"BURN_ON_SHOOT","actionType":"OverTime"}]
+[{"id":"HEALING_RING","entityData":{"icon":"healing-donnut","name":"Healing Ring","type":"Acessory","tier":1},"effectId":"HEAL"},{"id":"POISON_SHOOT","entityData":{"icon":"healing-donnut","name":"Poison","type":"Acessory","tier":1},"effectId":"POISON_ON_SHOOT"},{"id":"BURN_SHOOT","entityData":{"icon":"vfx_burning_1","name":"Burn","type":"Acessory","tier":1},"effectId":"BURN_ON_SHOOT"}]

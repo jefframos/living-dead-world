@@ -239,7 +239,8 @@ export default class GameScreen extends Screen {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
+        //this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
+        this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar?window.customChar:Math.floor(Math.random() * 7)))
         this.gameSessionController.playerReady()
         this.player.refreshEquipment()
         this.player.setPositionXZ(0, 0)

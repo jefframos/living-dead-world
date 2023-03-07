@@ -8,6 +8,7 @@ import FlashOnDamage from "../components/view/FlashOnDamage";
 import GameAgent from "../core/entity/GameAgent";
 import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
+import GameplayItem from "../data/GameplayItem";
 import InGameWeapon from "../data/InGameWeapon";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
@@ -18,6 +19,7 @@ import Shaders from "../shader/Shaders";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import SpriteSheetGameView from "../components/SpriteSheetGameView";
 import StatsModifier from "../components/StatsModifier";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
@@ -62,30 +64,30 @@ export default class Player extends GameAgent {
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
 
-        this.currentSessionData.addEquipment(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id], 1, 0)
+        this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
     build(playerData) {
 
 
-        
+
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
-        
-        
+
+
         this.staticData = playerData;
         this.attributes.reset(playerData.attributes);
         this.viewData = playerData.view;
         Player.MainPlayer = this;
         super.build()
-        
+
         this.distanceWalked = 0;
-        
+
         this.activeWeapons = [];
         this.activeCompanions = [];
         this.weaponsGameObject = [];
         this.activeStatsEffect = [];
-        
+
         this.health.setNewHealth(this.attributes.health)
 
         this.currentEnemiesColliding = []
@@ -139,9 +141,8 @@ export default class Player extends GameAgent {
         spriteFacing.startScaleX = -1
 
 
-
-//        this.addStatsModifier('HEAL')  
-
+        this.cleanStats();
+        
     }
     afterBuild() {
         super.afterBuild()
@@ -160,20 +161,22 @@ export default class Player extends GameAgent {
     }
     rebuildWeaponGrid(equipmentGrid) {
         this.clearWeapon();
+        this.cleanStats();
+
         for (let i = 0; i < equipmentGrid.length; i++) {
             const list = equipmentGrid[i];
             for (let j = 0; j < list.length; j++) {
                 const element = list[j];
-                if (!element) continue;
-                switch (element.entityData.type) {
+                if (!element || !element.item) continue;
+                switch (element.item.entityData.type) {
                     case EntityData.EntityDataType.Weapon:
-                        this.addWeaponData(element, i)
+                        this.addWeaponData(element.item, i)
                         break;
                     case EntityData.EntityDataType.Companion:
-                        this.addCompanion(element.staticData.id)
+                        this.addCompanion(element.item.staticData.id)
                         break;
-                        case EntityData.EntityDataType.Acessory:
-                            this.addStatsModifier(element.effectId)
+                    case EntityData.EntityDataType.Acessory:
+                        this.addStatsModifier(element.item.effectId, element.level)
                         break;
                 }
 
@@ -200,19 +203,14 @@ export default class Player extends GameAgent {
                 this.weaponLoadingBars[index].destroy();
             }
         }
-        for (let index = this.activeStatsEffect.length - 1; index >= 0; index--) {
-            if (!this.activeStatsEffect[index].destroyed) {
 
-                this.activeStatsEffect[index].destroy();
-            }
-        }
         this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
-        this.activeStatsEffect = [];
         this.activeWeapons = [null, null, null];
         this.refreshEquipment();
     }
+
     addWeaponData(weaponData, slotID = 0) {
         if (!this.activeWeapons[slotID]) {
             let mainWeapon = new InGameWeapon();
@@ -243,8 +241,6 @@ export default class Player extends GameAgent {
         if (this.sessionData) {
             //find all attributes and add the multipliers here
             this.attributes.multipliers = this.sessionData.attributesMultiplier;
-
-
             let normal = this.health.normal;
             this.health.updateMaxHealth(this.attributes.health)
             this.health.health = Math.round(normal * this.attributes.health);
@@ -348,6 +344,7 @@ export default class Player extends GameAgent {
             this.distanceWalked = 0;
         }
 
+        
         super.update(delta)
     }
 
