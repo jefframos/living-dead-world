@@ -56,6 +56,9 @@ export default class Player extends GameAgent {
 
 
     }
+    get collectRadius(){
+        return this.attributes.collectionRadius;
+    }
     get sessionData() {
         return this.currentSessionData
     }
@@ -67,14 +70,9 @@ export default class Player extends GameAgent {
         this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
     build(playerData) {
-
-
-
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
-
-
         this.staticData = playerData;
         this.attributes.reset(playerData.attributes);
         this.viewData = playerData.view;
@@ -142,6 +140,7 @@ export default class Player extends GameAgent {
 
 
         this.cleanStats();
+
         
     }
     afterBuild() {
@@ -170,18 +169,20 @@ export default class Player extends GameAgent {
                 if (!element || !element.item) continue;
                 switch (element.item.entityData.type) {
                     case EntityData.EntityDataType.Weapon:
-                        this.addWeaponData(element.item, i)
+                        this.addWeaponData(element, i)
                         break;
                     case EntityData.EntityDataType.Companion:
                         this.addCompanion(element.item.staticData.id)
                         break;
                     case EntityData.EntityDataType.Acessory:
-                        this.addStatsModifier(element.item.effectId, element.level)
+                        this.addStatsModifier(element.item.effectId, element.level)   
+                        this.activeAcessories.push(element);
                         break;
                 }
-
             }
         }
+
+        this.refreshEquipment();
 
     }
     clearWeapon() {
@@ -211,13 +212,13 @@ export default class Player extends GameAgent {
         this.refreshEquipment();
     }
 
-    addWeaponData(weaponData, slotID = 0) {
+    addWeaponData(weaponIngameData, slotID = 0) {
         if (!this.activeWeapons[slotID]) {
             let mainWeapon = new InGameWeapon();
-            mainWeapon.addWeapon(weaponData)
+            mainWeapon.addWeapon(weaponIngameData)
             this.addWeapon(mainWeapon, slotID)
         } else {
-            this.activeWeapons[slotID].addWeapon(weaponData);
+            this.activeWeapons[slotID].addWeapon(weaponIngameData);
         }
     }
     addWeapon(inGameWeapon, slotID = 0) {
@@ -229,6 +230,7 @@ export default class Player extends GameAgent {
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
         this.weaponsGameObject.push(weapon);
+
         weapon.build(weaponData)
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
@@ -287,7 +289,6 @@ export default class Player extends GameAgent {
                 }
             });
         }
-
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
             const element = this.currentEnemiesColliding[index];
             if (element.timer <= 0) {

@@ -47,7 +47,7 @@ export default class GameAgent extends PhysicsEntity {
     addWeaponData(weaponData) {
 
         let mainWeapon = new InGameWeapon();
-        mainWeapon.addWeapon(weaponData)
+        mainWeapon.addWeaponFromData(weaponData)
         this.addWeapon(mainWeapon)
     }
     addWeapon(inGameWeapon) {
@@ -56,8 +56,8 @@ export default class GameAgent extends PhysicsEntity {
         }
         let weaponData = inGameWeapon.mainWeapon
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-        weapon.build(weaponData)
         this.addChild(weapon)
+        weapon.build(weaponData)
     }
     heal(value, customFont) {
         if (!this.health.canHeal) {
@@ -113,6 +113,7 @@ export default class GameAgent extends PhysicsEntity {
                 this.activeStatsEffect[index].destroy();
             }
         }
+        this.activeAcessories = [];
         this.activeStatsEffect = [];
         this.statsDictionary = {};
     }
@@ -254,19 +255,4 @@ export default class GameAgent extends PhysicsEntity {
 
 
     }
-    // calcFrame() {
-    //     //aif(this.physics.magnitude == 0) return -1;
-
-    //     let ang = ((this.transform.angle) * 180 / Math.PI) + (360 / this.totalDirections) * 0.5
-    //     if (ang <= 0) {
-    //         ang += 360
-    //     }
-    //     let layer = Math.round(ang / (360 / this.totalDirections)) + 1
-    //     if (layer < 0) {
-    //         layer += this.totalDirections
-    //     }
-    //     layer %= this.totalDirections
-
-    //     return layer;
-    // }
 }

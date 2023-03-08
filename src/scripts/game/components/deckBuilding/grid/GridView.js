@@ -6,22 +6,25 @@ import GridSlotView from './GridSlotView';
 export default class GridView extends PIXI.Container {
     constructor() {
         super()
-
+        this.gridContainer = new PIXI.Container();
+        this.addChild(this.gridContainer)
     }
     makeGrid(equipmentList) {
         let gridWidth = 100
         this.slotOver = null;
-        for (let i = this.children.length - 1; i >=0;i--){
+        for (let i = this.children.length - 1; i >= 0; i--) {
             this.removeChildAt(i)
         }
         this.gridArray = [];
         this.gridSlots = [];
-        
+
+        this.addChild(this.gridContainer)
+
         for (var i = 0; i < equipmentList.length; i++) {
             let temp = [];
             for (var j = 0; j < equipmentList[i].length; j++) {
                 let gridView = new GridSlotView();
-                this.addChild(gridView)
+                this.gridContainer.addChild(gridView)
                 gridView.x = i * (gridWidth + 5)
                 gridView.y = j * (gridWidth + 5)
                 gridView.i = i
@@ -31,9 +34,9 @@ export default class GridView extends PIXI.Container {
             }
             this.gridArray.push(temp)
         }
-        
+
         this.trash = new GridSlotView();
-        this.trash.isTrash = true;
+        this.trash.setAsTrash();
         this.trash.updateTexture('icon-trash')
         this.gridSlots.push(this.trash);
         this.addChild(this.trash)
@@ -42,13 +45,18 @@ export default class GridView extends PIXI.Container {
         // this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, -20, 20)
         // this.addChild(this.zero)
     }
-    mouseUp(){
+    get gridWidth() {
+        return this.gridContainer.width
+    }
+    get gridHeight() {
+        return this.gridContainer.height
+    }
+    mouseUp() {
         this.gridSlots.forEach(element => {
             element.release()
         });
     }
     updateEquipment(equipmentList) {
-        console.log(equipmentList)        
         for (var i = 0; i < equipmentList.length; i++) {
             for (var j = 0; j < equipmentList[i].length; j++) {
                 let equip = equipmentList[i][j]
@@ -63,13 +71,13 @@ export default class GridView extends PIXI.Container {
     }
     findMouseCollision(mousePosition) {
         let temp = null;
-        
+
         this.gridSlots.forEach(element => {
             element.update()
             if (this.isPointInsideAABB(mousePosition, element)) {
                 temp = element
             }
-        });        
+        });
         if (this.slotOver && !temp) {
             this.slotOver.mouseOut();
             this.slotOver = null;
@@ -86,7 +94,7 @@ export default class GridView extends PIXI.Container {
     isPointInsideAABB(point, box) {
         return (
             point.x >= box.x &&
-            point.x <= box.x + box.width&&
+            point.x <= box.x + box.width &&
             point.y >= box.y &&
             point.y <= box.y + box.height
         )

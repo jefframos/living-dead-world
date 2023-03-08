@@ -29,6 +29,7 @@ export default class EntityAttributes {
         this.baseMass = 1;
         this.baseRadius = 10;
         this.damageZone = 10;
+        this.baseCollectionRadius = 50;
         this.level = 0;
 
         if (overrideDetaultValue != undefined) {
@@ -111,6 +112,9 @@ export default class EntityAttributes {
     }
     get radius() {
         return this.findAttributeValue('baseRadius') * this.multipliers.radius;
+    }
+    get collectionRadius() {
+        return this.findAttributeValue('baseCollectionRadius') * this.multipliers.collectionRadius;
     }
 
     clone() {

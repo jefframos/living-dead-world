@@ -1,4 +1,5 @@
 import BaseButton from "../ui/BaseButton";
+import CardInfo from "./CardInfo";
 import CardView from "./CardView";
 import EntityBuilder from "../../screen/EntityBuilder";
 import EntityData from "../../data/EntityData";
@@ -43,9 +44,15 @@ export default class DeckController extends GameObject {
         this.gameView.view.addChild(this.cardsContainer)
         this.gameView.view.addChild(this.transitionContainer)
 
+
         this.fromGridCard = new CardView();
         this.transitionContainer.addChild(this.fromGridCard)
         this.fromGridCard.visible = false;
+        this.fromGridCard.pivot.x = -this.fromGridCard.width * 0.5
+
+        this.cardInfo = new CardView();
+        this.transitionContainer.addChild(this.cardInfo)
+        this.cardInfo.visible = false;
 
         this.localMousePosition = { x: 0, y: 0 }
         //this.gridContainer.y = -100
@@ -74,6 +81,12 @@ export default class DeckController extends GameObject {
             this.gridView.mouseUp();
             if (this.gridView.slotOver) {
                 this.gridView.slotOver.mouseOut();
+                if (this.originData && this.originData.i == this.gridView.slotOver.i && this.originData.j == this.gridView.slotOver.j) {
+                    this.fromGridCard.visible = false;
+                    this.holdingData = null;
+                    this.gridView.slotOver = null;
+                    return;
+                }
             }
             if (!this.cardHolding) {
                 if (this.holdingData) {
@@ -87,28 +100,23 @@ export default class DeckController extends GameObject {
                                 onSlotEquipment = slotData
                             }
                             if (onSlotEquipment && onSlotEquipment.item.id == this.holdingData.item.id) {
-                                
                                 this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
-                                //this.player.sessionData.addEquipment(onSlotEquipment, this.originData.i, this.originData.j);
                                 this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
-                                //this.player.sessionData.removeEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
                             } else {
                                 this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                                 if (onSlotEquipment) {
                                     this.player.sessionData.addEquipment(onSlotEquipment, this.originData.i, this.originData.j);
-                                }else{
+                                } else {
                                     this.player.sessionData.removeEquipment(this.originData.i, this.originData.j);
                                 }
-
                             }
-
                         }
                     }
                     this.fromGridCard.visible = false;
                     this.holdingData = null;
                 }
-
                 this.gridView.slotOver = null;
+                this.holdingData = null;
                 return;
             }
             this.cardHolding.interactive = true;
@@ -121,9 +129,8 @@ export default class DeckController extends GameObject {
                     onSlotEquipment = slotData
                 }
 
-                
                 if (onSlotEquipment) {
-                                        
+
                     if (onSlotEquipment && onSlotEquipment.item.id == this.holdingData.item.id) {
                         this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                     } else {
@@ -143,7 +150,7 @@ export default class DeckController extends GameObject {
                             }
                         }
                     }
-                }else{
+                } else {
                     let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
 
                     if (weaponData) {
@@ -151,7 +158,6 @@ export default class DeckController extends GameObject {
                     } else {
                         this.player.sessionData.addEquipment(this.holdingData, this.gridView.slotOver.i, this.gridView.slotOver.j);
                     }
-    
                 }
                 //complete card drop
                 this.openDeckButton.visible = true;
@@ -160,13 +166,15 @@ export default class DeckController extends GameObject {
 
             } else {
                 this.handCards.splice(this.cardHolding.id, 0, this.cardHolding);
+
             }
-            this.cardHolding = null;
             for (let i = 0; i < this.handCards.length; i++) {
                 this.handCards[i].id = i;
                 this.cardsContainer.addChild(this.handCards[i]);
             }
             this.gridView.slotOver = null;
+            this.cardHolding = null;
+            this.holdingData = null;
         })
 
         this.holdingData = null;
@@ -275,12 +283,47 @@ export default class DeckController extends GameObject {
     checkGridCollision() {
         this.localMousePosition.x = this.input.localMousePosition.x - Game.Screen.width / 2 - this.gridContainer.x
         this.localMousePosition.y = this.input.localMousePosition.y - Game.Screen.height / 2 - this.gridContainer.y
-        this.gridView.findMouseCollision(this.localMousePosition);
+
+        if (window.isMobile) {
+            if (this.input.mouseDown) {
+                this.gridView.findMouseCollision(this.localMousePosition);
+            } else {
+                this.gridView.slotOver = null;
+            }
+        } else {
+            this.gridView.findMouseCollision(this.localMousePosition);
+        }
+
+
+        //this is ugly
+        if (this.gridView.slotOver && !this.gridView.slotOver.isTrash) {
+            let slotData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
+
+            if (this.holdingData && this.holdingData.item == slotData.item) {
+                this.cardInfo.visible = false;
+                this.cardInfo.pivot.x = Utils.lerp(this.cardInfo.pivot.x, -this.cardInfo.width * 0.5, 0.1);
+
+            } else {
+                if (slotData.item) {
+                    if (this.holdingData) {
+                        this.cardInfo.pivot.x = Utils.lerp(this.cardInfo.pivot.x, -this.cardInfo.width * 1.5, 0.1);
+                    } else {
+                        this.cardInfo.pivot.x = Utils.lerp(this.cardInfo.pivot.x, -this.cardInfo.width * 0.5, 0.1);
+                    }
+                    this.cardInfo.setData(slotData.item)
+                    this.cardInfo.visible = true;
+                } else {
+                    this.cardInfo.visible = false;
+                }
+            }
+        } else {
+            this.cardInfo.visible = false;
+        }
     }
     update(delta, unscaleDelta) {
 
-        this.gridContainer.x = -this.gridContainer.width / 2 + 60
-        this.gridContainer.y = -this.gridContainer.height / 2 - 100
+        this.gridContainer.x = -this.gridView.gridWidth / 2
+        this.gridContainer.y = -this.gridView.gridHeight / 2 - 100
         this.checkGridCollision();
 
         let targetY = Game.Screen.height / 2 + this.offsetDeck;
@@ -302,6 +345,10 @@ export default class DeckController extends GameObject {
             this.fromGridCard.rotation = Utils.angleLerp(this.fromGridCard.rotation, 0, 0.5)
             this.fromGridCard.x = this.input.localMousePosition.x - Game.Screen.width / 2
             this.fromGridCard.y = this.input.localMousePosition.y - Game.Screen.height / 2
+        }
+        if (this.cardInfo) {
+            this.cardInfo.x = this.input.localMousePosition.x - Game.Screen.width / 2
+            this.cardInfo.y = this.input.localMousePosition.y - Game.Screen.height / 2
         }
         if (this.handCards.length) {
 

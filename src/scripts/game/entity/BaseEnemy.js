@@ -53,20 +53,6 @@ export default class BaseEnemy extends GameAgent {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
 
-        // let spriteSheet = this.addComponent(GameViewSpriteSheet);
-        // let animData1 = {}
-        // let run = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.run);
-        // if (run) {
-        //     animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
-        // } else {
-        //     animData1[GameViewSpriteSheet.AnimationType.Running] = animData1[GameViewSpriteSheet.AnimationType.Idle];
-        // }
-        // animData1[GameViewSpriteSheet.AnimationType.Idle] = GameStaticData.instance.getSharedDataById('animation', enemyData.animationData.idle).animationData
-
-        // spriteSheet.setData(animData1);
-        // spriteSheet.update(0.1);
-        // spriteSheet.update(0.1);
-
         this.makeAnimations(this.staticData)
 
         if (this.viewData.anchor) {
@@ -81,6 +67,10 @@ export default class BaseEnemy extends GameAgent {
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
 
+
+        if (this.staticData.weapon) {
+            this.addWeaponData(EntityBuilder.instance.getWeapon(this.staticData.weapon.id))
+        }
 
 
         // this.lifeBar = this.engine.poolGameObject(EntityLifebar)
@@ -128,7 +118,6 @@ export default class BaseEnemy extends GameAgent {
         }
     }
     update(delta) {
-
         if (!this.dying) {
             if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000) {
                 this.destroy();

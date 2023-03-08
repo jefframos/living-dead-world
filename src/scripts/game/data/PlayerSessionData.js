@@ -84,12 +84,14 @@ export default class PlayerSessionData {
     }
     addEquipment(equipment, i, j) {
         if(this.equipmentList[i][j].item == equipment.item){
-            this.equipmentList[i][j].level ++;
+            this.equipmentList[i][j].level += (equipment.level + 1);
         }else{
-            this.equipmentList[i][j].level = equipment.level;
+            if(this.equipmentList[i][j].item){
+                this.equipmentList[i][j].level = equipment.level;
+            }
         }
-        this.equipmentList[i][j].item = equipment.item
 
+        this.equipmentList[i][j].item = equipment.item
         this.equipmentList[i][j].item.ingameData = this.equipmentList[i][j];
 
         this.equipmentUpdate();
@@ -98,8 +100,8 @@ export default class PlayerSessionData {
         if(this.equipmentList[i][j].item){
             this.equipmentList[i][j].item.ingameData = null;
         }
-        this.equipmentList[i][j].item = null;
         this.equipmentList[i][j].level = 0;
+        this.equipmentList[i][j].item = null;
         this.equipmentUpdate();
     }
     getEquipment(i, j) {
@@ -117,8 +119,6 @@ export default class PlayerSessionData {
                 }
                 if (ingameData.item.entityData.type == EntityData.EntityDataType.Attribute) {
                     this.attributesMultiplier.addMultiplyer(ingameData.item.attributeEffect, Utils.findValueByLevel(ingameData.item.modifierValue, ingameData.level));
-
-                    console.log( this.attributesMultiplier)
                 }
             }
         }

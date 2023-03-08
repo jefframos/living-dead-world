@@ -42,7 +42,7 @@
         "id": "BURN_ON_SHOOT",
         "interval": 0,
         "isRelative": true,
-        "chance": 0.5,
+        "chance": [0.15, 0.2, 0.25],
         "value": 0,
         "timeActive": 999999,
         "type": "Health",

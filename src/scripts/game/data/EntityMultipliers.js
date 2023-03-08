@@ -11,6 +11,7 @@ export default class EntityMultipliers {
         this.damageZone = 1;
         this.basePiercing = 0;
         this.baseAmount = 0;
+        this.baseCollectionRadius = 1;
         this.level = 0;
         this.writeDefaults();
     }
@@ -52,6 +53,9 @@ export default class EntityMultipliers {
             return attribute[level]
         }
         return attribute
+    }
+    get collectionRadius() {
+        return this.findAttributeValue('baseCollectionRadius');
     }
     get piercing() {
         return this.findAttributeValue('basePiercing');

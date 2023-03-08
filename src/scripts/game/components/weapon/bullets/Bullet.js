@@ -30,7 +30,7 @@ export default class Bullet extends PhysicsEntity {
         this.onHit = new signals.Signal;
         //   this.setDebug(15)
     }
-    build(weapon, parent) {
+    build(weapon, parent, fromPlayer) {
         super.build()
         this.weapon = weapon;
         if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.BaseLayer) {
@@ -73,8 +73,14 @@ export default class Bullet extends PhysicsEntity {
 
         this.normalizedKillTime = 1;
 
-        this.layerCategory = Layer.Bullet
-        this.layerMask = Layer.BulletCollision
+        //console.log(fromPlayer)
+        if(fromPlayer){
+            this.layerCategory = Layer.Bullet
+            this.layerMask = Layer.BulletCollision
+        }else{
+            this.layerCategory = Layer.EnemyBullet
+            this.layerMask = Layer.EnemyBulletCollision
+        }
 
         this.rigidBody.isSensor = true
 
@@ -117,7 +123,6 @@ export default class Bullet extends PhysicsEntity {
 
     }
     collisionEnter(collided) {
-
         if (collided.rigidBody.isSensor) {
             return;
         }

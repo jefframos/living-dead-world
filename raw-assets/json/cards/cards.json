@@ -87,7 +87,7 @@
         },
         "weaponId": "MINIGUN_01",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "FIREBALL_HOAMING_CARD",
@@ -96,7 +96,7 @@
         },
         "weaponId": "FIREBALL_HOAMING",
         "tier": 3,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "BOOMERANG_AXE_CARD",
@@ -105,7 +105,7 @@
         },
         "weaponId": "BOOMERANG_AXE",
         "tier": 2,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "MELEE_SWORD_CARD",
@@ -123,7 +123,7 @@
         },
         "weaponId": "ICE_SHARD_THROWER",
         "tier": 2,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "ORBIT_CARD",
@@ -168,7 +168,7 @@
         },
         "weaponId": "BOUNCE",
         "tier": 2,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "LASER_CARD",
@@ -186,7 +186,7 @@
         },
         "weaponId": "FALL_NUKE",
         "tier": 2,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "FLY_DRONE",
@@ -213,7 +213,7 @@
         },
         "companionId": "SNIPER_DRONE",
         "tier": 3,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "LAND_MINE_DRONE",
@@ -222,7 +222,7 @@
         },
         "companionId": "LAND_MINE_DRONE",
         "tier": 3,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "LASER_DRONE",
@@ -231,7 +231,7 @@
         },
         "companionId": "LASER_DRONE",
         "tier": 4,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "ATTACK_MODIFIER",
@@ -285,7 +285,7 @@
         },
         "attributeId": "AMOUNT_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "PIERCE_MODIFIER",
@@ -294,7 +294,7 @@
         },
         "attributeId": "PIERCE_MODIFIER",
         "tier": 1,
-        "enabled": false
+        "enabled": true
     },
     {
         "id": "RADIUS_MODIFIER",
@@ -304,6 +304,15 @@
         "attributeId": "RADIUS_MODIFIER",
         "tier": 1,
         "enabled": false
+    },
+    {
+        "id": "MAGNET_MODIFIER",
+        "entityData": {
+            "type": "Attribute"
+        },
+        "attributeId": "COLLECTION_MODIFIER",
+        "tier": 1,
+        "enabled": true
     },
     {
         "id": "HEALING_RING",

@@ -15,9 +15,6 @@ export default class SpriteSheetGameView extends BaseComponent {
         this.particle = Pool.instance.getElement(Particle);
 
         this.idTest = SpriteSheetGameView.total
-
-        this.text = new PIXI.Text('');
-        this.text.style.fill = '#FFFFFF';
         SpriteSheetGameView.total++
     }
     enable() {
@@ -50,13 +47,10 @@ export default class SpriteSheetGameView extends BaseComponent {
             this.colorOverride = 0xFFFFFF;
         }
 
-        this.gameObject.gameView.view.addChild(this.text)
     }
     update(delta) {
         if (this.particle) {
             delta *= Eugine.PhysicsTimeScale;
-           // console.log(this.idTest)
-           this.text.text = this.idTest
             this.particle.update(delta);
             if (!this.particle.behaviours[0].isLoop && this.particle.behaviours[0].normalTime >= 1) {
                 this.gameObject.gameView.view.texture = PIXI.Texture.EMPTY;

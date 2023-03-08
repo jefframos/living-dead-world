@@ -27,7 +27,7 @@ export default class Collectable extends GameObject {
         if(!this.player){
             return;
         }
-        if (Vector3.distance(this.transform.position, this.player.transform.position) < 50) {
+        if (Vector3.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius) {
             this.player.sessionData.addXp(1)
             this.destroy()
         }

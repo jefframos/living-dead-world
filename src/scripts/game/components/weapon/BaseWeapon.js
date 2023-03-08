@@ -1,5 +1,6 @@
 import AttributeData from "../../data/AttributeData";
 import Bullet from "./bullets/Bullet";
+import Companion from "../../entity/Companion";
 import EffectsManager from "../../manager/EffectsManager";
 import EntityAttributes from "../../data/EntityAttributes";
 import EntityMultipliers from "../../data/EntityMultipliers";
@@ -36,11 +37,18 @@ export default class BaseWeapon extends PhysicsEntity {
 
         this.attributesMultiplier = new EntityMultipliers();
 
+        this.isPlayer = false;
+
     }
     getClosestEnemy(from, distanceLimit = 999999) {
         let target = from ? from.transform : this.transform
         let shootAngle = 0;
-        let closest = GameManager.instance.findClosestEnemy(target.position) || this
+        let closest = this;
+        if(!this.isPlayer){
+            closest = GameManager.instance.player
+        }else{
+            closest = GameManager.instance.findClosestEnemy(target.position) || this
+        }
         if (closest != this && Vector3.distance(closest.transform.position, this.transform.position) > distanceLimit) {
             closest = this;
         }
@@ -100,10 +108,17 @@ export default class BaseWeapon extends PhysicsEntity {
             this.weaponData = new WeaponData();
         }
         
-        if( this.parent instanceof  Player){
+        if( this.parent instanceof Player){
+            this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
         }else{
+            this.isPlayer = false;
             this.attributesMultiplier.reset();
+        }
+
+
+        if( this.parent instanceof Companion){
+            this.isPlayer = true;
         }
 
         weaponData.addMultiplier(this.attributesMultiplier);
@@ -191,7 +206,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
             let bullet = this.engine.poolGameObject(weapon.bulletBehaviourComponent)
             bullet.spawnAngle = ang;
-            bullet.build(weapon, parentGameObject);
+            bullet.build(weapon, parentGameObject, this.isPlayer);
             bullet.originWeapon = this;
 
             bullet.onSpawn.add(this.spawnBullet.bind(this))

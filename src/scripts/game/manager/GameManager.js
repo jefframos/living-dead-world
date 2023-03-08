@@ -39,39 +39,42 @@ export default class GameManager {
         this.levelStructure = {
             phases: [
                 {
-                    duration: 60,
-                    spawnData: [{
-                        id: 0,
-                        max: 20,
-                        spawnParameters: {
-                            areaType: EnemyGlobalSpawner.SpawnAreaType.Point
+                    duration: 100,
+                    spawnData: [
+
+                        {
+                            id: 2,
+                            max: 15,
+                            spawnParameters: {
+                                limitSpawn: 0,
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Rect,
+                                width: 100,
+                                height: 100,
+                                total: 15
+                            }
                         }
-                    },
-                    {
-                        id: 1,
-                        max: 15,
-                        spawnParameters: {
-                            limitSpawn: 0,
-                            areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                            radius: 150,
-                            total: 30
-                        }
-                    },
-                    {
-                        id: 2,
-                        max: 15,
-                        spawnParameters: {
-                            limitSpawn: 0,
-                            areaType: EnemyGlobalSpawner.SpawnAreaType.Rect,
-                            width: 100,
-                            height: 100,
-                            total: 15
-                        }
-                    }],
+                    ],
                 },
                 {
                     duration: 80,
                     spawnData: [
+                        {
+                            id: 0,
+                            max: 100,
+                            spawnParameters: {
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Point
+                            }
+                        },
+                        {
+                            id: 4,
+                            max: 1,
+                            spawnParameters: {
+                                limitSpawn: 0,
+                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
+                                radius: 150,
+                                total: 1
+                            }
+                        },
                         {
                             id: 1,
                             max: 100,
@@ -89,7 +92,7 @@ export default class GameManager {
                     spawnData: [
                         {
                             id: 0,
-                            max: 200,
+                            max: 80,
                             spawnParameters: {
                                 limitSpawn: 0,
                                 areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
@@ -100,7 +103,7 @@ export default class GameManager {
                         },
                         {
                             id: 2,
-                            max: 200,
+                            max: 80,
                             spawnParameters: {
                                 limitSpawn: 0,
                                 areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
@@ -199,12 +202,10 @@ export default class GameManager {
     }
 
     entityKilled(health, value) {
-        if (Math.random() > 0.3) return;
+        if (Math.random() > 0.8) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
-        // this.gameManagerStats.GMenemiesDeaths++;
-        // EffectsManager.instance.popKill(entity.gameObject, value)
     }
     findClosestEnemy(point) {
         let closest = 0;

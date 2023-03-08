@@ -52,60 +52,36 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
-	},
-	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
-	},
-	{
-	"id":"player-animation",
-	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
 	"id":"entity-animation",
 	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\entities\\attribute-modifiers.json"
+	"id":"player-animation",
+	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"enemies",
-	"url":"assets/json\\entities\\enemies.json"
+	"id":"attribute-modifiers",
+	"url":"assets/json\\entities\\attribute-modifiers.json"
 	},
 	{
 	"id":"companions",
 	"url":"assets/json\\entities\\companions.json"
 	},
 	{
+	"id":"enemies",
+	"url":"assets/json\\entities\\enemies.json"
+	},
+	{
 	"id":"players",
 	"url":"assets/json\\entities\\players.json"
 	},
 	{
-	"id":"entity-particle-descriptor",
-	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
-	},
-	{
-	"id":"effects-descriptors",
-	"url":"assets/json\\vfx\\effects-descriptors.json"
-	},
-	{
-	"id":"entity-ss-vfx",
-	"url":"assets/json\\vfx\\entity-ss-vfx.json"
-	},
-	{
-	"id":"vfx-behaviours",
-	"url":"assets/json\\vfx\\vfx-behaviours.json"
-	},
-	{
-	"id":"weapon-ss-vfx-packs",
-	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
-	},
-	{
-	"id":"weapon-ss-vfx",
-	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"acessories",
@@ -116,16 +92,40 @@ const assets = [
 	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
+	"id":"effects-descriptors",
+	"url":"assets/json\\vfx\\effects-descriptors.json"
+	},
+	{
+	"id":"entity-particle-descriptor",
+	"url":"assets/json\\vfx\\entity-particle-descriptor.json"
+	},
+	{
+	"id":"entity-ss-vfx",
+	"url":"assets/json\\vfx\\entity-ss-vfx.json"
+	},
+	{
+	"id":"weapon-ss-vfx-packs",
+	"url":"assets/json\\vfx\\weapon-ss-vfx-packs.json"
+	},
+	{
+	"id":"weapon-ss-vfx",
+	"url":"assets/json\\vfx\\weapon-ss-vfx.json"
+	},
+	{
+	"id":"vfx-behaviours",
+	"url":"assets/json\\vfx\\vfx-behaviours.json"
+	},
+	{
 	"id":"main-weapons",
 	"url":"assets/json\\weapons\\main-weapons.json"
 	},
 	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
 	"id":"weapon-ingame-view",
 	"url":"assets/json\\weapons\\weapon-ingame-view.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	}
 ];
 

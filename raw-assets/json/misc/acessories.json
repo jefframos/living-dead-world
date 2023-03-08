@@ -2,7 +2,7 @@
     {
         "id": "HEALING_RING",
         "entityData": {
-            "icon": "healing-donnut",
+            "icon": "healing-ring",
             "name": "Healing Ring",
             "type": "Acessory",
             "tier": 1
@@ -12,7 +12,7 @@
     {
         "id": "POISON_SHOOT",
         "entityData": {
-            "icon": "healing-donnut",
+            "icon": "poison-icon",
             "name": "Poison",
             "type": "Acessory",
             "tier": 1
@@ -22,7 +22,7 @@
     {
         "id": "BURN_SHOOT",
         "entityData": {
-            "icon": "vfx_burning_1",
+            "icon": "burn-icon",
             "name": "Burn",
             "type": "Acessory",
             "tier": 1

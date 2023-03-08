@@ -163,6 +163,15 @@
         "viewData": "bounceBomb"
     },
     {
+        "id": "ENEMY_BULLET",
+        "viewData": "pistol6bullet",
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": 10,
+        "scale": 1.5
+    },
+    {
         "id": "TRANSPARENT",
         "alpha": 0
     }

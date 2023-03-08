@@ -16,7 +16,7 @@ export default class CardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['square_0001','square_0002','square_0003','square_0004','square_0005']
+        this.textures = ['tier-0-card_1','tier-1-card_1','tier-2-card_1','tier-3-card_1','tier-4-card_1']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
@@ -48,7 +48,9 @@ export default class CardView extends PIXI.Container {
 
         this.label = new PIXI.Text('', window.LABELS.LABEL1)
         this.cardContainer.addChild(this.label);
-        this.label.style.wordWrap = width * 0.8
+        this.label.style.wordWrap = true
+        this.label.style.wordWrapWidth = width * 0.7
+        this.label.style.fontSize = 14
         this.label.anchor.set(0.5)
         this.label.x = width / 2
         this.label.y = height / 2 + 30

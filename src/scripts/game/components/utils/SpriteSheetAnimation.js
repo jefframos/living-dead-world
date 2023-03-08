@@ -8,6 +8,7 @@ export default class SpriteSheetAnimation {
         this.currentLayerID = 0;
         this.animationState = {}
         this.animationFinish = new signals.Signal();
+        this.isPlaying = false;
     }
     reset() {
         this.currentLayer = null;
@@ -15,6 +16,9 @@ export default class SpriteSheetAnimation {
         this.init = false;
         this.currentLayerID = 0;
         this.animationState = {}
+        this.currentLoop = false;
+
+        this.stop();
     }
     addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
         let animLayer = {
@@ -49,7 +53,13 @@ export default class SpriteSheetAnimation {
 
         this.currentState = state;
     }
-    play(state) {
+    stop(){
+        this.currentAnimation = null;
+        this.currentState = "";
+        this.isPlaying = false;
+    }
+    play(state, loop = true) {
+        this.currentLoop = loop;
         if (this.currentState == state) return;
         this.currentState = state;
         this.setLayer(this.currentLayerID)
@@ -57,6 +67,10 @@ export default class SpriteSheetAnimation {
             this.currentAnimation.currentFrame = 0
             this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime
         }
+        this.isPlaying = true;
+    }
+    playOnce(state) {
+        this.play(state, false)
     }
     setLayer(id) {
         if (id >= 0) {
@@ -80,8 +94,10 @@ export default class SpriteSheetAnimation {
             }
         }
 
-        if (!this.currentAnimation.loop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
+        if (!this.currentLoop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
             this.animationFinish.dispatch(this.currentAnimation, this.currentState);
+           this.stop();
+            return;
         }
         this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
     }
@@ -97,6 +113,10 @@ export default class SpriteSheetAnimation {
         return this.currentAnimation.anchor 
     }
     get currentFrame() {
-        return this.currentAnimation.animationFrames[this.currentAnimation.currentFrame];
+        return this.currentAnimation ? this.currentAnimation.animationFrames[this.currentAnimation.currentFrame] : null;
+    }
+
+    get currentTexture() {
+        return this.currentFrame ? PIXI.Texture.from(this.currentFrame) : PIXI.Texture.EMPTY;
     }
 }

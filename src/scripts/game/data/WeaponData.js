@@ -26,7 +26,7 @@ export default class WeaponData {
         this._ingameData = null;
     }
     set ingameData(value){
-        this.weaponAttributes.level = value.level;
+        this.weaponAttributes.level = value?value.level:0;
     }
     get level(){
         return this.weaponAttributes.level;

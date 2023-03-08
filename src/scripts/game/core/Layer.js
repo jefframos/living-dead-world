@@ -5,17 +5,29 @@ export default class Layer {
     static Nothing = 0;
     static Everything = 1;
     static Default = 2;
-    static Player = 0b0001;
-    static Enemy = 0b0011;
-    static Environment = 0b0010;
-    static Bullet = 0b0100;
-    static Sensor = 0b0101;
-    static FlightCompanion = 0b1001;
+    static Player = 1 << 1;
+    static Enemy = 1 << 2;
+    static Environment = 1 << 3;
+    static Bullet = 1 << 4;
+    static Sensor = 1 << 5;
+    static FlightCompanion = 1 << 6;
+    static EnemyBullet = 1 << 7;
+    
+    // static Player = 0b0001;
+    // static Enemy = 0b0011;
+    // static Environment = 0b0010;
+    // static Bullet = 0b0100;
+    // static Sensor = 0b0101;
+    // static FlightCompanion =  0b0111;
+    // static EnemyBullet =0b1001;
 
     static EnvironmentCollision = Layer.Player | Layer.Default | Layer.Enemy | Layer.Bullet
-    static PlayerCollision = Layer.Environment | Layer.Default | Layer.Enemy
-    static EnemyCollision = Layer.Environment | Layer.Default | Layer.Player | Layer.Bullet | Layer.Sensor
+
+    static PlayerCollision = Layer.Environment | Layer.Default | Layer.Enemy | Layer.EnemyBullet
+    static EnemyCollision = Layer.Bullet | Layer.Environment | Layer.Default | Layer.Player | Layer.Sensor  | Layer.Enemy
+
     static BulletCollision = Layer.Environment | Layer.Default | Layer.Enemy
+    static EnemyBulletCollision = Layer.Environment | Layer.Default | Layer.Player
 
     constructor(name, container, sortable = true) {
         this.layerName = name;

@@ -450,7 +450,7 @@
             "baseFrequency": 3,
             "basePiercing": 1,
             "baseAmount": 1,
-            "baseDirectionType": "ParentAngle",
+            "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 5,
             "baseBrustFireInterval": 0.5,
@@ -705,12 +705,12 @@
             "baseSpawnDistance": 20,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
-            "basePower": 1,
+            "basePower": 10,
             "baseBulletSpeed": 300,
-            "baseFrequency": [1, 0.2],
-            "basePiercing": 2,
+            "baseFrequency": 0.3,
+            "basePiercing": 1,
             "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemy",
+            "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 0,
             "baseBrustFireInterval": 0,
@@ -728,6 +728,50 @@
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
                 "baseViewData": "DAGGER_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "ENEMY_MINIGUN_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "minigun",
+            "name": "Minigun"
+        },
+        "isMain": true,
+        "ingameViewData": "MINIGUN_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "DAGGER_ROTATOR_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 200,
+            "basePower": 10,
+            "baseBulletSpeed": 50,
+            "baseFrequency": 1,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "AngularSequence",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0.6,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "ENEMY_BULLET"
             }
         }
     },

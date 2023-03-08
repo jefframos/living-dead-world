@@ -6,7 +6,8 @@ export default class InGameWeapon {
         this.onUpdateWeapon = new signals.Signal();
     }
     addWeaponFirst(weapon){
-        let clone = weapon.clone();
+        let clone = weapon.item.clone();
+        clone.ingameData = weapon;
         if(this.stackWeapons.length > 0){
             this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
         }
@@ -15,9 +16,22 @@ export default class InGameWeapon {
 
         this.onUpdateWeapon.dispatch();
     }
-    addWeapon(weapon){
+    addWeaponFromData(weapon){
 
         let clone = weapon.clone();
+        clone.ingameData = weapon;
+        if(this.stackWeapons.length > 0){
+            this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
+        }
+        
+        this.stackWeapons.push(clone);
+
+        this.onUpdateWeapon.dispatch();
+    }
+    addWeapon(weapon){
+
+        let clone = weapon.item.clone();
+        clone.ingameData = weapon;
         if(this.stackWeapons.length > 0){
             this.stackWeapons[this.stackWeapons.length - 1].addWeaponOnDestroy(clone);
         }

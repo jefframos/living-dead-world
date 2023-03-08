@@ -10,16 +10,17 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 10,
+            "basePower": 15,
             "baseHealth": 80,
             "baseMagicDefense": 2,
             "baseMass": 1,
-            "baseDefense": 8,
+            "baseDefense": 5,
             "baseRadius": 10,
-            "baseSpeed": 15
+            "baseSpeed": 10
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
+            "hasView": true,
             "jumpHight": 0,
             "scale": 2
         },
@@ -43,16 +44,17 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 5,
+            "basePower": 12,
             "baseHealth": 15,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 30
+            "baseSpeed": 20
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
+            "hasView": true,
             "jumpHight": 20,
             "scale": 1.5
         },
@@ -76,22 +78,92 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 8,
-            "baseHealth": 80,
+            "basePower": 10,
+            "baseHealth": 90,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 10
+            "baseSpeed": 8
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
+            "hasView": true,
             "jumpHight": 0,
             "scale": 2
         },
         "animationData": {
             "idle": "RAT_02",
             "run": "RAT_02"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
+    },
+    {
+        "id": "GREEN_ENEMY",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 2
+        },
+        "attributes": {
+            "basePower": 20,
+            "baseHealth": 100,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 10,
+            "baseRadius": 20,
+            "baseSpeed": 12
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "anchor": {
+                "x": 0.3,
+                "y": 1
+            },
+            "scale": 1.5
+        },
+        "animationData": {
+            "idle": "GREEN_ENEMY_WALK",
+            "run": "GREEN_ENEMY_WALK"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
+    },
+    {
+        "id": "PUNK_ENEMY",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 2
+        },
+        "weapon": {
+            "id": "ENEMY_MINIGUN_01"
+        },
+        "attributes": {
+            "basePower": 20,
+            "baseHealth": 100,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 10,
+            "baseRadius": 20,
+            "baseSpeed": 12
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "anchor": {
+                "x": 0.3,
+                "y": 1
+            },
+            "scale": 1.5
+        },
+        "animationData": {
+            "idle": "PUNK_ENEMY_WALK",
+            "run": "PUNK_ENEMY_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",

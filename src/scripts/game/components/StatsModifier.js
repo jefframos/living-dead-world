@@ -7,7 +7,6 @@ import GameView from '../core/view/GameView';
 import ParticleDescriptor from './particleSystem/ParticleDescriptor';
 import RenderModule from '../core/modules/RenderModule';
 import SpriteSheetAnimation from './utils/SpriteSheetAnimation';
-import SpriteSheetGameView from './SpriteSheetGameView';
 import Utils from '../core/utils/Utils';
 import signals from 'signals';
 
@@ -48,11 +47,15 @@ export default class StatsModifier extends GameObject {
         this.interval = this.statModifierData.interval;
     }
     build(data) {
+
+        this.view = this.gameObject.gameView.view;
+
         this.statModifierData = data;
         this.activeDescriptor = this.statModifierData.descriptor
 
-        if (this.spriteSheet) {
-            this.spriteSheet.destroy();
+        if (this.spritesheetAnimation) {
+            this.spritesheetAnimation.reset();
+            this.spritesheetAnimation.stop();
         }
 
         this.effectOnHit = null
@@ -63,15 +66,11 @@ export default class StatsModifier extends GameObject {
 
             if (dataVfx) {
                 this.mainDescriptor = GameStaticData.instance.getDescriptor(dataVfx);
-                
-                if(this.statModifierData.vfxAlt){
 
-                    console.log(GameStaticData.instance.getDataById('vfx', 'entityVfxPack',dataVfx))
-                }else{
-
-                    console.log(GameStaticData.instance.getDataById('vfx', 'weaponVFX',dataVfx))
-
-                    this.setData(GameStaticData.instance.getDataById('vfx', 'weaponVFX',dataVfx))
+                if (this.statModifierData.vfxAlt) {
+                    this.setData(GameStaticData.instance.getSharedDataById('vfx', dataVfx))
+                } else {
+                    this.setData(GameStaticData.instance.getSharedDataById('vfx', dataVfx))
                 }
                 if (!this.statModifierData.vfxSpawnOnAction) {
                     this.spawnVfx();
@@ -95,38 +94,35 @@ export default class StatsModifier extends GameObject {
     }
 
     setData(data) {
-        this.view = this.gameObject.gameView.view;
-        
+
         this.spritesheetAnimation.reset();
-        console.log(data)
-console.log("MOVING WEAPON IS ALSO BROKEN")
-        this.spritesheetAnimation.addLayer(key, data.spriteName, data);                
-        // for (const key in data) {
-        //     if (Object.hasOwnProperty.call(data, key)) {
-        //         const element = data[key];
-        //     }
-        // }
-        this.view.texture = PIXI.Texture.from(this.spritesheetAnimation.currentFrame)
+
+        const animData = {
+            time: data.time / (data.endFrame - data.startFrame),
+            loop: data.loop,
+            anchor: data.anchor,
+            totalFramesRange: { min: data.startFrame, max: data.endFrame },
+            addZero: data.addZero
+        }
+
+        this.spritesheetAnimation.addLayer('default', data.spriteName, animData);
+
+        this.spritesheetAnimation.stop();
+
+        this.view.texture = this.spritesheetAnimation.currentTexture
     }
 
     spawnVfx() {
-        console.log(this.mainDescriptor.baseBehaviours[0].params.spriteName)
+        if (this.statModifierData.vfxSpawnOnAction) {
+            this.spritesheetAnimation.playOnce('default')
+        } else {
 
-        // if (this.spriteSheet) {
-        //     this.spriteSheet.restart();
-        //     return;
-        // }
-        // this.spriteSheet = this.gameObject.addComponent(SpriteSheetGameView);
-        // this.spriteSheet.setDescriptor(this.mainDescriptor, { anchor: { x: 0.5, y: 1 } })
-        
-        this.gameView.view.anchor.set(0.5, 1)
-        this.gameView.view.visible = false;
-        this.gameView.view.texture = PIXI.Texture.from(this.mainDescriptor.baseBehaviours[0].params.spriteName + 1);
-
+            this.spritesheetAnimation.play('default')
+        }
     }
     weaponHitted(target) {
-        if (Math.random() > this.statModifierData.chance) {
-            //return;
+        if (Math.random() > Utils.findValueByLevel(this.statModifierData.chance, this.level)) {
+            return;
         }
         if (this.statModifierData.actionType == StatsModifier.StatActionType.OnHitEnemy) {
             if (target && !target.isDead) {
@@ -150,7 +146,7 @@ console.log("MOVING WEAPON IS ALSO BROKEN")
                     return;
                 }
                 this.parent.heal(-value, this.statModifierData.customFont);
-            } else  if (value > 0) {
+            } else if (value > 0) {
                 this.parent.damage(value, this.statModifierData.customFont);
             }
 
@@ -161,25 +157,6 @@ console.log("MOVING WEAPON IS ALSO BROKEN")
         }
     }
 
-   
-    // update(delta) {
-    //     if(!this.spriteSheet){
-    //         return;
-    //     }
-    //     this.spriteSheet.update(delta);
-    //     if(this.spriteSheet.currentFrame){
-    //         this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
-    //         this.view.anchor = this.spriteSheet.anchor;
-    //     }
-
-    //     if (this.gameObject.physics.magnitude > 0) {
-    //         this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running)
-    //     } else {
-    //         this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle)
-    //     }
-
-    // }
-
     update(delta) {
         super.update(delta);
 
@@ -188,6 +165,19 @@ console.log("MOVING WEAPON IS ALSO BROKEN")
 
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z + 1
+
+
+        if (this.spritesheetAnimation && this.spritesheetAnimation.isPlaying) {
+            this.spritesheetAnimation.update(delta);
+            this.view.texture = this.spritesheetAnimation.currentTexture
+            if (this.spritesheetAnimation.currentAnimation) {
+                this.view.anchor.x = this.spritesheetAnimation.anchor.x;
+                this.view.anchor.y = this.spritesheetAnimation.anchor.y;
+            }
+        } else {
+            this.view.texture = PIXI.Texture.EMPTY;
+        }
+
 
         if (this.parent.isDestroyed || this.actionTime <= 0) {
             this.destroy();
