@@ -9,11 +9,11 @@ import Companion from '../entity/Companion';
 import EffectsManager from '../manager/EffectsManager';
 import Eugine from '../core/Eugine';
 import Game from '../../Game';
-import GameManager from '../manager/GameManager';
 import GameStaticData from '../data/GameStaticData';
 import GameplaySessionController from '../manager/GameplaySessionController';
 import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
+import LevelManager from '../manager/LevelManager';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
 import PlayerInventoryHud from '../inventory/view/PlayerInventoryHud';
@@ -80,7 +80,7 @@ export default class GameScreen extends Screen {
         this.followPoint = new Vector3();
         this.camera.setFollowPoint(this.followPoint)
 
-        this.gameManager = new GameManager(this.gameEngine);
+        this.levelManager = new LevelManager(this.gameEngine);
 
         this.debug = {
             timeScale: 1,
@@ -222,8 +222,8 @@ export default class GameScreen extends Screen {
         }
     }
     killAllEnemies() {
-        for (let index = this.gameManager.activeEnemies.length - 1; index >= 0; index--) {
-            const element = this.gameManager.activeEnemies[index];
+        for (let index = this.levelManager.activeEnemies.length - 1; index >= 0; index--) {
+            const element = this.levelManager.activeEnemies[index];
             element.destroy();
         }
 
@@ -239,13 +239,13 @@ export default class GameScreen extends Screen {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        //this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-        this.player = this.gameManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar!== undefined?window.customChar:Math.floor(Math.random() * 7)))
+        //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
+        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar!== undefined?window.customChar:Math.floor(Math.random() * 7)))
         this.gameSessionController.playerReady()
         this.player.refreshEquipment()
         this.player.setPositionXZ(0, 0)
         
-        this.gameManager.start(this.player);
+        this.levelManager.start(this.player);
         //this.playerInventoryHud.registerPlayer(this.player)
 
         let angle = Math.PI * 2 * Math.random();
@@ -283,10 +283,10 @@ export default class GameScreen extends Screen {
             for (let indexj = 0; indexj <= j; indexj++) {
                 let targetPosition = { x: chunkX * index - 500 + (Math.random() * chunkX / 2), y: chunkY * indexj - 500 + (Math.random() * chunkY / 2) }
                 if (Math.random() < 0.5) {
-                    this.gameManager.addEntity(Trees, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
+                    this.levelManager.addEntity(Trees, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 } else {
 
-                    this.gameManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
+                    this.levelManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 }
             }
         }
@@ -328,9 +328,9 @@ export default class GameScreen extends Screen {
     }
     update(delta) {
         delta *= this.debug.timeScale;
-        this.gameManager.update(delta * Eugine.TimeScale)
+        this.levelManager.update(delta * Eugine.TimeScale)
         this.gameEngine.update(delta)
-        this.gameManager.lateUpdate(delta * Eugine.TimeScale)
+        this.levelManager.lateUpdate(delta * Eugine.TimeScale)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length

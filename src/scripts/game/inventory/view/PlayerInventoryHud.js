@@ -2,10 +2,10 @@ import * as PIXI from 'pixi.js';
 
 import BaseBarView from '../../components/ui/progressBar/BaseBarView';
 import Game from '../../../Game';
-import GameManager from '../../manager/GameManager';
 import GameObject from '../../core/gameObject/GameObject';
 import GameStaticData from "../../data/GameStaticData";
 import GameView from '../../core/view/GameView';
+import LevelManager from '../../manager/LevelManager';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
@@ -193,7 +193,7 @@ export default class PlayerInventoryHud extends GameObject {
     }
 
     update(delta) {
-        this.timer.text = Utils.floatToTime(Math.floor(GameManager.instance.gameplayTime));
+        this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.gameplayTime));
 
         this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
         this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20

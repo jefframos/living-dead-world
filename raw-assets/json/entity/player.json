@@ -1,6 +1,7 @@
 [
     {
         "id": "LOGAN_JETT",
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -36,6 +37,7 @@
     },
     {
         "id": "JOSIE_KIWI",
+        "enabled": false,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -71,6 +73,7 @@
     },
     {
         "id": "SMOKER_RICK",
+        "enabled": false,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -106,6 +109,7 @@
     },
     {
         "id": "JOHN_BARD",
+        "enabled": false,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -141,6 +145,7 @@
     },
     {
         "id": "TAMAS_UNBORKERER",
+        "enabled": false,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -176,6 +181,7 @@
     },
     {
         "id": "JIMMY",
+        "enabled": false,
         "entityData": {
             "type": "Player",
             "tier": 1
@@ -208,6 +214,7 @@
     },
     {
         "id": "DANIEL_COOLER",
+        "enabled": false,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,

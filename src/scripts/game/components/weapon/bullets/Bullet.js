@@ -1,7 +1,7 @@
 import BaseEnemy from "../../../entity/BaseEnemy";
 import BaseWeapon from "../BaseWeapon";
 import EffectsManager from "../../../manager/EffectsManager";
-import GameManager from "../../../manager/GameManager";
+import GameManager from "../../../manager/LevelManager";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
@@ -74,6 +74,7 @@ export default class Bullet extends PhysicsEntity {
         this.normalizedKillTime = 1;
 
         //console.log(fromPlayer)
+        this.fromPlayer = fromPlayer;
         if(fromPlayer){
             this.layerCategory = Layer.Bullet
             this.layerMask = Layer.BulletCollision

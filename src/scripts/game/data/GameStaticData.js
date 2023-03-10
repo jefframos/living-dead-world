@@ -20,11 +20,13 @@ export default class GameStaticData {
 
     initialize() {
         let loadList = [
+            { type: 'level', list: 'waves-level-1', path: ['enemy-wave-01'] },
+            
             { type: 'misc', list: 'acessories', path: ['acessories'] },
             { type: 'misc', list: 'buffs', path: ['buff-debuff'] },
             
             { type: 'entities', list: 'enemy', path: ['enemies'] },
-            { type: 'entities', list: 'player', path: ['players'] },
+            { type: 'entities', list: 'player', path: ['player'] },
             { type: 'entities', list: 'companions', path: ['companions'] },
 
             { type: 'cards', list: 'cards', path: ['cards'] },
@@ -32,19 +34,19 @@ export default class GameStaticData {
 
             { type: 'weapons', list: 'main', path: ['main-weapons'] },
             { type: 'weapons', list: 'viewOverriders', path: ['weapon-view-overriders'] },
-            { type: 'weapons', list: 'inGameView', path: ['weapon-ingame-view'] },
+            { type: 'weapons', list: 'inGameView', path: ['weapon-in-game-visuals'] },
 
             { type: 'animation', list: 'entity', path: ['entity-animation'], shared: true },
             { type: 'animation', list: 'player', path: ['player-animation'], shared: true },
             { type: 'animation', list: 'companion', path: ['companion-animation'], shared: true },
 
-            { type: 'vfx', list: 'weaponVFX', path: ['weapon-ss-vfx'], shared: true },
-            { type: 'vfx', list: 'entityVFXPack', path: ['entity-ss-vfx'], shared: true },
+            { type: 'vfx', list: 'weaponVFX', path: ['weapon-vfx'], shared: true },
+            { type: 'vfx', list: 'entityVFXPack', path: ['general-vfx'], shared: true },
 
-            { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-ss-vfx-packs'] },
+            { type: 'vfx', list: 'weaponVFXPack', path: ['weapon-vfx-pack'] },
             //{ type:'vfx',list: 'particleDescriptors', path: ['entity-particle-descriptor'] },
-            { type: 'vfx', list: 'particleDescriptors', path: ['effects-descriptors'] },
-            { type: 'vfx', list: 'behaviours', path: ['vfx-behaviours'] },
+            { type: 'vfx', list: 'particleDescriptors', path: ['particle-descriptors'] },
+            { type: 'vfx', list: 'behaviours', path: ['particle-behaviour'] },
         ]
 
         loadList.forEach(element => {
@@ -53,7 +55,7 @@ export default class GameStaticData {
                     sharedData: {}
                 };
             }
-            if (!this.staticAssets[element.type][element.list]) {
+            if (!this.staticAssets[element.type][element.list] && element.list !== undefined) {
                 this.staticAssets[element.type][element.list] = {
                     allElements: []
                 };
@@ -95,6 +97,9 @@ export default class GameStaticData {
         } else {
             return data;
         }
+    }
+    getWaves(level = 'waves-level-1'){
+        return this.getAllDataFrom('level', level);
     }
     getAllCards() {
         return this.getAllDataFrom('cards', 'cards');

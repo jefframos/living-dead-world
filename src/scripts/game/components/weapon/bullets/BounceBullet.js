@@ -1,5 +1,5 @@
 import Bullet from "./Bullet";
-import GameManager from "../../../manager/GameManager";
+import GameManager from "../../../manager/LevelManager";
 import Shadow from "../../view/Shadow";
 import Vector3 from "../../../core/gameObject/Vector3";
 
@@ -9,8 +9,8 @@ export default class BounceBullet extends Bullet {
         this.sin = 0;
         this.rotation = 0;
     }
-    build(weapon, parent) {
-        super.build(weapon, parent);
+    build(weapon, parent, fromPlayer) {
+        super.build(weapon, parent, fromPlayer);
         this.addChild(this.engine.poolGameObject(Shadow))
 
         this.rotation = 0;

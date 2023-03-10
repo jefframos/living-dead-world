@@ -1,6 +1,7 @@
 import Beam from "./Beam";
 import Bullet from "./Bullet";
 import EffectsManager from "../../../manager/EffectsManager";
+import Layer from "../../../core/Layer";
 import Utils from "../../../core/utils/Utils";
 import Vector3 from "../../../core/gameObject/Vector3";
 
@@ -8,15 +9,20 @@ export default class LaserBeam extends Bullet {
     constructor() {
         super();
     }
-    build(weapon, parent) {
-        super.build(weapon, parent)
+    build(weapon, parent, fromPlayer) {
+        super.build(weapon, parent, fromPlayer)
         this.target = weapon;
 
 
         this.beam = this.engine.poolGameObject(Beam)
         this.beam.onCollisionEnter.add(this.onSensorCollisionEnter.bind(this))
+        this.beam.onCollisionExit.add(this.onSensorCollisionExit.bind(this))
         this.beam.build(this.weapon.weaponAttributes.detectionZone, this.weapon.weaponAttributes.radius * 2, { x: 0, y: 0.5 })
         this.addChild(this.beam);
+
+        this.beam.layerCategory = this.layerCategory
+        this.beam.layerMask = Layer.Sensor + Layer.Enemy
+
 
         this.source = parent;
         this.collisionList = []
@@ -24,18 +30,17 @@ export default class LaserBeam extends Bullet {
             this.source = this.spawnParent.parent;
         }
         this.angleModifier = 0;
-
-
-
         this.beamDistance = 20;
-
         this.beam.show();
 
         this.beam.transform.position.y = -20
 
     }
+    onSensorCollisionExit(collided) {
+        this.collisionExit(collided);
+    }
     onSensorCollisionEnter(collided) {
-      
+
         this.collisionEnter(collided)
 
         if (collided.dying || collided.destroyed) {
@@ -49,9 +54,18 @@ export default class LaserBeam extends Bullet {
         let end;
         this.beamDistance = Utils.lerp(this.beamDistance, this.weapon.weaponAttributes.detectionZone / 2, 0.05)
         if (this.fromWeapon) {
+
+            if (this.fromPlayer) {
+                if (this.source.physics.magnitude == 0) {
+                    this.angle = this.source.latestAngle;
+                } else {
+                    this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)
+                }
+            } else {
+                this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)
+            }
             //if is related with player >>> this.source.physics.magnitude != 0 || 
             //this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, this.angleModifier ? 0.1 : 1)
-            this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)
             // if (this.angleModifier == 0) {
             //     this.angleModifier = 1;
             // } else {

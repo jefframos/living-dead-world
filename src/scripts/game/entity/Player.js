@@ -67,6 +67,7 @@ export default class Player extends GameAgent {
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
 
+        //this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData['LASER']), 1, 0)
         this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
     build(playerData) {
@@ -132,7 +133,6 @@ export default class Player extends GameAgent {
         this.gameView.applyScale();
         this.anchorOffset = 0
 
-        //this.addComponent(FlashOnDamage)
         this.addComponent(SpriteJump).jumpHight = 5
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1

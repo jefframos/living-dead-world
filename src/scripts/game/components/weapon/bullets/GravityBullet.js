@@ -5,8 +5,8 @@ export default class GravityBullet extends Bullet {
     constructor() {
         super();
     }
-    build(weapon, parent) {
-        super.build(weapon, parent)
+    build(weapon, parent, fromPlayer) {
+        super.build(weapon, parent, fromPlayer)
 
         this.target = weapon;
 

@@ -6,12 +6,14 @@ import GameStaticData from "../data/GameStaticData";
 import Layer from "../core/Layer";
 import Player from "../entity/Player";
 import PlayerSessionData from "../data/PlayerSessionData";
+import Pool from "../core/utils/Pool";
+import SessionSpawner from "./spawn/SessionSpawner";
 import Vector3 from "../core/gameObject/Vector3";
 
-export default class GameManager {
+export default class LevelManager {
     static instance;
     constructor(engine) {
-        GameManager.instance = this;
+        LevelManager.instance = this;
         this.gameEngine = engine;
         this.gameplayEntities = [];
         this.entityRegister = [];
@@ -32,92 +34,16 @@ export default class GameManager {
         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
-
-
         this.gameplayTime = 0;
 
-        this.levelStructure = {
-            phases: [
-                {
-                    duration: 100,
-                    spawnData: [
-
-                        {
-                            id: 2,
-                            max: 15,
-                            spawnParameters: {
-                                limitSpawn: 0,
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Rect,
-                                width: 100,
-                                height: 100,
-                                total: 15
-                            }
-                        }
-                    ],
-                },
-                {
-                    duration: 80,
-                    spawnData: [
-                        {
-                            id: 0,
-                            max: 100,
-                            spawnParameters: {
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Point
-                            }
-                        },
-                        {
-                            id: 4,
-                            max: 1,
-                            spawnParameters: {
-                                limitSpawn: 0,
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 150,
-                                total: 1
-                            }
-                        },
-                        {
-                            id: 1,
-                            max: 100,
-                            spawnParameters: {
-                                limitSpawn: 0,
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 50,
-                                total: 5
-                            }
-
-                        }],
-                },
-                {
-                    duration: 120,
-                    spawnData: [
-                        {
-                            id: 0,
-                            max: 80,
-                            spawnParameters: {
-                                limitSpawn: 0,
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 400,
-                                total: 80
-                            }
-
-                        },
-                        {
-                            id: 2,
-                            max: 80,
-                            spawnParameters: {
-                                limitSpawn: 0,
-                                areaType: EnemyGlobalSpawner.SpawnAreaType.Circle,
-                                radius: 400,
-                                total: 50
-                            }
-
-                        }],
-                }
-            ],
-        }
+        this.currentLevelWaves = GameStaticData.instance.getWaves();
+        
+        this.levelStructure = { phases: [] }
+        this.currentLevelWaves.forEach(element => {
+            this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
+        });
+       
         this.currentPhase = 0;
-        console.log('when registering, some times i remove the events that are beign used in other places')
-
         this.init = false;
     }
     start(player) {
@@ -135,6 +61,7 @@ export default class GameManager {
         }
         this.collectables = [];
         this.activeEnemies = [];
+        this.activeSpawners = [];
         this.entitiesByType = {}
     }
     onPlayerLevelUp(xpData) {
@@ -202,7 +129,7 @@ export default class GameManager {
     }
 
     entityKilled(health, value) {
-        if (Math.random() > 0.8) return;
+        if (Math.random() > 0.3) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
@@ -233,10 +160,15 @@ export default class GameManager {
             return;
         }
 
-        if (this.gameplayTime > 0.5) {
-            this.updateLevelPhase();
-        }
         this.gameManagerStats.Phase = this.currentPhase
+        if (this.gameplayTime > 0.5 && delta > 0) {            
+            for (var i = 0; i < this.levelStructure.phases.length; i++){
+                const phase = this.levelStructure.phases[i];
+                if(phase.startAt < this.gameplayTime && (phase.startAt + phase.duration) > this.gameplayTime ){
+                    this.updateLevelPhase(phase)
+                }
+            }
+        }
 
         for (var i = this.collectables.length - 1; i >= 0; i--) {
             if (this.collectables[i].isDestroyed) {
@@ -250,22 +182,14 @@ export default class GameManager {
         this.gameManagerStats.Time = this.gameplayTime
     }
 
-    updateLevelPhase() {
-        if (window.noEnemy) return;
-        let phase = this.levelStructure.phases[this.currentPhase];
-        if (this.gameplayTime > phase.duration && this.currentPhase < this.levelStructure.phases.length - 1) {
-            this.currentPhase++
-            this.currentPhase %= this.levelStructure.phases.length;
-        }
+    updateLevelPhase(phase) {
+        if (window.noEnemy || !phase) return;
         phase.spawnData.forEach(spawnerData => {
-            let enemyData = GameStaticData.instance.getEntityByIndex('enemy', spawnerData.id)
-            if (!enemyData) {
-                console.log('No enemy data', spawnerData);
-                return;
-            }
-            if (!this.entitiesByType[enemyData.id] ||
-                this.entitiesByType[enemyData.id].length < spawnerData.max) {
-                this.spawnEnemy(spawnerData);
+            if (spawnerData.canSpawn) {
+                if (!this.entitiesByType[spawnerData.entityId] ||
+                    this.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
+                    this.spawnEnemy(spawnerData);
+                }
             }
         });
 

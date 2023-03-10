@@ -14,6 +14,7 @@ export default class PhysicsEntity extends GameObject {
         this.autoSetAngle = true;
         this.appliedForce = new Vector3()
         this.friction = 0.1;
+        this.latestAngle = 0;
     }
 
     get bodyID() {
@@ -111,7 +112,9 @@ export default class PhysicsEntity extends GameObject {
         if (this.autoSetAngle && this.physics.magnitude > 0) {
             this.transform.angle = Math.atan2(this.physics.velocity.z, this.physics.velocity.x);
         }
-
+        if (this.physics.magnitude > 0) {
+            this.latestAngle = this.transform.angle;
+        }
         this.physics.unscaleVelocity.x = this.physics.velocity.x / delta;
         this.physics.unscaleVelocity.z = this.physics.velocity.z / delta;
 

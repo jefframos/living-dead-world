@@ -7,6 +7,7 @@ export default class Sensor extends PhysicsEntity {
         super();
         this.onTrigger = new signals.Signal();
         this.onCollisionEnter = new signals.Signal();
+        this.onCollisionExit = new signals.Signal();
         this.collisionList = []
 
         
@@ -28,6 +29,7 @@ export default class Sensor extends PhysicsEntity {
         if (collidedID >= 0) {
             this.collisionList.splice(collidedID, 1)
         }
+        this.onCollisionExit.dispatch(collided)
     }
     collisionStay(collided) {
         if (collided.rigidBody.isStatic) return

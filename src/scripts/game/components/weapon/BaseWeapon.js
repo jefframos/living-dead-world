@@ -5,7 +5,7 @@ import EffectsManager from "../../manager/EffectsManager";
 import EntityAttributes from "../../data/EntityAttributes";
 import EntityMultipliers from "../../data/EntityMultipliers";
 import EntityViewData from "../../data/EntityViewData";
-import GameManager from "../../manager/GameManager";
+import GameManager from "../../manager/LevelManager";
 import GameView from "../../core/view/GameView";
 import Layer from "../../core/Layer";
 import ParticleDescriptor from "../particleSystem/ParticleDescriptor";

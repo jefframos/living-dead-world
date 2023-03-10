@@ -29,8 +29,7 @@ export default class Beam extends Sensor {
 
         this.rigidBody.isSensor = true;
         this.autoSetAngle = false;
-        this.layerCategory = Layer.Sensor
-        this.layerMask = Layer.Enemy - Layer.Player
+        
         this.beamView.build(this.beamWidth, 0)
         this.beamView.visible = false;
     }
