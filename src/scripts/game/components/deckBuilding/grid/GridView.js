@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import Game from '../../../../Game';
 import GridSlotView from './GridSlotView';
+import Utils from '../../../core/utils/Utils';
 
 export default class GridView extends PIXI.Container {
     constructor() {
@@ -10,7 +11,7 @@ export default class GridView extends PIXI.Container {
         this.addChild(this.gridContainer)
     }
     makeGrid(equipmentList) {
-        let gridWidth = 100
+        let gridWidth = 150
         this.slotOver = null;
         for (let i = this.gridContainer.children.length - 1; i >= 0; i--) {
             this.gridContainer.removeChildAt(i)
@@ -23,10 +24,11 @@ export default class GridView extends PIXI.Container {
         for (var i = 0; i < equipmentList.length; i++) {
             let temp = [];
             for (var j = 0; j < equipmentList[i].length; j++) {
-                let gridView = new GridSlotView();
+                let gridView = new GridSlotView(gridWidth,gridWidth*1.05);
                 this.gridContainer.addChild(gridView)
-                gridView.x = i * (gridWidth + 5)
-                gridView.y = j * (gridWidth + 5)
+                let odd = i % 2 == 0;
+                gridView.x = i * (gridWidth * 0.75 + 5)
+                gridView.y = j * (gridWidth + 5) + (odd ? -gridWidth*0.5 : 0)
                 gridView.i = i
                 gridView.j = j
                 temp.push(gridView);
@@ -74,7 +76,8 @@ export default class GridView extends PIXI.Container {
 
         this.gridSlots.forEach(element => {
             element.update()
-            if (this.isPointInsideAABB(mousePosition, element)) {
+            //if (this.isPointInsideAABB(mousePosition, element)) {
+            if (this.isOnRadius(mousePosition, element)) {
                 temp = element
             }
         });
@@ -90,7 +93,9 @@ export default class GridView extends PIXI.Container {
             this.slotOver.mouseOver();
         }
     }
-
+    isOnRadius(point, target) {
+        return Utils.distance(point.x, point.y, target.x + target.width/2, target.y+ target.height/2) < 55;
+    }
     isPointInsideAABB(point, box) {
         return (
             point.x >= box.x &&

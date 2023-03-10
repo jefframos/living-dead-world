@@ -66,13 +66,13 @@ window.console.groupCollapsed = function (teste) {
 window.MAX_NUMBER = 1000000;
 
 window.MAIN_FONT = 'fredokaone'
-window.SEC_FONT = 'poppins'
+window.SEC_FONT = 'poppinsbold'
 
 
 
 window.LABELS = {};
 window.LABELS.LABEL1 = {
-    fontFamily: window.MAIN_FONT,
+    fontFamily: window.SEC_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',    

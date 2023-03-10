@@ -6,23 +6,23 @@ import Utils from '../../../core/utils/Utils';
 import signals from 'signals';
 
 export default class GridSlotView extends PIXI.Container {
-    constructor(width = 100, height = 100) {
+    constructor(width = 110, height = 112) {
         super()
 
-        this.slotTexture = 'grid-slot'
-        this.slotTrashTexture = 'slot-trash'
+        this.slotTexture = 'new-slot0001'
+        this.slotTrashTexture = 'new-slot0004'
         this.textures = ['tier-0-card_1', 'tier-1-card_1', 'tier-2-card_1', 'tier-3-card_1', 'tier-4-card_1']
 
 
         this.container = new PIXI.Container();
         this.addChild(this.container)
 
-        this.cardBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.slotTexture), 20, 20, 20, 20);
+        this.cardBackground = new PIXI.Sprite.from(this.slotTexture)//new PIXI.NineSlicePlane(PIXI.Texture.from(this.slotTexture), 20, 20, 20, 20);
         this.container.addChild(this.cardBackground);
         this.cardBackground.width = width
         this.cardBackground.height = height
 
-        this.backAlpha = 0.5
+        this.backAlpha = 1//0.5
         this.cardBackground.alpha =this.backAlpha
 
         this.onMouseEnter = new signals.Signal();
@@ -40,7 +40,7 @@ export default class GridSlotView extends PIXI.Container {
         this.container.addChild(this.cardImage);
         this.cardImage.anchor.set(0.5)
         this.cardImage.x = width / 2
-        this.cardImage.y = height / 2 + 5
+        this.cardImage.y = height / 2 - 5
 
         this.text = new PIXI.Text('')
         //this.container.addChild(this.text)
@@ -57,7 +57,7 @@ export default class GridSlotView extends PIXI.Container {
         this.cardImage.alpha = 1
     }
     mouseOver() {
-        this.cardBackground.alpha = 0.9
+        this.cardBackground.alpha = 0.8
     }
     mouseOut() {
         this.cardBackground.alpha =this.backAlpha
@@ -81,7 +81,7 @@ export default class GridSlotView extends PIXI.Container {
     }
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 60))
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 80))
     }
 
     setData(cardData) {
@@ -90,7 +90,7 @@ export default class GridSlotView extends PIXI.Container {
             this.updateTexture(this.cardData.entityData.icon)
             this.text.text = "Level " + (cardData.level + 1)
         }
-        this.cardBackground.texture = PIXI.Texture.from(this.textures[cardData.level+1]);
+        this.cardBackground.texture = PIXI.Texture.from('new-slot0003');
         this.updateLevelStars(cardData.level + 1);
     }
     update() {
