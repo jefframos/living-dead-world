@@ -27,8 +27,8 @@
             "scale": 1.5
         },
         "animationData": {
-            "idle": "LOGAN_IDLE",
-            "run": "LOGAN_WALK"
+            "idle": "JESUS_IDLE",
+            "run": "JESUS_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -37,7 +37,7 @@
     },
     {
         "id": "JOSIE_KIWI",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -73,7 +73,7 @@
     },
     {
         "id": "SMOKER_RICK",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -109,7 +109,7 @@
     },
     {
         "id": "JOHN_BARD",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -145,7 +145,7 @@
     },
     {
         "id": "TAMAS_UNBORKERER",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,
@@ -181,7 +181,7 @@
     },
     {
         "id": "JIMMY",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "type": "Player",
             "tier": 1
@@ -214,7 +214,7 @@
     },
     {
         "id": "DANIEL_COOLER",
-        "enabled": false,
+        "enabled": true,
         "entityData": {
             "name": "Soldier",
             "ranking": 1,

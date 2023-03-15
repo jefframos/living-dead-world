@@ -142,7 +142,7 @@
     {
         "id": "PISTOL_01",
         "ingameIcon": "pistol1",
-        "ingameBaseWidth": 15,
+        "ingameBaseWidth": 35,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -473,7 +473,7 @@
     {
         "id": "LASER",
         "ingameIcon": "laserGun1",
-        "ingameBaseWidth": 20,
+        "ingameBaseWidth": 30,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -482,7 +482,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": -0.5
+            "y": 0.5
         },
         "progressBar": {
             "active": false

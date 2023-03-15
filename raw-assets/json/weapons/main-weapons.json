@@ -442,7 +442,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 25,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,

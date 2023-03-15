@@ -103,7 +103,7 @@ export default class Player extends GameAgent {
         this.addChild(this.lifeBar)
 
         this.lifeBar.build(20, 3, 1);
-        this.lifeBar.updateView({ x: 0, y: -60 }, 0x8636f0, 0xFF0000);
+        this.lifeBar.updateView({ x: 0, y: -70 }, 0x8636f0, 0xFF0000);
 
 
         this.speed = this.attributes.speed

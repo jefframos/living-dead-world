@@ -189,7 +189,7 @@ export default class GameAgent extends PhysicsEntity {
             //console.log(this.activeStatsEffect)
         }
 
-       
+
     }
 
     lateUpdate(delta) {
@@ -209,7 +209,7 @@ export default class GameAgent extends PhysicsEntity {
         super.destroy();
 
         this.activeStatsEffect.forEach(element => {
-            if(!element.isDestroyed){
+            if (!element.isDestroyed) {
                 element.destroy();
             }
         });
@@ -243,6 +243,7 @@ export default class GameAgent extends PhysicsEntity {
         let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
 
         let run = data.animationData.run ? GameStaticData.instance.getSharedDataById('animation', data.animationData.run) : null;
+
         if (run) {
             animData1[GameViewSpriteSheet.AnimationType.Running] = run.animationData;
         } else {
