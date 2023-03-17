@@ -47,15 +47,15 @@ export default class DeckController extends GameObject {
 
 
         this.openDeckButton = new SpriteButton('large-buttons0003', 200, 80);
-        
+
         const confirmText = new PIXI.Text('CONFIRM', window.LABELS.LABEL1)
         confirmText.style.strokeThickness = 0
         confirmText.style.fontSize = 32
-        confirmText.skew.set(0.1,0)
+        confirmText.skew.set(0.1, 0)
 
-        
-        this.openDeckButton.addLabelOnCenter(confirmText, {x:-5, y:0})
-        this.openDeckButton.setColors(0x2B8DFF, 0xFF2B98)        
+
+        this.openDeckButton.addLabelOnCenter(confirmText, { x: -5, y: 0 })
+        this.openDeckButton.setColors(0x2B8DFF, 0xFF2B98)
 
         this.gameView.view.addChild(this.openDeckButton)
         this.openDeckButton.onButtonClicked.add(() => {
@@ -63,7 +63,7 @@ export default class DeckController extends GameObject {
         })
         this.openDeckButton.pivot.x = this.openDeckButton.width / 2;
         this.openDeckButton.y = 80
-        
+
         this.gameView.view.addChild(this.transitionContainer)
 
         this.fromGridCard = new GridInfoView();
@@ -217,10 +217,10 @@ export default class DeckController extends GameObject {
         this.zero = new PIXI.Graphics().beginFill(0xff0000).drawCircle(0, 0, 20)
         //this.gridContainer.addChild(this.zero);
 
-       
+
     }
-    onSameGridPosition(){
-        if(!this.originData || !this.gridView.slotOver){
+    onSameGridPosition() {
+        if (!this.originData || !this.gridView.slotOver) {
             return false;
         }
         return this.originData && this.originData.i == this.gridView.slotOver.i && this.originData.j == this.gridView.slotOver.j
@@ -250,7 +250,7 @@ export default class DeckController extends GameObject {
 
         this.gridView.updateEquipment(data);
     }
-    cardDropped(){
+    cardDropped() {
         this.openDeckButton.visible = true;
         this.cardsContainer.visible = false;
     }
@@ -320,13 +320,13 @@ export default class DeckController extends GameObject {
         this.localMousePosition.x = this.input.localMousePosition.x - Game.Screen.width / 2 - this.gridContainer.x
         this.localMousePosition.y = this.input.localMousePosition.y - Game.Screen.height / 2 - this.gridContainer.y
 
-        console.log(this.input.mouseDown)
+        //console.log(this.input.mouseDown)
         if (window.isMobile) {
             if (this.input.mouseDown) {
-                this.gridView.findMouseCollision(this.localMousePosition);                
+                this.gridView.findMouseCollision(this.localMousePosition);
             } else {
-                this.cardInfo.visible = false;   
-                this.fromGridCard.visible = false; 
+                this.cardInfo.visible = false;
+                this.fromGridCard.visible = false;
 
             }
         } else {
@@ -341,10 +341,10 @@ export default class DeckController extends GameObject {
             let slotData = this.player.sessionData.getEquipment(this.gridView.slotOver.i, this.gridView.slotOver.j);
 
             if (this.holdingData && this.holdingData.item == slotData.item) {
-                this.cardInfo.visible = false;   
-                if(!this.onSameGridPosition()){                    
-                    console.log("MERGE")        
-                }     
+                this.cardInfo.visible = false;
+                if (!this.onSameGridPosition()) {
+                    console.log("MERGE")
+                }
             } else {
                 if (slotData.item) {
                     if (this.holdingData) {
@@ -391,7 +391,7 @@ export default class DeckController extends GameObject {
 
         this.zero.x = this.input.localMousePosition.x - Game.Screen.width / 2 + 200
         this.zero.y = this.input.localMousePosition.y - Game.Screen.height / 2
-        
+
         if (this.cardHolding) {
             this.cardHolding.rotation = Utils.angleLerp(this.cardHolding.rotation, 0, 0.5)
             this.cardHolding.x = this.input.localMousePosition.x - Game.Screen.width / 2 + 50
@@ -405,8 +405,12 @@ export default class DeckController extends GameObject {
         }
 
 
+        if (window.isPortrait) {
+            this.cardsContainer.scale.set(1.5)
+        } else {
+            this.cardsContainer.scale.set(1)
 
-        this.cardsContainer.scale.set(1.5)
+        }
 
 
         if (this.handCards.length) {

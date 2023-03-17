@@ -111,6 +111,11 @@ export default class Player extends GameAgent {
 
         this.addChild(this.engine.poolGameObject(Shadow))
 
+        let jumpy = this.addComponent(SpriteJump)
+
+        jumpy.jumpHight = 5
+        jumpy.sinSpeed = 3
+
         this.transform.angle = -Math.PI / 2
         this.layerCategory = Layer.Player
         this.layerMask = Layer.PlayerCollision
@@ -127,7 +132,7 @@ export default class Player extends GameAgent {
         }
 
         let scale = this.viewData.scale ? this.viewData.scale : 1
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+        this.gameView.view.scale.set(scale * 0.5);//Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
@@ -301,7 +306,6 @@ export default class Player extends GameAgent {
                 element.timer -= delta;
             }
         }
-
         this.playerStats.health = this.health.currentHealth
         this.playerStats.deaths = Player.Deaths
 

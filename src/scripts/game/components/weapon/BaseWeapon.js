@@ -44,9 +44,9 @@ export default class BaseWeapon extends PhysicsEntity {
         let target = from ? from.transform : this.transform
         let shootAngle = 0;
         let closest = this;
-        if(!this.isPlayer){
+        if (!this.isPlayer) {
             closest = GameManager.instance.player
-        }else{
+        } else {
             closest = GameManager.instance.findClosestEnemy(target.position) || this
         }
         if (closest != this && Vector3.distance(closest.transform.position, this.transform.position) > distanceLimit) {
@@ -100,24 +100,24 @@ export default class BaseWeapon extends PhysicsEntity {
         this.interactiveProjectiles = [];
         this.activeProjectiles = [];
 
-        
-        
+
+
         if (weaponData) {
             this.weaponData = weaponData;
         } else {
             this.weaponData = new WeaponData();
         }
-        
-        if( this.parent instanceof Player){
+
+        if (this.parent instanceof Player) {
             this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
-        }else{
+        } else {
             this.isPlayer = false;
             this.attributesMultiplier.reset();
         }
 
 
-        if( this.parent instanceof Companion){
+        if (this.parent instanceof Companion) {
             this.isPlayer = true;
         }
 
@@ -129,7 +129,7 @@ export default class BaseWeapon extends PhysicsEntity {
             this.inGameView.setContainer(this.gameView.view);
             this.inGameView.setData(this.weaponData, this);
             this.addChild(this.inGameView)
-        }else{
+        } else {
             this.inGameView = null;
         }
 
@@ -277,8 +277,19 @@ export default class BaseWeapon extends PhysicsEntity {
                     gunDistance = 0;
                 }
 
+                if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentDirection) {
+                    if(this.isPlayer){
+
+                        finalAng = parentGameObject.parent.latestAngle
+                    }else{
+
+                        finalAng = parentGameObject.latestAngle
+                    }
+                }
+
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                 bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
+
             }
 
             if (!customParent) {
@@ -296,14 +307,16 @@ export default class BaseWeapon extends PhysicsEntity {
         return spawnedBullets
     }
 
+    lateUpdate(delta) {
+        if (this.inGameView) {
+            this.inGameView.update(delta)
+        }
+    }
     update(delta) {
 
         this.x = this.parent.transform.position.x
         this.z = this.parent.transform.position.z
 
-        if (this.inGameView) {
-            this.inGameView.update(delta)
-        }
 
         if (this.debug) {
             this.debug.x = this.transform.position.x
@@ -372,7 +385,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
     }
     hitBullet(bullet, target) {
-        if(this.parent.weaponHitted){
+        if (this.parent.weaponHitted) {
             this.parent.weaponHitted(target);
         }
     }
@@ -400,7 +413,7 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: {x:baseData.viewOffset.x, y:baseData.viewOffset.y}, color: baseData.color ? baseData.color : 0xFFFFFF })
+                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF })
             } else {
                 EffectsManager.instance.emitParticles(
                     { x: target.x + baseData.viewOffset.x, y: target.z + baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)

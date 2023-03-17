@@ -73,7 +73,7 @@
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 30,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 10,
@@ -702,7 +702,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -1392,7 +1392,7 @@
             "baseAmount": 1,
             "baseDetectionZone": 150,
             "baseDamageOverTime": 0.3,
-            "baseDirectionType": "AngularSequence",
+            "baseDirectionType": "ParentDirection",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 0,
             "baseBrustFireInterval": 0,

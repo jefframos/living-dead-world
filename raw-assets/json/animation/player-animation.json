@@ -266,9 +266,9 @@
         }
     },
     {
-        "id": "JESUS_IDLE",
+        "id": "EDWARD_IDLE",
         "animationData": {
-            "spriteName": "dude000",
+            "spriteName": "edd000",
             "params": {
                 "totalFramesRange": {
                     "min": 1,
@@ -285,13 +285,203 @@
         }
     },
     {
-        "id": "JESUS_WALK",
+        "id": "EDWARD_WALK",
         "animationData": {
-            "spriteName": "dude00",
+            "spriteName": "edd00",
             "params": {
                 "totalFramesRange": {
-                    "min": 5,
-                    "max": 10
+                    "min": 9,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "DARYL_IDLE",
+        "animationData": {
+            "spriteName": "daryl000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "DARYL_WALK",
+        "animationData": {
+            "spriteName": "daryl00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 9,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "SHERIFF_IDLE",
+        "animationData": {
+            "spriteName": "sheriff000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "SHERIFF_WALK",
+        "animationData": {
+            "spriteName": "sheriff00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 9,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "STABBY_IDLE",
+        "animationData": {
+            "spriteName": "stabby000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "STABBY_WALK",
+        "animationData": {
+            "spriteName": "stabby00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 9,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "CORN_IDLE",
+        "animationData": {
+            "spriteName": "corn000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "CORN_WALK",
+        "animationData": {
+            "spriteName": "corn00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 9,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "CHEETOS_IDLE",
+        "animationData": {
+            "spriteName": "cheetos000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "CHEETOS_WALK",
+        "animationData": {
+            "spriteName": "cheetos00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 9,
+                    "max": 14
                 },
                 "anchor": {
                     "x": 0.5,

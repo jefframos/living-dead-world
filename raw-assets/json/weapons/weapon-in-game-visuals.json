@@ -2,12 +2,16 @@
     {
         "id": "PLAYER_AURA",
         "ingameIcon": "vfx-b1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -16,12 +20,16 @@
     {
         "id": "PLAYER_AURA_OVERRIDER",
         "ingameIcon": "vfx-b1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -29,12 +37,16 @@
     },
     {
         "id": "PLAYER_CROSS_SHOT",
-        "ingameIcon": "cross",
-        "ingameBaseWidth": 15,
+        "ingameIcon": "pistol4",
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
+            "y": 0
+        },
+        "anchor": {
+            "x": 0.1,
             "y": 0
         },
         "progressBar": {
@@ -49,12 +61,16 @@
     {
         "id": "PLAYER_MULTISHOT",
         "ingameIcon": "multi",
-        "ingameBaseWidth": 15,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -68,12 +84,16 @@
     {
         "id": "PLAYER_MULTISHOT_OVERRIDER",
         "ingameIcon": "vfx-b1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -82,7 +102,7 @@
     {
         "id": "SMALL_BOMB",
         "ingameIcon": "tile_0116",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -91,7 +111,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -100,12 +120,16 @@
     {
         "id": "SMALL_BOMB_OVERRIDER",
         "ingameIcon": "vfx-b1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -114,12 +138,16 @@
     {
         "id": "BOMB_THROWER",
         "ingameIcon": "flameThrower",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -128,12 +156,16 @@
     {
         "id": "BOMB_THROWER_OVERRIDER",
         "ingameIcon": "vfx-b1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -142,12 +174,16 @@
     {
         "id": "PISTOL_01",
         "ingameIcon": "pistol1",
-        "ingameBaseWidth": 35,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -161,12 +197,16 @@
     {
         "id": "SEMI_AUTO_PISTOL_01",
         "ingameIcon": "pistol6",
-        "ingameBaseWidth": 15,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -180,12 +220,16 @@
     {
         "id": "SUB_MACHINE_GUN_01",
         "ingameIcon": "submachine1",
-        "ingameBaseWidth": 20,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -199,12 +243,16 @@
     {
         "id": "SHOTGUN_01",
         "ingameIcon": "shotgun1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -218,12 +266,16 @@
     {
         "id": "SNIPER_01",
         "ingameIcon": "sniper2",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": true,
@@ -233,12 +285,16 @@
     {
         "id": "MINIGUN_01",
         "ingameIcon": "minigun",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -247,12 +303,16 @@
     {
         "id": "DAGGER_ROTATOR_OVERRIDER",
         "ingameIcon": "tile_0106",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -261,12 +321,16 @@
     {
         "id": "FIREBALL_HOAMING",
         "ingameIcon": "hoamingGun",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -275,7 +339,7 @@
     {
         "id": "BOOMERANG_AXE",
         "ingameIcon": "boomerang",
-        "ingameBaseWidth": 20,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -284,7 +348,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -293,7 +357,7 @@
     {
         "id": "MELEE_SWORD",
         "ingameIcon": "dagger",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -302,7 +366,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -311,7 +375,7 @@
     {
         "id": "ICE_SHARD_THROWER",
         "ingameIcon": "disk",
-        "ingameBaseWidth": 10,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -320,7 +384,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -329,7 +393,7 @@
     {
         "id": "ICE_SHARD_ROTATOR",
         "ingameIcon": "disk",
-        "ingameBaseWidth": 10,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -338,7 +402,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -347,7 +411,7 @@
     {
         "id": "ORBIT",
         "ingameIcon": "orbitGreen",
-        "ingameBaseWidth": 10,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -356,7 +420,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -365,7 +429,7 @@
     {
         "id": "ORBIT_OVERRIDER",
         "ingameIcon": "orbitGreen",
-        "ingameBaseWidth": 10,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -374,7 +438,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -383,7 +447,7 @@
     {
         "id": "LIGHTNING",
         "ingameIcon": "electric-slash6",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -392,7 +456,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -401,7 +465,7 @@
     {
         "id": "ELECTRIC_SLASH_OVERRIDER",
         "ingameIcon": "hit-d3",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -410,7 +474,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -419,7 +483,7 @@
     {
         "id": "WATER_SINOID",
         "ingameIcon": "vfx-c1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -428,7 +492,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -437,7 +501,7 @@
     {
         "id": "FLASH_CIRCLE",
         "ingameIcon": "flash7",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -446,7 +510,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -455,7 +519,7 @@
     {
         "id": "BOUNCE",
         "ingameIcon": "vfx-c1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
         "viewOffset": {
@@ -464,7 +528,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.5
+            "y": 0.1
         },
         "progressBar": {
             "active": false
@@ -473,7 +537,7 @@
     {
         "id": "LASER",
         "ingameIcon": "laserGun1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
@@ -481,7 +545,7 @@
             "y": -20
         },
         "anchor": {
-            "x": 0.5,
+            "x": 0.6,
             "y": 0.5
         },
         "progressBar": {
@@ -491,12 +555,16 @@
     {
         "id": "LASER_OVERRIDER",
         "ingameIcon": "vfx-c1",
-        "ingameBaseWidth": 30,
+        "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
             "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
         },
         "progressBar": {
             "active": false

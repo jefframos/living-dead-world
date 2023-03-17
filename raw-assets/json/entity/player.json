@@ -1,6 +1,42 @@
 [
     {
-        "id": "LOGAN_JETT",
+        "id": "CORN",
+        "enabled": true,
+        "entityData": {
+            "name": "Soldier",
+            "ranking": 1,
+            "type": "Player",
+            "tier": 1
+        },
+        "title": "Logan Jett",
+        "weapon": {
+            "id": "LASER"
+        },
+        "attributes": {
+            "basePower": 10,
+            "baseHealth": 100,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 75
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 10,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "CORN_IDLE",
+            "run": "CORN_WALK"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
+    },
+    {
+        "id": "CHEETOS",
         "enabled": true,
         "entityData": {
             "name": "Soldier",
@@ -19,52 +55,16 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 20,
-            "baseSpeed": 75
-        },
-        "icon": "goblin_idle_anim_f0",
-        "view": {
-            "jumpHight": 10,
-            "scale": 1.5
-        },
-        "animationData": {
-            "idle": "JESUS_IDLE",
-            "run": "JESUS_WALK"
-        },
-        "vfx": {
-            "onHit": "BLOOD_SPLAT",
-            "onDie": "SMOKE_01"
-        }
-    },
-    {
-        "id": "JOSIE_KIWI",
-        "enabled": true,
-        "entityData": {
-            "name": "Soldier",
-            "ranking": 1,
-            "type": "Player",
-            "tier": 1
-        },
-        "title": "Logan Jett",
-        "weapon": {
-            "id": "MELEE_SWORD"
-        },
-        "attributes": {
-            "basePower": 10,
-            "baseHealth": 100,
-            "baseMagicDefense": 2,
-            "baseMass": 1,
-            "baseDefense": 8,
-            "baseRadius": 20,
             "baseSpeed": 90
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 10,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
-            "idle": "JOSIE_KIWI_IDLE",
-            "run": "JOSIE_KIWI_WALK"
+            "idle": "CHEETOS_IDLE",
+            "run": "CHEETOS_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -72,7 +72,7 @@
         }
     },
     {
-        "id": "SMOKER_RICK",
+        "id": "STABBY",
         "enabled": true,
         "entityData": {
             "name": "Soldier",
@@ -82,7 +82,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "BOMB_THROWER"
+            "id": "SUB_MACHINE_GUN_01"
         },
         "attributes": {
             "basePower": 10,
@@ -96,11 +96,11 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 10,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
-            "idle": "SMOKER_RICK_IDLE",
-            "run": "SMOKER_RICK_WALK"
+            "idle": "STABBY_IDLE",
+            "run": "STABBY_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -108,7 +108,7 @@
         }
     },
     {
-        "id": "JOHN_BARD",
+        "id": "SHERIFF",
         "enabled": true,
         "entityData": {
             "name": "Soldier",
@@ -118,7 +118,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "FIREBALL_HOAMING"
+            "id": "PLAYER_CROSS_SHOT"
         },
         "attributes": {
             "basePower": 10,
@@ -132,11 +132,11 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 10,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
-            "idle": "JOHN_BARD_IDLE",
-            "run": "JOHN_BARD_IDLE"
+            "idle": "SHERIFF_IDLE",
+            "run": "SHERIFF_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -144,7 +144,7 @@
         }
     },
     {
-        "id": "TAMAS_UNBORKERER",
+        "id": "EDWARD",
         "enabled": true,
         "entityData": {
             "name": "Soldier",
@@ -168,11 +168,11 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 10,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
-            "idle": "STRONG_JOFF_IDLE",
-            "run": "STRONG_JOFF_WALK"
+            "idle": "EDWARD_IDLE",
+            "run": "EDWARD_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -180,7 +180,7 @@
         }
     },
     {
-        "id": "JIMMY",
+        "id": "DARYL",
         "enabled": true,
         "entityData": {
             "type": "Player",
@@ -201,47 +201,11 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "jumpHight": 10,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
-            "idle": "JIMMY_IDLE",
-            "run": "JIMMY_WALK"
-        },
-        "vfx": {
-            "onHit": "BLOOD_SPLAT",
-            "onDie": "SMOKE_01"
-        }
-    },
-    {
-        "id": "DANIEL_COOLER",
-        "enabled": true,
-        "entityData": {
-            "name": "Soldier",
-            "ranking": 1,
-            "type": "Player",
-            "tier": 1
-        },
-        "title": "Logan Jett",
-        "weapon": {
-            "id": "ORBIT"
-        },
-        "attributes": {
-            "basePower": 10,
-            "baseHealth": 120,
-            "baseMagicDefense": 2,
-            "baseMass": 1,
-            "baseDefense": 8,
-            "baseRadius": 20,
-            "baseSpeed": 95
-        },
-        "icon": "goblin_idle_anim_f0",
-        "view": {
-            "jumpHight": 10,
-            "scale": 1.5
-        },
-        "animationData": {
-            "idle": "DANIEL_COOLER_IDLE",
-            "run": "DANIEL_COOLER_WALK"
+            "idle": "DARYL_IDLE",
+            "run": "DARYL_WALK"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",

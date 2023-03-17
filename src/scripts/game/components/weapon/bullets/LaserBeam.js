@@ -35,6 +35,8 @@ export default class LaserBeam extends Bullet {
 
         this.beam.transform.position.y = -20
 
+        this.update(0.1)
+
     }
     onSensorCollisionExit(collided) {
         this.collisionExit(collided);
@@ -59,7 +61,7 @@ export default class LaserBeam extends Bullet {
                 if (this.source.physics.magnitude == 0) {
                     this.angle = this.source.latestAngle;
                 } else {
-                    this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)
+                    this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.8)
                 }
             } else {
                 this.angle = Utils.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1)

@@ -20378,11 +20378,16 @@ var Player = function (_GameAgent) {
             this.addChild(this.lifeBar);
 
             this.lifeBar.build(20, 3, 1);
-            this.lifeBar.updateView({ x: 0, y: -60 }, 0x8636f0, 0xFF0000);
+            this.lifeBar.updateView({ x: 0, y: -70 }, 0x8636f0, 0xFF0000);
 
             this.speed = this.attributes.speed;
 
             this.addChild(this.engine.poolGameObject(_Shadow2.default));
+
+            var jumpy = this.addComponent(_SpriteJump2.default);
+
+            jumpy.jumpHight = 5;
+            jumpy.sinSpeed = 3;
 
             this.transform.angle = -Math.PI / 2;
             this.layerCategory = _Layer2.default.Player;
@@ -20399,7 +20404,7 @@ var Player = function (_GameAgent) {
             }
 
             var scale = this.viewData.scale ? this.viewData.scale : 1;
-            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+            this.gameView.view.scale.set(scale * 0.5); //Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
             this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
             this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
             this.gameView.applyScale();
@@ -20599,7 +20604,6 @@ var Player = function (_GameAgent) {
                     element.timer -= delta;
                 }
             }
-
             this.playerStats.health = this.health.currentHealth;
             this.playerStats.deaths = Player.Deaths;
 
@@ -27034,6 +27038,16 @@ var BaseWeapon = function (_PhysicsEntity) {
                         gunDistance = 0;
                     }
 
+                    if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ParentDirection) {
+                        if (this.isPlayer) {
+
+                            finalAng = parentGameObject.parent.latestAngle;
+                        } else {
+
+                            finalAng = parentGameObject.latestAngle;
+                        }
+                    }
+
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                     bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 }
@@ -27051,15 +27065,18 @@ var BaseWeapon = function (_PhysicsEntity) {
             return spawnedBullets;
         }
     }, {
+        key: "lateUpdate",
+        value: function lateUpdate(delta) {
+            if (this.inGameView) {
+                this.inGameView.update(delta);
+            }
+        }
+    }, {
         key: "update",
         value: function update(delta) {
 
             this.x = this.parent.transform.position.x;
             this.z = this.parent.transform.position.z;
-
-            if (this.inGameView) {
-                this.inGameView.update(delta);
-            }
 
             if (this.debug) {
                 this.debug.x = this.transform.position.x;
@@ -27636,6 +27653,7 @@ WeaponAttributes.DirectionType = {
     FacingAlternated: 'FacingAlternated',
     FacingBackwards: 'FacingBackwards',
     ParentAngle: 'ParentAngle',
+    ParentDirection: 'ParentDirection',
     Hoaming: 'Hoaming',
     ClosestEnemySnap: 'ClosestEnemySnap',
     Random: 'Random',
@@ -45380,6 +45398,7 @@ var GameAgent = function (_PhysicsEntity) {
             var idle = _GameStaticData2.default.instance.getSharedDataById('animation', data.animationData.idle).animationData;
 
             var run = data.animationData.run ? _GameStaticData2.default.instance.getSharedDataById('animation', data.animationData.run) : null;
+
             if (run) {
                 animData1[_GameViewSpriteSheet2.default.AnimationType.Running] = run.animationData;
             } else {
@@ -46979,12 +46998,13 @@ var CardView = function (_PIXI$Container) {
                 return;
             }
             this.cardData = cardData;
-            var cardID = Math.floor(Math.random() * this.texturesNew.length);
-            this.label.skew.set(this.skews[cardID].skew, 0);
-            this.label.rotation = this.skews[cardID].rotation;
-            this.label.position = this.skews[cardID].position;
+            var cardID = Math.floor(Math.random() * this.textures.length);
+            // this.label.skew.set(this.skews[cardID].skew, 0)
+            // this.label.rotation = this.skews[cardID].rotation
+            // this.label.position = this.skews[cardID].position
 
-            this.cardBackground.texture = PIXI.Texture.from(this.texturesNew[cardID]);
+
+            this.cardBackground.texture = PIXI.Texture.from(this.textures[cardID]);
             //this.cardBackground.texture = PIXI.Texture.from(this.textures[cardData.entityData.tier] || 'square_0001');
             this.updateTexture(cardData.entityData.icon);
             this.cardImage.scale.set(_Utils2.default.scaleToFit(this.cardImage, 50));
@@ -80262,7 +80282,7 @@ var GameScreen = function (_Screen) {
                 this.player.destroy();
             }
             //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-            this.player = this.levelManager.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)));
+            this.player = this.levelManager.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 6)));
             this.gameSessionController.playerReady();
             this.player.refreshEquipment();
             this.player.setPositionXZ(0, 0);
@@ -81748,7 +81768,13 @@ var WeaponInGameView = function (_GameObject) {
                 var sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
                 sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
                 sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
-                sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30));
+                if (weapon.ingameViewDataStatic.ingameBaseWidth > 0) {
+
+                    sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30));
+                } else {
+
+                    sprite.scale.set(0.5);
+                }
                 this.container.addChild(sprite);
 
                 var spring = new _Spring2.default();
@@ -81787,8 +81813,9 @@ var WeaponInGameView = function (_GameObject) {
                 spriteElement.spring.x = 0.5 * spriteElement.spring.default;
                 spriteElement.spring.tx = spriteElement.spring.default;
 
-                spriteElement.sprite.visible = true;
+                spriteElement.sprite.visible = false;
             }
+            this.calcAngle();
         }
     }, {
         key: 'calcAngle',
@@ -81813,6 +81840,11 @@ var WeaponInGameView = function (_GameObject) {
                 for (var _index = 0; _index < _totalBullets; _index++) {
                     this.spriteList[_index].targetAngle = this.parent.facingAngle;
                 }
+            } else if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ParentDirection) {
+                var _totalBullets2 = this.spriteList.length;
+                for (var _index2 = 0; _index2 < _totalBullets2; _index2++) {
+                    this.spriteList[_index2].targetAngle = this.parent.parent.latestAngle;
+                }
             }
         }
     }, {
@@ -81828,11 +81860,10 @@ var WeaponInGameView = function (_GameObject) {
                 var spriteElement = this.spriteList[index];
                 spriteElement.targetAngle = element.angle;
             }
-            this.calcAngle();
 
-            //console.log(this.parent.shootNormal)
+            this.calcAngle();
             this.spriteList.forEach(function (element) {
-                element.angle = _Utils2.default.angleLerp(element.angle, element.targetAngle, 0.1);
+                element.angle = _Utils2.default.angleLerp(element.angle, element.targetAngle, 0.8);
                 element.spring.update();
                 if (_this2.weapon.ingameViewDataStatic.inGameRotation) {
                     element.sprite.rotation += delta * _this2.weapon.ingameViewDataStatic.inGameRotation;
@@ -81850,14 +81881,31 @@ var WeaponInGameView = function (_GameObject) {
 
                 _this2.x = _this2.parent.transform.position.x;
                 if (radToAng < 265 && radToAng > 85 || radToAng >= -90 && radToAng <= -85) {
-                    _this2.z = _this2.parent.transform.position.z + 1;
+                    _this2.z = _this2.parent.transform.position.z + 2;
                 } else {
-                    _this2.z = _this2.parent.transform.position.z - 1;
+                    _this2.z = _this2.parent.transform.position.z - 2;
                 }
 
                 if (element.bar) {
                     element.bar.updateNormal(_this2.parent.shootNormal);
                     element.bar.update(delta);
+                }
+
+                element.sprite.visible = true;
+            });
+        }
+    }, {
+        key: 'lateUpdate',
+        value: function lateUpdate(delta) {
+            var _this3 = this;
+
+            this.spriteList.forEach(function (element) {
+                var radToAng = Math.round(element.sprite.rotation * 180 / Math.PI % 360);
+                _this3.x = _this3.parent.transform.position.x;
+                if (radToAng < 265 && radToAng > 85 || radToAng >= -90 && radToAng <= -85) {
+                    _this3.z = _this3.parent.transform.position.z + 4;
+                } else {
+                    _this3.z = _this3.parent.transform.position.z - 4;
                 }
             });
         }
@@ -82764,6 +82812,8 @@ var LaserBeam = function (_Bullet) {
             this.beam.show();
 
             this.beam.transform.position.y = -20;
+
+            this.update(0.1);
         }
     }, {
         key: "onSensorCollisionExit",
@@ -82793,7 +82843,7 @@ var LaserBeam = function (_Bullet) {
                     if (this.source.physics.magnitude == 0) {
                         this.angle = this.source.latestAngle;
                     } else {
-                        this.angle = _Utils2.default.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1);
+                        this.angle = _Utils2.default.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.8);
                     }
                 } else {
                     this.angle = _Utils2.default.angleLerp(this.angle, this.source.physics.angle + this.spawnAngle, 0.1);
@@ -83043,25 +83093,31 @@ var BeamView = function (_PIXI$Sprite) {
 
                 var _this = (0, _possibleConstructorReturn3.default)(this, (BeamView.__proto__ || (0, _getPrototypeOf2.default)(BeamView)).call(this));
 
-                _this.startShape = new PIXI.Sprite.from('beamBase');
+                _this.startShape = new PIXI.Sprite.from('rainbowBase');
                 _this.endShape = new PIXI.Sprite.from('endBeam');
                 _this.base = new PIXI.Sprite.from('shadow');
-
+                _this.weaponView = new PIXI.Sprite.from('laserGun1');
+                _this.weaponView.rotation = Math.PI / 2;
+                _this.weaponView.anchor.set(0.6, 0.5);
+                _this.weaponView.scale.set(0.5);
                 //this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('beam'))
-                _this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('laserBeam2'));
+                _this.textureWidth = 214;
+                _this.textureHeight = 140;
+                _this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('rainbowBody'), _this.textureWidth, _this.textureHeight);
 
                 //this.addChild(this.base)
+                //this.addChild(this.weaponView)
                 _this.addChild(_this.tiledTexture);
-                //this.addChild(this.startShape)
+                _this.addChild(_this.startShape);
                 //this.addChild(this.endShape)
 
                 _this.startShape.anchor.set(0.5);
                 _this.endShape.anchor.set(0.5);
                 _this.tiledTexture.anchor.set(0.5, 0.5);
 
-                _this.startShape.tint = 0xFF0000;
+                //this.startShape.tint = 0xFF0000
                 _this.endShape.tint = 0xFF0000;
-                _this.tiledTexture.tint = 0x00FFFF;
+                //this.tiledTexture.tint = 0x00FFFF
                 //this.startShape.alpha = 0.1
                 //this.endShape.alpha = 0.1
                 //this.tiledTexture.alpha = 0.5
@@ -83076,12 +83132,15 @@ var BeamView = function (_PIXI$Sprite) {
                         this.endShape.x = distance;
                         this.endShape.y = 0;
 
-                        this.tiledTexture.tileScale.set(this.beamHeight / 64);
-                        this.tiledTexture.width = this.beamWidth * 2 - 50 * this.tiledTexture.tileScale.y;
+                        var offset = 30;
+                        var offset2 = 25;
+                        this.tiledTexture.tileScale.set(this.beamHeight / this.textureHeight);
+                        this.tiledTexture.width = this.beamWidth * 2 - 50 * this.tiledTexture.tileScale.y - offset - offset2;
                         this.tiledTexture.height = this.beamHeight;
-                        this.tiledTexture.x = 50 * this.tiledTexture.tileScale.y + 10;
+                        this.tiledTexture.x = 50 * this.tiledTexture.tileScale.y + offset;
 
-                        this.startShape.x = -distance + 50 * this.tiledTexture.tileScale.y;
+                        this.startShape.x = -distance + 50 * this.tiledTexture.tileScale.y + offset + offset2;
+                        this.weaponView.x = this.startShape.x - offset2;
                         if (this.beamHeight) {
                                 this.startShape.scale.set(_Utils2.default.scaleToFit(this.startShape, this.beamHeight));
                                 this.endShape.scale.set(this.startShape.scale.x);
@@ -83093,6 +83152,12 @@ var BeamView = function (_PIXI$Sprite) {
 
                         this.beamWidth = width;
                         this.beamHeight = height;
+
+                        this.tiledTexture.tileScale.set(this.beamHeight / this.textureHeight);
+                        if (this.beamHeight) {
+                                this.startShape.scale.set(_Utils2.default.scaleToFit(this.startShape, this.beamHeight));
+                        }
+
                         return;
 
                         this.startShape.x = -width / 2 + 30;
@@ -83115,8 +83180,9 @@ var BeamView = function (_PIXI$Sprite) {
                 key: 'update',
                 value: function update(delta) {
                         this.tiledTexture.tilePosition.x += delta * 300;
-                        this.tiledTexture.tilePosition.x %= 64;
-                        this.tiledTexture.tilePosition.y = -2;
+                        this.tiledTexture.tilePosition.x %= this.textureWidth;
+                        //this.tiledTexture.tilePosition.y = -2;
+
                 }
         }]);
         return BeamView;
@@ -83349,14 +83415,18 @@ var BasicFloorRender = function (_GameObject) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (BasicFloorRender.__proto__ || (0, _getPrototypeOf2.default)(BasicFloorRender)).call(this));
 
         _this.gameView = new _GameView2.default();
-        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
-        _this.gameView.view.anchor.set(0.5);
-        _this.gameView.view.tileScale.set(1.5);
-        _this.gameView.view.width = 5000;
-        _this.gameView.view.height = 5000;
-        _this.gameView.view.alpha = 0.3;
 
-        _this.tileSize = 128 * _this.gameView.view.tileScale.x;
+        _this.backShape = new PIXI.Graphics().beginFill(0x785F5E).drawRect(-5000, -5000, 10000, 10000);
+        _this.gameView.view = new PIXI.Container();
+        _this.gameView.view.addChild(_this.backShape);
+        // this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
+        // this.gameView.view.anchor.set(0.5)
+        // this.gameView.view.tileScale.set(1.5)
+        // this.gameView.view.width = 5000
+        // this.gameView.view.height = 5000
+        // this.gameView.view.alpha = 0//.3
+
+        //this.tileSize = 128 * this.gameView.view.tileScale.x;
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Base;
         _this.playerTileID = { i: 0, j: 0 };
         return _this;
@@ -83369,10 +83439,10 @@ var BasicFloorRender = function (_GameObject) {
         key: "update",
         value: function update(delta) {
 
-            this.playerTileID.i = Math.floor(_Player2.default.MainPlayer.transform.position.x / this.tileSize);
-            this.playerTileID.j = Math.floor(_Player2.default.MainPlayer.transform.position.y / this.tileSize);
-            this.gameView.view.x = this.playerTileID.i * this.tileSize;
-            this.gameView.view.y = this.playerTileID.j * this.tileSize;
+            // this.playerTileID.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
+            // this.playerTileID.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
+            // this.gameView.view.x = this.playerTileID.i //* this.tileSize
+            // this.gameView.view.y = this.playerTileID.j //* this.tileSize
         }
     }]);
     return BasicFloorRender;
@@ -87141,7 +87211,7 @@ var DeckController = function (_GameObject) {
             this.localMousePosition.x = this.input.localMousePosition.x - _Game2.default.Screen.width / 2 - this.gridContainer.x;
             this.localMousePosition.y = this.input.localMousePosition.y - _Game2.default.Screen.height / 2 - this.gridContainer.y;
 
-            console.log(this.input.mouseDown);
+            //console.log(this.input.mouseDown)
             if (window.isMobile) {
                 if (this.input.mouseDown) {
                     this.gridView.findMouseCollision(this.localMousePosition);
@@ -87225,7 +87295,11 @@ var DeckController = function (_GameObject) {
                 this.holdingIcon.y = this.input.localMousePosition.y - _Game2.default.Screen.height / 2;
             }
 
-            this.cardsContainer.scale.set(1.5);
+            if (window.isPortrait) {
+                this.cardsContainer.scale.set(1.5);
+            } else {
+                this.cardsContainer.scale.set(1);
+            }
 
             if (this.handCards.length) {
                 var w = this.handCards[this.handCards.length - 1].x - this.handCards[0].x;
@@ -87495,7 +87569,7 @@ var GridView = function (_PIXI$Container) {
     (0, _createClass3.default)(GridView, [{
         key: 'makeGrid',
         value: function makeGrid(equipmentList) {
-            var gridWidth = 150;
+            var gridWidth = 130;
             this.slotOver = null;
             for (var _i = this.gridContainer.children.length - 1; _i >= 0; _i--) {
                 this.gridContainer.removeChildAt(_i);
@@ -88006,7 +88080,7 @@ var PerspectiveCamera = function (_Camera) {
             }
         }
         _this.zoom = 1;
-        _this.targetZoom = 1.5;
+        _this.targetZoom = 1;
         window.GUI.add(_this, 'targetZoom', 0.5, 3).listen();
         return _this;
     }
@@ -93949,17 +94023,17 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -93970,20 +94044,17 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -93993,6 +94064,9 @@ var assets = [{
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
@@ -94006,6 +94080,30 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
@@ -94014,30 +94112,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
 }];
 
 exports.default = assets;
@@ -94070,7 +94144,7 @@ module.exports = exports['default'];
 /* 295 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/characters/characters.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/vfx/vfx.json","image/characters/characters.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

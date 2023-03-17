@@ -105,13 +105,13 @@ export default class CardView extends PIXI.Container {
             return;
         }
         this.cardData = cardData;
-        let cardID = Math.floor(Math.random() * this.texturesNew.length)
-        this.label.skew.set(this.skews[cardID].skew, 0)
-        this.label.rotation = this.skews[cardID].rotation
-        this.label.position = this.skews[cardID].position
+        let cardID = Math.floor(Math.random() * this.textures.length)
+        // this.label.skew.set(this.skews[cardID].skew, 0)
+        // this.label.rotation = this.skews[cardID].rotation
+        // this.label.position = this.skews[cardID].position
 
 
-        this.cardBackground.texture = PIXI.Texture.from(this.texturesNew[cardID]);
+        this.cardBackground.texture = PIXI.Texture.from(this.textures[cardID]);
         //this.cardBackground.texture = PIXI.Texture.from(this.textures[cardData.entityData.tier] || 'square_0001');
         this.updateTexture(cardData.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 50))

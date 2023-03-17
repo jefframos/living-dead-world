@@ -47,6 +47,7 @@ export default class WeaponAttributes {
         FacingAlternated: 'FacingAlternated',
         FacingBackwards: 'FacingBackwards',
         ParentAngle: 'ParentAngle',
+        ParentDirection: 'ParentDirection',
         Hoaming: 'Hoaming',
         ClosestEnemySnap: 'ClosestEnemySnap',
         Random: 'Random',

@@ -11,7 +11,7 @@ export default class GridView extends PIXI.Container {
         this.addChild(this.gridContainer)
     }
     makeGrid(equipmentList) {
-        let gridWidth = 150
+        let gridWidth = 130
         this.slotOver = null;
         for (let i = this.gridContainer.children.length - 1; i >= 0; i--) {
             this.gridContainer.removeChildAt(i)

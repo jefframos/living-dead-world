@@ -41,7 +41,13 @@ export default class WeaponInGameView extends GameObject {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
             sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
             sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
-            sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
+            if (weapon.ingameViewDataStatic.ingameBaseWidth > 0) {
+
+                sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
+            } else {
+
+                sprite.scale.set(0.5)
+            }
             this.container.addChild(sprite)
 
             let spring = new Spring()
@@ -80,8 +86,9 @@ export default class WeaponInGameView extends GameObject {
             spriteElement.spring.x = 0.5 * spriteElement.spring.default;
             spriteElement.spring.tx = spriteElement.spring.default;
 
-            spriteElement.sprite.visible = true;
+            spriteElement.sprite.visible = false;
         }
+        this.calcAngle();
     }
     calcAngle() {
         if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle) {
@@ -104,22 +111,27 @@ export default class WeaponInGameView extends GameObject {
             for (let index = 0; index < totalBullets; index++) {
                 this.spriteList[index].targetAngle = this.parent.facingAngle;
             }
+        } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentDirection) {
+            const totalBullets = this.spriteList.length;
+            for (let index = 0; index < totalBullets; index++) {
+                this.spriteList[index].targetAngle = this.parent.parent.latestAngle;
+            }
         }
     }
+
     update(delta) {
         delta *= Eugine.PhysicsTimeScale;
         for (let index = 0; index < this.currentBulletList.length; index++) {
             if (index >= this.spriteList.length) continue;
-
+            
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
             spriteElement.targetAngle = element.angle;
         }
+        
         this.calcAngle();
-
-        //console.log(this.parent.shootNormal)
         this.spriteList.forEach(element => {
-            element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.1);
+            element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.8);
             element.spring.update()
             if (this.weapon.ingameViewDataStatic.inGameRotation) {
                 element.sprite.rotation += delta * this.weapon.ingameViewDataStatic.inGameRotation
@@ -139,15 +151,30 @@ export default class WeaponInGameView extends GameObject {
 
             this.x = this.parent.transform.position.x
             if ((radToAng < 265 && radToAng > 85) || (radToAng >= -90 && radToAng <= -85)) {
-                this.z = this.parent.transform.position.z + 1;
+                this.z = this.parent.transform.position.z + 2;
             } else {
-                this.z = this.parent.transform.position.z - 1;
+                this.z = this.parent.transform.position.z - 2;
             }
 
-            if(element.bar){
+            if (element.bar) {
                 element.bar.updateNormal(this.parent.shootNormal)
                 element.bar.update(delta)
             }
+
+            element.sprite.visible = true;
+        });
+    }
+
+    lateUpdate(delta){
+        this.spriteList.forEach(element => {
+            let radToAng = Math.round(((element.sprite.rotation) * 180 / Math.PI) % 360)
+            this.x = this.parent.transform.position.x
+            if ((radToAng < 265 && radToAng > 85) || (radToAng >= -90 && radToAng <= -85)) {
+                this.z = this.parent.transform.position.z + 4;
+            } else {
+                this.z = this.parent.transform.position.z - 4;
+            }
+
         });
     }
     destroy() {
