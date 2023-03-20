@@ -1,9 +1,9 @@
 import BaseBarView from '../ui/progressBar/BaseBarView';
-import BaseComponent from '../../core/gameObject/BaseComponent';
 import BaseWeapon from './BaseWeapon';
 import Eugine from '../../core/Eugine';
 import GameObject from '../../core/gameObject/GameObject';
 import GameView from '../../core/view/GameView';
+import RenderModule from '../../core/modules/RenderModule';
 import Spring from '../../core/utils/Spring';
 import Utils from '../../core/utils/Utils';
 import WeaponAttributes from '../../data/WeaponAttributes';
@@ -23,6 +23,9 @@ export default class WeaponInGameView extends GameObject {
     }
     enable() {
         super.enable();
+
+        this.renderModule = this.engine.findByType(RenderModule)
+        //this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.Default)
     }
     setContainer(container) {
         this.container = this.gameView.view//container;
@@ -37,6 +40,7 @@ export default class WeaponInGameView extends GameObject {
 
         this.spawnDistance = weapon.weaponAttributes.spawnDistance
 
+        this.defautScale = {x:1, y:1}
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
             sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
@@ -50,10 +54,13 @@ export default class WeaponInGameView extends GameObject {
             }
             this.container.addChild(sprite)
 
+            this.defautScale.x = sprite.scale.x
+            this.defautScale.y = sprite.scale.y
+
             let spring = new Spring()
-            spring.default = sprite.scale.y;
-            spring.x = sprite.scale.y;
-            spring.tx = sprite.scale.y;
+            spring.default = 1;
+            spring.x = 1;
+            spring.tx = 1;
             // sprite.visible = false;
 
             //console.log(weapon.ingameViewDataStatic)
@@ -83,8 +90,8 @@ export default class WeaponInGameView extends GameObject {
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
             spriteElement.targetAngle = element.angle;
-            spriteElement.spring.x = 0.5 * spriteElement.spring.default;
-            spriteElement.spring.tx = spriteElement.spring.default;
+            spriteElement.spring.x = 0.5;
+            spriteElement.spring.tx = 1;
 
             spriteElement.sprite.visible = false;
         }
@@ -140,21 +147,34 @@ export default class WeaponInGameView extends GameObject {
             }
 
 
-            let yScale = element.sprite.rotation < 0 ? -1 : 1
-            element.sprite.scale.y = element.spring.x// * yScale;
-            element.sprite.scale.x = (element.spring.x * 0.2 + element.spring.default * 0.8) * yScale;
+            
+            let faceDirection = 1;
+            
 
             element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
             element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
             let radToAng = Math.round(((element.sprite.rotation) * 180 / Math.PI) % 360)
 
+            let up = Math.sin(element.angle) > 0
+            let right = Math.cos(element.angle) > 0
 
             this.x = this.parent.transform.position.x
-            if ((radToAng < 265 && radToAng > 85) || (radToAng >= -90 && radToAng <= -85)) {
-                this.z = this.parent.transform.position.z + 2;
+            this.z = this.parent.transform.position.z;
+            if (up || this.isAlwaysUp) {
+                this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
             } else {
-                this.z = this.parent.transform.position.z - 2;
+                this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
             }
+
+            if(!right){
+                faceDirection = -1
+            }else{
+                faceDirection = 1
+            }
+
+            element.sprite.scale.y = element.spring.x * this.defautScale.y 
+            element.sprite.scale.x = (element.spring.x * 0.2 + this.defautScale.x * 0.8) * faceDirection;
+
 
             if (element.bar) {
                 element.bar.updateNormal(this.parent.shootNormal)
@@ -164,18 +184,8 @@ export default class WeaponInGameView extends GameObject {
             element.sprite.visible = true;
         });
     }
-
-    lateUpdate(delta){
-        this.spriteList.forEach(element => {
-            let radToAng = Math.round(((element.sprite.rotation) * 180 / Math.PI) % 360)
-            this.x = this.parent.transform.position.x
-            if ((radToAng < 265 && radToAng > 85) || (radToAng >= -90 && radToAng <= -85)) {
-                this.z = this.parent.transform.position.z + 4;
-            } else {
-                this.z = this.parent.transform.position.z - 4;
-            }
-
-        });
+    get isAlwaysUp(){
+        return this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle || this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer
     }
     destroy() {
         super.destroy();

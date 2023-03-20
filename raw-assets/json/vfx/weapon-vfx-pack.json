@@ -214,5 +214,17 @@
         "scale": 1,
         "lockRotation": true,
         "targetLayer": "BaseLayer"
+    },
+    {
+        "id": "SPERM_SHOT_PACK",
+        "vfxData": "SPERM_SHOT",
+        "viewOffset": {
+            "x": 0,
+            "y": -20,
+            "z": 0
+        },
+        "scale": 1,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
     }
 ]

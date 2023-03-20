@@ -423,7 +423,7 @@ export default class BaseWeapon extends PhysicsEntity {
             bullet.gameView.view.alpha = baseData.alpha;
             bullet.gameView.view.tint = baseData.color ? baseData.color : 0xFFFFFF;
             bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
-            bullet.gameView.viewOffset.y = baseData.viewOffset.y
+            bullet.transform.position.y = baseData.viewOffset.y
 
             let maxWidth = Math.min(baseData.maxWidth, weapon.weaponAttributes.radius * baseData.scale * 2)
             let scale = Utils.scaleToFit(bullet.gameView.view, maxWidth)

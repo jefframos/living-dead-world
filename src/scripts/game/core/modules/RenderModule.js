@@ -11,6 +11,7 @@ export default class RenderModule extends GameObject {
         Default: '_n_default',
         Floor: '_p_floor',
         Building: 'building',
+        BackLayer: '_u_back',
         Gameplay: '_u_gameplay',
         FrontLayer: '_u_front',
         Particles: 'particles'
@@ -123,6 +124,10 @@ export default class RenderModule extends GameObject {
     }
     swapLayer(entity, layer) {
 
+        if( entity.layer == layer){
+            return;
+        }
+        
         this.layers[entity.layer].removeGameView(entity)
         this.layers[layer].addGameView(entity)
 

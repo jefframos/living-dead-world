@@ -10,11 +10,11 @@
     },
     {
         "id": "PISTOL_BASE_01",
-        "viewData": "pistol1bullet",
+        "viewData": "sperm1",
         "viewOffset": {
             "y": -20
         },
-        "maxWidth": 5
+        "maxWidth": 25
     },
     {
         "id": "PISTOL_BASE_02",

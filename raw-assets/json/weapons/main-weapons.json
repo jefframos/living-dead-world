@@ -450,7 +450,7 @@
             "baseFrequency": 3,
             "basePiercing": 1,
             "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemy",
+            "baseDirectionType": "ParentDirection",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 5,
             "baseBrustFireInterval": 0.5,
@@ -464,7 +464,7 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
+            "spawnVfxPack": "SPERM_SHOT_PACK",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
                 "baseViewData": "PISTOL_BASE_01"

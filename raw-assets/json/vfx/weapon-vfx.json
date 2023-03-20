@@ -1,5 +1,9 @@
 [
     {
+        "addZero": false,
+        "loop": false
+    },
+    {
         "id": "BOMB_01",
         "spriteName": "hit-d",
         "time": 0.5,
@@ -201,5 +205,19 @@
             "y": 0.5
         },
         "loop": true
+    },
+    {
+        "id": "SPERM_SHOT",
+        "spriteName": "spermSplash000",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 5,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
     }
 ]

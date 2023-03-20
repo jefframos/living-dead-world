@@ -8,6 +8,8 @@ import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
 import Player from "../../../entity/Player";
 import RenderModule from "../../../core/modules/RenderModule";
+import Shadow from "../../view/Shadow";
+import SpriteSheetAnimation from "../../utils/SpriteSheetAnimation";
 import Utils from "../../../core/utils/Utils";
 import Vector3 from "../../../core/gameObject/Vector3";
 import WeaponAttributes from "../../../data/WeaponAttributes";
@@ -24,10 +26,13 @@ export default class Bullet extends PhysicsEntity {
         this.hitting = false;
         this.enemiesShot = [];
 
+
         this.onSpawn = new signals.Signal;
         this.onDestroy = new signals.Signal;
         this.onDestroyOnHit = new signals.Signal;
         this.onHit = new signals.Signal;
+
+        this.spritesheetAnimation = new SpriteSheetAnimation();
         //   this.setDebug(15)
     }
     build(weapon, parent, fromPlayer) {
@@ -48,6 +53,8 @@ export default class Bullet extends PhysicsEntity {
         this.originPosition = parent.transform.position.clone()
 
         this.resetEvents();
+
+
 
         this.buildCircle(0, 0, this.weapon.weaponAttributes.radius)
         //this.setDebug()
@@ -72,13 +79,14 @@ export default class Bullet extends PhysicsEntity {
         this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;
 
         this.normalizedKillTime = 1;
+        this.totalTime = this.usesTime ? this.weapon.weaponAttributes.lifeSpan : this.distanceSpan / this.speed;
 
         //console.log(fromPlayer)
         this.fromPlayer = fromPlayer;
-        if(fromPlayer){
+        if (fromPlayer) {
             this.layerCategory = Layer.Bullet
             this.layerMask = Layer.BulletCollision
-        }else{
+        } else {
             this.layerCategory = Layer.EnemyBullet
             this.layerMask = Layer.EnemyBulletCollision
         }
@@ -96,6 +104,36 @@ export default class Bullet extends PhysicsEntity {
             this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
         }
 
+        this.addChild(this.engine.poolGameObject(Shadow))
+
+
+        if (this.spritesheetAnimation) {
+            this.spritesheetAnimation.reset();
+            this.spritesheetAnimation.stop();
+        }
+
+        this.setBulletAnimation();
+        
+    }
+
+    setBulletAnimation() {
+
+        this.spritesheetAnimation.reset();
+
+        const animData = {
+            time: 0.1,
+            loop: true,
+            totalFramesRange: { min: 1, max: 3 },
+        }
+
+        this.spritesheetAnimation.addLayer('default', 'sperm000', animData);
+
+        this.spritesheetAnimation.stop();
+
+        this.gameView.view.texture = this.spritesheetAnimation.currentTexture
+
+        this.spritesheetAnimation.play('default')
+
     }
     enable() {
         super.enable();
@@ -110,12 +148,19 @@ export default class Bullet extends PhysicsEntity {
         //this.speed += this.speed * magnitude * 0.5
         this.gameView.view.rotation = this.angle + Math.PI / 2
 
+        this.gameView.view.scale.set(1);
+
 
         this.physics.velocity.x = 0
         this.physics.velocity.y = 0
         this.physics.velocity.z = 0
 
+        this.endGravity = 0;
         this.onSpawn.dispatch(this)
+
+        this.baseScale = { x: this.gameView.view.scale.x, y: this.gameView.view.scale.y }
+        this.baseAnchor = { x: this.gameView.view.anchor.x, y: this.gameView.view.anchor.y }
+        this.baseHeight = this.transform.position.y || this.viewOffset.y;
     }
     collisionExit(collided) {
         if (this.enemiesShot.filter(item => item.entity == collided).length <= 0) return;
@@ -263,6 +308,33 @@ export default class Bullet extends PhysicsEntity {
                 this.destroy()
             }
         }
+        if (this.normalizedKillTime < 0.2) {
+            let remaining = this.normalizedKillTime * this.totalTime;
+            remaining /= this.totalTime * 0.2
+            this.transform.position.y = Utils.lerp(this.baseHeight, this.baseHeight * remaining, 1);
+        }
+
+
+
+        let up = Math.sin(this.angle) > 0
+        let right = Math.cos(this.angle) > 0
+
+        let faceDirection = 1;
+        if (!right) {
+            faceDirection = -1
+        } else {
+            faceDirection = 1
+        }
+
+        //this.gameView.view.scale.y = this.baseScale.y * faceDirection
+        this.gameView.view.scale.x = this.baseScale.x * faceDirection
+
+
+        if(this.spritesheetAnimation.isPlaying){
+            this.spritesheetAnimation.update(delta);
+            this.gameView.view.texture = this.spritesheetAnimation.currentTexture
+        }
+
     }
     smoothAngle(target, delta) {
         let ang = target
@@ -274,7 +346,10 @@ export default class Bullet extends PhysicsEntity {
         this.angle = Utils.angleLerp(this.angle, ang, scale * 2);
     }
     destroy() {
+
         this.gameView.view.visible = false;
+        this.gameView.view.scale.set(1);
+
         this.onDestroy.dispatch(this);
         super.destroy();
     }
