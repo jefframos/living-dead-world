@@ -20,6 +20,23 @@ export default class SpriteSheetAnimation {
 
         this.stop();
     }
+    addFrame(state, spriteName, anchor){
+        let animLayer = {
+            currentAnimationTime: 0,
+            currentFrame: 0,
+            animationFrames: [spriteName],
+            frameTime: 1,
+            loop: 1,
+            anchor: anchor || { x: 0.5, y: 1 }
+        }
+       
+        if (!this.animationState[state] || !this.animationState[state].layers) {
+            this.animationState[state] = {}
+            this.animationState[state].layers = []
+        }
+        this.animationState[state].layers.push(animLayer)
+        this.currentAnimation = animLayer;
+    }
     addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
         let animLayer = {
             currentAnimationTime: 0,
@@ -27,7 +44,7 @@ export default class SpriteSheetAnimation {
             animationFrames: [],
             frameTime: param.time,
             loop: param.loop,
-            anchor: param.anchor || {x:0.5, y:1}
+            anchor: param.anchor || { x: 0.5, y: 1 }
         }
         for (let index = param.totalFramesRange.min; index <= param.totalFramesRange.max; index++) {
             let id = index;
@@ -53,9 +70,10 @@ export default class SpriteSheetAnimation {
 
         this.currentState = state;
     }
-    stop(){
+    stop() {
         this.currentAnimation = null;
         this.currentState = "";
+        this.secondState = "";
         this.isPlaying = false;
     }
     play(state, loop = true) {
@@ -68,6 +86,11 @@ export default class SpriteSheetAnimation {
             this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime
         }
         this.isPlaying = true;
+    }
+    playSequence(firstState, secondState) {
+        this.secondState = secondState;
+        this.playOnce(firstState);
+
     }
     playOnce(state) {
         this.play(state, false)
@@ -96,7 +119,12 @@ export default class SpriteSheetAnimation {
 
         if (!this.currentLoop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
             this.animationFinish.dispatch(this.currentAnimation, this.currentState);
-           this.stop();
+            if (this.secondState != "") {
+                this.play(this.secondState)
+                this.secondState = "";
+            } else {
+                this.stop();
+            }
             return;
         }
         this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
@@ -110,7 +138,7 @@ export default class SpriteSheetAnimation {
         this.updateAnimation(delta);
     }
     get anchor() {
-        return this.currentAnimation.anchor 
+        return this.currentAnimation.anchor
     }
     get currentFrame() {
         return this.currentAnimation ? this.currentAnimation.animationFrames[this.currentAnimation.currentFrame] : null;

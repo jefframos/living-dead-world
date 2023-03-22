@@ -13,6 +13,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -31,6 +39,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -48,6 +64,14 @@
         "anchor": {
             "x": 0.1,
             "y": 0
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": true,
@@ -72,6 +96,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": true,
             "rotation": 1.57,
@@ -95,6 +127,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -112,6 +152,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -131,6 +179,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -148,6 +204,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -167,6 +231,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -184,6 +256,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": true,
@@ -208,6 +288,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": true,
             "rotation": 1.57,
@@ -230,6 +318,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": true,
@@ -254,6 +350,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": true,
             "rotation": 1.57,
@@ -277,6 +381,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": true,
             "rotation": 1.57
@@ -296,6 +408,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -313,6 +433,48 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "progressBar": {
+            "active": false
+        }
+    },
+    {
+        "id": "HOAMING_DUDE",
+        "ingameIcon": "hoaming-dude-gun",
+        "ingameBaseWidth": -1,
+        "ingameAmountIconOverrider": -1,
+        "inGameRotation": 0,
+        "viewOffset": {
+            "x": 0,
+            "y": -20
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
+        },
+        "shootAnimation": {
+            "active": true,
+            "addZero": true,
+            "sprite": "hoaming-dude-gun00",
+            "time": 0.3,
+            "min": 8,
+            "max": 11
+        },
+        "defaultAnimation": {
+            "active": true,
+            "addZero": false,
+            "sprite": "hoaming-dude-gun000",
+            "time": 0.3,
+            "min": 2,
+            "max": 5
         },
         "progressBar": {
             "active": false
@@ -332,6 +494,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -349,6 +519,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -368,6 +546,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -385,6 +571,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -404,6 +598,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -421,6 +623,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -440,6 +650,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -457,6 +675,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -476,6 +702,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -493,6 +727,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -512,6 +754,14 @@
             "x": 0.5,
             "y": 0.1
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -529,6 +779,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false
@@ -548,6 +806,14 @@
             "x": 0.6,
             "y": 0.5
         },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
         "progressBar": {
             "active": false
         }
@@ -565,6 +831,14 @@
         "anchor": {
             "x": 0.5,
             "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
         },
         "progressBar": {
             "active": false

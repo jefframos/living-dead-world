@@ -15,5 +15,23 @@ export default class InGameViewDataStatic {
                 x: 0,
                 y: 0
             }
+            this.shootAnimation = {
+                active:false,
+                sprite:"",
+                min:1,
+                max:1,
+                addZero:false,
+                time:0.1,
+                loop:false
+            }
+            this.defaultAnimation = {
+                active:false,
+                sprite:"",
+                min:1,
+                max:1,
+                addZero:false,
+                time:0.1,
+                loop:false
+            }
     }
 }

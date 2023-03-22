@@ -63,7 +63,7 @@ export default class BaseWeapon extends PhysicsEntity {
             facing = alternate;
         } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
             facing = -customTransform.facing;
-        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle) {
+        } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle || currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.Hoaming) {
             facing = 1;
         }
 
@@ -78,7 +78,7 @@ export default class BaseWeapon extends PhysicsEntity {
         } else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.FacingBackwards) {
             facing = customTransform.facingAngle + Math.PI;
         }
-        else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle) {
+        else if (currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.ParentAngle || currentWeapon.weaponAttributes.baseDirectionType == WeaponAttributes.DirectionType.Hoaming) {
             if (customTransform.originWeapon) {
                 facing = Vector3.atan2XZ(customTransform.transform.position, customTransform.originWeapon.transform.position);
             } else {
@@ -422,12 +422,25 @@ export default class BaseWeapon extends PhysicsEntity {
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
             bullet.gameView.view.tint = baseData.color ? baseData.color : 0xFFFFFF;
-            bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
-            bullet.transform.position.y = baseData.viewOffset.y
 
+            if(baseData.hasAnimation){
+
+                bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData + baseData.frames[0])
+            }else{
+                
+                bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
+            }
+            bullet.transform.position.y = baseData.viewOffset.y
+            
             let maxWidth = Math.min(baseData.maxWidth, weapon.weaponAttributes.radius * baseData.scale * 2)
+            if(baseData.maxWidth < 0){
+                maxWidth = weapon.weaponAttributes.radius * baseData.scale * 2
+            }
             let scale = Utils.scaleToFit(bullet.gameView.view, maxWidth)
             bullet.gameView.view.scale.set(scale)
+
+            bullet.gameView.view.anchor.x = baseData.anchor.x
+            bullet.gameView.view.anchor.y = baseData.anchor.y
         }
     }
 

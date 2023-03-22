@@ -467,7 +467,7 @@
             "spawnVfxPack": "SPERM_SHOT_PACK",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "PISTOL_BASE_01"
+                "baseViewData": "SPERM"
             }
         }
     },
@@ -827,37 +827,37 @@
             "name": "Hoaming"
         },
         "isMain": true,
-        "ingameViewData": "FIREBALL_HOAMING",
+        "ingameViewData": "HOAMING_DUDE",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 10,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": 8,
             "baseLifeRangeSpan": -1,
             "basePower": 80,
-            "baseBulletSpeed": 200,
+            "baseBulletSpeed": 80,
             "baseFrequency": 2,
             "basePiercing": 1,
             "baseAmount": 1,
             "baseDirectionType": "Hoaming",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 3,
-            "baseBrustFireInterval": 0.5,
+            "baseBrustFireInterval": 0.8,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 5,
             "baseAngleOffset": 0,
-            "baseAngleNoise": 3.14
+            "baseAngleNoise": 0.1
         },
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "IMPACT_BOMB",
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "YELLOW_DUDE_PACK",
             "overrider": {
-                "baseViewData": "FIREBALL_HOAMING"
+                "baseViewData": "HOAMING_DUDE"
             }
         }
     },

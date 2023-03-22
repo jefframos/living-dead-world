@@ -66,7 +66,6 @@ export default class Bullet extends PhysicsEntity {
 
         this.distanceSpan = 0;
         this.enemiesShot = [];
-        this.gameView.view.anchor.set(0.5)
 
         this.rigidBody.collisionFilter.group = 2
         this.rigidBody.collisionFilter.mask = 3
@@ -112,8 +111,10 @@ export default class Bullet extends PhysicsEntity {
             this.spritesheetAnimation.stop();
         }
 
-        this.setBulletAnimation();
-        
+        if (this.weapon.weaponViewData.baseViewData.hasAnimation) {
+            this.setBulletAnimation();
+        }
+
     }
 
     setBulletAnimation() {
@@ -123,10 +124,10 @@ export default class Bullet extends PhysicsEntity {
         const animData = {
             time: 0.1,
             loop: true,
-            totalFramesRange: { min: 1, max: 3 },
+            totalFramesRange: { min: this.weapon.weaponViewData.baseViewData.frames[0], max: this.weapon.weaponViewData.baseViewData.frames[1] },
         }
 
-        this.spritesheetAnimation.addLayer('default', 'sperm000', animData);
+        this.spritesheetAnimation.addLayer('default', this.weapon.weaponViewData.baseViewData.viewData, animData);
 
         this.spritesheetAnimation.stop();
 
@@ -263,9 +264,15 @@ export default class Bullet extends PhysicsEntity {
             let targetAngle = 0;
 
             if (!this.weapon.weaponViewData.baseViewData.lockRotation) {
-                targetAngle = this.transform.angle + Math.PI / 2
+                targetAngle = this.transform.angle
             }
-            this.gameView.view.rotation = targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
+
+            if(this.weapon.weaponViewData.baseViewData.rotationFacing){
+                this.gameView.view.rotation =  Math.atan2(0, Math.abs(this.physics.velocity.x))
+            }else{
+
+                this.gameView.view.rotation =targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
+            }
         }
         this.gameView.view.visible = true;
         if (!this.usesTime) {
@@ -308,10 +315,10 @@ export default class Bullet extends PhysicsEntity {
                 this.destroy()
             }
         }
-        if (this.normalizedKillTime < 0.2) {
+        if (this.normalizedKillTime < this.weapon.weaponViewData.baseViewData.fallTimer) {
             let remaining = this.normalizedKillTime * this.totalTime;
-            remaining /= this.totalTime * 0.2
-            this.transform.position.y = Utils.lerp(this.baseHeight, this.baseHeight * remaining, 1);
+            remaining /= this.totalTime * this.weapon.weaponViewData.baseViewData.fallTimer
+            this.transform.position.y = Math.min(0, Utils.lerp(this.baseHeight, this.baseHeight * remaining, 1));
         }
 
 
@@ -330,7 +337,7 @@ export default class Bullet extends PhysicsEntity {
         this.gameView.view.scale.x = this.baseScale.x * faceDirection
 
 
-        if(this.spritesheetAnimation.isPlaying){
+        if (this.spritesheetAnimation.isPlaying) {
             this.spritesheetAnimation.update(delta);
             this.gameView.view.texture = this.spritesheetAnimation.currentTexture
         }

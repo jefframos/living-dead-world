@@ -215,8 +215,22 @@
         "lifeSpan": 99999,
         "addZero": false,
         "anchor": {
-            "x": 0.5,
+            "x": 0.9,
             "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "YELLOW_DUDE_EXPLOSION",
+        "spriteName": "yellow-dude-explosion000",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 7,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.95
         },
         "loop": false
     }

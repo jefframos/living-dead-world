@@ -223,8 +223,20 @@
             "y": -20,
             "z": 0
         },
-        "scale": 1,
+        "scale": 1.5,
         "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "YELLOW_DUDE_PACK",
+        "vfxData": "YELLOW_DUDE_EXPLOSION",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1.5,
+        "lockRotation": true,
         "targetLayer": "GameplayLayer"
     }
 ]

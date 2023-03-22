@@ -32,6 +32,7 @@ export default class EntityViewData {
             viewType: EntityViewData.ViewType.None,
             movementType: EntityViewData.MovementType.Static,
             viewOffset: new Vector3(),
+            anchor: {x:0.5, y:0.5},
             alpha: 1,
             faceOrientation: true,
             scale: 1,
@@ -43,8 +44,12 @@ export default class EntityViewData {
             maxHeight:0,
             maxWidth:100,
             rotationSpeed:0,
+            fallTimer:0.2,
+            rotationFacing:false,
             color:0,
-            targetLayer: EffectsManager.TargetLayer.GameplayLayer
+            targetLayer: EffectsManager.TargetLayer.GameplayLayer,
+            hasAnimation:false,
+            frames:null
 
         }
     }

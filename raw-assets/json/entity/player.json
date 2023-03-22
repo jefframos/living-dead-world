@@ -118,7 +118,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "PLAYER_CROSS_SHOT"
+            "id": "FIREBALL_HOAMING"
         },
         "attributes": {
             "basePower": 10,

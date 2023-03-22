@@ -5,6 +5,7 @@ import GameObject from '../../core/gameObject/GameObject';
 import GameView from '../../core/view/GameView';
 import RenderModule from '../../core/modules/RenderModule';
 import Spring from '../../core/utils/Spring';
+import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import Utils from '../../core/utils/Utils';
 import WeaponAttributes from '../../data/WeaponAttributes';
 import signals from 'signals';
@@ -20,6 +21,8 @@ export default class WeaponInGameView extends GameObject {
 
         this.offset = { x: 0, y: 0 }
         this.viewOffset = { x: 0, y: 0 }
+
+        this.spritesheetAnimation = new SpriteSheetAnimation();
     }
     enable() {
         super.enable();
@@ -40,7 +43,7 @@ export default class WeaponInGameView extends GameObject {
 
         this.spawnDistance = weapon.weaponAttributes.spawnDistance
 
-        this.defautScale = {x:1, y:1}
+        this.defautScale = { x: 1, y: 1 }
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
             sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
@@ -81,6 +84,46 @@ export default class WeaponInGameView extends GameObject {
         this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x || weapon.ingameViewDataStatic.viewOffset.x
         this.offset.y = this.weapon.weaponViewData.baseViewData.viewOffset.y || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.y || weapon.ingameViewDataStatic.viewOffset.y
 
+        if (this.spritesheetAnimation) {
+            this.spritesheetAnimation.reset();
+            this.spritesheetAnimation.stop();
+        }
+
+        this.registerAnimations();
+
+    }
+    registerAnimations() {
+
+        this.spritesheetAnimation.reset();
+
+        if (!this.weapon.ingameViewDataStatic.defaultAnimation.active) {
+
+            this.spritesheetAnimation.addFrame('default', this.weapon.ingameViewDataStatic.ingameIcon, this.weapon.ingameViewDataStatic.anchor);
+        } else {
+            const defaultData = {
+                time: this.weapon.ingameViewDataStatic.defaultAnimation.time,
+                loop: this.weapon.ingameViewDataStatic.defaultAnimation.loop,
+                addZero: this.weapon.ingameViewDataStatic.defaultAnimation.addZero,
+                totalFramesRange: { min: this.weapon.ingameViewDataStatic.defaultAnimation.min, max: this.weapon.ingameViewDataStatic.defaultAnimation.max },
+            }
+            this.spritesheetAnimation.addLayer('default', this.weapon.ingameViewDataStatic.defaultAnimation.sprite, defaultData);
+        }
+
+        if (this.weapon.ingameViewDataStatic.shootAnimation.active) {
+            const shootData = {
+                time: this.weapon.ingameViewDataStatic.shootAnimation.time,
+                loop: this.weapon.ingameViewDataStatic.shootAnimation.loop,
+                addZero: this.weapon.ingameViewDataStatic.shootAnimation.addZero,
+                totalFramesRange: { min: this.weapon.ingameViewDataStatic.shootAnimation.min, max: this.weapon.ingameViewDataStatic.shootAnimation.max },
+
+            }
+            console.log(shootData)
+            this.spritesheetAnimation.addLayer('shoot', this.weapon.ingameViewDataStatic.shootAnimation.sprite, shootData);
+
+        }
+        this.spritesheetAnimation.stop();
+        this.spritesheetAnimation.play('default')
+        this.gameView.view.texture = this.spritesheetAnimation.currentTexture;
 
     }
     updateBullets(bulletList) {
@@ -96,6 +139,10 @@ export default class WeaponInGameView extends GameObject {
             spriteElement.sprite.visible = false;
         }
         this.calcAngle();
+
+        if (this.weapon.ingameViewDataStatic.shootAnimation.active) {
+            this.spritesheetAnimation.playSequence('shoot', 'default')
+        }
     }
     calcAngle() {
         if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle) {
@@ -113,7 +160,7 @@ export default class WeaponInGameView extends GameObject {
 
                 this.spriteList[index].targetAngle = ang;
             }
-        } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer) {
+        } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer || this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Hoaming) {
             const totalBullets = this.spriteList.length;
             for (let index = 0; index < totalBullets; index++) {
                 this.spriteList[index].targetAngle = this.parent.facingAngle;
@@ -130,12 +177,13 @@ export default class WeaponInGameView extends GameObject {
         delta *= Eugine.PhysicsTimeScale;
         for (let index = 0; index < this.currentBulletList.length; index++) {
             if (index >= this.spriteList.length) continue;
-            
+
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
             spriteElement.targetAngle = element.angle;
         }
-        
+        this.spritesheetAnimation.update(delta);
+
         this.calcAngle();
         this.spriteList.forEach(element => {
             element.angle = Utils.angleLerp(element.angle, element.targetAngle, 0.8);
@@ -147,9 +195,9 @@ export default class WeaponInGameView extends GameObject {
             }
 
 
-            
+
             let faceDirection = 1;
-            
+
 
             element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
             element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
@@ -166,13 +214,13 @@ export default class WeaponInGameView extends GameObject {
                 this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
             }
 
-            if(!right){
+            if (!right) {
                 faceDirection = -1
-            }else{
+            } else {
                 faceDirection = 1
             }
 
-            element.sprite.scale.y = element.spring.x * this.defautScale.y 
+            element.sprite.scale.y = element.spring.x * this.defautScale.y
             element.sprite.scale.x = (element.spring.x * 0.2 + this.defautScale.x * 0.8) * faceDirection;
 
 
@@ -182,10 +230,13 @@ export default class WeaponInGameView extends GameObject {
             }
 
             element.sprite.visible = true;
+            element.sprite.texture = this.spritesheetAnimation.currentTexture
         });
     }
-    get isAlwaysUp(){
-        return this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle || this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer
+    get isAlwaysUp() {
+        return this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle ||
+            this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer ||
+            this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Hoaming
     }
     destroy() {
         super.destroy();
