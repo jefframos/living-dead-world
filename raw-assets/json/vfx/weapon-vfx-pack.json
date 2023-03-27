@@ -238,5 +238,29 @@
         "scale": 1.5,
         "lockRotation": true,
         "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "SUBMACHINE_PACK",
+        "vfxData": "RAINBOW_SHOT",
+        "viewOffset": {
+            "x": 0,
+            "y": -20,
+            "z": 0
+        },
+        "scale": 1.2,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "SUBMACHINE_IMPACT_PACK",
+        "vfxData": "RAINBOW_HIT",
+        "viewOffset": {
+            "x": 0,
+            "y": -20,
+            "z": 0
+        },
+        "scale": 1.2,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
     }
 ]

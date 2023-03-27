@@ -1,113 +1,5 @@
 [
     {
-        "id": "GOBLIN_IDLE_01",
-        "animationData": {
-            "spriteName": "goblin_idle_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 5
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
-        "id": "GOBLIN_RUN_01",
-        "animationData": {
-            "spriteName": "goblin_run_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 5
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
-        "id": "BAT_IDLE_01",
-        "animationData": {
-            "spriteName": "fly_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 3
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
-        "id": "BAT_RUN_01",
-        "animationData": {
-            "spriteName": "fly_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 3
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
-        "id": "SLIME_IDLE_01",
-        "animationData": {
-            "spriteName": "slime_idle_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 5
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
-        "id": "SLIME_RUN_01",
-        "animationData": {
-            "spriteName": "slime_run_anim_f",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 5
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true
-            }
-        }
-    },
-    {
         "id": "RAT_01",
         "animationData": {
             "spriteName": "rat00",
@@ -116,12 +8,9 @@
                     "min": 0,
                     "max": 3
                 },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -134,12 +23,9 @@
                     "min": 0,
                     "max": 3
                 },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -152,12 +38,9 @@
                     "min": 0,
                     "max": 5
                 },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -175,7 +58,8 @@
                     "y": 1
                 },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -193,7 +77,46 @@
                     "y": 1
                 },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "ZOMBIE_01",
+        "animationData": {
+            "spriteName": "zombie-enemy00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 3,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.4,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "ZOMBIE_02",
+        "animationData": {
+            "spriteName": "zombie-enemy200",
+            "params": {
+                "totalFramesRange": {
+                    "min": 3,
+                    "max": 14
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
             }
         }
     }

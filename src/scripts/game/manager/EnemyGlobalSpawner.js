@@ -17,7 +17,7 @@ export default class EnemyGlobalSpawner {
         spawnData.updateDistanceToSpawn(this.distanceToSpawn);
 
         const toSpawn = spawnData.entityToSpawn;
-        let enemyData = GameStaticData.instance.getEntityById('enemy', toSpawn.entity);
+        let enemyData = GameStaticData.instance.getEntityById('enemy', Utils.findValueOrRandom(toSpawn.entity));
 
         spawnData.totalSpawned++;
         let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)

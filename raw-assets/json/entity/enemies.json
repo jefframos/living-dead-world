@@ -15,18 +15,19 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
-            "baseRadius": 10,
+            "baseRadius": 15,
             "baseSpeed": 10
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
             "hasView": true,
             "jumpHight": 0,
-            "scale": 2
+            "scale": 2,
+            "zombieWalk": 1
         },
         "animationData": {
-            "idle": "RAT_01",
-            "run": "RAT_01"
+            "idle": "ZOMBIE_01",
+            "run": "ZOMBIE_01"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",
@@ -83,18 +84,19 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 10,
+            "baseRadius": 15,
             "baseSpeed": 8
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
             "hasView": true,
             "jumpHight": 0,
-            "scale": 2
+            "scale": 2,
+            "zombieWalk": 1.2
         },
         "animationData": {
-            "idle": "RAT_02",
-            "run": "RAT_02"
+            "idle": "ZOMBIE_02",
+            "run": "ZOMBIE_02"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT",

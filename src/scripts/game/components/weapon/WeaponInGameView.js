@@ -46,8 +46,8 @@ export default class WeaponInGameView extends GameObject {
         this.defautScale = { x: 1, y: 1 }
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
-            sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
-            sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
+            sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x == undefined ? 0.5 : weapon.ingameViewDataStatic.anchor.x;
+            sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y == undefined ? 0.1 : weapon.ingameViewDataStatic.anchor.y;
             if (weapon.ingameViewDataStatic.ingameBaseWidth > 0) {
 
                 sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
@@ -198,10 +198,14 @@ export default class WeaponInGameView extends GameObject {
 
             let faceDirection = 1;
 
+            let extraY = 0;
+            if (this.parent.parent) {
+                extraY = this.parent.parent.transform.position.y;
 
+            }
             element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
-            element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y
-            let radToAng = Math.round(((element.sprite.rotation) * 180 / Math.PI) % 360)
+            element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y + extraY * 0.9
+
 
             let up = Math.sin(element.angle) > 0
             let right = Math.cos(element.angle) > 0

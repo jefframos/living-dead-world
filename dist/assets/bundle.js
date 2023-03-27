@@ -2396,6 +2396,17 @@ var Utils = function () {
             return data;
         }
     }, {
+        key: "findValueOrRandom",
+        value: function findValueOrRandom(data) {
+            if (Array.isArray(data)) {
+                if (data.length == 1) {
+                    return data[0];
+                }
+                return data[Math.floor(Math.random() * data.length)];
+            }
+            return data;
+        }
+    }, {
         key: "findValueByLevel",
         value: function findValueByLevel(data) {
             var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : -1;
@@ -19967,8 +19978,6 @@ var Bullet = function (_PhysicsEntity) {
                 this.rotationSpeed = _Utils2.default.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
             }
 
-            this.addChild(this.engine.poolGameObject(_Shadow2.default));
-
             if (this.spritesheetAnimation) {
                 this.spritesheetAnimation.reset();
                 this.spritesheetAnimation.stop();
@@ -19977,6 +19986,16 @@ var Bullet = function (_PhysicsEntity) {
             if (this.weapon.weaponViewData.baseViewData.hasAnimation) {
                 this.setBulletAnimation();
             }
+        }
+    }, {
+        key: "afterBuild",
+        value: function afterBuild() {
+            (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "afterBuild", this).call(this);
+
+            this.shadow = this.engine.poolGameObject(_Shadow2.default);
+            this.shadow.transform.position.x = this.transform.position.x;
+            this.shadow.transform.position.z = this.transform.position.z;
+            this.addChild(this.shadow);
         }
     }, {
         key: "setBulletAnimation",
@@ -28815,8 +28834,23 @@ var LevelManager = function () {
             if (window.noEnemy || !phase) return;
             phase.spawnData.forEach(function (spawnerData) {
                 if (spawnerData.canSpawn) {
-                    if (!_this2.entitiesByType[spawnerData.entityId] || _this2.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
-                        _this2.spawnEnemy(spawnerData);
+
+                    if (Array.isArray(spawnerData.entity)) {
+                        var count = 0;
+
+                        spawnerData.entity.forEach(function (element) {
+                            if (_this2.entitiesByType[element]) {
+                                count += _this2.entitiesByType[element].length;
+                            }
+                        });
+                        if (count < spawnerData.maxActive) {
+                            _this2.spawnEnemy(spawnerData);
+                        }
+                    } else {
+
+                        if (!_this2.entitiesByType[spawnerData.entityId] || _this2.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
+                            _this2.spawnEnemy(spawnerData);
+                        }
                     }
                 }
             });
@@ -29896,6 +29930,7 @@ var BaseEnemy = function (_GameAgent) {
                 this.gameView.view.anchor.set(0.5, 1);
             }
 
+            this.gameView.view.scale.set(1);
             var scale = this.viewData.scale ? this.viewData.scale : 1;
             this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
             this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
@@ -81647,7 +81682,7 @@ var EnemyGlobalSpawner = function () {
             spawnData.updateDistanceToSpawn(this.distanceToSpawn);
 
             var toSpawn = spawnData.entityToSpawn;
-            var enemyData = _GameStaticData2.default.instance.getEntityById('enemy', toSpawn.entity);
+            var enemyData = _GameStaticData2.default.instance.getEntityById('enemy', _Utils2.default.findValueOrRandom(toSpawn.entity));
 
             spawnData.totalSpawned++;
             var enemy = this.gameManager.addEntity(_BaseEnemy2.default, enemyData);
@@ -81928,8 +81963,8 @@ var WeaponInGameView = function (_GameObject) {
             this.defautScale = { x: 1, y: 1 };
             for (var i = 0; i < amount; i++) {
                 var sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
-                sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x || 0.5;
-                sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y || 0.1;
+                sprite.anchor.x = weapon.ingameViewDataStatic.anchor.x == undefined ? 0.5 : weapon.ingameViewDataStatic.anchor.x;
+                sprite.anchor.y = weapon.ingameViewDataStatic.anchor.y == undefined ? 0.1 : weapon.ingameViewDataStatic.anchor.y;
                 if (weapon.ingameViewDataStatic.ingameBaseWidth > 0) {
 
                     sprite.scale.set(_Utils2.default.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30));
@@ -82084,9 +82119,12 @@ var WeaponInGameView = function (_GameObject) {
 
                 var faceDirection = 1;
 
+                var extraY = 0;
+                if (_this2.parent.parent) {
+                    extraY = _this2.parent.parent.transform.position.y;
+                }
                 element.sprite.x = Math.cos(element.angle) * _this2.spawnDistance + _this2.offset.x;
-                element.sprite.y = Math.sin(element.angle) * _this2.spawnDistance + _this2.offset.y;
-                var radToAng = Math.round(element.sprite.rotation * 180 / Math.PI % 360);
+                element.sprite.y = Math.sin(element.angle) * _this2.spawnDistance + _this2.offset.y + extraY * 0.9;
 
                 var up = Math.sin(element.angle) > 0;
                 var right = Math.cos(element.angle) > 0;
@@ -94236,11 +94274,11 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
@@ -94248,26 +94286,29 @@ var assets = [{
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
+}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
-}, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -94278,6 +94319,9 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -94287,23 +94331,14 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "weapon-in-game-visuals",
 	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
@@ -94311,17 +94346,20 @@ var assets = [{
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
@@ -94357,7 +94395,7 @@ module.exports = exports['default'];
 /* 295 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json","image/characters/characters.json"]}
+module.exports = {"default":["image/particles/particles.json","image/texture/texture.json","image/terrain/terrain.json","image/environment/environment.json","image/entities/entities.json","image/vfx/vfx.json","image/ui/ui.json","image/characters/characters.json"]}
 
 /***/ })
 /******/ ]);

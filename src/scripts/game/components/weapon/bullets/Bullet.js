@@ -103,7 +103,7 @@ export default class Bullet extends PhysicsEntity {
             this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
         }
 
-        this.addChild(this.engine.poolGameObject(Shadow))
+        
 
 
         if (this.spritesheetAnimation) {
@@ -115,6 +115,16 @@ export default class Bullet extends PhysicsEntity {
             this.setBulletAnimation();
         }
 
+    }
+
+    afterBuild(){
+        super.afterBuild();
+
+
+        this.shadow = this.engine.poolGameObject(Shadow)
+        this.shadow.transform.position.x = this.transform.position.x
+        this.shadow.transform.position.z = this.transform.position.z
+        this.addChild(this.shadow)
     }
 
     setBulletAnimation() {

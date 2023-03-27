@@ -82,13 +82,13 @@
     },
     {
         "id": "SUBMACHINE_BASE_01",
-        "viewData": "submachine1Bullet",
-        "rotationFacing": false,
+        "viewData": "rainbow-shell",
+        "rotationFacing": true,
         "hasAnimation": false,
         "viewOffset": {
             "y": -20
         },
-        "maxWidth": 10
+        "scale": 1
     },
     {
         "id": "SHOTGUN_BASE_01",

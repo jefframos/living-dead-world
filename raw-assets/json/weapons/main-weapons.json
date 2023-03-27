@@ -550,8 +550,8 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
+            "spawnVfxPack": "SUBMACHINE_PACK",
+            "destroyVfxPack": "SUBMACHINE_IMPACT_PACK",
             "overrider": {
                 "baseViewData": "SUBMACHINE_BASE_01"
             }

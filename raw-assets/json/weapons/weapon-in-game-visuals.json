@@ -307,7 +307,7 @@
     },
     {
         "id": "SUB_MACHINE_GUN_01",
-        "ingameIcon": "submachine1",
+        "ingameIcon": "unicornLeg",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -316,7 +316,7 @@
             "y": 0
         },
         "anchor": {
-            "x": 0.5,
+            "x": 0.2,
             "y": 0.1
         },
         "shootAnimation": {

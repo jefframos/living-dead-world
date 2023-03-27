@@ -9,10 +9,7 @@
                 "height": 100,
                 "total": 300,
                 "maxActive": 10,
-                "entity": "RAT_01"
-            },
-            {
-                "entity": "RAT_02"
+                "entity": ["RAT_01", "RAT_02"]
             }
         ]
     },

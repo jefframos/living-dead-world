@@ -186,10 +186,26 @@ export default class LevelManager {
         if (window.noEnemy || !phase) return;
         phase.spawnData.forEach(spawnerData => {
             if (spawnerData.canSpawn) {
-                if (!this.entitiesByType[spawnerData.entityId] ||
-                    this.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
-                    this.spawnEnemy(spawnerData);
-                }
+
+                if(Array.isArray(spawnerData.entity)){
+                    let count = 0;
+
+                    spawnerData.entity.forEach(element => {
+                        if(this.entitiesByType[element]){
+                            count += this.entitiesByType[element].length;
+                        }
+                    });
+                    if(count < spawnerData.maxActive) {
+                        this.spawnEnemy(spawnerData);
+                    }
+
+                }else{
+
+                    if (!this.entitiesByType[spawnerData.entityId] ||
+                        this.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
+                            this.spawnEnemy(spawnerData);
+                        }
+                    }
             }
         });
 

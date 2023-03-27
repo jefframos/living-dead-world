@@ -90,6 +90,16 @@ export default class Utils {
         return data;
     }
 
+    static findValueOrRandom(data) {
+        if (Array.isArray(data)) {
+            if (data.length == 1) {
+                return data[0];
+            }
+            return data[Math.floor(Math.random()* data.length)];
+        }
+        return data;
+    }
+
     static findValueByLevel(data, level = -1) {
 
         if (Array.isArray(data)) {
