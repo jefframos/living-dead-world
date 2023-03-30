@@ -52,7 +52,7 @@
         "vfxData": "SMOKE_01",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 0.7,
@@ -64,7 +64,7 @@
         "vfxData": "MELEE_SWORD_SHOCK_01",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1,
@@ -112,7 +112,7 @@
         "vfxData": "WATER_BALL",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1,
@@ -124,7 +124,7 @@
         "vfxData": "FLASH",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1,
@@ -220,7 +220,7 @@
         "vfxData": "SPERM_SHOT",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1.5,
@@ -244,7 +244,7 @@
         "vfxData": "RAINBOW_SHOT",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1.2,
@@ -256,10 +256,22 @@
         "vfxData": "RAINBOW_HIT",
         "viewOffset": {
             "x": 0,
-            "y": -20,
+            "y": 0,
             "z": 0
         },
         "scale": 1.2,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "SPERM_EXPLODE_PACK",
+        "vfxData": "SPERM_HIT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 1.5,
         "lockRotation": false,
         "targetLayer": "GameplayLayer"
     }

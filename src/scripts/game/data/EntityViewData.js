@@ -45,6 +45,7 @@ export default class EntityViewData {
             maxWidth:100,
             rotationSpeed:0,
             fallTimer:0.2,
+            hasShadow:false,
             rotationFacing:false,
             color:0,
             targetLayer: EffectsManager.TargetLayer.GameplayLayer,

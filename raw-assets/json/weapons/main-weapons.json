@@ -106,7 +106,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 1,
-            "icon": "multi",
+            "icon": "multishot-gun-1",
             "name": "Multishot"
         },
         "isMain": true,
@@ -116,7 +116,7 @@
         "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 30,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 150,
             "basePower": 10,
@@ -140,7 +140,7 @@
             "rotationSpeed": 0,
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "ARROW_BASE_01"
+                "baseViewData": "SHOTGUN_BASE_01"
             }
         }
     },
@@ -519,7 +519,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "submachine1",
+            "icon": "unicornLeg",
             "name": "Sub-Machine Gun"
         },
         "isMain": true,
@@ -562,7 +562,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "shotgun1",
+            "icon": "shotgun-1",
             "name": "Shotgun"
         },
         "isMain": true,
@@ -573,9 +573,9 @@
             "baseRadius": 15,
             "baseSpawnDistance": 25,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 100,
+            "baseLifeRangeSpan": 120,
             "basePower": 50,
-            "baseBulletSpeed": 350,
+            "baseBulletSpeed": 450,
             "baseFrequency": 3,
             "basePiercing": 1,
             "baseAmount": 4,
@@ -692,7 +692,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "minigun",
+            "icon": "blaster-minugun",
             "name": "Minigun"
         },
         "isMain": true,
@@ -702,7 +702,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 40,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -724,10 +724,10 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "SPERM_EXPLODE_PACK",
             "overrider": {
-                "baseViewData": "DAGGER_BASE_01"
+                "baseViewData": "SPERM"
             }
         }
     },
@@ -736,7 +736,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "minigun",
+            "icon": "blaster-minugun",
             "name": "Minigun"
         },
         "isMain": true,
@@ -823,7 +823,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "hoamingMissel",
+            "icon": "hoaming-dude0001",
             "name": "Hoaming"
         },
         "isMain": true,
@@ -1371,7 +1371,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 5,
-            "icon": "laserGun1",
+            "icon": "laser-rainbow0001",
             "name": "Laser"
         },
         "isMain": true,

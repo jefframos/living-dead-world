@@ -211,5 +211,38 @@
             "onHit": "BLOOD_SPLAT",
             "onDie": "SMOKE_01"
         }
+    },
+    {
+        "id": "DUDE",
+        "enabled": true,
+        "entityData": {
+            "type": "Player",
+            "tier": 1
+        },
+        "weapon": {
+            "id": "PLAYER_MULTISHOT"
+        },
+        "attributes": {
+            "basePower": 10,
+            "baseHealth": 150,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 20,
+            "baseSpeed": 100
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "jumpHight": 10,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "DUDE_IDLE",
+            "run": "DUDE_WALK"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT",
+            "onDie": "SMOKE_01"
+        }
     }
 ]

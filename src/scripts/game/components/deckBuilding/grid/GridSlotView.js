@@ -9,7 +9,7 @@ export default class GridSlotView extends PIXI.Container {
     constructor(width = 110, height = 112) {
         super()
 
-        this.slotTexture = 'new-slot0001'
+        this.slotTexture = 'tier-0-card_1'
         this.slotTrashTexture = 'new-slot0004'
         this.textures = ['tier-0-card_1', 'tier-1-card_1', 'tier-2-card_1', 'tier-3-card_1', 'tier-4-card_1']
 
@@ -90,7 +90,7 @@ export default class GridSlotView extends PIXI.Container {
             this.updateTexture(this.cardData.entityData.icon)
             this.text.text = "Level " + (cardData.level + 1)
         }
-        this.cardBackground.texture = PIXI.Texture.from('new-slot0003');
+        this.cardBackground.texture = PIXI.Texture.from('tier-1-card_1');
         this.updateLevelStars(cardData.level + 1);
     }
     update() {

@@ -83,7 +83,6 @@ export default class WeaponInGameView extends GameObject {
 
         this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x || weapon.ingameViewDataStatic.viewOffset.x
         this.offset.y = this.weapon.weaponViewData.baseViewData.viewOffset.y || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.y || weapon.ingameViewDataStatic.viewOffset.y
-
         if (this.spritesheetAnimation) {
             this.spritesheetAnimation.reset();
             this.spritesheetAnimation.stop();
@@ -205,8 +204,7 @@ export default class WeaponInGameView extends GameObject {
             }
             element.sprite.x = Math.cos(element.angle) * this.spawnDistance + this.offset.x
             element.sprite.y = Math.sin(element.angle) * this.spawnDistance + this.offset.y + extraY * 0.9
-
-
+            
             let up = Math.sin(element.angle) > 0
             let right = Math.cos(element.angle) > 0
 

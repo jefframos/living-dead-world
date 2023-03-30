@@ -413,10 +413,17 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
+
                 spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF })
             } else {
-                EffectsManager.instance.emitParticles(
-                    { x: target.x + baseData.viewOffset.x, y: target.z + baseData.viewOffset.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
+                if(type == "baseDestroyViewData"){
+                    EffectsManager.instance.emitParticles(
+                        { x: target.x, y: target.z + target.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
+                    }
+                else{
+                    EffectsManager.instance.emitParticles(
+                        { x: target.x +  (baseData.viewOffset.x || weapon.weaponViewData.baseViewData.viewOffset.x), y: target.z + (baseData.viewOffset.y || weapon.weaponViewData.baseViewData.viewOffset.y) }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
+                    }
             }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {

@@ -103,7 +103,7 @@ export default class Bullet extends PhysicsEntity {
             this.rotationSpeed = Utils.findValue(this.weapon.weaponViewData.baseViewData.rotationSpeed);
         }
 
-        
+
 
 
         if (this.spritesheetAnimation) {
@@ -117,14 +117,16 @@ export default class Bullet extends PhysicsEntity {
 
     }
 
-    afterBuild(){
+    afterBuild() {
         super.afterBuild();
 
+        if(this.weapon.weaponViewData.baseViewData.hasShadow){
 
-        this.shadow = this.engine.poolGameObject(Shadow)
-        this.shadow.transform.position.x = this.transform.position.x
-        this.shadow.transform.position.z = this.transform.position.z
-        this.addChild(this.shadow)
+            this.shadow = this.engine.poolGameObject(Shadow)
+            this.shadow.transform.position.x = this.transform.position.x
+            this.shadow.transform.position.z = this.transform.position.z
+            this.addChild(this.shadow)
+        }
     }
 
     setBulletAnimation() {
@@ -172,6 +174,8 @@ export default class Bullet extends PhysicsEntity {
         this.baseScale = { x: this.gameView.view.scale.x, y: this.gameView.view.scale.y }
         this.baseAnchor = { x: this.gameView.view.anchor.x, y: this.gameView.view.anchor.y }
         this.baseHeight = this.transform.position.y || this.viewOffset.y;
+
+        this.timeAlive = 0;
     }
     collisionExit(collided) {
         if (this.enemiesShot.filter(item => item.entity == collided).length <= 0) return;
@@ -240,6 +244,9 @@ export default class Bullet extends PhysicsEntity {
 
     update(delta, unscaleDelta) {
         super.update(delta)
+
+        this.timeAlive += delta;
+
         this.physics.velocity.x = Math.cos(this.angle) * this.speed * delta
         this.physics.velocity.z = Math.sin(this.angle) * this.speed * delta
 
@@ -262,8 +269,8 @@ export default class Bullet extends PhysicsEntity {
 
         if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Hoaming) {
             let closest = GameManager.instance.findClosestEnemy(this.transform.position)
-            if (closest) {
-                this.smoothAngle(Vector3.atan2XZ(closest.transform.position, this.transform.position), delta)
+            if (closest && this.timeAlive > 0.7) {
+                this.smoothAngle(Vector3.atan2XZ(closest.transform.position, this.transform.position), delta * 3)
             }
         }
 
@@ -277,11 +284,11 @@ export default class Bullet extends PhysicsEntity {
                 targetAngle = this.transform.angle
             }
 
-            if(this.weapon.weaponViewData.baseViewData.rotationFacing){
-                this.gameView.view.rotation =  Math.atan2(0, Math.abs(this.physics.velocity.x))
-            }else{
+            if (this.weapon.weaponViewData.baseViewData.rotationFacing) {
+                this.gameView.view.rotation = Math.atan2(0, Math.abs(this.physics.velocity.x))
+            } else {
 
-                this.gameView.view.rotation =targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
+                this.gameView.view.rotation = targetAngle + this.weapon.weaponViewData.baseViewData.angleOffset;
             }
         }
         this.gameView.view.visible = true;
@@ -333,6 +340,16 @@ export default class Bullet extends PhysicsEntity {
 
 
 
+        this.updateFacing();
+
+
+        if (this.spritesheetAnimation.isPlaying) {
+            this.spritesheetAnimation.update(delta);
+            this.gameView.view.texture = this.spritesheetAnimation.currentTexture
+        }
+
+    }
+    updateFacing() {
         let up = Math.sin(this.angle) > 0
         let right = Math.cos(this.angle) > 0
 
@@ -343,15 +360,12 @@ export default class Bullet extends PhysicsEntity {
             faceDirection = 1
         }
 
-        //this.gameView.view.scale.y = this.baseScale.y * faceDirection
-        this.gameView.view.scale.x = this.baseScale.x * faceDirection
+        if (!this.weapon.weaponViewData.baseViewData.rotationFacing) {
+            this.gameView.view.scale.y = this.baseScale.y * faceDirection
+        } else {
 
-
-        if (this.spritesheetAnimation.isPlaying) {
-            this.spritesheetAnimation.update(delta);
-            this.gameView.view.texture = this.spritesheetAnimation.currentTexture
+            this.gameView.view.scale.x = this.baseScale.x * faceDirection
         }
-
     }
     smoothAngle(target, delta) {
         let ang = target

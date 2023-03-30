@@ -84,7 +84,7 @@
     },
     {
         "id": "PLAYER_MULTISHOT",
-        "ingameIcon": "multi",
+        "ingameIcon": "multishot-gun-1",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
@@ -316,8 +316,8 @@
             "y": 0
         },
         "anchor": {
-            "x": 0.2,
-            "y": 0.1
+            "x": 0.1,
+            "y": -0.1
         },
         "shootAnimation": {
             "active": false,
@@ -338,7 +338,7 @@
     },
     {
         "id": "SHOTGUN_01",
-        "ingameIcon": "shotgun1",
+        "ingameIcon": "shotgun-1",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": 1,
         "inGameRotation": 0,
@@ -396,7 +396,7 @@
     },
     {
         "id": "MINIGUN_01",
-        "ingameIcon": "minigun",
+        "ingameIcon": "blaster-minugun",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -406,7 +406,7 @@
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.1
+            "y": -0.3
         },
         "shootAnimation": {
             "active": false,
@@ -463,15 +463,15 @@
         "shootAnimation": {
             "active": true,
             "addZero": true,
-            "sprite": "hoaming-dude-gun00",
+            "sprite": "hoaming-dude00",
             "time": 0.3,
-            "min": 8,
-            "max": 11
+            "min": 7,
+            "max": 10
         },
         "defaultAnimation": {
             "active": true,
             "addZero": false,
-            "sprite": "hoaming-dude-gun000",
+            "sprite": "hoaming-dude000",
             "time": 0.3,
             "min": 2,
             "max": 5
@@ -716,7 +716,7 @@
     },
     {
         "id": "WATER_SINOID",
-        "ingameIcon": "vfx-c1",
+        "ingameIcon": "whigglegun0001",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 6,
@@ -729,12 +729,20 @@
             "y": 0.1
         },
         "shootAnimation": {
-            "active": false,
-            "addZero": false
+            "active": true,
+            "addZero": false,
+            "sprite": "whigglegun000",
+            "time": 0.3,
+            "min": 1,
+            "max": 4
         },
         "defaultAnimation": {
-            "active": false,
-            "addZero": false
+            "active": true,
+            "addZero": false,
+            "sprite": "whigglegun000",
+            "time": 0.3,
+            "min": 1,
+            "max": 4
         },
         "progressBar": {
             "active": false
@@ -794,7 +802,7 @@
     },
     {
         "id": "LASER",
-        "ingameIcon": "laserGun1",
+        "ingameIcon": "laser-rainbow0001",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -807,12 +815,20 @@
             "y": 0.5
         },
         "shootAnimation": {
-            "active": false,
-            "addZero": false
+            "active": true,
+            "addZero": false,
+            "sprite": "laser-rainbow000",
+            "time": 0.3,
+            "min": 1,
+            "max": 4
         },
         "defaultAnimation": {
-            "active": false,
-            "addZero": false
+            "active": true,
+            "addZero": false,
+            "sprite": "laser-rainbow000",
+            "time": 0.3,
+            "min": 1,
+            "max": 4
         },
         "progressBar": {
             "active": false

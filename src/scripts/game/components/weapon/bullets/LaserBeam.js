@@ -107,6 +107,9 @@ export default class LaserBeam extends Bullet {
 
         super.update(delta);
     }
+    updateFacing(){
+        
+    }
     destroy() {
         this.beam.onCollisionEnter.remove(this.onSensorCollisionEnter.bind(this))
         super.destroy();

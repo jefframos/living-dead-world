@@ -11,7 +11,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": 15,
-            "baseHealth": 80,
+            "baseHealth": 20,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
@@ -22,7 +22,7 @@
         "view": {
             "hasView": true,
             "jumpHight": 0,
-            "scale": 2,
+            "scale": 1,
             "zombieWalk": 1
         },
         "animationData": {
@@ -57,7 +57,7 @@
         "view": {
             "hasView": true,
             "jumpHight": 20,
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
             "idle": "BIRD_01",
@@ -80,7 +80,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": 10,
-            "baseHealth": 90,
+            "baseHealth": 25,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -91,8 +91,8 @@
         "view": {
             "hasView": true,
             "jumpHight": 0,
-            "scale": 2,
-            "zombieWalk": 1.2
+            "scale": 1,
+            "zombieWalk": 2
         },
         "animationData": {
             "idle": "ZOMBIE_02",
@@ -125,7 +125,7 @@
                 "x": 0.3,
                 "y": 1
             },
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
             "idle": "GREEN_ENEMY_WALK",
@@ -161,7 +161,7 @@
                 "x": 0.3,
                 "y": 1
             },
-            "scale": 1.5
+            "scale": 1
         },
         "animationData": {
             "idle": "PUNK_ENEMY_WALK",

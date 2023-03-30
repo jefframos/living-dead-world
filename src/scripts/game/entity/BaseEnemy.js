@@ -63,7 +63,8 @@ export default class BaseEnemy extends GameAgent {
 
         this.gameView.view.scale.set(1);
         let scale = this.viewData.scale ? this.viewData.scale : 1
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+        this.gameView.view.scale.set(scale * 0.5);
+        //this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();

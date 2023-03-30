@@ -85,17 +85,17 @@
     {
         "id": "ZOMBIE_01",
         "animationData": {
-            "spriteName": "zombie-enemy00",
+            "spriteName": "zombie-100",
             "params": {
                 "totalFramesRange": {
-                    "min": 3,
-                    "max": 14
+                    "min": 8,
+                    "max": 19
                 },
                 "anchor": {
-                    "x": 0.4,
-                    "y": 1
+                    "x": 0.3,
+                    "y": 0.95
                 },
-                "time": 0.2,
+                "time": 0.3,
                 "loop": true,
                 "addZero": true
             }
@@ -104,17 +104,17 @@
     {
         "id": "ZOMBIE_02",
         "animationData": {
-            "spriteName": "zombie-enemy200",
+            "spriteName": "zombie-200",
             "params": {
                 "totalFramesRange": {
-                    "min": 3,
-                    "max": 14
+                    "min": 8,
+                    "max": 19
                 },
                 "anchor": {
-                    "x": 0.5,
-                    "y": 1
+                    "x": 0.3,
+                    "y": 0.95
                 },
-                "time": 0.2,
+                "time": 0.3,
                 "loop": true,
                 "addZero": true
             }
