@@ -205,7 +205,9 @@ export default class EffectsManager extends GameObject {
 
     emitById(position, descriptor, quant = 1, overrides, target = EffectsManager.TargetLayer.GameplayLayer) {
         if (quant <= 0) {
-            quant = descriptor.baseData.baseAmount;
+            if(this.particleDescriptors[descriptor].baseData){
+                quant = this.particleDescriptors[descriptor].baseData.baseAmount;
+            }
         }
         for (let index = 0; index < quant; index++) {
             if (target == EffectsManager.TargetLayer.GameplayLayer) {

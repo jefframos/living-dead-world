@@ -5,31 +5,38 @@
         "waves": [
             {
                 "areaType": "rect",
-                "width": 100,
-                "height": 100,
+                "width": 400,
+                "height": 400,
                 "total": 300,
                 "maxActive": 10,
-                "entity": ["RAT_01", "RAT_02"]
+                "entity": ["ZOMBIE_01", "ZOMBIE_02", "ZOMBIE_03", "ZOMBIE_04"]
+            },
+            {
+                "areaType": "rect",
+                "radius": 100,
+                "total": 300,
+                "maxActive": 30,
+                "entity": ["RAT_01", "SPIDER_BRAIN"]
             }
         ]
     },
     {
-        "startAt": 60,
+        "startAt": 20,
         "duration": 30,
         "waves": [
             {
                 "areaType": "rect",
-                "width": 100,
-                "height": 100,
+                "width": 400,
+                "height": 400,
                 "total": 1,
-                "entity": "PUNK_ENEMY"
+                "entity": "ZOMBIE_MOM"
             },
             {
                 "areaType": "circle",
                 "radius": 100,
-                "total": 300,
-                "maxActive": 30,
-                "entity": "BIRD_01"
+                "total": 1,
+                "maxActive": 1,
+                "entity": "MAN_LEGS"
             }
         ]
     },
@@ -39,23 +46,25 @@
         "waves": [
             {
                 "areaType": "rect",
-                "width": 100,
-                "height": 100,
+                "width": 400,
+                "height": 400,
                 "total": 1,
-                "entity": "GREEN_ENEMY"
+                "entity": "ZOMBIE_MOM"
             },
             {
                 "areaType": "circle",
                 "radius": 100,
                 "total": 3000,
                 "maxActive": 30,
-                "entity": "RAT_02"
+                "entity": "ZOMBIE_02"
             },
             {
-                "entity": "RAT_01"
+                "entity": "ZOMBIE_01"
             },
             {
-                "entity": "BIRD_01"
+                "total": 1,
+                "maxActive": 1,
+                "entity": "MAN_LEGS"
             }
         ]
     }

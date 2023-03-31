@@ -24,6 +24,18 @@
         "maxWidth": -1
     },
     {
+        "id": "SPERM_ENEMY",
+        "viewData": "sperm-enemy000",
+        "hasShadow": true,
+        "rotationFacing": false,
+        "hasAnimation": true,
+        "frames": [1,3],
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": -1
+    },
+    {
         "id": "HOAMING_DUDE",
         "viewData": "hoaming-dude-dude000",
         "hasShadow": true,

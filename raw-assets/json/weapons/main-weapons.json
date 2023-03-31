@@ -442,7 +442,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 40,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -528,7 +528,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 30,
+            "baseSpawnDistance": 45,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 250,
             "basePower": 10,
@@ -746,7 +746,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 20,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -768,10 +768,10 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "SPERM_EXPLODE_PACK",
             "overrider": {
-                "baseViewData": "ENEMY_BULLET"
+                "baseViewData": "SPERM_ENEMY"
             }
         }
     },

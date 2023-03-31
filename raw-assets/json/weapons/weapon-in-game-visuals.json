@@ -254,8 +254,8 @@
             "y": 0
         },
         "anchor": {
-            "x": 0.5,
-            "y": 0.1
+            "x": 0.3,
+            "y": -0.3
         },
         "shootAnimation": {
             "active": false,

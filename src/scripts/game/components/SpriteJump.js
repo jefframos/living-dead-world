@@ -12,10 +12,12 @@ export default class SpriteJump extends BaseComponent {
         this.jumpHight = 20
 
         this.sinSpeed = 0.8 + Math.random() * 0.2
+        this.startPosition = 0;
     }
     enable() {
         super.enable();
         this.offsetSin = Math.random() * Math.PI;
+        this.startPosition = this.gameObject.transform.position.y;
     }
     update(delta) {
         delta *= Eugine.PhysicsTimeScale;
@@ -26,7 +28,7 @@ export default class SpriteJump extends BaseComponent {
             } else {
                 this.offsetSin = utils.lerp(this.offsetSin, 0, 0.5)
             }
-            this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -this.jumpHight
+            this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -this.jumpHight + this.startPosition;
         }
     }
 }

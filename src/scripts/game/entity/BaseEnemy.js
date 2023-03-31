@@ -38,10 +38,7 @@ export default class BaseEnemy extends GameAgent {
         this.speed = this.attributes.speed;
         this.health.setNewHealth(this.attributes.health)
 
-        //view related attributes
-        if (this.viewData.jumpHight) {
-            this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
-        }
+
 
 
 
@@ -84,14 +81,16 @@ export default class BaseEnemy extends GameAgent {
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);
         //shadow.updateScale(scale);
-
         this.transform.position.y = 0;
         if (this.viewData.offset != undefined) {
             if (this.viewData.offset.y != undefined) {
                 this.transform.position.y = this.viewData.offset.y
             }
         }
-
+        //view related attributes
+        if (this.viewData.jumpHight) {
+            this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
+        }
 
 
     }

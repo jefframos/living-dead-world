@@ -31,7 +31,7 @@
             "run": "CORN_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -67,7 +67,7 @@
             "run": "CHEETOS_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -103,7 +103,7 @@
             "run": "STABBY_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -139,7 +139,7 @@
             "run": "SHERIFF_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -175,7 +175,7 @@
             "run": "EDWARD_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -208,7 +208,7 @@
             "run": "DARYL_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     },
@@ -241,7 +241,7 @@
             "run": "DUDE_WALK"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT",
+            "onHit": "BLOOD_SPLAT_RED",
             "onDie": "SMOKE_01"
         }
     }

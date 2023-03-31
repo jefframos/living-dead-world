@@ -17321,7 +17321,9 @@ var EffectsManager = function (_GameObject) {
             var target = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : EffectsManager.TargetLayer.GameplayLayer;
 
             if (quant <= 0) {
-                quant = descriptor.baseData.baseAmount;
+                if (this.particleDescriptors[descriptor].baseData) {
+                    quant = this.particleDescriptors[descriptor].baseData.baseAmount;
+                }
             }
             for (var index = 0; index < quant; index++) {
                 if (target == EffectsManager.TargetLayer.GameplayLayer) {
@@ -29931,11 +29933,6 @@ var BaseEnemy = function (_GameAgent) {
             this.speed = this.attributes.speed;
             this.health.setNewHealth(this.attributes.health);
 
-            //view related attributes
-            if (this.viewData.jumpHight) {
-                this.addComponent(_SpriteJump2.default).jumpHight = this.viewData.jumpHight;
-            }
-
             var spriteFacing = this.addComponent(_SpriteFacing2.default);
             spriteFacing.lerp = 1;
             spriteFacing.startScaleX = -1;
@@ -29972,12 +29969,15 @@ var BaseEnemy = function (_GameAgent) {
             var shadow = this.engine.poolGameObject(_Shadow2.default);
             this.addChild(shadow);
             //shadow.updateScale(scale);
-
             this.transform.position.y = 0;
             if (this.viewData.offset != undefined) {
                 if (this.viewData.offset.y != undefined) {
                     this.transform.position.y = this.viewData.offset.y;
                 }
+            }
+            //view related attributes
+            if (this.viewData.jumpHight) {
+                this.addComponent(_SpriteJump2.default).jumpHight = this.viewData.jumpHight;
             }
         }
     }, {
@@ -45602,7 +45602,7 @@ var GameAgent = function (_PhysicsEntity) {
             var centerPosition = this.gameView.view.position;
             //centerPosition.x -= (this.gameView.view.anchor.x * this.gameView.view.width) + (this.gameView.view.width * 0.5)
             //centerPosition.y -= (this.gameView.view.anchor.y * this.gameView.view.height) + (this.gameView.view.height * 0.5)
-            _EffectsManager2.default.instance.emitById(this.gameView.view.position, this.staticData.vfx[type], 1, { scale: { x: 0.5, y: 0.5 } });
+            _EffectsManager2.default.instance.emitById(this.gameView.view.position, this.staticData.vfx[type], 0);
         }
     }, {
         key: "cleanStats",
@@ -46744,6 +46744,7 @@ var SpriteJump = function (_BaseComponent) {
         _this.jumpHight = 20;
 
         _this.sinSpeed = 0.8 + Math.random() * 0.2;
+        _this.startPosition = 0;
         return _this;
     }
 
@@ -46752,6 +46753,7 @@ var SpriteJump = function (_BaseComponent) {
         value: function enable() {
             (0, _get3.default)(SpriteJump.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteJump.prototype), 'enable', this).call(this);
             this.offsetSin = Math.random() * Math.PI;
+            this.startPosition = this.gameObject.transform.position.y;
         }
     }, {
         key: 'update',
@@ -46764,7 +46766,7 @@ var SpriteJump = function (_BaseComponent) {
                 } else {
                     this.offsetSin = utils.lerp(this.offsetSin, 0, 0.5);
                 }
-                this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -this.jumpHight;
+                this.gameObject.transform.position.y = Math.sin(this.offsetSin) * 0.5 * -this.jumpHight + this.startPosition;
             }
         }
     }]);
@@ -94318,26 +94320,26 @@ var assets = [{
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "companion-animation",
+	"url": "assets/json\\animation\\companion-animation.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
@@ -94345,41 +94347,41 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "companion-animation",
-	"url": "assets/json\\animation\\companion-animation.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
