@@ -13,6 +13,7 @@ import InGameWeapon from "../data/InGameWeapon";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
+import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import Shaders from "../shader/Shaders";
@@ -70,6 +71,13 @@ export default class Player extends GameAgent {
         //this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData['LASER']), 1, 0)
         this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
+    makeAnimations(data) {
+        let spriteSheet = this.addComponent(PlayerGameViewSpriteSheet);        
+        spriteSheet.setData(data);
+        spriteSheet.update(0.1);
+
+    }
+
     build(playerData) {
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
@@ -113,7 +121,7 @@ export default class Player extends GameAgent {
 
         let jumpy = this.addComponent(SpriteJump)
 
-        jumpy.jumpHight = 5
+        jumpy.jumpHight = 10
         jumpy.sinSpeed = 3
 
         this.transform.angle = -Math.PI / 2
@@ -131,17 +139,15 @@ export default class Player extends GameAgent {
             this.gameView.view.anchor.set(0.5, 1)
         }
 
+       
+
+
         let scale = this.viewData.scale ? this.viewData.scale : 1
         this.gameView.view.scale.set(scale * 0.5);//Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();
         this.anchorOffset = 0
-
-        this.addComponent(SpriteJump).jumpHight = 5
-        let spriteFacing = this.addComponent(SpriteFacing);
-        spriteFacing.lerp = 1
-        spriteFacing.startScaleX = -1
 
 
         this.cleanStats();
