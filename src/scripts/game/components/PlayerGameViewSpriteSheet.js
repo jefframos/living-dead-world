@@ -47,43 +47,50 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.spriteLayersData = {};
 
         this.baseData = {
-            chest: 10,//Math.ceil(Math.random() * 21),
-            head: 1,//Math.ceil(Math.random() * 4),
-            topHead: 1,//Math.ceil(Math.random() * 17),
-            face: 1,//Math.ceil(Math.random() * 19)
-            leg: 2,//Math.ceil(Math.random() * 19)
-            topClothColor: 0xff0000,
-            botomColor: 0xffffff,
+            chest: Math.ceil(Math.random() * 21),
+            head: Math.ceil(Math.random() * 4),
+            topHead: Math.ceil(Math.random() * 17),
+            face: Math.ceil(Math.random() * 19),
+            leg: 1,//Math.ceil(Math.random() * 19)
+            sleeves: 1,//Math.ceil(Math.random() * 19)
+            arms: 1,//Math.ceil(Math.random() * 19)
+            shoe: 0,//Math.ceil(Math.random() * 19)
+            topClothColor: 0xFFFFFF,
+            botomColor: 0xFFFFFF,
             shoeColor: 0x007272,
         }
         this.bodyData = [
-            { area: "backArm", src: "back-arm00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin },
-            { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor },
-            { area: "backShoes", src: "back-shoe100", color: this.baseData.shoeColor },
-            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor },
-            { area: "frontShoes", src: "front-shoe100", color: this.baseData.shoeColor },
-            { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor },
-            { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin },
-            { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF },
-            { area: "frontArm", src: "front-arm00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin },
-            { area: "sleeve", src: "long-sleeve00", color: this.baseData.topClothColor },
-            { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF },
+            { area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.arms > 0},
+            { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor , enabled:this.baseData.leg > 0},
+            { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor , enabled:this.baseData.shoe > 0},
+            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor , enabled:this.baseData.leg > 0},
+            { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor , enabled:this.baseData.shoe > 0},
+            { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor , enabled:this.baseData.chest > 0},
+            { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.head > 0},
+            { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF , enabled:this.baseData.face > 0},
+            { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.arms > 0},
+            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor , enabled:this.baseData.sleeves > 0},
+            { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF , enabled:this.baseData.topHead > 0},
         ]
 
         this.bodyData.forEach(element => {
-            let sprite = PIXI.Sprite.from(element.src + "01");
-            sprite.tint = element.color;
-            this.spriteLayersData[element.area] = {
-                sprite
-            }
 
-            this.view.addChild(sprite);
 
-            if (data.anchor) {
-                sprite.anchor.set(data.anchor.x, data.anchor.y)
-            } else {
-                sprite.anchor.set(0.5, 0.95)
-            }
+                let sprite = element.enabled ? PIXI.Sprite.from(element.src + "01") : new PIXI.Sprite();
+                sprite.tint = element.color;
+                this.spriteLayersData[element.area] = {
+                    sprite,
+                    enabled:element.enabled
+                }
+                
+                this.view.addChild(sprite);
+                
+                if (data.anchor) {
+                    sprite.anchor.set(data.anchor.x, data.anchor.y)
+                } else {
+                    sprite.anchor.set(0.5, 0.95)
+                }
+            
         });
     }
     update(delta) {
@@ -121,7 +128,9 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.view.scale.set(this.direction * 0.5 * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * 0.5);
 
         this.bodyData.forEach(element => {
-            this.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(element.src + "0" + (this.currentFrame + 1))
+            if(this.spriteLayersData[element.area].enabled){
+                this.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(element.src + "0" + (this.currentFrame + 1))
+            }
         });
 
     }

@@ -1,6 +1,6 @@
 {"frames": {
 
-"arms/back-arm0001.png":
+"arms/back-arm10001.png":
 {
 	"frame": {"x":907,"y":613,"w":38,"h":35},
 	"rotated": true,
@@ -8,7 +8,7 @@
 	"spriteSourceSize": {"x":46,"y":76,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0002.png":
+"arms/back-arm10002.png":
 {
 	"frame": {"x":907,"y":685,"w":38,"h":35},
 	"rotated": true,
@@ -16,7 +16,7 @@
 	"spriteSourceSize": {"x":46,"y":76,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0003.png":
+"arms/back-arm10003.png":
 {
 	"frame": {"x":944,"y":569,"w":38,"h":36},
 	"rotated": false,
@@ -24,7 +24,7 @@
 	"spriteSourceSize": {"x":46,"y":74,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0004.png":
+"arms/back-arm10004.png":
 {
 	"frame": {"x":905,"y":759,"w":38,"h":35},
 	"rotated": false,
@@ -32,7 +32,7 @@
 	"spriteSourceSize": {"x":46,"y":74,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0005.png":
+"arms/back-arm10005.png":
 {
 	"frame": {"x":944,"y":607,"w":38,"h":36},
 	"rotated": false,
@@ -40,7 +40,7 @@
 	"spriteSourceSize": {"x":46,"y":73,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0006.png":
+"arms/back-arm10006.png":
 {
 	"frame": {"x":944,"y":645,"w":38,"h":36},
 	"rotated": false,
@@ -48,7 +48,7 @@
 	"spriteSourceSize": {"x":46,"y":73,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0007.png":
+"arms/back-arm10007.png":
 {
 	"frame": {"x":907,"y":685,"w":38,"h":35},
 	"rotated": true,
@@ -56,7 +56,7 @@
 	"spriteSourceSize": {"x":46,"y":74,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/back-arm0008.png":
+"arms/back-arm10008.png":
 {
 	"frame": {"x":907,"y":685,"w":38,"h":35},
 	"rotated": true,
@@ -64,7 +64,7 @@
 	"spriteSourceSize": {"x":46,"y":76,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0001.png":
+"arms/front-arm10001.png":
 {
 	"frame": {"x":710,"y":770,"w":38,"h":35},
 	"rotated": false,
@@ -72,7 +72,7 @@
 	"spriteSourceSize": {"x":6,"y":77,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0002.png":
+"arms/front-arm10002.png":
 {
 	"frame": {"x":710,"y":770,"w":38,"h":35},
 	"rotated": false,
@@ -80,7 +80,7 @@
 	"spriteSourceSize": {"x":6,"y":77,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0003.png":
+"arms/front-arm10003.png":
 {
 	"frame": {"x":750,"y":771,"w":38,"h":35},
 	"rotated": false,
@@ -88,7 +88,7 @@
 	"spriteSourceSize": {"x":7,"y":75,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0004.png":
+"arms/front-arm10004.png":
 {
 	"frame": {"x":944,"y":683,"w":38,"h":36},
 	"rotated": false,
@@ -96,7 +96,7 @@
 	"spriteSourceSize": {"x":7,"y":74,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0005.png":
+"arms/front-arm10005.png":
 {
 	"frame": {"x":944,"y":721,"w":38,"h":36},
 	"rotated": false,
@@ -104,7 +104,7 @@
 	"spriteSourceSize": {"x":7,"y":74,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0006.png":
+"arms/front-arm10006.png":
 {
 	"frame": {"x":865,"y":792,"w":38,"h":36},
 	"rotated": false,
@@ -112,7 +112,7 @@
 	"spriteSourceSize": {"x":6,"y":74,"w":38,"h":36},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0007.png":
+"arms/front-arm10007.png":
 {
 	"frame": {"x":825,"y":782,"w":38,"h":35},
 	"rotated": false,
@@ -120,7 +120,7 @@
 	"spriteSourceSize": {"x":6,"y":75,"w":38,"h":35},
 	"sourceSize": {"w":97,"h":147}
 },
-"arms/front-arm0008.png":
+"arms/front-arm10008.png":
 {
 	"frame": {"x":710,"y":770,"w":38,"h":35},
 	"rotated": false,
@@ -3520,71 +3520,7 @@
 	"spriteSourceSize": {"x":23,"y":113,"w":27,"h":33},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/long-sleeve0001.png":
-{
-	"frame": {"x":945,"y":788,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0002.png":
-{
-	"frame": {"x":945,"y":788,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0003.png":
-{
-	"frame": {"x":710,"y":807,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":75,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0004.png":
-{
-	"frame": {"x":749,"y":808,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0005.png":
-{
-	"frame": {"x":749,"y":808,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0006.png":
-{
-	"frame": {"x":749,"y":808,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0007.png":
-{
-	"frame": {"x":710,"y":807,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":75,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/long-sleeve0008.png":
-{
-	"frame": {"x":945,"y":788,"w":26,"h":37},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
-	"sourceSize": {"w":97,"h":147}
-},
-"sleeves/short-sleeve0001.png":
+"sleeves/sleeves10001.png":
 {
 	"frame": {"x":562,"y":816,"w":20,"h":18},
 	"rotated": false,
@@ -3592,7 +3528,7 @@
 	"spriteSourceSize": {"x":13,"y":76,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0002.png":
+"sleeves/sleeves10002.png":
 {
 	"frame": {"x":562,"y":816,"w":20,"h":18},
 	"rotated": false,
@@ -3600,7 +3536,7 @@
 	"spriteSourceSize": {"x":13,"y":76,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0003.png":
+"sleeves/sleeves10003.png":
 {
 	"frame": {"x":594,"y":815,"w":20,"h":18},
 	"rotated": false,
@@ -3608,31 +3544,31 @@
 	"spriteSourceSize": {"x":13,"y":75,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0004.png":
+"sleeves/sleeves10004.png":
 {
 	"frame": {"x":499,"y":814,"w":20,"h":18},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":13,"y":74,"w":20,"h":18},
+	"spriteSourceSize": {"x":13,"y":73,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0005.png":
+"sleeves/sleeves10005.png":
 {
 	"frame": {"x":499,"y":814,"w":20,"h":18},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":13,"y":74,"w":20,"h":18},
+	"spriteSourceSize": {"x":13,"y":73,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0006.png":
+"sleeves/sleeves10006.png":
 {
 	"frame": {"x":499,"y":814,"w":20,"h":18},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":13,"y":74,"w":20,"h":18},
+	"spriteSourceSize": {"x":13,"y":73,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0007.png":
+"sleeves/sleeves10007.png":
 {
 	"frame": {"x":594,"y":815,"w":20,"h":18},
 	"rotated": false,
@@ -3640,12 +3576,76 @@
 	"spriteSourceSize": {"x":13,"y":75,"w":20,"h":18},
 	"sourceSize": {"w":97,"h":147}
 },
-"sleeves/short-sleeve0008.png":
+"sleeves/sleeves10008.png":
 {
 	"frame": {"x":562,"y":816,"w":20,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":13,"y":76,"w":20,"h":18},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20001.png":
+{
+	"frame": {"x":945,"y":788,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20002.png":
+{
+	"frame": {"x":945,"y":788,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20003.png":
+{
+	"frame": {"x":710,"y":807,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":75,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20004.png":
+{
+	"frame": {"x":749,"y":808,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20005.png":
+{
+	"frame": {"x":749,"y":808,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20006.png":
+{
+	"frame": {"x":749,"y":808,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":74,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20007.png":
+{
+	"frame": {"x":710,"y":807,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":75,"w":26,"h":37},
+	"sourceSize": {"w":97,"h":147}
+},
+"sleeves/sleeves20008.png":
+{
+	"frame": {"x":945,"y":788,"w":26,"h":37},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":7,"y":76,"w":26,"h":37},
 	"sourceSize": {"w":97,"h":147}
 },
 "top-head/top-head10001.png":
@@ -4737,8 +4737,8 @@
 	"sourceSize": {"w":97,"h":147}
 }},
 "animations": {
-	"arms/back-arm": ["arms/back-arm0001.png","arms/back-arm0002.png","arms/back-arm0003.png","arms/back-arm0004.png","arms/back-arm0005.png","arms/back-arm0006.png","arms/back-arm0007.png","arms/back-arm0008.png"],
-	"arms/front-arm": ["arms/front-arm0001.png","arms/front-arm0002.png","arms/front-arm0003.png","arms/front-arm0004.png","arms/front-arm0005.png","arms/front-arm0006.png","arms/front-arm0007.png","arms/front-arm0008.png"],
+	"arms/back-arm": ["arms/back-arm10001.png","arms/back-arm10002.png","arms/back-arm10003.png","arms/back-arm10004.png","arms/back-arm10005.png","arms/back-arm10006.png","arms/back-arm10007.png","arms/back-arm10008.png"],
+	"arms/front-arm": ["arms/front-arm10001.png","arms/front-arm10002.png","arms/front-arm10003.png","arms/front-arm10004.png","arms/front-arm10005.png","arms/front-arm10006.png","arms/front-arm10007.png","arms/front-arm10008.png"],
 	"chests/chest": ["chests/chest10001.png","chests/chest10002.png","chests/chest10003.png","chests/chest10004.png","chests/chest10005.png","chests/chest10006.png","chests/chest10007.png","chests/chest10008.png","chests/chest20001.png","chests/chest20002.png","chests/chest20003.png","chests/chest20004.png","chests/chest20005.png","chests/chest20006.png","chests/chest20007.png","chests/chest20008.png","chests/chest30001.png","chests/chest30002.png","chests/chest30003.png","chests/chest30004.png","chests/chest30005.png","chests/chest30006.png","chests/chest30007.png","chests/chest30008.png","chests/chest40001.png","chests/chest40002.png","chests/chest40003.png","chests/chest40004.png","chests/chest40005.png","chests/chest40006.png","chests/chest40007.png","chests/chest40008.png","chests/chest50001.png","chests/chest50002.png","chests/chest50003.png","chests/chest50004.png","chests/chest50005.png","chests/chest50006.png","chests/chest50007.png","chests/chest50008.png","chests/chest60001.png","chests/chest60002.png","chests/chest60003.png","chests/chest60004.png","chests/chest60005.png","chests/chest60006.png","chests/chest60007.png","chests/chest60008.png","chests/chest70001.png","chests/chest70002.png","chests/chest70003.png","chests/chest70004.png","chests/chest70005.png","chests/chest70006.png","chests/chest70007.png","chests/chest70008.png","chests/chest80001.png","chests/chest80002.png","chests/chest80003.png","chests/chest80004.png","chests/chest80005.png","chests/chest80006.png","chests/chest80007.png","chests/chest80008.png","chests/chest90001.png","chests/chest90002.png","chests/chest90003.png","chests/chest90004.png","chests/chest90005.png","chests/chest90006.png","chests/chest90007.png","chests/chest90008.png","chests/chest100001.png","chests/chest100002.png","chests/chest100003.png","chests/chest100004.png","chests/chest100005.png","chests/chest100006.png","chests/chest100007.png","chests/chest100008.png","chests/chest110001.png","chests/chest110002.png","chests/chest110003.png","chests/chest110004.png","chests/chest110005.png","chests/chest110006.png","chests/chest110007.png","chests/chest110008.png","chests/chest120001.png","chests/chest120002.png","chests/chest120003.png","chests/chest120004.png","chests/chest120005.png","chests/chest120006.png","chests/chest120007.png","chests/chest120008.png","chests/chest130001.png","chests/chest130002.png","chests/chest130003.png","chests/chest130004.png","chests/chest130005.png","chests/chest130006.png","chests/chest130007.png","chests/chest130008.png","chests/chest140001.png","chests/chest140002.png","chests/chest140003.png","chests/chest140004.png","chests/chest140005.png","chests/chest140006.png","chests/chest140007.png","chests/chest140008.png","chests/chest150001.png","chests/chest150002.png","chests/chest150003.png","chests/chest150004.png","chests/chest150005.png","chests/chest150006.png","chests/chest150007.png","chests/chest150008.png","chests/chest160001.png","chests/chest160002.png","chests/chest160003.png","chests/chest160004.png","chests/chest160005.png","chests/chest160006.png","chests/chest160007.png","chests/chest160008.png","chests/chest170001.png","chests/chest170002.png","chests/chest170003.png","chests/chest170004.png","chests/chest170005.png","chests/chest170006.png","chests/chest170007.png","chests/chest170008.png","chests/chest180001.png","chests/chest180002.png","chests/chest180003.png","chests/chest180004.png","chests/chest180005.png","chests/chest180006.png","chests/chest180007.png","chests/chest180008.png","chests/chest190001.png","chests/chest190002.png","chests/chest190003.png","chests/chest190004.png","chests/chest190005.png","chests/chest190006.png","chests/chest190007.png","chests/chest190008.png","chests/chest200001.png","chests/chest200002.png","chests/chest200003.png","chests/chest200004.png","chests/chest200005.png","chests/chest200006.png","chests/chest200007.png","chests/chest200008.png","chests/chest210001.png","chests/chest210002.png","chests/chest210003.png","chests/chest210004.png","chests/chest210005.png","chests/chest210006.png","chests/chest210007.png","chests/chest210008.png"],
 	"faces/face": ["faces/face10001.png","faces/face10002.png","faces/face10003.png","faces/face10004.png","faces/face10005.png","faces/face10006.png","faces/face10007.png","faces/face10008.png","faces/face20001.png","faces/face20002.png","faces/face20003.png","faces/face20004.png","faces/face20005.png","faces/face20006.png","faces/face20007.png","faces/face20008.png","faces/face30001.png","faces/face30002.png","faces/face30003.png","faces/face30004.png","faces/face30005.png","faces/face30006.png","faces/face30007.png","faces/face30008.png","faces/face40001.png","faces/face40002.png","faces/face40003.png","faces/face40004.png","faces/face40005.png","faces/face40006.png","faces/face40007.png","faces/face40008.png","faces/face50001.png","faces/face50002.png","faces/face50003.png","faces/face50004.png","faces/face50005.png","faces/face50006.png","faces/face50007.png","faces/face50008.png","faces/face60001.png","faces/face60002.png","faces/face60003.png","faces/face60004.png","faces/face60005.png","faces/face60006.png","faces/face60007.png","faces/face60008.png","faces/face70001.png","faces/face70002.png","faces/face70003.png","faces/face70004.png","faces/face70005.png","faces/face70006.png","faces/face70007.png","faces/face70008.png","faces/face80001.png","faces/face80002.png","faces/face80003.png","faces/face80004.png","faces/face80005.png","faces/face80006.png","faces/face80007.png","faces/face80008.png","faces/face90001.png","faces/face90002.png","faces/face90003.png","faces/face90004.png","faces/face90005.png","faces/face90006.png","faces/face90007.png","faces/face90008.png","faces/face100001.png","faces/face100002.png","faces/face100003.png","faces/face100004.png","faces/face100005.png","faces/face100006.png","faces/face100007.png","faces/face100008.png","faces/face110001.png","faces/face110002.png","faces/face110003.png","faces/face110004.png","faces/face110005.png","faces/face110006.png","faces/face110007.png","faces/face110008.png","faces/face120001.png","faces/face120002.png","faces/face120003.png","faces/face120004.png","faces/face120005.png","faces/face120006.png","faces/face120007.png","faces/face120008.png","faces/face130001.png","faces/face130002.png","faces/face130003.png","faces/face130004.png","faces/face130005.png","faces/face130006.png","faces/face130007.png","faces/face130008.png","faces/face140001.png","faces/face140002.png","faces/face140003.png","faces/face140004.png","faces/face140005.png","faces/face140006.png","faces/face140007.png","faces/face140008.png","faces/face150001.png","faces/face150002.png","faces/face150003.png","faces/face150004.png","faces/face150005.png","faces/face150006.png","faces/face150007.png","faces/face150008.png","faces/face160001.png","faces/face160002.png","faces/face160003.png","faces/face160004.png","faces/face160005.png","faces/face160006.png","faces/face160007.png","faces/face160008.png","faces/face170001.png","faces/face170002.png","faces/face170003.png","faces/face170004.png","faces/face170005.png","faces/face170006.png","faces/face170007.png","faces/face170008.png","faces/face180001.png","faces/face180002.png","faces/face180003.png","faces/face180004.png","faces/face180005.png","faces/face180006.png","faces/face180007.png","faces/face180008.png","faces/face190001.png","faces/face190002.png","faces/face190003.png","faces/face190004.png","faces/face190005.png","faces/face190006.png","faces/face190007.png","faces/face190008.png"],
 	"heads/head": ["heads/head10001.png","heads/head10002.png","heads/head10003.png","heads/head10004.png","heads/head10005.png","heads/head10006.png","heads/head10007.png","heads/head10008.png","heads/head20001.png","heads/head20002.png","heads/head20003.png","heads/head20004.png","heads/head20005.png","heads/head20006.png","heads/head20007.png","heads/head20008.png","heads/head30001.png","heads/head30002.png","heads/head30003.png","heads/head30004.png","heads/head30005.png","heads/head30006.png","heads/head30007.png","heads/head30008.png","heads/head40001.png","heads/head40002.png","heads/head40003.png","heads/head40004.png","heads/head40005.png","heads/head40006.png","heads/head40007.png","heads/head40008.png","heads/head50001.png","heads/head50002.png","heads/head50003.png","heads/head50004.png","heads/head50005.png","heads/head50006.png","heads/head50007.png","heads/head50008.png"],
@@ -4746,8 +4746,7 @@
 	"legs/front-leg": ["legs/front-leg10001.png","legs/front-leg10002.png","legs/front-leg10003.png","legs/front-leg10004.png","legs/front-leg10005.png","legs/front-leg10006.png","legs/front-leg10007.png","legs/front-leg10008.png","legs/front-leg20001.png","legs/front-leg20002.png","legs/front-leg20003.png","legs/front-leg20004.png","legs/front-leg20005.png","legs/front-leg20006.png","legs/front-leg20007.png","legs/front-leg20008.png","legs/front-leg30001.png","legs/front-leg30002.png","legs/front-leg30003.png","legs/front-leg30004.png","legs/front-leg30005.png","legs/front-leg30006.png","legs/front-leg30007.png","legs/front-leg30008.png"],
 	"shoes/back-shoe": ["shoes/back-shoe10001.png","shoes/back-shoe10002.png","shoes/back-shoe10003.png","shoes/back-shoe10004.png","shoes/back-shoe10005.png","shoes/back-shoe10006.png","shoes/back-shoe10007.png","shoes/back-shoe10008.png"],
 	"shoes/front-shoe": ["shoes/front-shoe10001.png","shoes/front-shoe10002.png","shoes/front-shoe10003.png","shoes/front-shoe10004.png","shoes/front-shoe10005.png","shoes/front-shoe10006.png","shoes/front-shoe10007.png","shoes/front-shoe10008.png"],
-	"sleeves/long-sleeve": ["sleeves/long-sleeve0001.png","sleeves/long-sleeve0002.png","sleeves/long-sleeve0003.png","sleeves/long-sleeve0004.png","sleeves/long-sleeve0005.png","sleeves/long-sleeve0006.png","sleeves/long-sleeve0007.png","sleeves/long-sleeve0008.png"],
-	"sleeves/short-sleeve": ["sleeves/short-sleeve0001.png","sleeves/short-sleeve0002.png","sleeves/short-sleeve0003.png","sleeves/short-sleeve0004.png","sleeves/short-sleeve0005.png","sleeves/short-sleeve0006.png","sleeves/short-sleeve0007.png","sleeves/short-sleeve0008.png"],
+	"sleeves/sleeves": ["sleeves/sleeves10001.png","sleeves/sleeves10002.png","sleeves/sleeves10003.png","sleeves/sleeves10004.png","sleeves/sleeves10005.png","sleeves/sleeves10006.png","sleeves/sleeves10007.png","sleeves/sleeves10008.png","sleeves/sleeves20001.png","sleeves/sleeves20002.png","sleeves/sleeves20003.png","sleeves/sleeves20004.png","sleeves/sleeves20005.png","sleeves/sleeves20006.png","sleeves/sleeves20007.png","sleeves/sleeves20008.png"],
 	"top-head/top-head": ["top-head/top-head10001.png","top-head/top-head10002.png","top-head/top-head10003.png","top-head/top-head10004.png","top-head/top-head10005.png","top-head/top-head10006.png","top-head/top-head10007.png","top-head/top-head10008.png","top-head/top-head20001.png","top-head/top-head20002.png","top-head/top-head20003.png","top-head/top-head20004.png","top-head/top-head20005.png","top-head/top-head20006.png","top-head/top-head20007.png","top-head/top-head20008.png","top-head/top-head30001.png","top-head/top-head30002.png","top-head/top-head30003.png","top-head/top-head30004.png","top-head/top-head30005.png","top-head/top-head30006.png","top-head/top-head30007.png","top-head/top-head30008.png","top-head/top-head40001.png","top-head/top-head40002.png","top-head/top-head40003.png","top-head/top-head40004.png","top-head/top-head40005.png","top-head/top-head40006.png","top-head/top-head40007.png","top-head/top-head40008.png","top-head/top-head50001.png","top-head/top-head50002.png","top-head/top-head50003.png","top-head/top-head50004.png","top-head/top-head50005.png","top-head/top-head50006.png","top-head/top-head50007.png","top-head/top-head50008.png","top-head/top-head60001.png","top-head/top-head60002.png","top-head/top-head60003.png","top-head/top-head60004.png","top-head/top-head60005.png","top-head/top-head60006.png","top-head/top-head60007.png","top-head/top-head60008.png","top-head/top-head70001.png","top-head/top-head70002.png","top-head/top-head70003.png","top-head/top-head70004.png","top-head/top-head70005.png","top-head/top-head70006.png","top-head/top-head70007.png","top-head/top-head70008.png","top-head/top-head80001.png","top-head/top-head80002.png","top-head/top-head80003.png","top-head/top-head80004.png","top-head/top-head80005.png","top-head/top-head80006.png","top-head/top-head80007.png","top-head/top-head80008.png","top-head/top-head90001.png","top-head/top-head90002.png","top-head/top-head90003.png","top-head/top-head90004.png","top-head/top-head90005.png","top-head/top-head90006.png","top-head/top-head90007.png","top-head/top-head90008.png","top-head/top-head100001.png","top-head/top-head100002.png","top-head/top-head100003.png","top-head/top-head100004.png","top-head/top-head100005.png","top-head/top-head100006.png","top-head/top-head100007.png","top-head/top-head100008.png","top-head/top-head110001.png","top-head/top-head110002.png","top-head/top-head110003.png","top-head/top-head110004.png","top-head/top-head110005.png","top-head/top-head110006.png","top-head/top-head110007.png","top-head/top-head110008.png","top-head/top-head120001.png","top-head/top-head120002.png","top-head/top-head120003.png","top-head/top-head120004.png","top-head/top-head120005.png","top-head/top-head120006.png","top-head/top-head120007.png","top-head/top-head120008.png","top-head/top-head130001.png","top-head/top-head130002.png","top-head/top-head130003.png","top-head/top-head130004.png","top-head/top-head130005.png","top-head/top-head130006.png","top-head/top-head130007.png","top-head/top-head130008.png","top-head/top-head140001.png","top-head/top-head140002.png","top-head/top-head140003.png","top-head/top-head140004.png","top-head/top-head140005.png","top-head/top-head140006.png","top-head/top-head140007.png","top-head/top-head140008.png","top-head/top-head150001.png","top-head/top-head150002.png","top-head/top-head150003.png","top-head/top-head150004.png","top-head/top-head150005.png","top-head/top-head150006.png","top-head/top-head150007.png","top-head/top-head150008.png","top-head/top-head160001.png","top-head/top-head160002.png","top-head/top-head160003.png","top-head/top-head160004.png","top-head/top-head160005.png","top-head/top-head160006.png","top-head/top-head160007.png","top-head/top-head160008.png","top-head/top-head170001.png","top-head/top-head170002.png","top-head/top-head170003.png","top-head/top-head170004.png","top-head/top-head170005.png","top-head/top-head170006.png","top-head/top-head170007.png","top-head/top-head170008.png"]
 },
 "meta": {
@@ -4757,6 +4756,6 @@
 	"format": "RGBA8888",
 	"size": {"w":983,"h":870},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2671384699069c98c153e1b9a599bc97:253de66d2aeba3ac643c8d4e5fb7d517:7880fcb19a7cb457d5f05323b132ff00$"
+	"smartupdate": "$TexturePacker:SmartUpdate:52bfef1ad7c448317491ad8746a371a6:810a7e12ec0eb58af8d3141036603d2a:7880fcb19a7cb457d5f05323b132ff00$"
 }
 }
