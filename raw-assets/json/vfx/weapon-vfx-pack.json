@@ -12,6 +12,54 @@
         "targetLayer": "GameplayLayer"
     },
     {
+        "id": "STANDARD_SHOOTING_1",
+        "vfxData": "STANDARD_SHOOTING_1",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "STANDARD_SHOOTING_2",
+        "vfxData": "STANDARD_SHOOTING_2",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "BLUE_IMPACT",
+        "vfxData": "BLUE_IMPACT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "PURPLE_IMPACT",
+        "vfxData": "PURPLE_IMPACT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
         "id": "AURA_PACK_01",
         "vfxData": "AURA_01",
         "viewOffset": {

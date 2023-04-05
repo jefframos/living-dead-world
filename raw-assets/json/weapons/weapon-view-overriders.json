@@ -103,7 +103,7 @@
     },
     {
         "id": "SUBMACHINE_BASE_01",
-        "viewData": "rainbow-shell",
+        "viewData": "blue-shell",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
@@ -118,6 +118,7 @@
         "hasShadow": false,
         "rotationFacing": false,
         "hasAnimation": false,
+        "fallTimer": 0,
         "viewOffset": {
             "y": -20
         },

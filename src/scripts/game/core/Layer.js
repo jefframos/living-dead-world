@@ -34,6 +34,7 @@ export default class Layer {
         this.container = container;
         this.gameViews = []
         this.sortable = sortable;
+        this.container.sortableChildren = true;
     }
     addGameView(gameView) {
         this.gameViews.push(gameView)
@@ -60,15 +61,19 @@ export default class Layer {
         return this.container.children;
     }
     onRender() {
-        if (!this.sortable) return;
-        this.container.children.sort((a, b) => {
-            if (a.y < b.y) {
-                return -1;
-            } else if (a.y > b.y) {
-                return 1;
-            } else {
-                return 0;
-            }
-        });
+
+        for (var i = 0; i < this.gameViews.length; i++){
+            this.gameViews[i].onRender();
+        }
+        // if (!this.sortable) return;
+        // this.container.children.sort((a, b) => {
+        //     if (a.y < b.y) {
+        //         return -1;
+        //     } else if (a.y > b.y) {
+        //         return 1;
+        //     } else {
+        //         return 0;
+        //     }
+        // });
     }
 }

@@ -43,6 +43,7 @@ export default class WeaponInGameView extends GameObject {
 
         this.spawnDistance = weapon.weaponAttributes.spawnDistance
 
+        console.log(amount, weapon.weaponAttributes.amount);
         this.defautScale = { x: 1, y: 1 }
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
@@ -116,7 +117,6 @@ export default class WeaponInGameView extends GameObject {
                 totalFramesRange: { min: this.weapon.ingameViewDataStatic.shootAnimation.min, max: this.weapon.ingameViewDataStatic.shootAnimation.max },
 
             }
-            console.log(shootData)
             this.spritesheetAnimation.addLayer('shoot', this.weapon.ingameViewDataStatic.shootAnimation.sprite, shootData);
 
         }
@@ -148,8 +148,10 @@ export default class WeaponInGameView extends GameObject {
             const totalBullets = this.spriteList.length;
             for (let index = 0; index < totalBullets; index++) {
                 let facingAng = BaseWeapon.getFacingAngle(this.weapon, this.parent, this.alternateFacing);
-
+                
                 let halfAngle = this.weapon.weaponAttributes.angleOffset * index - (this.weapon.weaponAttributes.angleOffset * (totalBullets - 1) / 2)
+
+                //console.log(this.weapon.weaponAttributes.angleOffset * index)
 
                 let finalAng = facingAng + halfAngle;
                 if (this.weapon.weaponAttributes.extendedBehaviour == WeaponAttributes.DirectionType.FacingBackwards) {
@@ -211,9 +213,9 @@ export default class WeaponInGameView extends GameObject {
             this.x = this.parent.transform.position.x
             this.z = this.parent.transform.position.z;
             if (up || this.isAlwaysUp) {
-                this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
+                this.z = this.parent.transform.position.z +1// this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
             } else {
-                this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
+                this.z  = this.parent.transform.position.z -1;//this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
             }
 
             if (!right) {

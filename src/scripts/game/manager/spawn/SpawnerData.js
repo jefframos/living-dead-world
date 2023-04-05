@@ -72,8 +72,9 @@ export default class SpawnerData {
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
                 const ang = Math.random() * Math.PI * 2;
-                this.toSpawnData.x = Math.cos(ang) * this.radius + this.randomPoint.x * this.distanceToSpawn;
-                this.toSpawnData.z = Math.sin(ang) * this.radius + this.randomPoint.y * this.distanceToSpawn;
+                let dist = this.distanceToSpawn * Math.random();
+                this.toSpawnData.x = Math.cos(ang) * this.radius + this.randomPoint.x * dist;
+                this.toSpawnData.z = Math.sin(ang) * this.radius + this.randomPoint.y * dist;
                 break;
             case SessionSpawner.SpawnAreaType.Point:
                 this.toSpawnData.x = 0;

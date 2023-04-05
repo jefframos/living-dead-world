@@ -15,7 +15,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
-            "baseRadius": 15,
+            "baseRadius": 25,
             "baseSpeed": 10
         },
         "icon": "goblin_idle_anim_f0",
@@ -50,7 +50,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 15,
+            "baseRadius": 25,
             "baseSpeed": 8
         },
         "icon": "goblin_idle_anim_f0",
@@ -85,7 +85,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 15,
+            "baseRadius": 25,
             "baseSpeed": 8
         },
         "icon": "goblin_idle_anim_f0",
@@ -120,7 +120,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 15,
+            "baseRadius": 25,
             "baseSpeed": 8
         },
         "icon": "goblin_idle_anim_f0",
@@ -151,7 +151,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
-            "baseRadius": 18,
+            "baseRadius": 30,
             "baseSpeed": 80
         },
         "icon": "goblin_idle_anim_f0",
@@ -185,7 +185,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 10,
+            "baseRadius": 15,
             "baseSpeed": 20
         },
         "icon": "goblin_idle_anim_f0",
@@ -221,7 +221,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
-            "baseRadius": 18,
+            "baseRadius": 30,
             "baseSpeed": 25
         },
         "icon": "goblin_idle_anim_f0",
@@ -279,7 +279,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
-            "baseRadius": 10,
+            "baseRadius": 15,
             "baseSpeed": 12
         },
         "icon": "goblin_idle_anim_f0",

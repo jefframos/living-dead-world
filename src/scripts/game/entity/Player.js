@@ -42,7 +42,7 @@ export default class Player extends GameAgent {
         this.totalDirections = 8
         this.autoSetAngle = false;
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('knight_idle_anim_f0')
+        this.gameView.view = new PIXI.Sprite();
         //this.setDebug(15)        
         this.playerStats = {
             health: 0,
@@ -143,7 +143,7 @@ export default class Player extends GameAgent {
 
 
         let scale = this.viewData.scale ? this.viewData.scale : 1
-        this.gameView.view.scale.set(scale * 0.5);//Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+        this.gameView.view.scale.set(scale * 0.4);//Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
         this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
         this.gameView.applyScale();

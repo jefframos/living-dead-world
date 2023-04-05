@@ -13575,7 +13575,7 @@ var RenderModule = function (_GameObject) {
         // }
         _this.lateAdded = [];
         _this.layers[RenderModule.RenderLayers.Shadow].container.tint = 0;
-        _this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.2;
+        _this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.1;
         return _this;
     }
 
@@ -14039,6 +14039,13 @@ var GameView = function () {
     (0, _createClass3.default)(GameView, [{
         key: 'update',
         value: function update(delta) {}
+    }, {
+        key: 'onRender',
+        value: function onRender() {
+            if (this.gameObject) {
+                this.view.zIndex = this.gameObject.transform.position.z;
+            }
+        }
     }, {
         key: 'applyScale',
         value: function applyScale() {
@@ -19703,6 +19710,7 @@ var Layer = function () {
         this.container = container;
         this.gameViews = [];
         this.sortable = sortable;
+        this.container.sortableChildren = true;
     }
 
     // static Player = 0b0001;
@@ -19745,16 +19753,20 @@ var Layer = function () {
     }, {
         key: 'onRender',
         value: function onRender() {
-            if (!this.sortable) return;
-            this.container.children.sort(function (a, b) {
-                if (a.y < b.y) {
-                    return -1;
-                } else if (a.y > b.y) {
-                    return 1;
-                } else {
-                    return 0;
-                }
-            });
+
+            for (var i = 0; i < this.gameViews.length; i++) {
+                this.gameViews[i].onRender();
+            }
+            // if (!this.sortable) return;
+            // this.container.children.sort((a, b) => {
+            //     if (a.y < b.y) {
+            //         return -1;
+            //     } else if (a.y > b.y) {
+            //         return 1;
+            //     } else {
+            //         return 0;
+            //     }
+            // });
         }
     }, {
         key: 'children',
@@ -20540,7 +20552,7 @@ var Player = function (_GameAgent) {
         _this.totalDirections = 8;
         _this.autoSetAngle = false;
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Gameplay;
-        _this.gameView.view = new PIXI.Sprite.from('knight_idle_anim_f0');
+        _this.gameView.view = new PIXI.Sprite();
         //this.setDebug(15)        
         _this.playerStats = {
             health: 0,
@@ -20623,7 +20635,7 @@ var Player = function (_GameAgent) {
             }
 
             var scale = this.viewData.scale ? this.viewData.scale : 1;
-            this.gameView.view.scale.set(scale * 0.5); //Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+            this.gameView.view.scale.set(scale * 0.4); //Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
             this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
             this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
             this.gameView.applyScale();
@@ -63777,6 +63789,7 @@ var PlayerSessionData = function () {
             }
 
             this.equipmentList[i][j].item = equipment.item;
+            this.equipmentList[i][j].item.level = 2;
             this.equipmentList[i][j].item.ingameData = this.equipmentList[i][j];
 
             this.equipmentUpdate();
@@ -81624,6 +81637,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.offsetSin = 0;
             this.sinSpeed = 3;
             this.direction = 1;
+            this.baseScale = 0.5;
         }
     }, {
         key: 'destroy',
@@ -81659,11 +81673,13 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 sleeves: 1, //Math.ceil(Math.random() * 19)
                 arms: 1, //Math.ceil(Math.random() * 19)
                 shoe: 0, //Math.ceil(Math.random() * 19)
+                frontFace: 0, //Math.ceil(Math.random() * 19)
+                backHead: 0, //Math.ceil(Math.random() * 19)
                 topClothColor: 0xFFFFFF,
                 botomColor: 0xFFFFFF,
                 shoeColor: 0x007272
             };
-            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0 }, { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }];
+            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 }, { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0 }, { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }, { area: "frontFace", src: "front-face" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 }];
 
             this.bodyData.forEach(function (element) {
 
@@ -81679,7 +81695,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 if (data.anchor) {
                     sprite.anchor.set(data.anchor.x, data.anchor.y);
                 } else {
-                    sprite.anchor.set(0.5, 0.95);
+                    sprite.anchor.set(0.45, 0.9);
                 }
             });
         }
@@ -81715,7 +81731,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.offsetSin += delta * 4 * this.sinSpeed;
             this.offsetSin %= Math.PI * 2;
 
-            this.view.scale.set(this.direction * 0.5 * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * 0.5);
+            this.view.scale.set(this.direction * this.baseScale * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * this.baseScale);
 
             this.bodyData.forEach(function (element) {
                 if (_this3.spriteLayersData[element.area].enabled) {
@@ -82031,8 +82047,9 @@ var SpawnerData = function () {
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Circle:
                     var ang = Math.random() * Math.PI * 2;
-                    this.toSpawnData.x = Math.cos(ang) * this.radius + this.randomPoint.x * this.distanceToSpawn;
-                    this.toSpawnData.z = Math.sin(ang) * this.radius + this.randomPoint.y * this.distanceToSpawn;
+                    var dist = this.distanceToSpawn * Math.random();
+                    this.toSpawnData.x = Math.cos(ang) * this.radius + this.randomPoint.x * dist;
+                    this.toSpawnData.z = Math.sin(ang) * this.radius + this.randomPoint.y * dist;
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Point:
                     this.toSpawnData.x = 0;
@@ -82191,6 +82208,7 @@ var WeaponInGameView = function (_GameObject) {
 
             this.spawnDistance = weapon.weaponAttributes.spawnDistance;
 
+            console.log(amount, weapon.weaponAttributes.amount);
             this.defautScale = { x: 1, y: 1 };
             for (var i = 0; i < amount; i++) {
                 var sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);
@@ -82265,7 +82283,6 @@ var WeaponInGameView = function (_GameObject) {
                     totalFramesRange: { min: this.weapon.ingameViewDataStatic.shootAnimation.min, max: this.weapon.ingameViewDataStatic.shootAnimation.max }
 
                 };
-                console.log(shootData);
                 this.spritesheetAnimation.addLayer('shoot', this.weapon.ingameViewDataStatic.shootAnimation.sprite, shootData);
             }
             this.spritesheetAnimation.stop();
@@ -82301,6 +82318,8 @@ var WeaponInGameView = function (_GameObject) {
                     var facingAng = _BaseWeapon2.default.getFacingAngle(this.weapon, this.parent, this.alternateFacing);
 
                     var halfAngle = this.weapon.weaponAttributes.angleOffset * index - this.weapon.weaponAttributes.angleOffset * (totalBullets - 1) / 2;
+
+                    //console.log(this.weapon.weaponAttributes.angleOffset * index)
 
                     var finalAng = facingAng + halfAngle;
                     if (this.weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.DirectionType.FacingBackwards) {
@@ -82362,9 +82381,9 @@ var WeaponInGameView = function (_GameObject) {
                 _this2.x = _this2.parent.transform.position.x;
                 _this2.z = _this2.parent.transform.position.z;
                 if (up || _this2.isAlwaysUp) {
-                    _this2.renderModule.swapLayer(_this2.gameView, _RenderModule2.default.RenderLayers.FrontLayer);
+                    _this2.z = _this2.parent.transform.position.z + 1; // this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
                 } else {
-                    _this2.renderModule.swapLayer(_this2.gameView, _RenderModule2.default.RenderLayers.BackLayer);
+                    _this2.z = _this2.parent.transform.position.z - 1; //this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
                 }
 
                 if (!right) {
@@ -88564,7 +88583,7 @@ var PerspectiveCamera = function (_Camera) {
             }
         }
         _this.zoom = 1;
-        _this.targetZoom = 1;
+        _this.targetZoom = 0.75;
         window.GUI.add(_this, 'targetZoom', 0.5, 3).listen();
         return _this;
     }
@@ -94516,17 +94535,17 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
@@ -94540,6 +94559,9 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -94552,20 +94574,14 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -94576,14 +94592,17 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
@@ -94591,14 +94610,14 @@ var assets = [{
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
 	"id": "weapon-in-game-visuals",
 	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
 }];
 
 exports.default = assets;
@@ -94631,7 +94650,7 @@ module.exports = exports['default'];
 /* 296 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/environment/environment.json","image/particles/particles.json","image/entities/entities.json","image/vfx/vfx.json","image/body-parts/body-parts.json","image/ui/ui.json","image/characters/characters.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/vfx/vfx.json","image/body-parts/body-parts.json","image/ui/ui.json"]}
 
 /***/ })
 /******/ ]);

@@ -69,7 +69,7 @@ export default class RenderModule extends GameObject {
         // }
         this.lateAdded = []
         this.layers[RenderModule.RenderLayers.Shadow].container.tint = 0
-        this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.2
+        this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.1
     }
     start() {
         this.physics = this.engine.findByType(PhysicsModule)

@@ -21,6 +21,11 @@ export default class GameView {
     }
     update(delta) {
     }
+    onRender(){
+        if(this.gameObject){
+            this.view.zIndex = this.gameObject.transform.position.z;    
+        }
+    }
     applyScale(){
         this.baseScale.x = this.view.scale.x;
         this.baseScale.y = this.view.scale.y;

@@ -4,18 +4,17 @@
         "duration": 60,
         "waves": [
             {
-                "areaType": "rect",
-                "width": 400,
-                "height": 400,
+                "areaType": "circle",
+                "radius": 300,
                 "total": 300,
-                "maxActive": 10,
+                "maxActive": 50,
                 "entity": ["ZOMBIE_01", "ZOMBIE_02", "ZOMBIE_03", "ZOMBIE_04"]
             },
             {
                 "areaType": "rect",
-                "radius": 100,
+                "radius": 500,
                 "total": 300,
-                "maxActive": 30,
+                "maxActive": 50,
                 "entity": ["RAT_01", "SPIDER_BRAIN"]
             }
         ]

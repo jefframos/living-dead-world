@@ -95,6 +95,7 @@ export default class WeaponAttributes {
 
         this.level = 0;
 
+
         this.overrider = null;
 
         this.attributesMultiplier = new EntityMultipliers();
@@ -126,7 +127,7 @@ export default class WeaponAttributes {
     }
     get brustFireAmount() {
         let tempAmount = this.findAttributeValue('baseBrustFireAmount');
-        if(this.baseBrustFireAmount > 0){
+        if (this.baseBrustFireAmount > 0) {
             return this.findAttributeValue('baseBrustFireAmount') + this.attributesMultiplier.amount;
         }
         return this.findAttributeValue('baseBrustFireAmount');
@@ -184,7 +185,7 @@ export default class WeaponAttributes {
     }
     get amount() {
         let tempAmount = this.findAttributeValue('baseAmount')
-        if(this.baseBrustFireAmount > 0){
+        if (this.baseBrustFireAmount > 0) {
             return tempAmount;
         }
         return tempAmount + this.attributesMultiplier.amount;

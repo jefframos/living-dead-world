@@ -28,6 +28,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.offsetSin = 0;
         this.sinSpeed = 3
         this.direction = 1
+        this.baseScale = 0.5
     }
     destroy() {
         super.destroy();
@@ -55,6 +56,8 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             sleeves: 1,//Math.ceil(Math.random() * 19)
             arms: 1,//Math.ceil(Math.random() * 19)
             shoe: 0,//Math.ceil(Math.random() * 19)
+            frontFace: 0,//Math.ceil(Math.random() * 19)
+            backHead: 0,//Math.ceil(Math.random() * 19)
             topClothColor: 0xFFFFFF,
             botomColor: 0xFFFFFF,
             shoeColor: 0x007272,
@@ -66,11 +69,13 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor , enabled:this.baseData.leg > 0},
             { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor , enabled:this.baseData.shoe > 0},
             { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor , enabled:this.baseData.chest > 0},
+            { area: "backHead", src: "back-head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.backHead > 0},
             { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.head > 0},
             { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF , enabled:this.baseData.face > 0},
             { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin , enabled:this.baseData.arms > 0},
             { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor , enabled:this.baseData.sleeves > 0},
             { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF , enabled:this.baseData.topHead > 0},
+            { area: "frontFace", src: "front-face" + this.baseData.topHead + "00", color: 0xFFFFFF , enabled:this.baseData.frontFace > 0},
         ]
 
         this.bodyData.forEach(element => {
@@ -88,7 +93,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
                 if (data.anchor) {
                     sprite.anchor.set(data.anchor.x, data.anchor.y)
                 } else {
-                    sprite.anchor.set(0.5, 0.95)
+                    sprite.anchor.set(0.45, 0.9)
                 }
             
         });
@@ -125,7 +130,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.offsetSin += delta * 4 * this.sinSpeed;
         this.offsetSin %= Math.PI * 2
 
-        this.view.scale.set(this.direction * 0.5 * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * 0.5);
+        this.view.scale.set(this.direction *this.baseScale * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) *this.baseScale);
 
         this.bodyData.forEach(element => {
             if(this.spriteLayersData[element.area].enabled){
