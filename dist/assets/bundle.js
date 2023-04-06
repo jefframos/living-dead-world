@@ -17026,6 +17026,12 @@ var Vector3 = function () {
         value: function XZtoXY(v1) {
             return new Vector3(v1.x, v1.z, 0);
         }
+    }, {
+        key: "lerp",
+        value: function lerp(v1, v2, a) {
+
+            return new Vector3(v1.x * (1 - a) + v2.x * a, v1.y * (1 - a) + v2.y * a, v1.z * (1 - a) + v2.z * a);
+        }
     }]);
     return Vector3;
 }();
@@ -80531,7 +80537,7 @@ var GameScreen = function (_Screen) {
     }, {
         key: 'addWorldElements',
         value: function addWorldElements() {
-            return;
+            // return
             var i = 5;
             var j = 8;
             var chunkX = _config2.default.width * 2 / i;
@@ -80543,7 +80549,7 @@ var GameScreen = function (_Screen) {
                         this.levelManager.addEntity(_Trees2.default, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 });
                     } else {
 
-                        this.levelManager.addEntity(_StaticPhysicObject2.default, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 });
+                        // this.levelManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                     }
                 }
             }
@@ -81379,9 +81385,9 @@ var Collectable = function (_GameObject) {
 
         _this.gameView = new _GameView2.default(_this);
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Base;
-        _this.gameView.view = new PIXI.Sprite.from("icon_increase");
+        _this.gameView.view = new PIXI.Sprite.from("pickup0001");
 
-        _this.gameView.view.scale.set(_Utils2.default.scaleToFit(_this.gameView.view, 5));
+        _this.gameView.view.scale.set(_Utils2.default.scaleToFit(_this.gameView.view, 20));
 
         return _this;
     }
@@ -81391,6 +81397,11 @@ var Collectable = function (_GameObject) {
         value: function start() {
             (0, _get3.default)(Collectable.prototype.__proto__ || (0, _getPrototypeOf2.default)(Collectable.prototype), "start", this).call(this);
             this.player = this.engine.findByType(_Player2.default);
+
+            this.lerpTime = 0.5;
+            this.currentLerp = 0;
+            this.attracting = false;
+            this.gameView.view.texture = PIXI.Texture.from("pickup000" + Math.ceil(Math.random() * 5));
         }
     }, {
         key: "update",
@@ -81398,10 +81409,20 @@ var Collectable = function (_GameObject) {
             (0, _get3.default)(Collectable.prototype.__proto__ || (0, _getPrototypeOf2.default)(Collectable.prototype), "update", this).call(this, delta);
             if (!this.player) {
                 return;
+                this.destroy();
+            }
+            if (this.attracting) {
+                this.currentLerp += delta;
+
+                if (this.currentLerp >= this.lerpTime * 0.5) {
+                    this.destroy();
+                    this.player.sessionData.addXp(1);
+                } else {
+                    this.transform.position = _Vector2.default.lerp(this.transform.position, _Vector2.default.sum(this.player.transform.position, new _Vector2.default(0, -20, 0)), this.currentLerp / this.lerpTime);
+                }
             }
             if (_Vector2.default.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius) {
-                this.player.sessionData.addXp(1);
-                this.destroy();
+                this.attracting = true;
             }
         }
     }]);
@@ -83919,17 +83940,18 @@ var BasicFloorRender = function (_GameObject) {
 
         _this.gameView = new _GameView2.default();
 
-        _this.backShape = new PIXI.Graphics().beginFill(0x785F5E).drawRect(-5000, -5000, 10000, 10000);
-        _this.gameView.view = new PIXI.Container();
-        _this.gameView.view.addChild(_this.backShape);
-        // this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
-        // this.gameView.view.anchor.set(0.5)
-        // this.gameView.view.tileScale.set(1.5)
-        // this.gameView.view.width = 5000
-        // this.gameView.view.height = 5000
-        // this.gameView.view.alpha = 0//.3
+        // this.backShape = new PIXI.Graphics().beginFill(0x785F5E).drawRect(-5000,-5000,10000,10000)
+        // this.gameView.view = new PIXI.Container();
+        // this.gameView.view.addChild(this.backShape)
 
-        //this.tileSize = 128 * this.gameView.view.tileScale.x;
+        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
+        _this.gameView.view.anchor.set(0.5);
+        _this.gameView.view.tileScale.set(1.5);
+        _this.gameView.view.width = 5000;
+        _this.gameView.view.height = 5000;
+        _this.gameView.view.alpha = 1; //0//.3
+
+        _this.tileSize = 128 * _this.gameView.view.tileScale.x;
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Base;
         _this.playerTileID = { i: 0, j: 0 };
         return _this;
@@ -83942,10 +83964,10 @@ var BasicFloorRender = function (_GameObject) {
         key: "update",
         value: function update(delta) {
 
-            // this.playerTileID.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
-            // this.playerTileID.j = Math.floor(Player.MainPlayer.transform.position.y / this.tileSize)
-            // this.gameView.view.x = this.playerTileID.i //* this.tileSize
-            // this.gameView.view.y = this.playerTileID.j //* this.tileSize
+            this.playerTileID.i = Math.floor(_Player2.default.MainPlayer.transform.position.x / this.tileSize);
+            this.playerTileID.j = Math.floor(_Player2.default.MainPlayer.transform.position.y / this.tileSize);
+            this.gameView.view.x = this.playerTileID.i; //* this.tileSize
+            this.gameView.view.y = this.playerTileID.j; //* this.tileSize
         }
     }]);
     return BasicFloorRender;
@@ -90089,7 +90111,7 @@ var Trees = function (_StaticPhysicObject) {
         //this.gameView = new GameView(this);
         var _this = (0, _possibleConstructorReturn3.default)(this, (Trees.__proto__ || (0, _getPrototypeOf2.default)(Trees)).call(this));
 
-        var textures = ['tree (1)', 'tree (2)', 'tree (3)'];
+        var textures = ['tree-1'];
         _this.gameView.view.texture = new PIXI.Texture.from(textures[Math.floor(Math.random() * textures.length)]);
         _this.gameView.tag = _TagManager2.default.Tags.Occlusion;
         return _this;
@@ -90100,7 +90122,7 @@ var Trees = function (_StaticPhysicObject) {
         value: function build(x, y, width, height) {
             (0, _get3.default)(Trees.prototype.__proto__ || (0, _getPrototypeOf2.default)(Trees.prototype), "build", this).call(this, x, y, width, height);
 
-            this.gameView.view.scale.set(1);
+            this.gameView.view.scale.set(0.5);
             this.gameView.view.anchor.set(0.5, 1);
 
             this.layerCategory = _Layer2.default.Environment;
@@ -94532,26 +94554,26 @@ var assets = [{
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -94577,6 +94599,15 @@ var assets = [{
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -94586,14 +94617,14 @@ var assets = [{
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -94609,15 +94640,6 @@ var assets = [{
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -94650,7 +94672,7 @@ module.exports = exports['default'];
 /* 296 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/body-parts/body-parts.json","image/ui/ui.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/body-parts/body-parts.json","image/ui/ui.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);
