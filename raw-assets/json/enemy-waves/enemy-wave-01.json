@@ -15,7 +15,7 @@
                 "radius": 500,
                 "total": 300,
                 "maxActive": 50,
-                "entity": ["RAT_01", "SPIDER_BRAIN"]
+                "entity": ["RAT_01", "SPIDER_BRAIN", "BUTTFLY"]
             }
         ]
     },

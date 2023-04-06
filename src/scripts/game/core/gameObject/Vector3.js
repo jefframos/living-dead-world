@@ -14,7 +14,7 @@ export default class Vector3 {
         this.y = 0;
         this.z = 0;
     }
-    clone(){
+    clone() {
         return new Vector3(this.x, this.y, this.z);
     }
     static distance(v1, v2) {
@@ -26,10 +26,20 @@ export default class Vector3 {
     static sum(v1, v2) {
         return new Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z)
     }
-    static mult(v1, v2){
+    static mult(v1, v2) {
         return new Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z)
     }
-    static XZtoXY(v1){
+    static XZtoXY(v1) {
         return new Vector3(v1.x, v1.z, 0)
     }
+    static lerp(v1, v2, a) {
+
+        return new Vector3(
+            v1.x * (1 - a) + v2.x * a,
+            v1.y * (1 - a) + v2.y * a,
+            v1.z * (1 - a) + v2.z * a);
+
+    }
+
+
 }

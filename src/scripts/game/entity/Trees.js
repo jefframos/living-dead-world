@@ -8,14 +8,14 @@ export default class Trees extends StaticPhysicObject {
         super();
 
         //this.gameView = new GameView(this);
-        let textures = ['tree (1)', 'tree (2)','tree (3)']
+        let textures = ['tree-1']
         this.gameView.view.texture = new PIXI.Texture.from(textures[Math.floor(Math.random() * textures.length)])
         this.gameView.tag = TagManager.Tags.Occlusion;
     }
     build(x, y, width, height) {
         super.build(x, y, width, height)
         
-        this.gameView.view.scale.set(1)
+        this.gameView.view.scale.set(0.5)
         this.gameView.view.anchor.set(0.5, 1)
 
         this.layerCategory = Layer.Environment

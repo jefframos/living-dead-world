@@ -8,6 +8,10 @@
                     "min": 1,
                     "max": 4
                 },
+                "anchor": {
+                    "x": 0.7,
+                    "y": 0.9
+                },
                 "time": 0.1,
                 "loop": true,
                 "addZero": false
@@ -96,8 +100,8 @@
             "spriteName": "zombie-100",
             "params": {
                 "totalFramesRange": {
-                    "min": 8,
-                    "max": 19
+                    "min": 3,
+                    "max": 12
                 },
                 "anchor": {
                     "x": 0.3,

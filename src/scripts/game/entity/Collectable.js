@@ -13,23 +13,38 @@ export default class Collectable extends GameObject {
 
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Base;
-        this.gameView.view = new PIXI.Sprite.from("icon_increase")
+        this.gameView.view = new PIXI.Sprite.from("pickup0001")
 
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 5))
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 20))
 
     }
     start() {
         super.start();
         this.player = this.engine.findByType(Player)
+
+        this.lerpTime = 0.5;
+        this.currentLerp = 0;
+        this.attracting = false;
+        this.gameView.view.texture = PIXI.Texture.from("pickup000" + Math.ceil(Math.random()* 5))
     }
     update(delta) {
         super.update(delta)
         if(!this.player){
             return;
+            this.destroy()
+        }
+        if(this.attracting){
+            this.currentLerp += delta;
+
+            if(this.currentLerp >= this.lerpTime * 0.5){
+                this.destroy()
+                this.player.sessionData.addXp(1)
+            }else{
+                this.transform.position = Vector3.lerp(this.transform.position, Vector3.sum(this.player.transform.position, new Vector3(0,-20,0)), this.currentLerp /  this.lerpTime)
+            }
         }
         if (Vector3.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius) {
-            this.player.sessionData.addXp(1)
-            this.destroy()
+            this.attracting = true;
         }
     }
 }

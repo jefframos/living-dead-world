@@ -369,7 +369,7 @@
     },
     {
         "id": "SNIPER_01",
-        "ingameIcon": "sniper2",
+        "ingameIcon": "sniper-1",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -378,8 +378,8 @@
             "y": 0
         },
         "anchor": {
-            "x": 0.5,
-            "y": 0.1
+            "x": 0.4,
+            "y": 0.01
         },
         "shootAnimation": {
             "active": false,
@@ -475,6 +475,36 @@
             "time": 0.3,
             "min": 2,
             "max": 5
+        },
+        "progressBar": {
+            "active": false
+        }
+    },
+    {
+        "id": "WORM_DUDE",
+        "ingameIcon": "whigglegun0001",
+        "ingameBaseWidth": -1,
+        "ingameAmountIconOverrider": -1,
+        "inGameRotation": 0,
+        "viewOffset": {
+            "x": 0,
+            "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.01
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": true,
+            "addZero": false,
+            "sprite": "whigglegun000",
+            "time": 0.3,
+            "min": 1,
+            "max": 4
         },
         "progressBar": {
             "active": false

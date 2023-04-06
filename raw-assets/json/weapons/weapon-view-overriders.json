@@ -52,6 +52,39 @@
         "scale": 1.5
     },
     {
+        "id": "WORM",
+        "viewData": "worm-bullet000",
+        "hasShadow": true,
+        "rotationFacing": false,
+        "hasAnimation": true,
+        "frames": [1,4],
+        "anchor": {
+            "x": 0.5,
+            "y": 1
+        },
+        "viewOffset": {
+            "y": -5
+        }
+    },
+    {
+        "id": "BOMB_DUDE",
+        "viewData": "bomb-dude000",
+        "hasShadow": true,
+        "rotationFacing": false,
+        "hasAnimation": true,
+        "frames": [1,5],
+        "anchor": {
+            "x": 0.5,
+            "y": 0.7
+        },
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": -1,
+        "maxHeight": 80,
+        "rotationSpeed": [-5,5]
+    },
+    {
         "id": "PISTOL_BASE_02",
         "viewData": "pistol2bullet",
         "hasShadow": true,
@@ -102,7 +135,7 @@
         "hasAnimation": false
     },
     {
-        "id": "SUBMACHINE_BASE_01",
+        "id": "BLUE_SHELL_BASE_01",
         "viewData": "blue-shell",
         "hasShadow": true,
         "rotationFacing": false,
@@ -113,7 +146,7 @@
         "maxWidth": 20
     },
     {
-        "id": "SHOTGUN_BASE_01",
+        "id": "PURPLE_SHELL_BASE_01",
         "viewData": "shotgun-shell-1",
         "hasShadow": false,
         "rotationFacing": false,
@@ -125,8 +158,8 @@
         "maxWidth": 15
     },
     {
-        "id": "SNIPER_BASE_01",
-        "viewData": "sniper1Bullet",
+        "id": "RED_SHELL_BASE_01",
+        "viewData": "red-shell",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
@@ -272,7 +305,7 @@
     },
     {
         "id": "TRANSPARENT",
-        "hasShadow": true,
+        "hasShadow": false,
         "rotationFacing": false,
         "hasAnimation": false,
         "alpha": 0

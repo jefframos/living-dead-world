@@ -39,7 +39,7 @@
             "spawnVfxPack": "STANDARD_SHOOTING_2",
             "destroyVfxPack": "PURPLE_IMPACT",
             "overrider": {
-                "baseViewData": "SHOTGUN_BASE_01"
+                "baseViewData": "PURPLE_SHELL_BASE_01"
             }
         }
     },
@@ -126,7 +126,7 @@
             "spawnVfxPack": "STANDARD_SHOOTING_1",
             "destroyVfxPack": "BLUE_IMPACT",
             "overrider": {
-                "baseViewData": "SUBMACHINE_BASE_01"
+                "baseViewData": "BLUE_SHELL_BASE_01"
             }
         }
     },
@@ -169,7 +169,7 @@
             "spawnVfxPack": "STANDARD_SHOOTING_2",
             "destroyVfxPack": "PURPLE_IMPACT",
             "overrider": {
-                "baseViewData": "SHOTGUN_BASE_01"
+                "baseViewData": "PURPLE_SHELL_BASE_01"
             }
         }
     },
@@ -253,8 +253,8 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
-            "destroyVfxPack": "YELLOW_DUDE_PACK",
+            "spawnVfxPack": "RED_IMPACT",
+            "destroyVfxPack": "RED_DUDE_PACK",
             "overrider": {
                 "baseViewData": "HOAMING_DUDE"
             }
@@ -304,6 +304,134 @@
             "destroyVfxPack": "BLUE_IMPACT",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "SNIPER_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "sniper2",
+            "name": "Sniper"
+        },
+        "isMain": true,
+        "ingameViewData": "SNIPER_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 8,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 320,
+            "basePower": 250,
+            "baseBulletSpeed": 500,
+            "baseFrequency": 3,
+            "basePiercing": 2,
+            "baseAmount": 1,
+            "baseDetectionZone": 800,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 2,
+            "baseBrustFireInterval": 1,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "RED_IMPACT",
+            "destroyVfxPack": "RED_HIT",
+            "overrider": {
+                "baseViewData": "RED_SHELL_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "WORM_GUN",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "vfx-c1",
+            "name": "Sinoid"
+        },
+        "isMain": true,
+        "ingameViewData": "WORM_DUDE",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 40,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 300,
+            "basePower": 25,
+            "baseBulletSpeed": 200,
+            "baseFrequency": 3,
+            "basePiercing": 5,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.5,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "SinoidBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "PINK_IMPACT",
+            "destroyVfxPack": "PINK_HIT",
+            "overrider": {
+                "baseViewData": "WORM"
+            }
+        }
+    },
+    {
+        "id": "BOMB_THROWER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flameThrower",
+            "name": "Bomb"
+        },
+        "isMain": true,
+        "ingameViewData": "BOMB_THROWER",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "SMALL_BOMB",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 150,
+            "basePower": 150,
+            "baseBulletSpeed": 80,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": [0,2],
+            "baseBrustFireInterval": [0,0.1],
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "GravityBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "BOMB_DUDE"
             }
         }
     },
@@ -599,47 +727,6 @@
         }
     },
     {
-        "id": "BOMB_THROWER",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "flameThrower",
-            "name": "Bomb"
-        },
-        "isMain": true,
-        "ingameViewData": "BOMB_THROWER",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "onDestroyId": "SMALL_BOMB",
-        "attributes": {
-            "baseRadius": 5,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 150,
-            "basePower": 150,
-            "baseBulletSpeed": 80,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDirectionType": "ParentAngle",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": [0,2],
-            "baseBrustFireInterval": [0,0.1],
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.3,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "GravityBullet",
-        "view": {
-            "rotationSpeed": 0,
-            "overrider": {
-                "baseViewData": "BOMB_BASE_01"
-            }
-        }
-    },
-    {
         "id": "BOMB_THROWER_COMPANION",
         "entityData": {
             "type": "Weapon",
@@ -737,50 +824,6 @@
         }
     },
     {
-        "id": "SNIPER_01",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "sniper2",
-            "name": "Sniper"
-        },
-        "isMain": true,
-        "ingameViewData": "SNIPER_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 5,
-            "baseSpawnDistance": 40,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 320,
-            "basePower": 250,
-            "baseBulletSpeed": 500,
-            "baseFrequency": 3,
-            "basePiercing": 2,
-            "baseAmount": 1,
-            "baseDetectionZone": 800,
-            "baseDirectionType": "ClosestEnemy",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 2,
-            "baseBrustFireInterval": 1,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
-            "overrider": {
-                "baseViewData": "SNIPER_BASE_01"
-            }
-        }
-    },
-    {
         "id": "SNIPER_01_COMPANION",
         "entityData": {
             "type": "Weapon",
@@ -819,7 +862,7 @@
             "spawnVfxPack": "SMOKE_SPAWN_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01",
             "overrider": {
-                "baseViewData": "SNIPER_BASE_01"
+                "baseViewData": "RED_SHELL_BASE_01"
             }
         }
     },
@@ -861,7 +904,7 @@
         "view": {
             "rotationSpeed": 0,
             "spawnVfxPack": "SPERM_SHOT_PACK",
-            "destroyVfxPack": "SPERM_EXPLODE_PACK",
+            "destroyVfxPack": "RED_HIT",
             "overrider": {
                 "baseViewData": "SPERM_ENEMY"
             }
@@ -1288,47 +1331,6 @@
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }
-        }
-    },
-    {
-        "id": "WATER_SINOID",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 3,
-            "icon": "vfx-c1",
-            "name": "Sinoid"
-        },
-        "isMain": true,
-        "ingameViewData": "WATER_SINOID",
-        "weaponType": "Magical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 300,
-            "basePower": 25,
-            "baseBulletSpeed": 200,
-            "baseFrequency": 3,
-            "basePiercing": 5,
-            "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemy",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 3,
-            "baseBrustFireInterval": 0.5,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "SinoidBullet",
-        "view": {
-            "rotationSpeed": 0,
-            "standardVfxPack": "WATER_BALL_PACK",
-            "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01"
         }
     },
     {

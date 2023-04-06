@@ -80496,7 +80496,7 @@ var GameScreen = function (_Screen) {
                 this.player.destroy();
             }
             //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-            this.player = this.levelManager.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 6)));
+            this.player = this.levelManager.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)));
             this.gameSessionController.playerReady();
             this.player.refreshEquipment();
             this.player.setPositionXZ(0, 0);
@@ -88583,7 +88583,7 @@ var PerspectiveCamera = function (_Camera) {
             }
         }
         _this.zoom = 1;
-        _this.targetZoom = 0.75;
+        _this.targetZoom = 0.85;
         window.GUI.add(_this, 'targetZoom', 0.5, 3).listen();
         return _this;
     }
@@ -94535,14 +94535,14 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
@@ -94574,6 +94574,9 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -94586,14 +94589,11 @@ var assets = [{
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -94610,14 +94610,14 @@ var assets = [{
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
 	"id": "weapon-in-game-visuals",
 	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
 }];
 
 exports.default = assets;
@@ -94650,7 +94650,7 @@ module.exports = exports['default'];
 /* 296 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/vfx/vfx.json","image/body-parts/body-parts.json","image/ui/ui.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/texture/texture.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/body-parts/body-parts.json","image/ui/ui.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

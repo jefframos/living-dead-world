@@ -7,7 +7,7 @@
             "y": 0,
             "z": 0
         },
-        "scale": 1,
+        "scale": 3,
         "lockRotation": false,
         "targetLayer": "GameplayLayer"
     },
@@ -57,6 +57,54 @@
         },
         "scale": 3,
         "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "RED_HIT",
+        "vfxData": "RED_HIT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 4,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "RED_IMPACT",
+        "vfxData": "RED_IMPACT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "PINK_IMPACT",
+        "vfxData": "PINK_IMPACT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 3,
+        "lockRotation": false,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "PINK_HIT",
+        "vfxData": "PINK_HIT",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 4,
+        "lockRotation": true,
         "targetLayer": "GameplayLayer"
     },
     {
@@ -235,7 +283,7 @@
             "y": 0,
             "z": 0
         },
-        "scale": 1,
+        "scale": 3,
         "lockRotation": true,
         "targetLayer": "GameplayLayer"
     },
@@ -284,6 +332,18 @@
             "z": 0
         },
         "scale": 1.5,
+        "lockRotation": true,
+        "targetLayer": "GameplayLayer"
+    },
+    {
+        "id": "RED_DUDE_PACK",
+        "vfxData": "RED_DUDE_EXPLOSION",
+        "viewOffset": {
+            "x": 0,
+            "y": 0,
+            "z": 0
+        },
+        "scale": 2,
         "lockRotation": true,
         "targetLayer": "GameplayLayer"
     },

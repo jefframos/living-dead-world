@@ -240,7 +240,7 @@ export default class GameScreen extends Screen {
             this.player.destroy();
         }
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar!== undefined?window.customChar:Math.floor(Math.random() * 6)))
+        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar!== undefined?window.customChar:Math.floor(Math.random() * 7)))
         this.gameSessionController.playerReady()
         this.player.refreshEquipment()
         this.player.setPositionXZ(0, 0)
@@ -274,7 +274,7 @@ export default class GameScreen extends Screen {
         })
     }
     addWorldElements() {
-        return
+       // return
         let i = 5
         let j = 8
         let chunkX = (config.width * 2) / i
@@ -286,7 +286,7 @@ export default class GameScreen extends Screen {
                     this.levelManager.addEntity(Trees, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 } else {
 
-                    this.levelManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
+                   // this.levelManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
                 }
             }
         }

@@ -262,6 +262,20 @@
         "loop": false
     },
     {
+        "id": "RED_DUDE_EXPLOSION",
+        "spriteName": "red-dude-explosion000",
+        "time": 0.5,
+        "startFrame": 1,
+        "endFrame": 7,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.95
+        },
+        "loop": false
+    },
+    {
         "id": "WORM_SHOT",
         "spriteName": "worm-shot-explosion000",
         "time": 0.5,
@@ -349,6 +363,62 @@
         "id": "PURPLE_IMPACT",
         "spriteName": "purple-impact000",
         "time": 0.2,
+        "startFrame": 1,
+        "endFrame": 4,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "RED_HIT",
+        "spriteName": "red-explosion-1000",
+        "time": 0.4,
+        "startFrame": 1,
+        "endFrame": 8,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "RED_IMPACT",
+        "spriteName": "red-impact000",
+        "time": 0.4,
+        "startFrame": 1,
+        "endFrame": 4,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "PINK_HIT",
+        "spriteName": "pink-explosion-1000",
+        "time": 0.4,
+        "startFrame": 1,
+        "endFrame": 8,
+        "lifeSpan": 99999,
+        "addZero": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0.5
+        },
+        "loop": false
+    },
+    {
+        "id": "PINK_IMPACT",
+        "spriteName": "pink-impact000",
+        "time": 0.4,
         "startFrame": 1,
         "endFrame": 4,
         "lifeSpan": 99999,
