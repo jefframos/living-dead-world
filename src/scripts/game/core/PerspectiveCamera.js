@@ -33,8 +33,6 @@ export default class PerspectiveCamera extends Camera {
 
                 let angle = Math.atan2(this.renderModule.container.pivot.y - this.followPoint.z,
                     this.renderModule.container.pivot.x - this.followPoint.x)
-
-                //this.renderModule.container.pivot
             } else {
 
             }

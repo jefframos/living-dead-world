@@ -21,7 +21,16 @@ export default class EnemyGlobalSpawner {
 
         spawnData.totalSpawned++;
         let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
+        enemy.currentSpawnPool = spawnData;
         enemy.setPositionXZ(
+            this.gameManager.player.transform.position.x + toSpawn.x
+            , this.gameManager.player.transform.position.z + toSpawn.z)
+    }
+    respawnEntity(entity){
+        entity.currentSpawnPool.addRelativeSpawnPoint()
+
+        const toSpawn = entity.currentSpawnPool.entityToSpawn;
+        entity.setPositionXZ(
             this.gameManager.player.transform.position.x + toSpawn.x
             , this.gameManager.player.transform.position.z + toSpawn.z)
     }

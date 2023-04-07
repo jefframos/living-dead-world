@@ -16,12 +16,12 @@ const assets = [
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_FR",
 	"url":"assets/json\\localization_FR.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_JA",
@@ -36,12 +36,12 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
+	},
+	{
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
 	"id":"localization_ZH",
@@ -50,10 +50,6 @@ const assets = [
 	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
-	},
-	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"companion-animation",
@@ -68,24 +64,24 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"enemy-wave-01",
 	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
-	"id":"acessories",
-	"url":"assets/json\\misc\\acessories.json"
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
 	},
 	{
 	"id":"companions",
@@ -96,8 +92,16 @@ const assets = [
 	"url":"assets/json\\entity\\player.json"
 	},
 	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
+	},
+	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
+	},
+	{
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
 	"id":"main-weapons",

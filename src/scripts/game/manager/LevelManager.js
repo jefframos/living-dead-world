@@ -36,19 +36,19 @@ export default class LevelManager {
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
         this.gameplayTime = 0;
 
+        
+        this.currentPhase = 0;
+        this.init = false;
+    }
+    start(player) {
+        this.player = player;
+        
         this.currentLevelWaves = GameStaticData.instance.getWaves();
         
         this.levelStructure = { phases: [] }
         this.currentLevelWaves.forEach(element => {
             this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
         });
-       
-        this.currentPhase = 0;
-        this.init = false;
-    }
-    start(player) {
-        this.player = player;
-
 
         this.init = true;
         this.gameplayTime = 0;
@@ -70,6 +70,9 @@ export default class LevelManager {
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();
     }
+    respawnEntity(entity){
+        this.enemyGlobalSpawner.respawnEntity(entity)
+    }
     spawnEnemy(spawnData) {
         if (!spawnData) {
             console.log('cant spawn without data');
@@ -85,6 +88,10 @@ export default class LevelManager {
 
         this.gameManagerStats.GMtotalGameObjects = this.gameplayEntities.length
         entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
+        if(entity.onRespawn){
+            entity.onRespawn.removeAll()
+            entity.onRespawn.add(this.respawnEntity.bind(this))
+        }
 
         if (entity.layerCategory && entity.layerCategory == Layer.Enemy) {
             this.activeEnemies.push(entity)

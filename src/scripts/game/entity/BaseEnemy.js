@@ -87,10 +87,7 @@ export default class BaseEnemy extends GameAgent {
                 this.transform.position.y = this.viewData.offset.y
             }
         }
-        //view related attributes
-        if (this.viewData.jumpHight) {
-            this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight
-        }
+
 
 
     }
@@ -107,6 +104,11 @@ export default class BaseEnemy extends GameAgent {
     }
     afterBuild() {
         super.afterBuild()
+
+        //view related attributes
+        if (this.viewData.jumpHight) {
+            this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight;
+        }
         //this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
     }
     destroy() {
@@ -121,7 +123,7 @@ export default class BaseEnemy extends GameAgent {
     update(delta) {
         if (!this.dying) {
             if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000) {
-                this.destroy();
+                this.onRespawn.dispatch(this)
             }
             this.timer += delta * (this.speed * delta * Math.random())
 

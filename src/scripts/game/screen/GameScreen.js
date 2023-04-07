@@ -2,11 +2,11 @@ import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
-import BasicFloorRender from '../manager/BasicFloorRender';
 import Bullet from '../components/weapon/bullets/Bullet';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Companion from '../entity/Companion';
 import EffectsManager from '../manager/EffectsManager';
+import EnvironmentManager from '../manager/EnvironmentManager';
 import Eugine from '../core/Eugine';
 import Game from '../../Game';
 import GameStaticData from '../data/GameStaticData';
@@ -273,25 +273,7 @@ export default class GameScreen extends Screen {
             }, 1000);
         })
     }
-    addWorldElements() {
-       // return
-        let i = 5
-        let j = 8
-        let chunkX = (config.width * 2) / i
-        let chunkY = (config.height * 2) / j
-        for (let index = 0; index <= i; index++) {
-            for (let indexj = 0; indexj <= j; indexj++) {
-                let targetPosition = { x: chunkX * index - 500 + (Math.random() * chunkX / 2), y: chunkY * indexj - 500 + (Math.random() * chunkY / 2) }
-                if (Math.random() < 0.5) {
-                    this.levelManager.addEntity(Trees, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
-                } else {
-
-                   // this.levelManager.addEntity(StaticPhysicObject, { x: targetPosition.x, y: targetPosition.y, width: 50, height: 50 })
-                }
-            }
-        }
-
-    }
+    
     build(param) {
         super.build();
         this.addEvents();
@@ -306,7 +288,7 @@ export default class GameScreen extends Screen {
         this.camera.addComponent(CameraOcclusion2D);
 
 
-        this.worldRender = this.gameEngine.addGameObject(new BasicFloorRender())
+        this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager())
 
 
         //let firstNode = WorldManager.instance.getFirstNode();        
@@ -323,8 +305,6 @@ export default class GameScreen extends Screen {
             }
         }, 20);
 
-        this.addWorldElements()
-        console.log(config)
     }
     update(delta) {
         delta *= this.debug.timeScale;

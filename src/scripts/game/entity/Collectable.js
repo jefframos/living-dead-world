@@ -15,7 +15,7 @@ export default class Collectable extends GameObject {
         this.gameView.layer = RenderModule.RenderLayers.Base;
         this.gameView.view = new PIXI.Sprite.from("pickup0001")
 
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 20))
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
 
     }
     start() {

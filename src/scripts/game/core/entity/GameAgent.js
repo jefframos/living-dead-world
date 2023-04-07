@@ -14,6 +14,7 @@ export default class GameAgent extends PhysicsEntity {
     constructor(debug = false) {
         super(debug);
         this.onDie = new signals.Signal();
+        this.onRespawn = new signals.Signal();
 
         this.gameView = new GameView(this)
         this.totalDirections = 6

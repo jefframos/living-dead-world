@@ -8,19 +8,28 @@
                 "radius": 300,
                 "total": 300,
                 "maxActive": 50,
-                "entity": ["ZOMBIE_01", "ZOMBIE_02", "ZOMBIE_03", "ZOMBIE_04"]
+                "entity": [
+                    "ZOMBIE_01",
+                    "ZOMBIE_02",
+                    "ZOMBIE_03",
+                    "ZOMBIE_04"
+                ]
             },
             {
                 "areaType": "rect",
                 "radius": 500,
                 "total": 300,
                 "maxActive": 50,
-                "entity": ["RAT_01", "SPIDER_BRAIN", "BUTTFLY"]
+                "entity": [
+                    "RAT_01",
+                    "SPIDER_BRAIN",
+                    "BUTTFLY"
+                ]
             }
         ]
     },
     {
-        "startAt": 20,
+        "startAt": 200,
         "duration": 30,
         "waves": [
             {

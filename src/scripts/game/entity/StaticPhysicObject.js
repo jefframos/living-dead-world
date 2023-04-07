@@ -9,16 +9,14 @@ export default class StaticPhysicObject extends PhysicsEntity {
         super();
 
         this.gameView = new GameView(this);
-
-        let textures = ['grave (1)','grave (2)','grave (3)','grave (4)','grave (5)','grave (6)']
-        this.gameView.view = new PIXI.Sprite.from(textures[Math.floor(Math.random()* textures.length)])
+        this.gameView.view = new PIXI.Sprite()
         this.gameView.tag = TagManager.Tags.Occlusion;
     }
     build(params) {
         super.build()
-        this.buildRect(params.x, params.y, params.width, params.height, true);
+        this.buildRect(params.x, params.z, params.width, params.height, true);
+        
         this.gameView.view.scale.set(params.width / this.gameView.view.width )
-
         this.gameView.view.anchor.set(0.5, 1)
 
         this.layerCategory = Layer.Environment

@@ -58,6 +58,7 @@
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.13",
     "@pixi/text-html": "^7.2.0-beta.2",
+    "alea": "^1.0.1",
     "crypto-js": "^3.1.9-1",
     "dat.gui": "^0.7.9",
     "ffmpeg": "0.0.4",
@@ -72,6 +73,7 @@
     "npm": "^5.7.1",
     "pixi.js": "^5.0.0-rc.3",
     "signals": "^1.0.0",
+    "simplex-noise": "^4.0.1",
     "stats-js": "^1.0.1",
     "tguesdon-island-generator": "^1.1.0",
     "tinify": "^1.5.0",
