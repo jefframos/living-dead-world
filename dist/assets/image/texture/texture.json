@@ -2,7 +2,7 @@
 
 "floor.png":
 {
-	"frame": {"x":1,"y":131,"w":64,"h":64},
+	"frame": {"x":5,"y":139,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -10,7 +10,7 @@
 },
 "floor_5.png":
 {
-	"frame": {"x":67,"y":131,"w":64,"h":64},
+	"frame": {"x":75,"y":139,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -18,7 +18,7 @@
 },
 "grass.png":
 {
-	"frame": {"x":1,"y":1,"w":128,"h":128},
+	"frame": {"x":5,"y":5,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -26,7 +26,7 @@
 },
 "IndustrialTile_11.png":
 {
-	"frame": {"x":1,"y":197,"w":32,"h":32},
+	"frame": {"x":139,"y":5,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -34,7 +34,7 @@
 },
 "IndustrialTile_26.png":
 {
-	"frame": {"x":35,"y":197,"w":32,"h":32},
+	"frame": {"x":139,"y":43,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -42,7 +42,7 @@
 },
 "IndustrialTile_41.png":
 {
-	"frame": {"x":69,"y":197,"w":32,"h":32},
+	"frame": {"x":139,"y":81,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -50,7 +50,7 @@
 },
 "IndustrialTile_65.png":
 {
-	"frame": {"x":103,"y":197,"w":32,"h":32},
+	"frame": {"x":145,"y":119,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -58,7 +58,7 @@
 },
 "IndustrialTile_73.png":
 {
-	"frame": {"x":131,"y":1,"w":32,"h":32},
+	"frame": {"x":145,"y":157,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -72,8 +72,8 @@
 	"version": "1.0",
 	"image": "texture.png",
 	"format": "RGBA8888",
-	"size": {"w":164,"h":230},
+	"size": {"w":182,"h":208},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e58d8ba78a43cbc6ad74dea95c0e8fe0:7791095d7d5c7528d75c49a6933b5e2d:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:91f3b837f5479b5d28334e1a3cd29243:7791095d7d5c7528d75c49a6933b5e2d:88db1022cd6b660616541d2788fcd4f7$"
 }
 }

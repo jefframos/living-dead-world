@@ -20,7 +20,9 @@ const texturepack = function (mFolderPath, mId, mDestPath, mCb, scale = 1) {
 		mFolderPath,
 		'--multipack',
 		'--scale', scale > 1 ? 1 / scale : 1,
-		'--scale-mode', 'Smooth'
+		'--scale-mode', 'Smooth',
+		'--padding', 4,
+
 	];
 	variant.forEach((v) => {
 		//opts.push('--variant', v);

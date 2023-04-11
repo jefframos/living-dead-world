@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 
-import BaseBarView from '../../components/ui/progressBar/BaseBarView';
 import Game from '../../../Game';
 import GameObject from '../../core/gameObject/GameObject';
 import GameStaticData from "../../data/GameStaticData";
 import GameView from '../../core/view/GameView';
 import LevelManager from '../../manager/LevelManager';
+import LevelUpBar from '../../components/ui/progressBar/LevelUpBar';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
@@ -29,24 +29,22 @@ export default class PlayerInventoryHud extends GameObject {
             this.gameView.view.addChild(list)
 
             list.y = 40
-
         }
 
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.gameView.view.addChild(this.zero)
 
-        this.baseBarView = new BaseBarView()
+        this.baseBarView = new LevelUpBar()
         this.gameView.view.addChild(this.baseBarView)
-        this.baseBarView.build(Game.Screen.width, 30, 4)
-        this.baseBarView.setColors(0xFF00FF, 0x00FFFF)
+        this.baseBarView.build(Game.Screen.width)
         this.baseBarView.forceUpdateNormal(0);
 
         this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.text)
-        this.text.style.fontSize = 24
-        this.text.x = 20
-
+        this.text.style.fontSize = 18
+        this.text.x = 50
+        this.text.y = 15
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
         this.timer.style.fontSize = 24
@@ -100,7 +98,6 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
     }
     updateXp(xpData) {
-        console.log(xpData)
         this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
@@ -200,9 +197,9 @@ export default class PlayerInventoryHud extends GameObject {
 
 
         if (this.baseBarView.maxWidth != Game.Borders.width) {
-            this.baseBarView.rebuild(Game.Borders.width, 30, 4)
+            this.baseBarView.rebuild(Game.Borders.width)
         }
-
+        this.baseBarView.update(delta)
         //debug borders
         // this.tl.x = Game.Borders.topLeft.x
         // this.tl.y = Game.Borders.topLeft.y

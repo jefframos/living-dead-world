@@ -107,7 +107,7 @@ export default class BaseEnemy extends GameAgent {
 
         //view related attributes
         if (this.viewData.jumpHight) {
-            this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight;
+            //this.addComponent(SpriteJump).jumpHight = this.viewData.jumpHight;
         }
         //this.addWeaponData(WeaponBuilder.instance.weaponsData['LIGHTNING_IN_PLACE'])
     }
