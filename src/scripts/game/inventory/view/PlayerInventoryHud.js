@@ -6,6 +6,7 @@ import GameStaticData from "../../data/GameStaticData";
 import GameView from '../../core/view/GameView';
 import LevelManager from '../../manager/LevelManager';
 import LevelUpBar from '../../components/ui/progressBar/LevelUpBar';
+import PlayerGameplayHud from '../../components/ui/PlayerGameplayHud';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
@@ -34,10 +35,19 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.gameView.view.addChild(this.zero)
-
+        this.darkBlur = new PIXI.Sprite.from('bigblur')
+        this.gameView.view.addChild(this.darkBlur)
+        this.darkBlur.anchor.set(0.5)
+        this.darkBlur.width = 500
+        this.darkBlur.height = 400
+        this.darkBlur.x = 70
+        this.darkBlur.y = 50
+        this.darkBlur.tint = 0x171C21;
         this.baseBarView = new LevelUpBar()
         this.gameView.view.addChild(this.baseBarView)
-        this.baseBarView.build(Game.Screen.width)
+        this.playerHud = new PlayerGameplayHud();
+        this.gameView.view.addChild(this.playerHud)
+        this.baseBarView.build(0)
         this.baseBarView.forceUpdateNormal(0);
 
         this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1)
@@ -51,7 +61,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.x = 200
 
         this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.gameView.view.addChild(this.playerAttributesLabel)
+        // this.gameView.view.addChild(this.playerAttributesLabel)
         this.playerAttributesLabel.style.fontSize = 12
         this.playerAttributesLabel.style.align = 'left'
         this.playerAttributesLabel.x = 150
@@ -59,14 +69,14 @@ export default class PlayerInventoryHud extends GameObject {
 
 
         this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.gameView.view.addChild(this.playerAcessoriesLabel)
+        // this.gameView.view.addChild(this.playerAcessoriesLabel)
         this.playerAcessoriesLabel.style.fontSize = 12
         this.playerAcessoriesLabel.style.align = 'left'
         this.playerAcessoriesLabel.x = 550
         this.playerAcessoriesLabel.y = 40
 
         this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.gameView.view.addChild(this.weaponAcessoriesLabel)
+        // this.gameView.view.addChild(this.weaponAcessoriesLabel)
         this.weaponAcessoriesLabel.style.fontSize = 12
         this.weaponAcessoriesLabel.style.align = 'left'
         this.weaponAcessoriesLabel.x = 350
@@ -96,6 +106,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.sessionData.xpUpdated.add(this.updateXp.bind(this))
         this.player.sessionData.addXp(0)
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
+        this.playerHud.registerPlayer(this.player)
     }
     updateXp(xpData) {
         this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
@@ -196,10 +207,16 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
 
 
-        if (this.baseBarView.maxWidth != Game.Borders.width) {
-            this.baseBarView.rebuild(Game.Borders.width)
+        if (this.baseBarView.maxWidth != Game.Borders.width - 100) {
+            this.baseBarView.rebuild(Game.Borders.width - 100)
+            this.baseBarView.x = 80
+            this.baseBarView.y = 20
         }
+
+        this.text.x = Game.Borders.width - 250
+        this.text.y = 35
         this.baseBarView.update(delta)
+        this.playerHud.update(delta)
         //debug borders
         // this.tl.x = Game.Borders.topLeft.x
         // this.tl.y = Game.Borders.topLeft.y

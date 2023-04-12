@@ -72,10 +72,9 @@ export default class Player extends GameAgent {
         this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
     makeAnimations(data) {
-        let spriteSheet = this.addComponent(PlayerGameViewSpriteSheet);        
-        spriteSheet.setData(data);
-        spriteSheet.update(0.1);
-
+        this.playerView = this.addComponent(PlayerGameViewSpriteSheet);        
+        this.playerView.setData(data);
+        this.playerView.update(0.1);
     }
 
     build(playerData) {

@@ -257,7 +257,7 @@ export default class GameScreen extends Screen {
 
             this.followPoint.x = this.player.gameView.view.position.x;
             this.followPoint.y = 0;
-            this.followPoint.z = this.player.gameView.view.position.y;
+            this.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
             this.camera.snapFollowPoint()
         }, 1);
 
@@ -331,7 +331,7 @@ export default class GameScreen extends Screen {
         if (this.player) {
             this.followPoint.x = this.player.gameView.view.position.x;
             this.followPoint.y = 0;
-            this.followPoint.z = this.player.gameView.view.position.y;
+            this.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
 
             //console.log(this.gameplayContainer.position)
         }

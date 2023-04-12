@@ -21,7 +21,7 @@ export default class BasicFloorRender extends GameObject {
         this.gameView.view.height = this.tileSize * 10
         this.gameView.view.alpha = 1//0//.3
 
-        this.gameView.layer = RenderModule.RenderLayers.Base;       
+        this.gameView.layer = RenderModule.RenderLayers.Base;
         this.playerTileID = { i: 0, j: 0 }
     }
     start() {
@@ -31,5 +31,10 @@ export default class BasicFloorRender extends GameObject {
         this.playerTileID.j = Math.floor(Player.MainPlayer.transform.position.z / this.tileSize)
         this.gameView.view.x = this.playerTileID.i * this.tileSize
         this.gameView.view.y = this.playerTileID.j * this.tileSize
+    }
+
+    lateUpdate(delta) {
+        super.lateUpdate(delta);
+        this.gameView.view.zIndex = -99999999999
     }
 }

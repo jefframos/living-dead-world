@@ -27,9 +27,9 @@ export default class LevelUpBar extends PIXI.Container {
         this.cap2 = new PIXI.Sprite.from('energy-cap-1')
         this.cap1.anchor.set(0.5)
         this.cap2.anchor.set(0.5)
-        this.cap1.y = 27
-        this.cap2.y = 27
-        this.barContainer.addChild(this.cap1);
+        this.cap1.y = 25
+        this.cap2.y = 25
+        //this.barContainer.addChild(this.cap1);
         this.barContainer.addChild(this.cap2);
 
         this.tiledBubbles.x = 200
@@ -74,7 +74,6 @@ export default class LevelUpBar extends PIXI.Container {
     }
     update(delta) {
 
-       
         this.fillBar.width = Utils.lerp(this.fillBar.width, Math.max(50, this.maxWidth * this.barNormal), 0.5);
 
         this.tiledBubbles.x = this.fillBar.x + 25

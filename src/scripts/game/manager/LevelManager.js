@@ -136,7 +136,7 @@ export default class LevelManager {
     }
 
     entityKilled(health, value) {
-        if (Math.random() > 0.3) return;
+        if (Math.random() > 0.9) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);

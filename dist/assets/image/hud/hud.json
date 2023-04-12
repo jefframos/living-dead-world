@@ -10,7 +10,7 @@
 },
 "bubbles0001.png":
 {
-	"frame": {"x":329,"y":49,"w":41,"h":31},
+	"frame": {"x":235,"y":206,"w":41,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":1,"w":41,"h":31},
@@ -18,15 +18,15 @@
 },
 "bubbles0002.png":
 {
-	"frame": {"x":281,"y":49,"w":42,"h":31},
-	"rotated": false,
+	"frame": {"x":445,"y":103,"w":42,"h":31},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":2,"w":42,"h":31},
 	"sourceSize": {"w":52,"h":35}
 },
 "bubbles0003.png":
 {
-	"frame": {"x":423,"y":49,"w":39,"h":21},
+	"frame": {"x":179,"y":210,"w":39,"h":21},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":7,"y":0,"w":39,"h":21},
@@ -34,7 +34,7 @@
 },
 "bubbles0004.png":
 {
-	"frame": {"x":376,"y":49,"w":41,"h":31},
+	"frame": {"x":132,"y":210,"w":41,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":2,"w":41,"h":31},
@@ -42,19 +42,59 @@
 },
 "energy-cap-1.png":
 {
-	"frame": {"x":237,"y":49,"w":38,"h":50},
+	"frame": {"x":445,"y":49,"w":32,"h":48},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":38,"h":50},
-	"sourceSize": {"w":41,"h":53}
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":48},
+	"sourceSize": {"w":32,"h":48}
 },
 "level-glow.png":
 {
-	"frame": {"x":5,"y":49,"w":226,"h":51},
+	"frame": {"x":5,"y":49,"w":225,"h":51},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":1,"w":226,"h":51},
-	"sourceSize": {"w":234,"h":57}
+	"spriteSourceSize": {"x":2,"y":1,"w":225,"h":51},
+	"sourceSize": {"w":232,"h":57}
+},
+"lifebar-front.png":
+{
+	"frame": {"x":393,"y":153,"w":88,"h":87},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":88,"h":87},
+	"sourceSize": {"w":88,"h":87}
+},
+"player-equipment-container.png":
+{
+	"frame": {"x":393,"y":49,"w":98,"h":46},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":46},
+	"sourceSize": {"w":98,"h":46}
+},
+"player-face-container.png":
+{
+	"frame": {"x":236,"y":49,"w":151,"h":151},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":1,"w":151,"h":151},
+	"sourceSize": {"w":156,"h":156}
+},
+"player-face-mask.png":
+{
+	"frame": {"x":5,"y":106,"w":121,"h":121},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":121,"h":121},
+	"sourceSize": {"w":121,"h":121}
+},
+"player-life-container.png":
+{
+	"frame": {"x":132,"y":106,"w":98,"h":97},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":97},
+	"sourceSize": {"w":98,"h":97}
 }},
 "animations": {
 	"bubbles": ["bubbles0001.png","bubbles0002.png","bubbles0003.png","bubbles0004.png"]
@@ -64,8 +104,8 @@
 	"version": "1.0",
 	"image": "hud.png",
 	"format": "RGBA8888",
-	"size": {"w":476,"h":105},
+	"size": {"w":485,"h":246},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:ab53d435af2453f3d86b5dd57b1789f3:78d39f92f6ee5edcf35e4e5ec36355a0:1f12e3a3d447c2b9be1f7d9b1846589c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:bff353df3a9625fa961ae87e845a85f4:31b3f888f809b7384631a338c561be38:1f12e3a3d447c2b9be1f7d9b1846589c$"
 }
 }

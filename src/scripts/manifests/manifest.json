@@ -1,14 +1,14 @@
 {
     "default": [
         "image/terrain/terrain.json",
+        "image/particles/particles.json",
         "image/hud/hud.json",
         "image/texture/texture.json",
-        "image/particles/particles.json",
         "image/environment/environment.json",
         "image/entities/entities.json",
         "image/characters/characters.json",
-        "image/ui/ui.json",
         "image/body-parts/body-parts.json",
+        "image/ui/ui.json",
         "image/vfx/vfx.json"
     ]
 }
