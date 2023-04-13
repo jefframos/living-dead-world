@@ -92,7 +92,6 @@ export default class PlayerSessionData {
         }
 
         this.equipmentList[i][j].item = equipment.item
-        this.equipmentList[i][j].item.level = 2
         this.equipmentList[i][j].item.ingameData = this.equipmentList[i][j];
 
         this.equipmentUpdate();

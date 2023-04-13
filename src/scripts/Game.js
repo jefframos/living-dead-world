@@ -19,7 +19,7 @@ export default class Game {
         height: 0
     }
     constructor(config, screenManager) {
-        Game.GlobalScale = { x: 1, y: 1 }
+        Game.GlobalScale = { x: 1, y: 1, min: 1, max: 1 }
         Game.GlobalContainerPosition = { x: 0, y: 0 }
         this.screenManager = screenManager;
 
@@ -215,7 +215,9 @@ export default class Game {
 
             Game.GlobalScale.x = config.width / this.innerResolution.width
             Game.GlobalScale.y = config.height / this.innerResolution.height
-
+            Game.GlobalScale.min = Math.min(Game.GlobalScale.x, Game.GlobalScale.y)
+            Game.GlobalScale.max = Math.max(Game.GlobalScale.x, Game.GlobalScale.y)
+            
             Game.GlobalContainerPosition.x = this.screenManager.x
             Game.GlobalContainerPosition.y = this.screenManager.y
 

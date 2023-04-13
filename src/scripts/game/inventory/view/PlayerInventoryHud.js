@@ -217,18 +217,11 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.y = 35
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
-        //debug borders
-        // this.tl.x = Game.Borders.topLeft.x
-        // this.tl.y = Game.Borders.topLeft.y
 
-        // this.tr.x = Game.Borders.topRight.x
-        // this.tr.y = Game.Borders.topRight.y
 
-        // this.bl.x = Game.Borders.bottomLeft.x
-        // this.bl.y = Game.Borders.bottomLeft.y
-
-        // this.br.x = Game.Borders.bottomRight.x
-        // this.br.y = Game.Borders.bottomRight.y
-
+        //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        var min = Math.min(Game.GlobalScale.min, 1)
+        this.playerHud.scale.set(Math.max(0.85, min));
+        
     }
 }

@@ -19,7 +19,7 @@ export default class SpawnerData {
         this.randomPoint = Utils.randomCircle()
 
         this.angle = Math.random() * 3.14 * 2;
-        this.safeDistance = 200;
+        this.safeDistance = 250;
         this.offset = null;
 
         this.defaults = {};

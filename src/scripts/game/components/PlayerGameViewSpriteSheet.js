@@ -41,6 +41,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         if (num < 10) {
             return '0' + num
         }
+        return num;
     }
     setData(data) {
         this.playerContainer = new PIXI.Sprite();
@@ -50,9 +51,10 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
         this.baseData = {
             chest: Math.ceil(Math.random() * 21),
-            head: Math.ceil(Math.random() * 4),
-            topHead: Math.ceil(Math.random() * 17),
-            face: Math.ceil(Math.random() * 19),
+            head: 1,//Math.ceil(Math.random() * 4),
+            topHead: 11,//Math.ceil(Math.random() * 17),
+            face: 4,//Math.ceil(Math.random() * 19),
+            hat: 0,//Math.ceil(Math.random() * 4),
             leg: 1,//Math.ceil(Math.random() * 19)
             sleeves: 1,//Math.ceil(Math.random() * 19)
             arms: 1,//Math.ceil(Math.random() * 19)
@@ -64,29 +66,31 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             shoeColor: 0x007272,
         }
         this.bodyData = [
-            { area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 },
-            { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 },
-            { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 },
-            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 },
-            { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 },
-            { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
-            { area: "backHead", src: "back-head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 },
-            { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 },
-            { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF, enabled: this.baseData.face > 0 },
-            { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 },
-            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0 },
-            { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.topHead > 0 },
-            { area: "frontFace", src: "front-face" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 },
+            { area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
+            { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 , animate: true},
+            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
+            { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
+            { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 },
+            { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 },
+            { area: "face", src: "face-00"+ this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
+            { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
+            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true },
+            { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0 },
+            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 },
+            { area: "hat", src: "hats-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
         ]
 
         this.bodyData.forEach(element => {
 
 
-            let sprite = element.enabled ? PIXI.Sprite.from(element.src + "01") : new PIXI.Sprite();
+            let sprite = element.enabled ? PIXI.Sprite.from(element.src + (element.animate?"01":"")) : new PIXI.Sprite();
             sprite.tint = element.color;
             this.spriteLayersData[element.area] = {
                 sprite,
-                enabled: element.enabled
+                enabled: element.enabled,
+                animate: element.animate
             }
 
             this.playerContainer.addChild(sprite);
@@ -136,7 +140,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.view.scale.set(this.direction * this.baseScale * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * this.baseScale);
 
         this.bodyData.forEach(element => {
-            if (this.spriteLayersData[element.area].enabled) {
+            if (this.spriteLayersData[element.area].enabled && this.spriteLayersData[element.area].animate) {
                 this.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(element.src + "0" + (this.currentFrame + 1))
             }
         });

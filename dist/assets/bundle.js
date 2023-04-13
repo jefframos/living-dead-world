@@ -23076,7 +23076,7 @@ var Game = function () {
         function Game(config, screenManager) {
                 (0, _classCallCheck3.default)(this, Game);
 
-                Game.GlobalScale = { x: 1, y: 1 };
+                Game.GlobalScale = { x: 1, y: 1, min: 1, max: 1 };
                 Game.GlobalContainerPosition = { x: 0, y: 0 };
                 this.screenManager = screenManager;
 
@@ -23271,6 +23271,8 @@ var Game = function () {
 
                                 Game.GlobalScale.x = _config2.default.width / this.innerResolution.width;
                                 Game.GlobalScale.y = _config2.default.height / this.innerResolution.height;
+                                Game.GlobalScale.min = Math.min(Game.GlobalScale.x, Game.GlobalScale.y);
+                                Game.GlobalScale.max = Math.max(Game.GlobalScale.x, Game.GlobalScale.y);
 
                                 Game.GlobalContainerPosition.x = this.screenManager.x;
                                 Game.GlobalContainerPosition.y = this.screenManager.y;
@@ -63908,7 +63910,6 @@ var PlayerSessionData = function () {
             }
 
             this.equipmentList[i][j].item = equipment.item;
-            this.equipmentList[i][j].item.level = 2;
             this.equipmentList[i][j].item.ingameData = this.equipmentList[i][j];
 
             this.equipmentUpdate();
@@ -64587,18 +64588,10 @@ var PlayerInventoryHud = function (_GameObject) {
             this.text.y = 35;
             this.baseBarView.update(delta);
             this.playerHud.update(delta);
-            //debug borders
-            // this.tl.x = Game.Borders.topLeft.x
-            // this.tl.y = Game.Borders.topLeft.y
 
-            // this.tr.x = Game.Borders.topRight.x
-            // this.tr.y = Game.Borders.topRight.y
-
-            // this.bl.x = Game.Borders.bottomLeft.x
-            // this.bl.y = Game.Borders.bottomLeft.y
-
-            // this.br.x = Game.Borders.bottomRight.x
-            // this.br.y = Game.Borders.bottomRight.y
+            //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            var min = Math.min(_Game2.default.GlobalScale.min, 1);
+            this.playerHud.scale.set(Math.max(0.85, min));
         }
     }]);
     return PlayerInventoryHud;
@@ -81785,6 +81778,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             if (num < 10) {
                 return '0' + num;
             }
+            return num;
         }
     }, {
         key: 'setData',
@@ -81798,9 +81792,10 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
 
             this.baseData = {
                 chest: Math.ceil(Math.random() * 21),
-                head: Math.ceil(Math.random() * 4),
-                topHead: Math.ceil(Math.random() * 17),
-                face: Math.ceil(Math.random() * 19),
+                head: 1, //Math.ceil(Math.random() * 4),
+                topHead: 11, //Math.ceil(Math.random() * 17),
+                face: 4, //Math.ceil(Math.random() * 19),
+                hat: 0, //Math.ceil(Math.random() * 4),
                 leg: 1, //Math.ceil(Math.random() * 19)
                 sleeves: 1, //Math.ceil(Math.random() * 19)
                 arms: 1, //Math.ceil(Math.random() * 19)
@@ -81811,15 +81806,16 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 botomColor: 0xFFFFFF,
                 shoeColor: 0x007272
             };
-            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0 }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 }, { area: "chest", src: "chest" + this.baseData.chest + "00", color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 }, { area: "head", src: "head" + this.baseData.head + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face" + this.baseData.face + "00", color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0 }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0 }, { area: "topHead", src: "top-head" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }, { area: "frontFace", src: "front-face" + this.baseData.topHead + "00", color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 }];
+            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 }, { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face-00" + this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true }, { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }, { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 }, { area: "hat", src: "hats-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }];
 
             this.bodyData.forEach(function (element) {
 
-                var sprite = element.enabled ? PIXI.Sprite.from(element.src + "01") : new PIXI.Sprite();
+                var sprite = element.enabled ? PIXI.Sprite.from(element.src + (element.animate ? "01" : "")) : new PIXI.Sprite();
                 sprite.tint = element.color;
                 _this2.spriteLayersData[element.area] = {
                     sprite: sprite,
-                    enabled: element.enabled
+                    enabled: element.enabled,
+                    animate: element.animate
                 };
 
                 _this2.playerContainer.addChild(sprite);
@@ -81868,7 +81864,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.view.scale.set(this.direction * this.baseScale * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * this.baseScale);
 
             this.bodyData.forEach(function (element) {
-                if (_this3.spriteLayersData[element.area].enabled) {
+                if (_this3.spriteLayersData[element.area].enabled && _this3.spriteLayersData[element.area].animate) {
                     _this3.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(element.src + "0" + (_this3.currentFrame + 1));
                 }
             });
@@ -82142,7 +82138,7 @@ var SpawnerData = function () {
         this.randomPoint = _Utils2.default.randomCircle();
 
         this.angle = Math.random() * 3.14 * 2;
-        this.safeDistance = 200;
+        this.safeDistance = 250;
         this.offset = null;
 
         this.defaults = {};
@@ -96088,17 +96084,17 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_EN",
-	"url": "assets/json\\localization_EN.json"
-}, {
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
+	"id": "localization_EN",
+	"url": "assets/json\\localization_EN.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -96112,11 +96108,11 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -96124,20 +96120,26 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -96151,17 +96153,11 @@ var assets = [{
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -96175,17 +96171,17 @@ var assets = [{
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }];
 
 exports.default = assets;
@@ -96218,7 +96214,7 @@ module.exports = exports['default'];
 /* 304 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/particles/particles.json","image/hud/hud.json","image/texture/texture.json","image/environment/environment.json","image/entities/entities.json","image/characters/characters.json","image/body-parts/body-parts.json","image/ui/ui.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/hud/hud.json","image/environment/environment.json","image/body-parts/body-parts.json","image/entities/entities.json","image/characters/characters.json","image/ui/ui.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

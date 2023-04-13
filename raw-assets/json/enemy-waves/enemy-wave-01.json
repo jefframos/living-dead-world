@@ -17,7 +17,8 @@
             },
             {
                 "areaType": "rect",
-                "radius": 500,
+                "width": 400,
+                "height": 400,
                 "total": 300,
                 "maxActive": 50,
                 "entity": [
