@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import CircleCounter from '../../ui/hudElements/CircleCounter';
+import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import UIList from '../../ui/uiElements/UIList';
 import Utils from '../../core/utils/Utils';
 import utils from '../../../utils';
@@ -52,20 +53,37 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')
         this.container.addChild(this.playerFaceContainer);
+        
+        this.goo = new PIXI.Sprite.from('goo')
+        this.container.addChild(this.goo);
+        this.goo.x = 15
+        this.goo.y = 100
 
         this.playerFaceMask = new PIXI.Sprite.from('player-face-mask')
         this.container.addChild(this.playerFaceMask);
         this.playerFaceMask.x = 12
-        this.playerFaceMask.y = 12
-
+        this.playerFaceMask.y = 132
+        this.playerFaceMask.anchor.y = 1
         this.playerFace = new PIXI.Sprite()
         this.playerFace.anchor.set(0.5);
-        this.playerFace.scale.set(1.25)
+        this.playerFace.scale.set(1)
         this.playerFace.x = this.playerFaceContainer.width / 2
         this.playerFace.y = this.playerFaceContainer.height / 2 + 10
         this.addChild(this.playerFace);
 
         this.playerFace.mask = this.playerFaceMask
+
+        this.gooSpritesheet = new SpriteSheetAnimation();
+
+       // addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
+
+        this.gooSpritesheet.addLayer('standard', 'goo-drip00', {
+            totalFramesRange: { min: 1, max: 9 },
+            addZero: true,
+            time: 0.2
+        })
+
+        this.gooSpritesheet.play('standard')
     }
     registerPlayer(player) {
         this.player = player;
@@ -102,6 +120,8 @@ export default class PlayerGameplayHud extends PIXI.Container {
         if (!this.player) {
             return;
         }
-
+        
+        this.gooSpritesheet.updateAnimation(delta)
+        this.goo.texture = this.gooSpritesheet.currentTexture
     }
 }

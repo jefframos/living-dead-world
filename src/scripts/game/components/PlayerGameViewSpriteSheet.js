@@ -28,7 +28,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.offsetSin = 0;
         this.sinSpeed = 3
         this.direction = 1
-        this.baseScale = 0.5
+        this.baseScale = 0.35
     }
     destroy() {
         super.destroy();
@@ -52,11 +52,11 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.baseData = {
             chest: Math.ceil(Math.random() * 21),
             head: 1,//Math.ceil(Math.random() * 4),
-            topHead: 11,//Math.ceil(Math.random() * 17),
-            face: 4,//Math.ceil(Math.random() * 19),
-            hat: 0,//Math.ceil(Math.random() * 4),
+            topHead: Math.ceil(Math.random() * 17),
+            face:Math.ceil(Math.random() * 19),
+            hat: 15,//Math.ceil(Math.random() * 4),
             leg: 1,//Math.ceil(Math.random() * 19)
-            sleeves: 1,//Math.ceil(Math.random() * 19)
+            sleeves: 2,//Math.ceil(Math.random() * 19)
             arms: 1,//Math.ceil(Math.random() * 19)
             shoe: 0,//Math.ceil(Math.random() * 19)
             frontFace: 0,//Math.ceil(Math.random() * 19)
@@ -67,9 +67,9 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         }
         this.bodyData = [
             { area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
-            { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "backLeg", src: "back-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 , animate: true},
-            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
             { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
             { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 },
@@ -78,8 +78,8 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
             { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true },
             { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0 },
-            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 },
-            { area: "hat", src: "hats-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
+            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 && this.baseData.hat == 0 },
+            { area: "hat", src: "hat-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
         ]
 
         this.bodyData.forEach(element => {

@@ -392,7 +392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimpleRope", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["f"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pixi_runner__ = __webpack_require__(113);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Runner", function() { return __WEBPACK_IMPORTED_MODULE_29__pixi_runner__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(56);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Sprite", function() { return __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__ = __webpack_require__(182);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AnimatedSprite", function() { return __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__["a"]; });
@@ -20055,7 +20055,7 @@ var Player = function (_GameAgent) {
             }
 
             var scale = this.viewData.scale ? this.viewData.scale : 1;
-            this.gameView.view.scale.set(scale * 0.4); //Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
+            this.gameView.view.scale.set(scale * 0.3); //Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
             this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
             this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
             this.gameView.applyScale();
@@ -20479,7 +20479,7 @@ var _Shadow = __webpack_require__(34);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _SpriteSheetAnimation = __webpack_require__(58);
+var _SpriteSheetAnimation = __webpack_require__(53);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -20491,7 +20491,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -25045,7 +25045,7 @@ module.exports = $export;
 /* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 var IE8_DOM_DEFINE = __webpack_require__(123);
 var toPrimitive = __webpack_require__(73);
 var dP = Object.defineProperty;
@@ -25068,7 +25068,7 @@ exports.f = __webpack_require__(38) ? Object.defineProperty : function definePro
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(57)(function () {
+module.exports = !__webpack_require__(58)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -26747,7 +26747,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -27180,7 +27180,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -27997,6 +27997,215 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var SpriteSheetAnimation = function () {
+    function SpriteSheetAnimation() {
+        (0, _classCallCheck3.default)(this, SpriteSheetAnimation);
+
+        this.currentLayer = null;
+        this.currentState = null;
+        this.init = false;
+        this.currentLayerID = 0;
+        this.animationState = {};
+        this.animationFinish = new _signals2.default.Signal();
+        this.isPlaying = false;
+    }
+
+    (0, _createClass3.default)(SpriteSheetAnimation, [{
+        key: 'reset',
+        value: function reset() {
+            this.currentLayer = null;
+            this.currentState = null;
+            this.init = false;
+            this.currentLayerID = 0;
+            this.animationState = {};
+            this.currentLoop = false;
+
+            this.stop();
+        }
+    }, {
+        key: 'addFrame',
+        value: function addFrame(state, spriteName, anchor) {
+            var animLayer = {
+                currentAnimationTime: 0,
+                currentFrame: 0,
+                animationFrames: [spriteName],
+                frameTime: 1,
+                loop: 1,
+                anchor: anchor || { x: 0.5, y: 1 }
+            };
+
+            if (!this.animationState[state] || !this.animationState[state].layers) {
+                this.animationState[state] = {};
+                this.animationState[state].layers = [];
+            }
+            this.animationState[state].layers.push(animLayer);
+            this.currentAnimation = animLayer;
+        }
+    }, {
+        key: 'addLayer',
+        value: function addLayer(state, spriteName) {
+            var param = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } };
+
+            var animLayer = {
+                currentAnimationTime: 0,
+                currentFrame: 0,
+                animationFrames: [],
+                frameTime: param.time,
+                loop: param.loop,
+                anchor: param.anchor || { x: 0.5, y: 1 }
+            };
+            for (var index = param.totalFramesRange.min; index <= param.totalFramesRange.max; index++) {
+                var id = index;
+                if (param.addZero && id < 10) {
+                    id = '0' + id;
+                }
+                animLayer.animationFrames.push(spriteName + id);
+            }
+
+            if (!this.animationState[state] || !this.animationState[state].layers) {
+                this.animationState[state] = {};
+                this.animationState[state].layers = [];
+            }
+            this.animationState[state].layers.push(animLayer);
+
+            this.currentAnimation = animLayer;
+
+            this.currentAnimation.currentAnimationTime = Math.random() * param.time;
+
+            this.updateAnimation(0);
+
+            this.init = true;
+
+            this.currentState = state;
+        }
+    }, {
+        key: 'stop',
+        value: function stop() {
+            this.currentAnimation = null;
+            this.currentState = "";
+            this.secondState = "";
+            this.isPlaying = false;
+        }
+    }, {
+        key: 'play',
+        value: function play(state) {
+            var loop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+
+            this.currentLoop = loop;
+            if (this.currentState == state) return;
+            this.currentState = state;
+            this.setLayer(this.currentLayerID);
+            if (!this.currentAnimation.loop) {
+                this.currentAnimation.currentFrame = 0;
+                this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime;
+            }
+            this.isPlaying = true;
+        }
+    }, {
+        key: 'playSequence',
+        value: function playSequence(firstState, secondState) {
+            this.secondState = secondState;
+            this.playOnce(firstState);
+        }
+    }, {
+        key: 'playOnce',
+        value: function playOnce(state) {
+            this.play(state, false);
+        }
+    }, {
+        key: 'setLayer',
+        value: function setLayer(id) {
+            if (id >= 0) {
+                this.currentLayerID = id;
+            }
+            this.currentAnimation = this.animationState[this.currentState].layers[this.currentLayerID];
+        }
+    }, {
+        key: 'randomStartFrame',
+        value: function randomStartFrame() {
+            this.currentAnimation.currentFrame = Math.floor(Math.random() * this.currentAnimation.animationFrames.length);
+        }
+    }, {
+        key: 'updateAnimation',
+        value: function updateAnimation(delta) {
+
+            if (this.currentAnimation.currentAnimationTime >= 0) {
+                this.currentAnimation.currentAnimationTime -= delta;
+                if (this.currentAnimation.currentAnimationTime < 0) {
+                    this.currentAnimation.currentFrame++;
+
+                    this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
+                    this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime;
+                }
+            }
+
+            if (!this.currentLoop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
+                this.animationFinish.dispatch(this.currentAnimation, this.currentState);
+                if (this.secondState != "") {
+                    this.play(this.secondState);
+                    this.secondState = "";
+                } else {
+                    this.stop();
+                }
+                return;
+            }
+            this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {
+            if (!this.currentAnimation) {
+                return;
+            }
+            this.updateAnimation(delta);
+        }
+    }, {
+        key: 'anchor',
+        get: function get() {
+            return this.currentAnimation.anchor;
+        }
+    }, {
+        key: 'currentFrame',
+        get: function get() {
+            return this.currentAnimation ? this.currentAnimation.animationFrames[this.currentAnimation.currentFrame] : null;
+        }
+    }, {
+        key: 'currentTexture',
+        get: function get() {
+            return this.currentFrame ? PIXI.Texture.from(this.currentFrame) : PIXI.Texture.EMPTY;
+        }
+    }]);
+    return SpriteSheetAnimation;
+}();
+
+exports.default = SpriteSheetAnimation;
+module.exports = exports['default'];
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _EntityAttributes = __webpack_require__(29);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
@@ -28295,7 +28504,7 @@ exports.default = WeaponAttributes;
 module.exports = exports["default"];
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28539,7 +28748,7 @@ exports.default = UIList;
 module.exports = exports['default'];
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29142,7 +29351,7 @@ var Sprite = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(46);
@@ -29153,7 +29362,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -29164,215 +29373,6 @@ module.exports = function (exec) {
   }
 };
 
-
-/***/ }),
-/* 58 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _signals = __webpack_require__(7);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var SpriteSheetAnimation = function () {
-    function SpriteSheetAnimation() {
-        (0, _classCallCheck3.default)(this, SpriteSheetAnimation);
-
-        this.currentLayer = null;
-        this.currentState = null;
-        this.init = false;
-        this.currentLayerID = 0;
-        this.animationState = {};
-        this.animationFinish = new _signals2.default.Signal();
-        this.isPlaying = false;
-    }
-
-    (0, _createClass3.default)(SpriteSheetAnimation, [{
-        key: 'reset',
-        value: function reset() {
-            this.currentLayer = null;
-            this.currentState = null;
-            this.init = false;
-            this.currentLayerID = 0;
-            this.animationState = {};
-            this.currentLoop = false;
-
-            this.stop();
-        }
-    }, {
-        key: 'addFrame',
-        value: function addFrame(state, spriteName, anchor) {
-            var animLayer = {
-                currentAnimationTime: 0,
-                currentFrame: 0,
-                animationFrames: [spriteName],
-                frameTime: 1,
-                loop: 1,
-                anchor: anchor || { x: 0.5, y: 1 }
-            };
-
-            if (!this.animationState[state] || !this.animationState[state].layers) {
-                this.animationState[state] = {};
-                this.animationState[state].layers = [];
-            }
-            this.animationState[state].layers.push(animLayer);
-            this.currentAnimation = animLayer;
-        }
-    }, {
-        key: 'addLayer',
-        value: function addLayer(state, spriteName) {
-            var param = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } };
-
-            var animLayer = {
-                currentAnimationTime: 0,
-                currentFrame: 0,
-                animationFrames: [],
-                frameTime: param.time,
-                loop: param.loop,
-                anchor: param.anchor || { x: 0.5, y: 1 }
-            };
-            for (var index = param.totalFramesRange.min; index <= param.totalFramesRange.max; index++) {
-                var id = index;
-                if (param.addZero && id < 10) {
-                    id = '0' + id;
-                }
-                animLayer.animationFrames.push(spriteName + id);
-            }
-
-            if (!this.animationState[state] || !this.animationState[state].layers) {
-                this.animationState[state] = {};
-                this.animationState[state].layers = [];
-            }
-            this.animationState[state].layers.push(animLayer);
-
-            this.currentAnimation = animLayer;
-
-            this.currentAnimation.currentAnimationTime = Math.random() * param.time;
-
-            this.updateAnimation(0);
-
-            this.init = true;
-
-            this.currentState = state;
-        }
-    }, {
-        key: 'stop',
-        value: function stop() {
-            this.currentAnimation = null;
-            this.currentState = "";
-            this.secondState = "";
-            this.isPlaying = false;
-        }
-    }, {
-        key: 'play',
-        value: function play(state) {
-            var loop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-
-            this.currentLoop = loop;
-            if (this.currentState == state) return;
-            this.currentState = state;
-            this.setLayer(this.currentLayerID);
-            if (!this.currentAnimation.loop) {
-                this.currentAnimation.currentFrame = 0;
-                this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime;
-            }
-            this.isPlaying = true;
-        }
-    }, {
-        key: 'playSequence',
-        value: function playSequence(firstState, secondState) {
-            this.secondState = secondState;
-            this.playOnce(firstState);
-        }
-    }, {
-        key: 'playOnce',
-        value: function playOnce(state) {
-            this.play(state, false);
-        }
-    }, {
-        key: 'setLayer',
-        value: function setLayer(id) {
-            if (id >= 0) {
-                this.currentLayerID = id;
-            }
-            this.currentAnimation = this.animationState[this.currentState].layers[this.currentLayerID];
-        }
-    }, {
-        key: 'randomStartFrame',
-        value: function randomStartFrame() {
-            this.currentAnimation.currentFrame = Math.floor(Math.random() * this.currentAnimation.animationFrames.length);
-        }
-    }, {
-        key: 'updateAnimation',
-        value: function updateAnimation(delta) {
-
-            if (this.currentAnimation.currentAnimationTime >= 0) {
-                this.currentAnimation.currentAnimationTime -= delta;
-                if (this.currentAnimation.currentAnimationTime < 0) {
-                    this.currentAnimation.currentFrame++;
-
-                    this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
-                    this.currentAnimation.currentAnimationTime = this.currentAnimation.frameTime;
-                }
-            }
-
-            if (!this.currentLoop && this.currentAnimation.currentFrame >= this.currentAnimation.animationFrames.length - 1) {
-                this.animationFinish.dispatch(this.currentAnimation, this.currentState);
-                if (this.secondState != "") {
-                    this.play(this.secondState);
-                    this.secondState = "";
-                } else {
-                    this.stop();
-                }
-                return;
-            }
-            this.currentAnimation.currentFrame %= this.currentAnimation.animationFrames.length;
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            if (!this.currentAnimation) {
-                return;
-            }
-            this.updateAnimation(delta);
-        }
-    }, {
-        key: 'anchor',
-        get: function get() {
-            return this.currentAnimation.anchor;
-        }
-    }, {
-        key: 'currentFrame',
-        get: function get() {
-            return this.currentAnimation ? this.currentAnimation.animationFrames[this.currentAnimation.currentFrame] : null;
-        }
-    }, {
-        key: 'currentTexture',
-        get: function get() {
-            return this.currentFrame ? PIXI.Texture.from(this.currentFrame) : PIXI.Texture.EMPTY;
-        }
-    }]);
-    return SpriteSheetAnimation;
-}();
-
-exports.default = SpriteSheetAnimation;
-module.exports = exports['default'];
 
 /***/ }),
 /* 59 */
@@ -31246,7 +31246,7 @@ module.exports = exports['default'];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Text; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TextMetrics; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextStyle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_settings__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(14);
@@ -34126,7 +34126,7 @@ module.exports = {};
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 var dPs = __webpack_require__(195);
 var enumBugKeys = __webpack_require__(83);
 var IE_PROTO = __webpack_require__(81)('IE_PROTO');
@@ -45978,7 +45978,7 @@ var _Shaders = __webpack_require__(68);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _SpriteSheetAnimation = __webpack_require__(58);
+var _SpriteSheetAnimation = __webpack_require__(53);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -46129,7 +46129,7 @@ var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _SpriteSheetAnimation = __webpack_require__(58);
+var _SpriteSheetAnimation = __webpack_require__(53);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -46755,7 +46755,7 @@ var _InGameViewDataStatic = __webpack_require__(243);
 
 var _InGameViewDataStatic2 = _interopRequireDefault(_InGameViewDataStatic);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -58002,7 +58002,7 @@ var SpritesheetLoader = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TilingSpriteRenderer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_utils__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(30);
 /*!
@@ -60268,7 +60268,7 @@ module.exports = function (fn, that, length) {
 /* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(38) && !__webpack_require__(57)(function () {
+module.exports = !__webpack_require__(38) && !__webpack_require__(58)(function () {
   return Object.defineProperty(__webpack_require__(124)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -60545,7 +60545,7 @@ module.exports = exports['default'];
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(36);
 var core = __webpack_require__(25);
-var fails = __webpack_require__(57);
+var fails = __webpack_require__(58);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -64139,7 +64139,7 @@ var _InteractableView = __webpack_require__(43);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIList = __webpack_require__(54);
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -64353,7 +64353,7 @@ var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(54);
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -76932,7 +76932,7 @@ var NoiseFilter = /** @class */ (function (_super) {
 "use strict";
 /* unused harmony export CacheData */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_utils__ = __webpack_require__(13);
@@ -78115,7 +78115,7 @@ var NineSlicePlane = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_ticker__ = __webpack_require__(44);
 /*!
  * @pixi/sprite-animated - v5.3.12
@@ -79280,7 +79280,7 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(37);
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 var getKeys = __webpack_require__(80);
 
 module.exports = __webpack_require__(38) ? Object.defineProperties : function defineProperties(O, Properties) {
@@ -79480,7 +79480,7 @@ var DESCRIPTORS = __webpack_require__(38);
 var $export = __webpack_require__(36);
 var redefine = __webpack_require__(126);
 var META = __webpack_require__(208).KEY;
-var $fails = __webpack_require__(57);
+var $fails = __webpack_require__(58);
 var shared = __webpack_require__(82);
 var setToStringTag = __webpack_require__(84);
 var uid = __webpack_require__(62);
@@ -79489,7 +79489,7 @@ var wksExt = __webpack_require__(85);
 var wksDefine = __webpack_require__(86);
 var enumKeys = __webpack_require__(209);
 var isArray = __webpack_require__(210);
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 var isObject = __webpack_require__(46);
 var toIObject = __webpack_require__(40);
 var toPrimitive = __webpack_require__(73);
@@ -79720,7 +79720,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(57)(function () {
+var FREEZE = !__webpack_require__(58)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -80211,7 +80211,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(227).set });
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = __webpack_require__(46);
-var anObject = __webpack_require__(56);
+var anObject = __webpack_require__(57);
 var check = function (O, proto) {
   anObject(O);
   if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -80396,7 +80396,7 @@ var _UIButton = __webpack_require__(294);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
-var _UIList = __webpack_require__(54);
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -81342,7 +81342,7 @@ var _Bullet = __webpack_require__(24);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -81723,7 +81723,7 @@ var _Shaders = __webpack_require__(68);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _SpriteSheetAnimation = __webpack_require__(58);
+var _SpriteSheetAnimation = __webpack_require__(53);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -81761,7 +81761,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.offsetSin = 0;
             this.sinSpeed = 3;
             this.direction = 1;
-            this.baseScale = 0.5;
+            this.baseScale = 0.35;
         }
     }, {
         key: 'destroy',
@@ -81793,11 +81793,11 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.baseData = {
                 chest: Math.ceil(Math.random() * 21),
                 head: 1, //Math.ceil(Math.random() * 4),
-                topHead: 11, //Math.ceil(Math.random() * 17),
-                face: 4, //Math.ceil(Math.random() * 19),
-                hat: 0, //Math.ceil(Math.random() * 4),
+                topHead: Math.ceil(Math.random() * 17),
+                face: Math.ceil(Math.random() * 19),
+                hat: 15, //Math.ceil(Math.random() * 4),
                 leg: 1, //Math.ceil(Math.random() * 19)
-                sleeves: 1, //Math.ceil(Math.random() * 19)
+                sleeves: 2, //Math.ceil(Math.random() * 19)
                 arms: 1, //Math.ceil(Math.random() * 19)
                 shoe: 0, //Math.ceil(Math.random() * 19)
                 frontFace: 0, //Math.ceil(Math.random() * 19)
@@ -81806,7 +81806,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 botomColor: 0xFFFFFF,
                 shoeColor: 0x007272
             };
-            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 }, { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face-00" + this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true }, { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }, { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 }, { area: "hat", src: "hats-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }];
+            this.bodyData = [{ area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "backLeg", src: "back-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 }, { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 }, { area: "face", src: "face-00" + this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true }, { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true }, { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0 }, { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 && this.baseData.hat == 0 }, { area: "hat", src: "hat-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }];
 
             this.bodyData.forEach(function (element) {
 
@@ -82307,7 +82307,7 @@ var _Spring = __webpack_require__(248);
 
 var _Spring2 = _interopRequireDefault(_Spring);
 
-var _SpriteSheetAnimation = __webpack_require__(58);
+var _SpriteSheetAnimation = __webpack_require__(53);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -82315,7 +82315,7 @@ var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WeaponAttributes = __webpack_require__(53);
+var _WeaponAttributes = __webpack_require__(54);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -89456,7 +89456,7 @@ var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(54);
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -89719,7 +89719,11 @@ var _CircleCounter = __webpack_require__(284);
 
 var _CircleCounter2 = _interopRequireDefault(_CircleCounter);
 
-var _UIList = __webpack_require__(54);
+var _SpriteSheetAnimation = __webpack_require__(53);
+
+var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
+
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -89784,19 +89788,36 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                 _this.playerFaceContainer = new PIXI.Sprite.from('player-face-container');
                 _this.container.addChild(_this.playerFaceContainer);
 
+                _this.goo = new PIXI.Sprite.from('goo');
+                _this.container.addChild(_this.goo);
+                _this.goo.x = 15;
+                _this.goo.y = 100;
+
                 _this.playerFaceMask = new PIXI.Sprite.from('player-face-mask');
                 _this.container.addChild(_this.playerFaceMask);
                 _this.playerFaceMask.x = 12;
-                _this.playerFaceMask.y = 12;
-
+                _this.playerFaceMask.y = 132;
+                _this.playerFaceMask.anchor.y = 1;
                 _this.playerFace = new PIXI.Sprite();
                 _this.playerFace.anchor.set(0.5);
-                _this.playerFace.scale.set(1.25);
+                _this.playerFace.scale.set(1);
                 _this.playerFace.x = _this.playerFaceContainer.width / 2;
                 _this.playerFace.y = _this.playerFaceContainer.height / 2 + 10;
                 _this.addChild(_this.playerFace);
 
                 _this.playerFace.mask = _this.playerFaceMask;
+
+                _this.gooSpritesheet = new _SpriteSheetAnimation2.default();
+
+                // addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
+
+                _this.gooSpritesheet.addLayer('standard', 'goo-drip00', {
+                        totalFramesRange: { min: 1, max: 9 },
+                        addZero: true,
+                        time: 0.2
+                });
+
+                _this.gooSpritesheet.play('standard');
                 return _this;
         }
 
@@ -89847,6 +89868,9 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                         if (!this.player) {
                                 return;
                         }
+
+                        this.gooSpritesheet.updateAnimation(delta);
+                        this.goo.texture = this.gooSpritesheet.currentTexture;
                 }
         }]);
         return PlayerGameplayHud;
@@ -90098,7 +90122,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _UIList = __webpack_require__(54);
+var _UIList = __webpack_require__(55);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -96102,11 +96126,11 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
+}, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
@@ -96120,44 +96144,59 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
 }, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -96167,21 +96206,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
 }];
 
 exports.default = assets;
