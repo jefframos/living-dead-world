@@ -56,8 +56,8 @@ export default class PlayerGameplayHud extends PIXI.Container {
         
         this.goo = new PIXI.Sprite.from('goo')
         this.container.addChild(this.goo);
-        this.goo.x = 15
-        this.goo.y = 100
+        this.goo.x = 13
+        this.goo.y = 108
 
         this.playerFaceMask = new PIXI.Sprite.from('player-face-mask')
         this.container.addChild(this.playerFaceMask);

@@ -74,7 +74,7 @@ export default class LevelUpBar extends PIXI.Container {
     }
     update(delta) {
 
-        this.fillBar.width = Utils.lerp(this.fillBar.width, Math.max(50, this.maxWidth * this.barNormal), 0.5);
+        this.fillBar.width = Utils.lerp(this.fillBar.width, Math.max(70, this.maxWidth * this.barNormal), 0.5);
 
         this.tiledBubbles.x = this.fillBar.x + 25
         this.tiledBubbles.y = this.fillBar.y + 18
