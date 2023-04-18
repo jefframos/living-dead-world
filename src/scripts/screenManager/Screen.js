@@ -46,14 +46,14 @@ export default class Screen extends PIXI.Container{
 
 	destroy(){
 		this.built = false;
-		if(this.entityList){
-			for(let i = 0; i < this.entityList.length; i++){
-				if(this.entityList[i].parent){
-					this.entityList[i].parent.removeChild(this.entityList[i]);
-				}
-			}
-		}
-		this.entityList = [];
+		// if(this.entityList){
+		// 	for(let i = 0; i < this.entityList.length; i++){
+		// 		if(this.entityList[i].parent){
+		// 			this.entityList[i].parent.removeChild(this.entityList[i]);
+		// 		}
+		// 	}
+		// }
+		// this.entityList = [];
 	}
 	build(){
 		this.built = true;

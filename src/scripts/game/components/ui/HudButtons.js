@@ -24,13 +24,9 @@ export default class HudButtons extends GameObject {
         this.buttonsList.h = this.buttonSize
         this.gameView.view.addChild(this.buttonsList)
 
-
-
         // this.bl.x = Game.Borders.bottomLeft.x
         // this.bl.y = Game.Borders.bottomLeft.y
-
-
-
+        
         if (!window.debugMode) {
             this.gameView.view.visible = false;
         }

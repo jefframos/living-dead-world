@@ -41,10 +41,6 @@ export default class GameplaySessionController extends GameObject {
     }
     build() {
 
-        this.buildingComponent = this.addComponent(BuildingComponent)
-        this.buildingComponent.setGameView(this.gameView.view);
-
-
         this.playerInventoryHud = this.engine.poolGameObject(PlayerInventoryHud, true)
         this.addChild(this.playerInventoryHud)
 
@@ -151,11 +147,9 @@ export default class GameplaySessionController extends GameObject {
     }
     setCombatMode() {
         GameplaySessionController.CurrentMode = GameplaySessionController.CombatMode;
-        this.buildingComponent.hide();
     }
     setBuildingMode() {
         GameplaySessionController.CurrentMode = GameplaySessionController.BuildingMode;
-        this.buildingComponent.show();
     }
     update(delta) {
 
@@ -174,8 +168,6 @@ export default class GameplaySessionController extends GameObject {
             this.buildingPositions.mouseX = this.input.globalMousePos.x + Player.MainPlayer.transform.position.x - config.width / 2
             this.buildingPositions.mouseY = this.input.globalMousePos.y + Player.MainPlayer.transform.position.y - config.height / 2
 
-            this.buildingComponent.updateGridPosition(this.buildingPositions);
-            this.buildingComponent.updateMousePosition(this.buildingPositions);
         }
 
     }

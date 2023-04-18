@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
+import CharacterBuildScreen from './CharacterBuildScreen';
 import GameScreen from './GameScreen';
 import GameStaticData from '../data/GameStaticData';
 import MainMenu from './MainMenu';
@@ -16,11 +17,11 @@ export default class MainScreenManager extends ScreenManager {
         GameStaticData.instance.initialize();
 
         this.settings = {
-            fps:60
-          }
-        window.GUI = new dat.GUI({ closed: false });        
-        window.GUI.add(this.settings, 'fps',1,120).listen();
-        
+            fps: 60
+        }
+        window.GUI = new dat.GUI({ closed: false });
+        window.GUI.add(this.settings, 'fps', 1, 120).listen();
+
         this.backgroundContainer = new PIXI.Container();
         this.addChild(this.backgroundContainer);
         this.setChildIndex(this.backgroundContainer, 0);
@@ -28,17 +29,21 @@ export default class MainScreenManager extends ScreenManager {
 
 
 
-        this.mainMenuScreen = new MainMenu('MainMenu')
-
         this.gameplayScreen = new GameScreen('GameScreen');
         this.addScreen(this.gameplayScreen);
+
+        this.mainMenuScreen = new MainMenu('MainMenu')
         this.addScreen(this.mainMenuScreen);
-        this.change('MainMenu');
-        
-        
-        // setTimeout(() => {
-        //     this.change('GameScreen');
-        // }, 2000);
+
+        this.mainMenuScreen.onStartGame.add(() => {
+            this.redirectToGame();
+        })
+
+        this.characterBuilding = new CharacterBuildScreen('CharBuild')
+        this.addScreen(this.characterBuilding);
+
+        this.forceChange('MainMenu');
+
 
         this.timeScale = 1;
 
@@ -84,11 +89,11 @@ export default class MainScreenManager extends ScreenManager {
 
         // this.screenTransition.x = config.width/2;
 
-        if(!window.debugMode){
+        if (!window.debugMode) {
             window.GUI.hide()
         }
 
-       
+
 
     }
     addCoinsParticles(pos, quant = 5, customData = {}) {
@@ -127,12 +132,12 @@ export default class MainScreenManager extends ScreenManager {
     redirectToGame(harder) {
         window.HARDER = harder
         this.change('GameScreen');
-        this.showPopUp('init')
+        //this.showPopUp('init')
     }
     update(delta) {
         this.settings.fps = window.FPS
 
-        if(this.isPaused) return;
+        if (this.isPaused) return;
         super.update(delta * this.timeScale);
 
         if (this.currentPopUp) {
