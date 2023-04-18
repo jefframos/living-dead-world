@@ -66,9 +66,9 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.playerFaceMask.anchor.y = 1
         this.playerFace = new PIXI.Sprite()
         this.playerFace.anchor.set(0.5);
-        this.playerFace.scale.set(1)
+        this.playerFace.scale.set(1.1)
         this.playerFace.x = this.playerFaceContainer.width / 2
-        this.playerFace.y = this.playerFaceContainer.height / 2 + 10
+        this.playerFace.y = this.playerFaceContainer.height / 2 
         this.addChild(this.playerFace);
 
         this.playerFace.mask = this.playerFaceMask

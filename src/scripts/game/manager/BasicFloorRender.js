@@ -27,6 +27,8 @@ export default class BasicFloorRender extends GameObject {
     start() {
     }
     update(delta) {
+
+        if(!Player.MainPlayer) return;
         this.playerTileID.i = Math.floor(Player.MainPlayer.transform.position.x / this.tileSize)
         this.playerTileID.j = Math.floor(Player.MainPlayer.transform.position.z / this.tileSize)
         this.gameView.view.x = this.playerTileID.i * this.tileSize

@@ -12,13 +12,19 @@ export default class CameraOcclusion2D extends BaseComponent {
     }
     enable() {
         super.enable();
-        this.player = this.gameObject.engine.findByType(Player);
         this.renderModule = this.gameObject.engine.findByType(RenderModule);
+
+        if (!this.player) {
+            this.gameObject.engine.callbackWhenAdding(Player, (player) => {
+                this.player = player[0];
+            });
+        }
 
     }
 
     update(delta) {
         //only uses player layer to test occlusion
+        if(!this.player) return;
         this.renderModule.layers[this.player.gameView.layer].gameViews.forEach(element => {
             if(element.tag == TagManager.Tags.Occlusion){
                 this.boundOcclusion(this.player.gameView.view, element.view, element.view.anchor);

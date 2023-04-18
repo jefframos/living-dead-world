@@ -51,10 +51,15 @@ export default class EnvironmentManager extends GameObject {
 
         this.drawBounds = { width: 1000, height: 800 };
     }
+    destroy(){
+        super.destroy();
+        }
     start() {
         this.levelManager = LevelManager.instance;
         this.player = this.engine.findByType(Player);
 
+
+        
         if (!this.player) {
             this.engine.callbackWhenAdding(Player, (player) => {
                 this.player = player[0];
@@ -118,7 +123,8 @@ export default class EnvironmentManager extends GameObject {
                     const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list }
                     data.width = layer.width;
                     data.height = layer.height;
-                    this.levelManager.addEntity(layer.constructor, data)
+                    
+                    this.addChild(this.levelManager.addEntity(layer.constructor, data))
                 }
             }
 

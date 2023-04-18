@@ -4,25 +4,20 @@ import * as dat from 'dat.gui';
 import BaseEnemy from '../entity/BaseEnemy';
 import Bullet from '../components/weapon/bullets/Bullet';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
-import Companion from '../entity/Companion';
 import EffectsManager from '../manager/EffectsManager';
 import EnvironmentManager from '../manager/EnvironmentManager';
 import Eugine from '../core/Eugine';
 import Game from '../../Game';
 import GameStaticData from '../data/GameStaticData';
-import GameplaySessionController from '../manager/GameplaySessionController';
 import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
 import LevelManager from '../manager/LevelManager';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
-import PlayerInventoryHud from '../inventory/view/PlayerInventoryHud';
 import Pool from '../core/utils/Pool';
 import RenderModule from '../core/modules/RenderModule';
 import Screen from '../../screenManager/Screen'
-import StaticPhysicObject from '../entity/StaticPhysicObject';
 import TouchAxisInput from '../core/modules/TouchAxisInput';
-import Trees from '../entity/Trees';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
@@ -76,9 +71,8 @@ export default class GameScreen extends Screen {
         this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
-
-        this.followPoint = new Vector3();
-        this.camera.setFollowPoint(this.followPoint)
+        this.camera.addComponent(CameraOcclusion2D);
+        this.camera.setFollowPoint(new Vector3())
 
         this.levelManager = new LevelManager(this.gameEngine);
 
@@ -184,7 +178,7 @@ export default class GameScreen extends Screen {
 
         if (window.isMobile) {
 
-            if(window.debugMode){                                
+            if (window.debugMode) {
                 this.addChild(this.helperButtonList)
             }
             window.GUI.close()
@@ -195,7 +189,7 @@ export default class GameScreen extends Screen {
 
         this.container.scale.set(1)
 
-       
+
     }
 
     onAdded() {
@@ -235,76 +229,30 @@ export default class GameScreen extends Screen {
     }
     spawnPlayer() {
 
-        //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar!== undefined?window.customChar:Math.floor(Math.random() * 7)))
-        this.gameSessionController.playerReady()
-        this.player.refreshEquipment()
-        this.player.setPositionXZ(0, 0)
-        
+
+        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)))
         this.levelManager.start(this.player);
-        //this.playerInventoryHud.registerPlayer(this.player)
+        this.levelManager.initGame();
 
-        let angle = Math.PI * 2 * Math.random();
-        // this.player.setPositionXZ(config.width / 2 + Math.cos(angle) * config.width, config.height / 2 + Math.sin(angle) * config.height)
 
-        
-
-        setTimeout(() => {
-
-            this.followPoint.x = this.player.gameView.view.position.x;
-            this.followPoint.y = 0;
-            this.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
-            this.camera.snapFollowPoint()
-        }, 1);
-
-        setInterval(() => {
-            for (let index = 0; index < Math.random() * 10 + 5; index++) {
-                //this.addRandomAgents(1)
-            }
-        }, 5000)
-        //this.debug.ADD_ENEMIES();
         this.player.onDie.addOnce(() => {
             setTimeout(() => {
-                this.spawnPlayer()
+                this.screenManager.change('MainMenu')
             }, 1000);
         })
+        //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
     }
-    
+
     build(param) {
         super.build();
         this.addEvents();
         this.gameEngine.start();
-
-
-        this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
-
-        this.spawnPlayer();
-
-
-        this.camera.addComponent(CameraOcclusion2D);
-
-
+        this.spawnPlayer(); //SEND PLAYER PARAMETERS HERE
         this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager())
-
-
-        //let firstNode = WorldManager.instance.getFirstNode();        
-        //this.player.setPosition(firstNode.center.x * WorldManager.instance.scale, firstNode.center.y * WorldManager.instance.scale)        
-        // WorldManager.instance.setPlayer(this.player);
-
-
-        console.log("TODO: improve naming, add bitmap text particle, world, investigate the island")
-
-        setTimeout(() => {
-
-            for (let index = 0; index < 80; index++) {
-                //this.addRandomAgents(1)
-            }
-        }, 20);
-
     }
     update(delta) {
         delta *= this.debug.timeScale;
@@ -328,17 +276,14 @@ export default class GameScreen extends Screen {
         }
 
         this.stats.text = 'FPS: ' + window.FPS + '\nPhys: ' + this.physics.physicsStats.totalPhysicsEntities
-        if (this.player) {
-            this.followPoint.x = this.player.gameView.view.position.x;
-            this.followPoint.y = 0;
-            this.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
 
-            //console.log(this.gameplayContainer.position)
-        }
     }
     transitionOut(nextScreen) {
         this.removeEvents();
         this.nextScreen = nextScreen;
+        this.worldRender.destroy();
+        this.levelManager.destroy();
+
         setTimeout(function () {
             this.endTransitionOut();
         }.bind(this), 0);

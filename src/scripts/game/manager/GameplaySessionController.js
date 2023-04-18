@@ -46,11 +46,12 @@ export default class GameplaySessionController extends GameObject {
 
 
         this.playerInventoryHud = this.engine.poolGameObject(PlayerInventoryHud, true)
-        //this.addChild(this.playerInventoryHud)
+        this.addChild(this.playerInventoryHud)
 
 
         this.deckView = this.engine.poolGameObject(DeckController, true)
         this.deckView.setActive(false);
+        this.addChild(this.deckView)
 
         this.hudButtons = this.engine.poolGameObject(HudButtons, true)
 
@@ -61,9 +62,12 @@ export default class GameplaySessionController extends GameObject {
         this.hudButtons.addCallbackButton(() => {
             this.player.clearWeapon();
         }, config.assets.button.warningSquare)
+        
+        this.addChild(this.hudButtons)
 
         this.cardPlacementView = this.engine.poolGameObject(CardPlacementView, true)
         this.cardPlacementView.setActive(false);
+        this.addChild(this.cardPlacementView)
 
         this.cardPlacementSystem = new CardPlacementSystem(this.deckView, this.cardPlacementView);
         this.cardPlacementSystem.onHide.add(this.onHidePanel.bind(this))
@@ -175,4 +179,5 @@ export default class GameplaySessionController extends GameObject {
         }
 
     }
+    
 }

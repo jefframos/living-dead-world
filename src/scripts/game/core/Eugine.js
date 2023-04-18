@@ -37,7 +37,9 @@ export default class Eugine {
     }
     callbackWhenAdding(constructor, callback) {
         if(!this.callbacksWhenAdding[constructor.name]){
-            this.callbacksWhenAdding[constructor.name] = callback;
+            this.callbacksWhenAdding[constructor.name] = [callback];
+        }else{
+            this.callbacksWhenAdding[constructor.name].push(callback);
         }
     }
     //add main camera
@@ -104,10 +106,11 @@ export default class Eugine {
 
         this.entityAdded.dispatch([gameObject])
 
-        //console.log(this.callbacksWhenAdding)
         if(this.callbacksWhenAdding && this.callbacksWhenAdding[gameObject.constructor.name]){
-           this.callbacksWhenAdding[gameObject.constructor.name]([gameObject]);
-           this.callbacksWhenAdding[gameObject.constructor.name] = null;
+            this.callbacksWhenAdding[gameObject.constructor.name].forEach(element => {                
+                element([gameObject]);
+            });
+           this.callbacksWhenAdding[gameObject.constructor.name] = [];
         }
         
         return gameObject;

@@ -67,14 +67,13 @@ export default class Player extends GameAgent {
         this.currentSessionData = value;
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-
         //this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData['LASER']), 1, 0)
         this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
     }
     makeAnimations(data) {
         this.playerView = this.addComponent(PlayerGameViewSpriteSheet);        
         this.playerView.setData(data);
-        this.playerView.update(0.1);
+        this.playerView.update(1);
     }
 
     build(playerData) {
@@ -129,7 +128,6 @@ export default class Player extends GameAgent {
 
 
         this.framesAfterStart = 0;
-
         this.makeAnimations(this.staticData)
 
         if (this.viewData.anchor) {
@@ -138,17 +136,7 @@ export default class Player extends GameAgent {
             this.gameView.view.anchor.set(0.5, 1)
         }
 
-       
-
-
-        let scale = this.viewData.scale ? this.viewData.scale : 1
-        this.gameView.view.scale.set(scale * 0.3);//Utils.scaleToFit(this.gameView.view, this.attributes.radius * 2 * scale));
-        this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
-        this.gameView.view.scale.x = Math.abs(this.gameView.view.scale.x);
-        this.gameView.applyScale();
-        this.anchorOffset = 0
-
-
+        this.anchorOffset = 0;
         this.cleanStats();
 
         
@@ -171,7 +159,6 @@ export default class Player extends GameAgent {
     rebuildWeaponGrid(equipmentGrid) {
         this.clearWeapon();
         this.cleanStats();
-
         for (let i = 0; i < equipmentGrid.length; i++) {
             const list = equipmentGrid[i];
             for (let j = 0; j < list.length; j++) {

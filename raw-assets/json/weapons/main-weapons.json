@@ -108,7 +108,7 @@
             "baseFrequency": 4,
             "basePiercing": 1,
             "baseAmount": [1,2],
-            "baseDirectionType": "ParentAngle",
+            "baseDirectionType": "ClosestEnemy",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 12,
             "baseBrustFireInterval": 0.15,
@@ -365,7 +365,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 40,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -432,6 +432,48 @@
             "rotationSpeed": 0,
             "overrider": {
                 "baseViewData": "BOMB_DUDE"
+            }
+        }
+    },
+    {
+        "id": "SMALL_BOMB",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "hit-d3",
+            "name": "Bomb"
+        },
+        "isMain": false,
+        "ingameViewData": "SMALL_BOMB",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "SMALL_BOMB_OVERRIDER",
+        "attributes": {
+            "baseRadius": 100,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "IMPACT_BOMB",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
             }
         }
     },
@@ -666,48 +708,6 @@
         "view": {
             "rotationSpeed": 0,
             "spawnVfxPack": "NUKE_PACK",
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
-        }
-    },
-    {
-        "id": "SMALL_BOMB",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "hit-d3",
-            "name": "Bomb"
-        },
-        "isMain": false,
-        "ingameViewData": "SMALL_BOMB",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "overrider": "SMALL_BOMB_OVERRIDER",
-        "attributes": {
-            "baseRadius": 100,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": 0.5,
-            "baseLifeRangeSpan": -1,
-            "basePower": 150,
-            "baseBulletSpeed": 0,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDirectionType": "ParentAngle",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.3,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "IMPACT_BOMB",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
             }

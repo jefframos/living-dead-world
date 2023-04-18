@@ -26,9 +26,9 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.time = 0.08;
         this.currentTime = 0;
         this.offsetSin = 0;
-        this.sinSpeed = 3
+        this.sinSpeed = 1
         this.direction = 1
-        this.baseScale = 0.35
+        this.baseScale = 0.375
     }
     destroy() {
         super.destroy();
@@ -49,20 +49,43 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.view.texture = PIXI.Texture.EMPTY;
         this.spriteLayersData = {};
 
+
+        //sushi
+        // this.baseData = {
+        //     chest: 17,
+        //     head: 1,//Math.ceil(Math.random() * 4),
+        //     topHead: 4,
+        //     face:20,
+        //     hat: 0,//Math.random() > 0.94 ? Math.floor(Math.random() * 21) : 0,//Math.ceil(Math.random() * 4),
+        //     leg: 1,//Math.ceil(Math.random() * 19)
+        //     sleeves: 2,//Math.ceil(Math.random() * 19)
+        //     arms: 1,//Math.ceil(Math.random() * 19)
+        //     shoe: 0,//Math.ceil(Math.random() * 19)
+        //     frontFace:8,
+        //     backHead: 0,//Math.ceil(Math.random() * 19)
+        //     hairColor: 0x333333,
+        //     topClothColor: 0xFFFFFF,
+        //     sleevesColor: 0x555555,
+        //     botomColor: 0x333333,
+        //     shoeColor: 0x007272,
+        // }
+
         this.baseData = {
-            chest: Math.ceil(Math.random() * 21),
-            head: 1,//Math.ceil(Math.random() * 4),
-            topHead: Math.ceil(Math.random() * 17),
-            face:Math.ceil(Math.random() * 19),
-            hat: Math.random() > 0.4 ? Math.floor(Math.random() * 15) : 0,//Math.ceil(Math.random() * 4),
+            chest: Math.ceil(Math.random() * 22),
+            head: Math.ceil(Math.random() * 3),//Math.ceil(Math.random() * 4),
+            topHead: Math.floor(Math.random() * 29),
+            face: Math.ceil(Math.random() * 21),
+            hat: Math.random() > 0.6 ? Math.floor(Math.random() * 22) : 0,//Math.ceil(Math.random() * 4),
             leg: 1,//Math.ceil(Math.random() * 19)
             sleeves: 2,//Math.ceil(Math.random() * 19)
             arms: 1,//Math.ceil(Math.random() * 19)
-            shoe: 0,//Math.ceil(Math.random() * 19)
-            frontFace: 0,//Math.ceil(Math.random() * 19)
+            shoe: 1,//Math.ceil(Math.random() * 19)
+            frontFace:Math.floor(Math.random() * 9),
             backHead: 0,//Math.ceil(Math.random() * 19)
+            hairColor: 0xFFFFFF,
             topClothColor: 0xFFFFFF,
-            botomColor: 0xFFFFFF,
+            sleevesColor: 0xFFFFFF,
+            botomColor: 0x333333,
             shoeColor: 0x007272,
         }
         this.bodyData = [
@@ -72,13 +95,13 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { area: "frontLeg", src: "front-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
             { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
-            { area: "backHead", src: "back-head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.backHead > 0 },
+            { area: "backHead", src: "back-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0  && this.baseData.hat == 0},
             { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 },
             { area: "face", src: "face-00"+ this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
             { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
-            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.topClothColor, enabled: this.baseData.sleeves > 0, animate: true },
+            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animate: true },
             { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0  && this.baseData.hat == 0},
-            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: 0xFFFFFF, enabled: this.baseData.frontFace > 0 },
+            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: this.baseData.hairColor, enabled: this.baseData.frontFace > 0 },
             { area: "hat", src: "hat-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
         ]
 
@@ -110,7 +133,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
         if (this.gameObject.gameView.view) {
             if (this.gameObject.physics.magnitude > 0) {
-
+                this.offsetSin += delta * 4 * this.sinSpeed;
                 if (this.gameObject.physics.velocity.x > 0.01) {
                     this.direction = 1
                 } else if (this.gameObject.physics.velocity.x < -0.01) {

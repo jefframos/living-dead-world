@@ -3,6 +3,7 @@ import Collectable from "../entity/Collectable";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
 import GameStaticData from "../data/GameStaticData";
+import GameplaySessionController from "./GameplaySessionController";
 import Layer from "../core/Layer";
 import Player from "../entity/Player";
 import PlayerSessionData from "../data/PlayerSessionData";
@@ -36,22 +37,51 @@ export default class LevelManager {
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
         this.gameplayTime = 0;
 
-        
+
         this.currentPhase = 0;
         this.init = false;
     }
     start(player) {
         this.player = player;
-        
+
+        this.player.enabled = false
+
         this.currentLevelWaves = GameStaticData.instance.getWaves();
-        
+
         this.levelStructure = { phases: [] }
         this.currentLevelWaves.forEach(element => {
             this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
         });
 
+        this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
+        this.player.setPositionXZ(0, 0)
+    }
+    destroy(){
+        this.gameSessionController.destroy();
+        this.player.destroy();
+
+        this.init = false;
+        this.player.enabled = false;
+
+        for (var i = this.activeEnemies.length - 1; i >= 0; i--) {
+            this.activeEnemies[i].destroy();
+        }
+        for (var i = this.collectables.length - 1; i >= 0; i--) {
+            this.collectables[i].destroy();
+        }
+
+        this.collectables = [];
+        this.activeEnemies = [];
+    }
+    onPlayerLevelUp(xpData) {
+
+    }
+    initGame() {
         this.init = true;
-        this.gameplayTime = 0;
+        this.player.enabled = true;
+        this.gameSessionController.playerReady()
+        this.player.refreshEquipment()
+        this.gameplayTime = -1;
         this.currentPhase = 0;
         for (var i = this.activeEnemies.length - 1; i >= 0; i--) {
             this.activeEnemies[i].destroy();
@@ -63,14 +93,15 @@ export default class LevelManager {
         this.activeEnemies = [];
         this.activeSpawners = [];
         this.entitiesByType = {}
-    }
-    onPlayerLevelUp(xpData) {
-
+        this.gameEngine.camera.followPoint.x = this.player.gameView.view.position.x;
+        this.gameEngine.camera.followPoint.y = 0;
+        this.gameEngine.camera.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
+        this.gameEngine.camera.snapFollowPoint()
     }
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();
     }
-    respawnEntity(entity){
+    respawnEntity(entity) {
         this.enemyGlobalSpawner.respawnEntity(entity)
     }
     spawnEnemy(spawnData) {
@@ -88,7 +119,7 @@ export default class LevelManager {
 
         this.gameManagerStats.GMtotalGameObjects = this.gameplayEntities.length
         entity.gameObjectDestroyed.addOnce(this.removeEntity.bind(this))
-        if(entity.onRespawn){
+        if (entity.onRespawn) {
             entity.onRespawn.removeAll()
             entity.onRespawn.add(this.respawnEntity.bind(this))
         }
@@ -168,10 +199,10 @@ export default class LevelManager {
         }
 
         this.gameManagerStats.Phase = this.currentPhase
-        if (this.gameplayTime > 0.5 && delta > 0) {            
-            for (var i = 0; i < this.levelStructure.phases.length; i++){
+        if (this.gameplayTime > 0.5 && delta > 0) {
+            for (var i = 0; i < this.levelStructure.phases.length; i++) {
                 const phase = this.levelStructure.phases[i];
-                if(phase.startAt < this.gameplayTime && (phase.startAt + phase.duration) > this.gameplayTime ){
+                if (phase.startAt < this.gameplayTime && (phase.startAt + phase.duration) > this.gameplayTime) {
                     this.updateLevelPhase(phase)
                 }
             }
@@ -181,6 +212,13 @@ export default class LevelManager {
             if (this.collectables[i].isDestroyed) {
                 this.collectables.splice(i, 1);
             }
+        }
+
+
+        if (this.player) {
+            this.gameEngine.camera.followPoint.x = this.player.gameView.view.position.x;
+            this.gameEngine.camera.followPoint.y = 0;
+            this.gameEngine.camera.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
         }
     }
 
@@ -194,25 +232,25 @@ export default class LevelManager {
         phase.spawnData.forEach(spawnerData => {
             if (spawnerData.canSpawn) {
 
-                if(Array.isArray(spawnerData.entity)){
+                if (Array.isArray(spawnerData.entity)) {
                     let count = 0;
 
                     spawnerData.entity.forEach(element => {
-                        if(this.entitiesByType[element]){
+                        if (this.entitiesByType[element]) {
                             count += this.entitiesByType[element].length;
                         }
                     });
-                    if(count < spawnerData.maxActive) {
+                    if (count < spawnerData.maxActive) {
                         this.spawnEnemy(spawnerData);
                     }
 
-                }else{
+                } else {
 
                     if (!this.entitiesByType[spawnerData.entityId] ||
                         this.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
-                            this.spawnEnemy(spawnerData);
-                        }
+                        this.spawnEnemy(spawnerData);
                     }
+                }
             }
         });
 

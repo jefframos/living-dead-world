@@ -50,4 +50,8 @@ export default class HudButtons extends GameObject {
         this.buttonsList.updateHorizontalList();
 
     }
+    destroy(){
+        this.buttonsList.removeAllElements();
+        super.destroy()
+    }
 }

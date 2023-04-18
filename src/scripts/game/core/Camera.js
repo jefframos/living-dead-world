@@ -1,10 +1,13 @@
 import * as PIXI from 'pixi.js';
 
 import GameObject from './gameObject/GameObject';
+import Vector3 from './gameObject/Vector3';
 
 export default class Camera extends GameObject{
     constructor(){
         super()
+
+        this.followPoint = new Vector3();
     }
 }
 // transformSprite(sprite) {

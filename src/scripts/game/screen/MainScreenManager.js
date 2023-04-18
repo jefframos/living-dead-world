@@ -3,6 +3,7 @@ import * as dat from 'dat.gui';
 
 import GameScreen from './GameScreen';
 import GameStaticData from '../data/GameStaticData';
+import MainMenu from './MainMenu';
 import ScreenManager from '../../screenManager/ScreenManager';
 import ScreenTransition from './ScreenTransition';
 import config from '../../config';
@@ -27,10 +28,17 @@ export default class MainScreenManager extends ScreenManager {
 
 
 
+        this.mainMenuScreen = new MainMenu('MainMenu')
 
         this.gameplayScreen = new GameScreen('GameScreen');
         this.addScreen(this.gameplayScreen);
-        this.change('GameScreen');
+        this.addScreen(this.mainMenuScreen);
+        this.change('MainMenu');
+        
+        
+        // setTimeout(() => {
+        //     this.change('GameScreen');
+        // }, 2000);
 
         this.timeScale = 1;
 
