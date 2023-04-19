@@ -9,7 +9,8 @@ export default class Game {
     static Screen = { width: 0, height: 0 }
     static IsPortrait = false;
     static MainLoader = new PIXI.Loader();
-    static UIOverlayContainer = new PIXI.Container();;
+    static UIOverlayContainer = new PIXI.Container();
+    static ScreenManagerContainer = new PIXI.Container();
     static Borders = {
         topLeft: { x: 0, y: 0 },
         bottomLeft: { x: 0, y: 0 },
@@ -190,6 +191,10 @@ export default class Game {
                 this.stage.addChild(Game.UIOverlayContainer)
             }
 
+            if (!Game.ScreenManagerContainer.parent) {
+                this.stage.addChild(Game.ScreenManagerContainer)
+            }
+            
             //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
             //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
             //  let min = Math.min(sclX, sclY);
@@ -227,6 +232,9 @@ export default class Game {
             this.screenManager.resize(this.resolution, this.innerResolution);
             Game.UIOverlayContainer.scale.x = this.screenManager.scale.x
             Game.UIOverlayContainer.scale.y = this.screenManager.scale.y
+
+            Game.ScreenManagerContainer.scale.x = this.screenManager.scale.x
+            Game.ScreenManagerContainer.scale.y = this.screenManager.scale.y
 
             Game.Borders.topRight.x = config.width / Game.UIOverlayContainer.scale.x
 

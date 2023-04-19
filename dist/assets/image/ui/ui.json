@@ -874,11 +874,11 @@
 },
 "smallButton.png":
 {
-	"frame": {"x":1698,"y":1667,"w":45,"h":54},
-	"rotated": false,
+	"frame": {"x":1698,"y":1667,"w":54,"h":45},
+	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":45,"h":54},
-	"sourceSize": {"w":48,"h":57}
+	"spriteSourceSize": {"x":0,"y":3,"w":54,"h":45},
+	"sourceSize": {"w":57,"h":48}
 },
 "soundoff.png":
 {
@@ -1112,6 +1112,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1887,"h":1789},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:c1440704d4a4f7c4fd5a5c859d8d6c58:908a1cd86f6413140675a4ca7e5a626f:5b04aa198265472a3c5f56958d78e97b$"
+	"smartupdate": "$TexturePacker:SmartUpdate:de4d85e040c995ec2cd615cdc934d0e5:f9026366d43f960d4365d513ea37075c:5b04aa198265472a3c5f56958d78e97b$"
 }
 }

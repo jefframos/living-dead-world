@@ -24,8 +24,8 @@ import Vector3 from '../core/gameObject/Vector3';
 import config from '../../config';
 
 export default class GameScreen extends Screen {
-    constructor(label) {
-        super(label);
+    constructor(label, targetContainer) {
+        super(label, targetContainer);
 
         this.container = new PIXI.Container()
         this.addChild(this.container);

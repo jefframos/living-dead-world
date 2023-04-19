@@ -44,7 +44,18 @@ export default class BaseButton extends PIXI.Container {
         this.text.y = this.safeShape.height / 2 + offset.y;
         this.addChild(this.text);
     }
+    addIcon(icon, height = 0, anchor = {x:0.5, y:0.5}, offset = {x:0, y:0}) {
+        this.icon = new PIXI.Sprite.from(icon);
 
+        if(height > 0){
+            Utils.scaleToFit(this.icon, height);
+        }
+        this.icon.anchor.x = anchor.x
+        this.icon.anchor.y = anchor.y
+        this.icon.x = this.safeShape.width / 2 + offset.x;
+        this.icon.y = this.safeShape.height / 2 + offset.y;
+        this.addChild(this.icon);
+    }
     over() {
         this.mouseOver = true;
     }

@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
 import CharacterBuildScreen from './CharacterBuildScreen';
+import Game from '../../Game';
 import GameScreen from './GameScreen';
 import GameStaticData from '../data/GameStaticData';
 import MainMenu from './MainMenu';
@@ -10,9 +11,18 @@ import ScreenTransition from './ScreenTransition';
 import config from '../../config';
 
 export default class MainScreenManager extends ScreenManager {
+    static Screens = {
+        GameScreen:'GameScreen',
+        MainMenu:'MainMenu',
+        CharacterBuild:'CharacterBuild',
+    }
+    static ScreensTarget = {
+        ScreenContainer:Game.ScreenManagerContainer,
+        GameplayContainer:null,
+    }
     constructor() {
         super();
-
+        //this.screensContainer = Game.ScreenManagerContainer;
 
         GameStaticData.instance.initialize();
 
@@ -26,23 +36,20 @@ export default class MainScreenManager extends ScreenManager {
         this.addChild(this.backgroundContainer);
         this.setChildIndex(this.backgroundContainer, 0);
 
-
-
-
-        this.gameplayScreen = new GameScreen('GameScreen');
+        this.gameplayScreen = new GameScreen(MainScreenManager.Screens.GameScreen, MainScreenManager.ScreensTarget.GameplayContainer);
         this.addScreen(this.gameplayScreen);
 
-        this.mainMenuScreen = new MainMenu('MainMenu')
+        this.mainMenuScreen = new MainMenu(MainScreenManager.Screens.MainMenu, MainScreenManager.ScreensTarget.ScreenContainer)
         this.addScreen(this.mainMenuScreen);
 
         this.mainMenuScreen.onStartGame.add(() => {
             this.redirectToGame();
         })
 
-        this.characterBuilding = new CharacterBuildScreen('CharBuild')
+        this.characterBuilding = new CharacterBuildScreen(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer)
         this.addScreen(this.characterBuilding);
 
-        this.forceChange('MainMenu');
+        this.forceChange(MainScreenManager.Screens.MainMenu);
 
 
         this.timeScale = 1;
@@ -59,12 +66,13 @@ export default class MainScreenManager extends ScreenManager {
 
 
         const urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams, urlParams.get('char'))
         if (urlParams) {
             if (urlParams.get('noEnemy')) {
                 window.noEnemy = true;
             }
-
+            if (urlParams.get('builder')) {
+                this.forceChange(MainScreenManager.Screens.CharacterBuild);
+            }
             if (urlParams.get('char') !== null) {
                 window.customChar = parseInt(urlParams.get('char'));
             }
@@ -131,7 +139,7 @@ export default class MainScreenManager extends ScreenManager {
     }
     redirectToGame(harder) {
         window.HARDER = harder
-        this.change('GameScreen');
+        this.change(MainScreenManager.Screens.GameScreen);
         //this.showPopUp('init')
     }
     update(delta) {
@@ -150,7 +158,7 @@ export default class MainScreenManager extends ScreenManager {
     }
 
     toGame() {
-        if (this.currentScreen.label == 'GameScreen') {
+        if (this.currentScreen.label == MainScreenManager.Screens.GameScreen) {
             this.currentScreen.resetGame();
             this.particleSystem.killAll();
         }

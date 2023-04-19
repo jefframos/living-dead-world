@@ -1,4 +1,5 @@
 import BaseComponent from '../core/gameObject/BaseComponent';
+import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
 import Shaders from '../shader/Shaders';
 import SpriteSheetAnimation from './utils/SpriteSheetAnimation';
@@ -11,10 +12,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         Idle: 'idle',
         Running: 'running'
     }
-    static Colors = {
-        WhiteSkin: 0xFBEDD6,
-        Jeans: 0x4260A5
-    }
+
     constructor() {
         super();
     }
@@ -44,10 +42,17 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         return num;
     }
     setData(data) {
+        this.spriteData = data;
         this.playerContainer = new PIXI.Sprite();
-        this.view = this.gameObject.gameView.view;
-        this.view.texture = PIXI.Texture.EMPTY;
         this.spriteLayersData = {};
+        if (this.gameObject) {
+
+            this.view = this.gameObject.gameView.view;
+            this.view.texture = PIXI.Texture.EMPTY;
+            this.buildSpritesheet();
+        }
+    }
+    buildSpritesheet(baseData) {
 
 
         //sushi
@@ -69,46 +74,58 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         //     botomColor: 0x333333,
         //     shoeColor: 0x007272,
         // }
+        if (baseData) {
+            this.baseData = baseData
+        } else {
+            this.baseData = new PlayerViewStructure();
 
-        this.baseData = {
-            chest: Math.ceil(Math.random() * 22),
-            head: Math.ceil(Math.random() * 3),//Math.ceil(Math.random() * 4),
-            topHead: Math.floor(Math.random() * 29),
-            face: Math.ceil(Math.random() * 21),
-            hat: Math.random() > 0.6 ? Math.floor(Math.random() * 22) : 0,//Math.ceil(Math.random() * 4),
-            leg: 1,//Math.ceil(Math.random() * 19)
-            sleeves: 2,//Math.ceil(Math.random() * 19)
-            arms: 1,//Math.ceil(Math.random() * 19)
-            shoe: 1,//Math.ceil(Math.random() * 19)
-            frontFace:Math.floor(Math.random() * 9),
-            backHead: 0,//Math.ceil(Math.random() * 19)
-            hairColor: 0xFFFFFF,
-            topClothColor: 0xFFFFFF,
-            sleevesColor: 0xFFFFFF,
-            botomColor: 0x333333,
-            shoeColor: 0x007272,
+            this.baseData.chest = Math.ceil(Math.random() * 2)
+            this.baseData.head = Math.ceil(Math.random() * 3)//Math.ceil(Math.random() * 4)
+            this.baseData.topHead = Math.floor(Math.random() * 29)
+            this.baseData.face = Math.ceil(Math.random() * 20)
+            this.baseData.hat = Math.random() > 0.6 ? Math.floor(Math.random() * 22) : 0
+            this.baseData.leg = 1//Math.ceil(Math.random() * 19
+            this.baseData.sleeves = 2//Math.ceil(Math.random() * 19
+            this.baseData.arms = 1//Math.ceil(Math.random() * 19
+            this.baseData.shoe = 1//Math.ceil(Math.random() * 19
+            this.baseData.frontFace = Math.floor(Math.random() * 9)
+            this.baseData.backHead = 0//Math.ceil(Math.random() * 19
+            this.baseData.skinColor = PlayerViewStructure.Colors.WhiteSkin
+            this.baseData.hairColor = 0xFFFFFF
+            this.baseData.faceHairColor = 0xFFFFFF
+            this.baseData.topClothColor = 0xFFFFFF
+            this.baseData.sleevesColor = 0xFFFFFF
+            this.baseData.botomColor = 0x333333
+            this.baseData.shoeColor = 0x007272
+
         }
+
+        this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this))
+        this.baseData.onColorUpdate.add(this.colorUpdate.bind(this))
+
         this.bodyData = [
-            { area: "backArm", src: "back-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
-            { area: "backLeg", src: "back-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
-            { area: "backShoes", src: "back-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0 , animate: true},
-            { area: "frontLeg", src: "front-leg" + this.baseData.leg + "-00", color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
-            { area: "frontShoes", src: "front-shoe" + this.baseData.shoe + "00", color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
-            { area: "chest", src: "chest-00" + this.format(this.baseData.chest), color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
-            { area: "backHead", src: "back-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0  && this.baseData.hat == 0},
-            { area: "head", src: "head-00" + this.format(this.baseData.head), color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.head > 0 },
-            { area: "face", src: "face-00"+ this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
-            { area: "frontArm", src: "front-arm" + this.baseData.arms + "00", color: PlayerGameViewSpriteSheet.Colors.WhiteSkin, enabled: this.baseData.arms > 0, animate: true },
-            { area: "sleeve", src: "sleeves" + this.baseData.sleeves + "00", color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animate: true },
-            { area: "topHead", src: "top-head-00" + this.format(this.baseData.topHead), color: 0xFFFFFF, enabled: this.baseData.topHead > 0  && this.baseData.hat == 0},
-            { area: "frontFace", src: "front-face-00" + this.format(this.baseData.frontFace), color: this.baseData.hairColor, enabled: this.baseData.frontFace > 0 },
-            { area: "hat", src: "hat-00" + this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
+            { area: "backArm", src: "back-arm{frame}00", frame: this.baseData.arms, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animate: true },
+            { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
+            { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
+
+            { area: "chest", src: "chest-00{frame}", frame: this.format(this.baseData.chest), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
+            { area: "backHead", src: "back-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
+            { area: "head", src: "head-00{frame}", frame: this.format(this.baseData.head), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 },
+            { area: "face", src: "face-00{frame}", frame: this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
+
+            { area: "frontArm", src: "front-arm{frame}00", frame: this.baseData.arms, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animate: true },
+            { area: "sleeve", src: "sleeves{frame}00", frame: this.baseData.sleeves, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animate: true },
+
+            { area: "topHead", src: "top-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
+            { area: "frontFace", src: "front-face-00{frame}", frame: this.format(this.baseData.frontFace), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 },
+            { area: "hat", src: "hat-00{frame}", frame: this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
         ]
 
         this.bodyData.forEach(element => {
-
-
-            let sprite = element.enabled ? PIXI.Sprite.from(element.src + (element.animate?"01":"")) : new PIXI.Sprite();
+            const src = element.src.replace('{frame}', element.frame)
+            let sprite = element.enabled ? PIXI.Sprite.from(src + (element.animate ? "01" : "")) : new PIXI.Sprite();
             sprite.tint = element.color;
             this.spriteLayersData[element.area] = {
                 sprite,
@@ -118,53 +135,104 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
             this.playerContainer.addChild(sprite);
 
-            if (data.anchor) {
-                sprite.anchor.set(data.anchor.x, data.anchor.y)
+            if (this.spriteData.anchor) {
+                sprite.anchor.set(this.spriteData.anchor.x, this.spriteData.anchor.y)
             } else {
-                sprite.anchor.set(0.45, 0.9)
+                sprite.anchor.set(0.45, `0.9`)
             }
 
         });
         this.view.addChild(this.playerContainer)
         this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
     }
+    colorUpdate(region, value) {
+
+        let ids = [];
+        for (var i = 0; i < this.bodyData.length; i++) {
+            if (this.bodyData[i].colorId == region) {
+                ids.push(i);
+            }
+        }
+        if (ids.length < 0) {
+            return
+        }
+        ids.forEach(element => {
+            this.bodyData[element].color = value;
+        });
+
+    }
+    structureUpdate(region, value) {
+
+        let id = -1;
+        for (var i = 0; i < this.bodyData.length; i++) {
+            if (this.bodyData[i].area == region) {
+                id = i;
+                break
+            }
+        }
+
+        if (id < 0) {
+            return
+        }
+
+        this.bodyData[id].enabled = value > 0;
+        this.bodyData[id].frame = this.format(value);
+        this.spriteLayersData[region].enabled = this.bodyData[id].enabled;
+
+        if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate) {
+            const src = this.bodyData[id].src.replace('{frame}', this.bodyData[id].frame);
+            this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(src)
+        }
+
+    }
     update(delta) {
 
 
-        if (this.gameObject.gameView.view) {
-            if (this.gameObject.physics.magnitude > 0) {
-                this.offsetSin += delta * 4 * this.sinSpeed;
-                if (this.gameObject.physics.velocity.x > 0.01) {
-                    this.direction = 1
-                } else if (this.gameObject.physics.velocity.x < -0.01) {
-                    this.direction = -1
+        if (this.gameObject) {
+
+            if (this.gameObject.gameView.view) {
+                if (this.gameObject.physics.magnitude > 0) {
+                    this.offsetSin += delta * 4 * this.sinSpeed;
+                    if (this.gameObject.physics.velocity.x > 0.01) {
+                        this.direction = 1
+                    } else if (this.gameObject.physics.velocity.x < -0.01) {
+                        this.direction = -1
+                    }
+
+                    this.currentTime += delta;
+                    if (this.currentTime >= this.time) {
+                        this.currentTime = 0;
+                        this.currentFrame++
+                        this.currentFrame %= this.maxFrame;
+                        this.currentFrame = Math.max(this.currentFrame, 2)
+                    }
+
+                    //this.offsetSin = Utils.lerp(this.offsetSin, 0, 0.5)
+                } else {
+
+                    this.currentFrame = 0
+                    this.currentTime = this.time
                 }
-
-                this.currentTime += delta;
-                if (this.currentTime >= this.time) {
-                    this.currentTime = 0;
-                    this.currentFrame++
-                    this.currentFrame %= this.maxFrame;
-                    this.currentFrame = Math.max(this.currentFrame, 2)
-                }
-
-                //this.offsetSin = Utils.lerp(this.offsetSin, 0, 0.5)
-            } else {
-
-                this.currentFrame = 0
-                this.currentTime = this.time
             }
-
-
         }
+
         this.offsetSin += delta * 4 * this.sinSpeed;
         this.offsetSin %= Math.PI * 2
 
-        this.view.scale.set(this.direction * this.baseScale * (Math.sin(this.offsetSin) * 0.05 + 0.95), (Math.cos(this.offsetSin) * 0.03 + 0.97) * this.baseScale);
+        this.sin = Math.sin(this.offsetSin + Math.PI / 4) * 0.02 + 0.98
+        this.cos = Math.cos(this.offsetSin) * 0.03 + 0.97
+
+
+        this.view.scale.set(this.direction * this.baseScale * this.sin, this.cos * this.baseScale);
 
         this.bodyData.forEach(element => {
             if (this.spriteLayersData[element.area].enabled && this.spriteLayersData[element.area].animate) {
-                this.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(element.src + "0" + (this.currentFrame + 1))
+                //console.log(element.area)
+                const src = element.src.replace('{frame}', element.frame);
+                this.spriteLayersData[element.area].sprite.texture = PIXI.Texture.from(src + "0" + (this.currentFrame + 1));
+                this.spriteLayersData[element.area].sprite.tint = element.color;
+            } else {
+                this.spriteLayersData[element.area].sprite.tint = element.color;
             }
         });
 

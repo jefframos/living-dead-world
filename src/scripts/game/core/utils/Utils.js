@@ -1,3 +1,6 @@
+import BaseButton from "../../components/ui/BaseButton";
+import InteractableView from "../../view/card/InteractableView";
+
 export default class Utils {
     constructor() {
 
@@ -95,7 +98,7 @@ export default class Utils {
             if (data.length == 1) {
                 return data[0];
             }
-            return data[Math.floor(Math.random()* data.length)];
+            return data[Math.floor(Math.random() * data.length)];
         }
         return data;
     }
@@ -122,5 +125,32 @@ export default class Utils {
         let minutes = value % 60;
 
         return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
+    }
+
+    static getCircle(color = 0xFF0000, radius = 20) {
+        return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius)
+    }
+
+    static getCloseButton(callback) {
+        const closeButton = new BaseButton('square_0004', 100, 100);
+        InteractableView.addMouseUp(closeButton, () => { callback() })
+        closeButton.addIcon('smallButton')
+
+        return closeButton;
+    }
+
+    static getPrimaryButton(callback, label, icon) {
+        const closeButton = new BaseButton('square_0001', 100, 100);
+        InteractableView.addMouseUp(closeButton, () => { callback() })
+        if (icon) {
+            closeButton.addIcon(icon)
+        }
+        if (label) {
+            const charBuilder = new PIXI.Text(label, window.LABELS.LABEL1)
+            charBuilder.style.strokeThickness = 0
+            charBuilder.style.fontSize = 32
+            closeButton.addLabelOnCenter(charBuilder)
+        }
+        return closeButton;
     }
 }

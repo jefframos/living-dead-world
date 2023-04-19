@@ -1,8 +1,9 @@
 import * as PIXI from 'pixi.js';
 
 export default class Screen extends PIXI.Container{
-	constructor(label){  		
+	constructor(label,targetContainer){  		
 		super();
+        this.targetContainer = targetContainer;
 		this.label = label;
 		this.entityList = [];
 		this.updateable = false;

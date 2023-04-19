@@ -25,17 +25,26 @@ export default class UIList extends PIXI.Container {
 
         let toRemove = -1;
         for (let index = 0; index < this.elementsList.length; index++) {
-            if(element == this.elementsList[index]){
+            if (element == this.elementsList[index]) {
                 toRemove = index
             }
-            
-        }
-        if(toRemove >= 0){
 
-            this.elementsList.splice(toRemove,1)
+        }
+        if (toRemove >= 0) {
+
+            this.elementsList.splice(toRemove, 1)
         }
     }
-    addElement(element) {
+    addElement(element, att = {}) {
+        // listScl 
+        // fitHeight
+        // fitWidth
+        // scaleContent
+        // scaleContentMax
+        // align
+        for (const key in att) {
+            element[key] = att[key];
+        }
         this.container.addChild(element)
         this.elementsList.push(element)
     }
@@ -81,7 +90,7 @@ export default class UIList extends PIXI.Container {
             }
             else {
                 nextX = positions[i - 1] + this.w * listSizes[i - 1]
-            }            
+            }
             positions.push(nextX);
             if (this.elementsList[i].fitHeight) {
                 stdH = (this.elementsList[i].height / this.elementsList[i].scale.y)
@@ -149,7 +158,7 @@ export default class UIList extends PIXI.Container {
         let stdH = 1;
         let stdW = 1;
         for (var i = 0; i < listSizes.length; i++) {
-            let anchorX = this.elementsList[i].anchorX !== undefined? this.elementsList[i].anchorX:0.5;
+            let anchorX = this.elementsList[i].anchorX !== undefined ? this.elementsList[i].anchorX : 0.5;
             // let pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
             // this.container.addChild(pixig)
             plus = 0;
