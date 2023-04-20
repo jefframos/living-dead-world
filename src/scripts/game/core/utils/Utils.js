@@ -153,4 +153,9 @@ export default class Utils {
         }
         return closeButton;
     }
+
+    static randomRange(min, max) {
+        let rnd = Math.random() * (max - min) + min;
+        return rnd;
+    }
 }

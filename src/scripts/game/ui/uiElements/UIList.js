@@ -118,7 +118,12 @@ export default class UIList extends PIXI.Container {
 
                 pixig.x = this.elementsList[i].x
             }
-            this.elementsList[i].y = this.h / 2 - this.elementsList[i].height / 2
+
+            let vAlign = 0.5
+            if (this.elementsList[i].vAlign != undefined) {
+                vAlign = this.elementsList[i].vAlign;
+            }
+            this.elementsList[i].y = this.h / 2 - this.elementsList[i].height * vAlign
         }
 
     }

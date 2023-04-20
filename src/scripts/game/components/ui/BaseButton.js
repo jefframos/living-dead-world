@@ -11,6 +11,8 @@ export default class BaseButton extends PIXI.Container {
         this.addShape(texture, width, height);
         this.addEvents()
 
+        this.hitArea = new PIXI.Rectangle(0, 0, width, height);
+
     }
     set tint(value) {
         this.safeShape.tint = value;
@@ -44,17 +46,31 @@ export default class BaseButton extends PIXI.Container {
         this.text.y = this.safeShape.height / 2 + offset.y;
         this.addChild(this.text);
     }
-    addIcon(icon, height = 0, anchor = {x:0.5, y:0.5}, offset = {x:0, y:0}) {
+    addIcon(icon, height = 0, anchor = { x: 0.5, y: 0.5 }, offset = { x: 0, y: 0 }) {
         this.icon = new PIXI.Sprite.from(icon);
+        this.icon.interactive = false;
 
-        if(height > 0){
-            Utils.scaleToFit(this.icon, height);
+        if (height > 0) {
+            this.icon.scale.set(Utils.scaleToFit(this.icon, height));
         }
         this.icon.anchor.x = anchor.x
         this.icon.anchor.y = anchor.y
         this.icon.x = this.safeShape.width / 2 + offset.x;
         this.icon.y = this.safeShape.height / 2 + offset.y;
         this.addChild(this.icon);
+    }
+
+    addIconContainer(iconContainer, height = 0, pivot = { x: 0.5, y: 0.5 }, offset = { x: 0, y: 0 }) {
+        this.iconContainer = iconContainer;
+        this.iconContainer.interactive = false;
+        if (height > 0) {
+            this.iconContainer.scale.set(Utils.scaleToFit(this.iconContainer, height));
+        }
+        this.iconContainer.pivot.x = pivot.x
+        this.iconContainer.pivot.y = pivot.y
+        this.iconContainer.x = this.safeShape.width / 2 + offset.x;
+        this.iconContainer.y = this.safeShape.height / 2 + offset.y;
+        this.addChild(this.iconContainer);
     }
     over() {
         this.mouseOver = true;

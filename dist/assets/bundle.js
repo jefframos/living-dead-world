@@ -2479,6 +2479,12 @@ var Utils = function () {
             }
             return closeButton;
         }
+    }, {
+        key: "randomRange",
+        value: function randomRange(min, max) {
+            var rnd = Math.random() * (max - min) + min;
+            return rnd;
+        }
     }]);
     return Utils;
 }();
@@ -25413,7 +25419,12 @@ var UIList = function (_PIXI$Container) {
 
                     pixig.x = this.elementsList[i].x;
                 }
-                this.elementsList[i].y = this.h / 2 - this.elementsList[i].height / 2;
+
+                var vAlign = 0.5;
+                if (this.elementsList[i].vAlign != undefined) {
+                    vAlign = this.elementsList[i].vAlign;
+                }
+                this.elementsList[i].y = this.h / 2 - this.elementsList[i].height * vAlign;
             }
         }
     }, {
@@ -26868,6 +26879,8 @@ var BaseButton = function (_PIXI$Container) {
         _this.addShape(texture, width, height);
         _this.addEvents();
 
+        _this.hitArea = new PIXI.Rectangle(0, 0, width, height);
+
         return _this;
     }
 
@@ -26917,15 +26930,34 @@ var BaseButton = function (_PIXI$Container) {
             var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { x: 0, y: 0 };
 
             this.icon = new PIXI.Sprite.from(icon);
+            this.icon.interactive = false;
 
             if (height > 0) {
-                _Utils2.default.scaleToFit(this.icon, height);
+                this.icon.scale.set(_Utils2.default.scaleToFit(this.icon, height));
             }
             this.icon.anchor.x = anchor.x;
             this.icon.anchor.y = anchor.y;
             this.icon.x = this.safeShape.width / 2 + offset.x;
             this.icon.y = this.safeShape.height / 2 + offset.y;
             this.addChild(this.icon);
+        }
+    }, {
+        key: 'addIconContainer',
+        value: function addIconContainer(iconContainer) {
+            var height = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var pivot = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { x: 0.5, y: 0.5 };
+            var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { x: 0, y: 0 };
+
+            this.iconContainer = iconContainer;
+            this.iconContainer.interactive = false;
+            if (height > 0) {
+                this.iconContainer.scale.set(_Utils2.default.scaleToFit(this.iconContainer, height));
+            }
+            this.iconContainer.pivot.x = pivot.x;
+            this.iconContainer.pivot.y = pivot.y;
+            this.iconContainer.x = this.safeShape.width / 2 + offset.x;
+            this.iconContainer.y = this.safeShape.height / 2 + offset.y;
+            this.addChild(this.iconContainer);
         }
     }, {
         key: 'over',
@@ -63417,7 +63449,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
         key: 'setData',
         value: function setData(data) {
             this.spriteData = data;
-            this.playerContainer = new PIXI.Sprite();
+            this.playerContainer = new PIXI.Container();
             this.spriteLayersData = {};
             if (this.gameObject) {
 
@@ -63431,55 +63463,22 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
         value: function buildSpritesheet(baseData) {
             var _this2 = this;
 
-            //sushi
-            // this.baseData = {
-            //     chest: 17,
-            //     head: 1,//Math.ceil(Math.random() * 4),
-            //     topHead: 4,
-            //     face:20,
-            //     hat: 0,//Math.random() > 0.94 ? Math.floor(Math.random() * 21) : 0,//Math.ceil(Math.random() * 4),
-            //     leg: 1,//Math.ceil(Math.random() * 19)
-            //     sleeves: 2,//Math.ceil(Math.random() * 19)
-            //     arms: 1,//Math.ceil(Math.random() * 19)
-            //     shoe: 0,//Math.ceil(Math.random() * 19)
-            //     frontFace:8,
-            //     backHead: 0,//Math.ceil(Math.random() * 19)
-            //     hairColor: 0x333333,
-            //     topClothColor: 0xFFFFFF,
-            //     sleevesColor: 0x555555,
-            //     botomColor: 0x333333,
-            //     shoeColor: 0x007272,
-            // }
             if (baseData) {
                 this.baseData = baseData;
             } else {
                 this.baseData = new _PlayerViewStructure2.default();
-
-                this.baseData.chest = Math.ceil(Math.random() * 2);
-                this.baseData.head = Math.ceil(Math.random() * 3); //Math.ceil(Math.random() * 4)
-                this.baseData.topHead = Math.floor(Math.random() * 29);
-                this.baseData.face = Math.ceil(Math.random() * 20);
-                this.baseData.hat = Math.random() > 0.6 ? Math.floor(Math.random() * 22) : 0;
-                this.baseData.leg = 1; //Math.ceil(Math.random() * 19
-                this.baseData.sleeves = 2; //Math.ceil(Math.random() * 19
-                this.baseData.arms = 1; //Math.ceil(Math.random() * 19
-                this.baseData.shoe = 1; //Math.ceil(Math.random() * 19
-                this.baseData.frontFace = Math.floor(Math.random() * 9);
-                this.baseData.backHead = 0; //Math.ceil(Math.random() * 19
-                this.baseData.skinColor = _PlayerViewStructure2.default.Colors.WhiteSkin;
-                this.baseData.hairColor = 0xFFFFFF;
-                this.baseData.faceHairColor = 0xFFFFFF;
-                this.baseData.topClothColor = 0xFFFFFF;
-                this.baseData.sleevesColor = 0xFFFFFF;
-                this.baseData.botomColor = 0x333333;
-                this.baseData.shoeColor = 0x007272;
             }
 
             this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this));
             this.baseData.onColorUpdate.add(this.colorUpdate.bind(this));
 
-            this.bodyData = [{ area: "backArm", src: "back-arm{frame}00", frame: this.baseData.arms, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animate: true }, { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00{frame}", frame: this.format(this.baseData.chest), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "head", src: "head-00{frame}", frame: this.format(this.baseData.head), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 }, { area: "face", src: "face-00{frame}", frame: this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "frontArm", src: "front-arm{frame}00", frame: this.baseData.arms, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animate: true }, { area: "sleeve", src: "sleeves{frame}00", frame: this.baseData.sleeves, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animate: true }, { area: "topHead", src: "top-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "frontFace", src: "front-face-00{frame}", frame: this.format(this.baseData.frontFace), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 }, { area: "hat", src: "hat-00{frame}", frame: this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }];
+            this.bodyData = [{ area: "backArm", src: "front-arm00{frame}", frame: this.format(this.baseData.arms), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            //  { area: "sleeves", src: "sleeve-00{frame}", frame: this.format(this.baseData.sleeves), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00{frame}", frame: this.format(this.baseData.chest), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "backHead", src: "back-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "head", src: "head-00{frame}", frame: this.format(this.baseData.head), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 },
+            // { area: "face", src: "face-00{frame}", frame: this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
+            { area: "eyes", src: "eyes-00{frame}", frame: this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "mouth", src: "mouth-00{frame}", frame: this.format(this.baseData.face), color: 0xFFFFFF, enabled: this.baseData.face > 0 }, { area: "topHead", src: "top-head-00{frame}", frame: this.format(this.baseData.topHead), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "frontFace", src: "front-face-00{frame}", frame: this.format(this.baseData.frontFace), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 }, { area: "hat", src: "hat-00{frame}", frame: this.format(this.baseData.hat), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }, { area: "frontArm", src: "front-arm00{frame}", frame: this.format(this.baseData.arms), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }, { area: "sleeves", src: "sleeve-00{frame}", frame: this.format(this.baseData.sleeves), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }];
 
+            var spriteSize = { width: 0, height: 0 };
             this.bodyData.forEach(function (element) {
                 var src = element.src.replace('{frame}', element.frame);
                 var sprite = element.enabled ? PIXI.Sprite.from(src + (element.animate ? "01" : "")) : new PIXI.Sprite();
@@ -63487,18 +63486,37 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 _this2.spriteLayersData[element.area] = {
                     sprite: sprite,
                     enabled: element.enabled,
-                    animate: element.animate
+                    animate: element.animate,
+                    animationType: element.animationType
                 };
 
                 _this2.playerContainer.addChild(sprite);
 
-                if (_this2.spriteData.anchor) {
-                    sprite.anchor.set(_this2.spriteData.anchor.x, _this2.spriteData.anchor.y);
-                } else {
-                    sprite.anchor.set(0.45, '0.9');
+                if (element.anchor) {
+
+                    sprite.anchor.x = element.anchor.x;
+                    sprite.anchor.y = element.anchor.y;
+                }
+
+                if (element.offset) {
+                    sprite.x = element.offset.x;
+                    sprite.y = element.offset.y;
+                }
+
+                if (sprite.width > 10) {
+                    spriteSize.width = sprite.width;
+                    spriteSize.height = sprite.height;
                 }
             });
+
             this.view.addChild(this.playerContainer);
+
+            if (this.spriteData.anchor) {
+                this.playerContainer.pivot.set(this.spriteData.anchor.x * spriteSize.width, this.spriteData.anchor.y * spriteSize.height);
+            } else {
+                this.playerContainer.pivot.set(0.45 * spriteSize.width, 0.9 * spriteSize.height);
+            }
+
             this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
         }
     }, {
@@ -63539,7 +63557,9 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.bodyData[id].frame = this.format(value);
             this.spriteLayersData[region].enabled = this.bodyData[id].enabled;
 
-            if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate) {
+            if (!this.spriteLayersData[region].enabled) {
+                this.spriteLayersData[region].sprite.texture = PIXI.Texture.EMPTY;
+            } else if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate) {
                 var src = this.bodyData[id].src.replace('{frame}', this.bodyData[id].frame);
                 this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(src);
             }
@@ -63549,8 +63569,14 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
         value: function update(delta) {
             var _this4 = this;
 
+            // this.currentTime += delta;
+            // if (this.currentTime >= this.time) {
+            //     this.currentTime = 0;
+            //     this.currentFrame++
+            //     this.currentFrame %= this.maxFrame;
+            //     this.currentFrame = Math.max(this.currentFrame, 2)
+            // }
             if (this.gameObject) {
-
                 if (this.gameObject.gameView.view) {
                     if (this.gameObject.physics.magnitude > 0) {
                         this.offsetSin += delta * 4 * this.sinSpeed;
@@ -63567,8 +63593,6 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                             this.currentFrame %= this.maxFrame;
                             this.currentFrame = Math.max(this.currentFrame, 2);
                         }
-
-                        //this.offsetSin = Utils.lerp(this.offsetSin, 0, 0.5)
                     } else {
 
                         this.currentFrame = 0;
@@ -63585,7 +63609,16 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
 
             this.view.scale.set(this.direction * this.baseScale * this.sin, this.cos * this.baseScale);
 
+            var normal = (this.currentFrame + 1) / this.maxFrame;
+
             this.bodyData.forEach(function (element) {
+                if (_this4.spriteLayersData[element.area].enabled) {
+                    if (_this4.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos) {
+                        _this4.spriteLayersData[element.area].sprite.rotation = Math.cos(normal * Math.PI * 2 + Math.PI); //* 0.5;
+                    } else if (_this4.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin) {
+                        _this4.spriteLayersData[element.area].sprite.rotation = Math.sin(normal * Math.PI * 2 + Math.PI); //* 0.5;
+                    }
+                }
                 if (_this4.spriteLayersData[element.area].enabled && _this4.spriteLayersData[element.area].animate) {
                     //console.log(element.area)
                     var src = element.src.replace('{frame}', element.frame);
@@ -63603,6 +63636,10 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
 PlayerGameViewSpriteSheet.AnimationType = {
     Idle: 'idle',
     Running: 'running'
+};
+PlayerGameViewSpriteSheet.AnimatingSequenceType = {
+    RotationSin: 'RotationSin',
+    RotationCos: 'RotationCos'
 };
 exports.default = PlayerGameViewSpriteSheet;
 module.exports = exports['default'];
@@ -63645,6 +63682,8 @@ var PlayerViewStructure = function () {
         this._sleeves = 2;
         this._arms = 1;
         this._shoe = 1;
+        this._eyes = 1;
+        this._mouth = 1;
         this._frontFace = 1;
         this._backHead = 0;
         this._skinColor = PlayerViewStructure.Colors.WhiteSkin;
@@ -63659,6 +63698,24 @@ var PlayerViewStructure = function () {
     }
 
     (0, _createClass3.default)(PlayerViewStructure, [{
+        key: 'eyes',
+        set: function set(value) {
+            this._eyes = value;
+            this.onStructureUpdate.dispatch('eyes', this._eyes);
+        },
+        get: function get() {
+            return this._eyes;
+        }
+    }, {
+        key: 'mouth',
+        set: function set(value) {
+            this._mouth = value;
+            this.onStructureUpdate.dispatch('mouth', this._mouth);
+        },
+        get: function get() {
+            return this._mouth;
+        }
+    }, {
         key: 'chest',
         set: function set(value) {
             this._chest = value;
@@ -63680,6 +63737,7 @@ var PlayerViewStructure = function () {
         key: 'topHead',
         set: function set(value) {
             this._topHead = value;
+            this._backHead = value;
             this.onStructureUpdate.dispatch('topHead', this._topHead);
         },
         get: function get() {
@@ -80756,7 +80814,9 @@ var CharacterBuildScreen = function (_Screen) {
                 _this.buttonsList.addElement(_Utils2.default.getCloseButton(function () {
                         _this.screenManager.backScreen();
                 }), { align: 0 });
-                _this.buttonsList.addElement(_Utils2.default.getPrimaryButton(function () {}), { align: 0 });
+                _this.buttonsList.addElement(_Utils2.default.getPrimaryButton(function () {
+                        _this.randomize();
+                }), { align: 0 });
 
                 _this.buttonsList.w = 250;
                 _this.buttonsList.h = 100;
@@ -80770,16 +80830,48 @@ var CharacterBuildScreen = function (_Screen) {
                 _this.playerPreviewStructure.baseScale = 1;
                 _this.playerPreviewStructure.sinSpeed = 2;
 
-                //super.enable()
-                // this.frame = 0;
-                // this.maxFrame = 8;
-                // this.currentFrame = 0;
-                // this.time = 0.08;
-                // this.currentTime = 0;
-                // this.offsetSin = 0;
-                // this.sinSpeed = 1
-                // this.direction = 1
-                // this.baseScale = 0.375
+                _this.areas = [{ param: 'arms', area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false }, { param: 'leg', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true }, { param: 'shoe', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true }, { param: 'topHead', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 70 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", "back-head-00{frame}"], animated: false }, { param: 'sleeves', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [1, 2], src: ["sleeve-00{frame}"] }, { param: 'chest', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', iconSize: 150, range: [1, 21], src: "chest-00{frame}", animated: false }, { param: 'head', area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { param: 'eyes', area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', iconSize: 200, range: [1, 19], src: "eyes-00{frame}", animated: false }, { param: 'mouth', area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', iconSize: 250, range: [1, 20], src: "mouth-00{frame}", animated: false }, { param: 'frontFace', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, mainIconId: '01', iconSize: 200, range: [0, 8], src: "front-face-00{frame}", animated: false }, { param: 'hat', area: "hat", anchor: { x: 0.47, y: 0.35 }, mainIconId: '01', iconSize: 150, range: [0, 21], src: "hat-00{frame}", animated: false }];
+
+                _this.sectionListBottom = new _UIList2.default();
+                _this.container.addChild(_this.sectionListBottom);
+                _this.sectionListBottom.w = 0;
+                _this.sectionListBottom.h = 0;
+
+                _this.sectionList = new _UIList2.default();
+                _this.container.addChild(_this.sectionList);
+                _this.sectionList.w = 0;
+                _this.sectionList.h = 0;
+
+                var count = 0;
+                _this.areas.forEach(function (element) {
+                        var button = _Utils2.default.getPrimaryButton(function () {
+                                _this.openSection(element);
+                        });
+                        if (!Array.isArray(element.src)) {
+                                var src = element.src.replace('{frame}', element.mainIconId);
+                                button.addIcon(src, element.iconSize, element.anchor);
+                        } else {
+                                var iconContainer = new PIXI.Container();
+                                element.src.forEach(function (srcSub) {
+                                        var src = srcSub.replace('{frame}', element.mainIconId) + (element.animated ? '01' : '');
+                                        var sprite = new PIXI.Sprite.from(src);
+                                        iconContainer.addChild(sprite);
+                                });
+                                button.addIconContainer(iconContainer, element.iconSize, element.pivot);
+                        }
+
+                        if (count >= 5) {
+                                _this.sectionListBottom.addElement(button, { align: 0, vAlign: 0 });
+                                _this.sectionListBottom.h += 100;
+                        } else {
+
+                                _this.sectionList.addElement(button, { align: 0, vAlign: 0 });
+                                _this.sectionList.h += 100;
+                                count++;
+                        }
+                });
+                _this.sectionList.updateVerticalList();
+                _this.sectionListBottom.updateVerticalList();
 
                 _this.playerPreviewStructure.view = _this.playerPreview;
                 _this.playerPreviewStructure.setData({});
@@ -80790,26 +80882,33 @@ var CharacterBuildScreen = function (_Screen) {
 
                 _this.playerViewStructure.onStructureUpdate.add(_this.structureUpdate.bind(_this));
 
-                setTimeout(function () {
-                        _this.playerViewStructure.face = Math.ceil(Math.random() * 10);
-                        _this.playerViewStructure.chest = Math.ceil(Math.random() * 10);
-                        _this.playerViewStructure.frontFace = Math.ceil(Math.random() * 5);
-                        _this.playerViewStructure.hat = Math.ceil(Math.random() * 5);
-                        _this.playerViewStructure.sleevesColor = 0xFFFFFF * Math.random();
-                        _this.playerViewStructure.botomColor = 0xFFFFFF * Math.random();
-                        _this.playerViewStructure.topClothColor = 0xFFFFFF * Math.random();
-                        _this.playerViewStructure.shoeColor = 0xFFFFFF * Math.random();
-                        _this.playerViewStructure.faceHairColor = 0xFFFFFF * Math.random();
-                }, 1000);
                 return _this;
         }
 
         (0, _createClass3.default)(CharacterBuildScreen, [{
+                key: 'randomize',
+                value: function randomize() {
+                        this.playerViewStructure.face = Math.ceil(Math.random() * 10);
+                        this.playerViewStructure.chest = Math.ceil(Math.random() * 10);
+                        this.playerViewStructure.frontFace = Math.ceil(Math.random() * 5);
+                        this.playerViewStructure.hat = Math.ceil(Math.random() * 5);
+                        this.playerViewStructure.sleevesColor = 0xFFFFFF * Math.random();
+                        this.playerViewStructure.botomColor = 0xFFFFFF * Math.random();
+                        this.playerViewStructure.topClothColor = 0xFFFFFF * Math.random();
+                        this.playerViewStructure.shoeColor = 0xFFFFFF * Math.random();
+                        this.playerViewStructure.faceHairColor = 0xFFFFFF * Math.random();
+                }
+        }, {
                 key: 'build',
                 value: function build() {}
         }, {
                 key: 'structureUpdate',
                 value: function structureUpdate(region, value) {}
+        }, {
+                key: 'openSection',
+                value: function openSection(region, value) {
+                        this.playerViewStructure[region.param] = Math.round(_Utils2.default.randomRange(region.range[0], region.range[1]));
+                }
         }, {
                 key: 'update',
                 value: function update(delta) {
@@ -80818,6 +80917,12 @@ var CharacterBuildScreen = function (_Screen) {
 
                         this.playerPreview.x = _Game2.default.Borders.width / 2;
                         this.playerPreview.y = _Game2.default.Borders.height / 2;
+
+                        this.sectionList.x = _Game2.default.Borders.width / 2 - 250;
+                        this.sectionList.y = _Game2.default.Borders.height / 2 - this.sectionList.height / 2;
+
+                        this.sectionListBottom.x = _Game2.default.Borders.width / 2 + 150;
+                        this.sectionListBottom.y = _Game2.default.Borders.height / 2 - this.sectionListBottom.height / 2;
 
                         var min = _Game2.default.GlobalScale.max;
                         this.playerPreviewStructure.baseScale = Math.min(1.5, min);
@@ -96924,23 +97029,23 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -96957,17 +97062,26 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -96978,14 +97092,14 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -97001,15 +97115,6 @@ var assets = [{
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -97042,7 +97147,7 @@ module.exports = exports['default'];
 /* 308 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/environment/environment.json","image/hud/hud.json","image/body-parts/body-parts.json","image/characters/characters.json","image/ui/ui.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/particles/particles.json","image/hud/hud.json","image/environment/environment.json","image/body-parts/body-parts.json","image/characters/characters.json","image/ui/ui.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

@@ -15,6 +15,8 @@ export default class PlayerViewStructure {
         this._sleeves = 2
         this._arms = 1
         this._shoe = 1
+        this._eyes = 1
+        this._mouth = 1
         this._frontFace = 1
         this._backHead = 0
         this._skinColor = PlayerViewStructure.Colors.WhiteSkin
@@ -27,7 +29,16 @@ export default class PlayerViewStructure {
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
     }
-
+    set eyes(value) {
+        this._eyes = value;
+        this.onStructureUpdate.dispatch('eyes', this._eyes)
+    }
+    get eyes() { return this._eyes; }
+    set mouth(value) {
+        this._mouth = value;
+        this.onStructureUpdate.dispatch('mouth', this._mouth)
+    }
+    get mouth() { return this._mouth; }
     set chest(value) {
         this._chest = value;
         this.onStructureUpdate.dispatch('chest', this._chest)
@@ -40,6 +51,7 @@ export default class PlayerViewStructure {
     get head() { return this._head; }
     set topHead(value) {
         this._topHead = value;
+        this._backHead = value;
         this.onStructureUpdate.dispatch('topHead', this._topHead)
     }
     get topHead() { return this._topHead; }
