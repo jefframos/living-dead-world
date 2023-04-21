@@ -28,9 +28,9 @@ export default class CharacterBuildScreen extends Screen {
 
 
 
-        this.colorContainer = new BodyPartsListScroller({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
-        this.container.addChild(this.colorContainer);
-        this.colorContainer.addBaseGradient('base-gradient', 300)
+        this.colorContainerScroller = new BodyPartsListScroller({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
+        this.container.addChild(this.colorContainerScroller);
+        this.colorContainerScroller.addBaseGradient('base-gradient', 300)
 
 
         this.skinColorScroller = new BodyPartsListScroller({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
@@ -63,22 +63,22 @@ export default class CharacterBuildScreen extends Screen {
 
 
         this.areas = [
-            { param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", colorset: UIUtils.colorset.skin },
-            { param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', iconSize: 150, range: [1, 21], src: "chest-00{frame}", animated: false , colorset: UIUtils.colorset.clothes},
-            { param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
-            //{ param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
+            { label: 'Skin Tone', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", colorset: UIUtils.colorset.skin },
+            { label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', iconSize: 150, range: [1, 21], src: "chest-00{frame}", animated: false , colorset: UIUtils.colorset.clothes},
+            { label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
+            //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-            { param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true, colorset: UIUtils.colorset.clothes },
-            { param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true, colorset: UIUtils.colorset.clothes },
+            { label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true, colorset: UIUtils.colorset.clothes },
+            { label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true, colorset: UIUtils.colorset.clothes },
             
             
-            { param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false },
-            { param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', iconSize: 200, range: [1, 19], src: "eyes-00{frame}", animated: false },
-            { param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', iconSize: 220, range: [1, 4], src: "ear-00{frame}", animated: false },
-            { param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', iconSize: 250, range: [1, 20], src: "mouth-00{frame}", animated: false },
-            { param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, mainIconId: '01', iconSize: 200, range: [0, 13], src: "front-face-00{frame}", animated: false, colorset: UIUtils.colorset.hair  },
-            { param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 70 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
-            { param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.47, y: 0.35 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: "hat-00{frame}", animated: false }]
+            { label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false },
+            { label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', iconSize: 200, range: [1, 19], src: "eyes-00{frame}", animated: false },
+            { label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', iconSize: 220, range: [1, 4], src: "ear-00{frame}", animated: false },
+            { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', iconSize: 250, range: [1, 20], src: "mouth-00{frame}", animated: false },
+            { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, mainIconId: '01', iconSize: 200, range: [0, 13], src: "front-face-00{frame}", animated: false, colorset: UIUtils.colorset.hair  },
+            { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 70 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
+            { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.47, y: 0.35 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: "hat-00{frame}", animated: false }]
 
 
 
@@ -92,10 +92,14 @@ export default class CharacterBuildScreen extends Screen {
         this.sectionList.w = 0
         this.sectionList.h = 0;
 
+        this.allButtons = [];
 
         let count = 0;
         this.areas.forEach(element => {
-            const button = UIUtils.getBodyTypeLabelButton(() => { this.openSection(element) }, element.area)
+            const button = UIUtils.getBodyTypeLabelButton((button) => { 
+                this.openSection(element);
+                button.setActive(); 
+            }, element.label)
             // if (!Array.isArray(element.src)) {
             //     const src = element.src.replace('{frame}', element.mainIconId)
             //     button.addIcon(src, element.iconSize, element.anchor)
@@ -117,6 +121,7 @@ export default class CharacterBuildScreen extends Screen {
 
             //     count++
             // }
+            this.allButtons.push(button);
             this.sectionList.addElement(button, { align: 0, vAlign: 0 })
             this.sectionList.h += 70;
         });
@@ -132,7 +137,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playerViewStructure.onStructureUpdate.add(this.structureUpdate.bind(this))
         this.openSection(this.areas[0])
-
+        this.allButtons[0].setActive()
         //this.playerViewStructure.skinColor = 0xFF0000
 
 
@@ -178,12 +183,17 @@ export default class CharacterBuildScreen extends Screen {
     }
     openSection(region, value) {
 
+        this.allButtons.forEach(element => {
+            element.setDefault(); 
+        });
         this.currentRegion = region;
         this.currentShowingItems = []
         this.piecesScroller.removeAllItems();
         this.currentShowingColors = []
-        this.colorContainer.removeAllItems();
-
+        this.colorContainerScroller.removeAllItems();
+        
+        this.piecesScroller.setTitle(this.currentRegion.label)
+        
         if (this.currentRegion.type == 'colors') {
             for (let index = 0; index < this.currentRegion.colorset.length; index++) {
                 const slot = UIUtils.getColorSlot((slot) => {
@@ -196,6 +206,7 @@ export default class CharacterBuildScreen extends Screen {
             return
         }
         if (this.currentRegion.colorParam && this.currentRegion.colorset) {
+            this.colorContainerScroller.setTitle('Color')
 
             for (let index = 0; index < this.currentRegion.colorset.length; index++) {
                 const slot = UIUtils.getColorSlot((slot) => {
@@ -204,7 +215,7 @@ export default class CharacterBuildScreen extends Screen {
                 this.currentShowingColors.push(slot)
 
             }
-            this.colorContainer.addItens(this.currentShowingColors)
+            this.colorContainerScroller.addItens(this.currentShowingColors)
         }
         if (this.currentRegion.range) {
 
@@ -250,30 +261,30 @@ export default class CharacterBuildScreen extends Screen {
         this.sectionList.x = 20;
 
         if (Game.IsPortrait) {
-            this.piecesScroller.x = Game.Borders.width - this.piecesScroller.width - 20
+            this.piecesScroller.x = Game.Borders.width - this.piecesScroller.rect.w - 20
 
-            this.colorContainer.y = Game.Borders.height - this.colorContainer.height - 20
-            this.piecesScroller.y = this.colorContainer.y - this.piecesScroller.height - 20
+            this.colorContainerScroller.y = Game.Borders.height - this.colorContainerScroller.rect.h - 20
+            this.piecesScroller.y = this.colorContainerScroller.y - this.piecesScroller.rect.h - 40
 
             this.sectionList.y = Game.Borders.height - this.sectionList.height - 20
 
-            this.skinColorScroller.x = Game.Borders.width / 2 - this.skinColorScroller.width / 2;
+            this.skinColorScroller.x = Game.Borders.width / 2 - this.skinColorScroller.rect.w / 2;
             this.skinColorScroller.y = 20
 
         } else {
-            this.piecesScroller.x = Game.Borders.width - this.piecesScroller.width - 20
+            this.piecesScroller.x = Game.Borders.width - this.piecesScroller.rect.w - 20
 
-            this.colorContainer.y = Game.Borders.height - this.colorContainer.height - 20
-            this.piecesScroller.y = this.colorContainer.y - this.piecesScroller.height - 20
+            this.colorContainerScroller.y = Game.Borders.height - this.colorContainerScroller.rect.h - 20
+            this.piecesScroller.y = this.colorContainerScroller.y - this.piecesScroller.rect.h - 40
 
             this.sectionList.y = 80
 
-            this.skinColorScroller.x = Game.Borders.width / 2 - this.skinColorScroller.width / 2;
-            this.skinColorScroller.y = Game.Borders.height - this.skinColorScroller.height - 20
+            this.skinColorScroller.x = Game.Borders.width / 2 - this.skinColorScroller.rect.w / 2;
+            this.skinColorScroller.y = Game.Borders.height - this.skinColorScroller.rect.h - 20
         }
 
 
-        this.colorContainer.x = this.piecesScroller.x;
+        this.colorContainerScroller.x = this.piecesScroller.x;
 
         this.playerPreview.x = Game.Borders.width / 2;
         this.playerPreview.y = Game.Borders.height / 2;

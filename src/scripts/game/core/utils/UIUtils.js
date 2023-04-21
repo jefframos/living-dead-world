@@ -10,7 +10,7 @@ export default class UIUtils {
     }
     static colorset = {
         skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
-        clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8,0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
+        clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
         hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF],
     }
     static getCircle(color = 0xFF0000, radius = 20) {
@@ -80,7 +80,8 @@ export default class UIUtils {
 
     static getBodyTypeLabelButton(callback, label, icon) {
         const button = new BaseButton('square_0001', 250, 65);
-        InteractableView.addMouseUp(button, () => { if (callback) callback() })
+        button.setActiveTexture('square_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
@@ -89,4 +90,13 @@ export default class UIUtils {
         }
         return button;
     }
+
+    static getPrimaryLabel() {
+        const textLabel = new PIXI.Text('', window.LABELS.LABEL1)
+        textLabel.style.strokeThickness = 0
+        textLabel.style.fontSize = 24
+
+        return textLabel;
+    }
+
 }

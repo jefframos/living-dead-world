@@ -11,7 +11,18 @@ export default class BaseButton extends PIXI.Container {
         this.addShape(texture, width, height);
         this.addEvents()
 
+        this.mainTexture = texture;
+
         
+    }
+    setActiveTexture(texture){
+        this.activeTexture = texture;
+    }
+    setActive(){
+        this.safeShape.texture = PIXI.Texture.from(this.activeTexture)
+    }
+    setDefault(){
+        this.safeShape.texture = PIXI.Texture.from(this.mainTexture)
     }
     set tint(value) {
         this.safeShape.tint = value;

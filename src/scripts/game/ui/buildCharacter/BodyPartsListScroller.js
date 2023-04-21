@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import ListScroller from '../../ui/uiElements/ListScroller';
 import Pool from '../../core/utils/Pool';
 import Signals from 'signals';
+import UIUtils from '../../core/utils/UIUtils';
 
 export default class BodyPartsListScroller extends ListScroller {
     constructor(rect = {
@@ -31,6 +32,13 @@ export default class BodyPartsListScroller extends ListScroller {
             this.itemWidth = slotSize.width
             this.itemHeight = slotSize.height
         }
+
+        this.title = UIUtils.getPrimaryLabel();
+        this.addChild(this.title) 
+        this.title.style.fill = 0xFFFFFF
+        this.title.x = - 25
+        this.title.y = - 25
+        //this.title.y= -50
     }
     addBaseGradient(texture, width, color) {
         this.extraHeight = 30
@@ -41,6 +49,9 @@ export default class BodyPartsListScroller extends ListScroller {
         this.baseGradient.anchor.set(0, 1);
         this.baseGradient.y = this.rect.h + 2
         this.addChild(this.baseGradient)
+    }
+    setTitle(label){
+        this.title.text = label;
     }
     addItens(itens) {
         let line = 0;
@@ -77,8 +88,9 @@ export default class BodyPartsListScroller extends ListScroller {
                 Pool.instance.returnElement(this.itens[0])
             }
             this.itens.shift();
-
         }
+
+        this.title.text = '';
     }
     onShowBlockCallback(itemData, button) {
         this.onShowBlock.dispatch(itemData, button);

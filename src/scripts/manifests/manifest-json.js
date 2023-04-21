@@ -12,20 +12,20 @@ const assets = [
 	"url":"assets/json\\localization_EN.json"
 	},
 	{
-	"id":"localization_FR",
-	"url":"assets/json\\localization_FR.json"
-	},
-	{
 	"id":"localization_ES",
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_JA",
-	"url":"assets/json\\localization_JA.json"
+	"id":"localization_FR",
+	"url":"assets/json\\localization_FR.json"
 	},
 	{
 	"id":"localization_IT",
 	"url":"assets/json\\localization_IT.json"
+	},
+	{
+	"id":"localization_JA",
+	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_KO",
@@ -36,12 +36,12 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
-	},
-	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_ZH",
@@ -52,20 +52,24 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
-	"id":"player-animation",
-	"url":"assets/json\\animation\\player-animation.json"
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"player-animation",
+	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
 	"id":"enemy-wave-01",
@@ -74,22 +78,6 @@ const assets = [
 	{
 	"id":"waves2",
 	"url":"assets/json\\enemy-waves\\waves2.json"
-	},
-	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"acessories",
-	"url":"assets/json\\misc\\acessories.json"
-	},
-	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
-	},
-	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
 	"id":"companions",
@@ -102,6 +90,18 @@ const assets = [
 	{
 	"id":"player",
 	"url":"assets/json\\entity\\player.json"
+	},
+	{
+	"id":"weapon-in-game-visuals",
+	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
+	},
+	{
+	"id":"main-weapons",
+	"url":"assets/json\\weapons\\main-weapons.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
 	},
 	{
 	"id":"general-vfx",
@@ -124,16 +124,16 @@ const assets = [
 	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
 	},
 	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
 	},
 	{
-	"id":"main-weapons",
-	"url":"assets/json\\weapons\\main-weapons.json"
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
-	"id":"weapon-in-game-visuals",
-	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
 	}
 ];
 

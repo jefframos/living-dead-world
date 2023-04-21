@@ -15,7 +15,7 @@ export default class ListScroller extends PIXI.Container {
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
         this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
-        this.containerBackground.alpha = 0.5;
+        this.containerBackground.alpha = 0.15;
 
         this.rect = rect;
 
