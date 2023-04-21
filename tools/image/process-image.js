@@ -129,11 +129,12 @@ const processFolder = function (mPath, mSettings, mCallback) {
 
 			let scale = 1;
 
-			let scalePosition = settings.outputFolderName.indexOf('{s')
+			let scalePosition = settings.outputFolderName.indexOf('_s')
 			if (scalePosition >= 0) {
+				console.log(settings.outputFolderName.red)
 				console.log(settings.outputFolderName[scalePosition + 2].red)
 
-				scale = settings.outputFolderName[scalePosition + 2]
+				scale = 0.5//settings.outputFolderName[scalePosition + 2]
 			}
 			texturepack(settings.path, settings.outputFolderName, outputPath, () => {
 
@@ -186,6 +187,7 @@ const processFolder = function (mPath, mSettings, mCallback) {
 				if (checkExtension(fileName, ['png', 'jpg', 'gif'])) {
 					const filePath = path.resolve(settings.path, fileName);
 					const _outputPath = path.resolve(outputPath, fileName);
+					console.log('convertImage');
 					convertImage(filePath, outputPath, fileName, onDone);
 
 					MANIFESTS[settings.manifestFile].push('image/' + settings.relativePath + '/' + fileName);

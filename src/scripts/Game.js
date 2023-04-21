@@ -1,13 +1,15 @@
 import * as PIXI from 'pixi.js';
 
 import config from './config';
+import signals from 'signals';
 import utils from './utils';
 
 export default class Game {
+    static Instance = null;
     static GlobalScale = { x: 1, y: 1 }
     static GlobalContainerPosition = { x: 0, y: 0 }
     static Screen = { width: 0, height: 0 }
-    static IsPortrait = false;
+    static IsPortrait = null;
     static MainLoader = new PIXI.Loader();
     static UIOverlayContainer = new PIXI.Container();
     static ScreenManagerContainer = new PIXI.Container();
@@ -20,6 +22,7 @@ export default class Game {
         height: 0
     }
     constructor(config, screenManager) {
+        Game.Instance = this;
         Game.GlobalScale = { x: 1, y: 1, min: 1, max: 1 }
         Game.GlobalContainerPosition = { x: 0, y: 0 }
         this.screenManager = screenManager;
@@ -56,6 +59,7 @@ export default class Game {
 
         this.latestWidth = 0;
 
+        this.onAspectChanged = new signals.Signal();
 
         this.makeLoader();
         this.resize()
@@ -209,6 +213,9 @@ export default class Game {
 
             window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
 
+            if(Game.IsPortrait != window.isPortrait){
+                this.onAspectChanged.dispatch(window.isPortrait);
+            }
             Game.IsPortrait = window.isPortrait;
 
             this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y

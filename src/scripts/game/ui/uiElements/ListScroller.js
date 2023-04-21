@@ -1,27 +1,28 @@
 import * as PIXI from 'pixi.js';
+
 import Signals from 'signals';
+
 export default class ListScroller extends PIXI.Container {
     constructor(rect = {
         w: 500,
         h: 500
-    }, itensPerPage = 5, masked = true, space = 0) {
+    }, masked = true, space = 0) {
         super();
         this.marginTop = 0;
         this.space = space;
         this.itens = [];
+        this.totalLines = 0;
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
         this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
-        this.addChild(this.containerBackground)
-        this.containerBackground.alpha = 0;
+        this.containerBackground.alpha = 0.5;
 
         this.rect = rect;
-        this.itemsPerPage = itensPerPage;
-        this.itemHeight = this.rect.h / this.itemsPerPage;
 
-        this.container.addChild(this.listContainer);
         this.container.addChild(this.containerBackground);
+        this.container.addChild(this.listContainer);
         this.addChild(this.container);
+        
         if(masked){
             this.maskGraphic = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
             this.addChild(this.maskGraphic)
@@ -57,11 +58,11 @@ export default class ListScroller extends PIXI.Container {
             if(fit){
                 tempItem.scale.set(this.itemHeight / tempItem.height);
             }
-
-            console.log(tempItem.y);         
+         
             this.itens.push(tempItem);
 
         }
+        this.totalLines = this.itens.length;
         this.lastItemClicked = this.itens[0]
     }
     endDrag() {
@@ -73,7 +74,7 @@ export default class ListScroller extends PIXI.Container {
 
         let target = 0;
         let targY = this.listContainer.y
-        let maxH = this.itemHeight * this.itens.length + this.extraHeight;
+        let maxH = this.itemHeight * this.totalLines + this.extraHeight;
         if (this.goingDown == 1) {
             targY -= this.itemHeight / 2;
             target = Math.floor(targY / this.itemHeight) * this.itemHeight

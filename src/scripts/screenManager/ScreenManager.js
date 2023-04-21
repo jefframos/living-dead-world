@@ -32,6 +32,14 @@ export default class ScreenManager extends PIXI.Container{
 		}
 		//this.resize()
 	}
+
+	aspectChange(isPortrait){
+		for(let i = 0; i < this.screenList.length; i++){
+			if(this.screenList[i].aspectChange){
+				this.screenList[i].aspectChange(isPortrait)
+			}
+		}
+	}
 	//change between screens
 	forceChange(screenLabel, param){
 		if(this.currentScreen && this.currentScreen.parent){

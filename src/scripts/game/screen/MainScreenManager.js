@@ -12,13 +12,13 @@ import config from '../../config';
 
 export default class MainScreenManager extends ScreenManager {
     static Screens = {
-        GameScreen:'GameScreen',
-        MainMenu:'MainMenu',
-        CharacterBuild:'CharacterBuild',
+        GameScreen: 'GameScreen',
+        MainMenu: 'MainMenu',
+        CharacterBuild: 'CharacterBuild',
     }
     static ScreensTarget = {
-        ScreenContainer:Game.ScreenManagerContainer,
-        GameplayContainer:null,
+        ScreenContainer: Game.ScreenManagerContainer,
+        GameplayContainer: null,
     }
     constructor() {
         super();
@@ -101,7 +101,9 @@ export default class MainScreenManager extends ScreenManager {
             window.GUI.hide()
         }
 
-
+        Game.Instance.onAspectChanged.add((isPortrait) => {
+            this.aspectChange(isPortrait)
+        })
 
     }
     addCoinsParticles(pos, quant = 5, customData = {}) {

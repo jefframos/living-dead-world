@@ -1,3 +1,4 @@
+import UIUtils from "../core/utils/UIUtils"
 import signals from "signals"
 
 export default class PlayerViewStructure {
@@ -16,19 +17,25 @@ export default class PlayerViewStructure {
         this._arms = 1
         this._shoe = 1
         this._eyes = 1
+        this._ears = 1
         this._mouth = 1
-        this._frontFace = 1
+        this._frontFace = 0
         this._backHead = 0
-        this._skinColor = PlayerViewStructure.Colors.WhiteSkin
-        this._hairColor = 0xFFFFFF
-        this._topClothColor = 0xFFFFFF
-        this._sleevesColor = 0xFFFFFF
-        this._faceHairColor = 0xFFFFFF
-        this._botomColor = 0x333333
-        this._shoeColor = 0x007272
+        this._skinColor = UIUtils.colorset.skin[0]
+        this._hairColor = UIUtils.colorset.hair[0]
+        this._topClothColor = UIUtils.colorset.clothes[0]
+        this._sleevesColor = UIUtils.colorset.clothes[0]
+        this._faceHairColor = UIUtils.colorset.hair[0]
+        this._botomColor = UIUtils.colorset.clothes[1]
+        this._shoeColor = UIUtils.colorset.clothes[2]
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
     }
+    set ears(value) {
+        this._ears = value;
+        this.onStructureUpdate.dispatch('ears', this._ears)
+    }
+    get ears() { return this._ears; }
     set eyes(value) {
         this._eyes = value;
         this.onStructureUpdate.dispatch('eyes', this._eyes)
@@ -51,7 +58,7 @@ export default class PlayerViewStructure {
     get head() { return this._head; }
     set topHead(value) {
         this._topHead = value;
-        this._backHead = value;
+        this.backHead = value;
         this.onStructureUpdate.dispatch('topHead', this._topHead)
     }
     get topHead() { return this._topHead; }
@@ -97,7 +104,7 @@ export default class PlayerViewStructure {
     get backHead() { return this._backHead; }
     set skinColor(value) {
         this._skinColor = value;
-        this.onStructureUpdate.dispatch('skinColor', this._skinColor)
+        this.onColorUpdate.dispatch('skinColor', this._skinColor)
     }
     get skinColor() { return this._skinColor; }
     set hairColor(value) {

@@ -30,6 +30,7 @@ export default class InteractableView {
         element.buttonMode = true;
         element.on('pointerup', callback);//.on('tap', callback);
         //element.on('touchend', callback);
+        return callback;
     }
     static addMouseMove(element, callback = () => { }) {
         element.interactive = true;
