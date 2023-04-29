@@ -211,12 +211,7 @@ export default class Game {
             this.screenManager.scale.y = newScaleY//this.ratio
 
 
-            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
-
-            if(Game.IsPortrait != window.isPortrait){
-                this.onAspectChanged.dispatch(window.isPortrait);
-            }
-            Game.IsPortrait = window.isPortrait;
+           
 
             this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
             //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
@@ -253,6 +248,12 @@ export default class Game {
             Game.Borders.width = Game.Borders.topRight.x
             Game.Borders.height = Game.Borders.bottomLeft.y
 
+            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
+
+            if(Game.IsPortrait != window.isPortrait){
+                this.onAspectChanged.dispatch(window.isPortrait);
+            }
+            Game.IsPortrait = window.isPortrait;
         }
     }
 

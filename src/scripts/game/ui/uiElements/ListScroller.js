@@ -3,10 +3,7 @@ import * as PIXI from 'pixi.js';
 import Signals from 'signals';
 
 export default class ListScroller extends PIXI.Container {
-    constructor(rect = {
-        w: 500,
-        h: 500
-    }, masked = true, space = 0) {
+    constructor(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }, masked = true, space = 0) {
         super();
         this.marginTop = 0;
         this.space = space;
@@ -22,8 +19,8 @@ export default class ListScroller extends PIXI.Container {
         this.container.addChild(this.containerBackground);
         this.container.addChild(this.listContainer);
         this.addChild(this.container);
-        
-        if(masked){
+
+        if (masked) {
             this.maskGraphic = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
             this.addChild(this.maskGraphic)
             this.container.mask = this.maskGraphic;
@@ -43,22 +40,48 @@ export default class ListScroller extends PIXI.Container {
             .on('touchendoutside', this.endDrag.bind(this))
             .on('mouseupoutside', this.endDrag.bind(this));
     }
-    resetPosition(){
+    resize(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }) {
+        this.rect = rect;
+
+        if (this.maskGraphic) {
+            this.removeChild(this.maskGraphic)
+            this.maskGraphic = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+            this.addChild(this.maskGraphic)
+            this.container.mask = this.maskGraphic;
+        }
+        
+        if(this.containerBackground){
+            this.container.removeChild(this.containerBackground)
+            this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+            this.containerBackground.alpha = 0.15;
+            this.container.addChildAt(this.containerBackground,0)
+        }
+        this.calcSize(slotSize);
+    }
+    calcSize(slotSize){
+        
+        if(!slotSize){
+            this.itemWidth = rect.w / this.gridDimensions.j
+            this.itemHeight = rect.h / this.gridDimensions.i
+        }else{
+            this.itemWidth = slotSize.width
+            this.itemHeight = slotSize.height
+        }
+    }
+    resetPosition() {
         this.listContainer.y = 0;
         this.enableDrag = false;
     }
-    addItens(itens, fit = false)
-    {
-        for (var i = 0; i < itens.length; i++)
-        {
+    addItens(itens, fit = false) {
+        for (var i = 0; i < itens.length; i++) {
             let tempItem = itens[i];
             this.listContainer.addChild(tempItem)
-            tempItem.y = (this.itemHeight + this.space)* this.itens.length - 1 + this.marginTop;   
+            tempItem.y = (this.itemHeight + this.space) * this.itens.length - 1 + this.marginTop;
 
-            if(fit){
+            if (fit) {
                 tempItem.scale.set(this.itemHeight / tempItem.height);
             }
-         
+
             this.itens.push(tempItem);
 
         }
@@ -134,7 +157,7 @@ export default class ListScroller extends PIXI.Container {
         }
     }
     startDrag(e) {
-        if(this.listContainer.height < this.containerBackground.height){
+        if (this.listContainer.height < this.containerBackground.height) {
             return
         }
         this.enableDrag = true;

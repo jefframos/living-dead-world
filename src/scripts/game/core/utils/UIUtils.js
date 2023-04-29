@@ -37,10 +37,12 @@ export default class UIUtils {
         return button;
     }
 
-    static addLabel(button, label) {
+    static addLabel(button, label, params = {}) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
-        textLabel.style.strokeThickness = 0
-        textLabel.style.fontSize = 32
+
+        for (const key in params) {
+            textLabel.style[key] = params[key];
+        }
         button.addLabelOnCenter(textLabel)
         return textLabel;
     }
@@ -79,23 +81,20 @@ export default class UIUtils {
     }
 
     static getBodyTypeLabelButton(callback, label, icon) {
-        const button = new BaseButton('square_0001', 250, 65);
+        const button = new BaseButton('square_0001', 100, 65);
         button.setActiveTexture('square_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label).style.fill = 0
+            UIUtils.addLabel(button, label, {strokeThickness:0, fontSize:18, fill:0})
         }
         return button;
     }
 
     static getPrimaryLabel() {
         const textLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        textLabel.style.strokeThickness = 0
-        textLabel.style.fontSize = 24
-
         return textLabel;
     }
 

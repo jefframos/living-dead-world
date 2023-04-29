@@ -6,40 +6,24 @@ import Signals from 'signals';
 import UIUtils from '../../core/utils/UIUtils';
 
 export default class BodyPartsListScroller extends ListScroller {
-    constructor(rect = {
-        w: 250,
-        h: 500
-    },slotSize = {
-        width: 75,
-        height: 75
-    },
-    margin = {
-        x: 0,
-        y: 0
-    }) {
-        super(rect,  true);
-        this.gridDimensions = {i:5, j:3}
+    constructor(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }) {
+        super(rect, slotSize, margin);
+        this.gridDimensions = { i: 5, j: 3 }
         this.onItemShop = new Signals();
         this.onShowInfo = new Signals();
         this.onVideoItemShop = new Signals();
         this.onShowBlock = new Signals();
         this.margin = margin;
         this.itens = [];
-        if(!slotSize){
-            this.itemWidth = rect.w / this.gridDimensions.j
-            this.itemHeight = rect.h / this.gridDimensions.i
-        }else{
-            this.itemWidth = slotSize.width
-            this.itemHeight = slotSize.height
-        }
-
+        this.calcSize(slotSize);
         this.title = UIUtils.getPrimaryLabel();
-        this.addChild(this.title) 
+        this.addChild(this.title)
         this.title.style.fill = 0xFFFFFF
         this.title.x = - 25
         this.title.y = - 25
         //this.title.y= -50
     }
+
     addBaseGradient(texture, width, color) {
         this.extraHeight = 30
         this.baseGradient = new PIXI.Sprite.from(texture);
@@ -50,7 +34,15 @@ export default class BodyPartsListScroller extends ListScroller {
         this.baseGradient.y = this.rect.h + 2
         this.addChild(this.baseGradient)
     }
-    setTitle(label){
+    resize(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }) {
+        super.resize(rect, slotSize, margin)
+
+        if( this.baseGradient){
+            this.baseGradient.width = rect.w
+            this.baseGradient.y = this.rect.h + 2
+        }
+    }
+    setTitle(label) {
         this.title.text = label;
     }
     addItens(itens) {
@@ -59,37 +51,39 @@ export default class BodyPartsListScroller extends ListScroller {
 
         for (var i = 0; i < itens.length; i++) {
             let tempItem = itens[i];
-            this.listContainer.addChild(tempItem)
-
+            
             tempItem.x = this.itemWidth * col + this.margin.x;
             tempItem.y = this.itemHeight * line + this.margin.y;
             
-            col ++
+            console.log(tempItem.x, tempItem.y, this.listContainer.x)
+            
+            col++
             this.totalLines = line + 1
-            if(col >= this.gridDimensions.j){
-                line ++;
+            if (col >= this.gridDimensions.j) {
+                line++;
             }
             col %= this.gridDimensions.j;
-
+            
             if (tempItem.onConfirmShop) {
                 tempItem.onConfirmShop.add(this.onShopItemCallback.bind(this));
             }
             this.itens.push(tempItem);
+            this.listContainer.addChild(tempItem)
 
         }
         this.lastItemClicked = this.itens[0]
     }
-    removeAllItems(){
+    removeAllItems() {
         this.resetPosition();
 
-        while (this.itens.length){
-            if(this.itens[0].parent){
+        while (this.itens.length) {
+            if (this.itens[0].parent) {
                 this.itens[0].parent.removeChild(this.itens[0]);
                 Pool.instance.returnElement(this.itens[0])
             }
             this.itens.shift();
         }
-
+        this.totalLines = 0;
         this.title.text = '';
     }
     onShowBlockCallback(itemData, button) {
