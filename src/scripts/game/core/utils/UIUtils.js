@@ -36,7 +36,20 @@ export default class UIUtils {
         }
         return button;
     }
-
+    static getPrimaryLabel(label, params = {}) {
+        const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
+        for (const key in params) {
+            textLabel.style[key] = params[key];
+        }
+        return textLabel;
+    }
+    static getSecondaryLabel(label, params = {}) {
+        const textLabel = new PIXI.Text(label, window.LABELS.LABEL2)
+        for (const key in params) {
+            textLabel.style[key] = params[key];
+        }
+        return textLabel;
+    }
     static addLabel(button, label, params = {}) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
 

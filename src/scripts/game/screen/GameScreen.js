@@ -228,12 +228,12 @@ export default class GameScreen extends Screen {
 
     }
     spawnPlayer() {
-
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-
+        
+        console.log("spawnPlayer",  window.customChar)
         this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)))
         this.levelManager.start(this.player);
         this.levelManager.initGame();
@@ -300,16 +300,17 @@ export default class GameScreen extends Screen {
         this.removeEvents();
 
     }
-    resize(resolution, innerResolution) {
-        if (!innerResolution || !innerResolution.height) return
 
-        this.latestInner = innerResolution;
-        if (!resolution || !resolution.width || !resolution.height || !innerResolution) {
-            //return;
-        }
+    aspectChange(isPortrait) {
+
+        this.gameEngine.aspectChange(isPortrait);
+    }
+    resize(resolution, innerResolution) {
 
 
         this.container.x = config.width / 2
         this.container.y = config.height / 2
+
+        this.gameEngine.resize(resolution, innerResolution);
     }
 }

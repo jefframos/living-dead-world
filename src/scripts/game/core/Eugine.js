@@ -10,6 +10,7 @@ export default class Eugine {
     constructor() {
         this.entityAdded = new signals.Signal()
         this.gameObjects = []
+        this.resizeableList = []
         this.parentGameObject = new GameObject();
         this.physics = this.addGameObject(new PhysicsModule())
 
@@ -104,6 +105,9 @@ export default class Eugine {
             gameObject.start()
         }
 
+        if(gameObject.resize){
+            this.resizeableList.push(gameObject);
+        }
         this.entityAdded.dispatch([gameObject])
 
         if(this.callbacksWhenAdding && this.callbacksWhenAdding[gameObject.constructor.name]){
@@ -128,6 +132,7 @@ export default class Eugine {
     wipeGameObject(gameObject) {
 
         Eugine.RemoveFromListById(this.gameObjects, gameObject)
+        Eugine.RemoveFromListById(this.resizeableList, gameObject)
 
         if (gameObject.rigidBody) {
             this.physics.removeAgent(gameObject)
@@ -181,5 +186,19 @@ export default class Eugine {
 
         this.engineStats.totalGameObjects = this.gameObjects.length;
     }
+    aspectChange(isPortrait) {
+        this.resizeableList.forEach(element => {
+            if (element.aspectChange && element.enabled) {
+                element.aspectChange(isPortrait);
+            }
+        });
+    }
 
+    resize(resolution, innerResolution) {
+        this.resizeableList.forEach(element => {
+            if (element.resize && element.enabled) {
+                element.resize(resolution, innerResolution);
+            }
+        });
+    }
 }

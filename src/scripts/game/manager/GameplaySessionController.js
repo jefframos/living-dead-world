@@ -1,7 +1,6 @@
 import BuildingComponent from "../components/building/BuildingComponent";
 import CardPlacementSystem from "../components/deckBuilding/CardPlacementSystem";
 import CardPlacementView from "../components/deckBuilding/CardPlacementView";
-import DeckController from "../components/deckBuilding/DeckController";
 import EntityBuilder from "../screen/EntityBuilder";
 import Eugine from "../core/Eugine";
 import GameObject from "../core/gameObject/GameObject";
@@ -12,6 +11,7 @@ import Player from "../entity/Player";
 import PlayerInventoryHud from "../inventory/view/PlayerInventoryHud";
 import PlayerSessionData from "../data/PlayerSessionData";
 import RenderModule from "../core/modules/RenderModule";
+import SurvivorDeckController from "../components/deckBuilding/SurvivorDeckController";
 import config from "../../config";
 import signals from "signals";
 
@@ -45,7 +45,7 @@ export default class GameplaySessionController extends GameObject {
         this.addChild(this.playerInventoryHud)
 
 
-        this.deckView = this.engine.poolGameObject(DeckController, true)
+        this.deckView = this.engine.poolGameObject(SurvivorDeckController, true)
         this.deckView.setActive(false);
         this.addChild(this.deckView)
 

@@ -52,6 +52,10 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
+	},
+	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
@@ -64,36 +68,28 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
-	},
-	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
-	},
-	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
-	},
-	{
 	"id":"companions",
 	"url":"assets/json\\entity\\companions.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
 	},
 	{
 	"id":"player",
 	"url":"assets/json\\entity\\player.json"
 	},
 	{
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
+	},
+	{
 	"id":"acessories",
 	"url":"assets/json\\misc\\acessories.json"
+	},
+	{
+	"id":"attachments",
+	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
 	"id":"attribute-modifiers",
@@ -116,24 +112,32 @@ const assets = [
 	"url":"assets/json\\vfx\\particle-descriptors.json"
 	},
 	{
-	"id":"weapon-vfx-pack",
-	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
-	},
-	{
 	"id":"weapon-vfx",
 	"url":"assets/json\\vfx\\weapon-vfx.json"
+	},
+	{
+	"id":"weapon-vfx-pack",
+	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
 	},
 	{
 	"id":"main-weapons",
 	"url":"assets/json\\weapons\\main-weapons.json"
 	},
 	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	},
+	{
 	"id":"weapon-in-game-visuals",
 	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
 	},
 	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	},
+	{
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
 	}
 ];
 

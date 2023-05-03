@@ -1,8 +1,11 @@
 import * as PIXI from 'pixi.js';
 
 import CircleCounter from '../../ui/hudElements/CircleCounter';
+import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
+import Pool from '../../core/utils/Pool';
 import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import UIList from '../../ui/uiElements/UIList';
+import UIUtils from '../../core/utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import utils from '../../../utils';
 
@@ -53,7 +56,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')
         this.container.addChild(this.playerFaceContainer);
-        
+
         this.goo = new PIXI.Sprite.from('goo')
         this.container.addChild(this.goo);
         this.goo.x = 13
@@ -66,16 +69,16 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.playerFaceMask.anchor.y = 1
         this.playerFace = new PIXI.Sprite()
         this.playerFace.anchor.set(0.5);
-        this.playerFace.scale.set(1.1)
-        this.playerFace.x = this.playerFaceContainer.width / 2
-        this.playerFace.y = this.playerFaceContainer.height / 2 
+        this.playerFace.scale.set(1)
+
+        this.playerFace.y = this.playerFaceContainer.height / 2
         this.addChild(this.playerFace);
 
         this.playerFace.mask = this.playerFaceMask
 
         this.gooSpritesheet = new SpriteSheetAnimation();
 
-       // addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
+        // addLayer(state, spriteName, param = { totalFramesRange: { min: 0, max: 1 }, time: 0.1, loop: true, addZero: false, anchor: { x: 0.5, y: 0.5 } }) {
 
         this.gooSpritesheet.addLayer('standard', 'goo-drip00', {
             totalFramesRange: { min: 1, max: 9 },
@@ -89,28 +92,32 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.player = player;
         setTimeout(() => {
             this.playerFace.texture = player.playerView.staticTexture
+            this.playerFace.x = this.playerFace.width / 2
         }, 10);
-
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
     }
     updatePlayerEquip(player) {
+        this.equipmentList.elementsList.forEach(element => {
+            Pool.instance.returnElement(element);
+        });
         this.equipmentList.removeAllElements();
         this.equipmentList.w = 50;
-        player.activeWeapons.forEach(element => {
+        player.sessionData.equipaments.forEach(element => {
             if (element) {
+
                 this.equipmentList.w += 40;
                 this.equipmentList.h = 50;
-                let icon = new PIXI.Sprite.from(element.stackWeapons[0].ingameViewDataStatic.ingameIcon)
-                Utils.scaleToFit(icon, 30)
-                icon.rotation = Math.PI / 4
-                icon.fitHeight = 1
+                let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
+                icon.setItem(element.item)
+                icon.setLevel(element.level)
+
                 this.equipmentList.addElement(icon)
             }
         });
 
         this.equipmentList.updateHorizontalList()
-        this.backEquipment.width = this.equipmentList.w
+        this.backEquipment.width = this.equipmentList.w + 25
     }
     updatePlayerHealth(delta) {
 
@@ -120,7 +127,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         if (!this.player) {
             return;
         }
-        
+
         this.gooSpritesheet.updateAnimation(delta)
         this.goo.texture = this.gooSpritesheet.currentTexture
     }

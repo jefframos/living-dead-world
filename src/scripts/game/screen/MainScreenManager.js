@@ -70,17 +70,19 @@ export default class MainScreenManager extends ScreenManager {
             if (urlParams.get('noEnemy')) {
                 window.noEnemy = true;
             }
-            if (urlParams.get('builder')) {
-                this.forceChange(MainScreenManager.Screens.CharacterBuild);
-            }
             if (urlParams.get('char') !== null) {
                 window.customChar = parseInt(urlParams.get('char'));
             }
             if (urlParams.get('debug')) {
                 window.debugMode = true;
             }
+            if (urlParams.get('builder')) {
+                this.forceChange(MainScreenManager.Screens.CharacterBuild);
+            }
+            if (urlParams.get('game')) {
+                this.forceChange(MainScreenManager.Screens.GameScreen);
+            }
         }
-
 
         this.isPaused = false;
 

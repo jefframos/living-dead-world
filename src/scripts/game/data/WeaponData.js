@@ -23,6 +23,7 @@ export default class WeaponData {
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
         this.id = id;
+        this.isAttachment = false;
         this._ingameData = null;
     }
     set ingameData(value){
@@ -42,6 +43,9 @@ export default class WeaponData {
             toReturn = this.weaponAttributes.overrider.bulletComponent;
         }
         return toReturn || Bullet;
+    }
+    setAsAttachment(){
+        this.isAttachment = true;
     }
     addMultiplier(multpliers){
         this.weaponAttributes.addMultiplier(multpliers);

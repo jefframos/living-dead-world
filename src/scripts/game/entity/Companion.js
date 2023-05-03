@@ -23,7 +23,6 @@ export default class Companion extends GameAgent {
     build(companionData) {
         super.build()
 
-console.log(companionData);
         this.staticData = companionData;
         this.attributes.reset(companionData.attributes);
         this.viewData = companionData.view;

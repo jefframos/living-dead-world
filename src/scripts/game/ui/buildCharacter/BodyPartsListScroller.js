@@ -54,9 +54,7 @@ export default class BodyPartsListScroller extends ListScroller {
             
             tempItem.x = this.itemWidth * col + this.margin.x;
             tempItem.y = this.itemHeight * line + this.margin.y;
-            
-            console.log(tempItem.x, tempItem.y, this.listContainer.x)
-            
+                        
             col++
             this.totalLines = line + 1
             if (col >= this.gridDimensions.j) {

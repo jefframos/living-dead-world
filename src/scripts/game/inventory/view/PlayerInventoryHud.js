@@ -19,19 +19,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.gameView = new GameView(this)
         this.gameView.layer = RenderModule.UILayerOverlay;
         this.gameView.view = new PIXI.Container();
-        this.weaponGrid = [];
-
-        for (let index = 0; index < 5; index++) {
-            let list = new UIList();
-            list.w = 500;
-            list.h = 100;
-
-            this.weaponGrid.push(list)
-            this.gameView.view.addChild(list)
-
-            list.y = 40
-        }
-
+        
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.gameView.view.addChild(this.zero)
@@ -60,8 +48,10 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.style.fontSize = 24
         this.timer.x = 200
 
+        this.labelsInfoContainer = new PIXI.Container();
+        this.gameView.view.addChild(this.labelsInfoContainer)
         this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        // this.gameView.view.addChild(this.playerAttributesLabel)
+        this.labelsInfoContainer.addChild(this.playerAttributesLabel)
         this.playerAttributesLabel.style.fontSize = 12
         this.playerAttributesLabel.style.align = 'left'
         this.playerAttributesLabel.x = 150
@@ -69,19 +59,20 @@ export default class PlayerInventoryHud extends GameObject {
 
 
         this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        // this.gameView.view.addChild(this.playerAcessoriesLabel)
+        this.labelsInfoContainer.addChild(this.playerAcessoriesLabel)
         this.playerAcessoriesLabel.style.fontSize = 12
         this.playerAcessoriesLabel.style.align = 'left'
         this.playerAcessoriesLabel.x = 550
         this.playerAcessoriesLabel.y = 40
 
         this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        // this.gameView.view.addChild(this.weaponAcessoriesLabel)
+        this.labelsInfoContainer.addChild(this.weaponAcessoriesLabel)
         this.weaponAcessoriesLabel.style.fontSize = 12
         this.weaponAcessoriesLabel.style.align = 'left'
         this.weaponAcessoriesLabel.x = 350
         this.weaponAcessoriesLabel.y = 40
-
+        this.labelsInfoContainer.x = 70
+        this.labelsInfoContainer.y = 120
 
         this.tl = new PIXI.Graphics().beginFill(0xFFff00).drawCircle(0, 0, 50)
         this.bl = new PIXI.Graphics().beginFill(0x000fff).drawCircle(0, 0, 50)
@@ -160,32 +151,10 @@ export default class PlayerInventoryHud extends GameObject {
         this.weaponAcessoriesLabel.text = attributesWeapon;
     }
     updatePlayerEquip(player) {
-        if (!player.activeWeapons.length) {
-            this.weaponGrid.forEach(element => {
-                element.removeAllElements();
-            });
-        }
-
+  
         this.updatePlayerAttributes();
         this.updatePlayerBuffs();
 
-        for (let index = 0; index < player.activeWeapons.length; index++) {
-
-            const element = player.activeWeapons[index];
-
-
-            this.weaponGrid[index].removeAllElements();
-
-            this.weaponGrid[index].h = 0;
-
-            if (!element) continue;
-            if (element.stackWeapons.length > 0) {
-                this.addLine(element.stackWeapons[0], true, this.weaponGrid[index])
-            }
-
-            this.weaponGrid[index].x = index * 35 + 20
-            this.weaponGrid[index].updateVerticalList();
-        }
     }
     addLine(weapon, isMaster, list) {
         let line = new PlayerInventorySlotEquipView();
@@ -222,6 +191,6 @@ export default class PlayerInventoryHud extends GameObject {
         //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var min = Math.min(Game.GlobalScale.min, 1)
         this.playerHud.scale.set(Math.max(0.85, min));
-        
+
     }
 }

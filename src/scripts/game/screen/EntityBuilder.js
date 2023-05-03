@@ -18,6 +18,7 @@ import SinoidBullet from "../components/weapon/bullets/SinoidBullet";
 import SpriteSheetBehaviour from "../components/particleSystem/particleBehaviour/SpriteSheetBehaviour";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
+import WeaponAttachmentData from "../data/WeaponAttachmentData";
 import WeaponAttributes from "../data/WeaponAttributes";
 import WeaponData from "../data/WeaponData";
 
@@ -54,8 +55,10 @@ export default class EntityBuilder {
         let companions = GameStaticData.instance.getAllDataFrom('entities', 'companions');
         let attributes = GameStaticData.instance.getAllDataFrom('modifiers', 'attributes');
         let acessories = GameStaticData.instance.getAllDataFrom('misc', 'acessories');
+        let attachments = GameStaticData.instance.getAllDataFrom('misc', 'attachments');
         
         this.weaponsData = {};
+        this.attachments = {};
         this.companionsData = {};
         this.attributeModifiersData = {};
         this.acessoriesData = {};
@@ -82,6 +85,11 @@ export default class EntityBuilder {
             this.acessoriesData[element.id] = attData;
         });
 
+        attachments.forEach(element => {
+            let attData = new WeaponAttachmentData(element)
+            this.attachments[element.id] = attData;
+        });
+        
         this.weaponsArray = []
         for (const key in this.weaponsData) {
             this.findDestroyWeapon(this.weaponsData[key])

@@ -135,7 +135,7 @@ export default class CharacterBuildScreen extends Screen {
         let maxWidth = Math.min(Game.Borders.width, 650)
         let chunk = maxWidth / this.activePlayers.length
         let angChunk = (Math.PI) / (this.activePlayers.length - 1)
-        console.log("calcular a distancia baseado na escala tb")
+        //console.log("calcular a distancia baseado na escala tb")
         for (var i = 0; i < this.activePlayers.length; i++) {
             const element = this.activePlayers[i];
             element.playerPreviewSprite.x = Game.Borders.width / 2 + i * chunk + chunk * 0.5 - maxWidth / 2;

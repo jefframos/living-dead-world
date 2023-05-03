@@ -57,7 +57,7 @@ export default class Player extends GameAgent {
 
 
     }
-    get collectRadius(){
+    get collectRadius() {
         return this.attributes.collectionRadius;
     }
     get sessionData() {
@@ -67,16 +67,16 @@ export default class Player extends GameAgent {
         this.currentSessionData = value;
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-        //this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData['LASER']), 1, 0)
-        this.currentSessionData.addEquipment(new GameplayItem(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id]), 1, 0)
+        this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
     }
     makeAnimations(data) {
-        this.playerView = this.addComponent(PlayerGameViewSpriteSheet);        
+        this.playerView = this.addComponent(PlayerGameViewSpriteSheet);
         this.playerView.setData(data);
         this.playerView.update(1);
     }
 
     build(playerData) {
+        console.log(playerData)
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
@@ -88,6 +88,7 @@ export default class Player extends GameAgent {
 
         this.distanceWalked = 0;
 
+        this.activeAttachments = [];
         this.activeWeapons = [];
         this.activeCompanions = [];
         this.weaponsGameObject = [];
@@ -139,7 +140,7 @@ export default class Player extends GameAgent {
         this.anchorOffset = 0;
         this.cleanStats();
 
-        
+
     }
     afterBuild() {
         super.afterBuild()
@@ -160,25 +161,35 @@ export default class Player extends GameAgent {
         this.clearWeapon();
         this.cleanStats();
         for (let i = 0; i < equipmentGrid.length; i++) {
-            const list = equipmentGrid[i];
-            for (let j = 0; j < list.length; j++) {
-                const element = list[j];
-                if (!element || !element.item) continue;
-                switch (element.item.entityData.type) {
-                    case EntityData.EntityDataType.Weapon:
+            const element = equipmentGrid[i];
+            if (!element || !element.item) continue;
+            switch (element.item.entityData.type) {
+                case EntityData.EntityDataType.Weapon:
+                    if (element.item.isAttachment) {
+                        this.activeAttachments.push(element.item);
+                    } else {
                         this.addWeaponData(element, i)
-                        break;
-                    case EntityData.EntityDataType.Companion:
-                        this.addCompanion(element.item.staticData.id)
-                        break;
-                    case EntityData.EntityDataType.Acessory:
-                        this.addStatsModifier(element.item.effectId, element.level)   
-                        this.activeAcessories.push(element);
-                        break;
-                }
+                    }
+                    break;
+                case EntityData.EntityDataType.Companion:
+                    this.addCompanion(element.item.staticData.id)
+                    break;
+                case EntityData.EntityDataType.Acessory:
+                    this.addStatsModifier(element.item.effectId, element.level)
+                    this.activeAcessories.push(element);
+                    break;
             }
+
         }
 
+        if (this.activeAttachments.length) {
+            this.activeAttachments.forEach(attachmentData => {
+                this.activeWeapons.forEach(weapon => {
+                    console.log('THIS',attachmentData, weapon)
+                    weapon.addWeaponFromData(attachmentData)
+                });
+            });
+        }
         this.refreshEquipment();
 
     }
@@ -202,10 +213,11 @@ export default class Player extends GameAgent {
             }
         }
 
+        this.activeAttachments = [];
         this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
-        this.activeWeapons = [null, null, null];
+        this.activeWeapons = [];
         this.refreshEquipment();
     }
 
@@ -341,7 +353,7 @@ export default class Player extends GameAgent {
             this.distanceWalked = 0;
         }
 
-        
+
         super.update(delta)
     }
 

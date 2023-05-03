@@ -24,13 +24,14 @@ export default class CardPlacementSystem {
 
     }
     onCardEquipped(cardData) {
-        // let currentID = 0;
+        //let currentID = 0;
         // this.player.activeWeapons.forEach(element => {
         //     if (element.stackWeapons.length >= 3) {
         //         currentID++;
         //     }
         // });
         // this.player.addWeaponData(EntityBuilder.instance.weaponsData[cardData.id], currentID);
+        this.deckView.setActive(false)
         this.hide();
     }
     setPlayer(player) {

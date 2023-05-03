@@ -1,7 +1,7 @@
 import EntityAttributes from "./EntityAttributes";
 import EntityData from "./EntityData";
 
-export default class AcessoryData {
+export default class WeaponAttachmentData {
 
     constructor(staticData) {
         this.staticData = staticData;
@@ -21,7 +21,7 @@ export default class AcessoryData {
         return 0;
     }
     clone() {
-        let attributes = new AcessoryData(this.staticData);
+        let attributes = new WeaponAttachmentData(this.staticData);
 
         for (const key in this) {
             if (this[key] && this[key].clone) {

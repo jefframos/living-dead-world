@@ -4,6 +4,7 @@ import EntityData from "./EntityData";
 export default class AttributeData {
 
     constructor(staticData) {
+        this.staticData = staticData;
         this.entityData = new EntityData();
         this.entityData.copyOver(staticData.entityData)
 
@@ -21,7 +22,7 @@ export default class AttributeData {
         return 0;
     }
     clone() {
-        let attributes = new AttributeData();
+        let attributes = new AttributeData(this.staticData);
 
         for (const key in this) {
             if (this[key] && this[key].clone) {
