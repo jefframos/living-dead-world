@@ -19,8 +19,7 @@ export default class CardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['tier-0-card_1', 'tier-1-card_1', 'tier-2-card_1', 'tier-3-card_1', 'tier-4-card_1']
-        this.texturesNew = ['new-card0001', 'new-card0002', 'new-card0003']
+        this.textures = ['card-border']
         this.skews = [{
             skew: -0.3,
             rotation: -0.2,
@@ -49,10 +48,16 @@ export default class CardView extends PIXI.Container {
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
 
-        this.cardBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+        this.cardBackground = new PIXI.Sprite.from('card-backshape-1');
         this.cardContainer.addChild(this.cardBackground);
+        //this.cardBackground.tint = 0x6794C7
         this.cardBackground.width = width
         this.cardBackground.height = height
+
+        this.cardBorder = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+        this.cardContainer.addChild(this.cardBorder);
+        this.cardBorder.width = width
+        this.cardBorder.height = height
 
         this.cardImage = new PIXI.Sprite();
 
@@ -75,18 +80,34 @@ export default class CardView extends PIXI.Container {
             this.onStartDrag.dispatch(this)
         })
 
-        this.label = new PIXI.Text('', window.LABELS.LABEL1)
-        this.cardContainer.addChild(this.label);
-        this.label.style.fill = 0
-        this.label.style.strokeThickness = 0
-        this.label.style.wordWrap = true
-        this.label.style.wordWrapWidth = width * 0.7
-        this.label.style.fontSize = 14
-        this.label.anchor.set(0.5, 0)
-        this.label.x = width / 2
-        this.label.y = 30
+        this.cardDescriptionBackground = new PIXI.Sprite.from('tile');
+        this.cardContainer.addChild(this.cardDescriptionBackground);
+        this.cardDescriptionBackground.tint = 0x5F5259
 
-        this.label.skew.set(-0.1, 0)
+        this.descriptionBox = new PIXI.NineSlicePlane(PIXI.Texture.from('description-box'), 18, 18, 18, 18);
+        this.cardContainer.addChild(this.descriptionBox);
+        this.descriptionBox.width = width + 20
+        this.descriptionBox.height = 37
+        this.descriptionBox.visible = false;
+
+        this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('title-1'), 50, 0, 50, 0);
+        this.cardContainer.addChild(this.titleBox);
+        this.titleBox.width = width + 20
+        this.titleBox.height = 37
+        this.titleBox.x = -10
+        this.titleBox.y = 20
+
+
+
+        this.labelTitle = new PIXI.Text('', window.LABELS.LABEL1)
+        this.titleBox.addChild(this.labelTitle);
+        this.labelTitle.style.fill = 0
+        this.labelTitle.style.strokeThickness = 0
+        this.labelTitle.style.wordWrap = true
+        this.labelTitle.style.wordWrapWidth = width
+        this.labelTitle.style.fontSize = 10
+        this.labelTitle.anchor.set(0.5)
+        this.labelTitle.y = 25/2
 
         this.offset = { x: 0, y: 0 }
 
@@ -101,7 +122,7 @@ export default class CardView extends PIXI.Container {
         this.confirmCard = new BaseButton('square_0001s', 100, 50);
         this.addChild(this.confirmCard)
         this.confirmCard.pivot.x = this.confirmCard.safeShape.width
-        UIUtils.addLabel(this.confirmCard, "Confirm", {strokeThickness:0, fontSize:18, fill:0})
+        UIUtils.addLabel(this.confirmCard, "Confirm", { strokeThickness: 0, fontSize: 18, fill: 0 })
         InteractableView.addMouseClick(this.confirmCard, () => { this.onCardConfirmed.dispatch(this) })
 
 
@@ -109,6 +130,10 @@ export default class CardView extends PIXI.Container {
         //this.addChild(this.cancelCard)
 
         this.state = 0;
+
+       this.smallFontSize = 12
+       this.largeFontSize = 16
+
     }
     highlight() {
 
@@ -131,11 +156,28 @@ export default class CardView extends PIXI.Container {
             return;
         }
         this.cardData = cardData;
-        let cardID = Math.floor(Math.random() * this.textures.length)
-        this.cardBackground.texture = PIXI.Texture.from(this.textures[cardID]);
+        let cardID = 0
+        this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
         this.updateTexture(cardData.entityData.icon)
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 50))
-        this.label.text = cardData.entityData.name
+        this.labelTitle.text = cardData.entityData.name
+
+        if (this.cardData.entityData.description) {
+            this.setDescription(this.cardData.entityData.description);
+        }
+    }
+    setDescription(label) {
+        this.labelDescription = new PIXI.Text(label, window.LABELS.LABEL1)
+        this.descriptionBox.addChild(this.labelDescription);
+        this.labelDescription.style.fill = 0xffffff
+        this.labelDescription.style.strokeThickness = 1
+        this.labelDescription.style.wordWrap = true
+        this.labelDescription.style.fontSize = 12
+        this.labelDescription.anchor.set(0.5, 0)
+        this.labelDescription.x = 0
+        this.labelDescription.y = 20
+
+        this.descriptionBox.visible = true;
     }
     update(delta) {
         this.cardContainer.y = Utils.lerp(this.cardContainer.y, this.offset.y, 0.3);
@@ -147,32 +189,76 @@ export default class CardView extends PIXI.Container {
         }
 
         if (this.customWidth) {
-            this.cardBackground.width = Utils.lerp(this.cardBackground.width, this.customWidth, 0.2);
-            this.cardBackground.height = Utils.lerp(this.cardBackground.height, this.customHeight, 0.3);
-            this.cardBackground.x = -this.cardBackground.width / 2 + this.baseWidth / 2
+            this.cardBorder.width = Utils.lerp(this.cardBorder.width, this.customWidth, 0.2);
+            this.cardBorder.height = Utils.lerp(this.cardBorder.height, this.customHeight, 0.3);
+            this.cardBorder.x = -this.cardBorder.width / 2 + this.baseWidth / 2
 
         }
-        
-        if(this.state == 1){
 
-            this.cardImage.x = Utils.lerp(this.cardImage.x, -this.cardBackground.width/2 + this.baseWidth, 0.2);
-        }else{
+        if (this.state == 1) {
+            
+            this.cardImage.x = Utils.lerp(this.cardImage.x, this.cardBorder.x + this.cardImage.width / 2 + 20, 0.2);
+            this.cardImage.y = this.cardImage.height / 2 + 70
+            this.labelTitle.style.fontSize = this.largeFontSize
+        } else {
 
-            this.cardImage.x = Utils.lerp(this.cardImage.x, this.cardBackground.width / 2, 0.2);
+            this.cardImage.x = Utils.lerp(this.cardImage.x, this.cardBorder.width / 2, 0.2);
+            this.labelTitle.style.fontSize = this.smallFontSize
+            this.cardImage.y = this.cardBorder.height / 2
+
         }
 
-
         
-        this.safeShape.pivot.y = this.cardBackground.height
-        this.cardContainer.pivot.y = this.cardBackground.height
+        if (this.labelDescription) {
+            this.labelDescription.style.wordWrapWidth = this.customWidth - 130
+            
 
+           
+            this.descriptionBox.visible = this.state == 1
+            if (this.state == 1) {
+                this.labelDescription.alpha = Utils.lerp(this.labelDescription.alpha, 1, 0.2);
+                this.labelDescription.scale.x = Utils.lerp(this.labelDescription.scale.x, 1, 0.15);
+            } else {
+                this.labelDescription.alpha = 0;
+                this.labelDescription.scale.x = 0.1
+            }
+
+            this.descriptionBox.width = this.cardBorder.width - 100
+            this.descriptionBox.height = this.labelDescription.height + 40
+            this.descriptionBox.pivot.x = this.descriptionBox.width / 2
+            this.descriptionBox.x = this.cardBorder.x + this.cardBorder.width / 2 + 30
+            this.descriptionBox.y = 30
+            this.labelDescription.x = (this.cardBorder.width - 100)/2
+            
+        }
+        
+        this.safeShape.pivot.y = this.cardBorder.height
+        this.cardContainer.pivot.y = this.cardBorder.height
+        
         this.margin = 20
+        
+        this.cardBackground.x =  this.cardBorder.x
+        this.cardBackground.width =  this.cardBorder.width-10
+        this.cardBackground.height =  this.cardBorder.height-10
 
+        this.cardDescriptionBackground.width =  this.descriptionBox.width-10
+        this.cardDescriptionBackground.height =  this.descriptionBox.height-10
+        this.cardDescriptionBackground.x =  this.descriptionBox.x - this.descriptionBox.pivot.x + 5
+        this.cardDescriptionBackground.y =  this.descriptionBox.y+5
+        this.cardDescriptionBackground.visible = this.descriptionBox.visible;
+        
+        this.titleBox.width = this.cardBorder.width +22
+        this.titleBox.pivot.x = this.titleBox.width / 2
+        this.titleBox.x = this.cardBorder.x + this.cardBorder.width / 2
+        this.labelTitle.x = this.titleBox.width / 2
+        this.labelTitle.style.wordWrapWidth = this.cardBorder.width
+
+        
         this.cancelCard.visible = this.confirmCard.visible = this.state == 1;
-        this.cancelCard.x = -this.cardBackground.width / 2 + this.margin
+        this.cancelCard.x = -this.cardBorder.width / 2 + this.margin
         this.cancelCard.y = -this.cancelCard.height - this.margin
 
-        this.confirmCard.x = this.cardBackground.width / 2 - this.margin
+        this.confirmCard.x = this.cardBorder.width / 2 - this.margin
         this.confirmCard.y = -this.confirmCard.height - this.margin
     }
 }

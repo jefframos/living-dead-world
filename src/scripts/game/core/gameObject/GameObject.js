@@ -95,6 +95,14 @@ export default class GameObject extends BaseComponent {
         this.x = x
         this.z = z
     }
+    onRender(){
+        for (let i = this.components.length - 1; i >= 0; i--) {
+            const element = this.components[i];         
+            if (element.enabled) {
+                element.onRender();
+            }
+        }
+    }
     update(delta) {
         super.update(delta);
         for (let i = this.components.length - 1; i >= 0; i--) {

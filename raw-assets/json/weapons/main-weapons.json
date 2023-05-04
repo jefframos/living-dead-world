@@ -5,7 +5,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "multishot-gun-1",
-            "name": "Multishot"
+            "name": "Jolly Jaunter"
         },
         "isMain": true,
         "ingameViewData": "PLAYER_MULTISHOT",
@@ -49,7 +49,50 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1",
-            "name": "Lame Pistol"
+            "name": "Teeny-Tiny Terror"
+        },
+        "isMain": true,
+        "ingameViewData": "PISTOL_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 300,
+            "basePower": 25,
+            "baseBulletSpeed": 250,
+            "baseFrequency": 3,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentDirection",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 5,
+            "baseBrustFireInterval": 0.5,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0.2
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "BLUE_IMPACT",
+            "overrider": {
+                "baseViewData": "SPERM"
+            }
+        }
+    },
+    {
+        "id": "REVOLVER_01",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 1,
+            "icon": "pistol1",
+            "name": "Spinning Spree"
         },
         "isMain": true,
         "ingameViewData": "PISTOL_01",
@@ -92,7 +135,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "unicornLeg",
-            "name": "Sub-Machine Gun"
+            "name": "Fidgety Firehose"
         },
         "isMain": true,
         "ingameViewData": "SUB_MACHINE_GUN_01",
@@ -136,7 +179,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "shotgun-1",
-            "name": "Shotgun"
+            "name": "Boomstick"
         },
         "isMain": true,
         "ingameViewData": "SHOTGUN_01",
@@ -179,7 +222,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun",
-            "name": "Minigun"
+            "name": "Micro-Maniac"
         },
         "isMain": true,
         "ingameViewData": "MINIGUN_01",
@@ -223,7 +266,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hoaming-dude0001",
-            "name": "Hoaming"
+            "name": "Seeking Trinket"
         },
         "isMain": true,
         "ingameViewData": "HOAMING_DUDE",
@@ -266,7 +309,7 @@
             "type": "Weapon",
             "tier": 5,
             "icon": "laser-rainbow0001",
-            "name": "Laser"
+            "name": "Optic Obliterator"
         },
         "isMain": true,
         "ingameViewData": "LASER",
@@ -313,7 +356,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper2",
-            "name": "Sniper"
+            "name": "Scope-a-Dope"
         },
         "isMain": true,
         "ingameViewData": "SNIPER_01",
@@ -357,7 +400,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "vfx-c1",
-            "name": "Sinoid"
+            "name": "Worm Waster"
         },
         "isMain": true,
         "ingameViewData": "WORM_DUDE",
@@ -400,7 +443,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
-            "name": "Bomb"
+            "name": "Compact Catastrophe"
         },
         "isMain": true,
         "ingameViewData": "BOMB_THROWER",
@@ -441,7 +484,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
-            "name": "Bomb"
+            "name": "Itsy-Bitsy Bomb"
         },
         "isMain": false,
         "ingameViewData": "SMALL_BOMB",
@@ -474,6 +517,179 @@
             "spawnVfxPack": "IMPACT_BOMB",
             "overrider": {
                 "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "ORBIT",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "orbitGreen",
+            "name": "Orbit"
+        },
+        "isMain": true,
+        "ingameViewData": "ORBIT",
+        "weaponType": "Magical",
+        "customConstructor": "FloatingProjectile",
+        "overrider": "ORBIT_OVERRIDER",
+        "attributes": {
+            "baseRadius": 30,
+            "baseSpawnDistance": 10,
+            "baseLifeSpan": 4,
+            "baseLifeRangeSpan": -1,
+            "basePower": 50,
+            "baseBulletSpeed": 3.14,
+            "baseFrequency": 6,
+            "basePiercing": 9999,
+            "baseAmount": 3,
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 3,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "ORBIT"
+            }
+        }
+    },
+    {
+        "id": "MELEE_SWORD",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "dagger",
+            "name": "Dicing Dagger"
+        },
+        "isMain": true,
+        "ingameViewData": "MELEE_SWORD",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 20,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 60,
+            "basePower": 120,
+            "baseBulletSpeed": 150,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": [1,1],
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleStart": [0,0,1.57],
+            "baseAngleOffset": [0,0,3.14],
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
+        "id": "ICE_SHARD_THROWER",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "disk",
+            "name": "Disk"
+        },
+        "isMain": true,
+        "ingameViewData": "ICE_SHARD_THROWER",
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "ICE_SHARD_ROTATOR",
+        "onDestroyId": "ICE_SHARD_ROTATOR",
+        "attributes": {
+            "baseRadius": 20,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": -1,
+            "basePower": 150,
+            "baseBulletSpeed": 50,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "FacingBackwards",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.3,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "DISC_TRHOWER"
+            }
+        }
+    },
+    {
+        "id": "BOOMERANG_AXE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 3,
+            "icon": "rotateRed",
+            "name": "Bouncing Basher"
+        },
+        "isMain": true,
+        "ingameViewData": "BOOMERANG_AXE",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 10,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 250,
+            "basePower": 30,
+            "baseBulletSpeed": 120,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDamageOverTime": 0.5,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseExtendedBehaviour": "Boomerang",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0.1,
+            "baseAngleNoise": 0.2
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "AXE_BOOMERANG"
             }
         }
     },
@@ -954,137 +1170,6 @@
         }
     },
     {
-        "id": "BOOMERANG_AXE",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 3,
-            "icon": "rotateRed",
-            "name": "Boomerang"
-        },
-        "isMain": true,
-        "ingameViewData": "BOOMERANG_AXE",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 10,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 250,
-            "basePower": 30,
-            "baseBulletSpeed": 120,
-            "baseFrequency": 2,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDamageOverTime": 0.5,
-            "baseDirectionType": "ClosestEnemy",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseExtendedBehaviour": "Boomerang",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.1,
-            "baseAngleNoise": 0.2
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
-            "overrider": {
-                "baseViewData": "AXE_BOOMERANG"
-            }
-        }
-    },
-    {
-        "id": "MELEE_SWORD",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "dagger",
-            "name": "Melee"
-        },
-        "isMain": true,
-        "ingameViewData": "MELEE_SWORD",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 20,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 60,
-            "basePower": 120,
-            "baseBulletSpeed": 150,
-            "baseFrequency": 2,
-            "basePiercing": 9999,
-            "baseAmount": [1,1],
-            "baseDirectionType": "FacingPlayer",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleStart": [0,0,1.57],
-            "baseAngleOffset": [0,0,3.14],
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "standardVfxPack": "SWORD_MELEE_PACK_01",
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
-        }
-    },
-    {
-        "id": "ICE_SHARD_THROWER",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "disk",
-            "name": "Disk"
-        },
-        "isMain": true,
-        "ingameViewData": "ICE_SHARD_THROWER",
-        "weaponType": "Magical",
-        "customConstructor": "BaseWeapon",
-        "overrider": "ICE_SHARD_ROTATOR",
-        "onDestroyId": "ICE_SHARD_ROTATOR",
-        "attributes": {
-            "baseRadius": 20,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": 3,
-            "baseLifeRangeSpan": -1,
-            "basePower": 150,
-            "baseBulletSpeed": 50,
-            "baseFrequency": 2,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDirectionType": "FacingBackwards",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.3,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "overrider": {
-                "baseViewData": "DISC_TRHOWER"
-            }
-        }
-    },
-    {
         "id": "ICE_SHARD_ROTATOR",
         "entityData": {
             "type": "Weapon",
@@ -1121,48 +1206,6 @@
             "rotationSpeed": 0,
             "overrider": {
                 "baseViewData": "DISC_TRHOWER"
-            }
-        }
-    },
-    {
-        "id": "ORBIT",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 3,
-            "icon": "orbitGreen",
-            "name": "Orbit"
-        },
-        "isMain": true,
-        "ingameViewData": "ORBIT",
-        "weaponType": "Magical",
-        "customConstructor": "FloatingProjectile",
-        "overrider": "ORBIT_OVERRIDER",
-        "attributes": {
-            "baseRadius": 30,
-            "baseSpawnDistance": 10,
-            "baseLifeSpan": 4,
-            "baseLifeRangeSpan": -1,
-            "basePower": 50,
-            "baseBulletSpeed": 3.14,
-            "baseFrequency": 6,
-            "basePiercing": 9999,
-            "baseAmount": 3,
-            "baseDirectionType": "FacingPlayer",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 3,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "overrider": {
-                "baseViewData": "ORBIT"
             }
         }
     },

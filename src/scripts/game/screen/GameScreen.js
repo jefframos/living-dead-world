@@ -3,6 +3,7 @@ import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
 import Bullet from '../components/weapon/bullets/Bullet';
+import CameraFog2D from '../components/CameraFog2D';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import EffectsManager from '../manager/EffectsManager';
 import EnvironmentManager from '../manager/EnvironmentManager';
@@ -72,6 +73,7 @@ export default class GameScreen extends Screen {
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.camera.addComponent(CameraOcclusion2D);
+        this.camera.addComponent(CameraFog2D);
         this.camera.setFollowPoint(new Vector3())
 
         this.levelManager = new LevelManager(this.gameEngine);

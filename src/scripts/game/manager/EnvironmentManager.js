@@ -3,6 +3,7 @@ import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import LevelManager from "./LevelManager";
 import Player from "../entity/Player";
+import PlayerHalo from "./PlayerHalo";
 import RenderModule from "../core/modules/RenderModule";
 import StaticPhysicObject from "../entity/StaticPhysicObject";
 import StaticViewObject from "../entity/StaticViewObject";

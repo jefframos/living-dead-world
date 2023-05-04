@@ -49,7 +49,8 @@ export default class SurvivorDeckController extends GameObject {
 
         this.highlightedCard = null;
 
-        this.cardWidth = 100
+        this.cardWidth = 130
+        this.cardHeight = 200
         this.cardDistance = 90
         this.cardContainerMaxWidth = 350
 
@@ -82,7 +83,7 @@ export default class SurvivorDeckController extends GameObject {
         this.holdingData = null;
         //this.gridView.slotOver = null;
         this.handCards = [];
-        for (let i = 0; i < 7; i++) {
+        for (let i = 0; i < 4; i++) {
             let dt = null
             switch (data[i].entityData.type) {
                 case EntityData.EntityDataType.Weapon:
@@ -109,7 +110,7 @@ export default class SurvivorDeckController extends GameObject {
 
 
 
-            let cardView = new CardView('square_0006', this.cardWidth);
+            let cardView = new CardView('square_0006', this.cardWidth, this.cardHeight);
             this.cardsContainer.addChild(cardView);
             cardView.id = i;
             cardView.zIndex = i;
@@ -201,9 +202,9 @@ export default class SurvivorDeckController extends GameObject {
                 let rot = (rotChunk * index) - (arc / 2) + rotChunk / 2
                 element.rotation = Utils.angleLerp(element.rotation, rot, 0.5)
 
-                let extraH = 100;
+                let extraH = 150;
                 if (this.state == 1) {
-                    extraH = 200;
+                    extraH = 250;
                 }
 
                 element.y = Utils.lerp(element.y, Math.cos(rot) * -this.cardContainerMaxWidth + this.cardContainerMaxWidth + extraH, 0.25)

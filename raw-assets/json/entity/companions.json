@@ -2,8 +2,8 @@
     {
         "id": "FLY_DRONE",
         "entityData": {
-            "name": "Light",
-            "description": "Green, greedy, groovy",
+            "name": "Spark Slinger",
+            "description": "A flying drone that zips around the battlefield and electrifies enemies below with its powerful shocks. With lightning-fast reflexes and pinpoint accuracy, this little bot is a force to be reckoned with.",
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
@@ -34,8 +34,8 @@
     {
         "id": "LAND_DRONE",
         "entityData": {
-            "name": "Land Granade",
-            "description": "Green, greedy, groovy",
+            "name": "Bomb Buddy",
+            "description": "A compact robot with a big arsenal, this little guy packs a punch with his grenade-throwing abilities. Whether you need to clear a path or take out a group of enemies, the Bomb Buddy has you covered. Just be sure to give him plenty of space when he starts tossing those explosives around!",
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
@@ -66,8 +66,8 @@
     {
         "id": "SNIPER_DRONE",
         "entityData": {
-            "name": "Sniper",
-            "description": "Green, greedy, groovy",
+            "name": "Dead-Eye Drone",
+            "description": "A sleek drone that excels at long-range combat, taking out enemies from afar with deadly accuracy. Equipped with powerful sniper rifles and advanced targeting systems, the Dead-Eye Drone is the perfect companion for any marksman.",
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
@@ -98,8 +98,8 @@
     {
         "id": "LAND_MINE_DRONE",
         "entityData": {
-            "name": "Land Mine",
-            "description": "Green, greedy, groovy",
+            "name": "Boom-Box Bot",
+            "description": "A heavy-duty robot that scours the battlefield for enemy targets, dropping landmines along its path to create a deadly obstacle course. With its rugged exterior and explosive arsenal, the Boom-Box Bot is a force to be reckoned with.",
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
@@ -130,8 +130,8 @@
     {
         "id": "LASER_DRONE",
         "entityData": {
-            "name": "Laser",
-            "description": "Green, greedy, groovy",
+            "name": "Laser Llama",
+            "description": "A nimble robot that zips around the battlefield, unleashing a devastating barrage of laser fire on any enemy foolish enough to cross its path. With lightning-fast reflexes and precision targeting, the Laser Llama is the perfect companion for any high-tech commando.",
             "ranking": 1,
             "tier": 2,
             "type": "Companion",

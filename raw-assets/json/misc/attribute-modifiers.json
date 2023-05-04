@@ -3,7 +3,8 @@
         "id": "ATTACK_UP_MODIFIER",
         "entityData": {
             "icon": "attack-icon",
-            "name": "Attack",
+            "name": "Punchy Pickle",
+            "description": "This jar of pickles may look harmless, but consuming one of these sour treats can give you a serious boost in attack power. With each crunchy bite, you'll feel a surge of strength and energy coursing through your veins, allowing you to deliver devastating blows to your enemies.",
             "type": "Attribute",
             "tier": 1
         },
@@ -14,7 +15,8 @@
         "id": "SPEED_UP_MODIFIER",
         "entityData": {
             "icon": "speed-icon",
-            "name": "Speed",
+            "name": "Sonic Sneakers",
+            "description": "These high-tech sneakers may look like an ordinary pair of shoes, but they're anything but. When worn, they boost your speed to superhuman levels, allowing you to move with lightning-fast reflexes and outrun even the swiftest opponents.",
             "type": "Attribute",
             "tier": 1
         },
@@ -25,7 +27,8 @@
         "id": "DEFENSE_UP_MODIFIER",
         "entityData": {
             "icon": "defense-icon",
-            "name": "Defense",
+            "name": "Shielding Shampoo",
+            "description": "This potent shampoo may not make your hair look any better, but it will certainly make you more durable in battle. Infused with powerful protective agents, this shampoo strengthens your skin and armor, making you almost impervious to damage.",
             "type": "Attribute",
             "tier": 1
         },
@@ -36,7 +39,8 @@
         "id": "HP_UP_MODIFIER",
         "entityData": {
             "icon": "health-icon",
-            "name": "HP",
+            "name": "Mighty Popsicle",
+            "description": "This icy treat is more than just a refreshing snack - it is a powerful elixir that can restore your health and give you renewed vigor in battle. Packed with vitamins, minerals, and magical healing properties, the Mighty Popsicle is the perfect remedy for any weary adventurer.",
             "type": "Attribute",
             "tier": 1
         },
@@ -47,7 +51,8 @@
         "id": "FREQUENCY_MODIFIER",
         "entityData": {
             "icon": "freq-icon",
-            "name": "Bullet Freq.",
+            "name": "Fast Flinger Flask",
+            "description": "This flask of mysterious liquid is a favorite among sharpshooters and gun enthusiasts. When consumed, it boosts your firing speed to lightning-fast levels, allowing you to unload your weapons with incredible speed and precision.",
             "type": "Attribute",
             "tier": 1
         },
@@ -59,6 +64,7 @@
         "entityData": {
             "icon": "radius-modifier",
             "name": "Bullet Radius",
+            "description": "This heavy-duty belt is loaded with extra ammo. With the Blaster Belt, you'll never have to worry about running out of ammunition again. Or do you?",
             "type": "Attribute",
             "tier": 1
         },
@@ -69,7 +75,8 @@
         "id": "AMOUNT_MODIFIER",
         "entityData": {
             "icon": "amount-icon",
-            "name": "Bullet Amount",
+            "name": "Blaster Belt",
+            "description": "-",
             "type": "Attribute",
             "tier": 1
         },
@@ -80,7 +87,8 @@
         "id": "PIERCE_MODIFIER",
         "entityData": {
             "icon": "piercing-icon",
-            "name": "Piercing Bullets",
+            "name": "Nitro Needle",
+            "description": "This specialized attachment for your weapons allows your bullets to pierce through multiple enemies at once, making short work of even the most heavily armored foes.",
             "type": "Attribute",
             "tier": 1
         },
@@ -91,7 +99,8 @@
         "id": "COLLECTION_MODIFIER",
         "entityData": {
             "icon": "magnet-icon",
-            "name": "Magnet",
+            "name": "Loot Lasso",
+            "description": "This handy gadget extends your reach and increases your item collection radius, allowing you to scoop up loot from a much greater distance. With the Loot Lasso equipped, you'll never have to worry about missing out on valuable treasure and resources again.",
             "type": "Attribute",
             "tier": 1
         },

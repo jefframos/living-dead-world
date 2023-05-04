@@ -14,6 +14,7 @@ import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
+import PlayerHalo from "../manager/PlayerHalo";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import Shaders from "../shader/Shaders";
@@ -139,6 +140,7 @@ export default class Player extends GameAgent {
 
         this.anchorOffset = 0;
         this.cleanStats();
+        this.addChild(this.engine.poolGameObject(PlayerHalo))
 
 
     }
