@@ -7,6 +7,7 @@ import Layer from "../../../core/Layer";
 import PhysicsEntity from "../../../core/physics/PhysicsEntity";
 import PhysicsModule from "../../../core/modules/PhysicsModule";
 import Player from "../../../entity/Player";
+import PlayerHalo from "../../../entity/PlayerHalo";
 import RenderModule from "../../../core/modules/RenderModule";
 import Shadow from "../../view/Shadow";
 import SpriteSheetAnimation from "../../utils/SpriteSheetAnimation";
@@ -127,6 +128,12 @@ export default class Bullet extends PhysicsEntity {
             this.shadow.transform.position.z = this.transform.position.z
             this.addChild(this.shadow)
         }
+
+
+        // let light = this.engine.poolGameObject(PlayerHalo)
+        // light.setRadius(100)
+        // light.setColor(null, 0.1)
+        // this.addChild(light)
     }
 
     setBulletAnimation() {

@@ -4,6 +4,7 @@ import BaseComponent from "./BaseComponent";
 import Pool from '../utils/Pool';
 import TagManager from '../TagManager';
 import Transform from "./Transform";
+import Vector3 from './Vector3';
 
 export default class GameObject extends BaseComponent {
     static ObjectCounter = 0;
@@ -17,12 +18,15 @@ export default class GameObject extends BaseComponent {
         this.children = []
         this.components = [];
         this.enabled = true;
-        this.parent = null;
+        this.parent = null
+        
         this.gameObjectDestroyed = new signals.Signal();
         this.childAdded = new signals.Signal();
         this.childRemoved = new signals.Signal();
         this.rigidbodyAdded = new signals.Signal();
         this.isDestroyed = false;
+        this.viewOffset = new Vector3()
+
     }
     start() {
         this.isDestroyed = false;

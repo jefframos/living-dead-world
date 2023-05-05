@@ -12,6 +12,7 @@ export default class EntityMultipliers {
         this.basePiercing = 0;
         this.baseAmount = 0;
         this.baseCollectionRadius = 1;
+        this.baseDistance = 1;
         this.level = 0;
         this.writeDefaults();
     }
@@ -53,6 +54,9 @@ export default class EntityMultipliers {
             return attribute[level]
         }
         return attribute
+    }
+    get distance() {
+        return this.findAttributeValue('baseDistance');
     }
     get collectionRadius() {
         return this.findAttributeValue('baseCollectionRadius');

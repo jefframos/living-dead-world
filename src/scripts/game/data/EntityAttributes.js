@@ -1,23 +1,5 @@
-//thunder:
-//bullets: every x seconds connect all bullets and hits enemies on the way
-//player: increase speed and bullet speed
-
 import EntityMultipliers from "./EntityMultipliers";
 
-//fire 
-//bullets: explodes every bullet after hit or remove
-//player: increase defense and drop damage zone every x seconds
-
-//leaf
-//bullet: lower damage but absorve HP
-//player: increase the speed, bullet distance and make player invencible for few time after every hit
-
-//water
-//player: every bullet drops a puddle that slow enemies on that area
-
-//ice 
-//bullet: ray cast back to the player and damages enemyes on the way
-//player: slow player but adds ice protective shield
 export default class EntityAttributes {
     constructor(overrideDetaultValue) {
         this.baseHealth = 100;
@@ -29,6 +11,7 @@ export default class EntityAttributes {
         this.baseMass = 1;
         this.baseRadius = 10;
         this.damageZone = 10;
+        this.baseDistance = 0;
         this.baseCollectionRadius = 50;
         this.level = 0;
 
@@ -85,6 +68,9 @@ export default class EntityAttributes {
             return attribute[level]
         }
         return attribute
+    }
+    get distance() {
+        return this.findAttributeValue('baseDistance') * this.multipliers.distance;
     }
     get health() {
         return this.findAttributeValue('baseHealth') * this.multipliers.health;

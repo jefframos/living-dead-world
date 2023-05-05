@@ -13,6 +13,7 @@ export default class RenderModule extends GameObject {
         Building: 'building',
         BackLayer: '_u_back',
         Gameplay: '_u_gameplay',
+        Light: '_u_light',
         FrontLayer: '_u_front',
         Particles: 'particles'
     }
@@ -70,7 +71,7 @@ export default class RenderModule extends GameObject {
         this.lateAdded = []
         this.layers[RenderModule.RenderLayers.Shadow].container.tint = 0
         this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.1
-    }
+    }    
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
         //this.physics.entityAdded.add(this.newEntityAdded.bind(this))

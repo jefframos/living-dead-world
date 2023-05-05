@@ -14,7 +14,7 @@ import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
-import PlayerHalo from "../manager/PlayerHalo";
+import PlayerHalo from "./PlayerHalo";
 import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import Shaders from "../shader/Shaders";
@@ -69,6 +69,8 @@ export default class Player extends GameAgent {
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
         this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
+
+        this.sessionStarted();
     }
     makeAnimations(data) {
         this.playerView = this.addComponent(PlayerGameViewSpriteSheet);
@@ -140,12 +142,19 @@ export default class Player extends GameAgent {
 
         this.anchorOffset = 0;
         this.cleanStats();
-        this.addChild(this.engine.poolGameObject(PlayerHalo))
+
+        let halo = this.engine.poolGameObject(PlayerHalo);
+        halo.setRadius(100)
+        halo.setColor(0xFFFFFF, 0.3)
+        this.addChild(halo)
 
 
     }
     afterBuild() {
         super.afterBuild()
+    }
+    sessionStarted(){
+        this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
     }
     addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)
@@ -162,6 +171,8 @@ export default class Player extends GameAgent {
     rebuildWeaponGrid(equipmentGrid) {
         this.clearWeapon();
         this.cleanStats();
+
+        console.log(equipmentGrid)
         for (let i = 0; i < equipmentGrid.length; i++) {
             const element = equipmentGrid[i];
             if (!element || !element.item) continue;

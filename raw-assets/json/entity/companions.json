@@ -1,5 +1,34 @@
 [
     {
+        "id": "LIGHT_DRONE",
+        "entityData": {
+            "name": "Spark Slinger",
+            "description": "A flying drone that zips around the battlefield and electrifies enemies below with its powerful shocks. With lightning-fast reflexes and pinpoint accuracy, this little bot is a force to be reckoned with.",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "icon": "fly-drone_icon"
+        },
+        "attributes": {
+            "basePower": 10,
+            "baseHealth": 80,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 40,
+            "baseDistance": 50
+        },
+        "view": {
+            "jumpHight": 50,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "FLY_DRONE_IDLE",
+            "run": "FLY_DRONE_IDLE"
+        }
+    },
+    {
         "id": "FLY_DRONE",
         "entityData": {
             "name": "Spark Slinger",
@@ -7,7 +36,6 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "title": "Jhonatan Goblin",
             "icon": "fly-drone_icon"
         },
         "weapon": {
@@ -20,7 +48,8 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 90
+            "baseSpeed": 90,
+            "baseDistance": 150
         },
         "view": {
             "jumpHight": 50,
@@ -39,7 +68,6 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "title": "Jhonatan Goblin",
             "icon": "land-drone_icon"
         },
         "weapon": {
@@ -52,7 +80,8 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 50
+            "baseSpeed": 50,
+            "baseDistance": 150
         },
         "view": {
             "jumpHight": 1,
@@ -71,7 +100,6 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "title": "Jhonatan Goblin",
             "icon": "Walk_scan_0"
         },
         "weapon": {
@@ -84,7 +112,8 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 70
+            "baseSpeed": 70,
+            "baseDistance": 150
         },
         "view": {
             "jumpHight": 10,
@@ -103,7 +132,6 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "title": "Jhonatan Goblin",
             "icon": "land_drone_3__1"
         },
         "weapon": {
@@ -116,7 +144,8 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 50
+            "baseSpeed": 50,
+            "baseDistance": 150
         },
         "view": {
             "jumpHight": 1,
@@ -135,7 +164,6 @@
             "ranking": 1,
             "tier": 2,
             "type": "Companion",
-            "title": "Jhonatan Goblin",
             "icon": "laser_fly_drone__2"
         },
         "weapon": {
@@ -148,7 +176,8 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 50
+            "baseSpeed": 50,
+            "baseDistance": 150
         },
         "view": {
             "jumpHight": 1,

@@ -10,7 +10,6 @@ export default class PhysicsEntity extends GameObject {
         super();
         this.rigidBody = null;
         this.type = null;
-        this.viewOffset = new Vector3()
         this.autoSetAngle = true;
         this.appliedForce = new Vector3()
         this.friction = 0.1;

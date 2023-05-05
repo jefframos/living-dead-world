@@ -34,6 +34,9 @@ export default class PlayerInventoryHud extends GameObject {
         this.baseBarView = new LevelUpBar()
         this.gameView.view.addChild(this.baseBarView)
         this.playerHud = new PlayerGameplayHud();
+        this.playerHud.onOpenMenu.add(()=>{
+            this.player.die()
+        })
         this.gameView.view.addChild(this.playerHud)
         this.baseBarView.build(0)
         this.baseBarView.forceUpdateNormal(0);

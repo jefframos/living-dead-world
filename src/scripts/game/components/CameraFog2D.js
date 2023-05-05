@@ -1,5 +1,6 @@
 import BaseComponent from '../core/gameObject/BaseComponent';
 import Color from '../core/utils/Color';
+import LightSource from '../core/view/LightSource';
 import Player from '../entity/Player';
 import RenderModule from '../core/modules/RenderModule';
 import TagManager from '../core/TagManager';
@@ -14,8 +15,12 @@ export default class CameraFog2D extends BaseComponent {
         this.baseColor = Color.toRGB(0xFFFFFF)
         this.targetColor = Color.toRGB(0x2C3B66)
 
-        this.minDistance = 250
-        this.maxDistance = 400
+        this.lightSourceList = [];
+
+        this.minDistance = 200
+        this.maxDistance = 300
+
+        this.debug = 0;
     }
     enable() {
         super.enable();
@@ -31,25 +36,47 @@ export default class CameraFog2D extends BaseComponent {
     }
     entityLateAdded(entityList) {
         entityList.forEach(entity => {
-            if(entity.gameView.layer == RenderModule.RenderLayers.Gameplay){
+            if (entity.gameView instanceof LightSource) {
+                this.lightSourceList.push(entity)
+                entity.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
+            } else if (entity.gameView.layer == RenderModule.RenderLayers.Gameplay) {
                 this.calcEntityFog(entity.gameView);
             }
         });
+    }
+    elementDestroyed(entity) {
+        this.lightSourceList = this.lightSourceList.filter(item => item !== entity)
     }
     entityAdded(entity) {
 
     }
     lateUpdate(delta) {
-        //only uses player layer to test occlusion
         if (!this.player) return;
         this.renderModule.layers[this.player.gameView.layer].gameViews.forEach(element => {
+           // this.debug = 9
             this.calcEntityFog(element)
         });
     }
     calcEntityFog(entity) {
-        const dist = Vector3.distance(this.player.transform.position, entity.gameObject.transform.position)
-        if (dist > this.minDistance) {
-            Color.colorLerp(entity.auxColorRGB, this.baseColor, this.targetColor, Math.min((dist - this.minDistance) / (this.maxDistance - this.minDistance), 1))
+
+        let range = 1;
+        this.lightSourceList.forEach(lightSource => {
+            
+            const dist = Vector3.distance(lightSource.gameObject.transform.position, entity.gameObject.transform.position)
+            let tempRange = 1;
+
+            if(dist < lightSource.gameView.minDistance){
+                tempRange = 0;
+            }else{
+                tempRange = Math.min((dist - lightSource.gameView.minDistance) / (lightSource.gameView.maxDistance - lightSource.gameView.minDistance),1)
+            }
+            if(tempRange < range) {
+                range = tempRange;
+            }            
+            
+        });
+        if (range > 0) {
+            Color.colorLerp(entity.auxColorRGB, this.baseColor, this.targetColor, range, 1)
             entity.auxColor = Color.rgbToColor(entity.auxColorRGB)
             entity.view.tint = entity.auxColor
         } else {

@@ -5,6 +5,7 @@ import GameObject from '../core/gameObject/GameObject';
 import GameStaticData from '../data/GameStaticData';
 import GameView from '../core/view/GameView';
 import ParticleDescriptor from './particleSystem/ParticleDescriptor';
+import PlayerHalo from '../entity/PlayerHalo';
 import RenderModule from '../core/modules/RenderModule';
 import SpriteSheetAnimation from './utils/SpriteSheetAnimation';
 import Utils from '../core/utils/Utils';
@@ -75,6 +76,11 @@ export default class StatsModifier extends GameObject {
                 if (!this.statModifierData.vfxSpawnOnAction) {
                     this.spawnVfx();
                 }
+
+                let light = this.engine.poolGameObject(PlayerHalo)
+                light.setRadius(100)
+                light.setColor(null, 0.1)
+                this.addChild(light)
             }
 
         } else {

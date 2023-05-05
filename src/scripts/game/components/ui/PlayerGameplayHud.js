@@ -1,12 +1,14 @@
 import * as PIXI from 'pixi.js';
 
 import CircleCounter from '../../ui/hudElements/CircleCounter';
+import InteractableView from '../../view/card/InteractableView';
 import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
 import Pool from '../../core/utils/Pool';
 import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../core/utils/UIUtils';
 import Utils from '../../core/utils/Utils';
+import signals from 'signals';
 import utils from '../../../utils';
 
 export default class PlayerGameplayHud extends PIXI.Container {
@@ -16,6 +18,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.container = new PIXI.Container();
         this.addChild(this.container);
 
+        this.onOpenMenu = new signals.Signal();
 
         this.lifeContainer = new PIXI.Sprite.from('player-life-container')
         this.container.addChild(this.lifeContainer);
@@ -56,6 +59,10 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')
         this.container.addChild(this.playerFaceContainer);
+
+        InteractableView.addMouseDown(this.playerFaceContainer, ()=>{
+            this.onOpenMenu.dispatch();
+        })
 
         this.goo = new PIXI.Sprite.from('goo')
         this.container.addChild(this.goo);

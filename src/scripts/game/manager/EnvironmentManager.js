@@ -3,7 +3,6 @@ import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import LevelManager from "./LevelManager";
 import Player from "../entity/Player";
-import PlayerHalo from "./PlayerHalo";
 import RenderModule from "../core/modules/RenderModule";
 import StaticPhysicObject from "../entity/StaticPhysicObject";
 import StaticViewObject from "../entity/StaticViewObject";
@@ -28,10 +27,11 @@ export default class EnvironmentManager extends GameObject {
         this.patches = {
             deco: { constructor: StaticViewObject, spriteName: 'deco00', total: 5, weight: -0.4, noise: 300, density: 3, compare: EnvironmentManager.Compare.Less },
             grass: { constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
+            grass2: { constructor: StaticViewObject,  list: [ 'grass-grass'],  weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
             plants: { constructor: StaticViewObject, spriteName: 'plants00', total: 10, weight: 0.6, noise: 100, density: 15, compare: EnvironmentManager.Compare.More },
             rocks: { constructor: StaticViewObject, spriteName: 'rocks00', total: 6, weight: [-0.5, 0.5], noise: 300, density: 10, compare: EnvironmentManager.Compare.Nor },
             trunks: { constructor: StaticViewObject, spriteName: 'trunks00', total: 2, weight: [0.5, 0.6], noise: 50, density: 8, compare: EnvironmentManager.Compare.Between },
-            trees: { constructor: Trees, list: ['tree-1', 'tree-2','pine-1', 'pine-2'], weight: 0.6, noise: 150, density: 12, width: 50, height: 50, compare: EnvironmentManager.Compare.More },
+            trees: { constructor: Trees, list: ['tree-1', 'tree-2', 'pine-1', 'pine-2'], weight: 0.6, noise: 150, density: 12, width: 50, height: 50, compare: EnvironmentManager.Compare.More },
         }
 
         for (const key in this.patches) {
@@ -52,22 +52,21 @@ export default class EnvironmentManager extends GameObject {
 
         this.drawBounds = { width: 1000, height: 800 };
     }
-    destroy(){
+    destroy() {
         super.destroy();
-        }
+    }
     start() {
         this.levelManager = LevelManager.instance;
         this.player = this.engine.findByType(Player);
 
 
-        
         if (!this.player) {
             this.engine.callbackWhenAdding(Player, (player) => {
                 this.player = player[0];
 
                 this.addWorldElements();
             });
-        }else{
+        } else {
             this.addWorldElements();
 
         }
@@ -88,7 +87,8 @@ export default class EnvironmentManager extends GameObject {
 
         this.drawLayer(this.patches.trees)
         this.drawLayer(this.patches.deco)
-        this.drawLayer(this.patches.grass)
+        // this.drawLayer(this.patches.grass)
+         this.drawLayer(this.patches.grass2)
         this.drawLayer(this.patches.plants)
         this.drawLayer(this.patches.trunks)
         this.drawLayer(this.patches.rocks)
@@ -112,10 +112,10 @@ export default class EnvironmentManager extends GameObject {
                     case EnvironmentManager.Compare.Less:
                         compare = v < layer.weight
                         break
-                        case EnvironmentManager.Compare.Between:
+                    case EnvironmentManager.Compare.Between:
                         compare = v > layer.weight[0] && v < layer.weight[1]
                         break
-                        case EnvironmentManager.Compare.Nor:
+                    case EnvironmentManager.Compare.Nor:
                         compare = v < layer.weight[0] || v > layer.weight[1]
 
                         break
@@ -124,7 +124,7 @@ export default class EnvironmentManager extends GameObject {
                     const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list }
                     data.width = layer.width;
                     data.height = layer.height;
-                    
+
                     this.addChild(this.levelManager.addEntity(layer.constructor, data))
                 }
             }

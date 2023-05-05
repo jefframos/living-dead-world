@@ -20,7 +20,7 @@ export default class BasicFloorRender extends GameObject {
         this.gameView.view.width = this.tileSize * 10
         this.gameView.view.height = this.tileSize * 10
         this.gameView.view.alpha = 1//0//.3
-        this.gameView.view.tint = 0x555555//0//.3
+        this.gameView.view.tint = 0x666666//0//.3
 
         this.gameView.layer = RenderModule.RenderLayers.Base;
         this.playerTileID = { i: 0, j: 0 }
