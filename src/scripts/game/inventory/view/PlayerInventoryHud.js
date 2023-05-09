@@ -196,4 +196,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.playerHud.scale.set(Math.max(0.85, min));
 
     }
+    resize(res, newRes){
+        this.playerHud.resize(res, newRes);
+    }
 }

@@ -18277,7 +18277,6 @@ var Player = function (_GameAgent) {
     }, {
         key: "build",
         value: function build(playerData) {
-            console.log(playerData);
             if (!playerData) {
                 playerData = _GameStaticData2.default.instance.getEntityByIndex('player', Math.floor(Math.random() * 7));
             }
@@ -18599,8 +18598,8 @@ var Player = function (_GameAgent) {
             this.currentSessionData = value;
             this.currentSessionData.equipmentUpdated.removeAll();
             this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this));
-            this.currentSessionData.addEquipmentNEW(_EntityBuilder2.default.instance.weaponsData[this.staticData.weapon.id]);
-
+            //this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
+            this.currentSessionData.setMainWeapon(_EntityBuilder2.default.instance.weaponsData[this.staticData.weapon.id]);
             this.sessionStarted();
         }
     }]);
@@ -28725,6 +28724,10 @@ var _Vector = __webpack_require__(13);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var LevelManager = function () {
@@ -28754,16 +28757,31 @@ var LevelManager = function () {
         this.enemyGlobalSpawner = new _EnemyGlobalSpawner2.default(this);
         this.gameplayTime = 0;
 
+        this.onPlayerDie = new _signals2.default.Signal();
+
         this.currentPhase = 0;
         this.init = false;
     }
 
     (0, _createClass3.default)(LevelManager, [{
-        key: "start",
-        value: function start(player) {
+        key: "setup",
+        value: function setup() {
             var _this = this;
 
-            this.player = player;
+            if (this.player && !this.player.isDead) {
+                this.player.destroy();
+            }
+            window.customChar = 1;
+            this.player = this.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)));
+            this.player.onDie.addOnce(function () {
+                _this.onPlayerDie.dispatch();
+            });
+            return this.player;
+        }
+    }, {
+        key: "start",
+        value: function start() {
+            var _this2 = this;
 
             this.player.enabled = false;
 
@@ -28771,7 +28789,7 @@ var LevelManager = function () {
 
             this.levelStructure = { phases: [] };
             this.currentLevelWaves.forEach(function (element) {
-                _this.levelStructure.phases.push(_Pool2.default.instance.getElement(_SessionSpawner2.default).build(element.startAt || 0, element.duration, element.waves));
+                _this2.levelStructure.phases.push(_Pool2.default.instance.getElement(_SessionSpawner2.default).build(element.startAt || 0, element.duration, element.waves));
             });
 
             this.gameSessionController = this.gameEngine.poolGameObject(_GameplaySessionController2.default, true);
@@ -28983,7 +29001,7 @@ var LevelManager = function () {
     }, {
         key: "updateLevelPhase",
         value: function updateLevelPhase(phase) {
-            var _this2 = this;
+            var _this3 = this;
 
             if (window.noEnemy || !phase) return;
             phase.spawnData.forEach(function (spawnerData) {
@@ -28993,17 +29011,17 @@ var LevelManager = function () {
                         var count = 0;
 
                         spawnerData.entity.forEach(function (element) {
-                            if (_this2.entitiesByType[element]) {
-                                count += _this2.entitiesByType[element].length;
+                            if (_this3.entitiesByType[element]) {
+                                count += _this3.entitiesByType[element].length;
                             }
                         });
                         if (count < spawnerData.maxActive) {
-                            _this2.spawnEnemy(spawnerData);
+                            _this3.spawnEnemy(spawnerData);
                         }
                     } else {
 
-                        if (!_this2.entitiesByType[spawnerData.entityId] || _this2.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
-                            _this2.spawnEnemy(spawnerData);
+                        if (!_this3.entitiesByType[spawnerData.entityId] || _this3.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
+                            _this3.spawnEnemy(spawnerData);
                         }
                     }
                 }
@@ -65802,6 +65820,7 @@ var PlayerSessionData = function () {
             this.bulletSpeedMultiplier = 1;
             this.bulletFrenquencyMultiplier = 1;
             this.attributesMultiplier.reset();
+            this.mainWeapon = null;
 
             this.equipmentList = [];
 
@@ -65857,6 +65876,12 @@ var PlayerSessionData = function () {
             this.findAttributesNEW();
 
             this.equipmentUpdated.dispatch(this.equipmentList);
+        }
+    }, {
+        key: "setMainWeapon",
+        value: function setMainWeapon(weapon) {
+            this.mainWeapon = weapon;
+            this.addEquipmentNEW(weapon);
         }
     }, {
         key: "addEquipmentNEW",
@@ -83244,22 +83269,15 @@ var GameScreen = function (_Screen) {
         _this.camera.setFollowPoint(new _Vector2.default());
 
         _this.levelManager = new _LevelManager2.default(_this.gameEngine);
-
+        _this.levelManager.onPlayerDie.add(_this.playerDie.bind(_this));
         _this.debug = {
             timeScale: 1,
             enemiesPool: 0,
             bulletsPool: 0,
             REMOVE_ENEMIES: function REMOVE_ENEMIES() {
-
-                //this.destroyRandom(1);
-
-                //return
                 _this.destroyRandom(50);
             },
             ADD_ENEMIES: function ADD_ENEMIES() {
-                //this.addRandomAgents(1);
-
-                //return
                 for (var index = 0; index < 100; index++) {
                     setTimeout(function () {
                         _this.addRandomAgents(1);
@@ -83392,29 +83410,28 @@ var GameScreen = function (_Screen) {
     }, {
         key: 'killPlayer',
         value: function killPlayer() {
-            this.player.damage(50);
+            this.levelManager.player.damage(50);
             //this.companion.destroy();
+        }
+    }, {
+        key: 'playerDie',
+        value: function playerDie() {
+            var _this2 = this;
+
+            setTimeout(function () {
+                _this2.screenManager.change('MainMenu');
+            }, 1000);
         }
     }, {
         key: 'spawnPlayer',
         value: function spawnPlayer() {
-            var _this2 = this;
 
-            if (this.player && !this.player.isDead) {
-                this.player.destroy();
-            }
             //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
 
-            console.log("spawnPlayer", window.customChar);
-            this.player = this.levelManager.addEntity(_Player2.default, _GameStaticData2.default.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)));
-            this.levelManager.start(this.player);
+            this.levelManager.setup();
+            this.levelManager.start();
             this.levelManager.initGame();
 
-            this.player.onDie.addOnce(function () {
-                setTimeout(function () {
-                    _this2.screenManager.change('MainMenu');
-                }, 1000);
-            });
             //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
         }
     }, {
@@ -85287,14 +85304,32 @@ var CardPlacementSystem = function () {
 
             this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
 
+            this.currentData.push({
+                id: this.player.sessionData.mainWeapon.id,
+                entityData: {
+                    type: 'Weapon'
+                },
+                weaponId: this.player.sessionData.mainWeapon.id,
+                starter: true
+            });
+
             _Utils2.default.shuffle(this.currentData);
 
+            var starters = [];
+
             for (var index = this.currentData.length - 1; index >= 0; index--) {
+                if (this.currentData[index].starter) {
+                    starters.push(this.currentData[index]);
+                }
                 if (this.currentData[index] && !this.currentData[index].enabled) {
                     this.currentData.splice(index, 1);
                 }
             }
-            this.deckView.buildCards(this.currentData);
+            // starters.unshift(GameStaticData.instance.getDataById('cards','cards', 'ORBIT_CARD'))
+            // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
+            // console.log(this.player.sessionData, starters)
+            //this.deckView.buildCards(this.currentData)
+            this.deckView.buildCards(starters);
 
             this.deckView.setActive(true);
             this.cardPlacementView.setActive(true);
@@ -85860,6 +85895,11 @@ var PlayerInventoryHud = function (_GameObject) {
             var min = Math.min(_Game2.default.GlobalScale.min, 1);
             this.playerHud.scale.set(Math.max(0.85, min));
         }
+    }, {
+        key: 'resize',
+        value: function resize(res, newRes) {
+            this.playerHud.resize(res, newRes);
+        }
     }]);
     return PlayerInventoryHud;
 }(_GameObject3.default);
@@ -86062,6 +86102,10 @@ var _CircleCounter = __webpack_require__(266);
 
 var _CircleCounter2 = _interopRequireDefault(_CircleCounter);
 
+var _Game = __webpack_require__(17);
+
+var _Game2 = _interopRequireDefault(_Game);
+
 var _InteractableView = __webpack_require__(28);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
@@ -86121,15 +86165,22 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                 _this.equipmentContainer = new PIXI.Container();
 
                 _this.backEquipment = new PIXI.NineSlicePlane(PIXI.Texture.from('player-equipment-container'), 20, 0, 20, 0);
-                _this.equipmentContainer.addChild(_this.backEquipment);
+                //this.equipmentContainer.addChild(this.backEquipment);
 
                 _this.backEquipment.width = 50;
-                _this.equipmentList = new _UIList2.default();
-                _this.equipmentList.w = 50;
-                _this.equipmentList.h = 50;
-                _this.equipmentList.x = 20;
-                _this.equipmentList.y = -5;
-                _this.equipmentContainer.addChild(_this.equipmentList);
+                _this.equipmentListLine1 = new _UIList2.default();
+                _this.equipmentListLine1.w = 0;
+                _this.equipmentListLine1.h = 50;
+                _this.equipmentListLine1.x = 30;
+                _this.equipmentListLine1.y = -5;
+                _this.equipmentContainer.addChild(_this.equipmentListLine1);
+
+                _this.equipmentListLine2 = new _UIList2.default();
+                _this.equipmentListLine2.w = 0;
+                _this.equipmentListLine2.h = 50;
+                _this.equipmentListLine2.x = 5;
+                _this.equipmentListLine2.y = 45;
+                _this.equipmentContainer.addChild(_this.equipmentListLine2);
 
                 _this.lifeContainer.addChild(_this.equipmentContainer);
                 _this.equipmentContainer.x = 81;
@@ -86186,6 +86237,8 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                         time: 0.2
                 });
 
+                _this.maxSize = 500;
+
                 _this.gooSpritesheet.play('standard');
                 return _this;
         }
@@ -86205,35 +86258,63 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                 }
         }, {
                 key: 'updatePlayerEquip',
-                value: function updatePlayerEquip(player) {
+                value: function updatePlayerEquip() {
                         var _this3 = this;
 
-                        this.equipmentList.elementsList.forEach(function (element) {
+                        this.equipmentListLine1.elementsList.forEach(function (element) {
                                 _Pool2.default.instance.returnElement(element);
                         });
-                        this.equipmentList.removeAllElements();
-                        this.equipmentList.w = 50;
-                        player.sessionData.equipaments.forEach(function (element) {
+                        this.equipmentListLine1.removeAllElements();
+                        this.equipmentListLine1.w = 0;
+
+                        this.equipmentListLine2.elementsList.forEach(function (element) {
+                                _Pool2.default.instance.returnElement(element);
+                        });
+                        this.equipmentListLine2.removeAllElements();
+                        this.equipmentListLine2.w = 0;
+
+                        this.player.sessionData.equipaments.forEach(function (element) {
                                 if (element) {
 
-                                        _this3.equipmentList.w += 40;
-                                        _this3.equipmentList.h = 50;
                                         var icon = _Pool2.default.instance.getElement(_PlayerActiveEquipmentOnHud2.default); //new PIXI.Sprite.from(element.item.entityData.icon)
                                         icon.setItem(element.item);
                                         icon.setLevel(element.level);
+                                        icon.align = 0;
 
-                                        _this3.equipmentList.addElement(icon);
+                                        if (_this3.equipmentListLine1.w < _this3.maxSize - 50) {
+
+                                                _this3.equipmentListLine1.w += 50;
+                                                _this3.equipmentListLine1.h = 50;
+                                                _this3.equipmentListLine1.addElement(icon);
+                                        } else {
+                                                _this3.equipmentListLine2.w += 50;
+                                                _this3.equipmentListLine2.h = 50;
+                                                _this3.equipmentListLine2.addElement(icon);
+                                        }
                                 }
                         });
 
-                        this.equipmentList.updateHorizontalList();
-                        this.backEquipment.width = this.equipmentList.w + 25;
+                        this.equipmentListLine1.updateHorizontalList();
+                        this.equipmentListLine2.updateHorizontalList();
+                        this.backEquipment.width = this.equipmentListLine1.w + 25;
                 }
         }, {
                 key: 'updatePlayerHealth',
                 value: function updatePlayerHealth(delta) {
 
                         this.lifeCounter.update(0.75 + (1 - this.player.health.normal) * 0.25);
+                }
+        }, {
+                key: 'resize',
+                value: function resize(res, newRes) {
+
+                        if (!this.player) {
+                                return;
+                        }
+                        if (this.maxSize != _Game2.default.Borders.width / _Game2.default.GlobalScale.min - 250) {
+                                this.maxSize = _Game2.default.Borders.width / _Game2.default.GlobalScale.min - 250;
+                                this.updatePlayerEquip();
+                        }
                 }
         }, {
                 key: 'update',
@@ -86537,7 +86618,7 @@ var PlayerActiveEquipmentOnHud = function (_PIXI$Container) {
         value: function setLevel() {
             var level = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
 
-            this.levelLabel.text = level ? level : '';
+            this.levelLabel.text = level ? level + 1 : '';
             this.levelLabel.x = this.icon.width;
             this.levelLabel.y = this.icon.height;
         }
@@ -86841,6 +86922,9 @@ var SurvivorDeckController = function (_GameObject) {
         value: function buildCards(data) {
             var _this2 = this;
 
+            var totalCards = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+
+
             for (var i = this.handCards.length - 1; i >= 0; i--) {
                 if (this.handCards[i].parent) {
                     this.handCards[i].parent.removeChild(this.handCards[i]);
@@ -86850,7 +86934,7 @@ var SurvivorDeckController = function (_GameObject) {
             this.holdingData = null;
             //this.gridView.slotOver = null;
             this.handCards = [];
-            for (var _i = 0; _i < 4; _i++) {
+            for (var _i = 0; _i < totalCards; _i++) {
                 var dt = null;
                 switch (data[_i].entityData.type) {
                     case _EntityData2.default.EntityDataType.Weapon:
@@ -99346,14 +99430,14 @@ var assets = [{
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
-}, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
@@ -99376,9 +99460,6 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
@@ -99388,11 +99469,14 @@ var assets = [{
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
@@ -99403,20 +99487,20 @@ var assets = [{
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
@@ -99424,11 +99508,11 @@ var assets = [{
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
 	"id": "weapon-in-game-visuals",
 	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"

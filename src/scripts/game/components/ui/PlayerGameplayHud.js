@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import CircleCounter from '../../ui/hudElements/CircleCounter';
+import Game from '../../../Game';
 import InteractableView from '../../view/card/InteractableView';
 import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
 import Pool from '../../core/utils/Pool';
@@ -26,15 +27,23 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentContainer = new PIXI.Container();
 
         this.backEquipment = new PIXI.NineSlicePlane(PIXI.Texture.from('player-equipment-container'), 20, 0, 20, 0);
-        this.equipmentContainer.addChild(this.backEquipment);
+        //this.equipmentContainer.addChild(this.backEquipment);
 
         this.backEquipment.width = 50
-        this.equipmentList = new UIList();
-        this.equipmentList.w = 50;
-        this.equipmentList.h = 50;
-        this.equipmentList.x = 20
-        this.equipmentList.y = -5
-        this.equipmentContainer.addChild(this.equipmentList);
+        this.equipmentListLine1 = new UIList();
+        this.equipmentListLine1.w = 0;
+        this.equipmentListLine1.h = 50;
+        this.equipmentListLine1.x = 30
+        this.equipmentListLine1.y = -5
+        this.equipmentContainer.addChild(this.equipmentListLine1);
+
+        this.equipmentListLine2 = new UIList();
+        this.equipmentListLine2.w = 0;
+        this.equipmentListLine2.h = 50;
+        this.equipmentListLine2.x = 5
+        this.equipmentListLine2.y = 45
+        this.equipmentContainer.addChild(this.equipmentListLine2);
+
 
         this.lifeContainer.addChild(this.equipmentContainer);
         this.equipmentContainer.x = 81
@@ -60,7 +69,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')
         this.container.addChild(this.playerFaceContainer);
 
-        InteractableView.addMouseDown(this.playerFaceContainer, ()=>{
+        InteractableView.addMouseDown(this.playerFaceContainer, () => {
             this.onOpenMenu.dispatch();
         })
 
@@ -93,6 +102,8 @@ export default class PlayerGameplayHud extends PIXI.Container {
             time: 0.2
         })
 
+        this.maxSize = 500;
+
         this.gooSpritesheet.play('standard')
     }
     registerPlayer(player) {
@@ -104,31 +115,58 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
     }
-    updatePlayerEquip(player) {
-        this.equipmentList.elementsList.forEach(element => {
+    updatePlayerEquip() {
+        this.equipmentListLine1.elementsList.forEach(element => {
             Pool.instance.returnElement(element);
         });
-        this.equipmentList.removeAllElements();
-        this.equipmentList.w = 50;
-        player.sessionData.equipaments.forEach(element => {
+        this.equipmentListLine1.removeAllElements();
+        this.equipmentListLine1.w = 0;
+
+        this.equipmentListLine2.elementsList.forEach(element => {
+            Pool.instance.returnElement(element);
+        });
+        this.equipmentListLine2.removeAllElements();
+        this.equipmentListLine2.w = 0;
+
+
+        this.player.sessionData.equipaments.forEach(element => {
             if (element) {
 
-                this.equipmentList.w += 40;
-                this.equipmentList.h = 50;
                 let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
                 icon.setItem(element.item)
                 icon.setLevel(element.level)
+                icon.align = 0
 
-                this.equipmentList.addElement(icon)
+                if (this.equipmentListLine1.w < this.maxSize - 50) {
+
+                    this.equipmentListLine1.w += 50;
+                    this.equipmentListLine1.h = 50;
+                    this.equipmentListLine1.addElement(icon)
+                } else {
+                    this.equipmentListLine2.w += 50;
+                    this.equipmentListLine2.h = 50;
+                    this.equipmentListLine2.addElement(icon)
+                }
             }
         });
 
-        this.equipmentList.updateHorizontalList()
-        this.backEquipment.width = this.equipmentList.w + 25
+        this.equipmentListLine1.updateHorizontalList()
+        this.equipmentListLine2.updateHorizontalList()
+        this.backEquipment.width = this.equipmentListLine1.w + 25
     }
     updatePlayerHealth(delta) {
 
         this.lifeCounter.update(0.75 + (1 - this.player.health.normal) * 0.25);
+    }
+    resize(res, newRes) {
+
+        if (!this.player) {
+            return;
+        }
+        if (this.maxSize != (Game.Borders.width / Game.GlobalScale.min) - 250) {
+            this.maxSize = (Game.Borders.width / Game.GlobalScale.min) - 250;
+            this.updatePlayerEquip();
+        }
     }
     update(delta) {
         if (!this.player) {

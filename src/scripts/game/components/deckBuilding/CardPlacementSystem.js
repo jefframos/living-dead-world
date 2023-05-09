@@ -47,14 +47,33 @@ export default class CardPlacementSystem {
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
 
+        this.currentData.push({
+            id: this.player.sessionData.mainWeapon.id,
+            entityData: {
+                type: 'Weapon'
+            },
+            weaponId: this.player.sessionData.mainWeapon.id,
+            starter:true
+        })
+
         Utils.shuffle(this.currentData)
 
+        let starters = [];
+
+        
         for (let index = this.currentData.length - 1; index >= 0; index--) {
+            if (this.currentData[index].starter) {
+                starters.push(this.currentData[index]);
+            }
             if (this.currentData[index] && !this.currentData[index].enabled) {
                 this.currentData.splice(index, 1);
             }
         }
-        this.deckView.buildCards(this.currentData)
+        // starters.unshift(GameStaticData.instance.getDataById('cards','cards', 'ORBIT_CARD'))
+        // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
+        // console.log(this.player.sessionData, starters)
+        //this.deckView.buildCards(this.currentData)
+        this.deckView.buildCards(starters)
 
         this.deckView.setActive(true)
         this.cardPlacementView.setActive(true)

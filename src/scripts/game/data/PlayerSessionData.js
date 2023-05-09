@@ -20,8 +20,8 @@ export default class PlayerSessionData {
         this.bulletSpeedMultiplier = 1;
         this.bulletFrenquencyMultiplier = 1;
         this.attributesMultiplier.reset();
+        this.mainWeapon = null;
 
-    
         this.equipmentList = [];
 
         this.xpData = {
@@ -38,7 +38,7 @@ export default class PlayerSessionData {
             this.levelBreaks.push(10 + (i * (10 + i)));
         }
     }
-    get equipaments(){
+    get equipaments() {
         return this.equipmentList;
     }
     updateExp(amount) {
@@ -78,6 +78,10 @@ export default class PlayerSessionData {
 
         this.equipmentUpdated.dispatch(this.equipmentList);
     }
+    setMainWeapon(weapon) {
+        this.mainWeapon = weapon;
+        this.addEquipmentNEW(weapon)
+    }
     addEquipmentNEW(equipment) {
 
         let gameItemId = -1;
@@ -96,7 +100,7 @@ export default class PlayerSessionData {
             this.equipmentList[gameItemId].level = equipment.level || 0;
 
         } else {
-            this.equipmentList[gameItemId].level ++;
+            this.equipmentList[gameItemId].level++;
         }
 
 
@@ -104,18 +108,18 @@ export default class PlayerSessionData {
 
         this.equipmentUpdateNEW();
     }
-    
+
     removeEquipmentNEW(i) {
         this.equipmentList.splice(i, 1);
         this.equipmentUpdateNEW();
     }
-    
+
     getEquipmentNEW(i) {
         const copy = new GameplayItem(this.equipmentList[i].item);
         copy.level = this.equipmentList[i].level;
         return copy;
     }
-    
+
     findAttributesNEW() {
         this.attributesMultiplier.reset();
         for (var i = 0; i < this.equipmentList.length; i++) {
@@ -129,7 +133,7 @@ export default class PlayerSessionData {
 
         }
     }
-    
+
     addXp(amount) {
         this.updateExp(amount)
         this.xpUpdated.dispatch(this.xpData);

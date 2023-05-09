@@ -10,6 +10,7 @@ import PlayerSessionData from "../data/PlayerSessionData";
 import Pool from "../core/utils/Pool";
 import SessionSpawner from "./spawn/SessionSpawner";
 import Vector3 from "../core/gameObject/Vector3";
+import signals from "signals";
 
 export default class LevelManager {
     static instance;
@@ -37,12 +38,23 @@ export default class LevelManager {
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
         this.gameplayTime = 0;
 
+        this.onPlayerDie = new signals.Signal();
 
         this.currentPhase = 0;
         this.init = false;
     }
-    start(player) {
-        this.player = player;
+    setup(){
+        if (this.player && !this.player.isDead) {
+            this.player.destroy();
+        }
+        window.customChar = 1
+        this.player = this.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)))
+        this.player.onDie.addOnce(() => {
+            this.onPlayerDie.dispatch();
+        })
+        return this.player;
+    }
+    start() {
 
         this.player.enabled = false
 

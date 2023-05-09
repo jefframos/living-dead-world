@@ -77,23 +77,15 @@ export default class GameScreen extends Screen {
         this.camera.setFollowPoint(new Vector3())
 
         this.levelManager = new LevelManager(this.gameEngine);
-
+        this.levelManager.onPlayerDie.add(this.playerDie.bind(this))
         this.debug = {
             timeScale: 1,
             enemiesPool: 0,
             bulletsPool: 0,
             REMOVE_ENEMIES: () => {
-
-                //this.destroyRandom(1);
-
-                //return
                 this.destroyRandom(50)
-
             },
             ADD_ENEMIES: () => {
-                //this.addRandomAgents(1);
-
-                //return
                 for (let index = 0; index < 100; index++) {
                     setTimeout(() => {
                         this.addRandomAgents(1)
@@ -225,27 +217,25 @@ export default class GameScreen extends Screen {
 
     }
     killPlayer() {
-        this.player.damage(50);
+        this.levelManager.player.damage(50);
         //this.companion.destroy();
 
     }
+
+    playerDie(){
+        setTimeout(() => {
+            this.screenManager.change('MainMenu')
+        }, 1000);
+    }
+
     spawnPlayer() {
-        if (this.player && !this.player.isDead) {
-            this.player.destroy();
-        }
+       
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
-        
-        console.log("spawnPlayer",  window.customChar)
-        this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)))
-        this.levelManager.start(this.player);
+
+        this.levelManager.setup();
+        this.levelManager.start();
         this.levelManager.initGame();
 
-
-        this.player.onDie.addOnce(() => {
-            setTimeout(() => {
-                this.screenManager.change('MainMenu')
-            }, 1000);
-        })
         //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
     }
 

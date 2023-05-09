@@ -1,6 +1,7 @@
 [
     {
         "id": "AURA_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -10,6 +11,7 @@
     },
     {
         "id": "PLAYER_CROSS_SHOT_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -19,6 +21,7 @@
     },
     {
         "id": "PLAYER_CROSS_SHOT_ATTACH_CARD",
+        "starter": false,
         "entityData": {
             "type": "WeaponAttachment"
         },
@@ -28,6 +31,7 @@
     },
     {
         "id": "PLAYER_MULTISHOT_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -37,6 +41,7 @@
     },
     {
         "id": "BOMB_THROWER_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -46,6 +51,7 @@
     },
     {
         "id": "PISTOL_01_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -55,6 +61,7 @@
     },
     {
         "id": "SEMI_AUTO_PISTOL_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -64,6 +71,7 @@
     },
     {
         "id": "SUBMACHINE_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -73,6 +81,7 @@
     },
     {
         "id": "SHOTGUN_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -82,6 +91,7 @@
     },
     {
         "id": "SNIPER_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -91,6 +101,7 @@
     },
     {
         "id": "MINIGUN_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -100,6 +111,7 @@
     },
     {
         "id": "FIREBALL_HOAMING_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -109,6 +121,7 @@
     },
     {
         "id": "BOOMERANG_AXE_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -118,6 +131,7 @@
     },
     {
         "id": "MELEE_SWORD_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -127,6 +141,7 @@
     },
     {
         "id": "ICE_SHARD_THROWER_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -136,6 +151,7 @@
     },
     {
         "id": "ORBIT_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -145,6 +161,7 @@
     },
     {
         "id": "LIGHTNING_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -154,15 +171,17 @@
     },
     {
         "id": "WATER_SINOID_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
-        "weaponId": "WATER_SINOID",
+        "weaponId": "WORM_GUN",
         "tier": 2,
         "enabled": false
     },
     {
         "id": "FLASH_CIRCLE_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -172,6 +191,7 @@
     },
     {
         "id": "BOUNCE_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -181,6 +201,7 @@
     },
     {
         "id": "LASER_CARD",
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -190,6 +211,7 @@
     },
     {
         "id": "NUKE_CARD",
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -199,6 +221,7 @@
     },
     {
         "id": "FLY_DRONE",
+        "starter": true,
         "entityData": {
             "type": "Companion"
         },
@@ -208,6 +231,7 @@
     },
     {
         "id": "LAND_DRONE",
+        "starter": false,
         "entityData": {
             "type": "Companion"
         },
@@ -217,6 +241,7 @@
     },
     {
         "id": "SNIPER_DRONE",
+        "starter": true,
         "entityData": {
             "type": "Companion"
         },
@@ -226,6 +251,7 @@
     },
     {
         "id": "LAND_MINE_DRONE",
+        "starter": true,
         "entityData": {
             "type": "Companion"
         },
@@ -235,6 +261,7 @@
     },
     {
         "id": "LASER_DRONE",
+        "starter": false,
         "entityData": {
             "type": "Companion"
         },
@@ -244,6 +271,7 @@
     },
     {
         "id": "ATTACK_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -253,6 +281,7 @@
     },
     {
         "id": "SPEED_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -262,6 +291,7 @@
     },
     {
         "id": "HP_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -271,6 +301,7 @@
     },
     {
         "id": "FREQUENCY_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -280,6 +311,7 @@
     },
     {
         "id": "DEFENSE_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -289,6 +321,7 @@
     },
     {
         "id": "AMOUNT_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -298,6 +331,7 @@
     },
     {
         "id": "PIERCE_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -307,6 +341,7 @@
     },
     {
         "id": "RADIUS_MODIFIER",
+        "starter": false,
         "entityData": {
             "type": "Attribute"
         },
@@ -316,6 +351,7 @@
     },
     {
         "id": "MAGNET_MODIFIER",
+        "starter": true,
         "entityData": {
             "type": "Attribute"
         },
@@ -325,6 +361,7 @@
     },
     {
         "id": "HEALING_RING",
+        "starter": true,
         "entityData": {
             "type": "Acessory"
         },
@@ -334,6 +371,7 @@
     },
     {
         "id": "POISON_RING",
+        "starter": true,
         "entityData": {
             "type": "Acessory"
         },
@@ -343,6 +381,7 @@
     },
     {
         "id": "BURN_RING",
+        "starter": true,
         "entityData": {
             "type": "Acessory"
         },

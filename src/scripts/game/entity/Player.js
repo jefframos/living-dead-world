@@ -68,8 +68,8 @@ export default class Player extends GameAgent {
         this.currentSessionData = value;
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-        this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
-
+        //this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
+        this.currentSessionData.setMainWeapon(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
         this.sessionStarted();
     }
     makeAnimations(data) {
@@ -79,7 +79,6 @@ export default class Player extends GameAgent {
     }
 
     build(playerData) {
-        console.log(playerData)
         if (!playerData) {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }

@@ -71,7 +71,7 @@ export default class SurvivorDeckController extends GameObject {
 
         //this.gridView.updateEquipment(data);
     }
-    buildCards(data) {
+    buildCards(data, totalCards = 3) {
 
         for (let i = this.handCards.length - 1; i >= 0; i--) {
             if (this.handCards[i].parent) {
@@ -83,7 +83,7 @@ export default class SurvivorDeckController extends GameObject {
         this.holdingData = null;
         //this.gridView.slotOver = null;
         this.handCards = [];
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < totalCards; i++) {
             let dt = null
             switch (data[i].entityData.type) {
                 case EntityData.EntityDataType.Weapon:
