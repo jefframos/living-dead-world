@@ -18,7 +18,8 @@ export default class EnvironmentManager extends GameObject {
         Less: 'less',
         More: 'more',
         Nor: 'nor',
-        Between: 'between'
+        Between: 'between',
+        Always: 'always'
     }
     constructor() {
         super()
@@ -27,7 +28,11 @@ export default class EnvironmentManager extends GameObject {
         this.patches = {
             deco: { constructor: StaticViewObject, spriteName: 'deco00', total: 5, weight: -0.4, noise: 300, density: 3, compare: EnvironmentManager.Compare.Less },
             grass: { constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
-            grass2: { constructor: StaticViewObject,  list: [ 'grass-grass'],  weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
+            grass2: { constructor: StaticViewObject, list: ['grass-grass'], weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
+
+            grass3: { constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 40, compare: EnvironmentManager.Compare.Always },
+            grass4: { constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 40, compare: EnvironmentManager.Compare.Always },
+
             plants: { constructor: StaticViewObject, spriteName: 'plants00', total: 10, weight: 0.6, noise: 100, density: 15, compare: EnvironmentManager.Compare.More },
             rocks: { constructor: StaticViewObject, spriteName: 'rocks00', total: 6, weight: [-0.5, 0.5], noise: 300, density: 10, compare: EnvironmentManager.Compare.Nor },
             trunks: { constructor: StaticViewObject, spriteName: 'trunks00', total: 2, weight: [0.5, 0.6], noise: 50, density: 8, compare: EnvironmentManager.Compare.Between },
@@ -85,10 +90,13 @@ export default class EnvironmentManager extends GameObject {
     }
     addWorldElements() {
 
+        //this.drawLayer(this.patches.grass3)
+
+        //return
         this.drawLayer(this.patches.trees)
         this.drawLayer(this.patches.deco)
         // this.drawLayer(this.patches.grass)
-         this.drawLayer(this.patches.grass2)
+        this.drawLayer(this.patches.grass2)
         this.drawLayer(this.patches.plants)
         this.drawLayer(this.patches.trunks)
         this.drawLayer(this.patches.rocks)
@@ -117,7 +125,9 @@ export default class EnvironmentManager extends GameObject {
                         break
                     case EnvironmentManager.Compare.Nor:
                         compare = v < layer.weight[0] || v > layer.weight[1]
-
+                        break
+                    case EnvironmentManager.Compare.Always:
+                        compare = true;
                         break
                 }
                 if (compare) {

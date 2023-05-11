@@ -22,6 +22,7 @@ export default class PlayerHalo extends GameObject {
     start() {
     }
     update(delta) {
+        this.gameView.update(delta)
         this.transform.position.x = this.parent.transform.position.x
         this.transform.position.y = 0
         this.transform.position.z = this.parent.transform.position.z

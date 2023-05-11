@@ -172,7 +172,7 @@ export default class GameScreen extends Screen {
 
         if (window.isMobile) {
 
-            if (window.debugMode) {
+            if (Game.Debug.debug) {
                 this.addChild(this.helperButtonList)
             }
             window.GUI.close()

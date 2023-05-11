@@ -153,7 +153,7 @@ export default class Player extends GameAgent {
         super.afterBuild()
     }
     sessionStarted(){
-        this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
+        //this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
     }
     addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)

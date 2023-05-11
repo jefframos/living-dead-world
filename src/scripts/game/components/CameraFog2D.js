@@ -4,6 +4,7 @@ import LightSource from '../core/view/LightSource';
 import Player from '../entity/Player';
 import RenderModule from '../core/modules/RenderModule';
 import TagManager from '../core/TagManager';
+import Utils from '../core/utils/Utils';
 import Vector3 from '../core/gameObject/Vector3';
 import signals from 'signals';
 
@@ -53,7 +54,7 @@ export default class CameraFog2D extends BaseComponent {
     lateUpdate(delta) {
         if (!this.player) return;
         this.renderModule.layers[this.player.gameView.layer].gameViews.forEach(element => {
-           // this.debug = 9
+            // this.debug = 9
             this.calcEntityFog(element)
         });
     }
@@ -61,22 +62,26 @@ export default class CameraFog2D extends BaseComponent {
 
         let range = 1;
         this.lightSourceList.forEach(lightSource => {
-            
-            const dist = Vector3.distance(lightSource.gameObject.transform.position, entity.gameObject.transform.position)
+
+            const lightSourceData = lightSource.gameView.lightData;
+
+            /////////////HERE calculate the arc properly
+            const dist = lightSource.gameView.getDistanceFrom(entity.gameObject.transform.position)
             let tempRange = 1;
 
-            if(dist < lightSource.gameView.minDistance){
+            if (dist < lightSourceData.minDistance) {
                 tempRange = 0;
-            }else{
-                tempRange = Math.min((dist - lightSource.gameView.minDistance) / (lightSource.gameView.maxDistance - lightSource.gameView.minDistance),1)
+            } else {
+                tempRange = Math.min((dist - lightSourceData.minDistance) / (lightSourceData.maxDistance - lightSourceData.minDistance), 1)
             }
-            if(tempRange < range) {
+            if (tempRange < range) {
                 range = tempRange;
-            }            
-            
+            }
+
         });
+        entity.lightRange = Utils.lerp(entity.lightRange, range, 0.2)
         if (range > 0) {
-            Color.colorLerp(entity.auxColorRGB, this.baseColor, this.targetColor, range, 1)
+            Color.colorLerp(entity.auxColorRGB, this.baseColor, this.targetColor, entity.lightRange)
             entity.auxColor = Color.rgbToColor(entity.auxColorRGB)
             entity.view.tint = entity.auxColor
         } else {

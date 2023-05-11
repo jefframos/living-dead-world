@@ -2,6 +2,7 @@ import BaseEnemy from "../entity/BaseEnemy";
 import Collectable from "../entity/Collectable";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
+import Game from "../../Game";
 import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
 import Layer from "../core/Layer";
@@ -47,8 +48,12 @@ export default class LevelManager {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        window.customChar = 1
-        this.player = this.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', window.customChar !== undefined ? window.customChar : Math.floor(Math.random() * 7)))
+        if(Game.Debug.customChar){
+            Game.Debug.customChar = parseInt(Game.Debug.customChar)
+        }
+        //REMOVE THIS
+        Game.Debug.customChar = 1
+        this.player = this.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : Math.floor(Math.random() * 7)))
         this.player.onDie.addOnce(() => {
             this.onPlayerDie.dispatch();
         })
@@ -240,7 +245,7 @@ export default class LevelManager {
     }
 
     updateLevelPhase(phase) {
-        if (window.noEnemy || !phase) return;
+        if (Game.Debug.noEnemy || !phase) return;
         phase.spawnData.forEach(spawnerData => {
             if (spawnerData.canSpawn) {
 

@@ -13,6 +13,7 @@ export default class GameView {
         this.gameObject = gameObject;
         this.anchorOffset = 0;
         this.baseScale = { x: 0, y: 0 }
+        this.lightRange = 0;
         this.auxColor = 0xFFFFFF;
         this.auxColorRGB = Color.toRGB(this.auxColor)
     }

@@ -3,6 +3,7 @@ import CardPlacementSystem from "../components/deckBuilding/CardPlacementSystem"
 import CardPlacementView from "../components/deckBuilding/CardPlacementView";
 import EntityBuilder from "../screen/EntityBuilder";
 import Eugine from "../core/Eugine";
+import Game from "../../Game";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import HudButtons from "../components/ui/HudButtons";
@@ -102,7 +103,7 @@ export default class GameplaySessionController extends GameObject {
             this.player.refreshEquipment();
             this.player.sessionData.onLevelUp.add(this.onPlayerLevelUp.bind(this))
 
-            if (window.debugMode) {
+            if (Game.Debug.debug) {
                 this.toggleDeck();
             }
         }, 1);

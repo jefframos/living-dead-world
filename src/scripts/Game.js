@@ -13,6 +13,8 @@ export default class Game {
     static MainLoader = new PIXI.Loader();
     static UIOverlayContainer = new PIXI.Container();
     static ScreenManagerContainer = new PIXI.Container();
+    static Time;
+    static Debug = {};
     static Borders = {
         topLeft: { x: 0, y: 0 },
         bottomLeft: { x: 0, y: 0 },
@@ -36,7 +38,7 @@ export default class Game {
 
         Game.Screen.width = config.width
         Game.Screen.height = config.height
-
+        Game.Time = 0;
         this.ratio = config.width / config.height;
         window.renderer = new PIXI.Application({
             width: config.width,
@@ -284,6 +286,8 @@ export default class Game {
      * 
      */
     update() {
+
+        Game.Time += this.dt;
         this.screenManager.update(this.dt)
         // window.renderer.render(this.stage);
     }

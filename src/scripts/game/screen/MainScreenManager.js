@@ -65,25 +65,27 @@ export default class MainScreenManager extends ScreenManager {
         this.prevPopUp = null;
 
 
+
+        //debug list
+        // noEnemy
+        // char - int
+        // debug
+        // builder
+        // game   
+
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams) {
-            if (urlParams.get('noEnemy')) {
-                window.noEnemy = true;
-            }
-            if (urlParams.get('char') !== null) {
-                window.customChar = parseInt(urlParams.get('char'));
-            }
-            if (urlParams.get('debug')) {
-                window.debugMode = true;
-            }
-            if (urlParams.get('builder')) {
-                this.forceChange(MainScreenManager.Screens.CharacterBuild);
-            }
-            if (urlParams.get('game')) {
-                this.forceChange(MainScreenManager.Screens.GameScreen);
-            }
-        }
 
+            urlParams.forEach((value, key) => {
+                console.log(value, key);
+                Game.Debug[key] = value
+            })
+        }
+        if (Game.Debug.builder) {
+            this.forceChange(MainScreenManager.Screens.CharacterBuild);
+        } else if (Game.Debug.game) {
+            this.forceChange(MainScreenManager.Screens.GameScreen);
+        }
         this.isPaused = false;
 
         window.onAdds.add(() => {
@@ -99,7 +101,7 @@ export default class MainScreenManager extends ScreenManager {
 
         // this.screenTransition.x = config.width/2;
 
-        if (!window.debugMode) {
+        if (!Game.Debug.debug) {
             window.GUI.hide()
         }
 
