@@ -143,8 +143,8 @@ export default class Player extends GameAgent {
         this.cleanStats();
 
         let halo = this.engine.poolGameObject(PlayerHalo);
-        halo.setRadius(100)
-        halo.setColor(0xFFFFFF, 0.3)
+        halo.setArc(50, 200, Math.PI * 0.25)
+        halo.setColor(0xFFFED9, 0.5)
         this.addChild(halo)
 
 
@@ -153,7 +153,7 @@ export default class Player extends GameAgent {
         super.afterBuild()
     }
     sessionStarted(){
-        //this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
+        this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
     }
     addCompanion(companionID) {
         let companion = this.engine.poolGameObject(Companion)

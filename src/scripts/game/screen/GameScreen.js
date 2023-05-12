@@ -3,7 +3,7 @@ import * as dat from 'dat.gui';
 
 import BaseEnemy from '../entity/BaseEnemy';
 import Bullet from '../components/weapon/bullets/Bullet';
-import CameraFog2D from '../components/CameraFog2D';
+import CameraFog2D from '../components/AmbientLightSystem';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import EffectsManager from '../manager/EffectsManager';
 import EnvironmentManager from '../manager/EnvironmentManager';
@@ -21,6 +21,7 @@ import Screen from '../../screenManager/Screen'
 import TouchAxisInput from '../core/modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
+import UIUtils from '../core/utils/UIUtils';
 import Vector3 from '../core/gameObject/Vector3';
 import config from '../../config';
 
@@ -28,6 +29,10 @@ export default class GameScreen extends Screen {
     constructor(label, targetContainer) {
         super(label, targetContainer);
 
+
+        // this.back = UIUtils.getRect(0xFF0000, 10000,10000)
+        // this.addChild(this.back);
+        
         this.container = new PIXI.Container()
         this.addChild(this.container);
 
@@ -55,8 +60,6 @@ export default class GameScreen extends Screen {
         this.container.addChild(this.gameplayContainer)
         this.container.addChild(this.effectsContainer)
         this.container.addChild(this.uiContainer)
-
-        this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
 
         this.gameEngine = new Eugine();
         window.ENGINE = this.gameEngine;

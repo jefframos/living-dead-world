@@ -5,6 +5,7 @@ import signals from "signals";
 
 export default class RenderModule extends GameObject {
     static RenderLayers = {
+        BaseB: '_p__u_baseb',
         Base: '_u_base',
         Debug: '_u_debug',
         Shadow: '_u__p_shadow',

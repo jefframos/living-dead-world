@@ -16,7 +16,9 @@ export default class UIUtils {
     static getCircle(color = 0xFF0000, radius = 20) {
         return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius)
     }
-
+    static getRect(color = 0xFF0000, width = 20, height = 20) {
+        return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
+    }
     static getCloseButton(callback) {
         const button = new BaseButton('square_0004', 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })

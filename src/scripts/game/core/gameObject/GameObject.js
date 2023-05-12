@@ -31,11 +31,23 @@ export default class GameObject extends BaseComponent {
     start() {
         this.isDestroyed = false;
     }
-    findComponent(type) {
+    findComponentGameObject(type) {
         let elementFound = null
 
         for (let index = 0; index < this.gameObjects.length; index++) {
             const element = this.gameObjects[index];
+            if (element instanceof type) {
+                elementFound = element;
+                break
+            }
+        }
+        return elementFound;
+    }
+    findComponent(type) {
+        let elementFound = null
+
+        for (let index = 0; index < this.components.length; index++) {
+            const element = this.components[index];
             if (element instanceof type) {
                 elementFound = element;
                 break

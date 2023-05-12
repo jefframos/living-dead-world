@@ -78,7 +78,7 @@ export default class MainScreenManager extends ScreenManager {
 
             urlParams.forEach((value, key) => {
                 console.log(value, key);
-                Game.Debug[key] = value
+                Game.Debug[key] = parseInt(value)
             })
         }
         if (Game.Debug.builder) {

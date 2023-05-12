@@ -97,7 +97,11 @@ export default class Companion extends GameAgent {
         this.targetPosition.copy(this.parent.transform.position)
 
         let light = this.engine.poolGameObject(PlayerHalo)
-        light.setRadius(200)
+        // light.setRadius(200)
+        // light.setColor(0xFB9974, 0.5)
+
+        light.setArc(50, 150, Math.PI * 0.25)
+        light.setColor(0xFFFED9, 0.5)
         this.addChild(light)
 
     }

@@ -75,7 +75,6 @@ export default class EnvironmentManager extends GameObject {
             this.addWorldElements();
 
         }
-
         this.addChild(this.engine.poolGameObject(BasicFloorRender))
     }
     build(params) {
