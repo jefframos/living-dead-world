@@ -68,29 +68,31 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
         this.bodyData = [
             { area: "backArm", src: "front-arm00{frame}", frame: Utils.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            { area: "backSleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1),  offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 },  colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            
             //  { area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
             { area: "backHead", src: "back-head-00{frame}", frame: Utils.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
             { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
             { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
-
+            
             { area: "chest", src: "chest-00{frame}", frame: Utils.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 },
             { area: "head", src: "head-00{frame}", frame: Utils.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 },
-            // { area: "face", src: "face-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
-            { area: "eyes", src: "eyes-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true },
             { area: "mouth", src: "mouth-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true },
-
-
+            
+            
             { area: "topHead", src: "top-head-00{frame}", frame: Utils.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
-
+            { area: "eyes", src: "eyes-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true },
+            
             { area: "ears", src: "ear-00{frame}", frame: Utils.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true },
-
+            
             { area: "frontFace", src: "front-face-00{frame}", frame: Utils.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 },
-
+            { area: "mask", src: "mask-00{frame}", frame: Utils.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: this.baseData.mask > 0 },
+            
             { area: "hat", src: "hat-00{frame}", frame: Utils.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0 },
-            { area: "frontArm", src: "front-arm00{frame}", frame: Utils.formatNumber(this.baseData.arms, 1), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin },
-            { area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin },
+            { area: "frontArm", src: "front-arm00{frame}", frame: Utils.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin },
+            { area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin },
         ]
 
         let spriteSize = { width: 0, height: 0 }
@@ -156,7 +158,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
     structureUpdate(region, value) {
-
+console.log(region, value)
         let id = -1;
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
@@ -232,9 +234,9 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.bodyData.forEach(element => {
             if (this.spriteLayersData[element.area].enabled) {
                 if (this.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos) {
-                    this.spriteLayersData[element.area].sprite.rotation = Math.cos(normal * Math.PI * 2 + Math.PI) //* 0.5;
+                    this.spriteLayersData[element.area].sprite.rotation = Math.cos(normal * Math.PI * 2 + Math.PI) * 0.5;
                 } else if (this.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin) {
-                    this.spriteLayersData[element.area].sprite.rotation = Math.sin(normal * Math.PI * 2 + Math.PI) //* 0.5;
+                    this.spriteLayersData[element.area].sprite.rotation = Math.sin(normal * Math.PI * 2 + Math.PI) * 0.5 - 0.5;
                 }
             }
             if (this.spriteLayersData[element.area].enabled && this.spriteLayersData[element.area].animate) {

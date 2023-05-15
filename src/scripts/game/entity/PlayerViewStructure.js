@@ -13,12 +13,14 @@ export default class PlayerViewStructure {
         this._face = 1
         this._hat = 0
         this._leg = 1
-        this._sleeves = 2
+        this._sleeves = 1
+        this._backSleeves = 1
         this._arms = 1
         this._shoe = 1
         this._eyes = 1
         this._ears = 1
         this._mouth = 1
+        this._mask = 0
         this._frontFace = 0
         this._backHead = 0
         this._skinColor = UIUtils.colorset.skin[0]
@@ -26,11 +28,16 @@ export default class PlayerViewStructure {
         this._topClothColor = UIUtils.colorset.clothes[0]
         this._sleevesColor = UIUtils.colorset.clothes[0]
         this._faceHairColor = UIUtils.colorset.hair[0]
-        this._botomColor = UIUtils.colorset.clothes[1]
-        this._shoeColor = UIUtils.colorset.clothes[2]
+        this._botomColor = UIUtils.colorset.clothes[0]
+        this._shoeColor = UIUtils.colorset.clothes[0]
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
     }
+    set mask(value) {
+        this._mask = value;
+        this.onStructureUpdate.dispatch('mask', this._mask)
+    }
+    get mask() { return this._mask; }
     set ears(value) {
         this._ears = value;
         this.onStructureUpdate.dispatch('ears', this._ears)
@@ -48,6 +55,7 @@ export default class PlayerViewStructure {
     get mouth() { return this._mouth; }
     set chest(value) {
         this._chest = value;
+        this.sleeves = value;
         this.onStructureUpdate.dispatch('chest', this._chest)
     }
     get chest() { return this._chest; }
@@ -79,9 +87,17 @@ export default class PlayerViewStructure {
     get leg() { return this._leg; }
     set sleeves(value) {
         this._sleeves = value;
+        this.backSleeves = value;
         this.onStructureUpdate.dispatch('sleeves', this._sleeves)
     }
     get sleeves() { return this._sleeves; }
+
+    set backSleeves(value) {
+        this._backSleeves = value;
+        this.onStructureUpdate.dispatch('backSleeves', this._backSleeves)
+    }
+    get backSleeves() { return this._backSleeves; }
+
     set arms(value) {
         this._arms = value;
         this.onStructureUpdate.dispatch('arms', this._arms)
@@ -119,7 +135,7 @@ export default class PlayerViewStructure {
     get topClothColor() { return this._topClothColor; }
     set sleevesColor(value) {
         this._sleevesColor = value;
-        this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor)
+       // this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor)
     }
     get sleevesColor() { return this._sleevesColor; }
     set botomColor(value) {

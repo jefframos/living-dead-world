@@ -64541,11 +64541,10 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this));
             this.baseData.onColorUpdate.add(this.colorUpdate.bind(this));
 
-            this.bodyData = [{ area: "backArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            this.bodyData = [{ area: "backArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos }, { area: "backSleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+
             //  { area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
-            { area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 },
-            // { area: "face", src: "face-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: this.baseData.face > 0 },
-            { area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true }, { area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true }, { area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true }, { area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 }, { area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }, { area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }, { area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 45, y: 130 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }];
+            { area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0 }, { area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0 }, { area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true }, { area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true }, { area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true }, { area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0 }, { area: "mask", src: "mask-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: this.baseData.mask > 0 }, { area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0 }, { area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }, { area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin }];
 
             var spriteSize = { width: 0, height: 0 };
             this.bodyData.forEach(function (element) {
@@ -64610,7 +64609,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
     }, {
         key: 'structureUpdate',
         value: function structureUpdate(region, value) {
-
+            console.log(region, value);
             var id = -1;
             for (var i = 0; i < this.bodyData.length; i++) {
                 if (this.bodyData[i].area == region) {
@@ -64684,9 +64683,9 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.bodyData.forEach(function (element) {
                 if (_this4.spriteLayersData[element.area].enabled) {
                     if (_this4.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos) {
-                        _this4.spriteLayersData[element.area].sprite.rotation = Math.cos(normal * Math.PI * 2 + Math.PI); //* 0.5;
+                        _this4.spriteLayersData[element.area].sprite.rotation = Math.cos(normal * Math.PI * 2 + Math.PI) * 0.5;
                     } else if (_this4.spriteLayersData[element.area].animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin) {
-                        _this4.spriteLayersData[element.area].sprite.rotation = Math.sin(normal * Math.PI * 2 + Math.PI); //* 0.5;
+                        _this4.spriteLayersData[element.area].sprite.rotation = Math.sin(normal * Math.PI * 2 + Math.PI) * 0.5 - 0.5;
                     }
                 }
                 if (_this4.spriteLayersData[element.area].enabled && _this4.spriteLayersData[element.area].animate) {
@@ -64753,12 +64752,14 @@ var PlayerViewStructure = function () {
         this._face = 1;
         this._hat = 0;
         this._leg = 1;
-        this._sleeves = 2;
+        this._sleeves = 1;
+        this._backSleeves = 1;
         this._arms = 1;
         this._shoe = 1;
         this._eyes = 1;
         this._ears = 1;
         this._mouth = 1;
+        this._mask = 0;
         this._frontFace = 0;
         this._backHead = 0;
         this._skinColor = _UIUtils2.default.colorset.skin[0];
@@ -64766,13 +64767,22 @@ var PlayerViewStructure = function () {
         this._topClothColor = _UIUtils2.default.colorset.clothes[0];
         this._sleevesColor = _UIUtils2.default.colorset.clothes[0];
         this._faceHairColor = _UIUtils2.default.colorset.hair[0];
-        this._botomColor = _UIUtils2.default.colorset.clothes[1];
-        this._shoeColor = _UIUtils2.default.colorset.clothes[2];
+        this._botomColor = _UIUtils2.default.colorset.clothes[0];
+        this._shoeColor = _UIUtils2.default.colorset.clothes[0];
         this.onStructureUpdate = new _signals2.default.Signal();
         this.onColorUpdate = new _signals2.default.Signal();
     }
 
     (0, _createClass3.default)(PlayerViewStructure, [{
+        key: "mask",
+        set: function set(value) {
+            this._mask = value;
+            this.onStructureUpdate.dispatch('mask', this._mask);
+        },
+        get: function get() {
+            return this._mask;
+        }
+    }, {
         key: "ears",
         set: function set(value) {
             this._ears = value;
@@ -64803,6 +64813,7 @@ var PlayerViewStructure = function () {
         key: "chest",
         set: function set(value) {
             this._chest = value;
+            this.sleeves = value;
             this.onStructureUpdate.dispatch('chest', this._chest);
         },
         get: function get() {
@@ -64858,10 +64869,20 @@ var PlayerViewStructure = function () {
         key: "sleeves",
         set: function set(value) {
             this._sleeves = value;
+            this.backSleeves = value;
             this.onStructureUpdate.dispatch('sleeves', this._sleeves);
         },
         get: function get() {
             return this._sleeves;
+        }
+    }, {
+        key: "backSleeves",
+        set: function set(value) {
+            this._backSleeves = value;
+            this.onStructureUpdate.dispatch('backSleeves', this._backSleeves);
+        },
+        get: function get() {
+            return this._backSleeves;
         }
     }, {
         key: "arms",
@@ -64930,7 +64951,7 @@ var PlayerViewStructure = function () {
         key: "sleevesColor",
         set: function set(value) {
             this._sleevesColor = value;
-            this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor);
+            // this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor)
         },
         get: function get() {
             return this._sleevesColor;
@@ -82379,15 +82400,14 @@ var CharacterBuildScreen = function (_Screen) {
         }, {
                 key: 'randomize',
                 value: function randomize() {
-                        this.playerViewStructure.face = Math.ceil(Math.random() * 10);
-                        this.playerViewStructure.chest = Math.ceil(Math.random() * 10);
-                        this.playerViewStructure.frontFace = Math.ceil(Math.random() * 5);
-                        this.playerViewStructure.hat = Math.ceil(Math.random() * 5);
-                        this.playerViewStructure.sleevesColor = 0xFFFFFF * Math.random();
-                        this.playerViewStructure.botomColor = 0xFFFFFF * Math.random();
-                        this.playerViewStructure.topClothColor = 0xFFFFFF * Math.random();
-                        this.playerViewStructure.shoeColor = 0xFFFFFF * Math.random();
-                        this.playerViewStructure.faceHairColor = 0xFFFFFF * Math.random();
+
+                        this.activePlayers.forEach(function (element) {
+
+                                element.head = Math.ceil(Math.random() * 10);
+                                element.chest = Math.ceil(Math.random() * 10);
+                                element.frontFace = Math.ceil(Math.random() * 5);
+                                element.hat = Math.ceil(Math.random() * 5);
+                        });
                 }
         }, {
                 key: 'build',
@@ -83326,21 +83346,21 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
             _1: {
                 colorset: _UIUtils2.default.colorset.clothes,
                 parts: [{
-                    param: 'sleeves',
+                    param: 'backLeg',
                     frame: 0,
-                    colorParam: 'sleevesColor',
+                    colorParam: 'botomColor',
                     color: -1
                 }]
             }
 
         };
 
-        _this.areas = [{ label: 'Skin', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", colorset: _UIUtils2.default.colorset.skin }, { label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', iconSize: 150, range: [1, 21], src: "chest-00{frame}", animated: false, colorsetData: _this.torsosData },
+        _this.areas = [{ label: 'Skin', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", colorset: _UIUtils2.default.colorset.skin }, { label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', pivot: { x: 65, y: 120 }, iconSize: 120, range: [1, 21], src: ["sleeve-00{frame}", "front-arm0001", 'head-0001', "chest-00{frame}"], animated: false },
 
         // { label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
         //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-        { label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true, colorsetData: _this.legsData }, { label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true, colorset: _UIUtils2.default.colorset.clothes }, { label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', iconSize: 200, range: [1, 19], src: "eyes-00{frame}", animated: false }, { label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', iconSize: 220, range: [1, 4], src: "ear-00{frame}", animated: false }, { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', iconSize: 250, range: [1, 20], src: "mouth-00{frame}", animated: false }, { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, mainIconId: '01', iconSize: 200, range: [0, 13], src: "front-face-00{frame}", animated: false, colorset: _UIUtils2.default.colorset.hair }, { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 70 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.47, y: 0.35 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: "hat-00{frame}", animated: false }];
+        { label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true }, { label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true }, { label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false }, { label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false }, { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false }, { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: _UIUtils2.default.colorset.hair }, { label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false }, { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }];
 
         _this.sectionListBottom = new _UIList2.default();
         _this.container.addChild(_this.sectionListBottom);
@@ -99682,14 +99702,14 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
+}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
-}, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -99712,8 +99732,8 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -99724,8 +99744,11 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -99736,32 +99759,20 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -99772,11 +99783,20 @@ var assets = [{
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;

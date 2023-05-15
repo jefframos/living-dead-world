@@ -112,15 +112,14 @@ export default class CharacterBuildScreen extends Screen {
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
     }
     randomize() {
-        this.playerViewStructure.face = Math.ceil(Math.random() * 10)
-        this.playerViewStructure.chest = Math.ceil(Math.random() * 10)
-        this.playerViewStructure.frontFace = Math.ceil(Math.random() * 5)
-        this.playerViewStructure.hat = Math.ceil(Math.random() * 5)
-        this.playerViewStructure.sleevesColor = 0xFFFFFF * Math.random();
-        this.playerViewStructure.botomColor = 0xFFFFFF * Math.random();
-        this.playerViewStructure.topClothColor = 0xFFFFFF * Math.random();
-        this.playerViewStructure.shoeColor = 0xFFFFFF * Math.random();
-        this.playerViewStructure.faceHairColor = 0xFFFFFF * Math.random();
+
+        this.activePlayers.forEach(element => {
+            
+            element.head = Math.ceil(Math.random() * 10)
+            element.chest = Math.ceil(Math.random() * 10)
+            element.frontFace = Math.ceil(Math.random() * 5)
+            element.hat = Math.ceil(Math.random() * 5)
+        });
 
     }
     build() {
