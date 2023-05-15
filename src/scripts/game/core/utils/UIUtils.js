@@ -1,5 +1,6 @@
 import BaseButton from "../../components/ui/BaseButton";
 import BodyPartySlot from "../../components/ui/BodyPartySlot";
+import ColorButton from "../../components/ui/ColorButton";
 import ColorSlot from "../../components/ui/ColorSlot";
 import InteractableView from "../../view/card/InteractableView";
 import Pool from "./Pool";
@@ -81,11 +82,11 @@ export default class UIUtils {
     }
 
 
-    static getColorSlot(callback, color = 0) {
+    static getColorSlot(callback, color = 0, width = 85, height = 85) {
 
         const button = Pool.instance.getElement(ColorSlot)
 
-        button.addShape('square_0002', 85, 85);
+        button.addShape('square_0002', width, height);
         button.setColor(color)
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;
@@ -104,6 +105,15 @@ export default class UIUtils {
         }
         if (label) {
             UIUtils.addLabel(button, label, {strokeThickness:0, fontSize:18, fill:0})
+        }
+        return button;
+    }
+    static getColorButton(callback, icon) {
+        const button = Pool.instance.getElement(ColorButton)
+        button.addShape('square_0002', 85, 85);
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+        if (icon) {
+            button.addIcon(icon, 20,20)
         }
         return button;
     }
