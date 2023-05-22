@@ -105,9 +105,9 @@
                 },
                 "anchor": {
                     "x": 0.3,
-                    "y": 0.95
+                    "y": 1
                 },
-                "time": 0.3,
+                "time": 0.2,
                 "loop": true,
                 "addZero": true
             }
@@ -119,14 +119,14 @@
             "spriteName": "zombie-200",
             "params": {
                 "totalFramesRange": {
-                    "min": 8,
-                    "max": 19
+                    "min": 3,
+                    "max": 12
                 },
                 "anchor": {
                     "x": 0.3,
-                    "y": 0.95
+                    "y": 1
                 },
-                "time": 0.3,
+                "time": 0.2,
                 "loop": true,
                 "addZero": true
             }
@@ -138,14 +138,14 @@
             "spriteName": "zombie-300",
             "params": {
                 "totalFramesRange": {
-                    "min": 8,
-                    "max": 19
+                    "min": 3,
+                    "max": 12
                 },
                 "anchor": {
                     "x": 0.3,
-                    "y": 0.95
+                    "y": 1
                 },
-                "time": 0.3,
+                "time": 0.2,
                 "loop": true,
                 "addZero": true
             }
@@ -157,14 +157,33 @@
             "spriteName": "zombie-400",
             "params": {
                 "totalFramesRange": {
-                    "min": 8,
-                    "max": 19
+                    "min": 3,
+                    "max": 12
                 },
                 "anchor": {
                     "x": 0.3,
-                    "y": 0.95
+                    "y": 1
                 },
-                "time": 0.3,
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "ZOMBIE_KAREN",
+        "animationData": {
+            "spriteName": "zombie-500",
+            "params": {
+                "totalFramesRange": {
+                    "min": 3,
+                    "max": 12
+                },
+                "anchor": {
+                    "x": 0.3,
+                    "y": 1
+                },
+                "time": 0.1,
                 "loop": true,
                 "addZero": true
             }

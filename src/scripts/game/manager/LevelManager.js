@@ -1,5 +1,6 @@
 import BaseEnemy from "../entity/BaseEnemy";
 import Collectable from "../entity/Collectable";
+import CookieManager from "../CookieManager";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
 import Game from "../../Game";
@@ -44,16 +45,24 @@ export default class LevelManager {
         this.currentPhase = 0;
         this.init = false;
     }
-    setup(){
+    setup() {
         if (this.player && !this.player.isDead) {
             this.player.destroy();
         }
-        if(Game.Debug.customChar){
+
+        if (Game.Debug.customChar) {
             Game.Debug.customChar = parseInt(Game.Debug.customChar)
         }
         //REMOVE THIS
         //Game.Debug.customChar = 1
-        this.player = this.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : Math.floor(Math.random() * 7)))
+
+
+        const firstPlayer = CookieManager.instance.getPlayer(CookieManager.instance.currentPlayer)
+
+        const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : Math.floor(Math.random() * 7))
+        playerBuildParams.customViewData = firstPlayer;
+        this.player = this.addEntity(Player, playerBuildParams)
+
         this.player.onDie.addOnce(() => {
             this.onPlayerDie.dispatch();
         })
@@ -73,7 +82,7 @@ export default class LevelManager {
         this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
         this.player.setPositionXZ(0, 0)
     }
-    destroy(){
+    destroy() {
         this.gameSessionController.destroy();
         this.player.destroy();
 

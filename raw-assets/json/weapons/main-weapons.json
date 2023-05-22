@@ -231,7 +231,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 50,
+            "baseSpawnDistance": 70,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,

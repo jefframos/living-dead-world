@@ -4,6 +4,7 @@ import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
+import CookieManager from '../CookieManager';
 import Game from '../../Game';
 import InteractableView from '../view/card/InteractableView';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
@@ -69,20 +70,23 @@ export default class CharacterBuildScreen extends Screen {
 
         this.activePlayers = [];
 
+        const firstPlayer = CookieManager.instance.getPlayer(0)
 
-        this.addCharacter()
-       // this.addCharacter()
-      //  this.addCharacter()
-        
-        
-        
+        for (let index = 0; index < CookieManager.instance.totalPlayers; index++) {
+            this.addCharacter(CookieManager.instance.getPlayer(index))
+        }
+        // this.addCharacter()
+        //  this.addCharacter()
+
+
+
         this.activePlayerId = Math.min(1, this.activePlayers.length - 1);
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
         this.updateCharactersPosition();
-        this.sceneContainer.pivot.x =  Game.Borders.width / 2
-        this.sceneContainer.pivot.y =  Game.Borders.height / 2
+        this.sceneContainer.pivot.x = Game.Borders.width / 2
+        this.sceneContainer.pivot.y = Game.Borders.height / 2
     }
-    addCharacter() {
+    addCharacter(data) {
 
         let playerPreviewData = {}
         playerPreviewData.playerPreviewSprite = new PIXI.Sprite();
@@ -96,7 +100,17 @@ export default class CharacterBuildScreen extends Screen {
         playerPreviewData.playerPreviewStructure.setData({})
 
         playerPreviewData.playerViewDataStructure = new PlayerViewStructure();
+        if (data) {
+            playerPreviewData.playerViewDataStructure.parse(data)
+        }
         playerPreviewData.playerPreviewStructure.buildSpritesheet(playerPreviewData.playerViewDataStructure)
+
+        playerPreviewData.playerViewDataStructure.onStructureUpdate.add(() => {
+            CookieManager.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
+        })
+        playerPreviewData.playerViewDataStructure.onColorUpdate.add(() => {
+            CookieManager.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
+        })
 
         this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
 
@@ -108,13 +122,13 @@ export default class CharacterBuildScreen extends Screen {
     }
     updateCurrentPlayer(id) {
         this.activePlayerId = id;
-
+        CookieManager.instance.changePlayer(id)
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
     }
     randomize() {
 
         this.activePlayers.forEach(element => {
-            
+
             element.head = Math.ceil(Math.random() * 10)
             element.chest = Math.ceil(Math.random() * 10)
             element.frontFace = Math.ceil(Math.random() * 5)

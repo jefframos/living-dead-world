@@ -81,7 +81,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": 10,
-            "baseHealth": 25,
+            "baseHealth": 30,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -116,12 +116,12 @@
         "ranking": 1,
         "attributes": {
             "basePower": 10,
-            "baseHealth": 25,
+            "baseHealth": 50,
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 25,
-            "baseSpeed": 8
+            "baseSpeed": 6
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -133,6 +133,40 @@
         "animationData": {
             "idle": "ZOMBIE_04",
             "run": "ZOMBIE_04"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_GREEN",
+            "onDie": "BODY_PARTS_GREEN"
+        }
+    },
+    {
+        "id": "ZOMBIE_KAREN",
+        "entityData": {
+            "name": "Slime",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 2,
+            "title": "Jhonatan Goblin"
+        },
+        "ranking": 1,
+        "attributes": {
+            "basePower": 15,
+            "baseHealth": 20,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 25,
+            "baseSpeed": 50
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "jumpHight": 0,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "ZOMBIE_KAREN",
+            "run": "ZOMBIE_KAREN"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_GREEN",

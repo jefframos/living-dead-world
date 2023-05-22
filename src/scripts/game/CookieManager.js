@@ -1,6 +1,14 @@
+import PlayerViewStructure from './entity/PlayerViewStructure';
 import Signals from 'signals';
 
 export default class CookieManager {
+	static _instance;
+	static get instance() {
+		if (!CookieManager._instance) {
+			CookieManager._instance = new CookieManager();
+		}
+		return CookieManager._instance;
+	}
 	constructor() {
 		this.onUpdateAchievments = new Signals();
 		this.defaultStats = {
@@ -26,16 +34,11 @@ export default class CookieManager {
 			latestClaimFreeMoney: -1,
 			isInitialized: false
 		}
-		this.defaultBoard = {
+		this.defaultPlayer = {
 			version: '0.0.1',
-			currentBoardLevel: 0,
-			entities: {},
-			dataProgression: {},
-			boardLevel: {
-				currentLevel: 1,
-				progress: 0,
-				percent: 0,
-			}
+			totalPlayers: 3,
+			currentPlayer: 0,
+			playerStructures: []
 		}
 
 		this.defaultGifts = {
@@ -53,13 +56,6 @@ export default class CookieManager {
 			revealMystery: { progress: 0, claimed: 0 },
 		}
 
-		//discore 10 / 15/ 20
-		//reach level 10 / 15 / 20
-		//buy 50 /500 /1500 250k-375k
-		//merge 500/1500/2500
-		//tap crate 700/1500/3000
-		//open crates 300
-		//open mystery 40
 
 		this.defaultModifyers = {
 			version: '0.0.1',
@@ -80,7 +76,7 @@ export default class CookieManager {
 			}
 		}
 
-		this.version = '0.0.18'
+		this.version = '0.0.1'
 		this.cookieVersion = this.getCookie('cookieVersion')
 		//alert(this.cookieVersion != this.version)
 		if (!this.cookieVersion || this.cookieVersion != this.version) {
@@ -94,17 +90,17 @@ export default class CookieManager {
 
 		this.storeObject('fullData', this.fullData)
 
-		this.settings= this.getCookie('settings')
-		if(!this.settings){
+		this.settings = this.getCookie('settings')
+		if (!this.settings) {
 			this.storeObject('settings', this.defaultSettings)
 
 			this.settings = this.defaultSettings;
 		}
 
 	}
-	claimAchievment(id, type){
+	claimAchievment(id, type) {
 		if (this.fullData[id].achievments[type] !== undefined) {
-			this.fullData[id].achievments[type].claimed ++;
+			this.fullData[id].achievments[type].claimed++;
 			this.storeObject('fullData', this.fullData)
 
 		} else {
@@ -121,9 +117,9 @@ export default class CookieManager {
 	}
 	addAchievment(id, type, quant = 1, hard = false) {
 		if (this.fullData[id].achievments[type] !== undefined) {
-			if(hard){
+			if (hard) {
 				this.fullData[id].achievments[type].progress = quant;
-			}else{
+			} else {
 				this.fullData[id].achievments[type].progress += quant;
 			}
 			this.onUpdateAchievments.dispatch(type);
@@ -133,19 +129,81 @@ export default class CookieManager {
 			console.log('achievment ', type, ' not found')
 		}
 	}
+	getChunck(type, from = 'main') {
+		return this.fullData[from][type]
+	}
+	saveChunk(type, data, from = 'main') {
+		this.fullData[from][type] = data;
+		this.storeObject('fullData', this.fullData)
+
+	}
 	sortCookie(id) {
 		if (!this.fullData[id]) {
 
 			this.fullData[id] = {}
-			this.fullData[id]['board'] = this.sortCookieData('board', this.defaultBoard);
+			this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
 			this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);
 			this.fullData[id]['progression'] = this.sortCookieData('progression', this.defaultProgression);
-			console.log(this.fullData[id]['progression'])
 			this.fullData[id]['economy'] = this.sortCookieData('economy', this.defaultEconomy);
 			this.fullData[id]['achievments'] = this.sortCookieData('achievments', this.defaultAchievments);
 		}
 
 		this.storeObject('fullData', this.fullData)
+
+	}
+	get totalPlayers(){
+		return this.getChunck('player').totalPlayers;
+	}
+	get currentPlayer(){
+		return this.getChunck('player').currentPlayer;
+	}
+	changePlayer(id){
+		const data = this.getChunck('player')
+		data.currentPlayer = id;
+		this.saveChunk('player', data)
+	}
+	sortPlayers(){
+		const data = this.getChunck('player')
+		for (let index = 0; index < data.totalPlayers; index++) {
+			const element = this.getPlayer(index);
+			if(!element){
+				this.savePlayer(index)
+			}
+		}
+	}
+	getPlayer(id) {
+		const data = this.getChunck('player')
+		if (!data.playerStructures || data.playerStructures.length <= id) {
+			return null;
+		} else {
+			return data.playerStructures[id]
+		}
+	}
+	savePlayer(id, dataToSave) {
+
+		const data = this.getChunck('player')
+
+		if (data.playerStructures.length <= id) {
+			if (dataToSave) {
+
+				data.playerStructures.push(dataToSave.serialize());
+			} else {
+
+				const newP = new PlayerViewStructure();
+				data.playerStructures.push(newP.serialize());
+			}
+
+		} else {
+			if (dataToSave) {
+
+				data.playerStructures[id] = (dataToSave.serialize());
+			} else {
+
+				const newP = new PlayerViewStructure();
+				data.playerStructures[id] = (newP.serialize());
+			}
+		}
+		this.saveChunk('player', data)
 
 	}
 	generateCookieData(nameID, defaultData, force = false) {
@@ -182,12 +240,12 @@ export default class CookieManager {
 				const element = defaultData[key];
 				if (target[key] === undefined) {
 					target[key] = element;
-					this.storeObject(nameID, target)
+					//this.storeObject(nameID, target)
 				}
 			}
 		} else {
 			target = defaultData
-			this.storeObject(nameID, target)
+			//this.storeObject(nameID, target)
 		}
 
 		return target
@@ -327,7 +385,7 @@ export default class CookieManager {
 		return this.getCookie('settings')
 	}
 	setSettings(param, value) {
-		if(this.settings[param] !== undefined){
+		if (this.settings[param] !== undefined) {
 			this.settings[param] = value;
 		}
 		return this.storeObject('settings', this.settings)
@@ -343,7 +401,7 @@ export default class CookieManager {
 		return this.getCookie('economy')
 	}
 
-	getLastResourceTime(id){
+	getLastResourceTime(id) {
 		return this.fullData[id].economy
 	}
 
@@ -354,9 +412,7 @@ export default class CookieManager {
 	getProgression() {
 		return this.getCookie('progression')
 	}
-	resetBoard() {
-		this.sortCookieData('board', this.defaultBoard, true)
-	}
+
 	getGifts(id) {
 		return this.fullData[id].gifts//this.getCookie('board')
 	}

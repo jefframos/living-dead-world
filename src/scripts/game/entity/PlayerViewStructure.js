@@ -153,4 +153,38 @@ export default class PlayerViewStructure {
         this.onColorUpdate.dispatch('faceHairColor', this._faceHairColor)
     }
     get faceHairColor() { return this._faceHairColor; }
+    serialize(){
+
+        const copy = {}
+        for (const key in this) {
+            if(key[0] == '_'){
+                if (Object.hasOwnProperty.call(this, key)) {
+                    copy[key] = this[key];
+                    
+                }
+            }
+        }
+        return JSON.stringify(copy)
+    }
+    parse(data){
+        const obj = JSON.parse(data)
+
+        for (const key in obj) {
+            if(key[0] == '_'){
+
+                if (Object.hasOwnProperty.call(obj, key)) {
+                    this[key] = obj[key];
+                }
+            }
+        }
+    }
+    applyAll(){
+        for (const key in this) {
+            if(key[0] == '_'){
+                if (Object.hasOwnProperty.call(this, key)) {
+                    this[key.substring(1)] = this[key];                    
+                }
+            }
+        }
+    }
 }

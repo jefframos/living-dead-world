@@ -216,10 +216,13 @@ function startLoader() {
     })
 }
 
-window.COOKIE_MANAGER = new CookieManager();
+CookieManager.instance.sortCookie("main")
 
-
-
+const firstPlayer = CookieManager.instance.getPlayer(0)
+if(!firstPlayer){
+    CookieManager.instance.savePlayer(0)
+}
+CookieManager.instance.sortPlayers()
 
 function configGame(evt) {
 
@@ -280,7 +283,7 @@ function myFocusFunction() {
     // if (GAME_DATA.mute) {
     //     return
     // }
-    if (!COOKIE_MANAGER.getSettings().isMute) {
+    if (!CookieManager.instance.getSettings().isMute) {
         SOUND_MANAGER.unmute();
     }
 }
