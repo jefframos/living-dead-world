@@ -102,8 +102,16 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
         this.playerHud.registerPlayer(this.player)
     }
+    resetLevelBar(){
+        this.baseBarView.updateNormal(0);
+    }
+    showLevelUp(){
+        this.baseBarView.forceUpdateNormal(1);
+    }
     updateXp(xpData) {
-        this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
+        if(xpData.normalUntilNext < 1){
+            this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
+        }
         this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
     updatePlayerHealth() {

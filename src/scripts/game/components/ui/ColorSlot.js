@@ -3,7 +3,10 @@ import BaseButton from "./BaseButton";
 export default class ColorSlot extends BaseButton {
     constructor(texture = 'square_0006', width = 100, height = 150) {
         super(texture, width, height)
-        this.setColors();
+        this.setActiveTexture('square_0001')
+
+        this.setColors(0xFFFFFF,0xFFFFFF);
+
         this.color = 0;
     }
     setColor(mainColor) {

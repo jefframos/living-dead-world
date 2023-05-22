@@ -14,16 +14,12 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.addChild(this.container)
         this.piecesScroller = new BodyPartsListScroller({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
         this.container.addChild(this.piecesScroller);
-        // this.piecesScroller.addBaseGradient('base-gradient', 300)
+       
 
-
-
-        this.colorContainerScroller = new BodyPartsListScroller({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
-        this.container.addChild(this.colorContainerScroller);
-
-        this.colorContainerHairScroller = new BodyPartsListScroller({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
+        this.colorContainerHairScroller = new UIList();
+        this.colorContainerHairScroller.w = 100;
+        this.colorContainerHairScroller.h = 100;
         this.container.addChild(this.colorContainerHairScroller);
-        // this.colorContainerScroller.addBaseGradient('base-gradient', 300)
 
         this.torsosData = {
             _1: {
@@ -34,38 +30,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                     colorParam: 'sleevesColor',
                     color: -1
                 }]
-            },
-            _2: {
-                colorset: UIUtils.colorset.clothes,
-                parts: [{
-                    param: 'sleeves',
-                    frame: 1,
-                    colorParam: 'sleevesColor',
-                    color: 0xFF0000
-                }]
-            },
-            _3: {
-                colorset: UIUtils.colorset.clothes,
-                parts: [{
-                    param: 'sleeves',
-                    frame: 2,
-                    colorParam: 'sleevesColor',
-                    color: -1
-                }]
-            }
-        }
-
-        this.legsData = {
-            _1: {
-                colorset: UIUtils.colorset.clothes,
-                parts: [{
-                    param: 'backLeg',
-                    frame: 0,
-                    colorParam: 'botomColor',
-                    color: -1
-                }]
-            }
-
+            },           
         }
 
         this.areas = [
@@ -85,7 +50,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             { label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false },
             { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false },
             { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: UIUtils.colorset.hair },
-            { label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
+          //  { label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
             { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
             { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }]
 
@@ -135,22 +100,16 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             this.sectionList.h += 70;
         });
 
-        this.hairColorItems = [];
-        UIUtils.colorset.hair.forEach(element => {
-            let colorButton = UIUtils.getColorSlot(()=>{}, element, 60,60)
-
-            this.hairColorItems.push(colorButton)
-            
-        });
-        this.colorContainerHairScroller.addItens(this.hairColorItems)
-
+        this.currentShowingColors = [];
         this.sectionList.updateVerticalList();
         this.sectionListBottom.updateVerticalList();
-        this.openSection(this.areas[0])
-        this.allButtons[0].setActive()
+
     }
     setPlayer(viewStructure) {
         this.playerViewStructure = viewStructure;
+
+        this.openSection(this.areas[0])
+        this.allButtons[0].setActive()
     }
     buildColorListOnly(colorset, colorParam) {
         for (let index = 0; index < colorset.length; index++) {
@@ -165,26 +124,43 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         }
         this.piecesScroller.addItens(this.currentShowingItems)
     }
+    hideColors() {
+        this.colorContainerHairScroller.visible = false;
+        this.colorContainerHairScroller.scale.set(1);
+    }
     buildAltColorList(colorset, colorParam) {
-        this.currentShowingColors = [];
-        this.colorContainerScroller.setTitle('Color')
-        for (let index = 0; index < colorset.length; index++) {
-            const slot = UIUtils.getColorSlot(this.updateSlotColor.bind(this), colorset[index])
 
+        this.currentShowingColors = [];
+        this.colorContainerHairScroller.removeAllElements();
+
+        colorset.forEach(element => {
+            let colorButton = UIUtils.getColorButton(this.updateSlotColor.bind(this), element, 60, 60)
             if (Array.isArray(colorParam)) {
-                slot.colorParam = colorParam
+                colorButton.colorParam = colorParam
             } else {
-                slot.colorParam = [colorParam]
+                colorButton.colorParam = [colorParam]
             }
-            this.currentShowingColors.push(slot)
+
+            this.currentShowingColors.push(colorButton)
+            this.colorContainerHairScroller.addElement(colorButton, { align: 0.5 })
+            colorButton.visible = true;
+
+        });
+
+        if (Game.IsPortrait) {
+            this.rebuildPortraitScrollers();
+        } else {
+            this.rebuildLandscapeScroller()
+
         }
-        this.colorContainerScroller.removeAllItems();
-        this.colorContainerScroller.addItens(this.currentShowingColors)
+        this.colorContainerHairScroller.visible = true
     }
     updateSlotColor(slot) {
         slot.colorParam.forEach(element => {
             this.playerViewStructure[element] = slot.color;
         });
+        this.findCurrentEquipped()
+
     }
     selectNewPiece(slot) {
 
@@ -214,13 +190,55 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         }
 
         this.playerViewStructure[slot.itemParam] = slot.itemId;
+
+        this.findCurrentEquipped()
+
+    }
+    findCurrentEquipped() {
+        console.log(this.currentRegion)
+
+        if(this.currentRegion.colorset){
+
+            const currentColor = this.playerViewStructure['_' + this.currentRegion.colorParam];
+            this.currentShowingColors.forEach(element => {
+                if(element.color == currentColor){
+                    element.setActive()
+                    
+                }else{
+                    element.setDefault()
+                }
+            });
+
+        }
+        if (this.currentRegion.type == 'colors'){
+            const currentColor = this.playerViewStructure['_' + this.currentRegion.colorParam];
+            this.currentShowingItems.forEach(element => {
+                if(element.color == currentColor){
+                    element.setActive()
+                    
+                }else{
+                    element.setDefault()
+                }
+            });
+        }else{
+            const currentId = this.playerViewStructure['_' + this.currentRegion.param];
+            this.currentShowingItems.forEach(element => {
+                if(element.itemId == currentId){
+                    element.setActive()
+                    
+                }else{
+                    element.setDefault()
+                }
+            });
+        }
+        console.log(this.playerViewStructure)
     }
     resetColorPieces() {
         this.currentShowingColors.forEach(element => {
             element.colorParam = [];
         });
         this.currentShowingColors = []
-        this.colorContainerScroller.removeAllItems();
+
     }
     openSection(region, value) {
 
@@ -232,16 +250,20 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.currentShowingItems = []
         this.piecesScroller.removeAllItems();
         this.currentShowingColors = []
-        this.colorContainerScroller.removeAllItems();
+
 
         this.piecesScroller.setTitle(this.currentRegion.label)
 
         if (this.currentRegion.type == 'colors') {
             this.buildColorListOnly(this.currentRegion.colorset, this.currentRegion.colorParam)
+            this.findCurrentEquipped()
+
             return
         }
         if (this.currentRegion.colorParam && this.currentRegion.colorset) {
             this.buildAltColorList(this.currentRegion.colorset, this.currentRegion.colorParam)
+        } else {
+            this.hideColors();
         }
         if (this.currentRegion.range) {
 
@@ -270,15 +292,14 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                     slot.addIconContainer(iconContainer, this.currentRegion.iconSize, this.currentRegion.pivot)
 
                 }
-
-
                 this.currentShowingItems.push(slot)
-
             }
 
         }
 
         this.piecesScroller.addItens(this.currentShowingItems)
+
+        this.findCurrentEquipped()
     }
     resize(res, newRes) {
         this.sectionList.x = 20;
@@ -286,37 +307,26 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         if (Game.IsPortrait) {
 
             this.rebuildPortraitScrollers()
-
             this.piecesScroller.x = Game.Borders.width / 2 - this.piecesScroller.rect.w / 2 + 80
-
-            this.colorContainerScroller.y = 120
             this.piecesScroller.y = Game.Borders.height - (this.piecesScroller.rect.h * this.piecesScroller.scale.y) - 20
-            // this.piecesScroller.y = this.colorContainerScroller.y - this.piecesScroller.rect.h - 40
             this.sectionList.y = Game.Borders.height - this.sectionList.height - 20
 
-            this.colorContainerHairScroller.y = Game.Borders.height - this.sectionList.height - 20
-            this.colorContainerHairScroller.x = Game.Borders.width - this.colorContainerHairScroller.rect.w - 20
-
         } else {
+            this.colorContainerHairScroller.scale.set(1);
             this.piecesScroller.x = Game.Borders.width - this.piecesScroller.rect.w - 20
-
-            this.colorContainerScroller.y = Game.Borders.height - this.colorContainerScroller.rect.h - 20
-            this.piecesScroller.y = this.colorContainerScroller.y - this.piecesScroller.rect.h - 40
-
+            this.piecesScroller.y = Game.Borders.height - (this.piecesScroller.rect.h * this.piecesScroller.scale.y) - 20
             this.sectionList.y = 80
-
-            this.colorContainerHairScroller.y = 80
-            this.colorContainerHairScroller.x = Game.Borders.width - this.colorContainerHairScroller.rect.w - 20
+            this.colorContainerHairScroller.y = Game.Borders.height - (this.colorContainerHairScroller.h * this.colorContainerHairScroller.scale.y) - 20
+            let middle = Game.Borders.width - this.piecesScroller.rect.w - this.colorContainerHairScroller.w - 40
+            this.colorContainerHairScroller.x = Math.min(middle, Game.Borders.width / 2 - this.colorContainerHairScroller.w / 2)
 
         }
-
-
-        this.colorContainerScroller.x = this.piecesScroller.x;
 
         this.sectionListBottom.x = Game.Borders.width / 2 + 150;
         this.sectionListBottom.y = Game.Borders.height / 2 - this.sectionListBottom.height / 2;
     }
     rebuildPortraitScrollers() {
+        this.sectionList.scale.set(0.8)
 
         this.piecesScroller.removeAllItems();
         this.piecesScroller.scale.set(1.5)
@@ -324,39 +334,43 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.piecesScroller.resize({ w: Game.Borders.width - 80, h: ((Game.Borders.height / 2) / this.piecesScroller.scale.y - 50) }, { width: 100, height: 100 })
         this.piecesScroller.addItens(this.currentShowingItems)
 
-        this.colorContainerScroller.removeAllItems();
-        this.colorContainerScroller.gridDimensions.j = this.piecesScroller.gridDimensions.j
-        this.colorContainerScroller.resize({ w: Game.Borders.width - 80, h: 100 }, { width: 100, height: 100 })
-        this.colorContainerScroller.addItens(this.currentShowingColors)
+        if (this.currentShowingColors.length <= 0) {
+            this.colorContainerHairScroller.visible = false;
+            this.colorContainerHairScroller.scale.set(1);
 
-        this.colorContainerHairScroller.removeAllItems();
-        console.log("CHANGE THIS TO BE JUST LIST")
-        //this.colorContainerHairScroller.gridDimensions.i = 8
-        //this.colorContainerHairScroller.gridDimensions.j = 8
-        this.colorContainerHairScroller.resize({ w: 80, h: Game.Borders.height - 100 }, { width: 80, height: 80 })
-        this.colorContainerHairScroller.addItens(this.hairColorItems)
+            return;
+        }
+        this.colorContainerHairScroller.w = 60
+        this.colorContainerHairScroller.h = this.currentShowingColors.length * 60
+        this.colorContainerHairScroller.updateVerticalList();
+        let scale = Utils.scaleToFit(this.colorContainerHairScroller, (this.piecesScroller.y - 40))
+        this.colorContainerHairScroller.scale.set(scale)
+        this.colorContainerHairScroller.y = 20
+        this.colorContainerHairScroller.x = Game.Borders.width - (this.colorContainerHairScroller.w * this.colorContainerHairScroller.scale.x) - 40
 
+    }
+
+    rebuildLandscapeScroller() {
+        this.piecesScroller.scale.set(1)
+
+        this.colorContainerHairScroller.h = 60
+        this.colorContainerHairScroller.w = this.currentShowingColors.length * 60
+        this.colorContainerHairScroller.updateHorizontalList();
+
+        this.piecesScroller.removeAllItems();
+        this.piecesScroller.gridDimensions.j = 3
+        this.piecesScroller.resize({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
+        this.piecesScroller.addItens(this.currentShowingItems)
+
+        this.sectionList.scale.set(0.75)
     }
     aspectChange(isPortrait) {
 
         if (isPortrait) {
-            this.sectionList.scale.set(0.8)
-
             this.rebuildPortraitScrollers();
         } else {
-            this.piecesScroller.scale.set(1)
+            this.rebuildLandscapeScroller();
 
-            this.piecesScroller.removeAllItems();
-            this.piecesScroller.gridDimensions.j = 3
-            this.piecesScroller.resize({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
-            this.piecesScroller.addItens(this.currentShowingItems)
-
-            this.colorContainerScroller.removeAllItems();
-            this.colorContainerScroller.gridDimensions.j = 3
-            this.colorContainerScroller.resize({ w: 300, h: 200 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
-            this.colorContainerScroller.addItens(this.currentShowingColors)
-
-            this.sectionList.scale.set(0.75)
         }
     }
 }

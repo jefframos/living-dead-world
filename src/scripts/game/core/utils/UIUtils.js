@@ -108,13 +108,17 @@ export default class UIUtils {
         }
         return button;
     }
-    static getColorButton(callback, icon) {
+    static getColorButton(callback, color = 0, width = 85, height = 85) {
+
         const button = Pool.instance.getElement(ColorButton)
-        button.addShape('square_0002', 85, 85);
-        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
-        if (icon) {
-            button.addIcon(icon, 20,20)
+
+        button.addShape('square_0002', width, height);
+        button.setColor(color)
+        if (!button.mouseUpCallback && callback) {
+            button.mouseUpCallback = callback;
+            let cb = InteractableView.addMouseUp(button, () => { button.mouseUpCallback(button); })
         }
+
         return button;
     }
 

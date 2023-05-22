@@ -16,7 +16,9 @@
                 ]
             },
             {
-                "areaType": "rect",
+                "areaTypeNOT": "rect",
+                "areaType": "circle",
+                "radius": 300,
                 "width": 400,
                 "height": 400,
                 "total": 300,
@@ -34,9 +36,10 @@
         "duration": 30,
         "waves": [
             {
-                "areaType": "rect",
+                "areaType": "circle",
                 "width": 400,
                 "height": 400,
+                "radius": 100,
                 "total": 1,
                 "entity": "ZOMBIE_MOM"
             },
@@ -54,9 +57,10 @@
         "duration": 600,
         "waves": [
             {
-                "areaType": "rect",
+                "areaType": "circle",
                 "width": 400,
                 "height": 400,
+                "radius": 100,
                 "total": 1,
                 "entity": "ZOMBIE_MOM"
             },

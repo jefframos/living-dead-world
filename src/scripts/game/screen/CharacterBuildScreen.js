@@ -71,12 +71,12 @@ export default class CharacterBuildScreen extends Screen {
 
 
         this.addCharacter()
-        this.addCharacter()
-        this.addCharacter()
+       // this.addCharacter()
+      //  this.addCharacter()
         
         
         
-        this.activePlayerId = 1;
+        this.activePlayerId = Math.min(1, this.activePlayers.length - 1);
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
         this.updateCharactersPosition();
         this.sceneContainer.pivot.x =  Game.Borders.width / 2
@@ -134,6 +134,7 @@ export default class CharacterBuildScreen extends Screen {
         let maxWidth = Math.min(Game.Borders.width, 650)
         let chunk = maxWidth / this.activePlayers.length
         let angChunk = (Math.PI) / (this.activePlayers.length - 1)
+        angChunk = Math.min(0, angChunk)
         //console.log("calcular a distancia baseado na escala tb")
         for (var i = 0; i < this.activePlayers.length; i++) {
             const element = this.activePlayers[i];

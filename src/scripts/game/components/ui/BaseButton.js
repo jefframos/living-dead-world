@@ -13,15 +13,19 @@ export default class BaseButton extends PIXI.Container {
 
         this.mainTexture = texture;
 
-        
+        this.swapTexture = null;
+        this.isActive = false;
+
     }
-    setActiveTexture(texture){
+    setActiveTexture(texture) {
         this.activeTexture = texture;
     }
-    setActive(){
+    setActive() {
+        this.isActive = true;
         this.safeShape.texture = PIXI.Texture.from(this.activeTexture)
     }
-    setDefault(){
+    setDefault() {
+        this.isActive = false;
         this.safeShape.texture = PIXI.Texture.from(this.mainTexture)
     }
     set tint(value) {
@@ -32,10 +36,15 @@ export default class BaseButton extends PIXI.Container {
             this.text.style.fill = value;
         }
     }
+    simulateClick() {
+        this.out();
+        this.onButtonClicked.dispatch(this)
+    }
     addShape(texture, width, height) {
-        if(this.safeShape){
+        this.mainTexture = texture;
+        if (this.safeShape) {
             this.safeShape.texture = PIXI.Texture.from(texture)
-        }else{
+        } else {
             this.safeShape = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
             this.addChild(this.safeShape);
         }
@@ -64,9 +73,9 @@ export default class BaseButton extends PIXI.Container {
     addIcon(icon, height = 0, anchor = { x: 0.5, y: 0.5 }, offset = { x: 0, y: 0 }) {
         this.cleanUp();
 
-        if(this.icon){
+        if (this.icon) {
             this.icon.texture = PIXI.Texture.from(icon)
-        }else{
+        } else {
             this.icon = new PIXI.Sprite.from(icon);
         }
         this.icon.interactive = false;
@@ -94,20 +103,37 @@ export default class BaseButton extends PIXI.Container {
         this.iconContainer.y = this.safeShape.height / 2 + offset.y;
         this.addChild(this.iconContainer);
     }
-    cleanUp(){
-        if(this.iconContainer){
+    cleanUp() {
+        if (this.iconContainer) {
             this.iconContainer.parent.removeChild(this.iconContainer);
             this.iconContainer = null;
         }
-        if(this.icon){
+        if (this.icon) {
             this.icon.texture = PIXI.Texture.EMPTY;
         }
     }
     over() {
         this.mouseOver = true;
+
+        if(this.isActive){
+            return;
+        }
+        if (this.swapTexture) {
+
+            this.safeShape.texture = PIXI.Texture.from(this.swapTexture)
+        }
+
     }
     out() {
         this.mouseOver = false;
+
+        if(this.isActive){
+            return;
+        }
+        if (this.swapTexture) {
+
+            this.safeShape.texture = PIXI.Texture.from(this.mainTexture)
+        }
     }
 
 }

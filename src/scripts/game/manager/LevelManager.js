@@ -52,7 +52,7 @@ export default class LevelManager {
             Game.Debug.customChar = parseInt(Game.Debug.customChar)
         }
         //REMOVE THIS
-        Game.Debug.customChar = 1
+        //Game.Debug.customChar = 1
         this.player = this.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : Math.floor(Math.random() * 7)))
         this.player.onDie.addOnce(() => {
             this.onPlayerDie.dispatch();

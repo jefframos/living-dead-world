@@ -3,7 +3,9 @@ import BaseButton from "./BaseButton";
 export default class BodyPartySlot extends BaseButton {
     constructor(texture = 'square_0006', width = 100, height = 150) {
         super(texture, width, height)
-        this.setColors();
+        this.setActiveTexture('square_0001')
+
+        this.setColors(0xFFFFFF, 0xFFFFFF);
     }
    
     setColors(base = 0xFFFFFF, over = 0xFF0000, baseText = 0, overText = 0xFFFFFF) {

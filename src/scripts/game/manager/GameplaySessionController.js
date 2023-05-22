@@ -111,27 +111,34 @@ export default class GameplaySessionController extends GameObject {
     onPlayerLevelUp(xpData) {
         this.cardPlacementSystem.show();
         Eugine.TimeScale = 0;
+        
+        setTimeout(() => {            
+            this.playerInventoryHud.showLevelUp();
+        }, 1);
     }
 
     start() {
         this.input = this.engine.findByType(InputModule);
-        this.input.onKeyUp.add((e) => {
-            if (e.keyCode == 81) {
-                this.toggleBuilding();
-            }
+        // this.input.onKeyUp.add((e) => {
+        //     if (e.keyCode == 81) {
+        //         this.toggleBuilding();
+        //     }
 
-            if (e.keyCode == 49) {
+        //     if (e.keyCode == 49) {
 
-                this.toggleDeck();
-            }
-        })
+        //         this.toggleDeck();
+        //     }
+        // })
     }
     onHidePanel() {
         Eugine.TimeScale = 1;
+        this.playerInventoryHud.resetLevelBar();
     }
     toggleDeck() {
         if (!this.cardPlacementSystem.enabled) {
             this.cardPlacementSystem.show();
+            this.playerInventoryHud.showLevelUp();
+
             Eugine.TimeScale = 0;
         } else {
             this.cardPlacementSystem.hide();

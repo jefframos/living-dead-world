@@ -10,7 +10,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "SNIPER_01"
+            "id": "WORM_GUN"
         },
         "attributes": {
             "basePower": 10,
@@ -118,7 +118,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "WORM_GUN"
+            "id": "SNIPER_01"
         },
         "attributes": {
             "basePower": 10,

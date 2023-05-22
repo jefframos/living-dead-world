@@ -79,10 +79,10 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "spawnVfxPack": "STANDARD_SHOOTING_1",
             "destroyVfxPack": "BLUE_IMPACT",
             "overrider": {
-                "baseViewData": "SPERM"
+                "baseViewData": "BLUE_SHELL_BASE_01"
             }
         }
     },
@@ -122,10 +122,10 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "spawnVfxPack": "STANDARD_SHOOTING_1",
             "destroyVfxPack": "BLUE_IMPACT",
             "overrider": {
-                "baseViewData": "SPERM"
+                "baseViewData": "BLUE_SHELL_BASE_01"
             }
         }
     },
@@ -187,7 +187,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 25,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 120,
             "basePower": 50,
@@ -408,7 +408,7 @@
         "customConstructor": "BaseWeapon",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 50,
+            "baseSpawnDistance": 40,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 300,
             "basePower": 25,
@@ -416,7 +416,7 @@
             "baseFrequency": 3,
             "basePiercing": 5,
             "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemy",
+            "baseDirectionType": "ParentDirection",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 3,
             "baseBrustFireInterval": 0.5,
@@ -529,7 +529,6 @@
             "name": "Orbit"
         },
         "isMain": true,
-        "ingameViewData": "ORBIT",
         "weaponType": "Magical",
         "customConstructor": "FloatingProjectile",
         "overrider": "ORBIT_OVERRIDER",
@@ -614,7 +613,6 @@
             "name": "Disk"
         },
         "isMain": true,
-        "ingameViewData": "ICE_SHARD_THROWER",
         "weaponType": "Magical",
         "customConstructor": "BaseWeapon",
         "overrider": "ICE_SHARD_ROTATOR",
@@ -657,7 +655,6 @@
             "name": "Bouncing Basher"
         },
         "isMain": true,
-        "ingameViewData": "BOOMERANG_AXE",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
         "attributes": {
@@ -735,6 +732,49 @@
         "view": {
             "rotationSpeed": 0,
             "standardVfxPack": "AURA_PACK_01"
+        }
+    },
+    {
+        "id": "BOUNCE",
+        "entityData": {
+            "type": "Weapon",
+            "tier": 4,
+            "icon": "bounceBomb",
+            "name": "Bounce"
+        },
+        "isMain": true,
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 25,
+            "baseBulletSpeed": 120,
+            "baseFrequency": 4,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDetectionZone": 300,
+            "baseDirectionType": "Random",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.05,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 3.14
+        },
+        "bulletComponent": "BounceBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "BOUNCE_BASE"
+            }
         }
     },
     {
@@ -1415,49 +1455,6 @@
             "standardVfxPack": "FLASH_PACK",
             "spawnVfxPack": "SMOKE_PACK_01",
             "destroyVfxPack": "SMOKE_PACK_01"
-        }
-    },
-    {
-        "id": "BOUNCE",
-        "entityData": {
-            "type": "Weapon",
-            "tier": 4,
-            "icon": "bounceBomb",
-            "name": "Bounce"
-        },
-        "isMain": true,
-        "weaponType": "Magical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": 5,
-            "baseLifeRangeSpan": -1,
-            "basePower": 25,
-            "baseBulletSpeed": 120,
-            "baseFrequency": 4,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDetectionZone": 300,
-            "baseDirectionType": "Random",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 3,
-            "baseBrustFireInterval": 0.05,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 3.14
-        },
-        "bulletComponent": "BounceBullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "SMOKE_PACK_01",
-            "destroyVfxPack": "SMOKE_PACK_01",
-            "overrider": {
-                "baseViewData": "BOUNCE_BASE"
-            }
         }
     },
     {

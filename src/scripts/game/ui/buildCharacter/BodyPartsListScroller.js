@@ -44,6 +44,7 @@ export default class BodyPartsListScroller extends ListScroller {
     }
     setTitle(label) {
         this.title.text = label;
+        this.title.x = this.rect.w -  this.title.width - 10
     }
     addItens(itens) {
         let line = 0;
@@ -82,7 +83,7 @@ export default class BodyPartsListScroller extends ListScroller {
             this.itens.shift();
         }
         this.totalLines = 0;
-        this.title.text = '';
+        //this.title.text = '';
     }
     onShowBlockCallback(itemData, button) {
         this.onShowBlock.dispatch(itemData, button);

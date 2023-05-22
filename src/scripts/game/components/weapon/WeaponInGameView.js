@@ -54,8 +54,9 @@ export default class WeaponInGameView extends GameObject {
                 sprite.scale.set(Utils.scaleToFit(sprite, weapon.ingameViewDataStatic.ingameBaseWidth || 30))
             } else {
 
-                sprite.scale.set(0.5)
             }
+            //all get same scale now
+            sprite.scale.set(0.5)
             this.container.addChild(sprite)
 
             this.defautScale.x = sprite.scale.x
@@ -81,7 +82,6 @@ export default class WeaponInGameView extends GameObject {
             }
             this.spriteList.push({ sprite, angle: 0, targetAngle: 0, spring, bar })
         }
-
         this.offset.x = this.weapon.weaponViewData.baseViewData.viewOffset.x || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.x || weapon.ingameViewDataStatic.viewOffset.x
         this.offset.y = this.weapon.weaponViewData.baseViewData.viewOffset.y || this.weapon.weaponViewData.baseSpawnViewData.viewOffset.y || weapon.ingameViewDataStatic.viewOffset.y
         if (this.spritesheetAnimation) {
@@ -225,7 +225,8 @@ export default class WeaponInGameView extends GameObject {
             }
 
             element.sprite.scale.y = element.spring.x * this.defautScale.y
-            element.sprite.scale.x = (element.spring.x * 0.2 + this.defautScale.x * 0.8) * faceDirection;
+            //element.sprite.scale.x = (element.spring.x * 0.2 + this.defautScale.x * 0.8) * faceDirection;
+            element.sprite.scale.x = this.defautScale.x * faceDirection;
 
 
             if (element.bar) {

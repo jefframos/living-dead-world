@@ -347,7 +347,7 @@
             "y": 0
         },
         "anchor": {
-            "x": 0.5,
+            "x": 0.25,
             "y": 0.1
         },
         "shootAnimation": {
@@ -488,11 +488,11 @@
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
-            "y": 0
+            "y": -20
         },
         "anchor": {
             "x": 0.5,
-            "y": 0.01
+            "y": 0.1
         },
         "shootAnimation": {
             "active": false,
