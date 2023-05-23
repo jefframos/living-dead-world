@@ -150,8 +150,6 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
     }
     colorUpdate(region, value) {
 
-
-        console.log(region, value)
         let ids = [];
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].colorId == region) {

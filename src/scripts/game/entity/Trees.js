@@ -1,3 +1,4 @@
+import Game from "../../Game";
 import GameView from "../core/view/GameView";
 import Layer from "../core/Layer";
 import StaticPhysicObject from "./StaticPhysicObject";
@@ -9,6 +10,10 @@ export default class Trees extends StaticPhysicObject {
         super();
         this.gameView.tag = TagManager.Tags.Occlusion;
         
+    }
+    start()
+    {
+        super.start();
     }
     build(params) {
         super.build(params)
@@ -28,11 +33,9 @@ export default class Trees extends StaticPhysicObject {
 
         this.gameView.update(delta)
 
-        this.skewValue += delta * this.skewSpeed;
+        this.skewValue = Game.Time + this.transform.position.z;
 
         this.gameView.view.skew.x = Math.cos(this.skewValue) * 0.1
 
-    }
-    onRender() {
     }
 }

@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import Camera from './Camera';
+import Game from '../../Game';
 import LightSource from './view/LightSource';
 import Player from '../entity/Player';
 import RenderModule from './modules/RenderModule';
@@ -18,7 +19,7 @@ export default class PerspectiveCamera extends Camera {
             }
         }
         this.zoom = 1;
-        this.targetZoom = 1.5;
+        this.targetZoom = Game.Debug.zoom || 1.5;
         window.GUI.add(this, 'targetZoom', 0.5, 3).listen();
     }
     start() {

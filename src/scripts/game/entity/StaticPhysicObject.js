@@ -29,6 +29,4 @@ export default class StaticPhysicObject extends PhysicsEntity {
         super.update(delta);
         this.gameView.update(delta)
     }
-    onRender() {
-    }
 }

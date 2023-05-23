@@ -24,6 +24,15 @@ export default class MainScreenManager extends ScreenManager {
         super();
         //this.screensContainer = Game.ScreenManagerContainer;
 
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams) {
+
+            urlParams.forEach((value, key) => {
+                console.log(value, key);
+                Game.Debug[key] = parseFloat(value)
+            })
+        }
+       
         GameStaticData.instance.initialize();
 
         this.settings = {
@@ -72,20 +81,13 @@ export default class MainScreenManager extends ScreenManager {
         // debug
         // builder
         // game   
-
-        const urlParams = new URLSearchParams(window.location.search);
-        if (urlParams) {
-
-            urlParams.forEach((value, key) => {
-                console.log(value, key);
-                Game.Debug[key] = parseInt(value)
-            })
-        }
         if (Game.Debug.builder) {
             this.forceChange(MainScreenManager.Screens.CharacterBuild);
         } else if (Game.Debug.game) {
             this.forceChange(MainScreenManager.Screens.GameScreen);
         }
+
+       
         this.isPaused = false;
 
         window.onAdds.add(() => {
