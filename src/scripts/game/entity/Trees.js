@@ -25,8 +25,10 @@ export default class Trees extends StaticPhysicObject {
         this.layerCategory = Layer.Environment
         this.layerMask = Layer.EnvironmentCollision
 
-        this.skewValue = Math.random() * Math.PI * 2;
         this.skewSpeed = Math.random() * 0.2 + 0.2;
+
+        this.skewValue = Game.Time + this.transform.position.z;
+        this.gameView.view.skew.x = Math.cos(this.skewValue) * 0.1
     }
     update(delta) {
         super.update(delta);
@@ -34,7 +36,6 @@ export default class Trees extends StaticPhysicObject {
         this.gameView.update(delta)
 
         this.skewValue = Game.Time + this.transform.position.z;
-
         this.gameView.view.skew.x = Math.cos(this.skewValue) * 0.1
 
     }

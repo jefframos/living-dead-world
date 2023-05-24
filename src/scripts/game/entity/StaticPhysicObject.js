@@ -22,8 +22,16 @@ export default class StaticPhysicObject extends PhysicsEntity {
         this.layerCategory = Layer.Environment
         this.layerMask = Layer.EnvironmentCollision
 
+    }
+    afterBuild(){
+        super.afterBuild()
+        
         let shadow = this.engine.poolGameObject(Shadow)
         this.addChild(shadow)
+
+        shadow.transform.position.x = this.x
+        shadow.transform.position.z = this.z
+
     }
     update(delta) {
         super.update(delta);

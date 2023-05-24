@@ -69,10 +69,10 @@ export default class SpawnerData {
         }
         switch (this.areaType) {
             case SessionSpawner.SpawnAreaType.Rect:
-                this.offset = { x: Math.cos(this.angle) * (this.width + this.safeDistance), y: Math.sin(this.angle) * (this.height + this.safeDistance) }
+                this.offset = { x: Math.cos(this.angle) * (this.width + this.distanceToSpawn), y: Math.sin(this.angle) * (this.height + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
-                this.offset = { x: Math.cos(this.angle) * (this.radius * 2 + this.safeDistance), y: Math.sin(this.angle) * (this.radius * 2 + this.safeDistance) }
+                this.offset = { x: Math.cos(this.angle) * (this.radius * 2 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 2 + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Point:
 
@@ -88,14 +88,16 @@ export default class SpawnerData {
         this.findOffset();
         switch (this.areaType) {
             case SessionSpawner.SpawnAreaType.Rect:
-                this.toSpawnData.x = Math.random() * this.width + this.randomPoint.x * this.distanceToSpawn + this.offset.x;
-                this.toSpawnData.z = Math.random() * this.height + this.randomPoint.y * this.distanceToSpawn + this.offset.y;
+                this.toSpawnData.x = this.randomPoint.x * Math.random() *this.width + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.height+ this.offset.y;
+                this.randomPoint = Utils.randomCircle()
+                
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
-                const ang = Math.random() * Math.PI * 2;
-                let dist = this.distanceToSpawn * Math.random();
-                this.toSpawnData.x = Math.cos(ang) * this.radius + this.randomPoint.x * dist + this.offset.x;
-                this.toSpawnData.z = Math.sin(ang) * this.radius + this.randomPoint.y * dist + this.offset.y;
+                this.toSpawnData.x = this.randomPoint.x * Math.random() *this.radius + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.radius+ this.offset.y;
+                this.randomPoint = Utils.randomCircle()
+
                 break;
             case SessionSpawner.SpawnAreaType.Point:
                 this.toSpawnData.x = 0;

@@ -18,8 +18,7 @@ export default class PerspectiveCamera extends Camera {
                 //window.GUI.add(this.cam, key).listen();
             }
         }
-        this.zoom = 1;
-        this.targetZoom = Game.Debug.zoom || 1.5;
+       
         window.GUI.add(this, 'targetZoom', 0.5, 3).listen();
     }
     start() {

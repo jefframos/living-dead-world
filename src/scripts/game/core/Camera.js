@@ -1,12 +1,21 @@
 import * as PIXI from 'pixi.js';
 
+import Game from '../../Game';
 import GameObject from './gameObject/GameObject';
 import Vector3 from './gameObject/Vector3';
 
 export default class Camera extends GameObject{
+    static _instance = null;
+    static get instance(){
+        if(!Camera._instance){
+            Camera._instance = this;
+        }
+        return Camera._instance;
+    }
     constructor(){
         super()
-
+        this.zoom = 1;
+        this.targetZoom = Game.Debug.zoom || 1.5;
         this.followPoint = new Vector3();
     }
 }

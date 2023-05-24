@@ -7,13 +7,12 @@ export default class EnemyGlobalSpawner {
 
     constructor(gameManager) {
         this.gameManager = gameManager;
-        this.distanceToSpawn = 400;
+        this.distanceToSpawn = 600;
     }
     spawnRandom() {
         this.spawnSingleEntity(GameStaticData.instance.getEntityByIndex('enemy', 0));
     }
     spawnEnemy(spawnData) {
-
         spawnData.updateDistanceToSpawn(this.distanceToSpawn);
 
         const toSpawn = spawnData.entityToSpawn;

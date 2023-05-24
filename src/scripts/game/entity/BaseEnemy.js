@@ -6,6 +6,7 @@ import GameAgent from "../core/entity/GameAgent";
 import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import Layer from "../core/Layer";
+import LevelManager from "../manager/LevelManager";
 import Player from "./Player";
 import Pool from "../core/utils/Pool";
 import Shadow from "../components/view/Shadow";
@@ -122,7 +123,7 @@ export default class BaseEnemy extends GameAgent {
     }
     update(delta) {
         if (!this.dying) {
-            if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > 1000) {
+            if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > LevelManager.instance.destroyDistance) {
                 this.onRespawn.dispatch(this)
             }
             this.timer += delta * (this.speed * delta * Math.random())

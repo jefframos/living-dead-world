@@ -5,9 +5,9 @@
         "waves": [
             {
                 "areaType": "circle",
-                "radius": 300,
-                "total": 300,
-                "maxActive": 50,
+                "radius": 200,
+                "total": 50,
+                "maxActive": 10,
                 "entity": [
                     "ZOMBIE_01",
                     "ZOMBIE_02",
@@ -16,18 +16,64 @@
                 ]
             },
             {
-                "areaTypeNOT": "rect",
                 "areaType": "circle",
-                "radius": 300,
+                "radius": 200,
+                "total": 50,
+                "maxActive": 0,
+                "entity": [
+                    "ZOMBIE_01",
+                    "ZOMBIE_02",
+                    "ZOMBIE_03",
+                    "ZOMBIE_04"
+                ]
+            }
+        ]
+    },
+    {
+        "startAt": 60,
+        "duration": 30,
+        "waves": [
+            {
+                "areaType": "circle",
                 "width": 400,
                 "height": 400,
-                "total": 300,
+                "radius": 100,
+                "total": 100,
+                "maxActive": 25,
+                "entity": "SPIDER_BRAIN"
+            },
+            {
+                "areaType": "circle",
+                "radius": 100,
+                "total": 100,
+                "maxActive": 25,
+                "entity": "BUTTFLY"
+            }
+        ]
+    },
+    {
+        "startAt": 90,
+        "duration": 30,
+        "waves": [
+            {
+                "areaType": "circle",
+                "width": 400,
+                "height": 400,
+                "radius": 100,
+                "total": 100,
+                "maxActive": 25,
+                "entity": "ZOMBIE_KAREN"
+            },
+            {
+                "areaType": "circle",
+                "radius": 100,
+                "total": 100,
                 "maxActive": 50,
                 "entity": [
-                    "RAT_01",
-                    "SPIDER_BRAIN",
-                    "BUTTFLY",
-                    "ZOMBIE_KAREN"
+                    "ZOMBIE_01",
+                    "ZOMBIE_02",
+                    "ZOMBIE_03",
+                    "ZOMBIE_04"
                 ]
             }
         ]

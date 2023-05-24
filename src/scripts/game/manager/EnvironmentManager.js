@@ -1,4 +1,6 @@
 import BasicFloorRender from "./BasicFloorRender";
+import Camera from "../core/Camera";
+import Game from "../../Game";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import LevelManager from "./LevelManager";
@@ -31,17 +33,17 @@ export default class EnvironmentManager extends GameObject {
         };
 
         this.patches = {
-            deco: { layerName: 'deco', constructor: StaticViewObject, spriteName: 'deco00', total: 5, weight: -0.4, noise: 300, density: 3, compare: EnvironmentManager.Compare.Less },
-            grass: { layerName: 'grass', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
-            grass2: { layerName: 'grass2', constructor: StaticViewObject, list: ['grass-grass'], weight: 0.2, noise: 250, density: 12, compare: EnvironmentManager.Compare.Less },
+            deco: { layerName: 'deco', constructor: StaticViewObject, spriteName: 'deco00', total: 5, weight: -0.4, noise: 300, density: 2, compare: EnvironmentManager.Compare.Less },
+            grass: { layerName: 'grass', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 5, compare: EnvironmentManager.Compare.Less },
+            grass2: { layerName: 'grass2', constructor: StaticViewObject, list: ['grass-grass'], weight: 0.2, noise: 250, density: 5, compare: EnvironmentManager.Compare.Less },
 
-            grass3: { layerName: 'grass3', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 40, compare: EnvironmentManager.Compare.Always },
-            grass4: { layerName: 'grass4', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 40, compare: EnvironmentManager.Compare.Always },
+            grass3: { layerName: 'grass3', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 5, compare: EnvironmentManager.Compare.Always },
+            grass4: { layerName: 'grass4', constructor: StaticViewObject, spriteName: 'grass-patches00', total: 6, weight: 0.2, noise: 250, density: 5, compare: EnvironmentManager.Compare.Always },
 
-            plants: { layerName: 'plants', constructor: StaticViewObject, spriteName: 'plants00', total: 10, weight: 0.6, noise: 100, density: 15, compare: EnvironmentManager.Compare.More },
-            rocks: { layerName: 'rocks', constructor: StaticViewObject, spriteName: 'rocks00', total: 6, weight: [-0.5, 0.5], noise: 300, density: 10, compare: EnvironmentManager.Compare.Nor },
-            trunks: { layerName: 'trunks', constructor: StaticViewObject, spriteName: 'trunks00', total: 2, weight: [0.5, 0.6], noise: 50, density: 8, compare: EnvironmentManager.Compare.Between },
-            trees: { layerName: 'trees', constructor: Trees, list: ['tree-1', 'tree-2', 'pine-1', 'pine-2'], weight: 0.6, noise: 150, density: 8, width: 50, height: 50, compare: EnvironmentManager.Compare.More },
+            plants: { layerName: 'plants', constructor: StaticViewObject, spriteName: 'plants00', total: 10, weight: 0.5, noise: 100, density: 3, compare: EnvironmentManager.Compare.More },
+            rocks: { layerName: 'rocks', constructor: StaticViewObject, spriteName: 'rocks00', total: 6, weight: [-0.5, 0.5], noise: 300, density: 2, compare: EnvironmentManager.Compare.Nor },
+            trunks: { layerName: 'trunks', constructor: StaticViewObject, spriteName: 'trunks00', total: 2, weight: [0.5, 0.6], noise: 50, density: 2, compare: EnvironmentManager.Compare.Between },
+            trees: { layerName: 'trees', constructor: Trees, list: ['tree-1', 'tree-2', 'pine-1', 'pine-2'], weight: 0.5, noise: 150, density: 1, width: 50, height: 50, compare: EnvironmentManager.Compare.More },
         }
 
         for (const key in this.patches) {
@@ -62,10 +64,11 @@ export default class EnvironmentManager extends GameObject {
         const prng = alea('seed2');
         this.noise2D = createNoise2D(prng);
 
-        this.drawBounds = { width: 1000, height: 1000 };
+        this.drawBounds = { width: 800, height: 800 };
+        this.drawBoundsDistance = { i: 4, j: 4 };
 
-        this.chunkSize = { width: 128, height: 128 }
-        this.currentChunkId = { i: -1, j: -1 };
+        this.chunkSize = { width: 256, height: 256 }
+        this.currentChunkId = { i: -11111111, j: -11111111 };
         this.nextChunkId = { i: 0, j: 0 };
         this.drawOffset = { i: 0, j: 0 };
     }
@@ -99,33 +102,18 @@ export default class EnvironmentManager extends GameObject {
     }
     update(delta) {
         super.update(delta);
-
-
     }
     updateWorldElements() {
 
-        //this.drawLayer(this.patches.grass3)
         this.bakedData = {}
-
         this.updatePlayerChunk();
-
-        //return
-        // this.drawLayer(this.patches.deco)
-        // // this.drawLayer(this.patches.grass)
-        // this.drawLayer(this.patches.grass2)
-        // this.drawLayer(this.patches.plants)
-        // this.drawLayer(this.patches.trunks)
-        // this.drawLayer(this.patches.rocks)
 
     }
     drawLayer(layer, playerOrigin) {
-        const d = layer.density
-        //console.log(playerOrigin)
-        const chunkW = this.drawBounds.width / layer.density//this.drawBounds.width / layer.density
-        const chunkH = this.drawBounds.height / layer.density//this.drawBounds.height / layer.density
-        const layerName = layer.layerName
+        this.drawBounds.width = this.drawBoundsDistance.i * this.chunkSize.width
+        this.drawBounds.height = this.drawBoundsDistance.j * this.chunkSize.height
 
-        console.log('noise', playerOrigin, layerName, chunkH)
+        const layerName = layer.layerName
 
         if (this.bakedData[layerName]) {
 
@@ -135,60 +123,45 @@ export default class EnvironmentManager extends GameObject {
             }
         }
         this.bakedData[layerName] = [];
-        for (let i = -d; i <= d; i++) {
-            let accum = 0;
-            for (let j = -d; j <= d; j++) {
-                const seed = i //* 10 + j * 35;
-                // let targetPosition = {
-                //     x: (playerOrigin.i * this.chunkSize.width) + i * chunkW + (this.rnd.randomOffset(seed + accum + i) * layer.noise - layer.noise / 2),
-                //     y: (playerOrigin.j * this.chunkSize.height) + j * chunkH + (this.rnd.randomOffset(seed + accum + j) * layer.noise - layer.noise / 2)
-                // }
+        for (let i = -this.drawBoundsDistance.i; i <= this.drawBoundsDistance.i; i++) {
+            for (let j = -this.drawBoundsDistance.j; j <= this.drawBoundsDistance.j; j++) {
+                for (let k = 0; k <= layer.density; k++) {
+                    let v = this.noise2D((i + playerOrigin.i)*0.5, (j + playerOrigin.j) * 0.5)
+                    let targetPosition = {
+                        x: (i + playerOrigin.i) * this.chunkSize.width + this.rnd.randomOffset(v + k + this.totalLayersDraw) * this.chunkSize.width - this.chunkSize.width / 2,
+                        y: (j + playerOrigin.j) * this.chunkSize.height + this.rnd.randomOffset(v - k + this.totalLayersDraw) * this.chunkSize.height - this.chunkSize.height / 2
+                    }
 
-                let targetPosition = {
-                    x: (i + playerOrigin.i) * chunkW,//*d,//+ Math.sin(i * 0.35465)* layer.noise,//-  this.rnd.randomOffset(playerOrigin.i) * chunkW,//+ i * layer.noise - layer.noise / 2,
-                    y: (j + playerOrigin.j) * chunkH //*d//+ Math.cos(j * 0.35465)* layer.noise//+ j * layer.noise - layer.noise / 2
-                }
-
-
-                let v = this.noise2D(i + playerOrigin.i, j + playerOrigin.j)
-                let compare = false;
-                // if(accum <= 1){
-                //     console.log('noise',targetPosition)
-                // }
-                // accum++
-                switch (layer.compare) {
-                    case EnvironmentManager.Compare.More:
-                        compare = v > layer.weight
-                        break
-                    case EnvironmentManager.Compare.Less:
-                        compare = v < layer.weight
-                        break
-                    case EnvironmentManager.Compare.Between:
-                        compare = v > layer.weight[0] && v < layer.weight[1]
-                        break
-                    case EnvironmentManager.Compare.Nor:
-                        compare = v < layer.weight[0] || v > layer.weight[1]
-                        break
-                    case EnvironmentManager.Compare.Always:
-                        compare = true;
-                        break
-                }
-                if (compare) {
-                    //const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(0)] }
-                    //const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(accum) * layer.list.length)] }
-                    const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[accum % layer.list.length] }
-                    data.width = layer.width;
-                    data.height = layer.height;
-                    //add to the random seed
-                    accum++;
-                    const entity = this.levelManager.addEntity(layer.constructor, data)
-                    this.bakedData[layerName].push(entity)
-                    this.addChild(entity)
+                    let compare = false;
+                    switch (layer.compare) {
+                        case EnvironmentManager.Compare.More:
+                            compare = v > layer.weight
+                            break
+                        case EnvironmentManager.Compare.Less:
+                            compare = v < layer.weight
+                            break
+                        case EnvironmentManager.Compare.Between:
+                            compare = v > layer.weight[0] && v < layer.weight[1]
+                            break
+                        case EnvironmentManager.Compare.Nor:
+                            compare = v < layer.weight[0] || v > layer.weight[1]
+                            break
+                        case EnvironmentManager.Compare.Always:
+                            compare = true;
+                            break
+                    }
+                    if (compare) {
+                        const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] }
+                        data.width = layer.width;
+                        data.height = layer.height;
+                        const entity = this.levelManager.addEntity(layer.constructor, data)
+                        this.bakedData[layerName].push(entity)
+                        this.addChild(entity)
+                    }
                 }
             }
-            console.log(playerOrigin.i, playerOrigin.j)
-
         }
+        this.totalLayersDraw += 2.15;
     }
     updatePlayerChunk() {
 
@@ -202,12 +175,38 @@ export default class EnvironmentManager extends GameObject {
             this.currentChunkId.i = this.nextChunkId.i
             this.currentChunkId.j = this.nextChunkId.j
 
-            this.drawLayer(this.patches.trees, this.currentChunkId)
-            this.drawLayer(this.patches.plants, this.currentChunkId)
+            this.drawAllLayers();
+
         }
+    }
+    drawAllLayers() {
+        this.totalLayersDraw = 0;
+        this.drawLayer(this.patches.rocks, this.currentChunkId)
+        this.drawLayer(this.patches.grass2, this.currentChunkId)
+        this.drawLayer(this.patches.plants, this.currentChunkId)
+        this.drawLayer(this.patches.trunks, this.currentChunkId)
+
+        this.drawLayer(this.patches.trees, this.currentChunkId)
     }
     update(delta) {
 
         this.updatePlayerChunk();
+
+    }
+    resize(res, newRes) {
+        const nextI = Math.ceil(res.width * Game.GlobalScale.max / this.chunkSize.width) + 1
+        const nextJ = Math.ceil(res.height * Game.GlobalScale.max / this.chunkSize.height) + 1
+
+        let redraw = false;
+        if (this.drawBoundsDistance.i != nextI || this.drawBoundsDistance.j != nextJ) {
+            redraw = true;
+        }
+        this.drawBoundsDistance.i = nextI
+        this.drawBoundsDistance.j = nextJ
+
+        if (redraw) {
+            this.drawAllLayers();
+
+        }
     }
 }
