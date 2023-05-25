@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/assets/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 164);
+/******/ 	return __webpack_require__(__webpack_require__.s = 165);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -87,7 +87,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(127);
+var _defineProperty = __webpack_require__(129);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -115,7 +115,7 @@ exports.default = function () {
 /* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(198), __esModule: true };
+module.exports = { "default": __webpack_require__(199), __esModule: true };
 
 /***/ }),
 /* 3 */
@@ -126,7 +126,7 @@ module.exports = { "default": __webpack_require__(198), __esModule: true };
 
 exports.__esModule = true;
 
-var _typeof2 = __webpack_require__(82);
+var _typeof2 = __webpack_require__(84);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -149,15 +149,15 @@ exports.default = function (self, call) {
 
 exports.__esModule = true;
 
-var _setPrototypeOf = __webpack_require__(225);
+var _setPrototypeOf = __webpack_require__(226);
 
 var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
 
-var _create = __webpack_require__(229);
+var _create = __webpack_require__(230);
 
 var _create2 = _interopRequireDefault(_create);
 
-var _typeof2 = __webpack_require__(82);
+var _typeof2 = __webpack_require__(84);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
@@ -192,7 +192,7 @@ var _getPrototypeOf = __webpack_require__(2);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 
-var _getOwnPropertyDescriptor = __webpack_require__(233);
+var _getOwnPropertyDescriptor = __webpack_require__(234);
 
 var _getOwnPropertyDescriptor2 = _interopRequireDefault(_getOwnPropertyDescriptor);
 
@@ -232,21 +232,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "VERSION", function() { return VERSION; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "filters", function() { return filters; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "useDeprecated", function() { return useDeprecated; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_polyfill__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_polyfill__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_utils__ = __webpack_require__(16);
 /* harmony reexport (module object) */ __webpack_require__.d(__webpack_exports__, "utils", function() { return __WEBPACK_IMPORTED_MODULE_1__pixi_utils__; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_accessibility__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_accessibility__ = __webpack_require__(117);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AccessibilityManager", function() { return __WEBPACK_IMPORTED_MODULE_2__pixi_accessibility__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "accessibleTarget", function() { return __WEBPACK_IMPORTED_MODULE_2__pixi_accessibility__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__ = __webpack_require__(116);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__ = __webpack_require__(118);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InteractionData", function() { return __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InteractionEvent", function() { return __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InteractionManager", function() { return __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "InteractionTrackingData", function() { return __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "interactiveTarget", function() { return __WEBPACK_IMPORTED_MODULE_3__pixi_interaction__["e"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_app__ = __webpack_require__(117);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_app__ = __webpack_require__(119);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Application", function() { return __WEBPACK_IMPORTED_MODULE_4__pixi_app__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_core__ = __webpack_require__(13);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AbstractBatchRenderer", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AbstractRenderer", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Attribute", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["c"]; });
@@ -291,28 +291,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "resources", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["P"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "systems", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["Q"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "uniformParsers", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["R"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_extract__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_extract__ = __webpack_require__(121);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Extract", function() { return __WEBPACK_IMPORTED_MODULE_6__pixi_extract__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(63);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AppLoaderPlugin", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Loader", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LoaderResource", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TextureLoader", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pixi_particles__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pixi_particles__ = __webpack_require__(122);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParticleContainer", function() { return __WEBPACK_IMPORTED_MODULE_8__pixi_particles__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ParticleRenderer", function() { return __WEBPACK_IMPORTED_MODULE_8__pixi_particles__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__ = __webpack_require__(123);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BasePrepare", function() { return __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "CountLimiter", function() { return __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Prepare", function() { return __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TimeLimiter", function() { return __WEBPACK_IMPORTED_MODULE_9__pixi_prepare__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pixi_spritesheet__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pixi_spritesheet__ = __webpack_require__(125);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Spritesheet", function() { return __WEBPACK_IMPORTED_MODULE_10__pixi_spritesheet__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SpritesheetLoader", function() { return __WEBPACK_IMPORTED_MODULE_10__pixi_spritesheet__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pixi_sprite_tiling__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pixi_sprite_tiling__ = __webpack_require__(126);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TilingSprite", function() { return __WEBPACK_IMPORTED_MODULE_11__pixi_sprite_tiling__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TilingSpriteRenderer", function() { return __WEBPACK_IMPORTED_MODULE_11__pixi_sprite_tiling__["b"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pixi_text_bitmap__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pixi_text_bitmap__ = __webpack_require__(127);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BitmapFont", function() { return __WEBPACK_IMPORTED_MODULE_12__pixi_text_bitmap__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BitmapFontData", function() { return __WEBPACK_IMPORTED_MODULE_12__pixi_text_bitmap__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BitmapFontLoader", function() { return __WEBPACK_IMPORTED_MODULE_12__pixi_text_bitmap__["c"]; });
@@ -321,16 +321,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Ticker", function() { return __WEBPACK_IMPORTED_MODULE_13__pixi_ticker__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TickerPlugin", function() { return __WEBPACK_IMPORTED_MODULE_13__pixi_ticker__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "UPDATE_PRIORITY", function() { return __WEBPACK_IMPORTED_MODULE_13__pixi_ticker__["c"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pixi_filter_alpha__ = __webpack_require__(183);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pixi_filter_blur__ = __webpack_require__(184);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pixi_filter_color_matrix__ = __webpack_require__(185);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pixi_filter_displacement__ = __webpack_require__(186);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pixi_filter_fxaa__ = __webpack_require__(187);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pixi_filter_noise__ = __webpack_require__(188);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pixi_mixin_cache_as_bitmap__ = __webpack_require__(189);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pixi_mixin_get_child_by_name__ = __webpack_require__(190);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pixi_mixin_get_global_position__ = __webpack_require__(191);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pixi_filter_alpha__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pixi_filter_blur__ = __webpack_require__(185);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pixi_filter_color_matrix__ = __webpack_require__(186);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pixi_filter_displacement__ = __webpack_require__(187);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pixi_filter_fxaa__ = __webpack_require__(188);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pixi_filter_noise__ = __webpack_require__(189);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pixi_mixin_cache_as_bitmap__ = __webpack_require__(190);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pixi_mixin_get_child_by_name__ = __webpack_require__(191);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pixi_mixin_get_global_position__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pixi_constants__ = __webpack_require__(35);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "ALPHA_MODES", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BLEND_MODES", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "BUFFER_BITS", function() { return __WEBPACK_IMPORTED_MODULE_23__pixi_constants__["c"]; });
@@ -353,7 +353,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Container", function() { return __WEBPACK_IMPORTED_MODULE_24__pixi_display__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "DisplayObject", function() { return __WEBPACK_IMPORTED_MODULE_24__pixi_display__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TemporaryDisplayObject", function() { return __WEBPACK_IMPORTED_MODULE_24__pixi_display__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pixi_graphics__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pixi_graphics__ = __webpack_require__(124);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "FillStyle", function() { return __WEBPACK_IMPORTED_MODULE_25__pixi_graphics__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "GRAPHICS_CURVES", function() { return __WEBPACK_IMPORTED_MODULE_25__pixi_graphics__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Graphics", function() { return __WEBPACK_IMPORTED_MODULE_25__pixi_graphics__["c"]; });
@@ -378,25 +378,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SHAPES", function() { return __WEBPACK_IMPORTED_MODULE_26__pixi_math__["l"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Transform", function() { return __WEBPACK_IMPORTED_MODULE_26__pixi_math__["m"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "groupD8", function() { return __WEBPACK_IMPORTED_MODULE_26__pixi_math__["n"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__ = __webpack_require__(78);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Mesh", function() { return __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MeshBatchUvs", function() { return __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MeshGeometry", function() { return __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "MeshMaterial", function() { return __WEBPACK_IMPORTED_MODULE_27__pixi_mesh__["d"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__ = __webpack_require__(192);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__ = __webpack_require__(193);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "NineSlicePlane", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "PlaneGeometry", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "RopeGeometry", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["c"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimpleMesh", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["d"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimplePlane", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["e"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimpleRope", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["f"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pixi_runner__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pixi_runner__ = __webpack_require__(120);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Runner", function() { return __WEBPACK_IMPORTED_MODULE_29__pixi_runner__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(59);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Sprite", function() { return __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__ = __webpack_require__(193);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__ = __webpack_require__(194);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AnimatedSprite", function() { return __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pixi_text__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__pixi_text__ = __webpack_require__(77);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TEXT_GRADIENT", function() { return __WEBPACK_IMPORTED_MODULE_32__pixi_text__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Text", function() { return __WEBPACK_IMPORTED_MODULE_32__pixi_text__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "TextMetrics", function() { return __WEBPACK_IMPORTED_MODULE_32__pixi_text__["c"]; });
@@ -2499,6 +2499,347 @@ module.exports = exports["default"];
 
 
 Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _config = __webpack_require__(29);
+
+var _config2 = _interopRequireDefault(_config);
+
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+var _utils = __webpack_require__(36);
+
+var _utils2 = _interopRequireDefault(_utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Game = function () {
+        function Game(config, screenManager) {
+                (0, _classCallCheck3.default)(this, Game);
+
+                Game.Instance = this;
+                Game.GlobalScale = { x: 1, y: 1, min: 1, max: 1 };
+                Game.GlobalContainerPosition = { x: 0, y: 0 };
+                this.screenManager = screenManager;
+
+                var Renderer = config.webgl ? PIXI.autoDetectRenderer : PIXI.CanvasRenderer;
+
+                this.desktopResolution = {
+                        width: config.width,
+                        height: config.height
+                };
+
+                Game.Screen.width = config.width;
+                Game.Screen.height = config.height;
+                Game.Time = 0;
+                this.ratio = config.width / config.height;
+                window.renderer = new PIXI.Application({
+                        width: config.width,
+                        height: config.height,
+                        resolution: Math.max(window.devicePixelRatio, 2),
+                        antialias: false,
+                        backgroundColor: 0x151510
+                });
+                document.body.appendChild(window.renderer.view);
+
+                this.stage = new PIXI.Container();
+                window.renderer.stage.addChild(this.stage);
+
+                this.frameskip = 1;
+                this.lastUpdate = Date.now();
+
+                this.forceResizeTimer = 5;
+
+                this.latestWidth = 0;
+
+                this.onAspectChanged = new _signals2.default.Signal();
+
+                this.makeLoader();
+                this.resize();
+        }
+
+        (0, _createClass3.default)(Game, [{
+                key: 'makeLoader',
+                value: function makeLoader() {
+                        this.loaderContainer = new PIXI.Container();
+                        var backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, 0, 300, 30);
+                        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0, 0, 300, 30);
+                        this.loaderContainer.addChild(backLoader);
+                        this.loaderContainer.addChild(this.fillLoader);
+                        this.fillLoader.scale.x = 0;
+                        // this.logo = new PIXI.Sprite.from('logoTransparent.png')
+                        // this.logo.anchor.set(0.5)
+                        // this.logo.x = 150
+                        // this.logo.y = -200
+                        // this.loaderContainer.addChild(this.logo)
+                        this.stage.addChild(this.loaderContainer);
+
+                        this.loaderContainer.x = Game.Screen.width / 2;
+                }
+        }, {
+                key: 'updateLoader',
+                value: function updateLoader(progress) {
+                        this.fillLoader.scale.x = progress / 100;
+                        this.resize();
+                }
+        }, {
+                key: 'initialize',
+                value: function initialize() {
+                        var _this = this;
+
+                        this.stage.removeChild(this.loaderContainer);
+                        window.renderer.ticker.add(this._onTickEvent, this);
+                        setTimeout(function () {
+                                _this.resize();
+                        }, 10);
+                }
+        }, {
+                key: '_onTickEvent',
+                value: function _onTickEvent(deltaTime) {
+                        this.dt = deltaTime / 60;
+                        this.update();
+                        if (this.latestWidth != window.innerWidth) {
+                                this.resize();
+                        }
+                        if (this.forceResizeTimer > 0) {
+                                this.forceResizeTimer -= this.dt;
+                                //this.resize()
+                        }
+                }
+        }, {
+                key: 'resize',
+                value: function resize() {
+                        var w = window.innerHeight;
+                        var h = window.innerWidth;
+
+                        this.latestWidth = window.innerWidth;
+
+                        window.isPortrait = w < h;
+
+                        if (window.innerWidth / window.innerHeight >= this.ratio) {
+                                var w = window.innerHeight * this.ratio;
+                        } else {
+                                var h = window.innerWidth / this.ratio;
+                        }
+
+                        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+                        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+
+                        var w = width;
+                        var h = height;
+                        //this.resolution = { width: window.outerWidth, height: window.outerHeight };
+                        this.resolution = { width: window.outerWidth, height: window.outerHeight };
+                        this.innerResolution = { width: w, height: h };
+
+                        window.renderer.view.style.position = 'absolute';
+
+                        window.renderer.view.style.width = this.innerResolution.width + 'px';
+                        window.renderer.view.style.height = this.innerResolution.height + 'px';
+
+                        var sclX = this.innerResolution.width / _config2.default.width;
+                        var sclY = this.innerResolution.height / _config2.default.height;
+
+                        var scl = Math.min(sclX, sclY);
+                        var newSize = {
+                                width: this.desktopResolution.width * scl,
+                                height: this.desktopResolution.height * scl
+                        };
+
+                        window.renderer.view.style.width = this.innerResolution.width + 'px';
+                        window.renderer.view.style.height = this.innerResolution.height + 'px';
+
+                        window.renderer.view.style.left = '0px'; //`${this.innerResolution.width / 2 - (newSize.width) / 2}px`;
+                        window.renderer.view.style.top = '0px'; //`${this.innerResolution.height / 2 - (newSize.height) / 2}px`;
+                        // window.renderer.view.style.width = `${this.innerResolution.width}px`;
+                        // window.renderer.view.style.height = `${this.innerResolution.height}px`;
+                        //window.renderer.view.style.left = `${window.innerWidth / 2 - (this.innerResolution.width) / 2}px`;
+
+
+                        // let sclX = this.innerResolution.width /this.desktopResolution.width //* this.ratio
+                        // let sclY =  this.innerResolution.height /this.desktopResolution.height //* this.ratio
+
+
+                        // console.log(sclX, sclY)
+
+                        // utils.resizeToFitAR
+                        // let scaleMin = 1//Math.min(sclX, sclY) * this.ratio;
+                        // if(sclX < sclY){
+                        //     scaleMin = sclX* this.ratio
+                        // }else{
+
+                        //     scaleMin = sclY* this.ratio
+                        // }
+
+
+                        //element.scale.set(min)
+
+                        if (this.loaderContainer && this.loaderContainer.parent) {
+                                var newScaleX = newSize.width / this.innerResolution.width;
+                                this.loaderContainer.scale.x = newScaleX; //this.ratio
+                                var newScaleY = newSize.height / this.innerResolution.height;
+                                this.loaderContainer.scale.y = newScaleY; //this.ratio
+
+
+                                this.loaderContainer.x = Game.Screen.width / 2 - this.loaderContainer.width / 2; //this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+                                this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50;
+                        }
+
+                        if (this.screenManager) {
+
+                                if (!Game.UIOverlayContainer.parent) {
+                                        this.stage.addChild(Game.UIOverlayContainer);
+                                }
+
+                                if (!Game.ScreenManagerContainer.parent) {
+                                        this.stage.addChild(Game.ScreenManagerContainer);
+                                }
+
+                                //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
+                                //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
+                                //  let min = Math.min(sclX, sclY);
+                                // this.screenManager.scale.set(min)
+
+
+                                var _newScaleX = newSize.width / this.innerResolution.width;
+                                this.screenManager.scale.x = _newScaleX; //this.ratio
+                                var _newScaleY = newSize.height / this.innerResolution.height;
+                                this.screenManager.scale.y = _newScaleY; //this.ratio
+
+
+                                this.screenManager.x = this.desktopResolution.width / 2 - this.desktopResolution.width / 2 * _newScaleX; ///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
+                                //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
+                                this.screenManager.y = this.desktopResolution.height / 2 - this.desktopResolution.height / 2 * _newScaleY;
+                                // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
+                                // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
+
+
+                                Game.GlobalScale.x = _config2.default.width / this.innerResolution.width;
+                                Game.GlobalScale.y = _config2.default.height / this.innerResolution.height;
+                                Game.GlobalScale.min = Math.min(Game.GlobalScale.x, Game.GlobalScale.y);
+                                Game.GlobalScale.max = Math.max(Game.GlobalScale.x, Game.GlobalScale.y);
+
+                                Game.GlobalContainerPosition.x = this.screenManager.x;
+                                Game.GlobalContainerPosition.y = this.screenManager.y;
+
+                                // 	//console.log(window.appScale)
+
+                                this.screenManager.resize(this.resolution, this.innerResolution);
+                                Game.UIOverlayContainer.scale.x = this.screenManager.scale.x;
+                                Game.UIOverlayContainer.scale.y = this.screenManager.scale.y;
+
+                                Game.ScreenManagerContainer.scale.x = this.screenManager.scale.x;
+                                Game.ScreenManagerContainer.scale.y = this.screenManager.scale.y;
+
+                                Game.Borders.topRight.x = _config2.default.width / Game.UIOverlayContainer.scale.x;
+
+                                Game.Borders.bottomRight.x = Game.Borders.topRight.x;
+                                Game.Borders.bottomRight.y = _config2.default.height / Game.UIOverlayContainer.scale.y;
+
+                                Game.Borders.bottomLeft.y = Game.Borders.bottomRight.y;
+
+                                Game.Borders.width = Game.Borders.topRight.x;
+                                Game.Borders.height = Game.Borders.bottomLeft.y;
+
+                                window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2;
+
+                                if (Game.IsPortrait != window.isPortrait) {
+                                        this.onAspectChanged.dispatch(window.isPortrait);
+                                }
+                                Game.IsPortrait = window.isPortrait;
+                        }
+                }
+        }, {
+                key: 'getBorder',
+                value: function getBorder(type, parent) {
+                        var toGlobal = this.screenManager.toGlobal(Game.Borders[type]);
+                        return parent.toLocal(toGlobal);
+                }
+                /**
+                 * 
+                 *  let sclX = this.innerResolution.width / config.width
+                    let sclY = this.innerResolution.height / config.height
+                        let scl = Math.min(sclX, sclY)
+                    const newSize = {
+                        width: this.desktopResolution.width * scl,
+                        height: this.desktopResolution.height * scl,
+                    };
+                      window.renderer.view.style.width = `${newSize.width}px`;
+                    window.renderer.view.style.height = `${newSize.height}px`;
+                
+                    window.renderer.view.style.left = `${this.innerResolution.width / 2 - (newSize.width) / 2}px`;
+                    window.renderer.view.style.top = `${this.innerResolution.height / 2 - (newSize.height) / 2}px`;
+                 * 
+                 * 
+                 * 
+                 */
+
+        }, {
+                key: 'update',
+                value: function update() {
+
+                        Game.Time += this.dt;
+                        this.screenManager.update(this.dt);
+                        // window.renderer.render(this.stage);
+                }
+        }, {
+                key: 'start',
+                value: function start() {
+                        //	this.animationLoop.start();
+                }
+        }, {
+                key: 'stop',
+                value: function stop() {
+                        //	this.animationLoop.stop();
+                }
+        }]);
+        return Game;
+}();
+
+Game.Instance = null;
+Game.GlobalScale = { x: 1, y: 1 };
+Game.GlobalContainerPosition = { x: 0, y: 0 };
+Game.Screen = { width: 0, height: 0 };
+Game.IsPortrait = null;
+Game.MainLoader = new PIXI.Loader();
+Game.UIOverlayContainer = new PIXI.Container();
+Game.ScreenManagerContainer = new PIXI.Container();
+Game.Debug = {};
+Game.Borders = {
+        topLeft: { x: 0, y: 0 },
+        bottomLeft: { x: 0, y: 0 },
+        topRight: { x: 0, y: 0 },
+        bottomRight: { x: 0, y: 0 },
+        width: 0,
+        height: 0
+};
+exports.default = Game;
+module.exports = exports['default'];
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
@@ -2522,7 +2863,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -2530,7 +2871,7 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsModule = __webpack_require__(70);
+var _PhysicsModule = __webpack_require__(72);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -2703,7 +3044,7 @@ exports.default = RenderModule;
 module.exports = exports["default"];
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2753,7 +3094,7 @@ var _TagManager = __webpack_require__(39);
 
 var _TagManager2 = _interopRequireDefault(_TagManager);
 
-var _Transform = __webpack_require__(250);
+var _Transform = __webpack_require__(256);
 
 var _Transform2 = _interopRequireDefault(_Transform);
 
@@ -3043,7 +3384,7 @@ exports.default = GameObject;
 module.exports = exports['default'];
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3069,7 +3410,7 @@ var _Color = __webpack_require__(57);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -3131,7 +3472,7 @@ exports.default = GameView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 12 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3180,9 +3521,9 @@ module.exports = exports['default'];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Q", function() { return systems; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "R", function() { return uniformParsers; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_settings__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_runner__ = __webpack_require__(118);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_runner__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_ticker__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_math__ = __webpack_require__(17);
 /*!
@@ -14160,347 +14501,6 @@ var BatchRenderer = BatchPluginFactory.create();
 
 
 /***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-        value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _pixi = __webpack_require__(6);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _config = __webpack_require__(28);
-
-var _config2 = _interopRequireDefault(_config);
-
-var _signals = __webpack_require__(7);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-var _utils = __webpack_require__(35);
-
-var _utils2 = _interopRequireDefault(_utils);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var Game = function () {
-        function Game(config, screenManager) {
-                (0, _classCallCheck3.default)(this, Game);
-
-                Game.Instance = this;
-                Game.GlobalScale = { x: 1, y: 1, min: 1, max: 1 };
-                Game.GlobalContainerPosition = { x: 0, y: 0 };
-                this.screenManager = screenManager;
-
-                var Renderer = config.webgl ? PIXI.autoDetectRenderer : PIXI.CanvasRenderer;
-
-                this.desktopResolution = {
-                        width: config.width,
-                        height: config.height
-                };
-
-                Game.Screen.width = config.width;
-                Game.Screen.height = config.height;
-                Game.Time = 0;
-                this.ratio = config.width / config.height;
-                window.renderer = new PIXI.Application({
-                        width: config.width,
-                        height: config.height,
-                        resolution: Math.max(window.devicePixelRatio, 2),
-                        antialias: false,
-                        backgroundColor: 0x151510
-                });
-                document.body.appendChild(window.renderer.view);
-
-                this.stage = new PIXI.Container();
-                window.renderer.stage.addChild(this.stage);
-
-                this.frameskip = 1;
-                this.lastUpdate = Date.now();
-
-                this.forceResizeTimer = 5;
-
-                this.latestWidth = 0;
-
-                this.onAspectChanged = new _signals2.default.Signal();
-
-                this.makeLoader();
-                this.resize();
-        }
-
-        (0, _createClass3.default)(Game, [{
-                key: 'makeLoader',
-                value: function makeLoader() {
-                        this.loaderContainer = new PIXI.Container();
-                        var backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, 0, 300, 30);
-                        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0, 0, 300, 30);
-                        this.loaderContainer.addChild(backLoader);
-                        this.loaderContainer.addChild(this.fillLoader);
-                        this.fillLoader.scale.x = 0;
-                        // this.logo = new PIXI.Sprite.from('logoTransparent.png')
-                        // this.logo.anchor.set(0.5)
-                        // this.logo.x = 150
-                        // this.logo.y = -200
-                        // this.loaderContainer.addChild(this.logo)
-                        this.stage.addChild(this.loaderContainer);
-
-                        this.loaderContainer.x = Game.Screen.width / 2;
-                }
-        }, {
-                key: 'updateLoader',
-                value: function updateLoader(progress) {
-                        this.fillLoader.scale.x = progress / 100;
-                        this.resize();
-                }
-        }, {
-                key: 'initialize',
-                value: function initialize() {
-                        var _this = this;
-
-                        this.stage.removeChild(this.loaderContainer);
-                        window.renderer.ticker.add(this._onTickEvent, this);
-                        setTimeout(function () {
-                                _this.resize();
-                        }, 10);
-                }
-        }, {
-                key: '_onTickEvent',
-                value: function _onTickEvent(deltaTime) {
-                        this.dt = deltaTime / 60;
-                        this.update();
-                        if (this.latestWidth != window.innerWidth) {
-                                this.resize();
-                        }
-                        if (this.forceResizeTimer > 0) {
-                                this.forceResizeTimer -= this.dt;
-                                //this.resize()
-                        }
-                }
-        }, {
-                key: 'resize',
-                value: function resize() {
-                        var w = window.innerHeight;
-                        var h = window.innerWidth;
-
-                        this.latestWidth = window.innerWidth;
-
-                        window.isPortrait = w < h;
-
-                        if (window.innerWidth / window.innerHeight >= this.ratio) {
-                                var w = window.innerHeight * this.ratio;
-                        } else {
-                                var h = window.innerWidth / this.ratio;
-                        }
-
-                        var width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
-                        var height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
-
-                        var w = width;
-                        var h = height;
-                        //this.resolution = { width: window.outerWidth, height: window.outerHeight };
-                        this.resolution = { width: window.outerWidth, height: window.outerHeight };
-                        this.innerResolution = { width: w, height: h };
-
-                        window.renderer.view.style.position = 'absolute';
-
-                        window.renderer.view.style.width = this.innerResolution.width + 'px';
-                        window.renderer.view.style.height = this.innerResolution.height + 'px';
-
-                        var sclX = this.innerResolution.width / _config2.default.width;
-                        var sclY = this.innerResolution.height / _config2.default.height;
-
-                        var scl = Math.min(sclX, sclY);
-                        var newSize = {
-                                width: this.desktopResolution.width * scl,
-                                height: this.desktopResolution.height * scl
-                        };
-
-                        window.renderer.view.style.width = this.innerResolution.width + 'px';
-                        window.renderer.view.style.height = this.innerResolution.height + 'px';
-
-                        window.renderer.view.style.left = '0px'; //`${this.innerResolution.width / 2 - (newSize.width) / 2}px`;
-                        window.renderer.view.style.top = '0px'; //`${this.innerResolution.height / 2 - (newSize.height) / 2}px`;
-                        // window.renderer.view.style.width = `${this.innerResolution.width}px`;
-                        // window.renderer.view.style.height = `${this.innerResolution.height}px`;
-                        //window.renderer.view.style.left = `${window.innerWidth / 2 - (this.innerResolution.width) / 2}px`;
-
-
-                        // let sclX = this.innerResolution.width /this.desktopResolution.width //* this.ratio
-                        // let sclY =  this.innerResolution.height /this.desktopResolution.height //* this.ratio
-
-
-                        // console.log(sclX, sclY)
-
-                        // utils.resizeToFitAR
-                        // let scaleMin = 1//Math.min(sclX, sclY) * this.ratio;
-                        // if(sclX < sclY){
-                        //     scaleMin = sclX* this.ratio
-                        // }else{
-
-                        //     scaleMin = sclY* this.ratio
-                        // }
-
-
-                        //element.scale.set(min)
-
-                        if (this.loaderContainer && this.loaderContainer.parent) {
-                                var newScaleX = newSize.width / this.innerResolution.width;
-                                this.loaderContainer.scale.x = newScaleX; //this.ratio
-                                var newScaleY = newSize.height / this.innerResolution.height;
-                                this.loaderContainer.scale.y = newScaleY; //this.ratio
-
-
-                                this.loaderContainer.x = Game.Screen.width / 2 - this.loaderContainer.width / 2; //this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
-                                this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50;
-                        }
-
-                        if (this.screenManager) {
-
-                                if (!Game.UIOverlayContainer.parent) {
-                                        this.stage.addChild(Game.UIOverlayContainer);
-                                }
-
-                                if (!Game.ScreenManagerContainer.parent) {
-                                        this.stage.addChild(Game.ScreenManagerContainer);
-                                }
-
-                                //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
-                                //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
-                                //  let min = Math.min(sclX, sclY);
-                                // this.screenManager.scale.set(min)
-
-
-                                var _newScaleX = newSize.width / this.innerResolution.width;
-                                this.screenManager.scale.x = _newScaleX; //this.ratio
-                                var _newScaleY = newSize.height / this.innerResolution.height;
-                                this.screenManager.scale.y = _newScaleY; //this.ratio
-
-
-                                this.screenManager.x = this.desktopResolution.width / 2 - this.desktopResolution.width / 2 * _newScaleX; ///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
-                                //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
-                                this.screenManager.y = this.desktopResolution.height / 2 - this.desktopResolution.height / 2 * _newScaleY;
-                                // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
-                                // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
-
-
-                                Game.GlobalScale.x = _config2.default.width / this.innerResolution.width;
-                                Game.GlobalScale.y = _config2.default.height / this.innerResolution.height;
-                                Game.GlobalScale.min = Math.min(Game.GlobalScale.x, Game.GlobalScale.y);
-                                Game.GlobalScale.max = Math.max(Game.GlobalScale.x, Game.GlobalScale.y);
-
-                                Game.GlobalContainerPosition.x = this.screenManager.x;
-                                Game.GlobalContainerPosition.y = this.screenManager.y;
-
-                                // 	//console.log(window.appScale)
-
-                                this.screenManager.resize(this.resolution, this.innerResolution);
-                                Game.UIOverlayContainer.scale.x = this.screenManager.scale.x;
-                                Game.UIOverlayContainer.scale.y = this.screenManager.scale.y;
-
-                                Game.ScreenManagerContainer.scale.x = this.screenManager.scale.x;
-                                Game.ScreenManagerContainer.scale.y = this.screenManager.scale.y;
-
-                                Game.Borders.topRight.x = _config2.default.width / Game.UIOverlayContainer.scale.x;
-
-                                Game.Borders.bottomRight.x = Game.Borders.topRight.x;
-                                Game.Borders.bottomRight.y = _config2.default.height / Game.UIOverlayContainer.scale.y;
-
-                                Game.Borders.bottomLeft.y = Game.Borders.bottomRight.y;
-
-                                Game.Borders.width = Game.Borders.topRight.x;
-                                Game.Borders.height = Game.Borders.bottomLeft.y;
-
-                                window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2;
-
-                                if (Game.IsPortrait != window.isPortrait) {
-                                        this.onAspectChanged.dispatch(window.isPortrait);
-                                }
-                                Game.IsPortrait = window.isPortrait;
-                        }
-                }
-        }, {
-                key: 'getBorder',
-                value: function getBorder(type, parent) {
-                        var toGlobal = this.screenManager.toGlobal(Game.Borders[type]);
-                        return parent.toLocal(toGlobal);
-                }
-                /**
-                 * 
-                 *  let sclX = this.innerResolution.width / config.width
-                    let sclY = this.innerResolution.height / config.height
-                        let scl = Math.min(sclX, sclY)
-                    const newSize = {
-                        width: this.desktopResolution.width * scl,
-                        height: this.desktopResolution.height * scl,
-                    };
-                      window.renderer.view.style.width = `${newSize.width}px`;
-                    window.renderer.view.style.height = `${newSize.height}px`;
-                
-                    window.renderer.view.style.left = `${this.innerResolution.width / 2 - (newSize.width) / 2}px`;
-                    window.renderer.view.style.top = `${this.innerResolution.height / 2 - (newSize.height) / 2}px`;
-                 * 
-                 * 
-                 * 
-                 */
-
-        }, {
-                key: 'update',
-                value: function update() {
-
-                        Game.Time += this.dt;
-                        this.screenManager.update(this.dt);
-                        // window.renderer.render(this.stage);
-                }
-        }, {
-                key: 'start',
-                value: function start() {
-                        //	this.animationLoop.start();
-                }
-        }, {
-                key: 'stop',
-                value: function stop() {
-                        //	this.animationLoop.stop();
-                }
-        }]);
-        return Game;
-}();
-
-Game.Instance = null;
-Game.GlobalScale = { x: 1, y: 1 };
-Game.GlobalContainerPosition = { x: 0, y: 0 };
-Game.Screen = { width: 0, height: 0 };
-Game.IsPortrait = null;
-Game.MainLoader = new PIXI.Loader();
-Game.UIOverlayContainer = new PIXI.Container();
-Game.ScreenManagerContainer = new PIXI.Container();
-Game.Debug = {};
-Game.Borders = {
-        topLeft: { x: 0, y: 0 },
-        bottomLeft: { x: 0, y: 0 },
-        topRight: { x: 0, y: 0 },
-        bottomRight: { x: 0, y: 0 },
-        width: 0,
-        height: 0
-};
-exports.default = Game;
-module.exports = exports['default'];
-
-/***/ }),
 /* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14716,16 +14716,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "uid", function() { return uid; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_settings__ = __webpack_require__(22);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "isMobile", function() { return __WEBPACK_IMPORTED_MODULE_0__pixi_settings__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_eventemitter3__ = __webpack_require__(172);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_eventemitter3__ = __webpack_require__(173);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_eventemitter3___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_eventemitter3__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "EventEmitter", function() { return __WEBPACK_IMPORTED_MODULE_1_eventemitter3___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_earcut__ = __webpack_require__(173);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_earcut__ = __webpack_require__(174);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_earcut___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_earcut__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "earcut", function() { return __WEBPACK_IMPORTED_MODULE_2_earcut___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_url__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_url__ = __webpack_require__(116);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_url___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_url__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "url", function() { return __WEBPACK_IMPORTED_MODULE_3_url___default.a; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(35);
 /*!
  * @pixi/utils - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -17820,7 +17820,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Companion = __webpack_require__(147);
+var _Companion = __webpack_require__(148);
 
 var _Companion2 = _interopRequireDefault(_Companion);
 
@@ -17828,7 +17828,7 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -17836,19 +17836,19 @@ var _EntityBuilder = __webpack_require__(55);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityLifebar = __webpack_require__(96);
+var _EntityLifebar = __webpack_require__(98);
 
 var _EntityLifebar2 = _interopRequireDefault(_EntityLifebar);
 
-var _FlashOnDamage = __webpack_require__(98);
+var _FlashOnDamage = __webpack_require__(100);
 
 var _FlashOnDamage2 = _interopRequireDefault(_FlashOnDamage);
 
-var _GameAgent2 = __webpack_require__(97);
+var _GameAgent2 = __webpack_require__(99);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
@@ -17856,19 +17856,19 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameViewSpriteSheet = __webpack_require__(99);
+var _GameViewSpriteSheet = __webpack_require__(101);
 
 var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
 
-var _GameplayItem = __webpack_require__(105);
+var _GameplayItem = __webpack_require__(107);
 
 var _GameplayItem2 = _interopRequireDefault(_GameplayItem);
 
-var _InGameWeapon = __webpack_require__(72);
+var _InGameWeapon = __webpack_require__(74);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
-var _InputModule = __webpack_require__(74);
+var _InputModule = __webpack_require__(76);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -17876,47 +17876,47 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsModule = __webpack_require__(70);
+var _PhysicsModule = __webpack_require__(72);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
-var _PlayerGameViewSpriteSheet = __webpack_require__(144);
+var _PlayerGameViewSpriteSheet = __webpack_require__(145);
 
 var _PlayerGameViewSpriteSheet2 = _interopRequireDefault(_PlayerGameViewSpriteSheet);
 
-var _PlayerHalo = __webpack_require__(73);
+var _PlayerHalo = __webpack_require__(75);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Sensor = __webpack_require__(102);
+var _Sensor = __webpack_require__(104);
 
 var _Sensor2 = _interopRequireDefault(_Sensor);
 
-var _Shaders = __webpack_require__(67);
+var _Shaders = __webpack_require__(69);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _SpriteFacing = __webpack_require__(103);
+var _SpriteFacing = __webpack_require__(105);
 
 var _SpriteFacing2 = _interopRequireDefault(_SpriteFacing);
 
-var _SpriteJump = __webpack_require__(104);
+var _SpriteJump = __webpack_require__(106);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
-var _SpriteSheetGameView = __webpack_require__(151);
+var _SpriteSheetGameView = __webpack_require__(152);
 
 var _SpriteSheetGameView2 = _interopRequireDefault(_SpriteSheetGameView);
 
-var _StatsModifier = __webpack_require__(100);
+var _StatsModifier = __webpack_require__(102);
 
 var _StatsModifier2 = _interopRequireDefault(_StatsModifier);
 
@@ -17928,15 +17928,15 @@ var _Vector = __webpack_require__(14);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponData = __webpack_require__(106);
+var _WeaponData = __webpack_require__(108);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
-var _WeaponLoadingBar = __webpack_require__(259);
+var _WeaponLoadingBar = __webpack_require__(265);
 
 var _WeaponLoadingBar2 = _interopRequireDefault(_WeaponLoadingBar);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -18351,15 +18351,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _AlphaBehaviour = __webpack_require__(248);
+var _AlphaBehaviour = __webpack_require__(254);
 
 var _AlphaBehaviour2 = _interopRequireDefault(_AlphaBehaviour);
 
-var _ColorBehaviour = __webpack_require__(249);
+var _ColorBehaviour = __webpack_require__(255);
 
 var _ColorBehaviour2 = _interopRequireDefault(_ColorBehaviour);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -18371,15 +18371,15 @@ var _ParticleDescriptor = __webpack_require__(49);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _ParticleEmitter = __webpack_require__(252);
+var _ParticleEmitter = __webpack_require__(258);
 
 var _ParticleEmitter2 = _interopRequireDefault(_ParticleEmitter);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _SinoidBehaviour = __webpack_require__(253);
+var _SinoidBehaviour = __webpack_require__(259);
 
 var _SinoidBehaviour2 = _interopRequireDefault(_SinoidBehaviour);
 
@@ -18667,7 +18667,7 @@ module.exports = exports["default"];
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return isMobile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return settings; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ismobilejs__ = __webpack_require__(171);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ismobilejs__ = __webpack_require__(172);
 /*!
  * @pixi/settings - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -20658,11 +20658,11 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _pixi = __webpack_require__(6);
 
-var _EnemyStaticData = __webpack_require__(251);
+var _EnemyStaticData = __webpack_require__(257);
 
 var _EnemyStaticData2 = _interopRequireDefault(_EnemyStaticData);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -20863,6 +20863,368 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _BaseButton = __webpack_require__(33);
+
+var _BaseButton2 = _interopRequireDefault(_BaseButton);
+
+var _BodyPartySlot = __webpack_require__(233);
+
+var _BodyPartySlot2 = _interopRequireDefault(_BodyPartySlot);
+
+var _ColorButton = __webpack_require__(237);
+
+var _ColorButton2 = _interopRequireDefault(_ColorButton);
+
+var _ColorSlot = __webpack_require__(238);
+
+var _ColorSlot2 = _interopRequireDefault(_ColorSlot);
+
+var _InteractableView = __webpack_require__(26);
+
+var _InteractableView2 = _interopRequireDefault(_InteractableView);
+
+var _Pool = __webpack_require__(15);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UIUtils = function () {
+    function UIUtils() {
+        (0, _classCallCheck3.default)(this, UIUtils);
+    }
+
+    (0, _createClass3.default)(UIUtils, null, [{
+        key: "getCircle",
+        value: function getCircle() {
+            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
+            var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+
+            return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius);
+        }
+    }, {
+        key: "getRect",
+        value: function getRect() {
+            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
+            var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+            var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
+
+            return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height);
+        }
+    }, {
+        key: "getCloseButton",
+        value: function getCloseButton(callback) {
+            var button = new _BaseButton2.default('square_0004', 80, 80);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            button.addIcon('smallButton');
+
+            return button;
+        }
+    }, {
+        key: "getPrimaryButton",
+        value: function getPrimaryButton(callback, label, icon) {
+            var button = new _BaseButton2.default('square_0001', 100, 100);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label);
+            }
+            return button;
+        }
+    }, {
+        key: "getPrimaryShapelessButton",
+        value: function getPrimaryShapelessButton(callback, label, icon) {
+            var button = new _BaseButton2.default(null, 100, 100);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label);
+            }
+            return button;
+        }
+    }, {
+        key: "getPrimaryLabel",
+        value: function getPrimaryLabel(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            textLabel.text = label;
+            return textLabel;
+        }
+    }, {
+        key: "getSecondaryLabel",
+        value: function getSecondaryLabel(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var textLabel = new PIXI.Text(label, window.LABELS.LABEL2);
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            return textLabel;
+        }
+    }, {
+        key: "addLabel",
+        value: function addLabel(button, label) {
+            var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
+
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            button.addLabelOnCenter(textLabel);
+            return textLabel;
+        }
+    }, {
+        key: "getBodyPartySlot",
+        value: function getBodyPartySlot(callback, label, icon) {
+
+            var button = _Pool2.default.instance.getElement(_BodyPartySlot2.default);
+
+            button.addShape('square_0002', 85, 85);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label);
+            }
+
+            return button;
+        }
+    }, {
+        key: "getColorSlot",
+        value: function getColorSlot(callback) {
+            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
+            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
+
+
+            var button = _Pool2.default.instance.getElement(_ColorSlot2.default);
+
+            button.addShape('square_0002', width, height);
+            button.setColor(color);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+
+            return button;
+        }
+    }, {
+        key: "getPrimaryLabelButton",
+        value: function getPrimaryLabelButton(callback, label, icon) {
+            var button = new _BaseButton2.default('square_0001', 100, 65);
+            button.setActiveTexture('square_0002');
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback(button);
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
+            }
+            return button;
+        }
+    }, {
+        key: "getBodyTypeLabelButton",
+        value: function getBodyTypeLabelButton(callback, label, icon) {
+            var button = new _BaseButton2.default('square_0001', 80, 80);
+            button.setActiveTexture('square_0002');
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback(button);
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
+            }
+            return button;
+        }
+    }, {
+        key: "getColorButton",
+        value: function getColorButton(callback) {
+            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
+            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
+
+
+            var button = _Pool2.default.instance.getElement(_ColorButton2.default);
+
+            button.addShape('square_0002', width, height);
+            button.setColor(color);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+
+            return button;
+        }
+    }, {
+        key: "getPrimaryLabel",
+        value: function getPrimaryLabel() {
+            var textLabel = new PIXI.Text('', window.LABELS.LABEL1);
+            return textLabel;
+        }
+    }]);
+    return UIUtils;
+}();
+
+UIUtils.colorset = {
+    skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
+    clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
+    hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF]
+};
+exports.default = UIUtils;
+module.exports = exports["default"];
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var InteractableView = function () {
+    function InteractableView() {
+        (0, _classCallCheck3.default)(this, InteractableView);
+    }
+
+    (0, _createClass3.default)(InteractableView, null, [{
+        key: 'addMouseEnter',
+        value: function addMouseEnter(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointerover', callback);
+            element.on('touchstart', callback);
+        }
+    }, {
+        key: 'addMouseOut',
+        value: function addMouseOut(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointerout', callback);
+            element.on('touchend', callback);
+        }
+    }, {
+        key: 'addMouseClick',
+        value: function addMouseClick(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointertap', callback); //.on('tap', callback);
+            //element.on('tap', callback);//.on('tap', callback);
+        }
+    }, {
+        key: 'addMouseDown',
+        value: function addMouseDown(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointerdown', callback); //.on('tap', callback);
+            //element.on('touchstart', callback);//.on('tap', callback);
+        }
+    }, {
+        key: 'addMouseUp',
+        value: function addMouseUp(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointerup', callback); //.on('tap', callback);
+            //element.on('touchend', callback);
+            return callback;
+        }
+    }, {
+        key: 'addMouseMove',
+        value: function addMouseMove(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointermove', callback); //.on('tap', callback);
+            element.on('touchmove', callback); //.on('tap', callback);
+        }
+    }, {
+        key: 'addMouseUpOutside',
+        value: function addMouseUpOutside(element) {
+            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
+
+            element.interactive = true;
+            element.buttonMode = true;
+            element.on('pointerupoutside', callback); //.on('tap', callback);
+            //element.on('touchendoutside', callback);//.on('tap', callback);
+        }
+    }]);
+    return InteractableView;
+}();
+
+exports.default = InteractableView;
+module.exports = exports['default'];
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
 var _getPrototypeOf = __webpack_require__(2);
 
 var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
@@ -20887,7 +21249,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseEnemy = __webpack_require__(69);
+var _BaseEnemy = __webpack_require__(71);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -20903,7 +21265,7 @@ var _LevelManager = __webpack_require__(41);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -20915,7 +21277,7 @@ var _PhysicsEntity2 = __webpack_require__(62);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _PhysicsModule = __webpack_require__(70);
+var _PhysicsModule = __webpack_require__(72);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -20923,15 +21285,15 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerHalo = __webpack_require__(73);
+var _PlayerHalo = __webpack_require__(75);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -20951,7 +21313,7 @@ var _WeaponAttributes = __webpack_require__(58);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -21363,7 +21725,7 @@ exports.default = Bullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.5.3' };
@@ -21371,111 +21733,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var InteractableView = function () {
-    function InteractableView() {
-        (0, _classCallCheck3.default)(this, InteractableView);
-    }
-
-    (0, _createClass3.default)(InteractableView, null, [{
-        key: 'addMouseEnter',
-        value: function addMouseEnter(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointerover', callback);
-            element.on('touchstart', callback);
-        }
-    }, {
-        key: 'addMouseOut',
-        value: function addMouseOut(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointerout', callback);
-            element.on('touchend', callback);
-        }
-    }, {
-        key: 'addMouseClick',
-        value: function addMouseClick(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointertap', callback); //.on('tap', callback);
-            //element.on('tap', callback);//.on('tap', callback);
-        }
-    }, {
-        key: 'addMouseDown',
-        value: function addMouseDown(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointerdown', callback); //.on('tap', callback);
-            //element.on('touchstart', callback);//.on('tap', callback);
-        }
-    }, {
-        key: 'addMouseUp',
-        value: function addMouseUp(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointerup', callback); //.on('tap', callback);
-            //element.on('touchend', callback);
-            return callback;
-        }
-    }, {
-        key: 'addMouseMove',
-        value: function addMouseMove(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointermove', callback); //.on('tap', callback);
-            element.on('touchmove', callback); //.on('tap', callback);
-        }
-    }, {
-        key: 'addMouseUpOutside',
-        value: function addMouseUpOutside(element) {
-            var callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : function () {};
-
-            element.interactive = true;
-            element.buttonMode = true;
-            element.on('pointerupoutside', callback); //.on('tap', callback);
-            //element.on('touchendoutside', callback);//.on('tap', callback);
-        }
-    }]);
-    return InteractableView;
-}();
-
-exports.default = InteractableView;
-module.exports = exports['default'];
-
-/***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21605,7 +21863,285 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 29 */
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UIList = function (_PIXI$Container) {
+    (0, _inherits3.default)(UIList, _PIXI$Container);
+
+    function UIList() {
+        (0, _classCallCheck3.default)(this, UIList);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (UIList.__proto__ || (0, _getPrototypeOf2.default)(UIList)).call(this));
+
+        _this.container = new PIXI.Container();
+        _this.addChild(_this.container);
+        _this.elementsList = [];
+        _this.w = 0;
+        _this.h = 0;
+        return _this;
+    }
+    // listScl
+    // fitHeight
+    // fitWidth
+    // scaleContent
+    // scaleContentMax
+    // align
+
+
+    (0, _createClass3.default)(UIList, [{
+        key: 'debug',
+        value: function debug() {
+            this.debugGr = new PIXI.Graphics().beginFill(0xFF0000).drawRect(0, 0, this.w, this.h);
+            this.container.addChild(this.debugGr);
+            this.debugGr.alpha = 0.5;
+        }
+    }, {
+        key: 'removeElement',
+        value: function removeElement(element) {
+            this.container.removeChild(element);
+
+            var toRemove = -1;
+            for (var index = 0; index < this.elementsList.length; index++) {
+                if (element == this.elementsList[index]) {
+                    toRemove = index;
+                }
+            }
+            if (toRemove >= 0) {
+
+                this.elementsList.splice(toRemove, 1);
+            }
+        }
+    }, {
+        key: 'addElement',
+        value: function addElement(element) {
+            var att = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            // listScl 
+            // fitHeight
+            // fitWidth
+            // scaleContent
+            // scaleContentMax
+            // align
+            for (var key in att) {
+                element[key] = att[key];
+            }
+            this.container.addChild(element);
+            this.elementsList.push(element);
+        }
+    }, {
+        key: 'updateHorizontalList',
+        value: function updateHorizontalList() {
+            var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            var listSizes = [];
+            var sum = 0;
+            var quant = 0;
+            for (var i = 0; i < this.elementsList.length; i++) {
+
+                if (this.elementsList[i].listScl) {
+                    listSizes.push(this.elementsList[i].listScl);
+                    sum += this.elementsList[i].listScl;
+                    quant++;
+                } else {
+                    listSizes.push(0);
+                }
+            }
+            var adjust = 1 - sum;
+            var scales = adjust / (this.elementsList.length - quant);
+            var chunkSize = 0;
+            for (var i = 0; i < this.elementsList.length; i++) {
+                if (listSizes[i] == 0) {
+                    listSizes[i] = scales;
+                }
+            }
+            var plus = 0;
+            var positions = [];
+            var stdH = 1;
+            var stdW = 1;
+            var pixig = void 0;
+            for (var i = 0; i < listSizes.length; i++) {
+                if (debug) {
+
+                    pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5);
+                    this.container.addChild(pixig);
+                }
+                plus = 0;
+                var nextX = 0;
+                chunkSize = this.w * listSizes[i];
+                if (i == 0) {
+                    nextX = 0;
+                } else {
+                    nextX = positions[i - 1] + this.w * listSizes[i - 1];
+                }
+                positions.push(nextX);
+                if (this.elementsList[i].fitHeight) {
+                    stdH = this.elementsList[i].height / this.elementsList[i].scale.y;
+                    this.elementsList[i].scale.set(this.h / stdH * this.elementsList[i].fitHeight);
+                } else if (this.elementsList[i].fitWidth) {
+                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
+                    this.elementsList[i].scale.set(chunkSize / stdW * this.elementsList[i].fitWidth);
+                } else if (this.elementsList[i].scaleContent) {
+                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
+                    this.elementsList[i].scale.set(chunkSize / stdW);
+                } else if (this.elementsList[i].scaleContentMax && this.elementsList[i].width > chunkSize) {
+                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
+                    this.elementsList[i].scale.set(chunkSize / stdW);
+                }
+                var align = 0.5;
+                if (this.elementsList[i].align != undefined) {
+                    align = this.elementsList[i].align;
+                }
+
+                this.elementsList[i].x = nextX + chunkSize * align - this.elementsList[i].width * align;
+                if (debug) {
+
+                    pixig.x = this.elementsList[i].x;
+                }
+
+                var vAlign = 0.5;
+                if (this.elementsList[i].vAlign != undefined) {
+                    vAlign = this.elementsList[i].vAlign;
+                }
+                this.elementsList[i].y = this.h / 2 - this.elementsList[i].height * vAlign;
+            }
+        }
+    }, {
+        key: 'removeAllElements',
+        value: function removeAllElements() {
+            while (this.container.children.length) {
+                this.container.removeChildAt(0);
+            }
+
+            this.elementsList = [];
+        }
+    }, {
+        key: 'updateVerticalList',
+        value: function updateVerticalList() {
+            var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            var listSizes = [];
+            var sum = 0;
+            var quant = 0;
+            for (var i = 0; i < this.elementsList.length; i++) {
+
+                if (this.elementsList[i].listScl) {
+                    listSizes.push(this.elementsList[i].listScl);
+                    sum += this.elementsList[i].listScl;
+                    quant++;
+                } else {
+                    listSizes.push(0);
+                }
+            }
+            var adjust = 1 - sum;
+            var scales = adjust / (this.elementsList.length - quant);
+            var chunkSize = 0;
+            for (var i = 0; i < this.elementsList.length; i++) {
+                if (listSizes[i] == 0) {
+                    listSizes[i] = scales;
+                }
+            }
+            var plus = 0;
+            var positions = [];
+            var stdH = 1;
+            var stdW = 1;
+            var pixig = void 0;
+
+            for (var i = 0; i < listSizes.length; i++) {
+                if (debug) {
+
+                    pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5);
+                    this.container.addChild(pixig);
+                }
+                var anchorX = this.elementsList[i].anchorX !== undefined ? this.elementsList[i].anchorX : 0.5;
+                // let pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
+                // this.container.addChild(pixig)
+                plus = 0;
+                var nextX = 0;
+                chunkSize = this.h * listSizes[i];
+                if (i == 0) {
+                    nextX = 0;
+                } else {
+                    nextX = positions[i - 1] + this.h * listSizes[i - 1];
+                }
+                positions.push(nextX);
+                if (this.elementsList[i].fitHeight) {
+                    stdH = this.elementsList[i].height / this.elementsList[i].scale.y;
+                    this.elementsList[i].scale.set(chunkSize / stdH * this.elementsList[i].fitHeight);
+                } else if (this.elementsList[i].fitWidth) {
+                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
+                    this.elementsList[i].scale.set(this.w / stdW * this.elementsList[i].fitWidth);
+                } else if (this.elementsList[i].scaleContent) {
+                    stdW = this.elementsList[i].height / this.elementsList[i].scale.y;
+                    this.elementsList[i].scale.set(chunkSize / stdW);
+                } else if (this.elementsList[i].scaleContentMax && this.elementsList[i].height > chunkSize) {
+                    stdW = this.elementsList[i].height / this.elementsList[i].scale.y;
+                    this.elementsList[i].scale.set(chunkSize / stdW);
+                }
+
+                var vAlign = 0.5;
+                if (this.elementsList[i].vAlign != undefined) {
+                    vAlign = this.elementsList[i].vAlign;
+                }
+
+                var nextY = nextX + chunkSize * vAlign - this.elementsList[i].height * vAlign;
+                this.elementsList[i].y = nextY;
+                // pixig.x = nextX
+
+                var align = 0.5;
+                if (this.elementsList[i].align != undefined) {
+                    align = this.elementsList[i].align;
+                }
+
+                this.elementsList[i].x = this.elementsList[i].width * align;
+
+                //this.elementsList[i].x = this.w * anchorX// - this.elementsList[i].width * anchorX
+            }
+        }
+    }]);
+    return UIList;
+}(PIXI.Container);
+
+exports.default = UIList;
+module.exports = exports['default'];
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21623,7 +22159,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityMultipliers = __webpack_require__(71);
+var _EntityMultipliers = __webpack_require__(73);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -21787,7 +22323,7 @@ exports.default = EntityAttributes;
 module.exports = exports['default'];
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -23782,10 +24318,10 @@ var Power4 = globals.Power4;
 var TweenPlugin = globals.TweenPlugin;
 var EventDispatcher = nonGlobals.events.EventDispatcher;
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(309)(module), __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(315)(module), __webpack_require__(42)))
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23819,7 +24355,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
@@ -23875,6 +24411,13 @@ var BaseButton = function (_PIXI$Container) {
             this.safeShape.texture = PIXI.Texture.from(this.mainTexture);
         }
     }, {
+        key: 'tintIcon',
+        value: function tintIcon(color) {
+            if (this.icon) {
+                this.icon.tint = color;
+            }
+        }
+    }, {
         key: 'resize',
         value: function resize(width, height) {
             if (width) {
@@ -23890,6 +24433,16 @@ var BaseButton = function (_PIXI$Container) {
             }
             this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
             this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
+
+            if (!this.text) {
+                return;
+            }
+            this.text.x = this.safeShape.width / 2 + this.textOffset.x;
+            this.text.y = this.safeShape.height / 2 + this.textOffset.y;
+
+            if (this.icon) {
+                this.text.y += this.icon.height / 2 + 5;
+            }
         }
     }, {
         key: 'simulateClick',
@@ -23901,10 +24454,11 @@ var BaseButton = function (_PIXI$Container) {
         key: 'addShape',
         value: function addShape(texture, width, height) {
             this.mainTexture = texture;
+            var tex = texture ? PIXI.Texture.from(texture) : PIXI.Texture.EMPTY;
             if (this.safeShape) {
-                this.safeShape.texture = PIXI.Texture.from(texture);
+                this.safeShape.texture = tex;
             } else {
-                this.safeShape = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+                this.safeShape = new PIXI.NineSlicePlane(tex, 20, 20, 20, 20);
                 this.addChild(this.safeShape);
             }
             this.safeShape.width = width;
@@ -23935,6 +24489,7 @@ var BaseButton = function (_PIXI$Container) {
         value: function addLabelOnCenter(text) {
             var offset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { x: 0, y: 0 };
 
+            this.textOffset = offset;
             this.text = text;
             this.text.anchor.set(0.5);
             this.text.x = this.safeShape.width / 2 + offset.x;
@@ -24042,7 +24597,7 @@ exports.default = BaseButton;
 module.exports = exports['default'];
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24102,7 +24657,7 @@ exports.default = EntityData;
 module.exports = exports['default'];
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24568,7 +25123,7 @@ var MSAA_QUALITY;
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24578,257 +25133,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _BaseButton = __webpack_require__(31);
-
-var _BaseButton2 = _interopRequireDefault(_BaseButton);
-
-var _BodyPartySlot = __webpack_require__(232);
-
-var _BodyPartySlot2 = _interopRequireDefault(_BodyPartySlot);
-
-var _ColorButton = __webpack_require__(236);
-
-var _ColorButton2 = _interopRequireDefault(_ColorButton);
-
-var _ColorSlot = __webpack_require__(237);
-
-var _ColorSlot2 = _interopRequireDefault(_ColorSlot);
-
-var _InteractableView = __webpack_require__(27);
-
-var _InteractableView2 = _interopRequireDefault(_InteractableView);
-
-var _Pool = __webpack_require__(15);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UIUtils = function () {
-    function UIUtils() {
-        (0, _classCallCheck3.default)(this, UIUtils);
-    }
-
-    (0, _createClass3.default)(UIUtils, null, [{
-        key: "getCircle",
-        value: function getCircle() {
-            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
-            var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-
-            return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius);
-        }
-    }, {
-        key: "getRect",
-        value: function getRect() {
-            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
-            var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-            var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
-
-            return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height);
-        }
-    }, {
-        key: "getCloseButton",
-        value: function getCloseButton(callback) {
-            var button = new _BaseButton2.default('square_0004', 100, 100);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            button.addIcon('smallButton');
-
-            return button;
-        }
-    }, {
-        key: "getPrimaryButton",
-        value: function getPrimaryButton(callback, label, icon) {
-            var button = new _BaseButton2.default('square_0001', 100, 100);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label);
-            }
-            return button;
-        }
-    }, {
-        key: "getPrimaryLabel",
-        value: function getPrimaryLabel(label) {
-            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            return textLabel;
-        }
-    }, {
-        key: "getSecondaryLabel",
-        value: function getSecondaryLabel(label) {
-            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            var textLabel = new PIXI.Text(label, window.LABELS.LABEL2);
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            return textLabel;
-        }
-    }, {
-        key: "addLabel",
-        value: function addLabel(button, label) {
-            var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
-
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            button.addLabelOnCenter(textLabel);
-            return textLabel;
-        }
-    }, {
-        key: "getBodyPartySlot",
-        value: function getBodyPartySlot(callback, label, icon) {
-
-            var button = _Pool2.default.instance.getElement(_BodyPartySlot2.default);
-
-            button.addShape('square_0002', 85, 85);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label);
-            }
-
-            return button;
-        }
-    }, {
-        key: "getColorSlot",
-        value: function getColorSlot(callback) {
-            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
-            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
-
-
-            var button = _Pool2.default.instance.getElement(_ColorSlot2.default);
-
-            button.addShape('square_0002', width, height);
-            button.setColor(color);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-
-            return button;
-        }
-    }, {
-        key: "getPrimaryLabelButton",
-        value: function getPrimaryLabelButton(callback, label, icon) {
-            var button = new _BaseButton2.default('square_0001', 100, 65);
-            button.setActiveTexture('square_0002');
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback(button);
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
-            }
-            return button;
-        }
-    }, {
-        key: "getBodyTypeLabelButton",
-        value: function getBodyTypeLabelButton(callback, label, icon) {
-            var button = new _BaseButton2.default('square_0001', 100, 65);
-            button.setActiveTexture('square_0002');
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback(button);
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
-            }
-            return button;
-        }
-    }, {
-        key: "getColorButton",
-        value: function getColorButton(callback) {
-            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
-            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
-
-
-            var button = _Pool2.default.instance.getElement(_ColorButton2.default);
-
-            button.addShape('square_0002', width, height);
-            button.setColor(color);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-
-            return button;
-        }
-    }, {
-        key: "getPrimaryLabel",
-        value: function getPrimaryLabel() {
-            var textLabel = new PIXI.Text('', window.LABELS.LABEL1);
-            return textLabel;
-        }
-    }]);
-    return UIUtils;
-}();
-
-UIUtils.colorset = {
-    skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
-    clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
-    hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF]
-};
-exports.default = UIUtils;
-module.exports = exports["default"];
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _defineProperty2 = __webpack_require__(238);
+var _defineProperty2 = __webpack_require__(239);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _typeof2 = __webpack_require__(82);
+var _typeof2 = __webpack_require__(84);
 
 var _typeof3 = _interopRequireDefault(_typeof2);
 
-var _isNan = __webpack_require__(239);
+var _isNan = __webpack_require__(240);
 
 var _isNan2 = _interopRequireDefault(_isNan);
 
@@ -24838,11 +25151,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _conversionUtils = __webpack_require__(140);
+var _conversionUtils = __webpack_require__(142);
 
 var _conversionUtils2 = _interopRequireDefault(_conversionUtils);
 
@@ -25573,7 +25886,7 @@ exports.default = (_resizeToFitMaxAR$res = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25603,15 +25916,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -25672,7 +25985,7 @@ exports.default = Shadow;
 module.exports = exports['default'];
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -25682,284 +25995,6 @@ var global = module.exports = typeof window != 'undefined' && window.Math == Mat
   : Function('return this')();
 if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _pixi = __webpack_require__(6);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UIList = function (_PIXI$Container) {
-    (0, _inherits3.default)(UIList, _PIXI$Container);
-
-    function UIList() {
-        (0, _classCallCheck3.default)(this, UIList);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (UIList.__proto__ || (0, _getPrototypeOf2.default)(UIList)).call(this));
-
-        _this.container = new PIXI.Container();
-        _this.addChild(_this.container);
-        _this.elementsList = [];
-        _this.w = 0;
-        _this.h = 0;
-        return _this;
-    }
-    // listScl
-    // fitHeight
-    // fitWidth
-    // scaleContent
-    // scaleContentMax
-    // align
-
-
-    (0, _createClass3.default)(UIList, [{
-        key: 'debug',
-        value: function debug() {
-            this.debugGr = new PIXI.Graphics().beginFill(0xFF0000).drawRect(0, 0, this.w, this.h);
-            this.container.addChild(this.debugGr);
-            this.debugGr.alpha = 0.5;
-        }
-    }, {
-        key: 'removeElement',
-        value: function removeElement(element) {
-            this.container.removeChild(element);
-
-            var toRemove = -1;
-            for (var index = 0; index < this.elementsList.length; index++) {
-                if (element == this.elementsList[index]) {
-                    toRemove = index;
-                }
-            }
-            if (toRemove >= 0) {
-
-                this.elementsList.splice(toRemove, 1);
-            }
-        }
-    }, {
-        key: 'addElement',
-        value: function addElement(element) {
-            var att = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            // listScl 
-            // fitHeight
-            // fitWidth
-            // scaleContent
-            // scaleContentMax
-            // align
-            for (var key in att) {
-                element[key] = att[key];
-            }
-            this.container.addChild(element);
-            this.elementsList.push(element);
-        }
-    }, {
-        key: 'updateHorizontalList',
-        value: function updateHorizontalList() {
-            var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            var listSizes = [];
-            var sum = 0;
-            var quant = 0;
-            for (var i = 0; i < this.elementsList.length; i++) {
-
-                if (this.elementsList[i].listScl) {
-                    listSizes.push(this.elementsList[i].listScl);
-                    sum += this.elementsList[i].listScl;
-                    quant++;
-                } else {
-                    listSizes.push(0);
-                }
-            }
-            var adjust = 1 - sum;
-            var scales = adjust / (this.elementsList.length - quant);
-            var chunkSize = 0;
-            for (var i = 0; i < this.elementsList.length; i++) {
-                if (listSizes[i] == 0) {
-                    listSizes[i] = scales;
-                }
-            }
-            var plus = 0;
-            var positions = [];
-            var stdH = 1;
-            var stdW = 1;
-            var pixig = void 0;
-            for (var i = 0; i < listSizes.length; i++) {
-                if (debug) {
-
-                    pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5);
-                    this.container.addChild(pixig);
-                }
-                plus = 0;
-                var nextX = 0;
-                chunkSize = this.w * listSizes[i];
-                if (i == 0) {
-                    nextX = 0;
-                } else {
-                    nextX = positions[i - 1] + this.w * listSizes[i - 1];
-                }
-                positions.push(nextX);
-                if (this.elementsList[i].fitHeight) {
-                    stdH = this.elementsList[i].height / this.elementsList[i].scale.y;
-                    this.elementsList[i].scale.set(this.h / stdH * this.elementsList[i].fitHeight);
-                } else if (this.elementsList[i].fitWidth) {
-                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
-                    this.elementsList[i].scale.set(chunkSize / stdW * this.elementsList[i].fitWidth);
-                } else if (this.elementsList[i].scaleContent) {
-                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
-                    this.elementsList[i].scale.set(chunkSize / stdW);
-                } else if (this.elementsList[i].scaleContentMax && this.elementsList[i].width > chunkSize) {
-                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
-                    this.elementsList[i].scale.set(chunkSize / stdW);
-                }
-                var align = 0.5;
-                if (this.elementsList[i].align != undefined) {
-                    align = this.elementsList[i].align;
-                }
-
-                this.elementsList[i].x = nextX + chunkSize * align - this.elementsList[i].width * align;
-                if (debug) {
-
-                    pixig.x = this.elementsList[i].x;
-                }
-
-                var vAlign = 0.5;
-                if (this.elementsList[i].vAlign != undefined) {
-                    vAlign = this.elementsList[i].vAlign;
-                }
-                this.elementsList[i].y = this.h / 2 - this.elementsList[i].height * vAlign;
-            }
-        }
-    }, {
-        key: 'removeAllElements',
-        value: function removeAllElements() {
-            while (this.container.children.length) {
-                this.container.removeChildAt(0);
-            }
-
-            this.elementsList = [];
-        }
-    }, {
-        key: 'updateVerticalList',
-        value: function updateVerticalList() {
-            var debug = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            var listSizes = [];
-            var sum = 0;
-            var quant = 0;
-            for (var i = 0; i < this.elementsList.length; i++) {
-
-                if (this.elementsList[i].listScl) {
-                    listSizes.push(this.elementsList[i].listScl);
-                    sum += this.elementsList[i].listScl;
-                    quant++;
-                } else {
-                    listSizes.push(0);
-                }
-            }
-            var adjust = 1 - sum;
-            var scales = adjust / (this.elementsList.length - quant);
-            var chunkSize = 0;
-            for (var i = 0; i < this.elementsList.length; i++) {
-                if (listSizes[i] == 0) {
-                    listSizes[i] = scales;
-                }
-            }
-            var plus = 0;
-            var positions = [];
-            var stdH = 1;
-            var stdW = 1;
-            var pixig = void 0;
-
-            for (var i = 0; i < listSizes.length; i++) {
-                if (debug) {
-
-                    pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5);
-                    this.container.addChild(pixig);
-                }
-                var anchorX = this.elementsList[i].anchorX !== undefined ? this.elementsList[i].anchorX : 0.5;
-                // let pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
-                // this.container.addChild(pixig)
-                plus = 0;
-                var nextX = 0;
-                chunkSize = this.h * listSizes[i];
-                if (i == 0) {
-                    nextX = 0;
-                } else {
-                    nextX = positions[i - 1] + this.h * listSizes[i - 1];
-                }
-                positions.push(nextX);
-                if (this.elementsList[i].fitHeight) {
-                    stdH = this.elementsList[i].height / this.elementsList[i].scale.y;
-                    this.elementsList[i].scale.set(chunkSize / stdH * this.elementsList[i].fitHeight);
-                } else if (this.elementsList[i].fitWidth) {
-                    stdW = this.elementsList[i].width / this.elementsList[i].scale.x;
-                    this.elementsList[i].scale.set(this.w / stdW * this.elementsList[i].fitWidth);
-                } else if (this.elementsList[i].scaleContent) {
-                    stdW = this.elementsList[i].height / this.elementsList[i].scale.y;
-                    this.elementsList[i].scale.set(chunkSize / stdW);
-                } else if (this.elementsList[i].scaleContentMax && this.elementsList[i].height > chunkSize) {
-                    stdW = this.elementsList[i].height / this.elementsList[i].scale.y;
-                    this.elementsList[i].scale.set(chunkSize / stdW);
-                }
-
-                var vAlign = 0.5;
-                if (this.elementsList[i].vAlign != undefined) {
-                    vAlign = this.elementsList[i].vAlign;
-                }
-
-                var nextY = nextX + chunkSize * vAlign - this.elementsList[i].height * vAlign;
-                this.elementsList[i].y = nextY;
-                // pixig.x = nextX
-
-                var align = 0.5;
-                if (this.elementsList[i].align != undefined) {
-                    align = this.elementsList[i].align;
-                }
-
-                this.elementsList[i].x = this.elementsList[i].width * align;
-
-                //this.elementsList[i].x = this.w * anchorX// - this.elementsList[i].width * anchorX
-            }
-        }
-    }]);
-    return UIList;
-}(PIXI.Container);
-
-exports.default = UIList;
-module.exports = exports['default'];
 
 /***/ }),
 /* 39 */
@@ -26014,11 +26049,11 @@ var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
 
-var _GameObject = __webpack_require__(10);
+var _GameObject = __webpack_require__(11);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
-var _PhysicsModule = __webpack_require__(70);
+var _PhysicsModule = __webpack_require__(72);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -26290,11 +26325,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(69);
+var _BaseEnemy = __webpack_require__(71);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _Collectable = __webpack_require__(256);
+var _Collectable = __webpack_require__(262);
 
 var _Collectable2 = _interopRequireDefault(_Collectable);
 
@@ -26302,7 +26337,7 @@ var _CookieManager = __webpack_require__(64);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _DirectionPin = __webpack_require__(260);
+var _DirectionPin = __webpack_require__(266);
 
 var _DirectionPin2 = _interopRequireDefault(_DirectionPin);
 
@@ -26310,11 +26345,11 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EnemyGlobalSpawner = __webpack_require__(261);
+var _EnemyGlobalSpawner = __webpack_require__(267);
 
 var _EnemyGlobalSpawner2 = _interopRequireDefault(_EnemyGlobalSpawner);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -26322,7 +26357,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameplaySessionController = __webpack_require__(263);
+var _GameplaySessionController = __webpack_require__(269);
 
 var _GameplaySessionController2 = _interopRequireDefault(_GameplaySessionController);
 
@@ -26334,7 +26369,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerSessionData = __webpack_require__(152);
+var _PlayerSessionData = __webpack_require__(153);
 
 var _PlayerSessionData2 = _interopRequireDefault(_PlayerSessionData);
 
@@ -26342,7 +26377,7 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _SessionSpawner = __webpack_require__(108);
+var _SessionSpawner = __webpack_require__(110);
 
 var _SessionSpawner2 = _interopRequireDefault(_SessionSpawner);
 
@@ -26639,7 +26674,7 @@ var LevelManager = function () {
                 return;
             }
             this.enemyGlobalSpawner.distanceToSpawn = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height) * _Game2.default.GlobalScale.min / 2; // this.gameEngine.camera.zoom//2
-            this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.75 + 80;
+            this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.5 + 80;
             //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
             this.gameManagerStats.Phase = this.currentPhase;
             if (this.gameplayTime > 0.5 && delta > 0) {
@@ -26736,9 +26771,9 @@ module.exports = g;
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(37);
-var core = __webpack_require__(26);
-var ctx = __webpack_require__(128);
+var global = __webpack_require__(38);
+var core = __webpack_require__(28);
+var ctx = __webpack_require__(130);
 var hide = __webpack_require__(51);
 var PROTOTYPE = 'prototype';
 
@@ -26804,8 +26839,8 @@ module.exports = $export;
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(60);
-var IE8_DOM_DEFINE = __webpack_require__(129);
-var toPrimitive = __webpack_require__(77);
+var IE8_DOM_DEFINE = __webpack_require__(131);
+var toPrimitive = __webpack_require__(79);
 var dP = Object.defineProperty;
 
 exports.f = __webpack_require__(45) ? Object.defineProperty : function defineProperty(O, P, Attributes) {
@@ -26846,8 +26881,8 @@ module.exports = function (it, key) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__(206);
-var defined = __webpack_require__(79);
+var IObject = __webpack_require__(207);
+var defined = __webpack_require__(81);
 module.exports = function (it) {
   return IObject(defined(it));
 };
@@ -28098,9 +28133,9 @@ module.exports = function (it) {
 /* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var store = __webpack_require__(81)('wks');
+var store = __webpack_require__(83)('wks');
 var uid = __webpack_require__(66);
-var Symbol = __webpack_require__(37).Symbol;
+var Symbol = __webpack_require__(38).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -28146,7 +28181,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(68);
+var _ParticleBehaviour2 = __webpack_require__(70);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -28247,15 +28282,15 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _AcessoryData = __webpack_require__(254);
+var _AcessoryData = __webpack_require__(260);
 
 var _AcessoryData2 = _interopRequireDefault(_AcessoryData);
 
-var _AttributeData = __webpack_require__(146);
+var _AttributeData = __webpack_require__(147);
 
 var _AttributeData2 = _interopRequireDefault(_AttributeData);
 
-var _AuraProjectile = __webpack_require__(255);
+var _AuraProjectile = __webpack_require__(261);
 
 var _AuraProjectile2 = _interopRequireDefault(_AuraProjectile);
 
@@ -28263,19 +28298,19 @@ var _BaseWeapon = __webpack_require__(56);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _BounceBullet = __webpack_require__(282);
+var _BounceBullet = __webpack_require__(288);
 
 var _BounceBullet2 = _interopRequireDefault(_BounceBullet);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _CircularBullet = __webpack_require__(283);
+var _CircularBullet = __webpack_require__(289);
 
 var _CircularBullet2 = _interopRequireDefault(_CircularBullet);
 
-var _CompanionData = __webpack_require__(284);
+var _CompanionData = __webpack_require__(290);
 
 var _CompanionData2 = _interopRequireDefault(_CompanionData);
 
@@ -28283,11 +28318,11 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _FallingProjectile = __webpack_require__(285);
+var _FallingProjectile = __webpack_require__(291);
 
 var _FallingProjectile2 = _interopRequireDefault(_FallingProjectile);
 
-var _FloatingProjectile = __webpack_require__(287);
+var _FloatingProjectile = __webpack_require__(293);
 
 var _FloatingProjectile2 = _interopRequireDefault(_FloatingProjectile);
 
@@ -28295,15 +28330,15 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GravityBullet = __webpack_require__(288);
+var _GravityBullet = __webpack_require__(294);
 
 var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
 
-var _InGameWeapon = __webpack_require__(72);
+var _InGameWeapon = __webpack_require__(74);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
-var _LaserBeam = __webpack_require__(289);
+var _LaserBeam = __webpack_require__(295);
 
 var _LaserBeam2 = _interopRequireDefault(_LaserBeam);
 
@@ -28311,7 +28346,7 @@ var _ParticleDescriptor = __webpack_require__(49);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _SinoidBullet = __webpack_require__(292);
+var _SinoidBullet = __webpack_require__(298);
 
 var _SinoidBullet2 = _interopRequireDefault(_SinoidBullet);
 
@@ -28327,7 +28362,7 @@ var _Vector = __webpack_require__(14);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttachmentData = __webpack_require__(293);
+var _WeaponAttachmentData = __webpack_require__(299);
 
 var _WeaponAttachmentData2 = _interopRequireDefault(_WeaponAttachmentData);
 
@@ -28335,7 +28370,7 @@ var _WeaponAttributes = __webpack_require__(58);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _WeaponData = __webpack_require__(106);
+var _WeaponData = __webpack_require__(108);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -28707,15 +28742,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _AttributeData = __webpack_require__(146);
+var _AttributeData = __webpack_require__(147);
 
 var _AttributeData2 = _interopRequireDefault(_AttributeData);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _Companion = __webpack_require__(147);
+var _Companion = __webpack_require__(148);
 
 var _Companion2 = _interopRequireDefault(_Companion);
 
@@ -28723,15 +28758,15 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityMultipliers = __webpack_require__(71);
+var _EntityMultipliers = __webpack_require__(73);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
-var _EntityViewData = __webpack_require__(107);
+var _EntityViewData = __webpack_require__(109);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
@@ -28739,7 +28774,7 @@ var _LevelManager = __webpack_require__(41);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -28759,7 +28794,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _SpriteSheetGameView = __webpack_require__(151);
+var _SpriteSheetGameView = __webpack_require__(152);
 
 var _SpriteSheetGameView2 = _interopRequireDefault(_SpriteSheetGameView);
 
@@ -28775,11 +28810,11 @@ var _WeaponAttributes = __webpack_require__(58);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _WeaponData = __webpack_require__(106);
+var _WeaponData = __webpack_require__(108);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
-var _WeaponInGameView = __webpack_require__(280);
+var _WeaponInGameView = __webpack_require__(286);
 
 var _WeaponInGameView2 = _interopRequireDefault(_WeaponInGameView);
 
@@ -29331,15 +29366,15 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityMultipliers = __webpack_require__(71);
+var _EntityMultipliers = __webpack_require__(73);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -29634,8 +29669,8 @@ module.exports = exports["default"];
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Sprite; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_settings__ = __webpack_require__(22);
@@ -30290,15 +30325,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _matterJs = __webpack_require__(95);
+var _matterJs = __webpack_require__(97);
 
 var _matterJs2 = _interopRequireDefault(_matterJs);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _PhysicsProperties = __webpack_require__(150);
+var _PhysicsProperties = __webpack_require__(151);
 
 var _PhysicsProperties2 = _interopRequireDefault(_PhysicsProperties);
 
@@ -30306,7 +30341,7 @@ var _Vector = __webpack_require__(14);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -30573,8 +30608,8 @@ module.exports = exports["default"];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Loader; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return LoaderResource; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextureLoader; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resource_loader__ = __webpack_require__(180);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_resource_loader__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/loaders - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -30909,7 +30944,7 @@ Object.defineProperty(exports, "__esModule", {
 	value: true
 });
 
-var _stringify = __webpack_require__(126);
+var _stringify = __webpack_require__(128);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -30921,7 +30956,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _PlayerViewStructure = __webpack_require__(78);
+var _PlayerViewStructure = __webpack_require__(80);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -31533,6 +31568,326 @@ module.exports = function (key) {
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _Game = __webpack_require__(9);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var MainScreenModal = function (_PIXI$Container) {
+    (0, _inherits3.default)(MainScreenModal, _PIXI$Container);
+
+    function MainScreenModal() {
+        (0, _classCallCheck3.default)(this, MainScreenModal);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (MainScreenModal.__proto__ || (0, _getPrototypeOf2.default)(MainScreenModal)).call(this));
+
+        _this.container = new PIXI.Container();
+        _this.addChild(_this.container);
+
+        _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
+        _this.container.addChild(_this.infoBackContainer);
+
+        return _this;
+    }
+
+    (0, _createClass3.default)(MainScreenModal, [{
+        key: 'show',
+        value: function show() {
+            this.container.visible = true;
+        }
+    }, {
+        key: 'hide',
+        value: function hide() {
+            this.container.visible = false;
+        }
+    }, {
+        key: 'resize',
+        value: function resize(res, newRes) {
+
+            this.infoBackContainer.width = _Game2.default.Borders.width - 80;
+            this.infoBackContainer.height = _Game2.default.Borders.height - 80;
+
+            this.infoBackContainer.x = 50;
+            this.infoBackContainer.y = 50;
+        }
+    }, {
+        key: 'aspectChange',
+        value: function aspectChange(isPortrait) {
+
+            if (isPortrait) {} else {}
+        }
+    }, {
+        key: 'isOpen',
+        get: function get() {
+            return this.container.visible;
+        }
+    }]);
+    return MainScreenModal;
+}(PIXI.Container);
+
+exports.default = MainScreenModal;
+module.exports = exports['default'];
+
+/***/ }),
+/* 68 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _get2 = __webpack_require__(5);
+
+var _get3 = _interopRequireDefault(_get2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _ListScroller2 = __webpack_require__(245);
+
+var _ListScroller3 = _interopRequireDefault(_ListScroller2);
+
+var _Pool = __webpack_require__(15);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+var _UIUtils = __webpack_require__(25);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var BodyPartsListScroller = function (_ListScroller) {
+    (0, _inherits3.default)(BodyPartsListScroller, _ListScroller);
+
+    function BodyPartsListScroller() {
+        var rect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { w: 250, h: 500 };
+        var slotSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 75, height: 75 };
+        var margin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { x: 0, y: 0 };
+        (0, _classCallCheck3.default)(this, BodyPartsListScroller);
+
+        var _this = (0, _possibleConstructorReturn3.default)(this, (BodyPartsListScroller.__proto__ || (0, _getPrototypeOf2.default)(BodyPartsListScroller)).call(this, rect, slotSize, margin));
+
+        _this.gridDimensions = { i: 5, j: 3 };
+        _this.onItemShop = new _signals2.default();
+        _this.onShowInfo = new _signals2.default();
+        _this.onVideoItemShop = new _signals2.default();
+        _this.onShowBlock = new _signals2.default();
+        _this.margin = margin;
+        _this.itens = [];
+        _this.calcSize(slotSize);
+        _this.title = _UIUtils2.default.getPrimaryLabel();
+        _this.addChild(_this.title);
+        _this.title.style.fill = 0xFFFFFF;
+        _this.title.x = -25;
+        _this.title.y = -25;
+        //this.title.y= -50
+        return _this;
+    }
+
+    (0, _createClass3.default)(BodyPartsListScroller, [{
+        key: 'addBaseGradient',
+        value: function addBaseGradient(texture, width, color) {
+            this.extraHeight = 30;
+            this.baseGradient = new PIXI.Sprite.from(texture);
+            this.baseGradient.tint = color;
+            this.baseGradient.width = width;
+            this.baseGradient.height = this.extraHeight;
+            this.baseGradient.anchor.set(0, 1);
+            this.baseGradient.y = this.rect.h + 2;
+            this.addChild(this.baseGradient);
+        }
+    }, {
+        key: 'resize',
+        value: function resize() {
+            var rect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { w: 250, h: 500 };
+            var slotSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 75, height: 75 };
+            var margin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { x: 0, y: 0 };
+
+            (0, _get3.default)(BodyPartsListScroller.prototype.__proto__ || (0, _getPrototypeOf2.default)(BodyPartsListScroller.prototype), 'resize', this).call(this, rect, slotSize, margin);
+
+            if (this.baseGradient) {
+                this.baseGradient.width = rect.w;
+                this.baseGradient.y = this.rect.h + 2;
+            }
+        }
+    }, {
+        key: 'setTitle',
+        value: function setTitle(label) {
+            this.title.text = label;
+            this.title.x = this.rect.w - this.title.width - 10;
+        }
+    }, {
+        key: 'addItens',
+        value: function addItens(itens) {
+            var line = 0;
+            var col = 0;
+
+            for (var i = 0; i < itens.length; i++) {
+                var tempItem = itens[i];
+
+                tempItem.x = this.itemWidth * col + this.margin.x;
+                tempItem.y = this.itemHeight * line + this.margin.y;
+
+                col++;
+                this.totalLines = line + 1;
+                if (col >= this.gridDimensions.j) {
+                    line++;
+                }
+                col %= this.gridDimensions.j;
+
+                if (tempItem.onConfirmShop) {
+                    tempItem.onConfirmShop.add(this.onShopItemCallback.bind(this));
+                }
+                this.itens.push(tempItem);
+                this.listContainer.addChild(tempItem);
+            }
+            this.lastItemClicked = this.itens[0];
+        }
+    }, {
+        key: 'removeAllItems',
+        value: function removeAllItems() {
+            this.resetPosition();
+
+            while (this.itens.length) {
+                if (this.itens[0].parent) {
+                    this.itens[0].parent.removeChild(this.itens[0]);
+                    _Pool2.default.instance.returnElement(this.itens[0]);
+                }
+                this.itens.shift();
+            }
+            this.totalLines = 0;
+            //this.title.text = '';
+        }
+    }, {
+        key: 'onShowBlockCallback',
+        value: function onShowBlockCallback(itemData, button) {
+            this.onShowBlock.dispatch(itemData, button);
+        }
+    }, {
+        key: 'onShowInfoCallback',
+        value: function onShowInfoCallback(itemData, button) {
+            this.onShowInfo.dispatch(itemData, button);
+        }
+    }, {
+        key: 'onShopItemCallback',
+        value: function onShopItemCallback(itemData, realCost, button, totalUpgrades) {
+
+            itemData.upgrade(totalUpgrades);
+            this.onItemShop.dispatch(itemData, button, totalUpgrades);
+            this.updateItems();
+        }
+    }, {
+        key: 'hide',
+        value: function hide() {
+            for (var i = 0; i < this.itens.length; i++) {
+                if (this.itens[i].hide) {
+                    this.itens[i].hide();
+                }
+            }
+        }
+    }, {
+        key: 'show',
+        value: function show() {
+            for (var i = 0; i < this.itens.length; i++) {
+                if (this.itens[i].show) {
+                    this.itens[i].show();
+                }
+            }
+        }
+    }, {
+        key: 'updateItems',
+        value: function updateItems() {
+            for (var i = 0; i < this.itens.length; i++) {
+                this.itens[i].updateData();
+            }
+        }
+    }, {
+        key: 'update',
+        value: function update(delta) {}
+    }, {
+        key: 'updateAllItens',
+        value: function updateAllItens() {
+            // for (var i = 0; i < this.catsItemList.length; i++)
+            // {
+            //     this.catsItemList[i].updateItem(GAME_DATA.catsData[i])
+            // }
+        }
+    }]);
+    return BodyPartsListScroller;
+}(_ListScroller3.default);
+
+exports.default = BodyPartsListScroller;
+module.exports = exports['default'];
+
+/***/ }),
+/* 69 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
@@ -31576,7 +31931,7 @@ exports.default = Shaders;
 module.exports = exports['default'];
 
 /***/ }),
-/* 68 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31707,7 +32062,7 @@ exports.default = ParticleBehaviour;
 module.exports = exports['default'];
 
 /***/ }),
-/* 69 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -31749,15 +32104,15 @@ var _EntityBuilder = __webpack_require__(55);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityLifebar = __webpack_require__(96);
+var _EntityLifebar = __webpack_require__(98);
 
 var _EntityLifebar2 = _interopRequireDefault(_EntityLifebar);
 
-var _FlashOnDamage = __webpack_require__(98);
+var _FlashOnDamage = __webpack_require__(100);
 
 var _FlashOnDamage2 = _interopRequireDefault(_FlashOnDamage);
 
-var _GameAgent2 = __webpack_require__(97);
+var _GameAgent2 = __webpack_require__(99);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
@@ -31765,7 +32120,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameViewSpriteSheet = __webpack_require__(99);
+var _GameViewSpriteSheet = __webpack_require__(101);
 
 var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
 
@@ -31785,23 +32140,23 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _SpriteFacing = __webpack_require__(103);
+var _SpriteFacing = __webpack_require__(105);
 
 var _SpriteFacing2 = _interopRequireDefault(_SpriteFacing);
 
-var _SpriteJump = __webpack_require__(104);
+var _SpriteJump = __webpack_require__(106);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
-var _SpriteScaleBounceAppear = __webpack_require__(294);
+var _SpriteScaleBounceAppear = __webpack_require__(300);
 
 var _SpriteScaleBounceAppear2 = _interopRequireDefault(_SpriteScaleBounceAppear);
 
-var _StatsModifier = __webpack_require__(100);
+var _StatsModifier = __webpack_require__(102);
 
 var _StatsModifier2 = _interopRequireDefault(_StatsModifier);
 
@@ -31813,7 +32168,7 @@ var _Vector = __webpack_require__(14);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _ZombieWalk = __webpack_require__(295);
+var _ZombieWalk = __webpack_require__(301);
 
 var _ZombieWalk2 = _interopRequireDefault(_ZombieWalk);
 
@@ -31880,7 +32235,7 @@ var BaseEnemy = function (_GameAgent) {
             // this.addChild(this.lifeBar)
             // this.lifeBar.build(this.attributes.radius * 2,5,2);
 
-            var bounceAppear = this.addComponent(_SpriteScaleBounceAppear2.default);
+            this.bounceAppear = this.addComponent(_SpriteScaleBounceAppear2.default);
 
             var shadow = this.engine.poolGameObject(_Shadow2.default);
             this.addChild(shadow);
@@ -31904,6 +32259,13 @@ var BaseEnemy = function (_GameAgent) {
             //     value: 1,
             //     interval: 1
             // });
+        }
+    }, {
+        key: "respawn",
+        value: function respawn() {
+            if (this.bounceAppear) {
+                this.bounceAppear.enable();
+            }
         }
     }, {
         key: "afterBuild",
@@ -31960,7 +32322,7 @@ exports.default = BaseEnemy;
 module.exports = exports["default"];
 
 /***/ }),
-/* 70 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32002,11 +32364,11 @@ var _Eugine = __webpack_require__(40);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _matterJs = __webpack_require__(95);
+var _matterJs = __webpack_require__(97);
 
 var _matterJs2 = _interopRequireDefault(_matterJs);
 
@@ -32169,7 +32531,7 @@ exports.default = PhysicsModule;
 module.exports = exports['default'];
 
 /***/ }),
-/* 71 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32343,7 +32705,7 @@ exports.default = EntityMultipliers;
 module.exports = exports['default'];
 
 /***/ }),
-/* 72 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32447,7 +32809,7 @@ exports.default = InGameWeapon;
 module.exports = exports["default"];
 
 /***/ }),
-/* 73 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32481,19 +32843,19 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LightSource = __webpack_require__(101);
+var _LightSource = __webpack_require__(103);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -32560,7 +32922,7 @@ exports.default = PlayerHalo;
 module.exports = exports["default"];
 
 /***/ }),
-/* 74 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32598,15 +32960,15 @@ var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _matterJs = __webpack_require__(95);
+var _matterJs = __webpack_require__(97);
 
 var _matterJs2 = _interopRequireDefault(_matterJs);
 
@@ -32796,7 +33158,7 @@ exports.default = InputModule;
 module.exports = exports['default'];
 
 /***/ }),
-/* 75 */
+/* 77 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32805,7 +33167,7 @@ module.exports = exports['default'];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TextMetrics; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextStyle; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_settings__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_utils__ = __webpack_require__(16);
@@ -34868,7 +35230,7 @@ var Text = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 76 */
+/* 78 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34876,9 +35238,9 @@ var Text = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return MeshBatchUvs; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return MeshGeometry; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return MeshMaterial; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_constants__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_display__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_settings__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_utils__ = __webpack_require__(16);
@@ -35598,7 +35960,7 @@ var MeshGeometry = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 77 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.1 ToPrimitive(input [, PreferredType])
@@ -35616,7 +35978,7 @@ module.exports = function (it, S) {
 
 
 /***/ }),
-/* 78 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35626,7 +35988,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _stringify = __webpack_require__(126);
+var _stringify = __webpack_require__(128);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -35638,7 +36000,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -35950,7 +36312,7 @@ exports.default = PlayerViewStructure;
 module.exports = exports["default"];
 
 /***/ }),
-/* 79 */
+/* 81 */
 /***/ (function(module, exports) {
 
 // 7.2.1 RequireObjectCoercible(argument)
@@ -35961,10 +36323,10 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 80 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var shared = __webpack_require__(81)('keys');
+var shared = __webpack_require__(83)('keys');
 var uid = __webpack_require__(66);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
@@ -35972,10 +36334,10 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 81 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(37);
+var global = __webpack_require__(38);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -35984,7 +36346,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35992,11 +36354,11 @@ module.exports = function (key) {
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(200);
+var _iterator = __webpack_require__(201);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(215);
+var _symbol = __webpack_require__(216);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -36011,7 +36373,7 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 };
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports) {
 
 // 7.1.4 ToInteger
@@ -36023,41 +36385,41 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports) {
 
 module.exports = true;
 
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports) {
 
 module.exports = {};
 
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(60);
-var dPs = __webpack_require__(205);
-var enumBugKeys = __webpack_require__(88);
-var IE_PROTO = __webpack_require__(80)('IE_PROTO');
+var dPs = __webpack_require__(206);
+var enumBugKeys = __webpack_require__(90);
+var IE_PROTO = __webpack_require__(82)('IE_PROTO');
 var Empty = function () { /* empty */ };
 var PROTOTYPE = 'prototype';
 
 // Create object with fake `null` prototype: use iframe Object with cleared prototype
 var createDict = function () {
   // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__(130)('iframe');
+  var iframe = __webpack_require__(132)('iframe');
   var i = enumBugKeys.length;
   var lt = '<';
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(210).appendChild(iframe);
+  __webpack_require__(211).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -36084,12 +36446,12 @@ module.exports = Object.create || function create(O, Properties) {
 
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__(136);
-var enumBugKeys = __webpack_require__(88);
+var $keys = __webpack_require__(138);
+var enumBugKeys = __webpack_require__(90);
 
 module.exports = Object.keys || function keys(O) {
   return $keys(O, enumBugKeys);
@@ -36097,7 +36459,7 @@ module.exports = Object.keys || function keys(O) {
 
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports) {
 
 // IE 8- don't enum bug keys
@@ -36107,7 +36469,7 @@ module.exports = (
 
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var def = __webpack_require__(44).f;
@@ -36120,20 +36482,20 @@ module.exports = function (it, tag, stat) {
 
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(53);
 
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(37);
-var core = __webpack_require__(26);
-var LIBRARY = __webpack_require__(84);
-var wksExt = __webpack_require__(90);
+var global = __webpack_require__(38);
+var core = __webpack_require__(28);
+var LIBRARY = __webpack_require__(86);
+var wksExt = __webpack_require__(92);
 var defineProperty = __webpack_require__(44).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -36142,22 +36504,22 @@ module.exports = function (name) {
 
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
 
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(92);
+var pIE = __webpack_require__(94);
 var createDesc = __webpack_require__(65);
 var toIObject = __webpack_require__(47);
-var toPrimitive = __webpack_require__(77);
+var toPrimitive = __webpack_require__(79);
 var has = __webpack_require__(46);
-var IE8_DOM_DEFINE = __webpack_require__(129);
+var IE8_DOM_DEFINE = __webpack_require__(131);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(45) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -36171,7 +36533,7 @@ exports.f = __webpack_require__(45) ? gOPD : function getOwnPropertyDescriptor(O
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36321,7 +36683,7 @@ exports.default = Screen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -47085,7 +47447,7 @@ var Common = __webpack_require__(0);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47119,7 +47481,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseFillBar2 = __webpack_require__(148);
+var _BaseFillBar2 = __webpack_require__(149);
 
 var _BaseFillBar3 = _interopRequireDefault(_BaseFillBar2);
 
@@ -47158,7 +47520,7 @@ exports.default = EntityLifebar;
 module.exports = exports["default"];
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47196,11 +47558,11 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _FlashOnDamage = __webpack_require__(98);
+var _FlashOnDamage = __webpack_require__(100);
 
 var _FlashOnDamage2 = _interopRequireDefault(_FlashOnDamage);
 
@@ -47208,19 +47570,19 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _GameViewSpriteSheet = __webpack_require__(99);
+var _GameViewSpriteSheet = __webpack_require__(101);
 
 var _GameViewSpriteSheet2 = _interopRequireDefault(_GameViewSpriteSheet);
 
-var _Health = __webpack_require__(257);
+var _Health = __webpack_require__(263);
 
 var _Health2 = _interopRequireDefault(_Health);
 
-var _InGameWeapon = __webpack_require__(72);
+var _InGameWeapon = __webpack_require__(74);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
@@ -47228,7 +47590,7 @@ var _PhysicsEntity2 = __webpack_require__(62);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _StatsModifier = __webpack_require__(100);
+var _StatsModifier = __webpack_require__(102);
 
 var _StatsModifier2 = _interopRequireDefault(_StatsModifier);
 
@@ -47541,7 +47903,7 @@ exports.default = GameAgent;
 module.exports = exports["default"];
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47583,7 +47945,7 @@ var _Color = __webpack_require__(57);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _Shaders = __webpack_require__(67);
+var _Shaders = __webpack_require__(69);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
@@ -47732,7 +48094,7 @@ exports.default = FlashOnDamage;
 module.exports = exports['default'];
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47774,7 +48136,7 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _Shaders = __webpack_require__(67);
+var _Shaders = __webpack_require__(69);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
@@ -47863,7 +48225,7 @@ exports.default = GameViewSpriteSheet;
 module.exports = exports['default'];
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -47909,7 +48271,7 @@ var _EntityBuilder = __webpack_require__(55);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -47917,7 +48279,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -47925,11 +48287,11 @@ var _ParticleDescriptor = __webpack_require__(49);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _PlayerHalo = __webpack_require__(73);
+var _PlayerHalo = __webpack_require__(75);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -48175,7 +48537,7 @@ exports.default = StatsModifier;
 module.exports = exports['default'];
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48213,11 +48575,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _GameView2 = __webpack_require__(11);
+var _GameView2 = __webpack_require__(12);
 
 var _GameView3 = _interopRequireDefault(_GameView2);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -48387,7 +48749,7 @@ exports.default = LightSource;
 module.exports = exports['default'];
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48521,7 +48883,7 @@ exports.default = Sensor;
 module.exports = exports["default"];
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48607,7 +48969,7 @@ exports.default = SpriteFacing;
 module.exports = exports['default'];
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48702,7 +49064,7 @@ exports.default = SpriteJump;
 module.exports = exports['default'];
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48716,11 +49078,11 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -48738,7 +49100,7 @@ exports.default = GameplayItem;
 module.exports = exports["default"];
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -48760,19 +49122,19 @@ var _BaseWeapon = __webpack_require__(56);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityViewData = __webpack_require__(107);
+var _EntityViewData = __webpack_require__(109);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
-var _InGameViewDataStatic = __webpack_require__(258);
+var _InGameViewDataStatic = __webpack_require__(264);
 
 var _InGameViewDataStatic2 = _interopRequireDefault(_InGameViewDataStatic);
 
@@ -48875,7 +49237,7 @@ exports.default = WeaponData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49049,7 +49411,7 @@ exports.default = EntityViewData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49071,7 +49433,7 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _SpawnerData = __webpack_require__(262);
+var _SpawnerData = __webpack_require__(268);
 
 var _SpawnerData2 = _interopRequireDefault(_SpawnerData);
 
@@ -49139,7 +49501,7 @@ exports.default = SessionSpawner;
 module.exports = exports["default"];
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49173,15 +49535,15 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(31);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -49477,7 +49839,7 @@ exports.default = CardView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49511,11 +49873,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -49638,21 +50000,21 @@ exports.default = Camera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(310);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DirectionalRotationPlugin_js__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__TimelineMax_js__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__ = __webpack_require__(316);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__CSSPlugin_js__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__AttrPlugin_js__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__RoundPropsPlugin_js__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__DirectionalRotationPlugin_js__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(164);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__["a"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TweenLite", function() { return __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["l"]; });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "TweenMax", function() { return __WEBPACK_IMPORTED_MODULE_3__TweenMax_js__["a"]; });
@@ -49710,13 +50072,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TimelineLite */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimelineLite; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 2.1.3
  * DATE: 2019-05-17
@@ -50563,7 +50925,7 @@ var TimelineLite = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */
 
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -50695,7 +51057,7 @@ function isMobile(param) {
 //# sourceMappingURL=isMobile.js.map
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50722,8 +51084,8 @@ function isMobile(param) {
 
 
 
-var punycode = __webpack_require__(174);
-var util = __webpack_require__(176);
+var punycode = __webpack_require__(175);
+var util = __webpack_require__(177);
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
@@ -50798,7 +51160,7 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
       'gopher:': true,
       'file:': true
     },
-    querystring = __webpack_require__(177);
+    querystring = __webpack_require__(178);
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
   if (url && util.isObject(url) && url instanceof Url) return url;
@@ -51434,7 +51796,7 @@ Url.prototype.parseHost = function() {
 
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -52033,7 +52395,7 @@ var AccessibilityManager = /** @class */ (function () {
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54251,13 +54613,13 @@ var InteractionManager = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Application; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_display__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/app - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -54537,7 +54899,7 @@ Application.registerPlugin(ResizePlugin);
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54743,14 +55105,14 @@ Object.defineProperties(Runner.prototype, {
 
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Extract; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/extract - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -54976,16 +55338,16 @@ var Extract = /** @class */ (function () {
 
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ParticleContainer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return ParticleRenderer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_constants__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_display__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_math__ = __webpack_require__(17);
 /*!
  * @pixi/particles - v5.3.12
@@ -55800,7 +56162,7 @@ var ParticleRenderer = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -55809,11 +56171,11 @@ var ParticleRenderer = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return Prepare; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TimeLimiter; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_settings__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_graphics__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_graphics__ = __webpack_require__(124);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_ticker__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_display__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(77);
 /*!
  * @pixi/prepare - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -56451,7 +56813,7 @@ var TimeLimiter = /** @class */ (function () {
 
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -56464,10 +56826,10 @@ var TimeLimiter = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return LINE_JOIN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return LineStyle; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return index; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_constants__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_display__ = __webpack_require__(23);
 /*!
  * @pixi/graphics - v5.3.12
@@ -59739,14 +60101,14 @@ var Graphics = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Spritesheet; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return SpritesheetLoader; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_math__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_loaders__ = __webpack_require__(63);
 /*!
@@ -60089,17 +60451,17 @@ var SpritesheetLoader = /** @class */ (function () {
 
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TilingSprite; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TilingSpriteRenderer; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(35);
 /*!
  * @pixi/sprite-tiling - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -60511,7 +60873,7 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60521,10 +60883,10 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return BitmapText; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_math__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_settings__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_mesh__ = __webpack_require__(76);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_mesh__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_utils__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_core__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_core__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(77);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_display__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(63);
 /*!
@@ -62328,23 +62690,23 @@ var BitmapFontLoader = /** @class */ (function () {
 
 
 /***/ }),
-/* 126 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(194), __esModule: true };
-
-/***/ }),
-/* 127 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = { "default": __webpack_require__(195), __esModule: true };
 
 /***/ }),
-/* 128 */
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(196), __esModule: true };
+
+/***/ }),
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(197);
+var aFunction = __webpack_require__(198);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -62366,20 +62728,20 @@ module.exports = function (fn, that, length) {
 
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = !__webpack_require__(45) && !__webpack_require__(61)(function () {
-  return Object.defineProperty(__webpack_require__(130)('div'), 'a', { get: function () { return 7; } }).a != 7;
+  return Object.defineProperty(__webpack_require__(132)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
 
 /***/ }),
-/* 130 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(52);
-var document = __webpack_require__(37).document;
+var document = __webpack_require__(38).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -62388,24 +62750,24 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 131 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.13 ToObject(argument)
-var defined = __webpack_require__(79);
+var defined = __webpack_require__(81);
 module.exports = function (it) {
   return Object(defined(it));
 };
 
 
 /***/ }),
-/* 132 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
 var has = __webpack_require__(46);
-var toObject = __webpack_require__(131);
-var IE_PROTO = __webpack_require__(80)('IE_PROTO');
+var toObject = __webpack_require__(133);
+var IE_PROTO = __webpack_require__(82)('IE_PROTO');
 var ObjectProto = Object.prototype;
 
 module.exports = Object.getPrototypeOf || function (O) {
@@ -62418,12 +62780,12 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 
 /***/ }),
-/* 133 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(43);
-var core = __webpack_require__(26);
+var core = __webpack_require__(28);
 var fails = __webpack_require__(61);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
@@ -62434,20 +62796,20 @@ module.exports = function (KEY, exec) {
 
 
 /***/ }),
-/* 134 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var LIBRARY = __webpack_require__(84);
+var LIBRARY = __webpack_require__(86);
 var $export = __webpack_require__(43);
-var redefine = __webpack_require__(135);
+var redefine = __webpack_require__(137);
 var hide = __webpack_require__(51);
 var has = __webpack_require__(46);
-var Iterators = __webpack_require__(85);
-var $iterCreate = __webpack_require__(204);
-var setToStringTag = __webpack_require__(89);
-var getPrototypeOf = __webpack_require__(132);
+var Iterators = __webpack_require__(87);
+var $iterCreate = __webpack_require__(205);
+var setToStringTag = __webpack_require__(91);
+var getPrototypeOf = __webpack_require__(134);
 var ITERATOR = __webpack_require__(53)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
@@ -62511,20 +62873,20 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 
 /***/ }),
-/* 135 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(51);
 
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var has = __webpack_require__(46);
 var toIObject = __webpack_require__(47);
-var arrayIndexOf = __webpack_require__(207)(false);
-var IE_PROTO = __webpack_require__(80)('IE_PROTO');
+var arrayIndexOf = __webpack_require__(208)(false);
+var IE_PROTO = __webpack_require__(82)('IE_PROTO');
 
 module.exports = function (object, names) {
   var O = toIObject(object);
@@ -62541,7 +62903,7 @@ module.exports = function (object, names) {
 
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports) {
 
 var toString = {}.toString;
@@ -62552,19 +62914,19 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
 
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(136);
-var hiddenKeys = __webpack_require__(88).concat('length', 'prototype');
+var $keys = __webpack_require__(138);
+var hiddenKeys = __webpack_require__(90).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -62572,7 +62934,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62656,7 +63018,7 @@ exports.default = {
 module.exports = exports['default'];
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -62694,19 +63056,19 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _dat = __webpack_require__(142);
+var _dat = __webpack_require__(144);
 
 var dat = _interopRequireWildcard(_dat);
 
-var _CharacterBuildScreen = __webpack_require__(242);
+var _CharacterBuildScreen = __webpack_require__(243);
 
 var _CharacterBuildScreen2 = _interopRequireDefault(_CharacterBuildScreen);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameScreen = __webpack_require__(247);
+var _GameScreen = __webpack_require__(253);
 
 var _GameScreen2 = _interopRequireDefault(_GameScreen);
 
@@ -62714,19 +63076,19 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _MainMenu = __webpack_require__(313);
+var _MainMenu = __webpack_require__(319);
 
 var _MainMenu2 = _interopRequireDefault(_MainMenu);
 
-var _ScreenManager2 = __webpack_require__(315);
+var _ScreenManager2 = __webpack_require__(321);
 
 var _ScreenManager3 = _interopRequireDefault(_ScreenManager2);
 
-var _ScreenTransition = __webpack_require__(316);
+var _ScreenTransition = __webpack_require__(322);
 
 var _ScreenTransition2 = _interopRequireDefault(_ScreenTransition);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -62953,7 +63315,7 @@ exports.default = MainScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -65490,229 +65852,7 @@ var index = {
 
 
 /***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _getPrototypeOf = __webpack_require__(2);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(3);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _get2 = __webpack_require__(5);
-
-var _get3 = _interopRequireDefault(_get2);
-
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _pixi = __webpack_require__(6);
-
-var PIXI = _interopRequireWildcard(_pixi);
-
-var _ListScroller2 = __webpack_require__(243);
-
-var _ListScroller3 = _interopRequireDefault(_ListScroller2);
-
-var _Pool = __webpack_require__(15);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-var _signals = __webpack_require__(7);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-var _UIUtils = __webpack_require__(34);
-
-var _UIUtils2 = _interopRequireDefault(_UIUtils);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var BodyPartsListScroller = function (_ListScroller) {
-    (0, _inherits3.default)(BodyPartsListScroller, _ListScroller);
-
-    function BodyPartsListScroller() {
-        var rect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { w: 250, h: 500 };
-        var slotSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 75, height: 75 };
-        var margin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { x: 0, y: 0 };
-        (0, _classCallCheck3.default)(this, BodyPartsListScroller);
-
-        var _this = (0, _possibleConstructorReturn3.default)(this, (BodyPartsListScroller.__proto__ || (0, _getPrototypeOf2.default)(BodyPartsListScroller)).call(this, rect, slotSize, margin));
-
-        _this.gridDimensions = { i: 5, j: 3 };
-        _this.onItemShop = new _signals2.default();
-        _this.onShowInfo = new _signals2.default();
-        _this.onVideoItemShop = new _signals2.default();
-        _this.onShowBlock = new _signals2.default();
-        _this.margin = margin;
-        _this.itens = [];
-        _this.calcSize(slotSize);
-        _this.title = _UIUtils2.default.getPrimaryLabel();
-        _this.addChild(_this.title);
-        _this.title.style.fill = 0xFFFFFF;
-        _this.title.x = -25;
-        _this.title.y = -25;
-        //this.title.y= -50
-        return _this;
-    }
-
-    (0, _createClass3.default)(BodyPartsListScroller, [{
-        key: 'addBaseGradient',
-        value: function addBaseGradient(texture, width, color) {
-            this.extraHeight = 30;
-            this.baseGradient = new PIXI.Sprite.from(texture);
-            this.baseGradient.tint = color;
-            this.baseGradient.width = width;
-            this.baseGradient.height = this.extraHeight;
-            this.baseGradient.anchor.set(0, 1);
-            this.baseGradient.y = this.rect.h + 2;
-            this.addChild(this.baseGradient);
-        }
-    }, {
-        key: 'resize',
-        value: function resize() {
-            var rect = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : { w: 250, h: 500 };
-            var slotSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : { width: 75, height: 75 };
-            var margin = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : { x: 0, y: 0 };
-
-            (0, _get3.default)(BodyPartsListScroller.prototype.__proto__ || (0, _getPrototypeOf2.default)(BodyPartsListScroller.prototype), 'resize', this).call(this, rect, slotSize, margin);
-
-            if (this.baseGradient) {
-                this.baseGradient.width = rect.w;
-                this.baseGradient.y = this.rect.h + 2;
-            }
-        }
-    }, {
-        key: 'setTitle',
-        value: function setTitle(label) {
-            this.title.text = label;
-            this.title.x = this.rect.w - this.title.width - 10;
-        }
-    }, {
-        key: 'addItens',
-        value: function addItens(itens) {
-            var line = 0;
-            var col = 0;
-
-            for (var i = 0; i < itens.length; i++) {
-                var tempItem = itens[i];
-
-                tempItem.x = this.itemWidth * col + this.margin.x;
-                tempItem.y = this.itemHeight * line + this.margin.y;
-
-                col++;
-                this.totalLines = line + 1;
-                if (col >= this.gridDimensions.j) {
-                    line++;
-                }
-                col %= this.gridDimensions.j;
-
-                if (tempItem.onConfirmShop) {
-                    tempItem.onConfirmShop.add(this.onShopItemCallback.bind(this));
-                }
-                this.itens.push(tempItem);
-                this.listContainer.addChild(tempItem);
-            }
-            this.lastItemClicked = this.itens[0];
-        }
-    }, {
-        key: 'removeAllItems',
-        value: function removeAllItems() {
-            this.resetPosition();
-
-            while (this.itens.length) {
-                if (this.itens[0].parent) {
-                    this.itens[0].parent.removeChild(this.itens[0]);
-                    _Pool2.default.instance.returnElement(this.itens[0]);
-                }
-                this.itens.shift();
-            }
-            this.totalLines = 0;
-            //this.title.text = '';
-        }
-    }, {
-        key: 'onShowBlockCallback',
-        value: function onShowBlockCallback(itemData, button) {
-            this.onShowBlock.dispatch(itemData, button);
-        }
-    }, {
-        key: 'onShowInfoCallback',
-        value: function onShowInfoCallback(itemData, button) {
-            this.onShowInfo.dispatch(itemData, button);
-        }
-    }, {
-        key: 'onShopItemCallback',
-        value: function onShopItemCallback(itemData, realCost, button, totalUpgrades) {
-
-            itemData.upgrade(totalUpgrades);
-            this.onItemShop.dispatch(itemData, button, totalUpgrades);
-            this.updateItems();
-        }
-    }, {
-        key: 'hide',
-        value: function hide() {
-            for (var i = 0; i < this.itens.length; i++) {
-                if (this.itens[i].hide) {
-                    this.itens[i].hide();
-                }
-            }
-        }
-    }, {
-        key: 'show',
-        value: function show() {
-            for (var i = 0; i < this.itens.length; i++) {
-                if (this.itens[i].show) {
-                    this.itens[i].show();
-                }
-            }
-        }
-    }, {
-        key: 'updateItems',
-        value: function updateItems() {
-            for (var i = 0; i < this.itens.length; i++) {
-                this.itens[i].updateData();
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {}
-    }, {
-        key: 'updateAllItens',
-        value: function updateAllItens() {
-            // for (var i = 0; i < this.catsItemList.length; i++)
-            // {
-            //     this.catsItemList[i].updateItem(GAME_DATA.catsData[i])
-            // }
-        }
-    }]);
-    return BodyPartsListScroller;
-}(_ListScroller3.default);
-
-exports.default = BodyPartsListScroller;
-module.exports = exports['default'];
-
-/***/ }),
-/* 144 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -65750,7 +65890,7 @@ var _BaseComponent2 = __webpack_require__(18);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _PlayerViewStructure = __webpack_require__(78);
+var _PlayerViewStructure = __webpack_require__(80);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -65758,7 +65898,7 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _Shaders = __webpack_require__(67);
+var _Shaders = __webpack_require__(69);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
@@ -65848,10 +65988,10 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this));
             this.baseData.onColorUpdate.add(this.colorUpdate.bind(this));
 
-            this.bodyData = [{ area: "backArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 }, { area: "backSleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 },
+            this.bodyData = [{ type: 'visuals', area: "backArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 }, { type: 'visuals', area: "backSleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 },
 
-            //  { area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
-            { area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "trinket", src: "trinket-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { area: "mask", src: "mask-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: this.baseData.mask > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.5 }, { area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.2 }, { area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionSin, animForce: 1 }, { area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }, { area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }];
+            //  {type:'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
+            { type: 'visuals', area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "trinket", src: "trinket-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', enabled: this.baseData.trinket > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "mask", src: "mask-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: this.baseData.mask > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.5 }, { type: 'visuals', area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.2 }, { type: 'equip', area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionSin, animForce: 1 }, { type: 'visuals', area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }, { type: 'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }];
 
             var spriteSize = { width: 0, height: 0 };
             this.bodyData.forEach(function (element) {
@@ -66042,7 +66182,7 @@ exports.default = PlayerGameViewSpriteSheet;
 module.exports = exports['default'];
 
 /***/ }),
-/* 145 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66180,7 +66320,7 @@ exports.default = Particle;
 module.exports = exports['default'];
 
 /***/ }),
-/* 146 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66198,11 +66338,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -66254,7 +66394,7 @@ exports.default = AttributeData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 147 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66288,7 +66428,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -66296,7 +66436,7 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -66304,15 +66444,15 @@ var _EntityBuilder = __webpack_require__(55);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityLifebar = __webpack_require__(96);
+var _EntityLifebar = __webpack_require__(98);
 
 var _EntityLifebar2 = _interopRequireDefault(_EntityLifebar);
 
-var _GameAgent2 = __webpack_require__(97);
+var _GameAgent2 = __webpack_require__(99);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _InGameWeapon = __webpack_require__(72);
+var _InGameWeapon = __webpack_require__(74);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
@@ -66324,27 +66464,27 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerHalo = __webpack_require__(73);
+var _PlayerHalo = __webpack_require__(75);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Sensor = __webpack_require__(102);
+var _Sensor = __webpack_require__(104);
 
 var _Sensor2 = _interopRequireDefault(_Sensor);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _SpriteFacing = __webpack_require__(103);
+var _SpriteFacing = __webpack_require__(105);
 
 var _SpriteFacing2 = _interopRequireDefault(_SpriteFacing);
 
-var _SpriteJump = __webpack_require__(104);
+var _SpriteJump = __webpack_require__(106);
 
 var _SpriteJump2 = _interopRequireDefault(_SpriteJump);
 
@@ -66508,7 +66648,7 @@ exports.default = Companion;
 module.exports = exports["default"];
 
 /***/ }),
-/* 148 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66542,7 +66682,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseBarView = __webpack_require__(149);
+var _BaseBarView = __webpack_require__(150);
 
 var _BaseBarView2 = _interopRequireDefault(_BaseBarView);
 
@@ -66554,15 +66694,15 @@ var _Color = __webpack_require__(57);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -66653,7 +66793,7 @@ exports.default = BaseFillBar;
 module.exports = exports["default"];
 
 /***/ }),
-/* 149 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66786,7 +66926,7 @@ exports.default = BaseBarView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 150 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66852,7 +66992,7 @@ exports.default = PhysicsProperties;
 module.exports = exports["default"];
 
 /***/ }),
-/* 151 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -66894,7 +67034,7 @@ var _Eugine = __webpack_require__(40);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Particle = __webpack_require__(145);
+var _Particle = __webpack_require__(146);
 
 var _Particle2 = _interopRequireDefault(_Particle);
 
@@ -66982,7 +67122,7 @@ exports.default = SpriteSheetGameView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 152 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67000,19 +67140,19 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityMultipliers = __webpack_require__(71);
+var _EntityMultipliers = __webpack_require__(73);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
-var _GameplayItem = __webpack_require__(105);
+var _GameplayItem = __webpack_require__(107);
 
 var _GameplayItem2 = _interopRequireDefault(_GameplayItem);
 
@@ -67181,7 +67321,7 @@ exports.default = PlayerSessionData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 153 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67215,11 +67355,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -67359,7 +67499,7 @@ exports.default = GridSlotView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 154 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67401,7 +67541,7 @@ var _Color = __webpack_require__(57);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _LightSource = __webpack_require__(101);
+var _LightSource = __webpack_require__(103);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -67409,7 +67549,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -67592,7 +67732,7 @@ exports.default = AmbientLightSystem;
 module.exports = exports['default'];
 
 /***/ }),
-/* 155 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67649,7 +67789,7 @@ exports.default = RandomGenerator;
 module.exports = exports["default"];
 
 /***/ }),
-/* 156 */
+/* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -67683,7 +67823,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -67695,7 +67835,7 @@ var _PhysicsEntity2 = __webpack_require__(62);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -67756,14 +67896,14 @@ exports.default = StaticPhysicObject;
 module.exports = exports["default"];
 
 /***/ }),
-/* 157 */
+/* 158 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TimelineMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TimelineMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(112);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TimelineLite_js__ = __webpack_require__(114);
 /* unused harmony reexport TimelineLite */
 /*!
  * VERSION: 2.1.3
@@ -68289,13 +68429,13 @@ var TimelineMax = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */]
 
 
 /***/ }),
-/* 158 */
+/* 159 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export CSSPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CSSPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 2.1.3
  * DATE: 2019-05-17
@@ -71219,13 +71359,13 @@ var CSSPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals */].C
 
 
 /***/ }),
-/* 159 */
+/* 160 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export AttrPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AttrPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 0.6.1
  * DATE: 2018-08-27
@@ -71272,7 +71412,7 @@ var AttrPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsScope */]
 
 
 /***/ }),
-/* 160 */
+/* 161 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71281,7 +71421,7 @@ var AttrPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsScope */]
 /* unused harmony export _roundLinkedList */
 /* unused harmony export p */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RoundPropsPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 1.6.0
  * DATE: 2018-08-27
@@ -71385,13 +71525,13 @@ var RoundPropsPlugin = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["k" /* _gsSco
 
 
 /***/ }),
-/* 161 */
+/* 162 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export DirectionalRotationPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DirectionalRotationPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 0.3.1
  * DATE: 2018-08-27
@@ -71480,13 +71620,13 @@ DirectionalRotationPlugin._autoCSS = true;
 
 
 /***/ }),
-/* 162 */
+/* 163 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export BezierPlugin */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BezierPlugin; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /*!
  * VERSION: 1.3.9
  * DATE: 2019-05-17
@@ -72093,7 +72233,7 @@ DirectionalRotationPlugin._autoCSS = true;
 
 
 /***/ }),
-/* 163 */
+/* 164 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -72107,7 +72247,7 @@ DirectionalRotationPlugin._autoCSS = true;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return Expo; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return Sine; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return ExpoScaleEase; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /* unused harmony reexport Linear */
 /* unused harmony reexport Power0 */
 /* unused harmony reexport Power1 */
@@ -72491,7 +72631,7 @@ var ExpoScaleEase = __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__["m" /* globals *
 
 
 /***/ }),
-/* 164 */
+/* 165 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -72505,31 +72645,31 @@ var _CookieManager = __webpack_require__(64);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _MainScreenManager = __webpack_require__(141);
+var _MainScreenManager = __webpack_require__(143);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _SoundManager = __webpack_require__(317);
+var _SoundManager = __webpack_require__(323);
 
 var _SoundManager2 = _interopRequireDefault(_SoundManager);
 
-var _manifestAudio = __webpack_require__(320);
+var _manifestAudio = __webpack_require__(326);
 
 var _manifestAudio2 = _interopRequireDefault(_manifestAudio);
 
-var _globals = __webpack_require__(321);
+var _globals = __webpack_require__(327);
 
 var _globals2 = _interopRequireDefault(_globals);
 
-var _manifestJson = __webpack_require__(322);
+var _manifestJson = __webpack_require__(328);
 
 var _manifestJson2 = _interopRequireDefault(_manifestJson);
 
-var _plugins = __webpack_require__(323);
+var _plugins = __webpack_require__(329);
 
 var _plugins2 = _interopRequireDefault(_plugins);
 
@@ -72537,7 +72677,7 @@ var _signals = __webpack_require__(7);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _manifest = __webpack_require__(324);
+var _manifest = __webpack_require__(330);
 
 var _manifest2 = _interopRequireDefault(_manifest);
 
@@ -72847,13 +72987,13 @@ function tick() {
 tick();
 
 /***/ }),
-/* 165 */
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_polyfill__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_polyfill__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_es6_promise_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_es6_promise_polyfill__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_object_assign__ = __webpack_require__(170);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_object_assign__ = __webpack_require__(171);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_object_assign__);
 /*!
  * @pixi/polyfill - v5.3.12
@@ -72971,7 +73111,7 @@ if (!window.Int32Array) {
 
 
 /***/ }),
-/* 166 */
+/* 167 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {var __WEBPACK_AMD_DEFINE_RESULT__;(function(global){
@@ -73322,10 +73462,10 @@ Promise.reject = function(reason){
 
 })(typeof window != 'undefined' ? window : typeof global != 'undefined' ? global : typeof self != 'undefined' ? self : this);
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(167).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(168).setImmediate))
 
 /***/ }),
-/* 167 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -73378,7 +73518,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(168);
+__webpack_require__(169);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -73392,7 +73532,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
-/* 168 */
+/* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -73582,10 +73722,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(169)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42), __webpack_require__(170)))
 
 /***/ }),
-/* 169 */
+/* 170 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -73775,7 +73915,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 170 */
+/* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -73872,11 +74012,11 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 171 */
+/* 172 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isMobile__ = __webpack_require__(113);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__isMobile__ = __webpack_require__(115);
 /* unused harmony namespace reexport */
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_0__isMobile__["a"]; });
 
@@ -73884,7 +74024,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 172 */
+/* 173 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74227,7 +74367,7 @@ if (true) {
 
 
 /***/ }),
-/* 173 */
+/* 174 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -74915,7 +75055,7 @@ earcut.flatten = function (data) {
 
 
 /***/ }),
-/* 174 */
+/* 175 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module, global) {var __WEBPACK_AMD_DEFINE_RESULT__;/*! https://mths.be/punycode v1.4.1 by @mathias */
@@ -75451,10 +75591,10 @@ earcut.flatten = function (data) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(175)(module), __webpack_require__(42)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(176)(module), __webpack_require__(42)))
 
 /***/ }),
-/* 175 */
+/* 176 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -75482,7 +75622,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 176 */
+/* 177 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75505,18 +75645,18 @@ module.exports = {
 
 
 /***/ }),
-/* 177 */
+/* 178 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-exports.decode = exports.parse = __webpack_require__(178);
-exports.encode = exports.stringify = __webpack_require__(179);
+exports.decode = exports.parse = __webpack_require__(179);
+exports.encode = exports.stringify = __webpack_require__(180);
 
 
 /***/ }),
-/* 178 */
+/* 179 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75607,7 +75747,7 @@ var isArray = Array.isArray || function (xs) {
 
 
 /***/ }),
-/* 179 */
+/* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -75699,7 +75839,7 @@ var objectKeys = Object.keys || function (obj) {
 
 
 /***/ }),
-/* 180 */
+/* 181 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -75708,9 +75848,9 @@ var objectKeys = Object.keys || function (obj) {
 /* unused harmony export async */
 /* unused harmony export encodeBinary */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return index; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_uri__ = __webpack_require__(181);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_uri__ = __webpack_require__(182);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_parse_uri___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_parse_uri__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mini_signals__ = __webpack_require__(182);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mini_signals__ = __webpack_require__(183);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_mini_signals___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_mini_signals__);
 /*!
  * resource-loader - v3.0.1
@@ -78054,7 +78194,7 @@ Loader.use = function LoaderUseStatic(fn) {
 
 
 /***/ }),
-/* 181 */
+/* 182 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78106,7 +78246,7 @@ module.exports = (str, opts = {}) => {
 
 
 /***/ }),
-/* 182 */
+/* 183 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -78278,12 +78418,12 @@ module.exports = exports['default'];
 
 
 /***/ }),
-/* 183 */
+/* 184 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AlphaFilter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/filter-alpha - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -78376,13 +78516,13 @@ var AlphaFilter = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 184 */
+/* 185 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BlurFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return BlurFilterPass; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_settings__ = __webpack_require__(22);
 /*!
  * @pixi/filter-blur - v5.3.12
@@ -79215,12 +79355,12 @@ var BlurFilter = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 185 */
+/* 186 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ColorMatrixFilter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/filter-color-matrix - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -79756,12 +79896,12 @@ ColorMatrixFilter.prototype.grayscale = ColorMatrixFilter.prototype.greyscale;
 
 
 /***/ }),
-/* 186 */
+/* 187 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DisplacementFilter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(17);
 /*!
  * @pixi/filter-displacement - v5.3.12
@@ -79901,12 +80041,12 @@ var DisplacementFilter = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 187 */
+/* 188 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FXAAFilter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/filter-fxaa - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -79974,12 +80114,12 @@ var FXAAFilter = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 188 */
+/* 189 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NoiseFilter; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/filter-noise - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -80087,12 +80227,12 @@ var NoiseFilter = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 189 */
+/* 190 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export CacheData */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(23);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(17);
@@ -80426,7 +80566,7 @@ __WEBPACK_IMPORTED_MODULE_2__pixi_display__["c" /* DisplayObject */].prototype._
 
 
 /***/ }),
-/* 190 */
+/* 191 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80482,7 +80622,7 @@ __WEBPACK_IMPORTED_MODULE_0__pixi_display__["b" /* Container */].prototype.getCh
 
 
 /***/ }),
-/* 191 */
+/* 192 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80525,7 +80665,7 @@ __WEBPACK_IMPORTED_MODULE_0__pixi_display__["c" /* DisplayObject */].prototype.g
 
 
 /***/ }),
-/* 192 */
+/* 193 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -80535,9 +80675,9 @@ __WEBPACK_IMPORTED_MODULE_0__pixi_display__["c" /* DisplayObject */].prototype.g
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return SimpleMesh; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return SimplePlane; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return SimpleRope; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_mesh__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_mesh__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_constants__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_core__ = __webpack_require__(13);
 /*!
  * @pixi/mesh-extras - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -81270,12 +81410,12 @@ var NineSlicePlane = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 193 */
+/* 194 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(12);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(13);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(59);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_ticker__ = __webpack_require__(50);
 /*!
@@ -81752,10 +81892,10 @@ var AnimatedSprite = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 194 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(26);
+var core = __webpack_require__(28);
 var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
 module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
   return $JSON.stringify.apply($JSON, arguments);
@@ -81763,18 +81903,18 @@ module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
 
 
 /***/ }),
-/* 195 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(196);
-var $Object = __webpack_require__(26).Object;
+__webpack_require__(197);
+var $Object = __webpack_require__(28).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
 
 
 /***/ }),
-/* 196 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(43);
@@ -81783,7 +81923,7 @@ $export($export.S + $export.F * !__webpack_require__(45), 'Object', { defineProp
 
 
 /***/ }),
-/* 197 */
+/* 198 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -81793,22 +81933,22 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 198 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(199);
-module.exports = __webpack_require__(26).Object.getPrototypeOf;
-
-
-/***/ }),
 /* 199 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.2.9 Object.getPrototypeOf(O)
-var toObject = __webpack_require__(131);
-var $getPrototypeOf = __webpack_require__(132);
+__webpack_require__(200);
+module.exports = __webpack_require__(28).Object.getPrototypeOf;
 
-__webpack_require__(133)('getPrototypeOf', function () {
+
+/***/ }),
+/* 200 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.9 Object.getPrototypeOf(O)
+var toObject = __webpack_require__(133);
+var $getPrototypeOf = __webpack_require__(134);
+
+__webpack_require__(135)('getPrototypeOf', function () {
   return function getPrototypeOf(it) {
     return $getPrototypeOf(toObject(it));
   };
@@ -81816,30 +81956,30 @@ __webpack_require__(133)('getPrototypeOf', function () {
 
 
 /***/ }),
-/* 200 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(201), __esModule: true };
-
-/***/ }),
 /* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(202);
-__webpack_require__(211);
-module.exports = __webpack_require__(90).f('iterator');
-
+module.exports = { "default": __webpack_require__(202), __esModule: true };
 
 /***/ }),
 /* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(203);
+__webpack_require__(212);
+module.exports = __webpack_require__(92).f('iterator');
+
+
+/***/ }),
+/* 203 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
-var $at = __webpack_require__(203)(true);
+var $at = __webpack_require__(204)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
-__webpack_require__(134)(String, 'String', function (iterated) {
+__webpack_require__(136)(String, 'String', function (iterated) {
   this._t = String(iterated); // target
   this._i = 0;                // next index
 // 21.1.5.2.1 %StringIteratorPrototype%.next()
@@ -81855,11 +81995,11 @@ __webpack_require__(134)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 203 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(83);
-var defined = __webpack_require__(79);
+var toInteger = __webpack_require__(85);
+var defined = __webpack_require__(81);
 // true  -> String#at
 // false -> String#codePointAt
 module.exports = function (TO_STRING) {
@@ -81878,14 +82018,14 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 204 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var create = __webpack_require__(86);
+var create = __webpack_require__(88);
 var descriptor = __webpack_require__(65);
-var setToStringTag = __webpack_require__(89);
+var setToStringTag = __webpack_require__(91);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
@@ -81898,12 +82038,12 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 205 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(44);
 var anObject = __webpack_require__(60);
-var getKeys = __webpack_require__(87);
+var getKeys = __webpack_require__(89);
 
 module.exports = __webpack_require__(45) ? Object.defineProperties : function defineProperties(O, Properties) {
   anObject(O);
@@ -81917,11 +82057,11 @@ module.exports = __webpack_require__(45) ? Object.defineProperties : function de
 
 
 /***/ }),
-/* 206 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__(137);
+var cof = __webpack_require__(139);
 // eslint-disable-next-line no-prototype-builtins
 module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
   return cof(it) == 'String' ? it.split('') : Object(it);
@@ -81929,14 +82069,14 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 
 /***/ }),
-/* 207 */
+/* 208 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(47);
-var toLength = __webpack_require__(208);
-var toAbsoluteIndex = __webpack_require__(209);
+var toLength = __webpack_require__(209);
+var toAbsoluteIndex = __webpack_require__(210);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -81958,11 +82098,11 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 208 */
+/* 209 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
-var toInteger = __webpack_require__(83);
+var toInteger = __webpack_require__(85);
 var min = Math.min;
 module.exports = function (it) {
   return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
@@ -81970,10 +82110,10 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 209 */
+/* 210 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(83);
+var toInteger = __webpack_require__(85);
 var max = Math.max;
 var min = Math.min;
 module.exports = function (index, length) {
@@ -81983,21 +82123,21 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 210 */
+/* 211 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(37).document;
+var document = __webpack_require__(38).document;
 module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 211 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(212);
-var global = __webpack_require__(37);
+__webpack_require__(213);
+var global = __webpack_require__(38);
 var hide = __webpack_require__(51);
-var Iterators = __webpack_require__(85);
+var Iterators = __webpack_require__(87);
 var TO_STRING_TAG = __webpack_require__(53)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
@@ -82016,21 +82156,21 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 
 /***/ }),
-/* 212 */
+/* 213 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(213);
-var step = __webpack_require__(214);
-var Iterators = __webpack_require__(85);
+var addToUnscopables = __webpack_require__(214);
+var step = __webpack_require__(215);
+var Iterators = __webpack_require__(87);
 var toIObject = __webpack_require__(47);
 
 // 22.1.3.4 Array.prototype.entries()
 // 22.1.3.13 Array.prototype.keys()
 // 22.1.3.29 Array.prototype.values()
 // 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__(134)(Array, 'Array', function (iterated, kind) {
+module.exports = __webpack_require__(136)(Array, 'Array', function (iterated, kind) {
   this._t = toIObject(iterated); // target
   this._i = 0;                   // next index
   this._k = kind;                // kind
@@ -82057,14 +82197,14 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 213 */
+/* 214 */
 /***/ (function(module, exports) {
 
 module.exports = function () { /* empty */ };
 
 
 /***/ }),
-/* 214 */
+/* 215 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -82073,54 +82213,54 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(216), __esModule: true };
-
-/***/ }),
 /* 216 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(217);
-__webpack_require__(222);
-__webpack_require__(223);
-__webpack_require__(224);
-module.exports = __webpack_require__(26).Symbol;
-
+module.exports = { "default": __webpack_require__(217), __esModule: true };
 
 /***/ }),
 /* 217 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__(218);
+__webpack_require__(223);
+__webpack_require__(224);
+__webpack_require__(225);
+module.exports = __webpack_require__(28).Symbol;
+
+
+/***/ }),
+/* 218 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 // ECMAScript 6 symbols shim
-var global = __webpack_require__(37);
+var global = __webpack_require__(38);
 var has = __webpack_require__(46);
 var DESCRIPTORS = __webpack_require__(45);
 var $export = __webpack_require__(43);
-var redefine = __webpack_require__(135);
-var META = __webpack_require__(218).KEY;
+var redefine = __webpack_require__(137);
+var META = __webpack_require__(219).KEY;
 var $fails = __webpack_require__(61);
-var shared = __webpack_require__(81);
-var setToStringTag = __webpack_require__(89);
+var shared = __webpack_require__(83);
+var setToStringTag = __webpack_require__(91);
 var uid = __webpack_require__(66);
 var wks = __webpack_require__(53);
-var wksExt = __webpack_require__(90);
-var wksDefine = __webpack_require__(91);
-var enumKeys = __webpack_require__(219);
-var isArray = __webpack_require__(220);
+var wksExt = __webpack_require__(92);
+var wksDefine = __webpack_require__(93);
+var enumKeys = __webpack_require__(220);
+var isArray = __webpack_require__(221);
 var anObject = __webpack_require__(60);
 var isObject = __webpack_require__(52);
 var toIObject = __webpack_require__(47);
-var toPrimitive = __webpack_require__(77);
+var toPrimitive = __webpack_require__(79);
 var createDesc = __webpack_require__(65);
-var _create = __webpack_require__(86);
-var gOPNExt = __webpack_require__(221);
-var $GOPD = __webpack_require__(93);
+var _create = __webpack_require__(88);
+var gOPNExt = __webpack_require__(222);
+var $GOPD = __webpack_require__(95);
 var $DP = __webpack_require__(44);
-var $keys = __webpack_require__(87);
+var $keys = __webpack_require__(89);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -82243,11 +82383,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(139).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(92).f = $propertyIsEnumerable;
-  __webpack_require__(138).f = $getOwnPropertySymbols;
+  __webpack_require__(141).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(94).f = $propertyIsEnumerable;
+  __webpack_require__(140).f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(84)) {
+  if (DESCRIPTORS && !__webpack_require__(86)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -82331,7 +82471,7 @@ setToStringTag(global.JSON, 'JSON', true);
 
 
 /***/ }),
-/* 218 */
+/* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(66)('meta');
@@ -82390,13 +82530,13 @@ var meta = module.exports = {
 
 
 /***/ }),
-/* 219 */
+/* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(87);
-var gOPS = __webpack_require__(138);
-var pIE = __webpack_require__(92);
+var getKeys = __webpack_require__(89);
+var gOPS = __webpack_require__(140);
+var pIE = __webpack_require__(94);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -82411,23 +82551,23 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 220 */
+/* 221 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.2 IsArray(argument)
-var cof = __webpack_require__(137);
+var cof = __webpack_require__(139);
 module.exports = Array.isArray || function isArray(arg) {
   return cof(arg) == 'Array';
 };
 
 
 /***/ }),
-/* 221 */
+/* 222 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(47);
-var gOPN = __webpack_require__(139).f;
+var gOPN = __webpack_require__(141).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -82447,50 +82587,50 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 
 /***/ }),
-/* 222 */
+/* 223 */
 /***/ (function(module, exports) {
 
-
-
-/***/ }),
-/* 223 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(91)('asyncIterator');
 
 
 /***/ }),
 /* 224 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(91)('observable');
+__webpack_require__(93)('asyncIterator');
 
 
 /***/ }),
 /* 225 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(226), __esModule: true };
+__webpack_require__(93)('observable');
+
 
 /***/ }),
 /* 226 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(227);
-module.exports = __webpack_require__(26).Object.setPrototypeOf;
-
+module.exports = { "default": __webpack_require__(227), __esModule: true };
 
 /***/ }),
 /* 227 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __webpack_require__(43);
-$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(228).set });
+__webpack_require__(228);
+module.exports = __webpack_require__(28).Object.setPrototypeOf;
 
 
 /***/ }),
 /* 228 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = __webpack_require__(43);
+$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(229).set });
+
+
+/***/ }),
+/* 229 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
@@ -82505,7 +82645,7 @@ module.exports = {
   set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line
     function (test, buggy, set) {
       try {
-        set = __webpack_require__(128)(Function.call, __webpack_require__(93).f(Object.prototype, '__proto__').set, 2);
+        set = __webpack_require__(130)(Function.call, __webpack_require__(95).f(Object.prototype, '__proto__').set, 2);
         set(test, []);
         buggy = !(test instanceof Array);
       } catch (e) { buggy = true; }
@@ -82521,33 +82661,33 @@ module.exports = {
 
 
 /***/ }),
-/* 229 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(230), __esModule: true };
-
-/***/ }),
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(231);
-var $Object = __webpack_require__(26).Object;
+module.exports = { "default": __webpack_require__(231), __esModule: true };
+
+/***/ }),
+/* 231 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(232);
+var $Object = __webpack_require__(28).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
 
 
 /***/ }),
-/* 231 */
+/* 232 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(43);
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-$export($export.S, 'Object', { create: __webpack_require__(86) });
+$export($export.S, 'Object', { create: __webpack_require__(88) });
 
 
 /***/ }),
-/* 232 */
+/* 233 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82581,7 +82721,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(31);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -82643,31 +82783,31 @@ exports.default = BodyPartySlot;
 module.exports = exports['default'];
 
 /***/ }),
-/* 233 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(234), __esModule: true };
-
-/***/ }),
 /* 234 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(235);
-var $Object = __webpack_require__(26).Object;
+module.exports = { "default": __webpack_require__(235), __esModule: true };
+
+/***/ }),
+/* 235 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(236);
+var $Object = __webpack_require__(28).Object;
 module.exports = function getOwnPropertyDescriptor(it, key) {
   return $Object.getOwnPropertyDescriptor(it, key);
 };
 
 
 /***/ }),
-/* 235 */
+/* 236 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
 var toIObject = __webpack_require__(47);
-var $getOwnPropertyDescriptor = __webpack_require__(93).f;
+var $getOwnPropertyDescriptor = __webpack_require__(95).f;
 
-__webpack_require__(133)('getOwnPropertyDescriptor', function () {
+__webpack_require__(135)('getOwnPropertyDescriptor', function () {
   return function getOwnPropertyDescriptor(it, key) {
     return $getOwnPropertyDescriptor(toIObject(it), key);
   };
@@ -82675,7 +82815,7 @@ __webpack_require__(133)('getOwnPropertyDescriptor', function () {
 
 
 /***/ }),
-/* 236 */
+/* 237 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82709,7 +82849,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(31);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -82779,7 +82919,7 @@ exports.default = ColorButton;
 module.exports = exports['default'];
 
 /***/ }),
-/* 237 */
+/* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82813,7 +82953,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(31);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -82884,7 +83024,7 @@ exports.default = ColorSlot;
 module.exports = exports['default'];
 
 /***/ }),
-/* 238 */
+/* 239 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82892,7 +83032,7 @@ module.exports = exports['default'];
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(127);
+var _defineProperty = __webpack_require__(129);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -82914,21 +83054,21 @@ exports.default = function (obj, key, value) {
 };
 
 /***/ }),
-/* 239 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(240), __esModule: true };
-
-/***/ }),
 /* 240 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(241);
-module.exports = __webpack_require__(26).Number.isNaN;
-
+module.exports = { "default": __webpack_require__(241), __esModule: true };
 
 /***/ }),
 /* 241 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(242);
+module.exports = __webpack_require__(28).Number.isNaN;
+
+
+/***/ }),
+/* 242 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.1.2.4 Number.isNaN(number)
@@ -82943,7 +83083,7 @@ $export($export.S, 'Number', {
 
 
 /***/ }),
-/* 242 */
+/* 243 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -82977,19 +83117,23 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(31);
+var _AchievmentsContainer = __webpack_require__(244);
+
+var _AchievmentsContainer2 = _interopRequireDefault(_AchievmentsContainer);
+
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _BodyPartsListScroller = __webpack_require__(143);
+var _BodyPartsListScroller = __webpack_require__(68);
 
 var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
 
-var _CampfireScene = __webpack_require__(244);
+var _CampfireScene = __webpack_require__(246);
 
 var _CampfireScene2 = _interopRequireDefault(_CampfireScene);
 
-var _CharacterCustomizationContainer = __webpack_require__(246);
+var _CharacterCustomizationContainer = __webpack_require__(248);
 
 var _CharacterCustomizationContainer2 = _interopRequireDefault(_CharacterCustomizationContainer);
 
@@ -82997,19 +83141,31 @@ var _CookieManager = __webpack_require__(64);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _PlayerGameViewSpriteSheet = __webpack_require__(144);
+var _LoadoutContainer = __webpack_require__(249);
+
+var _LoadoutContainer2 = _interopRequireDefault(_LoadoutContainer);
+
+var _LocationContainer = __webpack_require__(250);
+
+var _LocationContainer2 = _interopRequireDefault(_LocationContainer);
+
+var _OutGameUIProgression = __webpack_require__(251);
+
+var _OutGameUIProgression2 = _interopRequireDefault(_OutGameUIProgression);
+
+var _PlayerGameViewSpriteSheet = __webpack_require__(145);
 
 var _PlayerGameViewSpriteSheet2 = _interopRequireDefault(_PlayerGameViewSpriteSheet);
 
-var _PlayerViewStructure = __webpack_require__(78);
+var _PlayerViewStructure = __webpack_require__(80);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -83017,15 +83173,19 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _Screen2 = __webpack_require__(94);
+var _Screen2 = __webpack_require__(96);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
-var _UIList = __webpack_require__(38);
+var _ShopContainer = __webpack_require__(252);
+
+var _ShopContainer2 = _interopRequireDefault(_ShopContainer);
+
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -83086,19 +83246,6 @@ var CharacterBuildScreen = function (_Screen) {
                 _this.charCustomizationContainer = new _CharacterCustomizationContainer2.default();
                 _this.container.addChild(_this.charCustomizationContainer);
 
-                _this.buttonsList = new _UIList2.default();
-                _this.container.addChild(_this.buttonsList);
-
-                _this.buttonsList.addElement(_UIUtils2.default.getCloseButton(function () {
-                        _this.backButtonAction();
-                }), { align: 0 });
-                //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
-
-                _this.buttonsList.w = 250;
-                _this.buttonsList.h = 100;
-
-                _this.buttonsList.updateHorizontalList();
-
                 _this.activePlayers = [];
 
                 var firstPlayer = _CookieManager2.default.instance.getPlayer(0);
@@ -83106,8 +83253,8 @@ var CharacterBuildScreen = function (_Screen) {
                 for (var index = 0; index < _CookieManager2.default.instance.totalPlayers; index++) {
                         _this.addCharacter(_CookieManager2.default.instance.getPlayer(index));
                 }
-                // this.addCharacter()
-                //  this.addCharacter()
+                //this.addCharacter()
+                //this.addCharacter()
 
 
                 _this.activePlayerId = Math.min(1, _this.activePlayers.length - 1);
@@ -83127,10 +83274,51 @@ var CharacterBuildScreen = function (_Screen) {
 
                 _this.pivotOffset.y = -50;
                 _this.buildBottomMenu();
+
+                _this.outgameUIProgression = new _OutGameUIProgression2.default();
+                _this.container.addChild(_this.outgameUIProgression);
+
+                _this.modalList = [];
+                _this.loadoutContainer = new _LoadoutContainer2.default();
+                _this.addModal(_this.loadoutContainer);
+                _this.shopContainer = new _ShopContainer2.default();
+                _this.addModal(_this.shopContainer);
+                _this.achievmentsContainer = new _AchievmentsContainer2.default();
+                _this.addModal(_this.achievmentsContainer);
+                _this.locationContainer = new _LocationContainer2.default();
+                _this.addModal(_this.locationContainer);
+
+                _this.buttonsList = new _UIList2.default();
+                _this.container.addChild(_this.buttonsList);
+                _this.closeButton = _UIUtils2.default.getCloseButton(function () {
+                        _this.backButtonAction();
+                });
+                _this.buttonsList.addElement(_this.closeButton, { align: 0 });
+                //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
+
+                _this.buttonsList.w = 250;
+                _this.buttonsList.h = 100;
+
+                _this.buttonsList.updateHorizontalList();
+
                 return _this;
         }
 
         (0, _createClass3.default)(CharacterBuildScreen, [{
+                key: 'addModal',
+                value: function addModal(modal) {
+                        this.modalList.push(modal);
+                        this.container.addChild(modal);
+
+                        modal.hide();
+                }
+        }, {
+                key: 'openModal',
+                value: function openModal(modal) {
+                        this.hideMainUI();
+                        modal.show();
+                }
+        }, {
                 key: 'buildBottomMenu',
                 value: function buildBottomMenu() {
                         var _this2 = this;
@@ -83138,27 +83326,48 @@ var CharacterBuildScreen = function (_Screen) {
                         this.bottomMenu = new PIXI.Container();
                         this.container.addChild(this.bottomMenu);
 
-                        this.menuButtons = [];
-
                         this.bottomMenuList = new _UIList2.default();
+                        var bt1 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.loadoutContainer);
+                        }, 'Loadout', 'pistol1');
 
-                        var bt1 = _UIUtils2.default.getPrimaryButton(function () {
-                                _this2.showCustomization();
-                        }, '', 'sizzling-sausage');
-
-                        var bt2 = _UIUtils2.default.getPrimaryButton(function () {
-                                _this2.showCustomization();
-                        }, '', 'icon_confirm');
+                        var bt2 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.locationContainer);
+                        }, 'Location', 'map');
 
                         this.bottomMenuList.addElement(bt1, { align: 0 });
                         this.bottomMenuList.addElement(bt2, { align: 0 });
 
+                        this.menuButtons = [];
                         this.menuButtons.push(bt1);
                         this.menuButtons.push(bt2);
 
                         this.bottomMenuList.updateVerticalList();
 
                         this.bottomMenu.addChild(this.bottomMenuList);
+
+                        this.bottomMenuRight = new PIXI.Container();
+                        this.container.addChild(this.bottomMenuRight);
+
+                        this.bottomMenuRightList = new _UIList2.default();
+                        var bt3 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.shopContainer);
+                        }, 'Shop', 'money');
+
+                        var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.achievmentsContainer);
+                        }, 'Achievments', 'achievment');
+
+                        this.bottomMenuRightList.addElement(bt3, { align: 0 });
+                        this.bottomMenuRightList.addElement(bt4, { align: 0 });
+
+                        this.menuButtonsRight = [];
+                        this.menuButtonsRight.push(bt3);
+                        this.menuButtonsRight.push(bt4);
+
+                        this.bottomMenuRightList.updateVerticalList();
+
+                        this.bottomMenuRight.addChild(this.bottomMenuRightList);
                 }
         }, {
                 key: 'addCharacter',
@@ -83223,10 +83432,18 @@ var CharacterBuildScreen = function (_Screen) {
         }, {
                 key: 'showCustomization',
                 value: function showCustomization() {
-                        this.pivotOffset.y = 0;
+                        if (_Game2.default.IsPortrait) {
+                                this.pivotOffset.y = 80;
+                        } else {
+
+                                this.pivotOffset.y = 0;
+                        }
                         this.charCustomizationContainer.show();
-                        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
-                        this.bottomMenu.visible = false;
+
+                        this.activePlayers.forEach(function (element) {
+                                element.buttonsContainer.visible = false;
+                        });
+                        this.hideMainUI();
                 }
         }, {
                 key: 'closeCustomization',
@@ -83234,23 +83451,35 @@ var CharacterBuildScreen = function (_Screen) {
                         this.pivotOffset.y = -50;
                         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
                         this.charCustomizationContainer.hide();
-                        this.bottomMenu.visible = false;
+                        this.hideMainUI();
                 }
         }, {
                 key: 'unSelectPlayer',
                 value: function unSelectPlayer() {
-                        this.pivotOffset.y = 0;
+                        if (_Game2.default.IsPortrait) {
+
+                                this.pivotOffset.y = 20;
+                        } else {
+
+                                this.pivotOffset.y = 0;
+                        }
                         this.zoom = 1;
-                        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
-                        this.bottomMenu.visible = true;
+                        this.activePlayers.forEach(function (element) {
+                                element.buttonsContainer.visible = false;
+                        });
+                        this.showMainUI();
                 }
         }, {
                 key: 'updateCurrentPlayer',
                 value: function updateCurrentPlayer(id) {
+                        if (this.charCustomizationContainer.isOpen) {
+                                return;
+                        }
                         this.activePlayerId = id;
                         this.zoom = 1.5;
                         _CookieManager2.default.instance.changePlayer(id);
-                        this.bottomMenu.visible = false;
+                        this.hideMainUI();
+
                         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
                         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure);
                 }
@@ -83265,6 +83494,24 @@ var CharacterBuildScreen = function (_Screen) {
                                 element.frontFace = Math.ceil(Math.random() * 5);
                                 element.hat = Math.ceil(Math.random() * 5);
                         });
+                }
+        }, {
+                key: 'hideMainUI',
+                value: function hideMainUI(hideBackButton) {
+                        this.bottomMenu.visible = false;
+                        this.bottomMenuRight.visible = false;
+                        this.outgameUIProgression.visible = false;
+                        if (hideBackButton) {
+                                this.closeButton.visible = false;
+                        }
+                }
+        }, {
+                key: 'showMainUI',
+                value: function showMainUI() {
+                        this.bottomMenu.visible = true;
+                        this.bottomMenuRight.visible = true;
+                        this.outgameUIProgression.visible = true;
+                        this.closeButton.visible = true;
                 }
         }, {
                 key: 'build',
@@ -83298,7 +83545,11 @@ var CharacterBuildScreen = function (_Screen) {
 
                         this.updateCharactersPosition();
 
-                        this.charCustomizationContainer.resize(isPortrait);
+                        this.charCustomizationContainer.resize(res, newRes);
+
+                        this.modalList.forEach(function (element) {
+                                element.resize(res, newRes);
+                        });
 
                         this.campfireScene.x = _Game2.default.Borders.width / 2;
                         this.campfireScene.y = _Game2.default.Borders.height / 2 - 80;
@@ -83309,24 +83560,36 @@ var CharacterBuildScreen = function (_Screen) {
                                 element.resize(150, listSize / _this4.menuButtons.length);
                         });
 
+                        this.menuButtonsRight.forEach(function (element) {
+                                element.resize(150, listSize / _this4.menuButtonsRight.length);
+                        });
+
                         this.bottomMenuList.w = 150;
                         this.bottomMenuList.h = this.menuButtons.length * 10 + listSize;
                         this.bottomMenuList.updateVerticalList();
 
-                        this.bottomMenu.y = _Game2.default.Borders.height - this.bottomMenuList.h;
+                        this.bottomMenuRightList.w = 150;
+                        this.bottomMenuRightList.h = this.menuButtonsRight.length * 10 + listSize;
+                        this.bottomMenuRightList.updateVerticalList();
+
+                        this.outgameUIProgression.x = _Game2.default.Borders.width - this.outgameUIProgression.width - 30;
+                        this.outgameUIProgression.y = 30;
                 }
         }, {
                 key: 'aspectChange',
                 value: function aspectChange(isPortrait) {
 
-                        if (isPortrait) {
-                                this.buttonsList.scale.set(1);
-                        } else {
+                        // if (isPortrait) {
+                        //     this.buttonsList.scale.set(1)
+                        // } else {
 
-                                this.buttonsList.scale.set(0.75);
-                        }
+                        //     this.buttonsList.scale.set(0.75)
+                        // }
 
                         this.charCustomizationContainer.aspectChange(isPortrait);
+                        this.modalList.forEach(function (element) {
+                                element.aspectChange(isPortrait);
+                        });
                 }
         }, {
                 key: 'update',
@@ -83347,14 +83610,29 @@ var CharacterBuildScreen = function (_Screen) {
 
                         this.campfireScene.update(delta);
 
-                        this.bottomMenu.x = 30;
-                        this.bottomMenu.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
+                        this.bottomMenuList.x = 30;
+                        this.bottomMenuList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
+
+                        this.bottomMenuRightList.x = _Game2.default.Borders.width - this.bottomMenuList.w - 30;
+                        this.bottomMenuRightList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
                 }
         }, {
                 key: 'backButtonAction',
                 value: function backButtonAction() {
+
+                        var modalOpen = null;
+                        this.modalList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        modalOpen = element;
+                                }
+                        });
                         if (this.charCustomizationContainer.isOpen) {
                                 this.closeCustomization();
+                                this.unSelectPlayer();
+                        } else if (modalOpen) {
+                                modalOpen.hide();
+                                this.closeCustomization();
+                                this.unSelectPlayer();
                         } else {
                                 this.closeCustomization();
                                 this.unSelectPlayer();
@@ -83369,7 +83647,60 @@ exports.default = CharacterBuildScreen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 243 */
+/* 244 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _MainScreenModal2 = __webpack_require__(67);
+
+var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AchievmentsContainer = function (_MainScreenModal) {
+    (0, _inherits3.default)(AchievmentsContainer, _MainScreenModal);
+
+    function AchievmentsContainer() {
+        (0, _classCallCheck3.default)(this, AchievmentsContainer);
+        return (0, _possibleConstructorReturn3.default)(this, (AchievmentsContainer.__proto__ || (0, _getPrototypeOf2.default)(AchievmentsContainer)).call(this));
+    }
+
+    return AchievmentsContainer;
+}(_MainScreenModal3.default);
+
+exports.default = AchievmentsContainer;
+module.exports = exports['default'];
+
+/***/ }),
+/* 245 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83612,7 +83943,7 @@ exports.default = ListScroller;
 module.exports = exports['default'];
 
 /***/ }),
-/* 244 */
+/* 246 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83650,11 +83981,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseScene2 = __webpack_require__(245);
+var _BaseScene2 = __webpack_require__(247);
 
 var _BaseScene3 = _interopRequireDefault(_BaseScene2);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -83783,7 +84114,7 @@ exports.default = CampfireScene;
 module.exports = exports['default'];
 
 /***/ }),
-/* 245 */
+/* 247 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83928,7 +84259,7 @@ exports.default = BaseScene;
 module.exports = exports['default'];
 
 /***/ }),
-/* 246 */
+/* 248 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -83962,19 +84293,19 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BodyPartsListScroller = __webpack_require__(143);
+var _BodyPartsListScroller = __webpack_require__(68);
 
 var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -83990,10 +84321,12 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
     (0, _inherits3.default)(CharacterCustomizationContainer, _PIXI$Container);
 
     function CharacterCustomizationContainer() {
+        var typeList = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'visuals';
         (0, _classCallCheck3.default)(this, CharacterCustomizationContainer);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (CharacterCustomizationContainer.__proto__ || (0, _getPrototypeOf2.default)(CharacterCustomizationContainer)).call(this));
 
+        _this.typeList = typeList;
         _this.container = new PIXI.Container();
         _this.addChild(_this.container);
         _this.piecesScroller = new _BodyPartsListScroller2.default({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
@@ -84016,14 +84349,16 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
             }
         };
 
-        _this.areas = [{ label: 'Skin', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", colorset: _UIUtils2.default.colorset.skin }, { label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', pivot: { x: 65, y: 120 }, iconSize: 120, range: [1, 21], src: ["sleeve-00{frame}", "front-arm0001", 'head-0001', "chest-00{frame}"], animated: false },
+        _this.areas = [{ typeList: 'visuals', label: 'Skin', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 21], src: 'head-0001', colorset: _UIUtils2.default.colorset.skin }, { typeList: 'visuals', label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', pivot: { x: 65, y: 120 }, iconSize: 120, range: [1, 21], src: ["sleeve-00{frame}", "front-arm0001", 'head-0001', "chest-00{frame}"], animated: false },
 
-        // { label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
+        // {type:'visuals', label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
         //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-        { label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true }, { label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true }, { label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false }, { label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false }, { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false }, { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: _UIUtils2.default.colorset.hair },
-        //  { label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
-        { label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false }, { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }];
+        { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true }, { typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true }, { typeList: 'visuals', label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '04', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { typeList: 'visuals', label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '03', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false }, { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false }, { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }];
+
+        _this.areas = _this.areas.filter(function (item) {
+            return item.typeList == _this.typeList;
+        });
 
         _this.sectionListBottom = new _UIList2.default();
         _this.container.addChild(_this.sectionListBottom);
@@ -84042,20 +84377,28 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
             var button = _UIUtils2.default.getBodyTypeLabelButton(function (button) {
                 _this.openSection(element);
                 button.setActive();
-            }, element.label);
-            // if (!Array.isArray(element.src)) {
-            //     const src = element.src.replace('{frame}', element.mainIconId)
-            //     button.addIcon(src, element.iconSize, element.anchor)
-            // } else {
-            //     const iconContainer = new PIXI.Container();
-            //     element.src.forEach(srcSub => {
-            //         const src = srcSub.replace('{frame}', element.mainIconId) + (element.animated ? '01' : '')
-            //         const sprite = new PIXI.Sprite.from(src);
-            //         iconContainer.addChild(sprite)
-            //     });
-            //     button.addIconContainer(iconContainer, element.iconSize, element.pivot)
+            }, '');
+            if (!Array.isArray(element.src)) {
+                var src = element.src.replace('{frame}', element.mainIconId);
+                button.addIcon(src, element.iconSize, element.anchor);
+            } else {
+                var iconContainer = new PIXI.Container();
 
-            // }
+                for (var index = element.src.length - 1; index >= 0; index--) {
+                    var srcSub = element.src[index];
+
+                    var _src = srcSub.replace('{frame}', element.mainIconId) + (element.animated ? '01' : '');
+                    var sprite = new PIXI.Sprite.from(_src);
+                    iconContainer.addChild(sprite);
+                }
+                // element.src.forEach(srcSub => {
+                // });
+                button.addIconContainer(iconContainer, element.iconSize, element.pivot);
+            }
+
+            if (element.type == "colors" && element.colorset) {
+                button.tintIcon(element.colorset[0]);
+            }
 
             // if (count >= 5) {
             //     this.sectionListBottom.addElement(button, { align: 0, vAlign: 0 })
@@ -84066,7 +84409,7 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
             // }
             _this.allButtons.push(button);
             _this.sectionList.addElement(button, { align: 0, vAlign: 0 });
-            _this.sectionList.h += 70;
+            _this.sectionList.h += 80;
         });
 
         _this.currentShowingColors = [];
@@ -84137,8 +84480,11 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
 
             if (_Game2.default.IsPortrait) {
                 this.rebuildPortraitScrollers();
+                this.colorContainerHairScroller.x = _Game2.default.Borders.width - this.colorContainerHairScroller.w * this.colorContainerHairScroller.scale.x - 40;
             } else {
                 this.rebuildLandscapeScroller();
+                var middle = _Game2.default.Borders.width - this.piecesScroller.rect.w - this.colorContainerHairScroller.w - 40;
+                this.colorContainerHairScroller.x = Math.min(middle, _Game2.default.Borders.width / 2 - this.colorContainerHairScroller.w / 2);
             }
             this.colorContainerHairScroller.visible = true;
         }
@@ -84298,12 +84644,12 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
                 this.rebuildPortraitScrollers();
                 this.piecesScroller.x = _Game2.default.Borders.width / 2 - this.piecesScroller.rect.w / 2 + 80;
                 this.piecesScroller.y = _Game2.default.Borders.height - this.piecesScroller.rect.h * this.piecesScroller.scale.y - 20;
-                this.sectionList.y = _Game2.default.Borders.height - this.sectionList.height - 20;
+                this.sectionList.y = _Game2.default.Borders.height - this.sectionList.h * this.sectionList.scale.y - 20;
             } else {
                 this.colorContainerHairScroller.scale.set(1);
                 this.piecesScroller.x = _Game2.default.Borders.width - this.piecesScroller.rect.w - 20;
                 this.piecesScroller.y = _Game2.default.Borders.height - this.piecesScroller.rect.h * this.piecesScroller.scale.y - 20;
-                this.sectionList.y = 80;
+                this.sectionList.y = _Game2.default.Borders.height - this.sectionList.h * this.sectionList.scale.y - 20;
                 this.colorContainerHairScroller.y = _Game2.default.Borders.height - this.colorContainerHairScroller.h * this.colorContainerHairScroller.scale.y - 20;
                 var middle = _Game2.default.Borders.width - this.piecesScroller.rect.w - this.colorContainerHairScroller.w - 40;
                 this.colorContainerHairScroller.x = Math.min(middle, _Game2.default.Borders.width / 2 - this.colorContainerHairScroller.w / 2);
@@ -84315,7 +84661,7 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
     }, {
         key: 'rebuildPortraitScrollers',
         value: function rebuildPortraitScrollers() {
-            this.sectionList.scale.set(0.8);
+            this.sectionList.scale.set(1);
 
             this.piecesScroller.removeAllItems();
             this.piecesScroller.scale.set(1.5);
@@ -84376,7 +84722,308 @@ exports.default = CharacterCustomizationContainer;
 module.exports = exports['default'];
 
 /***/ }),
-/* 247 */
+/* 249 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _BodyPartsListScroller = __webpack_require__(68);
+
+var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
+
+var _Game = __webpack_require__(9);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+var _MainScreenModal2 = __webpack_require__(67);
+
+var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
+
+var _UIList = __webpack_require__(30);
+
+var _UIList2 = _interopRequireDefault(_UIList);
+
+var _UIUtils = __webpack_require__(25);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
+
+var _Utils = __webpack_require__(8);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LoadoutContainer = function (_MainScreenModal) {
+    (0, _inherits3.default)(LoadoutContainer, _MainScreenModal);
+
+    function LoadoutContainer() {
+        (0, _classCallCheck3.default)(this, LoadoutContainer);
+        return (0, _possibleConstructorReturn3.default)(this, (LoadoutContainer.__proto__ || (0, _getPrototypeOf2.default)(LoadoutContainer)).call(this));
+    }
+
+    return LoadoutContainer;
+}(_MainScreenModal3.default);
+
+exports.default = LoadoutContainer;
+module.exports = exports['default'];
+
+/***/ }),
+/* 250 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _MainScreenModal2 = __webpack_require__(67);
+
+var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var LocationContainer = function (_MainScreenModal) {
+    (0, _inherits3.default)(LocationContainer, _MainScreenModal);
+
+    function LocationContainer() {
+        (0, _classCallCheck3.default)(this, LocationContainer);
+        return (0, _possibleConstructorReturn3.default)(this, (LocationContainer.__proto__ || (0, _getPrototypeOf2.default)(LocationContainer)).call(this));
+    }
+
+    return LocationContainer;
+}(_MainScreenModal3.default);
+
+exports.default = LocationContainer;
+module.exports = exports['default'];
+
+/***/ }),
+/* 251 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+        value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _InteractableView = __webpack_require__(26);
+
+var _InteractableView2 = _interopRequireDefault(_InteractableView);
+
+var _UIList = __webpack_require__(30);
+
+var _UIList2 = _interopRequireDefault(_UIList);
+
+var _UIUtils = __webpack_require__(25);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
+
+var _Utils = __webpack_require__(8);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var OutGameUIProgression = function (_PIXI$Container) {
+        (0, _inherits3.default)(OutGameUIProgression, _PIXI$Container);
+
+        function OutGameUIProgression() {
+                (0, _classCallCheck3.default)(this, OutGameUIProgression);
+
+                var _this = (0, _possibleConstructorReturn3.default)(this, (OutGameUIProgression.__proto__ || (0, _getPrototypeOf2.default)(OutGameUIProgression)).call(this));
+
+                _this.container = new PIXI.Container();
+                _this.addChild(_this.container);
+
+                _this.size = {
+                        width: 150,
+                        height: 60
+                };
+                var pad = 20;
+                _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
+                _this.container.addChild(_this.infoBackContainer);
+
+                _this.infoBackContainer.width = _this.size.width;
+                _this.infoBackContainer.height = _this.size.height;
+                _this.uiList = new _UIList2.default();
+                _this.uiList.w = _this.size.width - pad;
+                _this.uiList.h = _this.size.height - pad;
+
+                _this.uiList.x = pad / 2;
+                _this.uiList.y = pad / 2;
+
+                _this.container.addChild(_this.uiList);
+
+                _this.moneyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF });
+                _this.moneyLabel.text = 9000;
+                _this.uiList.addElement(_this.moneyLabel);
+
+                _this.coinSprite = new PIXI.Sprite.from('coin3');
+                _this.uiList.addElement(_this.coinSprite, { listScl: 0.2, fitWidth: 0.8, align: 0.5 });
+
+                _this.uiList.updateHorizontalList();
+                return _this;
+        }
+
+        return OutGameUIProgression;
+}(PIXI.Container);
+
+exports.default = OutGameUIProgression;
+module.exports = exports['default'];
+
+/***/ }),
+/* 252 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _getPrototypeOf = __webpack_require__(2);
+
+var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _possibleConstructorReturn2 = __webpack_require__(3);
+
+var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+
+var _inherits2 = __webpack_require__(4);
+
+var _inherits3 = _interopRequireDefault(_inherits2);
+
+var _pixi = __webpack_require__(6);
+
+var PIXI = _interopRequireWildcard(_pixi);
+
+var _BodyPartsListScroller = __webpack_require__(68);
+
+var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
+
+var _Game = __webpack_require__(9);
+
+var _Game2 = _interopRequireDefault(_Game);
+
+var _MainScreenModal2 = __webpack_require__(67);
+
+var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
+
+var _UIList = __webpack_require__(30);
+
+var _UIList2 = _interopRequireDefault(_UIList);
+
+var _UIUtils = __webpack_require__(25);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
+
+var _Utils = __webpack_require__(8);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var ShopContainer = function (_MainScreenModal) {
+    (0, _inherits3.default)(ShopContainer, _MainScreenModal);
+
+    function ShopContainer() {
+        (0, _classCallCheck3.default)(this, ShopContainer);
+        return (0, _possibleConstructorReturn3.default)(this, (ShopContainer.__proto__ || (0, _getPrototypeOf2.default)(ShopContainer)).call(this));
+    }
+
+    return ShopContainer;
+}(_MainScreenModal3.default);
+
+exports.default = ShopContainer;
+module.exports = exports['default'];
+
+/***/ }),
+/* 253 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84414,23 +85061,23 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _dat = __webpack_require__(142);
+var _dat = __webpack_require__(144);
 
 var dat = _interopRequireWildcard(_dat);
 
-var _BaseEnemy = __webpack_require__(69);
+var _BaseEnemy = __webpack_require__(71);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _AmbientLightSystem = __webpack_require__(154);
+var _AmbientLightSystem = __webpack_require__(155);
 
 var _AmbientLightSystem2 = _interopRequireDefault(_AmbientLightSystem);
 
-var _CameraOcclusion2D = __webpack_require__(296);
+var _CameraOcclusion2D = __webpack_require__(302);
 
 var _CameraOcclusion2D2 = _interopRequireDefault(_CameraOcclusion2D);
 
@@ -84438,7 +85085,7 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EnvironmentManager = __webpack_require__(297);
+var _EnvironmentManager = __webpack_require__(303);
 
 var _EnvironmentManager2 = _interopRequireDefault(_EnvironmentManager);
 
@@ -84446,7 +85093,7 @@ var _Eugine = __webpack_require__(40);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -84454,7 +85101,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _InputModule = __webpack_require__(74);
+var _InputModule = __webpack_require__(76);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -84466,7 +85113,7 @@ var _LevelManager = __webpack_require__(41);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _PerspectiveCamera = __webpack_require__(307);
+var _PerspectiveCamera = __webpack_require__(313);
 
 var _PerspectiveCamera2 = _interopRequireDefault(_PerspectiveCamera);
 
@@ -84478,27 +85125,27 @@ var _Pool = __webpack_require__(15);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Screen2 = __webpack_require__(94);
+var _Screen2 = __webpack_require__(96);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
-var _TouchAxisInput = __webpack_require__(308);
+var _TouchAxisInput = __webpack_require__(314);
 
 var _TouchAxisInput2 = _interopRequireDefault(_TouchAxisInput);
 
-var _UIButton = __webpack_require__(312);
+var _UIButton = __webpack_require__(318);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -84506,7 +85153,7 @@ var _Vector = __webpack_require__(14);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -84818,7 +85465,7 @@ exports.default = GameScreen;
 module.exports = exports['default'];
 
 /***/ }),
-/* 248 */
+/* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84852,7 +85499,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(68);
+var _ParticleBehaviour2 = __webpack_require__(70);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -84894,7 +85541,7 @@ exports.default = AlphaBehaviour;
 module.exports = exports["default"];
 
 /***/ }),
-/* 249 */
+/* 255 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -84928,7 +85575,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(68);
+var _ParticleBehaviour2 = __webpack_require__(70);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -84998,7 +85645,7 @@ exports.default = ColorBehaviour;
 module.exports = exports['default'];
 
 /***/ }),
-/* 250 */
+/* 256 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85030,7 +85677,7 @@ exports.default = Transform;
 module.exports = exports["default"];
 
 /***/ }),
-/* 251 */
+/* 257 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85054,7 +85701,7 @@ exports.default = EnemyStaticData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 252 */
+/* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85076,7 +85723,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Particle = __webpack_require__(145);
+var _Particle = __webpack_require__(146);
 
 var _Particle2 = _interopRequireDefault(_Particle);
 
@@ -85199,7 +85846,7 @@ exports.default = ParticleEmmiter;
 module.exports = exports['default'];
 
 /***/ }),
-/* 253 */
+/* 259 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85233,7 +85880,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(68);
+var _ParticleBehaviour2 = __webpack_require__(70);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -85281,7 +85928,7 @@ exports.default = SinoidBehaviour;
 module.exports = exports['default'];
 
 /***/ }),
-/* 254 */
+/* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85299,11 +85946,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -85354,7 +86001,7 @@ exports.default = AcessoryData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 255 */
+/* 261 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85392,7 +86039,7 @@ var _BaseWeapon2 = __webpack_require__(56);
 
 var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
 
-var _Bullet = __webpack_require__(25);
+var _Bullet = __webpack_require__(27);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -85466,7 +86113,7 @@ exports.default = AuraProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 256 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85504,11 +86151,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -85516,7 +86163,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -85590,7 +86237,7 @@ exports.default = Collectable;
 module.exports = exports["default"];
 
 /***/ }),
-/* 257 */
+/* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85731,7 +86378,7 @@ exports.default = Health;
 module.exports = exports['default'];
 
 /***/ }),
-/* 258 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85782,7 +86429,7 @@ exports.default = InGameViewDataStatic;
 module.exports = exports["default"];
 
 /***/ }),
-/* 259 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85816,7 +86463,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseFillBar2 = __webpack_require__(148);
+var _BaseFillBar2 = __webpack_require__(149);
 
 var _BaseFillBar3 = _interopRequireDefault(_BaseFillBar2);
 
@@ -85849,7 +86496,7 @@ exports.default = WeaponLoadingBar;
 module.exports = exports["default"];
 
 /***/ }),
-/* 260 */
+/* 266 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -85883,15 +86530,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -85907,11 +86554,11 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -86012,7 +86659,7 @@ exports.default = DirectionPin;
 module.exports = exports["default"];
 
 /***/ }),
-/* 261 */
+/* 267 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86030,7 +86677,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(69);
+var _BaseEnemy = __webpack_require__(71);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -86038,7 +86685,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _SessionSpawner = __webpack_require__(108);
+var _SessionSpawner = __webpack_require__(110);
 
 var _SessionSpawner2 = _interopRequireDefault(_SessionSpawner);
 
@@ -86081,6 +86728,8 @@ var EnemyGlobalSpawner = function () {
 
             var toSpawn = entity.currentSpawnPool.entityToSpawn;
             entity.setPositionXZ(this.gameManager.player.transform.position.x + toSpawn.x, this.gameManager.player.transform.position.z + toSpawn.z);
+
+            entity.respawn();
         }
     }, {
         key: "spawnSingleEntity",
@@ -86098,7 +86747,7 @@ exports.default = EnemyGlobalSpawner;
 module.exports = exports["default"];
 
 /***/ }),
-/* 262 */
+/* 268 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86116,7 +86765,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _SessionSpawner = __webpack_require__(108);
+var _SessionSpawner = __webpack_require__(110);
 
 var _SessionSpawner2 = _interopRequireDefault(_SessionSpawner);
 
@@ -86262,7 +86911,7 @@ exports.default = SpawnerData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 263 */
+/* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86292,15 +86941,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BuildingComponent = __webpack_require__(264);
+var _BuildingComponent = __webpack_require__(270);
 
 var _BuildingComponent2 = _interopRequireDefault(_BuildingComponent);
 
-var _CardPlacementSystem = __webpack_require__(265);
+var _CardPlacementSystem = __webpack_require__(271);
 
 var _CardPlacementSystem2 = _interopRequireDefault(_CardPlacementSystem);
 
-var _CardPlacementView = __webpack_require__(266);
+var _CardPlacementView = __webpack_require__(272);
 
 var _CardPlacementView2 = _interopRequireDefault(_CardPlacementView);
 
@@ -86312,23 +86961,23 @@ var _Eugine = __webpack_require__(40);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _HudButtons = __webpack_require__(267);
+var _HudButtons = __webpack_require__(273);
 
 var _HudButtons2 = _interopRequireDefault(_HudButtons);
 
-var _InputModule = __webpack_require__(74);
+var _InputModule = __webpack_require__(76);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -86336,23 +86985,23 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerInventoryHud = __webpack_require__(268);
+var _PlayerInventoryHud = __webpack_require__(274);
 
 var _PlayerInventoryHud2 = _interopRequireDefault(_PlayerInventoryHud);
 
-var _PlayerSessionData = __webpack_require__(152);
+var _PlayerSessionData = __webpack_require__(153);
 
 var _PlayerSessionData2 = _interopRequireDefault(_PlayerSessionData);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _SurvivorDeckController = __webpack_require__(275);
+var _SurvivorDeckController = __webpack_require__(281);
 
 var _SurvivorDeckController2 = _interopRequireDefault(_SurvivorDeckController);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -86553,7 +87202,7 @@ exports.default = GameplaySessionController;
 module.exports = exports["default"];
 
 /***/ }),
-/* 264 */
+/* 270 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86675,7 +87324,7 @@ exports.default = BuildingComponent;
 module.exports = exports['default'];
 
 /***/ }),
-/* 265 */
+/* 271 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86701,15 +87350,15 @@ var _get2 = __webpack_require__(5);
 
 var _get3 = _interopRequireDefault(_get2);
 
-var _CardView = __webpack_require__(109);
+var _CardView = __webpack_require__(111);
 
 var _CardView2 = _interopRequireDefault(_CardView);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject = __webpack_require__(10);
+var _GameObject = __webpack_require__(11);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
@@ -86717,15 +87366,15 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -86852,7 +87501,7 @@ exports.default = CardPlacementSystem;
 module.exports = exports["default"];
 
 /***/ }),
-/* 266 */
+/* 272 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86886,27 +87535,27 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _CardView = __webpack_require__(109);
+var _CardView = __webpack_require__(111);
 
 var _CardView2 = _interopRequireDefault(_CardView);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -86963,7 +87612,7 @@ exports.default = CardPlacementView;
 module.exports = exports["default"];
 
 /***/ }),
-/* 267 */
+/* 273 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -86997,27 +87646,27 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton = __webpack_require__(31);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -87091,7 +87740,7 @@ exports.default = HudButtons;
 module.exports = exports["default"];
 
 /***/ }),
-/* 268 */
+/* 274 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87129,11 +87778,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -87141,7 +87790,7 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -87149,23 +87798,23 @@ var _LevelManager = __webpack_require__(41);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _LevelUpBar = __webpack_require__(269);
+var _LevelUpBar = __webpack_require__(275);
 
 var _LevelUpBar2 = _interopRequireDefault(_LevelUpBar);
 
-var _PlayerGameplayHud = __webpack_require__(270);
+var _PlayerGameplayHud = __webpack_require__(276);
 
 var _PlayerGameplayHud2 = _interopRequireDefault(_PlayerGameplayHud);
 
-var _PlayerInventorySlotEquipView = __webpack_require__(274);
+var _PlayerInventorySlotEquipView = __webpack_require__(280);
 
 var _PlayerInventorySlotEquipView2 = _interopRequireDefault(_PlayerInventorySlotEquipView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -87403,7 +88052,7 @@ exports.default = PlayerInventoryHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 269 */
+/* 275 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87559,7 +88208,7 @@ exports.default = LevelUpBar;
 module.exports = exports['default'];
 
 /***/ }),
-/* 270 */
+/* 276 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87593,19 +88242,19 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _CircleCounter = __webpack_require__(271);
+var _CircleCounter = __webpack_require__(277);
 
 var _CircleCounter2 = _interopRequireDefault(_CircleCounter);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _PlayerActiveEquipmentOnHud = __webpack_require__(273);
+var _PlayerActiveEquipmentOnHud = __webpack_require__(279);
 
 var _PlayerActiveEquipmentOnHud2 = _interopRequireDefault(_PlayerActiveEquipmentOnHud);
 
@@ -87617,11 +88266,11 @@ var _SpriteSheetAnimation = __webpack_require__(48);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -87633,7 +88282,7 @@ var _signals = __webpack_require__(7);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -87829,7 +88478,7 @@ exports.default = PlayerGameplayHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 271 */
+/* 277 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -87863,7 +88512,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _CircleMask = __webpack_require__(272);
+var _CircleMask = __webpack_require__(278);
 
 var _CircleMask2 = _interopRequireDefault(_CircleMask);
 
@@ -87930,7 +88579,7 @@ exports.default = CircleCounter;
 module.exports = exports['default'];
 
 /***/ }),
-/* 272 */
+/* 278 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88037,7 +88686,7 @@ exports.default = CircleMask;
 module.exports = exports['default'];
 
 /***/ }),
-/* 273 */
+/* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88125,7 +88774,7 @@ exports.default = PlayerActiveEquipmentOnHud;
 module.exports = exports['default'];
 
 /***/ }),
-/* 274 */
+/* 280 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88159,7 +88808,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _UIList = __webpack_require__(38);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -88167,7 +88816,7 @@ var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -88228,7 +88877,7 @@ exports.default = PlayerInventorySlotEquipView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 275 */
+/* 281 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88262,15 +88911,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton = __webpack_require__(31);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _CardInfo = __webpack_require__(276);
+var _CardInfo = __webpack_require__(282);
 
 var _CardInfo2 = _interopRequireDefault(_CardInfo);
 
-var _CardView = __webpack_require__(109);
+var _CardView = __webpack_require__(111);
 
 var _CardView2 = _interopRequireDefault(_CardView);
 
@@ -88278,15 +88927,15 @@ var _EntityBuilder = __webpack_require__(55);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
@@ -88294,31 +88943,31 @@ var _GameStaticData = __webpack_require__(24);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _GameplayItem = __webpack_require__(105);
+var _GameplayItem = __webpack_require__(107);
 
 var _GameplayItem2 = _interopRequireDefault(_GameplayItem);
 
-var _GridInfoView = __webpack_require__(277);
+var _GridInfoView = __webpack_require__(283);
 
 var _GridInfoView2 = _interopRequireDefault(_GridInfoView);
 
-var _GridSlotView = __webpack_require__(153);
+var _GridSlotView = __webpack_require__(154);
 
 var _GridSlotView2 = _interopRequireDefault(_GridSlotView);
 
-var _GridView = __webpack_require__(278);
+var _GridView = __webpack_require__(284);
 
 var _GridView2 = _interopRequireDefault(_GridView);
 
-var _InputModule = __webpack_require__(74);
+var _InputModule = __webpack_require__(76);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
@@ -88326,15 +88975,15 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _SpriteButton = __webpack_require__(279);
+var _SpriteButton = __webpack_require__(285);
 
 var _SpriteButton2 = _interopRequireDefault(_SpriteButton);
 
-var _UIUtils = __webpack_require__(34);
+var _UIUtils = __webpack_require__(25);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -88342,7 +88991,7 @@ var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _conversionUtils = __webpack_require__(140);
+var _conversionUtils = __webpack_require__(142);
 
 var _conversionUtils2 = _interopRequireDefault(_conversionUtils);
 
@@ -88615,7 +89264,7 @@ exports.default = SurvivorDeckController;
 module.exports = exports["default"];
 
 /***/ }),
-/* 276 */
+/* 282 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88677,7 +89326,7 @@ exports.default = CardInfo;
 module.exports = exports['default'];
 
 /***/ }),
-/* 277 */
+/* 283 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88711,7 +89360,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
@@ -88778,7 +89427,7 @@ exports.default = GridInfoView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 278 */
+/* 284 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88812,11 +89461,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GridSlotView = __webpack_require__(153);
+var _GridSlotView = __webpack_require__(154);
 
 var _GridSlotView2 = _interopRequireDefault(_GridSlotView);
 
@@ -88956,7 +89605,7 @@ exports.default = GridView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 279 */
+/* 285 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -88990,7 +89639,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(31);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -89058,7 +89707,7 @@ exports.default = SpriteButton;
 module.exports = exports["default"];
 
 /***/ }),
-/* 280 */
+/* 286 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89092,7 +89741,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseBarView = __webpack_require__(149);
+var _BaseBarView = __webpack_require__(150);
 
 var _BaseBarView2 = _interopRequireDefault(_BaseBarView);
 
@@ -89104,19 +89753,19 @@ var _Eugine = __webpack_require__(40);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Spring = __webpack_require__(281);
+var _Spring = __webpack_require__(287);
 
 var _Spring2 = _interopRequireDefault(_Spring);
 
@@ -89405,7 +90054,7 @@ exports.default = WeaponInGameView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 281 */
+/* 287 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89470,7 +90119,7 @@ exports.default = Spring;
 module.exports = exports["default"];
 
 /***/ }),
-/* 282 */
+/* 288 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89504,7 +90153,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -89512,7 +90161,7 @@ var _LevelManager = __webpack_require__(41);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -89580,7 +90229,7 @@ exports.default = BounceBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 283 */
+/* 289 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89614,7 +90263,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -89655,7 +90304,7 @@ exports.default = CircularBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 284 */
+/* 290 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89673,11 +90322,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -89724,7 +90373,7 @@ exports.default = CompanionData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 285 */
+/* 291 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89758,11 +90407,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
-var _FloorTarget = __webpack_require__(286);
+var _FloorTarget = __webpack_require__(292);
 
 var _FloorTarget2 = _interopRequireDefault(_FloorTarget);
 
@@ -89824,7 +90473,7 @@ exports.default = FallingProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 286 */
+/* 292 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89854,15 +90503,15 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -89940,7 +90589,7 @@ exports.default = FloorTarget;
 module.exports = exports['default'];
 
 /***/ }),
-/* 287 */
+/* 293 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -89982,7 +90631,7 @@ var _EffectsManager = __webpack_require__(21);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityViewData = __webpack_require__(107);
+var _EntityViewData = __webpack_require__(109);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
@@ -90090,7 +90739,7 @@ exports.default = FloatingProjectile;
 module.exports = exports["default"];
 
 /***/ }),
-/* 288 */
+/* 294 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90124,11 +90773,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -90199,7 +90848,7 @@ exports.default = GravityBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 289 */
+/* 295 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90233,11 +90882,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Beam = __webpack_require__(290);
+var _Beam = __webpack_require__(296);
 
 var _Beam2 = _interopRequireDefault(_Beam);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -90381,7 +91030,7 @@ exports.default = LaserBeam;
 module.exports = exports["default"];
 
 /***/ }),
-/* 290 */
+/* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90415,11 +91064,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BeamView = __webpack_require__(291);
+var _BeamView = __webpack_require__(297);
 
 var _BeamView2 = _interopRequireDefault(_BeamView);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -90427,15 +91076,15 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsProperties = __webpack_require__(150);
+var _PhysicsProperties = __webpack_require__(151);
 
 var _PhysicsProperties2 = _interopRequireDefault(_PhysicsProperties);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Sensor2 = __webpack_require__(102);
+var _Sensor2 = __webpack_require__(104);
 
 var _Sensor3 = _interopRequireDefault(_Sensor2);
 
@@ -90522,7 +91171,7 @@ exports.default = Beam;
 module.exports = exports["default"];
 
 /***/ }),
-/* 291 */
+/* 297 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90675,7 +91324,7 @@ exports.default = BeamView;
 module.exports = exports['default'];
 
 /***/ }),
-/* 292 */
+/* 298 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90709,7 +91358,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(25);
+var _Bullet2 = __webpack_require__(27);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -90749,7 +91398,7 @@ exports.default = SinoidBullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 293 */
+/* 299 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90767,11 +91416,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(29);
+var _EntityAttributes = __webpack_require__(31);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(32);
+var _EntityData = __webpack_require__(34);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -90822,7 +91471,7 @@ exports.default = WeaponAttachmentData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 294 */
+/* 300 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -90914,7 +91563,7 @@ exports.default = SpriteScaleBounceAppear;
 module.exports = exports['default'];
 
 /***/ }),
-/* 295 */
+/* 301 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91002,7 +91651,7 @@ exports.default = ZombieWalk;
 module.exports = exports['default'];
 
 /***/ }),
-/* 296 */
+/* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91044,7 +91693,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -91123,7 +91772,7 @@ exports.default = CameraOcclusion2D;
 module.exports = exports['default'];
 
 /***/ }),
-/* 297 */
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91157,23 +91806,23 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BasicFloorRender = __webpack_require__(298);
+var _BasicFloorRender = __webpack_require__(304);
 
 var _BasicFloorRender2 = _interopRequireDefault(_BasicFloorRender);
 
-var _Camera = __webpack_require__(110);
+var _Camera = __webpack_require__(112);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -91185,23 +91834,23 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RandomGenerator = __webpack_require__(155);
+var _RandomGenerator = __webpack_require__(156);
 
 var _RandomGenerator2 = _interopRequireDefault(_RandomGenerator);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _StaticPhysicObject = __webpack_require__(156);
+var _StaticPhysicObject = __webpack_require__(157);
 
 var _StaticPhysicObject2 = _interopRequireDefault(_StaticPhysicObject);
 
-var _StaticViewObject = __webpack_require__(299);
+var _StaticViewObject = __webpack_require__(305);
 
 var _StaticViewObject2 = _interopRequireDefault(_StaticViewObject);
 
-var _Trees = __webpack_require__(300);
+var _Trees = __webpack_require__(306);
 
 var _Trees2 = _interopRequireDefault(_Trees);
 
@@ -91209,15 +91858,15 @@ var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WorldManager = __webpack_require__(301);
+var _WorldManager = __webpack_require__(307);
 
 var _WorldManager2 = _interopRequireDefault(_WorldManager);
 
-var _alea = __webpack_require__(305);
+var _alea = __webpack_require__(311);
 
 var _alea2 = _interopRequireDefault(_alea);
 
-var _simplexNoise = __webpack_require__(306);
+var _simplexNoise = __webpack_require__(312);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -91440,7 +92089,7 @@ exports.default = EnvironmentManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 298 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91474,19 +92123,19 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _AmbientLightSystem = __webpack_require__(154);
+var _AmbientLightSystem = __webpack_require__(155);
 
 var _AmbientLightSystem2 = _interopRequireDefault(_AmbientLightSystem);
 
-var _Camera = __webpack_require__(110);
+var _Camera = __webpack_require__(112);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -91494,7 +92143,7 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
@@ -91581,7 +92230,7 @@ exports.default = BasicFloorRender;
 module.exports = exports["default"];
 
 /***/ }),
-/* 299 */
+/* 305 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91615,11 +92264,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _GameObject2 = __webpack_require__(10);
+var _GameObject2 = __webpack_require__(11);
 
 var _GameObject3 = _interopRequireDefault(_GameObject2);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -91627,7 +92276,7 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Shadow = __webpack_require__(36);
+var _Shadow = __webpack_require__(37);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -91694,7 +92343,7 @@ exports.default = StaticViewObject;
 module.exports = exports["default"];
 
 /***/ }),
-/* 300 */
+/* 306 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91728,11 +92377,11 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameView = __webpack_require__(11);
+var _GameView = __webpack_require__(12);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
@@ -91740,7 +92389,7 @@ var _Layer = __webpack_require__(19);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _StaticPhysicObject2 = __webpack_require__(156);
+var _StaticPhysicObject2 = __webpack_require__(157);
 
 var _StaticPhysicObject3 = _interopRequireDefault(_StaticPhysicObject2);
 
@@ -91807,7 +92456,7 @@ exports.default = Trees;
 module.exports = exports["default"];
 
 /***/ }),
-/* 301 */
+/* 307 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -91825,23 +92474,23 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _RandomGenerator = __webpack_require__(155);
+var _RandomGenerator = __webpack_require__(156);
 
 var _RandomGenerator2 = _interopRequireDefault(_RandomGenerator);
 
-var _TileMapManager = __webpack_require__(302);
+var _TileMapManager = __webpack_require__(308);
 
 var _TileMapManager2 = _interopRequireDefault(_TileMapManager);
 
-var _voronoi = __webpack_require__(303);
+var _voronoi = __webpack_require__(309);
 
 var _voronoi2 = _interopRequireDefault(_voronoi);
 
-var _grahamScan = __webpack_require__(304);
+var _grahamScan = __webpack_require__(310);
 
 var _grahamScan2 = _interopRequireDefault(_grahamScan);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -92374,7 +93023,7 @@ exports.default = WorldManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 302 */
+/* 308 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -92392,7 +93041,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -92451,7 +93100,7 @@ exports.default = TileMapManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 303 */
+/* 309 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -94177,7 +94826,7 @@ if(true) module.exports = Voronoi;
 
 
 /***/ }),
-/* 304 */
+/* 310 */
 /***/ (function(module, exports) {
 
 module.exports = function(points) {
@@ -94297,7 +94946,7 @@ module.exports = function(points) {
 
 
 /***/ }),
-/* 305 */
+/* 311 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function (root, factory) {
@@ -94413,7 +95062,7 @@ module.exports = function(points) {
 
 
 /***/ }),
-/* 306 */
+/* 312 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -94888,7 +95537,7 @@ function buildPermutationTable(random) {
 //# sourceMappingURL=simplex-noise.js.map
 
 /***/ }),
-/* 307 */
+/* 313 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -94926,15 +95575,15 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Camera2 = __webpack_require__(110);
+var _Camera2 = __webpack_require__(112);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _LightSource = __webpack_require__(101);
+var _LightSource = __webpack_require__(103);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -94942,11 +95591,11 @@ var _Player = __webpack_require__(20);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _RenderModule = __webpack_require__(9);
+var _RenderModule = __webpack_require__(10);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -95113,7 +95762,7 @@ exports.default = PerspectiveCamera;
 module.exports = exports['default'];
 
 /***/ }),
-/* 308 */
+/* 314 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -95147,13 +95796,13 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _gsap = __webpack_require__(111);
+var _gsap = __webpack_require__(113);
 
 var _signals = __webpack_require__(7);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -95316,7 +95965,7 @@ exports.default = TouchAxisInput;
 module.exports = exports['default'];
 
 /***/ }),
-/* 309 */
+/* 315 */
 /***/ (function(module, exports) {
 
 module.exports = function(originalModule) {
@@ -95346,22 +95995,22 @@ module.exports = function(originalModule) {
 
 
 /***/ }),
-/* 310 */
+/* 316 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(311);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(158);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DirectionalRotationPlugin_js__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__ = __webpack_require__(112);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TimelineMax_js__ = __webpack_require__(157);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenMaxBase_js__ = __webpack_require__(317);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__CSSPlugin_js__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AttrPlugin_js__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__RoundPropsPlugin_js__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__DirectionalRotationPlugin_js__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__ = __webpack_require__(114);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TimelineMax_js__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__BezierPlugin_js__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__EasePack_js__ = __webpack_require__(164);
 /* unused harmony reexport TweenLite */
 /* unused harmony reexport TimelineLite */
 /* unused harmony reexport TimelineMax */
@@ -95421,14 +96070,14 @@ TweenMax._autoActivated = [__WEBPACK_IMPORTED_MODULE_6__TimelineLite_js__["a" /*
 
 
 /***/ }),
-/* 311 */
+/* 317 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export TweenMax */
 /* unused harmony export TweenMaxBase */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TweenMax; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenLite_js__ = __webpack_require__(32);
 /* unused harmony reexport TweenLite */
 /* unused harmony reexport Ease */
 /* unused harmony reexport Power0 */
@@ -96112,7 +96761,7 @@ var TweenMaxBase = TweenMax;
 
 
 /***/ }),
-/* 312 */
+/* 318 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96150,15 +96799,15 @@ var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
 
-var _gsap = __webpack_require__(111);
+var _gsap = __webpack_require__(113);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -96451,7 +97100,7 @@ exports.default = UIButton1;
 module.exports = exports['default'];
 
 /***/ }),
-/* 313 */
+/* 319 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96489,7 +97138,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(31);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -96497,23 +97146,23 @@ var _CookieManager = __webpack_require__(64);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _Game = __webpack_require__(13);
+var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _InteractableView = __webpack_require__(27);
+var _InteractableView = __webpack_require__(26);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _MainScreenContainer = __webpack_require__(314);
+var _MainScreenContainer = __webpack_require__(320);
 
 var _MainScreenContainer2 = _interopRequireDefault(_MainScreenContainer);
 
-var _MainScreenManager = __webpack_require__(141);
+var _MainScreenManager = __webpack_require__(143);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _Screen2 = __webpack_require__(94);
+var _Screen2 = __webpack_require__(96);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
@@ -96601,7 +97250,7 @@ exports.default = MainMenu;
 module.exports = exports['default'];
 
 /***/ }),
-/* 314 */
+/* 320 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96666,7 +97315,7 @@ exports.default = MainScreenContainer;
 module.exports = exports['default'];
 
 /***/ }),
-/* 315 */
+/* 321 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96815,7 +97464,7 @@ exports.default = ScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 316 */
+/* 322 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -96845,7 +97494,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _gsap = __webpack_require__(111);
+var _gsap = __webpack_require__(113);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
@@ -96853,7 +97502,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -96988,7 +97637,7 @@ exports.default = ScreenTransition;
 module.exports = exports['default'];
 
 /***/ }),
-/* 317 */
+/* 323 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97018,9 +97667,9 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _howler = __webpack_require__(318);
+var _howler = __webpack_require__(324);
 
-var _AbstractSoundManager2 = __webpack_require__(319);
+var _AbstractSoundManager2 = __webpack_require__(325);
 
 var _AbstractSoundManager3 = _interopRequireDefault(_AbstractSoundManager2);
 
@@ -97265,7 +97914,7 @@ exports.default = SoundManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 318 */
+/* 324 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -100515,7 +101164,7 @@ module.exports = exports['default'];
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
-/* 319 */
+/* 325 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100573,7 +101222,7 @@ exports.default = AbstractSoundManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 320 */
+/* 326 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100588,7 +101237,7 @@ exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 321 */
+/* 327 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100598,11 +101247,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(28);
+var _config = __webpack_require__(29);
 
 var _config2 = _interopRequireDefault(_config);
 
-var _utils = __webpack_require__(35);
+var _utils = __webpack_require__(36);
 
 var _utils2 = _interopRequireDefault(_utils);
 
@@ -100726,7 +101375,7 @@ window.LABELS.LABEL_DAMAGE = {
 };
 
 /***/ }),
-/* 322 */
+/* 328 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100739,11 +101388,11 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_EN",
-	"url": "assets/json\\localization_EN.json"
-}, {
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
+}, {
+	"id": "localization_EN",
+	"url": "assets/json\\localization_EN.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
@@ -100751,11 +101400,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -100766,35 +101415,26 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
+}, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "companion-animation",
-	"url": "assets/json\\animation\\companion-animation.json"
-}, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "companion-animation",
+	"url": "assets/json\\animation\\companion-animation.json"
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -100804,6 +101444,15 @@ var assets = [{
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -100846,7 +101495,7 @@ exports.default = assets;
 module.exports = exports["default"];
 
 /***/ }),
-/* 323 */
+/* 329 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -100869,7 +101518,7 @@ exports.default = {}; /*
 module.exports = exports['default'];
 
 /***/ }),
-/* 324 */
+/* 330 */
 /***/ (function(module, exports) {
 
 module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/campfire/campfire.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}

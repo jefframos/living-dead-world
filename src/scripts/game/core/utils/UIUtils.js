@@ -21,7 +21,7 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton('square_0004', 100, 100);
+        const button = new BaseButton('square_0004', 80, 80);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         button.addIcon('smallButton')
 
@@ -39,11 +39,25 @@ export default class UIUtils {
         }
         return button;
     }
+
+    static getPrimaryShapelessButton(callback, label, icon) {
+        const button = new BaseButton(null, 100, 100);
+        InteractableView.addMouseUp(button, () => { if (callback) callback() })
+        if (icon) {
+            button.addIcon(icon)
+        }
+        if (label) {
+            UIUtils.addLabel(button, label)
+        }
+        return button;
+    }
+
     static getPrimaryLabel(label, params = {}) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
         for (const key in params) {
             textLabel.style[key] = params[key];
         }
+        textLabel.text = label;
         return textLabel;
     }
     static getSecondaryLabel(label, params = {}) {
@@ -108,7 +122,7 @@ export default class UIUtils {
         return button;
     }
     static getBodyTypeLabelButton(callback, label, icon) {
-        const button = new BaseButton('square_0001', 100, 65);
+        const button = new BaseButton('square_0001', 80, 80);
         button.setActiveTexture('square_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {

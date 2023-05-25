@@ -4,12 +4,12 @@ const assets = [
 	"url":"assets/json\\achievments.json"
 	},
 	{
-	"id":"localization_EN",
-	"url":"assets/json\\localization_EN.json"
-	},
-	{
 	"id":"localization_DE",
 	"url":"assets/json\\localization_DE.json"
+	},
+	{
+	"id":"localization_EN",
+	"url":"assets/json\\localization_EN.json"
 	},
 	{
 	"id":"localization_ES",
@@ -20,12 +20,12 @@ const assets = [
 	"url":"assets/json\\localization_FR.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_KO",
@@ -40,24 +40,24 @@ const assets = [
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
+	},
+	{
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
 	},
 	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
 	},
 	{
-	"id":"companion-animation",
-	"url":"assets/json\\animation\\companion-animation.json"
-	},
-	{
 	"id":"entity-animation",
 	"url":"assets/json\\animation\\entity-animation.json"
+	},
+	{
+	"id":"companion-animation",
+	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
 	"id":"player-animation",
@@ -66,18 +66,6 @@ const assets = [
 	{
 	"id":"cards",
 	"url":"assets/json\\cards\\cards.json"
-	},
-	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
-	},
-	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
 	"id":"companions",
@@ -90,6 +78,18 @@ const assets = [
 	{
 	"id":"player",
 	"url":"assets/json\\entity\\player.json"
+	},
+	{
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	},
+	{
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
+	},
+	{
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"acessories",

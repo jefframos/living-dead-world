@@ -36,6 +36,11 @@ export default class BaseButton extends PIXI.Container {
             this.text.style.fill = value;
         }
     }
+    tintIcon(color){
+        if(this.icon){
+            this.icon.tint = color;
+        }
+    }
     resize(width, height) {
         if (width) {
             this.safeShape.width = width
@@ -50,6 +55,16 @@ export default class BaseButton extends PIXI.Container {
         }
         this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
         this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
+
+        if (!this.text) {
+            return;
+        }
+        this.text.x = this.safeShape.width / 2 + this.textOffset.x;
+        this.text.y = this.safeShape.height / 2 + this.textOffset.y;
+
+        if (this.icon) {
+            this.text.y += this.icon.height / 2 + 5
+        }
     }
     simulateClick() {
         this.out();
@@ -57,10 +72,11 @@ export default class BaseButton extends PIXI.Container {
     }
     addShape(texture, width, height) {
         this.mainTexture = texture;
+        const tex = texture ? PIXI.Texture.from(texture): PIXI.Texture.EMPTY
         if (this.safeShape) {
-            this.safeShape.texture = PIXI.Texture.from(texture)
+            this.safeShape.texture = tex
         } else {
-            this.safeShape = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+            this.safeShape = new PIXI.NineSlicePlane(tex, 20, 20, 20, 20);
             this.addChild(this.safeShape);
         }
         this.safeShape.width = width
@@ -79,6 +95,7 @@ export default class BaseButton extends PIXI.Container {
         })
     }
     addLabelOnCenter(text, offset = { x: 0, y: 0 }) {
+        this.textOffset = offset
         this.text = text;
         this.text.anchor.set(0.5);
         this.text.x = this.safeShape.width / 2 + offset.x;

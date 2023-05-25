@@ -78,7 +78,7 @@ export default class BaseEnemy extends GameAgent {
         // this.addChild(this.lifeBar)
         // this.lifeBar.build(this.attributes.radius * 2,5,2);
 
-        let bounceAppear = this.addComponent(SpriteScaleBounceAppear);
+        this.bounceAppear = this.addComponent(SpriteScaleBounceAppear);
 
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);
@@ -103,6 +103,11 @@ export default class BaseEnemy extends GameAgent {
         //     value: 1,
         //     interval: 1
         // });
+    }
+    respawn() {
+        if (this.bounceAppear) {
+            this.bounceAppear.enable()
+        }
     }
     afterBuild() {
         super.afterBuild()

@@ -253,7 +253,7 @@ export default class LevelManager {
             return;
         }
         this.enemyGlobalSpawner.distanceToSpawn = (Math.max(Game.Borders.width, Game.Borders.height) * Game.GlobalScale.min / 2) // this.gameEngine.camera.zoom//2
-        this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.75 + 80;
+        this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.5 + 80;
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase
         if (this.gameplayTime > 0.5 && delta > 0) {

@@ -25,13 +25,15 @@ export default class EnemyGlobalSpawner {
             this.gameManager.player.transform.position.x + toSpawn.x
             , this.gameManager.player.transform.position.z + toSpawn.z)
     }
-    respawnEntity(entity){
+    respawnEntity(entity) {
         entity.currentSpawnPool.addRelativeSpawnPoint()
 
         const toSpawn = entity.currentSpawnPool.entityToSpawn;
         entity.setPositionXZ(
             this.gameManager.player.transform.position.x + toSpawn.x
             , this.gameManager.player.transform.position.z + toSpawn.z)
+
+        entity.respawn();
     }
     spawnSingleEntity(enemyData) {
         //find out if uses baseEnemy

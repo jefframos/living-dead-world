@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import AchievmentsContainer from '../components/ui/achievments/AchievmentsContainer';
 import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
@@ -7,10 +8,14 @@ import CharacterCustomizationContainer from '../components/ui/customization/Char
 import CookieManager from '../CookieManager';
 import Game from '../../Game';
 import InteractableView from '../view/card/InteractableView';
+import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
+import LocationContainer from '../components/ui/location/LocationContainer';
+import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
 import Screen from '../../screenManager/Screen';
+import ShopContainer from '../components/ui/shop/ShopContainer';
 import UIList from '../ui/uiElements/UIList';
 import UIUtils from '../core/utils/UIUtils';
 import Utils from '../core/utils/Utils';
@@ -56,17 +61,11 @@ export default class CharacterBuildScreen extends Screen {
         this.container.addChild(this.charCustomizationContainer);
 
 
-        this.buttonsList = new UIList();
-        this.container.addChild(this.buttonsList);
 
 
-        this.buttonsList.addElement(UIUtils.getCloseButton(() => { this.backButtonAction(); }), { align: 0 })
-        //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
 
-        this.buttonsList.w = 250
-        this.buttonsList.h = 100;
 
-        this.buttonsList.updateHorizontalList();
+
 
         this.activePlayers = [];
 
@@ -75,8 +74,8 @@ export default class CharacterBuildScreen extends Screen {
         for (let index = 0; index < CookieManager.instance.totalPlayers; index++) {
             this.addCharacter(CookieManager.instance.getPlayer(index))
         }
-        // this.addCharacter()
-        //  this.addCharacter()
+        //this.addCharacter()
+        //this.addCharacter()
 
 
 
@@ -97,34 +96,91 @@ export default class CharacterBuildScreen extends Screen {
 
         this.pivotOffset.y = -50
         this.buildBottomMenu();
+
+        this.outgameUIProgression = new OutGameUIProgression();
+        this.container.addChild(this.outgameUIProgression);
+
+
+        this.modalList = [];
+        this.loadoutContainer = new LoadoutContainer();
+        this.addModal(this.loadoutContainer)
+        this.shopContainer = new ShopContainer();
+        this.addModal(this.shopContainer)
+        this.achievmentsContainer = new AchievmentsContainer()
+        this.addModal(this.achievmentsContainer)
+        this.locationContainer = new LocationContainer()
+        this.addModal(this.locationContainer)
+
+        this.buttonsList = new UIList();
+        this.container.addChild(this.buttonsList);
+        this.closeButton = UIUtils.getCloseButton(() => { this.backButtonAction(); })
+        this.buttonsList.addElement(this.closeButton, { align: 0 })
+        //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
+
+        this.buttonsList.w = 250
+        this.buttonsList.h = 100;
+
+        this.buttonsList.updateHorizontalList();
+
+    }
+    addModal(modal) {
+        this.modalList.push(modal);
+        this.container.addChild(modal);
+
+        modal.hide()
+    }
+    openModal(modal) {
+        this.hideMainUI();
+        modal.show();
     }
     buildBottomMenu() {
         this.bottomMenu = new PIXI.Container()
         this.container.addChild(this.bottomMenu);
 
-        this.menuButtons = [];
-
         this.bottomMenuList = new UIList();
-
-        const bt1 = UIUtils.getPrimaryButton(() => {
-            this.showCustomization()
-
-        }, '', 'sizzling-sausage')
-
-        const bt2 = UIUtils.getPrimaryButton(() => {
-            this.showCustomization()
-
-        }, '', 'icon_confirm')
+        const bt1 = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.loadoutContainer);
+        }, 'Loadout', 'pistol1')
+        
+        const bt2 = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.locationContainer);
+        }, 'Location', 'map')
 
         this.bottomMenuList.addElement(bt1, { align: 0 })
         this.bottomMenuList.addElement(bt2, { align: 0 })
 
+        this.menuButtons = [];
         this.menuButtons.push(bt1)
         this.menuButtons.push(bt2)
 
         this.bottomMenuList.updateVerticalList()
 
         this.bottomMenu.addChild(this.bottomMenuList)
+
+
+        this.bottomMenuRight = new PIXI.Container()
+        this.container.addChild(this.bottomMenuRight);
+
+        this.bottomMenuRightList = new UIList();
+        const bt3 = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.shopContainer)
+        }, 'Shop', 'money')
+
+        const bt4 = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.achievmentsContainer)
+
+        }, 'Achievments', 'achievment')
+
+        this.bottomMenuRightList.addElement(bt3, { align: 0 })
+        this.bottomMenuRightList.addElement(bt4, { align: 0 })
+
+        this.menuButtonsRight = [];
+        this.menuButtonsRight.push(bt3)
+        this.menuButtonsRight.push(bt4)
+
+        this.bottomMenuRightList.updateVerticalList()
+
+        this.bottomMenuRight.addChild(this.bottomMenuRightList)
     }
     addCharacter(data) {
 
@@ -187,31 +243,52 @@ export default class CharacterBuildScreen extends Screen {
         this.activePlayers.push(playerPreviewData)
     }
     showCustomization() {
-        this.pivotOffset.y = 0
+        if (Game.IsPortrait) {
+            this.pivotOffset.y = 80
+        } else {
+
+            this.pivotOffset.y = 0
+        }
         this.charCustomizationContainer.show()
-        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
-        this.bottomMenu.visible = false;
+
+        this.activePlayers.forEach(element => {
+            element.buttonsContainer.visible = false;
+        });
+        this.hideMainUI()
 
     }
     closeCustomization() {
         this.pivotOffset.y = -50
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.hide()
-        this.bottomMenu.visible = false;
+        this.hideMainUI()
+
 
     }
     unSelectPlayer() {
-        this.pivotOffset.y = 0;
+        if (Game.IsPortrait) {
+
+            this.pivotOffset.y = 20
+        } else {
+
+            this.pivotOffset.y = 0
+        }
         this.zoom = 1
-        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
-        this.bottomMenu.visible = true;
+        this.activePlayers.forEach(element => {
+            element.buttonsContainer.visible = false;
+        });
+        this.showMainUI();
 
     }
     updateCurrentPlayer(id) {
+        if (this.charCustomizationContainer.isOpen) {
+            return;
+        }
         this.activePlayerId = id;
         this.zoom = 1.5
         CookieManager.instance.changePlayer(id)
-        this.bottomMenu.visible = false;
+        this.hideMainUI()
+
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
     }
@@ -224,6 +301,21 @@ export default class CharacterBuildScreen extends Screen {
             element.frontFace = Math.ceil(Math.random() * 5)
             element.hat = Math.ceil(Math.random() * 5)
         });
+
+    }
+    hideMainUI(hideBackButton) {
+        this.bottomMenu.visible = false;
+        this.bottomMenuRight.visible = false;
+        this.outgameUIProgression.visible = false;
+        if (hideBackButton) {
+            this.closeButton.visible = false;
+        }
+    }
+    showMainUI() {
+        this.bottomMenu.visible = true;
+        this.bottomMenuRight.visible = true;
+        this.outgameUIProgression.visible = true;
+        this.closeButton.visible = true;
 
     }
     build() {
@@ -253,9 +345,11 @@ export default class CharacterBuildScreen extends Screen {
 
         this.updateCharactersPosition();
 
-        this.charCustomizationContainer.resize(isPortrait)
+        this.charCustomizationContainer.resize(res, newRes)
 
-
+        this.modalList.forEach(element => {
+            element.resize(res, newRes);
+        });
 
         this.campfireScene.x = Game.Borders.width / 2;
         this.campfireScene.y = Game.Borders.height / 2 - 80;
@@ -266,24 +360,40 @@ export default class CharacterBuildScreen extends Screen {
             element.resize(150, listSize / this.menuButtons.length)
         });
 
+        this.menuButtonsRight.forEach(element => {
+            element.resize(150, listSize / this.menuButtonsRight.length)
+        });
+
         this.bottomMenuList.w = 150
         this.bottomMenuList.h = this.menuButtons.length * 10 + listSize
         this.bottomMenuList.updateVerticalList();
 
-        this.bottomMenu.y = Game.Borders.height - this.bottomMenuList.h;
+
+        this.bottomMenuRightList.w = 150
+        this.bottomMenuRightList.h = this.menuButtonsRight.length * 10 + listSize
+        this.bottomMenuRightList.updateVerticalList();
+
+
+        this.outgameUIProgression.x = Game.Borders.width - this.outgameUIProgression.width - 30;
+        this.outgameUIProgression.y = 30;
 
     }
 
     aspectChange(isPortrait) {
 
-        if (isPortrait) {
-            this.buttonsList.scale.set(1)
-        } else {
+        // if (isPortrait) {
+        //     this.buttonsList.scale.set(1)
+        // } else {
 
-            this.buttonsList.scale.set(0.75)
-        }
+        //     this.buttonsList.scale.set(0.75)
+        // }
 
         this.charCustomizationContainer.aspectChange(isPortrait)
+          this.modalList.forEach(element => {
+            element.aspectChange(isPortrait);
+        });
+        
+
     }
     update(delta) {
 
@@ -292,6 +402,7 @@ export default class CharacterBuildScreen extends Screen {
 
             element.playerPreviewStructure.update(delta)
         }
+
 
         this.sceneContainer.pivot.x = Utils.lerp(this.sceneContainer.pivot.x, this.activePlayers[this.activePlayerId].playerPreviewSprite.x + this.pivotOffset.x, 0.3);
         this.sceneContainer.pivot.y = Utils.lerp(this.sceneContainer.pivot.y, this.activePlayers[this.activePlayerId].playerPreviewSprite.y + this.pivotOffset.y, 0.3);
@@ -302,13 +413,29 @@ export default class CharacterBuildScreen extends Screen {
 
         this.campfireScene.update(delta)
 
-        this.bottomMenu.x = 30;
-        this.bottomMenu.y = Game.Borders.height - this.bottomMenuList.h - 30;
+        this.bottomMenuList.x = 30;
+        this.bottomMenuList.y = Game.Borders.height - this.bottomMenuList.h - 30;
+
+
+        this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
+        this.bottomMenuRightList.y = Game.Borders.height - this.bottomMenuList.h - 30;
 
     }
     backButtonAction() {
+
+        let modalOpen = null;
+        this.modalList.forEach(element => {
+            if (element.isOpen) {
+                modalOpen = element;
+            }
+        });
         if (this.charCustomizationContainer.isOpen) {
             this.closeCustomization();
+            this.unSelectPlayer();
+        } else if (modalOpen) {
+            modalOpen.hide();
+            this.closeCustomization();
+            this.unSelectPlayer();
         } else {
             this.closeCustomization();
             this.unSelectPlayer();
