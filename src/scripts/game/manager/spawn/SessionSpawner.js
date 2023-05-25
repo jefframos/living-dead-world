@@ -10,7 +10,8 @@ export default class SessionSpawner {
     static SpawnAreaType = {
         Point: 'point',
         Rect: 'rect',
-        Circle: 'circle'
+        Circle: 'circle',
+        Arc: 'arc'
     }
     constructor() {
 

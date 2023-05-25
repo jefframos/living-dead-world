@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 import BaseButton from '../components/ui/BaseButton';
+import CookieManager from '../CookieManager';
 import Game from '../../Game';
 import InteractableView from '../view/card/InteractableView';
 import MainScreenContainer from './mainScreen/MainScreenContainer';
@@ -41,6 +42,19 @@ export default class MainMenu extends Screen {
         })
         
         this.container.addChild(this.charcatrBuilder);
+
+
+
+        this.cleanCache = new BaseButton('square_0004', 200, 50);
+        const wipData = new PIXI.Text('WipeData', window.LABELS.LABEL1)
+        wipData.style.strokeThickness = 0
+        wipData.style.fontSize = 32
+        this.cleanCache.addLabelOnCenter(wipData)
+        InteractableView.addMouseUp(this.cleanCache, () => { 
+            CookieManager.instance.wipeData();
+        })
+        
+        this.container.addChild(this.cleanCache);
     }
     build(){
         super.build();
@@ -52,5 +66,9 @@ export default class MainMenu extends Screen {
 
         this.startGame.x =  Game.Borders.width / 2 - this.startGame.width / 2
         this.startGame.y =  Game.Borders.height / 2 + 50
+
+
+        this.cleanCache.x =  Game.Borders.width / 2 - this.cleanCache.width / 2
+        this.cleanCache.y =  Game.Borders.height / 2 + 200
     }
 }

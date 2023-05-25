@@ -36,7 +36,7 @@ export default class CookieManager {
 		}
 		this.defaultPlayer = {
 			version: '0.0.1',
-			totalPlayers: 3,
+			totalPlayers: 1,
 			currentPlayer: 0,
 			playerStructures: []
 		}

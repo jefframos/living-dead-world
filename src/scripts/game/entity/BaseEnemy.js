@@ -12,6 +12,7 @@ import Pool from "../core/utils/Pool";
 import Shadow from "../components/view/Shadow";
 import SpriteFacing from "../components/SpriteFacing";
 import SpriteJump from "../components/SpriteJump";
+import SpriteScaleBounceAppear from "../components/SpriteScaleBounceAppear";
 import StatsModifier from "../components/StatsModifier";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
@@ -22,6 +23,7 @@ export default class BaseEnemy extends GameAgent {
         super();
         this.gameView.view = new PIXI.Sprite()
     }
+    get tier() { return this.staticData.entityData.tier }
     build(enemyData) {
         super.build();
 
@@ -33,7 +35,6 @@ export default class BaseEnemy extends GameAgent {
         this.rigidBody.isSensor = false;
         this.layerCategory = Layer.Enemy
         this.layerMask = Layer.EnemyCollision
-
 
 
         this.speed = this.attributes.speed;
@@ -77,7 +78,7 @@ export default class BaseEnemy extends GameAgent {
         // this.addChild(this.lifeBar)
         // this.lifeBar.build(this.attributes.radius * 2,5,2);
 
-
+        let bounceAppear = this.addComponent(SpriteScaleBounceAppear);
 
         let shadow = this.engine.poolGameObject(Shadow);
         this.addChild(shadow);

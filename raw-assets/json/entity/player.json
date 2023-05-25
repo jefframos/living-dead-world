@@ -1,6 +1,6 @@
 [
     {
-        "id": "CORN",
+        "id": "DEFAULT",
         "enabled": true,
         "entityData": {
             "name": "Soldier",
@@ -10,7 +10,7 @@
         },
         "title": "Logan Jett",
         "weapon": {
-            "id": "WORM_GUN"
+            "id": "PISTOL_01"
         },
         "attributes": {
             "basePower": 10,

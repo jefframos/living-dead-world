@@ -21,6 +21,7 @@ export default class PlayerViewStructure {
         this._ears = 1
         this._mouth = 1
         this._mask = 0
+        this._trinket = 0
         this._frontFace = 0
         this._backHead = 0
         this._skinColor = UIUtils.colorset.skin[0]
@@ -33,6 +34,11 @@ export default class PlayerViewStructure {
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
     }
+    set trinket(value) {
+        this._trinket = value;
+        this.onStructureUpdate.dispatch('trinket', this._trinket)
+    }
+    get trinket() { return this._trinket; }
     set mask(value) {
         this._mask = value;
         this.onStructureUpdate.dispatch('mask', this._mask)

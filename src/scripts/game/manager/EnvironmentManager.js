@@ -115,6 +115,8 @@ export default class EnvironmentManager extends GameObject {
 
         const layerName = layer.layerName
 
+        const scale = 0.25
+
         if (this.bakedData[layerName]) {
 
             for (let index = this.bakedData[layerName].length - 1; index >= 0; index--) {
@@ -126,7 +128,7 @@ export default class EnvironmentManager extends GameObject {
         for (let i = -this.drawBoundsDistance.i; i <= this.drawBoundsDistance.i; i++) {
             for (let j = -this.drawBoundsDistance.j; j <= this.drawBoundsDistance.j; j++) {
                 for (let k = 0; k <= layer.density; k++) {
-                    let v = this.noise2D((i + playerOrigin.i)*0.5, (j + playerOrigin.j) * 0.5)
+                    let v = this.noise2D((i + playerOrigin.i)*scale, (j + playerOrigin.j) * scale)
                     let targetPosition = {
                         x: (i + playerOrigin.i) * this.chunkSize.width + this.rnd.randomOffset(v + k + this.totalLayersDraw) * this.chunkSize.width - this.chunkSize.width / 2,
                         y: (j + playerOrigin.j) * this.chunkSize.height + this.rnd.randomOffset(v - k + this.totalLayersDraw) * this.chunkSize.height - this.chunkSize.height / 2

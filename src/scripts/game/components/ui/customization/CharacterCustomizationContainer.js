@@ -51,6 +51,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             { label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false },
             { label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: UIUtils.colorset.hair },
           //  { label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
+            { label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false },
             { label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
             { label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }]
 
@@ -104,6 +105,15 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.sectionList.updateVerticalList();
         this.sectionListBottom.updateVerticalList();
 
+    }
+    get isOpen(){
+        return this.container.visible;
+    }
+    show(){
+        this.container.visible = true;
+    }
+    hide(){
+        this.container.visible = false;
     }
     setPlayer(viewStructure) {
         this.playerViewStructure = viewStructure;
@@ -195,8 +205,6 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
     }
     findCurrentEquipped() {
-        console.log(this.currentRegion)
-
         if(this.currentRegion.colorset){
 
             const currentColor = this.playerViewStructure['_' + this.currentRegion.colorParam];
@@ -231,7 +239,6 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 }
             });
         }
-        console.log(this.playerViewStructure)
     }
     resetColorPieces() {
         this.currentShowingColors.forEach(element => {

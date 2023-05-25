@@ -135,7 +135,7 @@ export default class UIList extends PIXI.Container {
 
         this.elementsList = []
     }
-    updateVerticalList() {
+    updateVerticalList(debug = false) {
         let listSizes = [];
         let sum = 0;
         let quant = 0;
@@ -162,7 +162,14 @@ export default class UIList extends PIXI.Container {
         let positions = [];
         let stdH = 1;
         let stdW = 1;
+        let pixig;
+
         for (var i = 0; i < listSizes.length; i++) {
+            if (debug) {
+
+                pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
+                this.container.addChild(pixig)
+            }
             let anchorX = this.elementsList[i].anchorX !== undefined ? this.elementsList[i].anchorX : 0.5;
             // let pixig = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 5)
             // this.container.addChild(pixig)
@@ -192,15 +199,24 @@ export default class UIList extends PIXI.Container {
                 stdW = (this.elementsList[i].height / this.elementsList[i].scale.y)
                 this.elementsList[i].scale.set(chunkSize / stdW)
             }
+
+            let vAlign = 0.5
+            if (this.elementsList[i].vAlign != undefined) {
+                vAlign = this.elementsList[i].vAlign;
+            }
+
+            let nextY = nextX + chunkSize * vAlign - this.elementsList[i].height * vAlign
+            this.elementsList[i].y = nextY;
+            // pixig.x = nextX
+
             let align = 0.5
             if (this.elementsList[i].align != undefined) {
                 align = this.elementsList[i].align;
             }
 
-            let nextY = nextX + chunkSize * align - this.elementsList[i].height * align
-            this.elementsList[i].y = nextY;
-            // pixig.x = nextX
-            this.elementsList[i].x = this.w * anchorX// - this.elementsList[i].width * anchorX
+            this.elementsList[i].x = this.elementsList[i].width * align;
+
+            //this.elementsList[i].x = this.w * anchorX// - this.elementsList[i].width * anchorX
         }
 
     }

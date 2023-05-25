@@ -4,8 +4,8 @@
         "duration": 60,
         "waves": [
             {
-                "areaType": "circle",
-                "radius": 200,
+                "areaType": "arc",
+                "radius": 250,
                 "total": 50,
                 "maxActive": 10,
                 "entity": [
@@ -17,15 +17,10 @@
             },
             {
                 "areaType": "circle",
-                "radius": 200,
-                "total": 50,
-                "maxActive": 0,
-                "entity": [
-                    "ZOMBIE_01",
-                    "ZOMBIE_02",
-                    "ZOMBIE_03",
-                    "ZOMBIE_04"
-                ]
+                "radius": 150,
+                "total": 100,
+                "maxActive": 1,
+                "entity": "RAT_01"
             }
         ]
     },

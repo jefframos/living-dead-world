@@ -72,6 +72,7 @@ export default class SpawnerData {
                 this.offset = { x: Math.cos(this.angle) * (this.width + this.distanceToSpawn), y: Math.sin(this.angle) * (this.height + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
+            case SessionSpawner.SpawnAreaType.Arc:
                 this.offset = { x: Math.cos(this.angle) * (this.radius * 2 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 2 + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Point:
@@ -88,14 +89,20 @@ export default class SpawnerData {
         this.findOffset();
         switch (this.areaType) {
             case SessionSpawner.SpawnAreaType.Rect:
-                this.toSpawnData.x = this.randomPoint.x * Math.random() *this.width + this.offset.x;
-                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.height+ this.offset.y;
+                this.toSpawnData.x = this.randomPoint.x * Math.random() * this.width + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.height + this.offset.y;
                 this.randomPoint = Utils.randomCircle()
-                
+
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
-                this.toSpawnData.x = this.randomPoint.x * Math.random() *this.radius + this.offset.x;
-                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.radius+ this.offset.y;
+                this.toSpawnData.x = this.randomPoint.x * Math.random() * this.radius + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * Math.random() * this.radius + this.offset.y;
+                this.randomPoint = Utils.randomCircle()
+
+                break;
+            case SessionSpawner.SpawnAreaType.Arc:
+                this.toSpawnData.x = this.randomPoint.x * this.radius// + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * this.radius// + this.offset.y;
                 this.randomPoint = Utils.randomCircle()
 
                 break;

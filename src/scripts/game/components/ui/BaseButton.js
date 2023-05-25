@@ -36,6 +36,21 @@ export default class BaseButton extends PIXI.Container {
             this.text.style.fill = value;
         }
     }
+    resize(width, height) {
+        if (width) {
+            this.safeShape.width = width
+        }
+        if (height) {
+            this.safeShape.height = height
+        }
+        this.hitArea = new PIXI.Rectangle(0, 0, this.safeShape.width, this.safeShape.height);
+
+        if (!this.icon) {
+            return;
+        }
+        this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
+        this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
+    }
     simulateClick() {
         this.out();
         this.onButtonClicked.dispatch(this)
@@ -72,7 +87,7 @@ export default class BaseButton extends PIXI.Container {
     }
     addIcon(icon, height = 0, anchor = { x: 0.5, y: 0.5 }, offset = { x: 0, y: 0 }) {
         this.cleanUp();
-
+        this.iconOffset = offset;
         if (this.icon) {
             this.icon.texture = PIXI.Texture.from(icon)
         } else {
@@ -85,8 +100,8 @@ export default class BaseButton extends PIXI.Container {
         }
         this.icon.anchor.x = anchor.x
         this.icon.anchor.y = anchor.y
-        this.icon.x = this.safeShape.width / 2 + offset.x;
-        this.icon.y = this.safeShape.height / 2 + offset.y;
+        this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
+        this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
         this.addChild(this.icon);
     }
 
@@ -115,7 +130,7 @@ export default class BaseButton extends PIXI.Container {
     over() {
         this.mouseOver = true;
 
-        if(this.isActive){
+        if (this.isActive) {
             return;
         }
         if (this.swapTexture) {
@@ -127,7 +142,7 @@ export default class BaseButton extends PIXI.Container {
     out() {
         this.mouseOver = false;
 
-        if(this.isActive){
+        if (this.isActive) {
             return;
         }
         if (this.swapTexture) {

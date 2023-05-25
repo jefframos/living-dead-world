@@ -22,8 +22,10 @@ export default class DirectionPin extends GameObject {
         super.build()
 
 
-        this.gameView.view.texture = PIXI.Texture.from('fast-f');
+        this.gameView.view.texture = PIXI.Texture.from('pin-arrow');
         this.gameView.view.anchor.set(1, 0.5)
+
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
     }
     start() {
         super.start();
@@ -44,17 +46,16 @@ export default class DirectionPin extends GameObject {
         }
         this.gameView.update(delta)
 
-        const enemy = LevelManager.instance.findClosestEnemy(this.player.transform.position)
+        const enemy = LevelManager.instance.findClosestEnemyWithHigherTier(this.player.transform.position)
         if (enemy) {
             let distance = Vector3.distance(this.player.transform.position, enemy.transform.position);
-            const angle = Vector3.atan2XZ(enemy.transform.position, this.player.transform.position)// + Math.PI
-            //const dist = 200
+            const angle = Vector3.atan2XZ(enemy.transform.position, this.player.transform.position)
 
             if (distance < 200) {
                 this.gameView.view.visible = false;
                 return;
             }else{
-                distance = 210 + Math.sin(Game.Time * 4) * 4
+                distance = 150 + Math.sin(Game.Time * 4) * 4 - 10
             }
             const lerp = this.gameView.view.visible ? 0.3 : 1;
             this.gameView.view.rotation = Utils.angleLerp(this.gameView.view.rotation, angle, lerp)

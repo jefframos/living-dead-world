@@ -95,7 +95,18 @@ export default class UIUtils {
 
         return button;
     }
-
+    static getPrimaryLabelButton(callback, label, icon) {
+        const button = new BaseButton('square_0001', 100, 65);
+        button.setActiveTexture('square_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+        if (icon) {
+            button.addIcon(icon)
+        }
+        if (label) {
+            UIUtils.addLabel(button, label, {strokeThickness:0, fontSize:18, fill:0})
+        }
+        return button;
+    }
     static getBodyTypeLabelButton(callback, label, icon) {
         const button = new BaseButton('square_0001', 100, 65);
         button.setActiveTexture('square_0002')

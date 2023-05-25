@@ -17,7 +17,7 @@ import signals from "signals";
 
 export default class LevelManager {
     static instance;
-        constructor(engine) {
+    constructor(engine) {
         LevelManager.instance = this;
         this.gameEngine = engine;
         this.gameplayEntities = [];
@@ -25,6 +25,7 @@ export default class LevelManager {
         this.activeEnemies = [];
         this.collectables = [];
         this.entitiesByType = {};
+        this.entitiesByTier = [[],[],[],[],[],[],[]];
 
         this.gameManagerStats = {
             GMtotalGameObjects: 0,
@@ -58,7 +59,7 @@ export default class LevelManager {
         }
         const firstPlayer = CookieManager.instance.getPlayer(CookieManager.instance.currentPlayer)
 
-        const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : Math.floor(Math.random() * 7))
+        const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : 0)
         playerBuildParams.customViewData = firstPlayer;
         this.player = this.addEntity(Player, playerBuildParams)
 
@@ -117,7 +118,8 @@ export default class LevelManager {
         this.collectables = [];
         this.activeEnemies = [];
         this.activeSpawners = [];
-        this.entitiesByType = {}
+        this.entitiesByType = {};
+        this.entitiesByTier = [[],[],[],[],[],[],[]];
         this.gameEngine.camera.followPoint.x = 0;//this.player.gameView.view.position.x;
         this.gameEngine.camera.followPoint.y = 0;
         this.gameEngine.camera.followPoint.z = 0;//this.player.gameView.view.position.y - this.player.transform.position.y;
@@ -154,6 +156,8 @@ export default class LevelManager {
         if (entity.layerCategory && entity.layerCategory == Layer.Enemy) {
             this.activeEnemies.push(entity)
 
+            this.entitiesByTier[buildParams.entityData.tier - 1].push(entity);
+
             if (!this.entitiesByType[buildParams.id]) {
                 this.entitiesByType[buildParams.id] = []
             }
@@ -186,6 +190,7 @@ export default class LevelManager {
         if (entity.layerCategory && entity.layerCategory == Layer.Enemy) {
             this.activeEnemies = this.activeEnemies.filter(item => item !== entity)
             this.entitiesByType[entity.staticData.id] = this.entitiesByType[entity.staticData.id].filter(item => item !== entity)
+            this.entitiesByTier[entity.tier] = this.entitiesByTier[entity.tier].filter(item => item !== entity)
         }
     }
     entityDamaged(entity, value) {
@@ -213,6 +218,29 @@ export default class LevelManager {
         }
 
         return this.activeEnemies[closest];
+    }
+    findClosestEnemyWithHigherTier(point) {
+        let tierId = 0;
+        for (let index = this.entitiesByTier.length-1; index >= 0; index--) {
+            if(this.entitiesByTier[index].length){
+                tierId = index;
+                break;
+            }
+            
+        }
+        let closest = 0;
+        let minDist = 999999;
+        for (var i = 0; i < this.entitiesByTier[tierId].length; i++) {
+            let enemy = this.entitiesByTier[tierId][i];
+
+            let dist = Vector3.distance(enemy.transform.position, point)
+            if (dist < minDist) {
+                minDist = dist;
+                closest = i;
+            }
+        }
+
+        return this.entitiesByTier[tierId][closest];
     }
     angleFromPlayer(point) {
         return Vector3.atan2XZ(point, this.player.transform.position);
