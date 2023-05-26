@@ -37,9 +37,14 @@ export default class EntityBuilder {
         AuraProjectile: AuraProjectile,
         FloatingProjectile: FloatingProjectile
     }
-    static instance;
+    static _instance;
+    static get instance(){
+        if(!EntityBuilder._instance){
+            EntityBuilder._instance = new EntityBuilder();
+        }
+        return EntityBuilder._instance;
+    };
     constructor(engine) {
-        EntityBuilder.instance = this;
         let vfxPackData = GameStaticData.instance.getAllDataFrom('vfx', 'weaponVFXPack');
         this.weaponVFXPackData = {};
         vfxPackData.forEach(element => {

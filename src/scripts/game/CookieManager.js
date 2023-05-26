@@ -38,9 +38,22 @@ export default class CookieManager {
 			version: '0.0.1',
 			totalPlayers: 1,
 			currentPlayer: 0,
+			playerLevel: 0,
+			playerStructures: [],
+		}
+		this.defaultLoadout = {
+			version: '0.0.1',
+			currentWeapon: [{ id: 'PISTOL_01', level: 0 }],
+			currentTrinket: [{ id: null, level: 0 }],
+			currentCompanion: [{ id: null, level: 0 }],
+			currentMask: [{ id: null, level: 0 }],
+			currentPlayer: 0,
 			playerStructures: []
 		}
-
+		this.defaultItemProgression = {
+			version: '0.0.1',
+			discoveredItems: []
+		}
 		this.defaultGifts = {
 			version: '0.0.1',
 			entities: {},
@@ -135,38 +148,42 @@ export default class CookieManager {
 	saveChunk(type, data, from = 'main') {
 		this.fullData[from][type] = data;
 		this.storeObject('fullData', this.fullData)
-
 	}
 	sortCookie(id) {
 		if (!this.fullData[id]) {
-
 			this.fullData[id] = {}
-			this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
-			this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);
-			this.fullData[id]['progression'] = this.sortCookieData('progression', this.defaultProgression);
-			this.fullData[id]['economy'] = this.sortCookieData('economy', this.defaultEconomy);
-			this.fullData[id]['achievments'] = this.sortCookieData('achievments', this.defaultAchievments);
 		}
+
+		this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
+		this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);
+		this.fullData[id]['progression'] = this.sortCookieData('progression', this.defaultProgression);
+		this.fullData[id]['economy'] = this.sortCookieData('economy', this.defaultEconomy);
+		this.fullData[id]['achievments'] = this.sortCookieData('achievments', this.defaultAchievments);
+		this.fullData[id]['loadout'] = this.sortCookieData('loadout', this.defaultLoadout);
+		this.fullData[id]['items'] = this.sortCookieData('items', this.defaultItemProgression);
 
 		this.storeObject('fullData', this.fullData)
 
 	}
-	get totalPlayers(){
+	get totalPlayers() {
 		return this.getChunck('player').totalPlayers;
 	}
-	get currentPlayer(){
+	get currentPlayer() {
 		return this.getChunck('player').currentPlayer;
 	}
-	changePlayer(id){
+	get loadout() {
+		return this.getChunck('loadout');
+	}
+	changePlayer(id) {
 		const data = this.getChunck('player')
 		data.currentPlayer = id;
 		this.saveChunk('player', data)
 	}
-	sortPlayers(){
+	sortPlayers() {
 		const data = this.getChunck('player')
 		for (let index = 0; index < data.totalPlayers; index++) {
 			const element = this.getPlayer(index);
-			if(!element){
+			if (!element) {
 				this.savePlayer(index)
 			}
 		}
@@ -178,6 +195,17 @@ export default class CookieManager {
 		} else {
 			return data.playerStructures[id]
 		}
+	}
+	saveEquipment(type, equip, level = 0) {
+		const data = this.getChunck('loadout')
+		if (data[type] === undefined) {
+			console.log(type, 'not found on loadout, not saving');
+			return;
+		}
+		data[type][this.currentPlayer].id = equip;
+		data[type][this.currentPlayer].level = level;
+		this.saveChunk('loadout', data)
+
 	}
 	savePlayer(id, dataToSave) {
 
@@ -191,7 +219,7 @@ export default class CookieManager {
 
 				const newP = new PlayerViewStructure();
 				data.playerStructures.push(newP.serialize());
-			}
+			}			
 
 		} else {
 			if (dataToSave) {
@@ -202,6 +230,14 @@ export default class CookieManager {
 				const newP = new PlayerViewStructure();
 				data.playerStructures[id] = (newP.serialize());
 			}
+
+			const loadout = this.getChunck('loadout')
+			loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 })
+			loadout.currentTrinket.push({ id: null, level: 0 })
+			loadout.currentCompanion.push({ id: null, level: 0 })
+			loadout.currentMask.push({ id: null, level: 0 })
+
+			this.saveChunk('loadout', loadout)
 		}
 		this.saveChunk('player', data)
 
@@ -228,7 +264,8 @@ export default class CookieManager {
 		return target
 	}
 	sortCookieData(nameID, defaultData, force = false) {
-		let cookie = this.getCookie(nameID);
+		let cookie = this.getChunck(nameID);
+
 		if (force) {
 			cookie = null;
 		}
@@ -239,6 +276,7 @@ export default class CookieManager {
 			for (const key in defaultData) {
 				const element = defaultData[key];
 				if (target[key] === undefined) {
+					console.log("Cookie Default", nameID, cookie)
 					target[key] = element;
 					//this.storeObject(nameID, target)
 				}

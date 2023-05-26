@@ -1,10 +1,10 @@
 import BaseEnemy from "../entity/BaseEnemy";
 import Collectable from "../entity/Collectable";
-import CookieManager from "../CookieManager";
 import DirectionPin from "../entity/DirectionPin";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
 import Game from "../../Game";
+import GameData from "../data/GameData";
 import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
 import Layer from "../core/Layer";
@@ -16,9 +16,13 @@ import Vector3 from "../core/gameObject/Vector3";
 import signals from "signals";
 
 export default class LevelManager {
-    static instance;
+    static _instance;
+
+    static get instance(){
+        return LevelManager._instance;
+    }
     constructor(engine) {
-        LevelManager.instance = this;
+        LevelManager._instance = this;
         this.gameEngine = engine;
         this.gameplayEntities = [];
         this.entityRegister = [];
@@ -57,10 +61,12 @@ export default class LevelManager {
         if (Game.Debug.customChar) {
             Game.Debug.customChar = parseInt(Game.Debug.customChar)
         }
-        const firstPlayer = CookieManager.instance.getPlayer(CookieManager.instance.currentPlayer)
+        const firstPlayer = GameData.instance.currentPlayer;
+
 
         const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : 0)
         playerBuildParams.customViewData = firstPlayer;
+        playerBuildParams.mainWeapon = GameData.instance.currentEquippedWeapon;
         this.player = this.addEntity(Player, playerBuildParams)
 
         this.player.onDie.addOnce(() => {

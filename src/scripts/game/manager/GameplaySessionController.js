@@ -27,7 +27,7 @@ export default class GameplaySessionController extends GameObject {
         this.buildingPositions = { x: 0, y: 0, i: 0, j: 0 };
         this.tileSize = 45
 
-        this.entityBuilder = new EntityBuilder();
+        this.entityBuilder = EntityBuilder.instance;
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.RenderLayers.Building
         this.gameView.view = new PIXI.Container();

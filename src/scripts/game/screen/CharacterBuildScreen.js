@@ -5,8 +5,8 @@ import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
-import CookieManager from '../CookieManager';
 import Game from '../../Game';
+import GameData from '../data/GameData';
 import InteractableView from '../view/card/InteractableView';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
 import LocationContainer from '../components/ui/location/LocationContainer';
@@ -69,10 +69,9 @@ export default class CharacterBuildScreen extends Screen {
 
         this.activePlayers = [];
 
-        const firstPlayer = CookieManager.instance.getPlayer(0)
-
-        for (let index = 0; index < CookieManager.instance.totalPlayers; index++) {
-            this.addCharacter(CookieManager.instance.getPlayer(index))
+        
+        for (let index = 0; index < GameData.instance.totalPlayers; index++) {
+            this.addCharacter(GameData.instance.getPlayer(index))
         }
         //this.addCharacter()
         //this.addCharacter()
@@ -122,6 +121,17 @@ export default class CharacterBuildScreen extends Screen {
 
         this.buttonsList.updateHorizontalList();
 
+
+        // setTimeout(() => {
+            
+        //     this.openModal(this.loadoutContainer);
+        // }, 10);
+
+
+        this.loadoutContainer.onUpdateMainWeapon.add(()=>{
+            this.loadoutButton.addIcon(GameData.instance.currentEquippedWeaponData.entityData.icon, 80)
+        })    
+
     }
     addModal(modal) {
         this.modalList.push(modal);
@@ -131,26 +141,26 @@ export default class CharacterBuildScreen extends Screen {
     }
     openModal(modal) {
         this.hideMainUI();
+        this.customizationZoom()
         modal.show();
     }
     buildBottomMenu() {
         this.bottomMenu = new PIXI.Container()
         this.container.addChild(this.bottomMenu);
-
         this.bottomMenuList = new UIList();
-        const bt1 = UIUtils.getPrimaryShapelessButton(() => {
+        this.loadoutButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.loadoutContainer);
-        }, 'Loadout', 'pistol1')
+        }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
         
         const bt2 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
         }, 'Location', 'map')
 
-        this.bottomMenuList.addElement(bt1, { align: 0 })
+        this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
         this.bottomMenuList.addElement(bt2, { align: 0 })
 
         this.menuButtons = [];
-        this.menuButtons.push(bt1)
+        this.menuButtons.push(this.loadoutButton)
         this.menuButtons.push(bt2)
 
         this.bottomMenuList.updateVerticalList()
@@ -203,10 +213,10 @@ export default class CharacterBuildScreen extends Screen {
         playerPreviewData.playerPreviewStructure.buildSpritesheet(playerPreviewData.playerViewDataStructure)
 
         playerPreviewData.playerViewDataStructure.onStructureUpdate.add(() => {
-            CookieManager.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
+            GameData.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
         })
         playerPreviewData.playerViewDataStructure.onColorUpdate.add(() => {
-            CookieManager.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
+            GameData.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
         })
 
         this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
@@ -227,11 +237,13 @@ export default class CharacterBuildScreen extends Screen {
         playerPreviewData.buttonsContainer.addChild(buttonsUIList)
 
         const cuttonClose = UIUtils.getCloseButton(() => {
+            this.tryHideModal();
             this.unSelectPlayer();
         })
         buttonsUIList.addElement(cuttonClose, { fitHeight: 1 })
 
         const buttonCustomize = UIUtils.getPrimaryButton(() => {
+            this.tryHideModal();
             this.showCustomization()
 
         }, '', 'icon_confirm')
@@ -242,13 +254,29 @@ export default class CharacterBuildScreen extends Screen {
 
         this.activePlayers.push(playerPreviewData)
     }
-    showCustomization() {
+    defaultZoom(){
+        this.zoom = 1
+
         if (Game.IsPortrait) {
-            this.pivotOffset.y = 80
+
+            this.pivotOffset.y = 20
         } else {
 
             this.pivotOffset.y = 0
         }
+    }
+    customizationZoom(){
+        this.zoom = 1.25
+
+        if (Game.IsPortrait) {
+            this.pivotOffset.y = 80
+        } else {
+    
+            this.pivotOffset.y = 0
+        }
+    }
+    showCustomization() {
+        this.customizationZoom();
         this.charCustomizationContainer.show()
 
         this.activePlayers.forEach(element => {
@@ -258,22 +286,16 @@ export default class CharacterBuildScreen extends Screen {
 
     }
     closeCustomization() {
-        this.pivotOffset.y = -50
+        this.defaultZoom();
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.hide()
-        this.hideMainUI()
-
-
+        //this.hideMainUI()
+        
+        
     }
     unSelectPlayer() {
-        if (Game.IsPortrait) {
-
-            this.pivotOffset.y = 20
-        } else {
-
-            this.pivotOffset.y = 0
-        }
-        this.zoom = 1
+        
+        this.defaultZoom();
         this.activePlayers.forEach(element => {
             element.buttonsContainer.visible = false;
         });
@@ -284,10 +306,11 @@ export default class CharacterBuildScreen extends Screen {
         if (this.charCustomizationContainer.isOpen) {
             return;
         }
+        this.customizationZoom();
+
         this.activePlayerId = id;
-        this.zoom = 1.5
-        CookieManager.instance.changePlayer(id)
-        this.hideMainUI()
+        GameData.instance.changePlayer(id)
+        //this.hideMainUI()
 
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
@@ -403,7 +426,9 @@ export default class CharacterBuildScreen extends Screen {
             element.playerPreviewStructure.update(delta)
         }
 
-
+        this.modalList.forEach(element => {
+            element.update(delta)
+        });
         this.sceneContainer.pivot.x = Utils.lerp(this.sceneContainer.pivot.x, this.activePlayers[this.activePlayerId].playerPreviewSprite.x + this.pivotOffset.x, 0.3);
         this.sceneContainer.pivot.y = Utils.lerp(this.sceneContainer.pivot.y, this.activePlayers[this.activePlayerId].playerPreviewSprite.y + this.pivotOffset.y, 0.3);
         this.sceneContainer.x = Game.Borders.width / 2;
@@ -419,6 +444,14 @@ export default class CharacterBuildScreen extends Screen {
 
         this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
         this.bottomMenuRightList.y = Game.Borders.height - this.bottomMenuList.h - 30;
+
+    }
+    tryHideModal(){
+        this.modalList.forEach(element => {
+            if (element.isOpen) {
+                element.hide();
+            }
+        });
 
     }
     backButtonAction() {

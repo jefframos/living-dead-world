@@ -12,9 +12,11 @@ export default class ListScroller extends PIXI.Container {
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
         this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
-        this.containerBackground.alpha = 0.15;
+        this.containerBackground.alpha = 0.55;
 
         this.rect = rect;
+
+        this.isHorizontal = false;
 
         this.container.addChild(this.containerBackground);
         this.container.addChild(this.listContainer);
@@ -49,27 +51,28 @@ export default class ListScroller extends PIXI.Container {
             this.addChild(this.maskGraphic)
             this.container.mask = this.maskGraphic;
         }
-        
-        if(this.containerBackground){
+
+        if (this.containerBackground) {
             this.container.removeChild(this.containerBackground)
             this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
-            this.containerBackground.alpha = 0.15;
-            this.container.addChildAt(this.containerBackground,0)
+            this.containerBackground.alpha = 0.55;
+            this.container.addChildAt(this.containerBackground, 0)
         }
         this.calcSize(slotSize);
     }
-    calcSize(slotSize){
-        
-        if(!slotSize){
+    calcSize(slotSize) {
+
+        if (!slotSize) {
             this.itemWidth = rect.w / this.gridDimensions.j
             this.itemHeight = rect.h / this.gridDimensions.i
-        }else{
+        } else {
             this.itemWidth = slotSize.width
             this.itemHeight = slotSize.height
         }
     }
     resetPosition() {
         this.listContainer.y = 0;
+        this.listContainer.x = 0;
         this.enableDrag = false;
     }
     addItens(itens, fit = false) {
@@ -95,33 +98,74 @@ export default class ListScroller extends PIXI.Container {
         this.dragging = false;
         this.containerBackground.interactive = false;
 
-        let target = 0;
-        let targY = this.listContainer.y
-        let maxH = this.itemHeight * this.totalLines + this.extraHeight;
-        if (this.goingDown == 1) {
-            targY -= this.itemHeight / 2;
-            target = Math.floor(targY / this.itemHeight) * this.itemHeight
-        } else if (this.goingDown == -1) {
 
-            targY += this.itemHeight / 2;
-            target = Math.ceil(targY / this.itemHeight) * this.itemHeight
+        const axis = this.isHorizontal?'x':'y'
+
+        let target = 0;
+        let targY = this.listContainer[axis]
+        let maxH = this.itemHeight * this.totalLines + this.extraHeight;
+        let maxW = this.itemWidth * this.totalLines + this.extraHeight;
+        
+        if( this.isHorizontal){
+            if (this.goingDown == 1) {
+                targY -= this.itemWidth / 2;
+                target = Math.floor(targY / this.itemWidth) * this.itemWidth
+                
+            } else if (this.goingDown == -1) {
+    
+                targY += this.itemWidth / 2;
+                target = Math.ceil(targY / this.itemWidth) * this.itemWidth
+            }
+        }else{
+
+            if (this.goingDown == 1) {
+                targY -= this.itemHeight / 2;
+                target = Math.floor(targY / this.itemHeight) * this.itemHeight
+                
+            } else if (this.goingDown == -1) {
+    
+                targY += this.itemHeight / 2;
+                target = Math.ceil(targY / this.itemHeight) * this.itemHeight
+            }
         }
 
-        if (target > 0) {
-            TweenLite.to(this.listContainer, 0.75, {
-                y: 0,
-                ease: Back.easeOut
-            })
-        } else if (target + maxH < this.containerBackground.height) {
-            TweenLite.to(this.listContainer, 0.75, {
-                y: this.containerBackground.height - maxH, // - this.listContainer.height,
-                ease: Back.easeOut
-            })
-        } else if (target != 0) {
-            TweenLite.to(this.listContainer, 0.75, {
-                y: target,
-                ease: Back.easeOut
-            })
+
+        if (axis == 'y') {
+
+            if (target > 0) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    y: 0,
+                    ease: Back.easeOut
+                })
+            } else if (target + maxH < this.containerBackground.height) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    y: this.containerBackground.height - maxH, // - this.listContainer.height,
+                    ease: Back.easeOut
+                })
+            } else if (target != 0) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    y: target,
+                    ease: Back.easeOut
+                })
+            }
+        } else {
+            console.log(target , maxW, target + maxW ,this.containerBackground.width, this.containerBackground.width - maxW)
+            if (target > 0) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    x: 0,
+                    ease: Back.easeOut
+                })
+            } else if (target + maxW > this.containerBackground.width) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    x: -(this.containerBackground.width - maxW), // - this.listContainer.height,
+                    ease: Back.easeOut
+                })
+            } else if (target != 0) {
+                TweenLite.to(this.listContainer, 0.75, {
+                    x: target,
+                    ease: Back.easeOut
+                })
+            }
         }
     }
     moveDrag(e) {
@@ -131,13 +175,14 @@ export default class ListScroller extends PIXI.Container {
         }
         if (this.dragging) {
 
+            const axis = this.isHorizontal?'x':'y'
             // this.spaceShipInfoContainer.visible = false;
             // if (this.lastItemClicked) {
             //     this.lastItemClicked.visible = true;
             // }
             this.container.alpha = 1;
             this.dragVelocity = {
-                x: (e.data.global.x - this.currentMousePos.x),
+                x: this.currentMousePos.x - e.data.global.x,
                 y: this.currentMousePos.y - e.data.global.y
             }
             this.currentMousePos = {
@@ -145,12 +190,12 @@ export default class ListScroller extends PIXI.Container {
                 y: e.data.global.y
             };
 
-            this.listContainer.y -= this.dragVelocity.y
+            this.listContainer[axis] -= this.dragVelocity[axis]
 
-            if (this.dragVelocity.y > 0) {
+            if (this.dragVelocity[axis] > 0) {
                 this.containerBackground.interactive = true;
                 this.goingDown = 1;
-            } else if (this.dragVelocity.y < 0) {
+            } else if (this.dragVelocity[axis] < 0) {
                 this.containerBackground.interactive = true;
                 this.goingDown = -1;
             }

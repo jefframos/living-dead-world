@@ -44,7 +44,7 @@ export default class UIUtils {
         const button = new BaseButton(null, 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
-            button.addIcon(icon)
+            button.addIcon(icon, 80)
         }
         if (label) {
             UIUtils.addLabel(button, label)

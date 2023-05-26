@@ -19,37 +19,13 @@ export default class CardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['card-border']
-        this.skews = [{
-            skew: -0.3,
-            rotation: -0.2,
-            position: {
-                x: width / 2 + 5,
-                y: 15
-            }
-        },
-        {
-            skew: -0.25,
-            rotation: -0.2,
-            position: {
-                x: width / 2 + 5,
-                y: 18
-            }
-        },
-        {
-            skew: -0.3,
-            rotation: -0.08,
-            position: {
-                x: width / 2 + 5,
-                y: 20
-            }
-        }]
+        this.textures = ['card-shape-1']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
 
         this.cardBackground = new PIXI.Sprite.from('card-backshape-1');
-        this.cardContainer.addChild(this.cardBackground);
+        //this.cardContainer.addChild(this.cardBackground);
         //this.cardBackground.tint = 0x6794C7
         this.cardBackground.width = width
         this.cardBackground.height = height
@@ -90,7 +66,8 @@ export default class CardView extends PIXI.Container {
         this.descriptionBox.height = 37
         this.descriptionBox.visible = false;
 
-        this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('title-1'), 50, 0, 50, 0);
+        //this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('title-1'), 50, 0, 50, 0);
+        this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
         this.cardContainer.addChild(this.titleBox);
         this.titleBox.width = width + 20
         this.titleBox.height = 37
@@ -119,6 +96,7 @@ export default class CardView extends PIXI.Container {
 
         this.safeShape.x = -width / 2
         this.safeShape.pivot.y = height
+
         this.confirmCard = new BaseButton('square_0001s', 100, 50);
         this.addChild(this.confirmCard)
         this.confirmCard.pivot.x = this.confirmCard.safeShape.width
@@ -134,6 +112,13 @@ export default class CardView extends PIXI.Container {
        this.smallFontSize = 12
        this.largeFontSize = 16
 
+    }
+    resetPivot(){
+        this.cardContainer.x = 0
+        this.cardContainer.pivot.y = 0
+
+        this.safeShape.x = 0
+        this.safeShape.pivot.y = 0
     }
     highlight() {
 
@@ -167,8 +152,12 @@ export default class CardView extends PIXI.Container {
         }
     }
     setDescription(label) {
-        this.labelDescription = new PIXI.Text(label, window.LABELS.LABEL1)
-        this.descriptionBox.addChild(this.labelDescription);
+        if(this.labelDescription){
+            this.labelDescription.text = label;
+        }else{
+            this.labelDescription = new PIXI.Text(label, window.LABELS.LABEL1)
+            this.descriptionBox.addChild(this.labelDescription);
+        }
         this.labelDescription.style.fill = 0xffffff
         this.labelDescription.style.strokeThickness = 1
         this.labelDescription.style.wordWrap = true
