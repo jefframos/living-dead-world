@@ -7,6 +7,7 @@ import Bullet from "../components/weapon/bullets/Bullet";
 import CircularBullet from "../components/weapon/bullets/CircularBullet";
 import CompanionData from "../data/CompanionData";
 import EffectsManager from "../manager/EffectsManager";
+import EntityData from "../data/EntityData";
 import FallingProjectile from "../components/weapon/bullets/FallingProjectile";
 import FloatingProjectile from "../components/weapon/FloatingProjectile";
 import GameStaticData from "../data/GameStaticData";
@@ -30,7 +31,7 @@ export default class EntityBuilder {
         CircularBullet: CircularBullet,
         BounceBullet: BounceBullet,
         LaserBeam: LaserBeam,
-        FallingProjectile:FallingProjectile
+        FallingProjectile: FallingProjectile
     }
     static WeaponsAvailable = {
         BaseWeapon: BaseWeapon,
@@ -38,8 +39,8 @@ export default class EntityBuilder {
         FloatingProjectile: FloatingProjectile
     }
     static _instance;
-    static get instance(){
-        if(!EntityBuilder._instance){
+    static get instance() {
+        if (!EntityBuilder._instance) {
             EntityBuilder._instance = new EntityBuilder();
         }
         return EntityBuilder._instance;
@@ -61,12 +62,15 @@ export default class EntityBuilder {
         let attributes = GameStaticData.instance.getAllDataFrom('modifiers', 'attributes');
         let acessories = GameStaticData.instance.getAllDataFrom('misc', 'acessories');
         let attachments = GameStaticData.instance.getAllDataFrom('misc', 'attachments');
-        
+
         this.weaponsData = {};
         this.attachments = {};
         this.companionsData = {};
         this.attributeModifiersData = {};
         this.acessoriesData = {};
+        this.equipablesData = {};
+        this.trinketsData = {};
+        this.masksData = {};
         weapons.forEach(element => {
             if (this.weaponsData[element.id]) {
 
@@ -87,14 +91,26 @@ export default class EntityBuilder {
 
         acessories.forEach(element => {
             let attData = new AcessoryData(element)
-            this.acessoriesData[element.id] = attData;
+            if (attData.entityData.type == EntityData.EntityDataType.Equipable) {
+
+                this.equipablesData[element.id] = attData;
+
+                if (attData.bodyPart == 'mask') {
+                    this.masksData[element.id] = attData;
+                } else if (attData.bodyPart == 'trinket') {
+                    this.trinketsData[element.id] = attData;
+                }
+            } else {
+
+                this.acessoriesData[element.id] = attData;
+            }
         });
 
         attachments.forEach(element => {
             let attData = new WeaponAttachmentData(element)
             this.attachments[element.id] = attData;
         });
-        
+
         this.weaponsArray = []
         for (const key in this.weaponsData) {
             this.findDestroyWeapon(this.weaponsData[key])
@@ -136,16 +152,25 @@ export default class EntityBuilder {
         }
 
     }
-    getWeapon(id){
+    getEquipable(id) {
+        return this.equipablesData[id];
+    }
+    getMask(id) {
+        return this.masksData[id];
+    }
+    getTrinket(id) {
+        return this.trinketsData[id];
+    }
+    getWeapon(id) {
         return this.weaponsData[id];
     }
-    getCompanion(id){
+    getCompanion(id) {
         return this.companionsData[id];
     }
-    getAttribute(id){
+    getAttribute(id) {
         return this.attributeModifiersData[id];
     }
-    getAcessory(id){
+    getAcessory(id) {
         return this.acessoriesData[id];
     }
     findDestroyWeapon(weapon) {
@@ -162,14 +187,14 @@ export default class EntityBuilder {
             if (targetInGameViewData) {
                 for (const key in targetInGameViewData) {
                     if (weapon.ingameViewDataStatic[key] != undefined) {
-                        if(key == 'progressBar'){
+                        if (key == 'progressBar') {
                             for (const progressBarKey in targetInGameViewData[key]) {
                                 if (weapon.ingameViewDataStatic[key][progressBarKey] != undefined) {
                                     weapon.ingameViewDataStatic[key][progressBarKey] = targetInGameViewData[key][progressBarKey];
                                 }
                             }
 
-                        }else{
+                        } else {
                             weapon.ingameViewDataStatic[key] = targetInGameViewData[key];
                         }
                     }
@@ -177,7 +202,7 @@ export default class EntityBuilder {
             }
         }
 
-        
+
         for (const key in weaponData) {
             if (Object.hasOwnProperty.call(weapon, key)) {
                 weapon[key] = weaponData[key];
@@ -194,7 +219,7 @@ export default class EntityBuilder {
             }
         }
 
-        
+
         if (weaponData.view) {
             for (const key in weaponData.view) {
                 if (Object.hasOwnProperty.call(weapon.weaponViewData, key)) {

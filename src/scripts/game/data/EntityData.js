@@ -10,6 +10,7 @@ export default class EntityData {
         Attribute: 'Attribute',
         Acessory:'Acessory',
         WeaponAttachment:'WeaponAttachment',
+        Equipable:'Equipable',
     }
     constructor() {
         this.icon = 'icon_confirm';

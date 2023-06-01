@@ -10,7 +10,8 @@ export default class GameData {
 		}
 		return GameData._instance;
 	}
-    constructor() {        
+    constructor() {      
+        this.onUpdateEquipment  = new signals.Signal();
     }
     get currentPlayer(){
         return CookieManager.instance.getPlayer(CookieManager.instance.currentPlayer)
@@ -53,5 +54,13 @@ export default class GameData {
     }
     changeCompanion(id){
         CookieManager.instance.saveEquipment('currentCompanion', id)
+    }
+    changeMask(id){
+        CookieManager.instance.saveEquipment('currentMask', id)
+        this.onUpdateEquipment.dispatch('mask', id)
+    }
+    changeTrinket(id){
+        CookieManager.instance.saveEquipment('currentTrinket', id)
+        this.onUpdateEquipment.dispatch('trinket', id)
     }
 }

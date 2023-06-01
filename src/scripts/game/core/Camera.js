@@ -15,7 +15,7 @@ export default class Camera extends GameObject{
     constructor(){
         super()
         this.zoom = 1;
-        this.targetZoom = Game.Debug.zoom || 1.5;
+        this.targetZoom = Game.Debug.zoom || 0.75;
         this.followPoint = new Vector3();
     }
 }

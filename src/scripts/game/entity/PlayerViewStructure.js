@@ -24,6 +24,8 @@ export default class PlayerViewStructure {
         this._trinket = 0
         this._frontFace = 0
         this._backHead = 0
+        this._trinketSprite = null
+        this._maskSprite = null
         this._skinColor = UIUtils.colorset.skin[0]
         this._hairColor = UIUtils.colorset.hair[0]
         this._topClothColor = UIUtils.colorset.clothes[0]
@@ -33,7 +35,18 @@ export default class PlayerViewStructure {
         this._shoeColor = UIUtils.colorset.clothes[0]
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
+        this.onSpriteUpdate = new signals.Signal();
     }
+    set trinketSprite(value) {
+        this._trinketSprite = value;
+        this.onSpriteUpdate.dispatch('trinketSprite', this._trinketSprite)
+    }
+    get trinketSprite() { return this._trinketSprite; }
+    set maskSprite(value) {
+        this._maskSprite = value;
+        this.onSpriteUpdate.dispatch('maskSprite', this._maskSprite)
+    }
+    get maskSprite() { return this._maskSprite; }
     set trinket(value) {
         this._trinket = value;
         this.onStructureUpdate.dispatch('trinket', this._trinket)

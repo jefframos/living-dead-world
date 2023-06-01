@@ -1,4 +1,6 @@
 import BaseComponent from '../core/gameObject/BaseComponent';
+import EntityBuilder from '../screen/EntityBuilder';
+import GameData from '../data/GameData';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
 import Shaders from '../shader/Shaders';
@@ -69,6 +71,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         }
         this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this))
         this.baseData.onColorUpdate.add(this.colorUpdate.bind(this))
+        this.baseData.onSpriteUpdate.add(this.spriteUpdate.bind(this))
 
 
 
@@ -84,7 +87,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
 
             { type: 'visuals', area: "chest", src: "chest-00{frame}", frame: Utils.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
-            { type: 'equip', area: "trinket", src: "trinket-00{frame}", frame: Utils.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', enabled: this.baseData.trinket > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
+            { type: 'equip', area: "trinketSprite", src: "trinket-00{frame}", frame: Utils.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
             { type: 'visuals', area: "head", src: "head-00{frame}", frame: Utils.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
             { type: 'visuals', area: "mouth", src: "mouth-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
 
@@ -94,7 +97,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { type: 'visuals', area: "ears", src: "ear-00{frame}", frame: Utils.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
 
             { type: 'visuals', area: "frontFace", src: "front-face-00{frame}", frame: Utils.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
-            { type: 'equip', area: "mask", src: "mask-00{frame}", frame: Utils.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: this.baseData.mask > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.5 },
+            { type: 'equip', area: "maskSprite", src: "mask-0001", frame: Utils.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
             { type: 'visuals', area: "eyes", src: "eyes-00{frame}", frame: Utils.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.2 },
 
             { type: 'equip', area: "hat", src: "hat-00{frame}", frame: Utils.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionSin, animForce: 1 },
@@ -148,8 +151,49 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.playerContainer.pivot.set(0.45 * spriteSize.width, 0.9 * spriteSize.height)
         }
 
+
+        let currentTrinket = GameData.instance.currentEquippedTrinket;
+        if (currentTrinket.id) {
+            this.updateEquipment('trinket', currentTrinket.id)
+        }
+
+        let currentMask = GameData.instance.currentEquippedMask;
+        if (currentMask.id) {
+            this.updateEquipment('mask', currentMask.id)
+        }
+
         this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
 
+
+    }
+
+    updateEquipment(area, id) {
+        const data = EntityBuilder.instance.getEquipable(id);
+        if (area == 'trinket') {
+            this.baseData.trinketSprite = data.playerSpriteOverride
+        } else if (area == 'mask') {
+            this.baseData.maskSprite = data.playerSpriteOverride
+        }
+    }
+    spriteUpdate(region, value) {
+        if (!value) {
+            return
+        }
+        let id = -1;
+        for (var i = 0; i < this.bodyData.length; i++) {
+            if (this.bodyData[i].area == region) {
+                id = i;
+                break
+            }
+        }
+
+        if (id < 0) {
+            return
+        }
+        this.bodyData[id].enabled = true;
+        this.bodyData[id].sprite = value;
+        this.spriteLayersData[region].enable = true;
+        this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(this.bodyData[id].sprite)
     }
     colorUpdate(region, value) {
 
@@ -187,7 +231,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         if (!this.spriteLayersData[region].enabled) {
             this.spriteLayersData[region].sprite.texture = PIXI.Texture.EMPTY;
         }
-        else if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate) {
+        else if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate && !this.spriteLayersData[region].sprite) {
             const src = this.bodyData[id].src.replace('{frame}', this.bodyData[id].frame);
             this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(src)
         }

@@ -5,6 +5,7 @@ import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
+import EntityBuilder from './EntityBuilder';
 import Game from '../../Game';
 import GameData from '../data/GameData';
 import InteractableView from '../view/card/InteractableView';
@@ -69,7 +70,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.activePlayers = [];
 
-        
+
         for (let index = 0; index < GameData.instance.totalPlayers; index++) {
             this.addCharacter(GameData.instance.getPlayer(index))
         }
@@ -123,15 +124,35 @@ export default class CharacterBuildScreen extends Screen {
 
 
         // setTimeout(() => {
-            
+
         //     this.openModal(this.loadoutContainer);
         // }, 10);
 
 
-        this.loadoutContainer.onUpdateMainWeapon.add(()=>{
+        this.loadoutContainer.onUpdateMainWeapon.add(() => {
             this.loadoutButton.addIcon(GameData.instance.currentEquippedWeaponData.entityData.icon, 80)
-        })    
+        })
 
+        GameData.instance.onUpdateEquipment.add(this.updateEquipment.bind(this));
+
+        let currentTrinket = GameData.instance.currentEquippedTrinket;
+        if(currentTrinket.id){
+            this.updateEquipment('trinket', currentTrinket.id)
+        }
+        
+        let currentMask = GameData.instance.currentEquippedMask;
+        if(currentMask.id){
+            this.updateEquipment('mask', currentMask.id)
+        }
+
+    }
+    updateEquipment(area, id) {
+        const data = EntityBuilder.instance.getEquipable(id);
+        if(area == 'trinket'){
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data.playerSpriteOverride
+        }else if(area == 'mask'){
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data.playerSpriteOverride
+        }
     }
     addModal(modal) {
         this.modalList.push(modal);
@@ -151,7 +172,7 @@ export default class CharacterBuildScreen extends Screen {
         this.loadoutButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.loadoutContainer);
         }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
-        
+
         const bt2 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
         }, 'Location', 'map')
@@ -207,6 +228,7 @@ export default class CharacterBuildScreen extends Screen {
         playerPreviewData.playerPreviewStructure.setData({})
 
         playerPreviewData.playerViewDataStructure = new PlayerViewStructure();
+
         if (data) {
             playerPreviewData.playerViewDataStructure.parse(data)
         }
@@ -254,7 +276,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.activePlayers.push(playerPreviewData)
     }
-    defaultZoom(){
+    defaultZoom() {
         this.zoom = 1
 
         if (Game.IsPortrait) {
@@ -265,13 +287,13 @@ export default class CharacterBuildScreen extends Screen {
             this.pivotOffset.y = 0
         }
     }
-    customizationZoom(){
+    customizationZoom() {
         this.zoom = 1.25
 
         if (Game.IsPortrait) {
             this.pivotOffset.y = 80
         } else {
-    
+
             this.pivotOffset.y = 0
         }
     }
@@ -290,11 +312,11 @@ export default class CharacterBuildScreen extends Screen {
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.hide()
         //this.hideMainUI()
-        
-        
+
+
     }
     unSelectPlayer() {
-        
+
         this.defaultZoom();
         this.activePlayers.forEach(element => {
             element.buttonsContainer.visible = false;
@@ -412,10 +434,10 @@ export default class CharacterBuildScreen extends Screen {
         // }
 
         this.charCustomizationContainer.aspectChange(isPortrait)
-          this.modalList.forEach(element => {
+        this.modalList.forEach(element => {
             element.aspectChange(isPortrait);
         });
-        
+
 
     }
     update(delta) {
@@ -446,7 +468,7 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList.y = Game.Borders.height - this.bottomMenuList.h - 30;
 
     }
-    tryHideModal(){
+    tryHideModal() {
         this.modalList.forEach(element => {
             if (element.isOpen) {
                 element.hide();

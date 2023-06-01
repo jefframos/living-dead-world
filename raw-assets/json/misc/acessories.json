@@ -31,5 +31,77 @@
             "tier": 1
         },
         "effectId": "BURN_ON_SHOOT"
+    },
+    {
+        "id": "MASK_01",
+        "entityData": {
+            "icon": "mask-0001",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseDefense",
+        "value": [2,3,4,5,6],
+        "bodyPart": "mask",
+        "playerSpriteOverride": "mask-0001"
+    },
+    {
+        "id": "MASK_02",
+        "entityData": {
+            "icon": "mask-0002",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseDefense",
+        "value": [2,3,4,5,6],
+        "bodyPart": "mask",
+        "playerSpriteOverride": "mask-0002"
+    },
+    {
+        "id": "MASK_03",
+        "entityData": {
+            "icon": "mask-0003",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseDefense",
+        "value": [2,3,4,5,6],
+        "bodyPart": "mask",
+        "playerSpriteOverride": "mask-0003"
+    },
+    {
+        "id": "MASK_04",
+        "entityData": {
+            "icon": "mask-0004",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseDefense",
+        "value": [2,3,4,5,6],
+        "bodyPart": "mask",
+        "playerSpriteOverride": "mask-0004"
+    },
+    {
+        "id": "TRINKET_01",
+        "entityData": {
+            "icon": "trinket-0001",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "trinket",
+        "playerSpriteOverride": "trinket-0001"
+    },
+    {
+        "id": "TRINKET_02",
+        "entityData": {
+            "icon": "trinket-0001",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "trinket",
+        "playerSpriteOverride": "trinket-0002"
     }
 ]

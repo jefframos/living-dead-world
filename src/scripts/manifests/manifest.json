@@ -1,7 +1,7 @@
 {
     "default": [
-        "image/texture/texture.json",
         "image/terrain/terrain.json",
+        "image/texture/texture.json",
         "image/hud/hud.json",
         "image/campfire/campfire.json",
         "image/environment/environment.json",

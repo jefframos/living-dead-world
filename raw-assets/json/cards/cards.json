@@ -388,5 +388,65 @@
         "acessoryId": "BURN_SHOOT",
         "tier": 1,
         "enabled": true
+    },
+    {
+        "id": "MASK_01",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "MASK_01",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "MASK_02",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "MASK_02",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "MASK_03",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "MASK_03",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "MASK_04",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "MASK_04",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_01",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_01",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_02",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_02",
+        "tier": 1,
+        "enabled": true
     }
 ]
