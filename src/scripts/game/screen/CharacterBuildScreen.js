@@ -8,6 +8,7 @@ import CharacterCustomizationContainer from '../components/ui/customization/Char
 import EntityBuilder from './EntityBuilder';
 import Game from '../../Game';
 import GameData from '../data/GameData';
+import GameStaticData from '../data/GameStaticData';
 import InteractableView from '../view/card/InteractableView';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
 import LocationContainer from '../components/ui/location/LocationContainer';
@@ -64,7 +65,9 @@ export default class CharacterBuildScreen extends Screen {
 
 
 
-
+        this.logo = new PIXI.Sprite.from('muta-logo');
+        this.container.addChild(this.logo);
+        this.logo.anchor.x = 0.5;
 
 
 
@@ -134,24 +137,45 @@ export default class CharacterBuildScreen extends Screen {
         })
 
         GameData.instance.onUpdateEquipment.add(this.updateEquipment.bind(this));
+        GameData.instance.onUpdateCompanion.add(this.updateCompanion.bind(this));
+
+        let currentCompanion = GameData.instance.currentEquippedCompanionData;
+        if (currentCompanion) {
+            this.updateCompanion(currentCompanion.id)
+        }
 
         let currentTrinket = GameData.instance.currentEquippedTrinket;
-        if(currentTrinket.id){
+        if (currentTrinket.id) {
             this.updateEquipment('trinket', currentTrinket.id)
         }
-        
+
         let currentMask = GameData.instance.currentEquippedMask;
-        if(currentMask.id){
+        if (currentMask.id) {
             this.updateEquipment('mask', currentMask.id)
         }
 
     }
+    updateCompanion(id) {
+        const data = EntityBuilder.instance.getCompanion(id);
+        
+        if(!data){
+            this.activePlayers[this.activePlayerId].companion.texture = PIXI.Texture.EMPTY;
+            return
+        }
+        let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
+        this.activePlayers[this.activePlayerId].companion.scale.set(data.view.scale)
+        this.activePlayers[this.activePlayerId].companion.anchor.x = idle.params.anchor.x
+        this.activePlayers[this.activePlayerId].companion.anchor.y = idle.params.anchor.y
+        this.activePlayers[this.activePlayerId].companion.y = -data.view.jumpHight;
+        this.activePlayers[this.activePlayerId].companion.texture = PIXI.Texture.from(data.entityData.icon)
+    }
+
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
-        if(area == 'trinket'){
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data? data.playerSpriteOverride : null;
-        }else if(area == 'mask'){
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data? data.playerSpriteOverride : null;
+        if (area == 'trinket') {
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
+        } else if (area == 'mask') {
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
         }
     }
     addModal(modal) {
@@ -218,8 +242,8 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList.updateVerticalList()
 
         this.bottomMenuRight.addChild(this.bottomMenuRightList)
-        
-        
+
+
         this.playGameButton = UIUtils.getMainPlayButton(() => {
             this.screenManager.redirectToGame();
         }, 'PLAY', 'video-purple')
@@ -230,6 +254,8 @@ export default class CharacterBuildScreen extends Screen {
         let playerPreviewData = {}
         playerPreviewData.playerPreviewSprite = new PIXI.Sprite();
 
+        playerPreviewData.playerCompanion = new PIXI.Sprite();
+        playerPreviewData.playerCompanion.scale.set(1.25)
 
 
         playerPreviewData.playerPreviewStructure = new PlayerGameViewSpriteSheet();
@@ -237,6 +263,7 @@ export default class CharacterBuildScreen extends Screen {
         playerPreviewData.playerPreviewStructure.baseScale = 1
         playerPreviewData.playerPreviewStructure.sinSpeed = 2
         playerPreviewData.playerPreviewStructure.view = playerPreviewData.playerPreviewSprite
+        playerPreviewData.companion = playerPreviewData.playerCompanion
         playerPreviewData.playerPreviewStructure.setData({})
 
         playerPreviewData.playerViewDataStructure = new PlayerViewStructure();
@@ -254,9 +281,13 @@ export default class CharacterBuildScreen extends Screen {
         })
 
         this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
+        playerPreviewData.playerPreviewSprite.addChild(playerPreviewData.playerCompanion);
+        playerPreviewData.playerCompanion.x = 120
+        playerPreviewData.playerCompanion.y = 0
+
 
         InteractableView.addMouseDown(playerPreviewData.playerPreviewSprite, () => {
-            if(!this.activePlayers[this.activePlayerId].buttonsContainer.visible){
+            if (!this.activePlayers[this.activePlayerId].buttonsContainer.visible) {
                 return;
             }
             this.updateCurrentPlayer(playerPreviewData.id);
@@ -272,24 +303,6 @@ export default class CharacterBuildScreen extends Screen {
         buttonsUIList.x = -buttonsUIList.w / 2
         buttonsUIList.y = buttonsUIList.h / 2
         playerPreviewData.buttonsContainer.addChild(buttonsUIList)
-
-        // const cuttonClose = UIUtils.getCloseButton(() => {
-        //     this.tryHideModal();
-        //     this.unSelectPlayer();
-        // })
-        // buttonsUIList.addElement(cuttonClose, { fitHeight: 1 })
-
-        // const buttonCustomize = UIUtils.getPrimaryButton(() => {
-        //     if(!this.activePlayers[this.activePlayerId].buttonsContainer.visible){
-        //         return;
-        //     }
-        //     this.tryHideModal();
-        //     this.showCustomization()
-
-        // }, '', 'icon_confirm')
-        // buttonsUIList.addElement(buttonCustomize, { fitHeight: 1 })
-        // buttonsUIList.updateHorizontalList()
-
         playerPreviewData.buttonsContainer.visible = true;
 
         this.activePlayers.push(playerPreviewData)
@@ -343,7 +356,7 @@ export default class CharacterBuildScreen extends Screen {
         this.showMainUI();
 
     }
-    hideCurrentCustomizationButton(){
+    hideCurrentCustomizationButton() {
         this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
     }
     updateCurrentPlayer(id) {
@@ -448,8 +461,11 @@ export default class CharacterBuildScreen extends Screen {
         this.outgameUIProgression.y = 30;
 
 
-        this.playGameButton.x = Game.Borders.width/2 - this.playGameButton.width / 2;
+        this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 20
+
+        this.logo.x = Game.Borders.width / 2
+        this.logo.y = 40
 
     }
 
@@ -523,7 +539,7 @@ export default class CharacterBuildScreen extends Screen {
         } else {
             this.closeCustomization();
             this.unSelectPlayer();
-            this.screenManager.backScreen()
+            this.screenManager.redirectToDebugMenu()
         }
     }
 }

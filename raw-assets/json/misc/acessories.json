@@ -83,7 +83,7 @@
     {
         "id": "TRINKET_01",
         "entityData": {
-            "icon": "trinket-0001",
+            "icon": "trinket-icon0001",
             "type": "Equipable",
             "tier": 1
         },
@@ -95,7 +95,7 @@
     {
         "id": "TRINKET_02",
         "entityData": {
-            "icon": "trinket-0001",
+            "icon": "trinket-icon0002",
             "type": "Equipable",
             "tier": 1
         },
@@ -103,5 +103,29 @@
         "value": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0002"
+    },
+    {
+        "id": "TRINKET_03",
+        "entityData": {
+            "icon": "trinket-icon0003",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "trinket",
+        "playerSpriteOverride": "trinket-0003"
+    },
+    {
+        "id": "TRINKET_04",
+        "entityData": {
+            "icon": "trinket-icon0004",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "trinket",
+        "playerSpriteOverride": "trinket-0004"
     }
 ]

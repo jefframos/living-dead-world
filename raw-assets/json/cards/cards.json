@@ -448,5 +448,25 @@
         "acessoryId": "TRINKET_02",
         "tier": 1,
         "enabled": true
+    },
+    {
+        "id": "TRINKET_03",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_03",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_04",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_04",
+        "tier": 1,
+        "enabled": true
     }
 ]
