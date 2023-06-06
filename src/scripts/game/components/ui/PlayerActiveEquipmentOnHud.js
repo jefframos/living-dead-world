@@ -16,7 +16,7 @@ export default class PlayerActiveEquipmentOnHud extends PIXI.Container {
     setItem(item, size = 50) {
         this.icon.texture = PIXI.Texture.from(item.entityData.icon)
         this.icon.scale.set(Utils.scaleToFit(this.icon, 50))
-        this.icon.rotation = Math.PI / 4
+       // this.icon.rotation = Math.PI / 4
         this.icon.x = this.icon.width/2
         this.icon.y = this.icon.height/2
     }

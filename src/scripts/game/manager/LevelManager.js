@@ -126,6 +126,7 @@ export default class LevelManager {
         this.activeSpawners = [];
         this.entitiesByType = {};
         this.entitiesByTier = [[],[],[],[],[],[],[]];
+        this.gameEngine.camera.zoom = 3
         this.gameEngine.camera.followPoint.x = 0;//this.player.gameView.view.position.x;
         this.gameEngine.camera.followPoint.y = 0;
         this.gameEngine.camera.followPoint.z = 0;//this.player.gameView.view.position.y - this.player.transform.position.y;

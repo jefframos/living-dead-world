@@ -41,17 +41,27 @@ export default class UIUtils {
     }
 
     static getPrimaryShapelessButton(callback, label, icon) {
-        const button = new BaseButton(null, 100, 100);
+        const button = new BaseButton(null, 150, 150);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
             button.addIcon(icon, 80)
         }
         if (label) {
-            UIUtils.addLabel(button, label)
+            UIUtils.addLabel(button, label, {fontSize: 28})
         }
         return button;
     }
-
+    static getMainPlayButton(callback, label, icon) {
+        const button = new BaseButton(null, 300, 200);
+        InteractableView.addMouseUp(button, () => { if (callback) callback() })
+        if (icon) {
+            button.addIcon(icon, 150)
+        }
+        if (label) {
+            UIUtils.addLabel(button, label, {fontSize: 48})
+        }
+        return button;
+    }
     static getPrimaryLabel(label, params = {}) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
         for (const key in params) {

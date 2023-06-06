@@ -149,9 +149,9 @@ export default class CharacterBuildScreen extends Screen {
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
         if(area == 'trinket'){
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data.playerSpriteOverride
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data? data.playerSpriteOverride : null;
         }else if(area == 'mask'){
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data.playerSpriteOverride
+            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data? data.playerSpriteOverride : null;
         }
     }
     addModal(modal) {
@@ -174,8 +174,10 @@ export default class CharacterBuildScreen extends Screen {
         }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
 
         const bt2 = UIUtils.getPrimaryShapelessButton(() => {
-            this.openModal(this.locationContainer);
-        }, 'Location', 'map')
+            this.showCustomization();
+
+        }, 'Customize', 'crown')
+
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
         this.bottomMenuList.addElement(bt2, { align: 0 })
@@ -198,9 +200,13 @@ export default class CharacterBuildScreen extends Screen {
         }, 'Shop', 'money')
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
-            this.openModal(this.achievmentsContainer)
+            this.openModal(this.locationContainer);
+        }, 'Location', 'map')
 
-        }, 'Achievments', 'achievment')
+        // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
+        //     this.openModal(this.achievmentsContainer)
+
+        // }, 'Achievments', 'achievment')
 
         this.bottomMenuRightList.addElement(bt3, { align: 0 })
         this.bottomMenuRightList.addElement(bt4, { align: 0 })
@@ -212,6 +218,12 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList.updateVerticalList()
 
         this.bottomMenuRight.addChild(this.bottomMenuRightList)
+        
+        
+        this.playGameButton = UIUtils.getMainPlayButton(() => {
+            this.screenManager.redirectToGame();
+        }, 'PLAY', 'video-purple')
+        this.bottomMenuRight.addChild(this.playGameButton)
     }
     addCharacter(data) {
 
@@ -244,6 +256,9 @@ export default class CharacterBuildScreen extends Screen {
         this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
 
         InteractableView.addMouseDown(playerPreviewData.playerPreviewSprite, () => {
+            if(!this.activePlayers[this.activePlayerId].buttonsContainer.visible){
+                return;
+            }
             this.updateCurrentPlayer(playerPreviewData.id);
         })
         playerPreviewData.id = this.activePlayers.length;
@@ -258,21 +273,24 @@ export default class CharacterBuildScreen extends Screen {
         buttonsUIList.y = buttonsUIList.h / 2
         playerPreviewData.buttonsContainer.addChild(buttonsUIList)
 
-        const cuttonClose = UIUtils.getCloseButton(() => {
-            this.tryHideModal();
-            this.unSelectPlayer();
-        })
-        buttonsUIList.addElement(cuttonClose, { fitHeight: 1 })
+        // const cuttonClose = UIUtils.getCloseButton(() => {
+        //     this.tryHideModal();
+        //     this.unSelectPlayer();
+        // })
+        // buttonsUIList.addElement(cuttonClose, { fitHeight: 1 })
 
-        const buttonCustomize = UIUtils.getPrimaryButton(() => {
-            this.tryHideModal();
-            this.showCustomization()
+        // const buttonCustomize = UIUtils.getPrimaryButton(() => {
+        //     if(!this.activePlayers[this.activePlayerId].buttonsContainer.visible){
+        //         return;
+        //     }
+        //     this.tryHideModal();
+        //     this.showCustomization()
 
-        }, '', 'icon_confirm')
-        buttonsUIList.addElement(buttonCustomize, { fitHeight: 1 })
-        buttonsUIList.updateHorizontalList()
+        // }, '', 'icon_confirm')
+        // buttonsUIList.addElement(buttonCustomize, { fitHeight: 1 })
+        // buttonsUIList.updateHorizontalList()
 
-        playerPreviewData.buttonsContainer.visible = false;
+        playerPreviewData.buttonsContainer.visible = true;
 
         this.activePlayers.push(playerPreviewData)
     }
@@ -298,6 +316,7 @@ export default class CharacterBuildScreen extends Screen {
         }
     }
     showCustomization() {
+
         this.customizationZoom();
         this.charCustomizationContainer.show()
 
@@ -319,22 +338,27 @@ export default class CharacterBuildScreen extends Screen {
 
         this.defaultZoom();
         this.activePlayers.forEach(element => {
-            element.buttonsContainer.visible = false;
+            element.buttonsContainer.visible = true;
         });
         this.showMainUI();
 
+    }
+    hideCurrentCustomizationButton(){
+        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
     }
     updateCurrentPlayer(id) {
         if (this.charCustomizationContainer.isOpen) {
             return;
         }
-        this.customizationZoom();
+        //this.customizationZoom();
+        // this.tryHideModal();
+        // this.showCustomization()
 
         this.activePlayerId = id;
         GameData.instance.changePlayer(id)
         //this.hideMainUI()
 
-        this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
+        this.hideCurrentCustomizationButton();
         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
     }
     randomize() {
@@ -352,6 +376,7 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenu.visible = false;
         this.bottomMenuRight.visible = false;
         this.outgameUIProgression.visible = false;
+        this.hideCurrentCustomizationButton()
         if (hideBackButton) {
             this.closeButton.visible = false;
         }
@@ -421,6 +446,10 @@ export default class CharacterBuildScreen extends Screen {
 
         this.outgameUIProgression.x = Game.Borders.width - this.outgameUIProgression.width - 30;
         this.outgameUIProgression.y = 30;
+
+
+        this.playGameButton.x = Game.Borders.width/2 - this.playGameButton.width / 2;
+        this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 20
 
     }
 

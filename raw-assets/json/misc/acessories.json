@@ -35,7 +35,7 @@
     {
         "id": "MASK_01",
         "entityData": {
-            "icon": "mask-0001",
+            "icon": "mask-icon0001",
             "type": "Equipable",
             "tier": 1
         },
@@ -47,7 +47,7 @@
     {
         "id": "MASK_02",
         "entityData": {
-            "icon": "mask-0002",
+            "icon": "mask-icon0002",
             "type": "Equipable",
             "tier": 1
         },
@@ -59,7 +59,7 @@
     {
         "id": "MASK_03",
         "entityData": {
-            "icon": "mask-0003",
+            "icon": "mask-icon0003",
             "type": "Equipable",
             "tier": 1
         },
@@ -71,7 +71,7 @@
     {
         "id": "MASK_04",
         "entityData": {
-            "icon": "mask-0004",
+            "icon": "mask-icon0004",
             "type": "Equipable",
             "tier": 1
         },

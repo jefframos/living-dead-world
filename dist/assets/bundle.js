@@ -21065,7 +21065,7 @@ var UIUtils = function () {
     }, {
         key: "getPrimaryShapelessButton",
         value: function getPrimaryShapelessButton(callback, label, icon) {
-            var button = new _BaseButton2.default(null, 100, 100);
+            var button = new _BaseButton2.default(null, 150, 150);
             _InteractableView2.default.addMouseUp(button, function () {
                 if (callback) callback();
             });
@@ -21073,7 +21073,22 @@ var UIUtils = function () {
                 button.addIcon(icon, 80);
             }
             if (label) {
-                UIUtils.addLabel(button, label);
+                UIUtils.addLabel(button, label, { fontSize: 28 });
+            }
+            return button;
+        }
+    }, {
+        key: "getMainPlayButton",
+        value: function getMainPlayButton(callback, label, icon) {
+            var button = new _BaseButton2.default(null, 300, 200);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon, 150);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { fontSize: 48 });
             }
             return button;
         }
@@ -27018,6 +27033,7 @@ var LevelManager = function () {
             this.activeSpawners = [];
             this.entitiesByType = {};
             this.entitiesByTier = [[], [], [], [], [], [], []];
+            this.gameEngine.camera.zoom = 3;
             this.gameEngine.camera.followPoint.x = 0; //this.player.gameView.view.position.x;
             this.gameEngine.camera.followPoint.y = 0;
             this.gameEngine.camera.followPoint.z = 0; //this.player.gameView.view.position.y - this.player.transform.position.y;
@@ -31221,8 +31237,9 @@ var MainScreenModal = function (_PIXI$Container) {
     (0, _createClass3.default)(MainScreenModal, [{
         key: 'addBackgroundShape',
         value: function addBackgroundShape() {
-            this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
+            this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
             this.container.addChild(this.infoBackContainer);
+            this.infoBackContainer.tint = 0x2A292F;
         }
     }, {
         key: 'show',
@@ -35860,6 +35877,8 @@ var CookieManager = function () {
 				loadout.currentTrinket.push({ id: null, level: 0 });
 				loadout.currentCompanion.push({ id: null, level: 0 });
 				loadout.currentMask.push({ id: null, level: 0 });
+
+				console.log("WUT");
 
 				this.saveChunk('loadout', loadout);
 			}
@@ -63413,7 +63432,7 @@ var MainScreenManager = function (_ScreenManager) {
         _this.characterBuilding = new _CharacterBuildScreen2.default(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer);
         _this.addScreen(_this.characterBuilding);
 
-        _this.forceChange(MainScreenManager.Screens.MainMenu);
+        _this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
         _this.timeScale = 1;
 
@@ -63435,6 +63454,8 @@ var MainScreenManager = function (_ScreenManager) {
             _this.forceChange(MainScreenManager.Screens.CharacterBuild);
         } else if (_Game2.default.Debug.game) {
             _this.forceChange(MainScreenManager.Screens.GameScreen);
+        } else if (_Game2.default.Debug.debugMenu) {
+            _this.forceChange(MainScreenManager.Screens.MainMenu);
         }
 
         _this.isPaused = false;
@@ -63508,11 +63529,16 @@ var MainScreenManager = function (_ScreenManager) {
             (0, _get3.default)(MainScreenManager.prototype.__proto__ || (0, _getPrototypeOf2.default)(MainScreenManager.prototype), 'change', this).call(this, screenLabel, param);
         }
     }, {
+        key: 'redirectToMenu',
+        value: function redirectToMenu(harder) {
+            window.HARDER = harder;
+            this.change(MainScreenManager.Screens.CharacterBuild);
+        }
+    }, {
         key: 'redirectToGame',
         value: function redirectToGame(harder) {
             window.HARDER = harder;
             this.change(MainScreenManager.Screens.GameScreen);
-            //this.showPopUp('init')
         }
     }, {
         key: 'update',
@@ -67083,13 +67109,20 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.bodyData = [{ type: 'visuals', area: "backArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 }, { type: 'visuals', area: "backSleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 },
 
             //  {type:'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
-            { type: 'visuals', area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "trinketSprite", src: "trinket-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "maskSprite", src: "mask-0001", frame: _Utils2.default.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.2 }, { type: 'equip', area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionSin, animForce: 1 }, { type: 'visuals', area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }, { type: 'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }];
+            { type: 'visuals', area: "backHead", src: "back-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 }, { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true }, { type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true }, { type: 'visuals', area: "chest", src: "chest-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "trinketSprite", src: null, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "head", src: "head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.head, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.head > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "mouth", src: "mouth-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "topHead", src: "top-head-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "ears", src: "ear-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.ears, 1), colorId: 'skinColor', color: this.baseData.skinColor, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "frontFace", src: "front-face-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.frontFace, 1), colorId: 'faceHairColor', color: this.baseData.faceHairColor, enabled: this.baseData.frontFace > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'equip', area: "maskSprite", src: null, frame: _Utils2.default.formatNumber(this.baseData.mask, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 }, { type: 'visuals', area: "eyes", src: "eyes-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.face, 1), color: 0xFFFFFF, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1.2 }, { type: 'equip', area: "hat", src: "hat-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.hat, 1), color: 0xFFFFFF, enabled: this.baseData.hat > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionSin, animForce: 1 }, { type: 'visuals', area: "frontArm", src: "front-arm00{frame}", frame: _Utils2.default.formatNumber(this.baseData.arms, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }, { type: 'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: _Utils2.default.formatNumber(this.baseData.sleeves, 1), offset: { x: 35, y: 120 }, anchor: { x: 0.25, y: 0.55 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationSin, animForce: 2 }];
 
             var spriteSize = { width: 0, height: 0 };
             this.bodyData.forEach(function (element) {
-                var src = element.src.replace('{frame}', element.frame);
-                var sprite = element.enabled ? PIXI.Sprite.from(src + (element.animate ? "01" : "")) : new PIXI.Sprite();
-                sprite.tint = element.color;
+                var sprite = null;
+                if (element.src) {
+                    var src = element.src.replace('{frame}', element.frame);
+                    sprite = element.enabled ? PIXI.Sprite.from(src + (element.animate ? "01" : "")) : new PIXI.Sprite();
+                } else {
+                    sprite = new PIXI.Sprite();
+                }
+                if (element.color !== undefined && element.color !== null) {
+                    sprite.tint = element.color;
+                }
                 _this2.spriteLayersData[element.area] = {
                     sprite: sprite,
                     enabled: element.enabled,
@@ -67152,9 +67185,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
     }, {
         key: 'spriteUpdate',
         value: function spriteUpdate(region, value) {
-            if (!value) {
-                return;
-            }
+
             var id = -1;
             for (var i = 0; i < this.bodyData.length; i++) {
                 if (this.bodyData[i].area == region) {
@@ -67166,10 +67197,17 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             if (id < 0) {
                 return;
             }
-            this.bodyData[id].enabled = true;
-            this.bodyData[id].sprite = value;
-            this.spriteLayersData[region].enable = true;
-            this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(this.bodyData[id].sprite);
+            if (!value) {
+                this.bodyData[id].enabled = false;
+                this.spriteLayersData[region].enable = false;
+                this.spriteLayersData[region].sprite.texture = PIXI.Texture.EMPTY;
+            } else {
+
+                this.bodyData[id].enabled = true;
+                this.bodyData[id].sprite = value;
+                this.spriteLayersData[region].enable = true;
+                this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(this.bodyData[id].sprite);
+            }
         }
     }, {
         key: 'colorUpdate',
@@ -67192,6 +67230,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
     }, {
         key: 'structureUpdate',
         value: function structureUpdate(region, value) {
+
             var id = -1;
             for (var i = 0; i < this.bodyData.length; i++) {
                 if (this.bodyData[i].area == region) {
@@ -67210,7 +67249,7 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
 
             if (!this.spriteLayersData[region].enabled) {
                 this.spriteLayersData[region].sprite.texture = PIXI.Texture.EMPTY;
-            } else if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate && !this.spriteLayersData[region].sprite) {
+            } else if (this.spriteLayersData[region].enabled && !this.spriteLayersData[region].animate) {
                 var src = this.bodyData[id].src.replace('{frame}', this.bodyData[id].frame);
                 this.spriteLayersData[region].sprite.texture = PIXI.Texture.from(src);
             }
@@ -67292,9 +67331,15 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 if (spriteElement.enabled && spriteElement.animate) {
                     var src = element.src.replace('{frame}', element.frame);
                     spriteElement.sprite.texture = PIXI.Texture.from(src + "0" + (_this4.currentFrame + 1));
-                    spriteElement.sprite.tint = element.color;
+                    if (element.color !== undefined && element.color !== null) {
+
+                        spriteElement.sprite.tint = element.color;
+                    }
                 } else {
-                    spriteElement.sprite.tint = element.color;
+                    if (element.color !== undefined && element.color !== null) {
+
+                        spriteElement.sprite.tint = element.color;
+                    }
                 }
             });
         }
@@ -83657,9 +83702,9 @@ var CharacterBuildScreen = function (_Screen) {
                 value: function updateEquipment(area, id) {
                         var data = _EntityBuilder2.default.instance.getEquipable(id);
                         if (area == 'trinket') {
-                                this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data.playerSpriteOverride;
+                                this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
                         } else if (area == 'mask') {
-                                this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data.playerSpriteOverride;
+                                this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
                         }
                 }
         }, {
@@ -83690,8 +83735,8 @@ var CharacterBuildScreen = function (_Screen) {
                         }, 'Loadout', _GameData2.default.instance.currentEquippedWeaponData.entityData.icon);
 
                         var bt2 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                                _this2.openModal(_this2.locationContainer);
-                        }, 'Location', 'map');
+                                _this2.showCustomization();
+                        }, 'Customize', 'crown');
 
                         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 });
                         this.bottomMenuList.addElement(bt2, { align: 0 });
@@ -83713,8 +83758,13 @@ var CharacterBuildScreen = function (_Screen) {
                         }, 'Shop', 'money');
 
                         var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                                _this2.openModal(_this2.achievmentsContainer);
-                        }, 'Achievments', 'achievment');
+                                _this2.openModal(_this2.locationContainer);
+                        }, 'Location', 'map');
+
+                        // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
+                        //     this.openModal(this.achievmentsContainer)
+
+                        // }, 'Achievments', 'achievment')
 
                         this.bottomMenuRightList.addElement(bt3, { align: 0 });
                         this.bottomMenuRightList.addElement(bt4, { align: 0 });
@@ -83726,6 +83776,11 @@ var CharacterBuildScreen = function (_Screen) {
                         this.bottomMenuRightList.updateVerticalList();
 
                         this.bottomMenuRight.addChild(this.bottomMenuRightList);
+
+                        this.playGameButton = _UIUtils2.default.getMainPlayButton(function () {
+                                _this2.screenManager.redirectToGame();
+                        }, 'PLAY', 'video-purple');
+                        this.bottomMenuRight.addChild(this.playGameButton);
                 }
         }, {
                 key: 'addCharacter',
@@ -83759,6 +83814,9 @@ var CharacterBuildScreen = function (_Screen) {
                         this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
 
                         _InteractableView2.default.addMouseDown(playerPreviewData.playerPreviewSprite, function () {
+                                if (!_this3.activePlayers[_this3.activePlayerId].buttonsContainer.visible) {
+                                        return;
+                                }
                                 _this3.updateCurrentPlayer(playerPreviewData.id);
                         });
                         playerPreviewData.id = this.activePlayers.length;
@@ -83773,20 +83831,24 @@ var CharacterBuildScreen = function (_Screen) {
                         buttonsUIList.y = buttonsUIList.h / 2;
                         playerPreviewData.buttonsContainer.addChild(buttonsUIList);
 
-                        var cuttonClose = _UIUtils2.default.getCloseButton(function () {
-                                _this3.tryHideModal();
-                                _this3.unSelectPlayer();
-                        });
-                        buttonsUIList.addElement(cuttonClose, { fitHeight: 1 });
+                        // const cuttonClose = UIUtils.getCloseButton(() => {
+                        //     this.tryHideModal();
+                        //     this.unSelectPlayer();
+                        // })
+                        // buttonsUIList.addElement(cuttonClose, { fitHeight: 1 })
 
-                        var buttonCustomize = _UIUtils2.default.getPrimaryButton(function () {
-                                _this3.tryHideModal();
-                                _this3.showCustomization();
-                        }, '', 'icon_confirm');
-                        buttonsUIList.addElement(buttonCustomize, { fitHeight: 1 });
-                        buttonsUIList.updateHorizontalList();
+                        // const buttonCustomize = UIUtils.getPrimaryButton(() => {
+                        //     if(!this.activePlayers[this.activePlayerId].buttonsContainer.visible){
+                        //         return;
+                        //     }
+                        //     this.tryHideModal();
+                        //     this.showCustomization()
 
-                        playerPreviewData.buttonsContainer.visible = false;
+                        // }, '', 'icon_confirm')
+                        // buttonsUIList.addElement(buttonCustomize, { fitHeight: 1 })
+                        // buttonsUIList.updateHorizontalList()
+
+                        playerPreviewData.buttonsContainer.visible = true;
 
                         this.activePlayers.push(playerPreviewData);
                 }
@@ -83818,6 +83880,7 @@ var CharacterBuildScreen = function (_Screen) {
         }, {
                 key: 'showCustomization',
                 value: function showCustomization() {
+
                         this.customizationZoom();
                         this.charCustomizationContainer.show();
 
@@ -83841,9 +83904,14 @@ var CharacterBuildScreen = function (_Screen) {
 
                         this.defaultZoom();
                         this.activePlayers.forEach(function (element) {
-                                element.buttonsContainer.visible = false;
+                                element.buttonsContainer.visible = true;
                         });
                         this.showMainUI();
+                }
+        }, {
+                key: 'hideCurrentCustomizationButton',
+                value: function hideCurrentCustomizationButton() {
+                        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
                 }
         }, {
                 key: 'updateCurrentPlayer',
@@ -83851,13 +83919,15 @@ var CharacterBuildScreen = function (_Screen) {
                         if (this.charCustomizationContainer.isOpen) {
                                 return;
                         }
-                        this.customizationZoom();
+                        //this.customizationZoom();
+                        // this.tryHideModal();
+                        // this.showCustomization()
 
                         this.activePlayerId = id;
                         _GameData2.default.instance.changePlayer(id);
                         //this.hideMainUI()
 
-                        this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
+                        this.hideCurrentCustomizationButton();
                         this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure);
                 }
         }, {
@@ -83878,6 +83948,7 @@ var CharacterBuildScreen = function (_Screen) {
                         this.bottomMenu.visible = false;
                         this.bottomMenuRight.visible = false;
                         this.outgameUIProgression.visible = false;
+                        this.hideCurrentCustomizationButton();
                         if (hideBackButton) {
                                 this.closeButton.visible = false;
                         }
@@ -83951,6 +84022,9 @@ var CharacterBuildScreen = function (_Screen) {
 
                         this.outgameUIProgression.x = _Game2.default.Borders.width - this.outgameUIProgression.width - 30;
                         this.outgameUIProgression.y = 30;
+
+                        this.playGameButton.x = _Game2.default.Borders.width / 2 - this.playGameButton.width / 2;
+                        this.playGameButton.y = _Game2.default.Borders.height - this.playGameButton.height - 20;
                 }
         }, {
                 key: 'aspectChange',
@@ -84150,7 +84224,7 @@ var ListScroller = function (_PIXI$Container) {
         _this.totalLines = 0;
         _this.container = new PIXI.Container();
         _this.listContainer = new PIXI.Container();
-        _this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+        _this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
         _this.containerBackground.alpha = 0.55;
 
         _this.rect = rect;
@@ -84196,7 +84270,7 @@ var ListScroller = function (_PIXI$Container) {
 
             if (this.containerBackground) {
                 this.container.removeChild(this.containerBackground);
-                this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+                this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
                 this.containerBackground.alpha = 0.55;
                 this.container.addChildAt(this.containerBackground, 0);
             }
@@ -88440,7 +88514,7 @@ var PlayerActiveEquipmentOnHud = function (_PIXI$Container) {
 
             this.icon.texture = PIXI.Texture.from(item.entityData.icon);
             this.icon.scale.set(_Utils2.default.scaleToFit(this.icon, 50));
-            this.icon.rotation = Math.PI / 4;
+            // this.icon.rotation = Math.PI / 4
             this.icon.x = this.icon.width / 2;
             this.icon.y = this.icon.height / 2;
         }
@@ -91438,35 +91512,46 @@ var LoadoutContainer = function (_MainScreenModal) {
                 _this.slotsList = new _UIList2.default();
 
                 _this.slotsList.w = _this.slotSize;
-                _this.slotsList.h = (_this.slotSize + 10) * 4;
+                _this.slotsList.h = (_this.slotSize + 30) * 2;
                 _this.contentContainer.addChild(_this.slotsList);
 
+                _this.slotsListInGame = new _UIList2.default();
+
+                _this.slotsListInGame.w = _this.slotSize;
+                _this.slotsListInGame.h = (_this.slotSize + 30) * 2;
+                _this.contentContainer.addChild(_this.slotsListInGame);
+
                 _this.currentWeaponSlot = new _LoadoutCardView2.default('square_0006', _this.slotSize, _this.slotSize);
-                _this.slotsList.addElement(_this.currentWeaponSlot, { align: 0 });
+                _this.currentWeaponSlot.setIconType();
+                _this.slotsListInGame.addElement(_this.currentWeaponSlot, { align: 0 });
 
                 _this.currentWeaponSlot.onCardClicked.add(function (card) {
                         _this.updateListView(_this.equippableWeapons);
                 });
 
                 _this.currentMaskSlot = new _LoadoutCardView2.default('square_0006', _this.slotSize, _this.slotSize);
+                _this.currentMaskSlot.setIconType(true);
                 _this.slotsList.addElement(_this.currentMaskSlot, { align: 0 });
                 _this.currentMaskSlot.onCardClicked.add(function (card) {
                         _this.updateListView(_this.equippableMasks);
                 });
 
                 _this.currentTrinketSlot = new _LoadoutCardView2.default('square_0006', _this.slotSize, _this.slotSize);
+                _this.currentTrinketSlot.setIconType(true);
                 _this.slotsList.addElement(_this.currentTrinketSlot, { align: 0 });
                 _this.currentTrinketSlot.onCardClicked.add(function (card) {
                         _this.updateListView(_this.equippableTrinkets);
                 });
 
                 _this.currentCompanionSlot = new _LoadoutCardView2.default('square_0006', _this.slotSize, _this.slotSize);
-                _this.slotsList.addElement(_this.currentCompanionSlot, { align: 0 });
+                _this.currentCompanionSlot.setIconType();
+                _this.slotsListInGame.addElement(_this.currentCompanionSlot, { align: 0 });
                 _this.currentCompanionSlot.onCardClicked.add(function (card) {
                         _this.updateListView(_this.equippableCompanions);
                 });
 
                 _this.slotsList.updateVerticalList();
+                _this.slotsListInGame.updateVerticalList();
 
                 return _this;
         }
@@ -91490,7 +91575,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.currentWeaponSlot.resetPivot();
 
                         var mask = _GameData2.default.instance.currentEquippedMask;
-                        this.currentMaskSlot.setData(mask ? _EntityBuilder2.default.instance.getMask(mask.id) : null);
+                        this.currentMaskSlot.setData(mask ? _EntityBuilder2.default.instance.getMask(mask.id) : null, 100);
                         this.currentMaskSlot.resetPivot();
 
                         var trinket = _GameData2.default.instance.currentEquippedTrinket;
@@ -91503,12 +91588,12 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.currentCompanionSlot.resetPivot();
 
                         this.equippableWeapons = [];
-                        var availableCards = [0, 1, 2, 3, 5, 7, 8, 9, 10, 11, 12];
+                        var availableCards = [3, 5, 7, 8, 9, 10];
 
                         for (var index = 0; index < availableCards.length; index++) {
                                 var card = new _LoadoutCardView2.default('square_0006', this.slotSize, this.slotSize);
                                 var dt = _EntityBuilder2.default.instance.getWeapon(cards[availableCards[index]].weaponId);
-                                card.setData(dt, 0);
+                                card.setData(dt);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeMainWeapon(card.cardData.id);
@@ -91519,11 +91604,21 @@ var LoadoutContainer = function (_MainScreenModal) {
                         }
 
                         this.equippableCompanions = [];
+
+                        var removeCompanion = new _LoadoutCardView2.default('square_0006', this.slotSize, this.slotSize);
+                        //removeCompanion.setData(dt)
+                        removeCompanion.resetPivot();
+                        removeCompanion.onCardClicked.add(function (removeCompanion) {
+                                _GameData2.default.instance.changeCompanion(null);
+                                _this2.currentCompanionSlot.setData(null);
+                        });
+                        this.equippableCompanions.push(removeCompanion);
+
                         cards.forEach(function (element) {
                                 if (element.entityData.type === 'Companion') {
                                         var _card = new _LoadoutCardView2.default('square_0006', _this2.slotSize, _this2.slotSize);
                                         var _dt = _EntityBuilder2.default.instance.getCompanion(element.id);
-                                        _card.setData(_dt, 0);
+                                        _card.setData(_dt);
                                         _card.resetPivot();
                                         _card.onCardClicked.add(function (card) {
                                                 _GameData2.default.instance.changeCompanion(card.cardData.id);
@@ -91534,13 +91629,23 @@ var LoadoutContainer = function (_MainScreenModal) {
                         });
 
                         this.equippableTrinkets = [];
+
+                        var removeTrinnket = new _LoadoutCardView2.default('square_0006', this.slotSize, this.slotSize);
+                        //removeTrinnket.setData(dt)
+                        removeTrinnket.resetPivot();
+                        removeTrinnket.onCardClicked.add(function (removeTrinnket) {
+                                _GameData2.default.instance.changeTrinket(null);
+                                _this2.currentTrinketSlot.setData(null);
+                        });
+                        this.equippableTrinkets.push(removeTrinnket);
+
                         cards.forEach(function (element) {
                                 if (element.entityData.type === 'Equipable') {
                                         var _dt2 = _EntityBuilder2.default.instance.getEquipable(element.id);
                                         if (_dt2.bodyPart == 'trinket') {
 
                                                 var _card2 = new _LoadoutCardView2.default('square_0006', _this2.slotSize, _this2.slotSize);
-                                                _card2.setData(_dt2, 0);
+                                                _card2.setData(_dt2);
                                                 _card2.resetPivot();
                                                 _card2.onCardClicked.add(function (card) {
                                                         _GameData2.default.instance.changeTrinket(card.cardData.id);
@@ -91552,13 +91657,23 @@ var LoadoutContainer = function (_MainScreenModal) {
                         });
 
                         this.equippableMasks = [];
+
+                        var removeMask = new _LoadoutCardView2.default('square_0006', this.slotSize, this.slotSize);
+                        //removeMask.setData(dt)
+                        removeMask.resetPivot();
+                        removeMask.onCardClicked.add(function (removeMask) {
+                                _GameData2.default.instance.changeMask(null);
+                                _this2.currentMaskSlot.setData(null);
+                        });
+                        this.equippableMasks.push(removeMask);
+
                         cards.forEach(function (element) {
                                 if (element.entityData.type === 'Equipable') {
                                         var _dt3 = _EntityBuilder2.default.instance.getEquipable(element.id);
                                         if (_dt3.bodyPart == 'mask') {
 
                                                 var _card3 = new _LoadoutCardView2.default('square_0006', _this2.slotSize, _this2.slotSize);
-                                                _card3.setData(_dt3, 0);
+                                                _card3.setData(_dt3);
                                                 _card3.resetPivot();
                                                 _card3.onCardClicked.add(function (card) {
                                                         _GameData2.default.instance.changeMask(card.cardData.id);
@@ -91589,6 +91704,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.updateListView(this.equippableWeapons);
 
                         this.slotsList.updateVerticalList();
+                        this.slotsListInGame.updateVerticalList();
                         this.resize();
                 }
         }, {
@@ -91615,15 +91731,25 @@ var LoadoutContainer = function (_MainScreenModal) {
 
                         this.weaponsScroller.removeAllItems();
 
-                        this.weaponsScroller.gridDimensions.j = Math.floor((_Game2.default.Borders.width - 130) / this.weaponsScroller.scale.x / (this.slotSize + margin));
-                        this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: _Game2.default.Borders.height / 2 / this.weaponsScroller.scale.y - 50 - 80 }, { width: this.slotSize + margin, height: this.slotSize + margin });
+                        if (_Game2.default.IsPortrait) {
+                                this.weaponsScroller.gridDimensions.j = Math.floor(_Game2.default.Borders.width / this.weaponsScroller.scale.x / (this.slotSize + margin));
+                                this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: _Game2.default.Borders.height / 2 / this.weaponsScroller.scale.y - 130 }, { width: this.slotSize + margin, height: this.slotSize + margin });
+                        } else {
+
+                                this.weaponsScroller.gridDimensions.j = Math.floor((_Game2.default.Borders.width - 130) / this.weaponsScroller.scale.x / (this.slotSize + margin));
+                                this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: _Game2.default.Borders.height / 2 / this.weaponsScroller.scale.y - 130 }, { width: this.slotSize + margin, height: this.slotSize + margin });
+                        }
                         this.weaponsScroller.addItens(this.currentSlots);
 
                         this.weaponsScroller.y = _Game2.default.Borders.height - 90 - this.weaponsScroller.rect.h;
-                        this.weaponsScroller.x = (_Game2.default.Borders.width - 80) / 2 - this.weaponsScroller.rect.w / 2;
+                        this.weaponsScroller.x = (_Game2.default.Borders.width - 100) / 2 - this.weaponsScroller.rect.w / 2;
 
-                        this.slotsList.scale.set(_Utils2.default.scaleToFit(this.slotsList, _Game2.default.Borders.height / 2 - 50));
-                        this.slotsList.x = this.weaponsScroller.x + 10;
+                        //this.slotsList.scale.set(Utils.scaleToFit(this.slotsList, Game.Borders.height / 2 - 150))
+                        this.slotsListInGame.x = this.weaponsScroller.x + 10;
+                        this.slotsListInGame.y = _Game2.default.Borders.height / 2 - this.slotsListInGame.h * this.slotsListInGame.scale.y;
+
+                        //this.slotsListInGame.scale.set(Utils.scaleToFit(this.slotsListInGame, Game.Borders.height / 2 - 150))
+                        this.slotsList.x = this.weaponsScroller.rect.w + this.weaponsScroller.x - this.slotsList.w * this.slotsList.scale.x;
                         this.slotsList.y = _Game2.default.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y;
                 }
         }]);
@@ -91723,6 +91849,14 @@ var LoadoutCardView = function (_PIXI$Container) {
                 _this.cardBorder.width = width;
                 _this.cardBorder.height = height;
 
+                _this.cardIconContainer = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+                _this.cardContainer.addChild(_this.cardIconContainer);
+                _this.cardIconContainer.width = 40;
+                _this.cardIconContainer.height = 40;
+                _this.cardIconContainer.x = width - 20;
+                _this.cardIconContainer.y = -20;
+                _this.cardIconContainer.visible = false;
+
                 _this.cardImage = new PIXI.Sprite();
 
                 _this.cardContainer.addChild(_this.cardImage);
@@ -91770,6 +91904,16 @@ var LoadoutCardView = function (_PIXI$Container) {
         }
 
         (0, _createClass3.default)(LoadoutCardView, [{
+                key: 'setIconType',
+                value: function setIconType() {
+                        var left = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+                        if (left) {
+                                this.cardIconContainer.x = -20;
+                        }
+                        this.cardIconContainer.visible = true;
+                }
+        }, {
                 key: 'resetPivot',
                 value: function resetPivot() {
                         this.cardContainer.x = 0;
@@ -91802,14 +91946,21 @@ var LoadoutCardView = function (_PIXI$Container) {
         }, {
                 key: 'setData',
                 value: function setData(cardData) {
+                        var customIconSize = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 80;
+
                         if (this.cardData == cardData) {
                                 return;
                         }
                         this.cardData = cardData;
                         var cardID = 0;
                         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
-                        this.updateTexture(cardData.entityData.icon);
-                        this.cardImage.scale.set(_Utils2.default.scaleToFit(this.cardImage, 50));
+                        if (cardData) {
+                                this.updateTexture(cardData.entityData.icon);
+                        } else {
+                                this.cardImage.texture = PIXI.Texture.EMPTY;
+                                this.cardBorder.texture = PIXI.Texture.from('square_0006');
+                        }
+                        this.cardImage.scale.set(_Utils2.default.scaleToFit(this.cardImage, customIconSize));
                 }
         }]);
         return LoadoutCardView;
@@ -91837,6 +91988,10 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _possibleConstructorReturn2 = __webpack_require__(3);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -91848,6 +92003,10 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
+
+var _Game = __webpack_require__(9);
+
+var _Game2 = _interopRequireDefault(_Game);
 
 var _MainScreenModal2 = __webpack_require__(67);
 
@@ -91865,6 +92024,23 @@ var LocationContainer = function (_MainScreenModal) {
         return (0, _possibleConstructorReturn3.default)(this, (LocationContainer.__proto__ || (0, _getPrototypeOf2.default)(LocationContainer)).call(this));
     }
 
+    (0, _createClass3.default)(LocationContainer, [{
+        key: 'resize',
+        value: function resize(res, newRes) {
+
+            if (this.infoBackContainer) {
+
+                this.infoBackContainer.width = _Game2.default.Borders.width - 80;
+                this.infoBackContainer.height = _Game2.default.Borders.height / 2 - 80;
+
+                this.infoBackContainer.x = 50;
+                this.infoBackContainer.y = _Game2.default.Borders.height - this.infoBackContainer.height - 50;
+            }
+
+            this.contentContainer.x = 50;
+            this.contentContainer.y = _Game2.default.Borders.height - this.infoBackContainer.height - 50;
+        }
+    }]);
     return LocationContainer;
 }(_MainScreenModal3.default);
 
@@ -92391,7 +92567,7 @@ var GameScreen = function (_Screen) {
             var _this2 = this;
 
             setTimeout(function () {
-                _this2.screenManager.change('MainMenu');
+                _this2.screenManager.redirectToMenu();
             }, 1000);
         }
     }, {
@@ -96482,7 +96658,7 @@ var PerspectiveCamera = function (_Camera) {
                 this.renderModule.container.pivot.x = _utils2.default.lerp(this.renderModule.container.pivot.x, this.followPoint.x, 0.1);
                 this.renderModule.container.pivot.y = _utils2.default.lerp(this.renderModule.container.pivot.y, this.followPoint.z, 0.1);
 
-                this.zoom = _utils2.default.lerp(this.zoom, this.targetZoom, 0.1);
+                this.zoom = _utils2.default.lerp(this.zoom, this.targetZoom, 0.01 * delta * 60);
 
                 this.renderModule.container.scale.set(this.zoom);
             }
@@ -102247,14 +102423,14 @@ var assets = [{
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
+}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
-}, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -102262,26 +102438,26 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -102292,20 +102468,11 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
 }, {
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
@@ -102316,17 +102483,26 @@ var assets = [{
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -102359,7 +102535,7 @@ module.exports = exports['default'];
 /* 332 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/campfire/campfire.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/campfire/campfire.json","image/guns/guns.json","image/environment/environment.json","image/characters/characters.json","image/ui/ui.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

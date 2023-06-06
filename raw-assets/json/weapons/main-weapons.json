@@ -4,7 +4,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 1,
-            "icon": "multishot-gun-1",
+            "icon": "multishot-gun-1-icon",
             "name": "Jolly Jaunter"
         },
         "isMain": true,
@@ -48,7 +48,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 1,
-            "icon": "pistol1",
+            "icon": "pistol1-icon",
             "name": "Teeny-Tiny Terror"
         },
         "isMain": true,
@@ -134,7 +134,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "unicornLeg",
+            "icon": "unicornLeg-icon",
             "name": "Fidgety Firehose"
         },
         "isMain": true,
@@ -178,7 +178,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "shotgun-1",
+            "icon": "shotgun-1-icon",
             "name": "Boomstick"
         },
         "isMain": true,
@@ -221,7 +221,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "blaster-minugun",
+            "icon": "blaster-minugun-icon",
             "name": "Micro-Maniac"
         },
         "isMain": true,
@@ -231,7 +231,7 @@
         "overrider": "DAGGER_ROTATOR_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
-            "baseSpawnDistance": 70,
+            "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
             "baseLifeRangeSpan": 200,
             "basePower": 10,
@@ -355,7 +355,7 @@
         "entityData": {
             "type": "Weapon",
             "tier": 2,
-            "icon": "sniper2",
+            "icon": "sniper-1-icon",
             "name": "Scope-a-Dope"
         },
         "isMain": true,

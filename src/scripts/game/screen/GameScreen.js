@@ -227,7 +227,7 @@ export default class GameScreen extends Screen {
 
     playerDie(){
         setTimeout(() => {
-            this.screenManager.change('MainMenu')
+            this.screenManager.redirectToMenu();
         }, 1000);
     }
 

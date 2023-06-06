@@ -1,7 +1,7 @@
 [
     {
         "startAt": 0.5,
-        "duration": 60,
+        "duration": 30,
         "waves": [
             {
                 "areaType": "arc",
@@ -25,7 +25,7 @@
         ]
     },
     {
-        "startAt": 60,
+        "startAt": 12,
         "duration": 30,
         "waves": [
             {
@@ -38,8 +38,8 @@
                 "entity": "SPIDER_BRAIN"
             },
             {
-                "areaType": "circle",
-                "radius": 100,
+                "areaType": "arc",
+                "radius": 350,
                 "total": 100,
                 "maxActive": 25,
                 "entity": "BUTTFLY"

@@ -58,7 +58,7 @@ export default class MainScreenManager extends ScreenManager {
         this.characterBuilding = new CharacterBuildScreen(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer)
         this.addScreen(this.characterBuilding);
 
-        this.forceChange(MainScreenManager.Screens.MainMenu);
+        this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
 
         this.timeScale = 1;
@@ -85,6 +85,8 @@ export default class MainScreenManager extends ScreenManager {
             this.forceChange(MainScreenManager.Screens.CharacterBuild);
         } else if (Game.Debug.game) {
             this.forceChange(MainScreenManager.Screens.GameScreen);
+        }else if (Game.Debug.debugMenu) {
+            this.forceChange(MainScreenManager.Screens.MainMenu);
         }
 
        
@@ -145,10 +147,13 @@ export default class MainScreenManager extends ScreenManager {
         super.change(screenLabel, param);
 
     }
+    redirectToMenu(harder) {
+        window.HARDER = harder
+        this.change(MainScreenManager.Screens.CharacterBuild);
+    }
     redirectToGame(harder) {
         window.HARDER = harder
         this.change(MainScreenManager.Screens.GameScreen);
-        //this.showPopUp('init')
     }
     update(delta) {
         this.settings.fps = window.FPS

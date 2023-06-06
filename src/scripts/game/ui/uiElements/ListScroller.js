@@ -11,7 +11,7 @@ export default class ListScroller extends PIXI.Container {
         this.totalLines = 0;
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
-        this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+        this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
         this.containerBackground.alpha = 0.55;
 
         this.rect = rect;
@@ -54,7 +54,7 @@ export default class ListScroller extends PIXI.Container {
 
         if (this.containerBackground) {
             this.container.removeChild(this.containerBackground)
-            this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
+            this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
             this.containerBackground.alpha = 0.55;
             this.container.addChildAt(this.containerBackground, 0)
         }

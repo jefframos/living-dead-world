@@ -16,8 +16,9 @@ export default class MainScreenModal extends PIXI.Container {
         this.container.addChild(this.contentContainer)
     }
     addBackgroundShape() {
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
+        this.infoBackContainer.tint = 0x2A292F;
     }
     get isOpen() {
         return this.container.visible;

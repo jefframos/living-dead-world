@@ -237,6 +237,8 @@ export default class CookieManager {
 			loadout.currentCompanion.push({ id: null, level: 0 })
 			loadout.currentMask.push({ id: null, level: 0 })
 
+			console.log("WUT")
+
 			this.saveChunk('loadout', loadout)
 		}
 		this.saveChunk('player', data)

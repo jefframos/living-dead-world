@@ -19,7 +19,7 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['square_0001','square_0002','square_0003','square_0004']
+        this.textures = ['square_0001', 'square_0002', 'square_0003', 'square_0004']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
@@ -28,6 +28,15 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardContainer.addChild(this.cardBorder);
         this.cardBorder.width = width
         this.cardBorder.height = height
+
+
+        this.cardIconContainer = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
+        this.cardContainer.addChild(this.cardIconContainer);
+        this.cardIconContainer.width = 40
+        this.cardIconContainer.height = 40
+        this.cardIconContainer.x = width - 20
+        this.cardIconContainer.y = - 20
+        this.cardIconContainer.visible = false;
 
         this.cardImage = new PIXI.Sprite();
 
@@ -50,7 +59,7 @@ export default class LoadoutCardView extends PIXI.Container {
             this.onStartDrag.dispatch(this)
         })
 
-             
+
         this.offset = { x: 0, y: 0 }
 
         // let zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0,0,10)
@@ -64,11 +73,18 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.state = 0;
 
-       this.smallFontSize = 12
-       this.largeFontSize = 16
+        this.smallFontSize = 12
+        this.largeFontSize = 16
 
     }
-    resetPivot(){
+    setIconType(left = false) {
+        if (left) {
+            this.cardIconContainer.x = -20;
+        }
+        this.cardIconContainer.visible = true;
+
+    }
+    resetPivot() {
         this.cardContainer.x = 0
         this.cardContainer.pivot.y = 0
 
@@ -91,15 +107,20 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
 
-    setData(cardData) {
+    setData(cardData, customIconSize = 80) {
         if (this.cardData == cardData) {
             return;
         }
         this.cardData = cardData;
         let cardID = 0
         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
-        this.updateTexture(cardData.entityData.icon)
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 50))
+        if (cardData) {
+            this.updateTexture(cardData.entityData.icon)
+        } else {
+            this.cardImage.texture = PIXI.Texture.EMPTY;
+            this.cardBorder.texture = PIXI.Texture.from('square_0006')
+        }
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
     }
-    
+
 }
