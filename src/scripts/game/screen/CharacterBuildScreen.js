@@ -4,6 +4,7 @@ import AchievmentsContainer from '../components/ui/achievments/AchievmentsContai
 import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
+import CharacterBuildScreenCustomizationView from '../components/ui/customization/CharacterBuildScreenCustomizationView';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
 import EntityBuilder from './EntityBuilder';
 import Game from '../../Game';
@@ -16,6 +17,7 @@ import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
+import RouletteView from '../components/ui/roulette/RouletteView';
 import Screen from '../../screenManager/Screen';
 import ShopContainer from '../components/ui/shop/ShopContainer';
 import UIList from '../ui/uiElements/UIList';
@@ -71,8 +73,7 @@ export default class CharacterBuildScreen extends Screen {
 
 
 
-        this.activePlayers = [];
-
+        this.activePlayersCustomization = [];
 
         for (let index = 0; index < GameData.instance.totalPlayers; index++) {
             this.addCharacter(GameData.instance.getPlayer(index))
@@ -80,16 +81,14 @@ export default class CharacterBuildScreen extends Screen {
         //this.addCharacter()
         //this.addCharacter()
 
-
-
-        this.activePlayerId = Math.min(1, this.activePlayers.length - 1);
-        this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
+        this.activePlayerId = Math.min(1, this.activePlayersCustomization.length - 1);
+        this.charCustomizationContainer.setPlayer(this.activePlayersCustomization[this.activePlayerId].playerViewDataStructure)
         this.updateCharactersPosition();
 
         this.pivotOffset = { x: 0, y: 0 }
 
-        this.sceneContainer.pivot.x = this.activePlayers[this.activePlayerId].playerPreviewSprite.x
-        this.sceneContainer.pivot.y = this.activePlayers[this.activePlayerId].playerPreviewSprite.y
+        this.sceneContainer.pivot.x = this.activePlayersCustomization[this.activePlayerId].x
+        this.sceneContainer.pivot.y = this.activePlayersCustomization[this.activePlayerId].y
         this.sceneContainer.x = Game.Borders.width / 2
         this.sceneContainer.y = Game.Borders.height / 2
 
@@ -126,6 +125,9 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.updateHorizontalList();
 
 
+        this.roulette = new RouletteView();
+        //this.container.addChild(this.roulette)
+        
         // setTimeout(() => {
 
         //     this.openModal(this.loadoutContainer);
@@ -155,27 +157,26 @@ export default class CharacterBuildScreen extends Screen {
         }
 
     }
+    get playerCustomization() {
+        return this.activePlayersCustomization[this.activePlayerId]
+    }
     updateCompanion(id) {
         const data = EntityBuilder.instance.getCompanion(id);
         
         if(!data){
-            this.activePlayers[this.activePlayerId].companion.texture = PIXI.Texture.EMPTY;
+            this.playerCustomization.removeCompanion()
             return
         }
-        let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
-        this.activePlayers[this.activePlayerId].companion.scale.set(data.view.scale)
-        this.activePlayers[this.activePlayerId].companion.anchor.x = idle.params.anchor.x
-        this.activePlayers[this.activePlayerId].companion.anchor.y = idle.params.anchor.y
-        this.activePlayers[this.activePlayerId].companion.y = -data.view.jumpHight;
-        this.activePlayers[this.activePlayerId].companion.texture = PIXI.Texture.from(data.entityData.icon)
+        this.playerCustomization.setCompanion(data);
+       
     }
 
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
         if (area == 'trinket') {
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
+            this.playerCustomization.playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
         } else if (area == 'mask') {
-            this.activePlayers[this.activePlayerId].playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
+            this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
         }
     }
     addModal(modal) {
@@ -251,61 +252,14 @@ export default class CharacterBuildScreen extends Screen {
     }
     addCharacter(data) {
 
-        let playerPreviewData = {}
-        playerPreviewData.playerPreviewSprite = new PIXI.Sprite();
+        let customizationView = new CharacterBuildScreenCustomizationView(data, this.activePlayersCustomization.length)
+        this.sceneContainer.addChild(customizationView);
 
-        playerPreviewData.playerCompanion = new PIXI.Sprite();
-        playerPreviewData.playerCompanion.scale.set(1.25)
-
-
-        playerPreviewData.playerPreviewStructure = new PlayerGameViewSpriteSheet();
-        playerPreviewData.playerPreviewStructure.enable();
-        playerPreviewData.playerPreviewStructure.baseScale = 1
-        playerPreviewData.playerPreviewStructure.sinSpeed = 2
-        playerPreviewData.playerPreviewStructure.view = playerPreviewData.playerPreviewSprite
-        playerPreviewData.companion = playerPreviewData.playerCompanion
-        playerPreviewData.playerPreviewStructure.setData({})
-
-        playerPreviewData.playerViewDataStructure = new PlayerViewStructure();
-
-        if (data) {
-            playerPreviewData.playerViewDataStructure.parse(data)
-        }
-        playerPreviewData.playerPreviewStructure.buildSpritesheet(playerPreviewData.playerViewDataStructure)
-
-        playerPreviewData.playerViewDataStructure.onStructureUpdate.add(() => {
-            GameData.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
-        })
-        playerPreviewData.playerViewDataStructure.onColorUpdate.add(() => {
-            GameData.instance.savePlayer(playerPreviewData.id, playerPreviewData.playerViewDataStructure)
+        customizationView.onUpdateCurrentPlayer.add((id)=>{
+            this.updateCurrentPlayer(id)
         })
 
-        this.sceneContainer.addChild(playerPreviewData.playerPreviewSprite);
-        playerPreviewData.playerPreviewSprite.addChild(playerPreviewData.playerCompanion);
-        playerPreviewData.playerCompanion.x = 120
-        playerPreviewData.playerCompanion.y = 0
-
-
-        InteractableView.addMouseDown(playerPreviewData.playerPreviewSprite, () => {
-            if (!this.activePlayers[this.activePlayerId].buttonsContainer.visible) {
-                return;
-            }
-            this.updateCurrentPlayer(playerPreviewData.id);
-        })
-        playerPreviewData.id = this.activePlayers.length;
-
-        playerPreviewData.buttonsContainer = new PIXI.Container();
-        playerPreviewData.playerPreviewStructure.view.addChild(playerPreviewData.buttonsContainer);
-
-        const buttonsUIList = new UIList();
-        buttonsUIList.w = 200
-        buttonsUIList.h = 50
-        buttonsUIList.x = -buttonsUIList.w / 2
-        buttonsUIList.y = buttonsUIList.h / 2
-        playerPreviewData.buttonsContainer.addChild(buttonsUIList)
-        playerPreviewData.buttonsContainer.visible = true;
-
-        this.activePlayers.push(playerPreviewData)
+        this.activePlayersCustomization.push(customizationView);
     }
     defaultZoom() {
         this.zoom = 1
@@ -333,7 +287,7 @@ export default class CharacterBuildScreen extends Screen {
         this.customizationZoom();
         this.charCustomizationContainer.show()
 
-        this.activePlayers.forEach(element => {
+        this.activePlayersCustomization.forEach(element => {
             element.buttonsContainer.visible = false;
         });
         this.hideMainUI()
@@ -341,7 +295,7 @@ export default class CharacterBuildScreen extends Screen {
     }
     closeCustomization() {
         this.defaultZoom();
-        this.activePlayers[this.activePlayerId].buttonsContainer.visible = true;
+        this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = true;
         this.charCustomizationContainer.hide()
         //this.hideMainUI()
 
@@ -350,14 +304,14 @@ export default class CharacterBuildScreen extends Screen {
     unSelectPlayer() {
 
         this.defaultZoom();
-        this.activePlayers.forEach(element => {
+        this.activePlayersCustomization.forEach(element => {
             element.buttonsContainer.visible = true;
         });
         this.showMainUI();
 
     }
     hideCurrentCustomizationButton() {
-        this.activePlayers[this.activePlayerId].buttonsContainer.visible = false;
+        this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = false;
     }
     updateCurrentPlayer(id) {
         if (this.charCustomizationContainer.isOpen) {
@@ -372,7 +326,7 @@ export default class CharacterBuildScreen extends Screen {
         //this.hideMainUI()
 
         this.hideCurrentCustomizationButton();
-        this.charCustomizationContainer.setPlayer(this.activePlayers[this.activePlayerId].playerViewDataStructure)
+        this.charCustomizationContainer.setPlayer(this.playerCustomization.playerViewDataStructure)
     }
     randomize() {
 
@@ -411,16 +365,21 @@ export default class CharacterBuildScreen extends Screen {
     updateCharactersPosition() {
 
         let maxWidth = Math.min(Game.Borders.width, 650)
-        let chunk = maxWidth / this.activePlayers.length
-        let angChunk = (Math.PI) / (this.activePlayers.length - 1)
+        let chunk = maxWidth / this.activePlayersCustomization.length
+        let angChunk = (Math.PI) / (this.activePlayersCustomization.length - 1)
         angChunk = Math.min(0, angChunk)
-        //console.log("calcular a distancia baseado na escala tb")
-        for (var i = 0; i < this.activePlayers.length; i++) {
-            const element = this.activePlayers[i];
-            element.playerPreviewSprite.x = Game.Borders.width / 2 + i * chunk + chunk * 0.5 - maxWidth / 2;
-            element.playerPreviewSprite.y = Game.Borders.height / 2 + Math.sin(angChunk * (i)) * 40;
+
+
+        for (var i = 0; i < this.activePlayersCustomization.length; i++) {
+            const element = this.activePlayersCustomization[i];
+            element.x = Game.Borders.width / 2 + i * chunk + chunk * 0.5 - maxWidth / 2;
+            element.y = Game.Borders.height / 2 + Math.sin(angChunk * (i)) * 40;
             element.playerPreviewStructure.baseScale = Math.min(1.5, Game.GlobalScale.max);
         }
+        //console.log("calcular a distancia baseado na escala tb")
+
+
+
     }
     resize(res, newRes) {
         this.buttonsList.x = 20;
@@ -487,17 +446,17 @@ export default class CharacterBuildScreen extends Screen {
     }
     update(delta) {
 
-        for (var i = 0; i < this.activePlayers.length; i++) {
-            const element = this.activePlayers[i];
-
-            element.playerPreviewStructure.update(delta)
+        this.roulette.update(delta)
+        for (var i = 0; i < this.activePlayersCustomization.length; i++) {
+            const element = this.activePlayersCustomization[i];
+            element.update(delta)
         }
 
         this.modalList.forEach(element => {
             element.update(delta)
         });
-        this.sceneContainer.pivot.x = Utils.lerp(this.sceneContainer.pivot.x, this.activePlayers[this.activePlayerId].playerPreviewSprite.x + this.pivotOffset.x, 0.3);
-        this.sceneContainer.pivot.y = Utils.lerp(this.sceneContainer.pivot.y, this.activePlayers[this.activePlayerId].playerPreviewSprite.y + this.pivotOffset.y, 0.3);
+        this.sceneContainer.pivot.x = Utils.lerp(this.sceneContainer.pivot.x, this.playerCustomization.x + this.pivotOffset.x, 0.3);
+        this.sceneContainer.pivot.y = Utils.lerp(this.sceneContainer.pivot.y, this.playerCustomization.y + this.pivotOffset.y, 0.3);
         this.sceneContainer.x = Game.Borders.width / 2;
         this.sceneContainer.y = Game.Borders.height / 2;
         this.sceneContainer.scale.x = Utils.lerp(this.sceneContainer.scale.x, this.zoom, 0.3);

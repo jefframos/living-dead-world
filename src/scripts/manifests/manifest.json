@@ -3,7 +3,6 @@
         "image/terrain/terrain.json",
         "image/texture/texture.json",
         "image/hud/hud.json",
-        "image/campfire/campfire.json",
         "image/guns/guns.json",
         "image/environment/environment.json",
         "image/characters/characters.json",
