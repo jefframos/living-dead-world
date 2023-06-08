@@ -6,9 +6,10 @@ import Utils from '../../../core/utils/Utils';
 import signals from 'signals';
 
 export default class RouletteSlotView extends PIXI.Container {
-    constructor() {
+    constructor(id) {
         super();
 
+        this.id = id;
         this.slotHeight = 100;
         this.panelHeight = this.slotHeight * 2;
         this.background = UIUtils.getRect(0xFF0455, 150, this.panelHeight)
@@ -31,10 +32,11 @@ export default class RouletteSlotView extends PIXI.Container {
 
         this.midOffset = this.slotHeight * 0.5
         this.onSlotSelected = new signals.Signal();
+        this.onFinishSpin = new signals.Signal();
         this.totalImages = 3;
 
         this.offset = 0;
-        this.images = [];
+        this.prizes = [];
         this.sprites = [];
 
 
@@ -48,7 +50,6 @@ export default class RouletteSlotView extends PIXI.Container {
 
         this.centerDataIndex = 0;
 
-        this.addSlotImagesList(['pistol1-icon', 'unicornLeg-icon', 'blaster-minugun-icon'])
 
         this.baseGrad = new PIXI.Sprite.from('base-gradient')
         this.baseGrad.scale.set(Utils.scaleToFit(this.baseGrad, 150))
@@ -64,12 +65,14 @@ export default class RouletteSlotView extends PIXI.Container {
         this.baseGrad.tint = this.topGrad.tint = 0x5533aa;
         this.baseGrad.blendMode = this.topGrad.blendMode = PIXI.BLEND_MODES.OVERLAY
 
+        this.avoid = [];
+        this.force = -1
 
     }
-    addSlotImagesList(images) {
-        this.images = images;
+    addSlotImagesList(prizes) {
+        this.prizes = prizes;
 
-        this.startImage = Math.floor(Math.random() * this.images.length)
+        this.currentSpotId = Math.floor(Math.random() * this.prizes.length)
 
         while (this.stripContainer.children.length) {
             this.stripContainer.removeChildAt(0);
@@ -78,8 +81,8 @@ export default class RouletteSlotView extends PIXI.Container {
         this.sprites = [];
 
         for (let index = 0; index < this.totalImages; index++) {
-            const element = this.images[(this.startImage + index) % this.images.length];
-            const sprite = new PIXI.Sprite.from(element);
+            const element = this.prizes[(this.currentSpotId + index) % this.prizes.length];
+            const sprite = new PIXI.Sprite.from(element.icon);
             sprite.y = index * this.slotHeight - this.slotHeight
             this.sprites.push(sprite);
             sprite.scale.set(Utils.scaleToFit(sprite, this.slotHeight - 10))
@@ -87,40 +90,70 @@ export default class RouletteSlotView extends PIXI.Container {
             sprite.x = 75
             this.stripContainer.addChild(sprite);
         }
+        this.offset = this.slotHeight * 0.5
+    }
+    spin(time = 3, force = -1, avoid = []) {
 
+        this.avoid = avoid;
+        this.force = force;
+        TweenLite.killTweensOf(this)
         this.offset = Math.random() * this.slotHeight
 
-        this.spin();
-    }
-    spin() {
         this.spinning = true;
 
-        this.spinSpeed = 1500 + Math.random() * 200;
+        this.spinSpeed = 1000 + Math.random() * 200;
 
-        this.curveTimer = 3 + Math.random();
+        this.curveTimer = time + Math.random();
         this.curveCurrentTime = 0;
     }
     endState() {
         this.spinning = false;
-        TweenLite.to(this, 1 + Math.random() * 0.3, { offset: this.slotHeight * 0.5, ease: Back.easeOut })
-        this.centerDataIndex = (this.startImage + 1) % this.images.length;
+        const distNormal = Math.max(0.2, Utils.distance(this.offset, 0, this.slotHeight, 0) / this.slotHeight)
+        TweenLite.to(this, (3 * distNormal), { offset: this.slotHeight * 0.5, ease: Elastic.easeOut })
+        this.centerDataIndex = (this.currentSpotId + 1) % this.prizes.length;        this.onFinishSpin.dispatch(this.id, this.centerDataIndex);
+    }
+    shouldContinueSpinning() {
+
+        if (this.force >= 0) {
+
+            let adjusted = this.force - 1
+            if (adjusted < 0) {
+                adjusted = this.prizes.length - 1;
+            }
+            return this.currentSpotId != adjusted;
+        }
+        if (this.avoid.length > 0) {
+            if (this.avoid.includes(this.currentSpotId)) {
+                return false;
+            }
+        }
+        return true;
     }
     update(delta) {
         if (this.spinning) {
+            let shouldStop = false;
+            let shouldEnd = false;
             if (this.curveCurrentTime >= this.curveTimer) {
-                this.endState();
-            } else {
+                shouldEnd = true;
+                
+                if (this.avoid.length == 0 && this.force < 0 || !this.shouldContinueSpinning()) {
+                    shouldStop = true;
+                    this.endState();
+                }
+            }
+
+            if (!shouldStop) {
                 this.curveCurrentTime += delta;
-                this.normal = this.curveCurrentTime / this.curveTimer;
-                this.offset += delta * this.spinSpeed * Utils.easeOutQuad(1 - (this.normal))
+                this.normal = shouldEnd ? 1 : this.curveCurrentTime / this.curveTimer;
+                this.offset += delta * this.spinSpeed * Utils.easeOutQuad(1 - (this.normal * 0.75));
             }
         }
         if (this.offset > this.slotHeight) {
             this.offset %= this.slotHeight
-            this.startImage--;
-            this.startImage %= this.images.length
-            if (this.startImage < 0) {
-                this.startImage = this.images.length - 1
+            this.currentSpotId--;
+            this.currentSpotId %= this.prizes.length
+            if (this.currentSpotId < 0) {
+                this.currentSpotId = this.prizes.length - 1
             }
             this.updateSpritesTextures()
         }
@@ -131,10 +164,10 @@ export default class RouletteSlotView extends PIXI.Container {
     }
     updateSpritesTextures() {
         for (let index = 0; index < this.totalImages; index++) {
-            const image = this.images[(this.startImage + index) % this.images.length];
+            const image = this.prizes[(this.currentSpotId + index) % this.prizes.length];
 
             const sprite = this.sprites[index]
-            sprite.texture = PIXI.Texture.from(image)
+            sprite.texture = PIXI.Texture.from(image.icon)
             sprite.scale.set(Utils.scaleToFit(sprite, this.slotHeight - 10))
 
         }

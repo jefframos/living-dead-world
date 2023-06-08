@@ -19,7 +19,7 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['square_0001', 'square_0002', 'square_0003', 'square_0004']
+        this.textures = ['square_0006','square_0001', 'square_0002', 'square_0003', 'square_0004']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
@@ -107,18 +107,20 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
 
-    setData(cardData, customIconSize = 80) {
-        if (this.cardData == cardData) {
+    setData(cardData, level = 0, customIconSize = 80) {
+        if (!cardData) {
             return;
         }
         this.cardData = cardData;
+        this.level = level;
         let cardID = 0
         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
         if (cardData) {
             this.updateTexture(cardData.entityData.icon)
+            this.cardBorder.texture = PIXI.Texture.from(this.textures[level])
         } else {
             this.cardImage.texture = PIXI.Texture.EMPTY;
-            this.cardBorder.texture = PIXI.Texture.from('square_0006')
+            this.cardBorder.texture = PIXI.Texture.from(this.textures[level])
         }
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
     }

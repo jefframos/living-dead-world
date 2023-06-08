@@ -2,6 +2,7 @@
     {
         "id": "PLAYER_MULTISHOT",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 1,
             "icon": "multishot-gun-1-icon",
@@ -46,6 +47,7 @@
     {
         "id": "PISTOL_01",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1-icon",
@@ -89,6 +91,7 @@
     {
         "id": "REVOLVER_01",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1",
@@ -132,6 +135,7 @@
     {
         "id": "SUB_MACHINE_GUN_01",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 2,
             "icon": "unicornLeg-icon",
@@ -176,6 +180,7 @@
     {
         "id": "SHOTGUN_01",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 2,
             "icon": "shotgun-1-icon",
@@ -219,6 +224,7 @@
     {
         "id": "MINIGUN_01",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun-icon",
@@ -263,6 +269,7 @@
     {
         "id": "FIREBALL_HOAMING",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hoaming-dude0001",
@@ -306,6 +313,7 @@
     {
         "id": "LASER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 5,
             "icon": "laser-rainbow0001",
@@ -353,6 +361,7 @@
     {
         "id": "SNIPER_01",
         "entityData": {
+            "starter": true,
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper-1-icon",
@@ -397,6 +406,7 @@
     {
         "id": "WORM_GUN",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "vfx-c1",
@@ -440,6 +450,7 @@
     {
         "id": "BOMB_THROWER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -481,6 +492,7 @@
     {
         "id": "SMALL_BOMB",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -523,6 +535,7 @@
     {
         "id": "ORBIT",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "orbitGreen",
@@ -564,6 +577,7 @@
     {
         "id": "MELEE_SWORD",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "dagger",
@@ -607,6 +621,7 @@
     {
         "id": "ICE_SHARD_THROWER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "disk",
@@ -649,6 +664,7 @@
     {
         "id": "BOOMERANG_AXE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "rotateRed",
@@ -693,6 +709,7 @@
     {
         "id": "PLAYER_AURA",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "vfx-b1",
@@ -737,6 +754,7 @@
     {
         "id": "BOUNCE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 4,
             "icon": "bounceBomb",
@@ -780,6 +798,7 @@
     {
         "id": "PLAYER_AURA_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -795,6 +814,7 @@
     {
         "id": "PLAYER_CROSS_SHOT",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "cross",
@@ -838,6 +858,7 @@
     {
         "id": "PLAYER_MULTISHOT_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -852,6 +873,7 @@
     {
         "id": "LAND_MINE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "flameThrower",
@@ -891,6 +913,7 @@
     {
         "id": "FALL_NUKE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "nukeBomb",
@@ -932,6 +955,7 @@
     {
         "id": "FALL_NUKE_EXPLOSION",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -972,6 +996,7 @@
     {
         "id": "SMALL_BOMB_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -985,6 +1010,7 @@
     {
         "id": "BOMB_THROWER_COMPANION",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -1025,6 +1051,7 @@
     {
         "id": "BOMB_THROWER_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -1039,6 +1066,7 @@
     {
         "id": "SEMI_AUTO_PISTOL_01",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "pistol6",
@@ -1082,6 +1110,7 @@
     {
         "id": "SNIPER_01_COMPANION",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper2",
@@ -1125,6 +1154,7 @@
     {
         "id": "ENEMY_MINIGUN_01",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun",
@@ -1169,6 +1199,7 @@
     {
         "id": "DAGGER_ROTATOR_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "tile_0106",
@@ -1212,6 +1243,7 @@
     {
         "id": "ICE_SHARD_ROTATOR",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -1252,6 +1284,7 @@
     {
         "id": "ORBIT_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "small-spark4",
@@ -1291,6 +1324,7 @@
     {
         "id": "LIGHTNING",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "electric-slash6",
@@ -1335,6 +1369,7 @@
     {
         "id": "LIGHTNING_IN_PLACE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "electric-slash6",
@@ -1378,6 +1413,7 @@
     {
         "id": "ELECTRIC_SLASH_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -1419,6 +1455,7 @@
     {
         "id": "FLASH_CIRCLE",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flash7",
@@ -1460,6 +1497,7 @@
     {
         "id": "LASER_DRONE_WEAPON",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "laserGun1",
@@ -1506,6 +1544,7 @@
     {
         "id": "LASER_OVERRIDER",
         "entityData": {
+            "starter": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "vfx-c1",

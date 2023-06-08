@@ -76,46 +76,53 @@ export default class LoadoutContainer extends MainScreenModal {
     show() {
         super.show();
 
+        const fullInventory = GameData.instance.inventory;
 
         const cards = GameStaticData.instance.getAllCards()
 
-        this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(GameData.instance.currentEquippedWeaponData.id))
+        this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(GameData.instance.currentEquippedWeaponData.id), GameData.instance.currentEquippedWeapon.level)
         this.currentWeaponSlot.resetPivot()
 
         const mask = GameData.instance.currentEquippedMask
-        this.currentMaskSlot.setData(mask ? EntityBuilder.instance.getMask(mask.id) : null, 100)
+        console.log(mask)
+        this.currentMaskSlot.setData(mask ? EntityBuilder.instance.getMask(mask.id) : null, mask ? mask.level : 0, 100)
         this.currentMaskSlot.resetPivot()
 
         const trinket = GameData.instance.currentEquippedTrinket
-        this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null)
+        console.log(trinket)
+        this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0)
         this.currentTrinketSlot.resetPivot()
 
         const companion = GameData.instance.currentEquippedCompanion
+        console.log(companion)
 
-        this.currentCompanionSlot.setData(companion ? EntityBuilder.instance.getCompanion(companion.id) : null)
+        this.currentCompanionSlot.setData(companion ? EntityBuilder.instance.getCompanion(companion.id) : null, companion ? companion.level : 0)
         this.currentCompanionSlot.resetPivot()
 
 
         this.equippableWeapons = [];
-        let availableCards = [3, 5, 7, 8, 9, 10]
+        let availableCards = fullInventory.weapons
 
         for (let index = 0; index < availableCards.length; index++) {
             const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-            let dt = EntityBuilder.instance.getWeapon(cards[availableCards[index]].weaponId)
-            card.setData(dt)
+            let dt = EntityBuilder.instance.getWeapon(availableCards[index].id)
+            console.log(availableCards[index].level)
+            card.setData(dt, availableCards[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                GameData.instance.changeMainWeapon(card.cardData.id);
-                this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id))
+                GameData.instance.changeMainWeapon(card.cardData.id, card.level);
+                console.log(card, card.level)
+                this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id), card.level)
                 this.onUpdateMainWeapon.dispatch(card.cardData);
             })
             this.equippableWeapons.push(card)
         }
 
+
+
         this.equippableCompanions = [];
 
         let removeCompanion = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-        //removeCompanion.setData(dt)
         removeCompanion.resetPivot()
         removeCompanion.onCardClicked.add((removeCompanion) => {
             GameData.instance.changeCompanion(null);
@@ -123,49 +130,52 @@ export default class LoadoutContainer extends MainScreenModal {
         })
         this.equippableCompanions.push(removeCompanion)
 
+        let availableCompanions = fullInventory.companions
 
-        cards.forEach(element => {
-            if (element.entityData.type === 'Companion') {
-                const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-                let dt = EntityBuilder.instance.getCompanion(element.id)
-                card.setData(dt)
-                card.resetPivot()
-                card.onCardClicked.add((card) => {
-                    GameData.instance.changeCompanion(card.cardData.id);
-                    this.currentCompanionSlot.setData(EntityBuilder.instance.getCompanion(card.cardData.id))
-                })
-                this.equippableCompanions.push(card)
-            }
-        });
+        for (let index = 0; index < availableCompanions.length; index++) {
+            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            let dt = EntityBuilder.instance.getCompanion(availableCompanions[index].id)
+            console.log(availableCompanions[index].level)
+            card.setData(dt, availableCompanions[index].level)
+            card.resetPivot()
+            card.onCardClicked.add((card) => {
+                GameData.instance.changeCompanion(card.cardData.id);
+                this.currentCompanionSlot.setData(EntityBuilder.instance.getCompanion(card.cardData.id), availableCompanions[index].level)
+            })
+            this.equippableCompanions.push(card)
+        }
+
 
 
         this.equippableTrinkets = [];
 
-        let removeTrinnket = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-        //removeTrinnket.setData(dt)
-        removeTrinnket.resetPivot()
-        removeTrinnket.onCardClicked.add((removeTrinnket) => {
+        let removeTrinket = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        //removeTrinket.setData(dt)
+        removeTrinket.resetPivot()
+        removeTrinket.onCardClicked.add((removeTrinket) => {
             GameData.instance.changeTrinket(null);
             this.currentTrinketSlot.setData(null)
         })
-        this.equippableTrinkets.push(removeTrinnket)
+        this.equippableTrinkets.push(removeTrinket)
 
-        cards.forEach(element => {
-            if (element.entityData.type === 'Equipable') {
-                let dt = EntityBuilder.instance.getEquipable(element.id)
-                if (dt.bodyPart == 'trinket') {
 
-                    const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-                    card.setData(dt)
-                    card.resetPivot()
-                    card.onCardClicked.add((card) => {
-                        GameData.instance.changeTrinket(card.cardData.id);
-                        this.currentTrinketSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id))
-                    })
-                    this.equippableTrinkets.push(card)
-                }
-            }
-        });
+        let availableTrinkets = fullInventory.trinkets
+
+        for (let index = 0; index < availableTrinkets.length; index++) {
+            let dt = EntityBuilder.instance.getEquipable(availableTrinkets[index].id)
+
+            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            card.setData(dt, availableTrinkets[index].level)
+            card.resetPivot()
+            card.onCardClicked.add((card) => {
+                GameData.instance.changeTrinket(card.cardData.id);
+                this.currentTrinketSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableTrinkets[index].level)
+            })
+            this.equippableTrinkets.push(card)
+
+        }
+
+
 
         this.equippableMasks = [];
 
@@ -179,39 +189,24 @@ export default class LoadoutContainer extends MainScreenModal {
         })
         this.equippableMasks.push(removeMask)
 
-        cards.forEach(element => {
-            if (element.entityData.type === 'Equipable') {
-                let dt = EntityBuilder.instance.getEquipable(element.id)
-                if (dt.bodyPart == 'mask') {
 
-                    const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-                    card.setData(dt)
-                    card.resetPivot()
-                    card.onCardClicked.add((card) => {
-                        GameData.instance.changeMask(card.cardData.id);
-                        this.currentMaskSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id))
-                    })
-                    this.equippableMasks.push(card)
-                }
-            }
-        });
-        // let availableCompanions = [3, 5, 7, 8, 9, 3, 5, 7, 8, 9, 3, 5, 7, 8, 9, 3, 5, 7, 8, 9, 3, 5, 7, 8, 9, 3]
+        let availableMasks = fullInventory.masks
 
-        // for (let index = 0; index < availableCards.length; index++) {
-        //     const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
-        //     let dt = EntityBuilder.instance.getCompanion(cards[availableCards[index]].weaponId)
-        //     card.setData(dt, 0)
-        //     //card.update(1)
-        //     card.resetPivot()
-        //     card.onCardClicked.add((card) => {
-        //         GameData.instance.changeMainWeapon(card.cardData.id);
-        //         this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id))
-        //         this.onUpdateMainWeapon.dispatch(card.cardData);
-        //     })
-        //     this.equippableWeapons.push(card)
-        // }
+        for (let index = 0; index < availableMasks.length; index++) {
+            let dt = EntityBuilder.instance.getEquipable(availableMasks[index].id)
 
-        console.log(cards)
+            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            card.setData(dt, availableMasks[index].level, 100)
+            card.resetPivot()
+            card.onCardClicked.add((card) => {
+                GameData.instance.changeMask(card.cardData.id);
+                this.currentMaskSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableMasks[index].level)
+            })
+            this.equippableMasks.push(card)
+
+        }
+
+
 
 
         this.updateListView(this.equippableWeapons)

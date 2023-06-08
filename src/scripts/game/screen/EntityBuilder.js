@@ -112,6 +112,7 @@ export default class EntityBuilder {
         });
 
         this.weaponsArray = []
+        this.weaponsStarterArray = []
         for (const key in this.weaponsData) {
             this.findDestroyWeapon(this.weaponsData[key])
         }
@@ -119,6 +120,9 @@ export default class EntityBuilder {
         for (const key in this.weaponsData) {
             if (this.weaponsData[key].isMain) {
                 this.weaponsArray.push(this.weaponsData[key])
+            }
+            if (this.weaponsData[key].entityData && this.weaponsData[key].entityData.starter) {
+                this.weaponsStarterArray.push(this.weaponsData[key])
             }
         }
         console.log(this)
@@ -154,6 +158,29 @@ export default class EntityBuilder {
     }
     getEquipable(id) {
         return this.equipablesData[id];
+    }
+    dataToArray(data) {
+        const arrayData = [];
+        for (const key in data) {
+            arrayData.push(data[key]);
+        }
+        return arrayData;
+    }
+    getAllMask() {
+
+        return this.dataToArray(this.masksData);
+    }
+    getAllTrinket() {
+        return this.dataToArray(this.trinketsData);
+    }
+    getAllWeapon() {
+        return this.dataToArray(this.weaponsData);
+    }
+    getAllStarterWeapon() {
+        return this.weaponsStarterArray;
+    }
+    getAllCompanion() {
+        return this.dataToArray(this.companionsData);
     }
     getMask(id) {
         return this.masksData[id];

@@ -41,6 +41,9 @@ export default class GameData {
     get currentEquippedCompanionData(){
         return EntityBuilder.instance.getCompanion(this.currentEquippedCompanion.id) 
     }
+    get inventory(){
+        return CookieManager.instance.inventory;
+    }
     getPlayer(id){
         return CookieManager.instance.getPlayer(id)
     }
@@ -50,19 +53,23 @@ export default class GameData {
     changePlayer(id){
         CookieManager.instance.changePlayer(id)
     }
-    changeMainWeapon(id){
-        CookieManager.instance.saveEquipment('currentWeapon', id)
+    changeMainWeapon(id, level){
+        CookieManager.instance.saveEquipment('currentWeapon', id, level)
     }
-    changeCompanion(id){
-        CookieManager.instance.saveEquipment('currentCompanion', id)
-        this.onUpdateCompanion.dispatch(id)
+    changeCompanion(id, level){
+        CookieManager.instance.saveEquipment('currentCompanion', id, level)
+        this.onUpdateCompanion.dispatch(id, level)
     }
-    changeMask(id){
-        CookieManager.instance.saveEquipment('currentMask', id)
-        this.onUpdateEquipment.dispatch('mask', id)
+    changeMask(id, level){
+        CookieManager.instance.saveEquipment('currentMask', id, level)
+        this.onUpdateEquipment.dispatch('mask', id, level)
     }
-    changeTrinket(id){
-        CookieManager.instance.saveEquipment('currentTrinket', id)
-        this.onUpdateEquipment.dispatch('trinket', id)
+    changeTrinket(id, level){
+        CookieManager.instance.saveEquipment('currentTrinket', id, level)
+        this.onUpdateEquipment.dispatch('trinket', id, level)
+    }
+    addToInventory(type, item){
+        CookieManager.instance.addToInventory(type, item)
+
     }
 }

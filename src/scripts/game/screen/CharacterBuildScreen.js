@@ -17,7 +17,8 @@ import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
-import RouletteView from '../components/ui/roulette/RouletteView';
+import PrizeManager from '../data/PrizeManager';
+import RouletteContainer from '../components/ui/roulette/RouletteContainer';
 import Screen from '../../screenManager/Screen';
 import ShopContainer from '../components/ui/shop/ShopContainer';
 import UIList from '../ui/uiElements/UIList';
@@ -99,8 +100,7 @@ export default class CharacterBuildScreen extends Screen {
         this.pivotOffset.y = -50
         this.buildBottomMenu();
 
-        this.outgameUIProgression = new OutGameUIProgression();
-        this.container.addChild(this.outgameUIProgression);
+        
 
 
         this.modalList = [];
@@ -112,6 +112,11 @@ export default class CharacterBuildScreen extends Screen {
         this.addModal(this.achievmentsContainer)
         this.locationContainer = new LocationContainer()
         this.addModal(this.locationContainer)
+        this.rouletteContainer = new RouletteContainer()
+        this.addModal(this.rouletteContainer)
+
+        this.outgameUIProgression = new OutGameUIProgression();
+        this.container.addChild(this.outgameUIProgression);
 
         this.buttonsList = new UIList();
         this.container.addChild(this.buttonsList);
@@ -125,8 +130,7 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.updateHorizontalList();
 
 
-        this.roulette = new RouletteView();
-        //this.container.addChild(this.roulette)
+       
         
         // setTimeout(() => {
 
@@ -140,6 +144,8 @@ export default class CharacterBuildScreen extends Screen {
 
         GameData.instance.onUpdateEquipment.add(this.updateEquipment.bind(this));
         GameData.instance.onUpdateCompanion.add(this.updateCompanion.bind(this));
+
+        PrizeManager.instance.onGetMetaPrize.add(this.showPrizeWindow.bind(this));
 
         let currentCompanion = GameData.instance.currentEquippedCompanionData;
         if (currentCompanion) {
@@ -170,7 +176,9 @@ export default class CharacterBuildScreen extends Screen {
         this.playerCustomization.setCompanion(data);
        
     }
-
+    showPrizeWindow(data){
+        console.log(data.type, data.value);
+    }
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
         if (area == 'trinket') {
@@ -228,6 +236,11 @@ export default class CharacterBuildScreen extends Screen {
             this.openModal(this.locationContainer);
         }, 'Location', 'map')
 
+
+        const bt5 = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.rouletteContainer);
+        }, 'Prize', 'map')
+
         // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
         //     this.openModal(this.achievmentsContainer)
 
@@ -235,10 +248,12 @@ export default class CharacterBuildScreen extends Screen {
 
         this.bottomMenuRightList.addElement(bt3, { align: 0 })
         this.bottomMenuRightList.addElement(bt4, { align: 0 })
+        this.bottomMenuRightList.addElement(bt5, { align: 0 })
 
         this.menuButtonsRight = [];
         this.menuButtonsRight.push(bt3)
         this.menuButtonsRight.push(bt4)
+        this.menuButtonsRight.push(bt5)
 
         this.bottomMenuRightList.updateVerticalList()
 
@@ -342,7 +357,7 @@ export default class CharacterBuildScreen extends Screen {
     hideMainUI(hideBackButton) {
         this.bottomMenu.visible = false;
         this.bottomMenuRight.visible = false;
-        this.outgameUIProgression.visible = false;
+        //this.outgameUIProgression.visible = false;
         this.hideCurrentCustomizationButton()
         if (hideBackButton) {
             this.closeButton.visible = false;
@@ -446,7 +461,6 @@ export default class CharacterBuildScreen extends Screen {
     }
     update(delta) {
 
-        this.roulette.update(delta)
         for (var i = 0; i < this.activePlayersCustomization.length; i++) {
             const element = this.activePlayersCustomization[i];
             element.update(delta)

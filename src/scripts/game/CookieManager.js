@@ -41,6 +41,14 @@ export default class CookieManager {
 			playerLevel: 0,
 			playerStructures: [],
 		}
+		this.defaultInventory = {
+			version: '0.0.1',
+			weapons:[{ id: 'PISTOL_01', level: 0 }, { id: 'PISTOL_01', level: 1 }],
+			bodyParts:[],
+			companions:[{id: 'FLY_DRONE', level: 0}],
+			masks:[{id: 'MASK_01', level: 0}],
+			trinkets:[{id: 'TRINKET_01', level: 0}],
+		}
 		this.defaultLoadout = {
 			version: '0.0.1',
 			currentWeapon: [{ id: 'PISTOL_01', level: 0 }],
@@ -161,9 +169,13 @@ export default class CookieManager {
 		this.fullData[id]['achievments'] = this.sortCookieData('achievments', this.defaultAchievments);
 		this.fullData[id]['loadout'] = this.sortCookieData('loadout', this.defaultLoadout);
 		this.fullData[id]['items'] = this.sortCookieData('items', this.defaultItemProgression);
+		this.fullData[id]['inventory'] = this.sortCookieData('inventory', this.defaultInventory);
 
 		this.storeObject('fullData', this.fullData)
 
+	}
+	get inventory() {
+		return this.getChunck('inventory');
 	}
 	get totalPlayers() {
 		return this.getChunck('player').totalPlayers;
@@ -207,6 +219,20 @@ export default class CookieManager {
 		this.saveChunk('loadout', data)
 
 	}
+
+	addToInventory(type, equip) {
+		const data = this.getChunck('inventory')
+		console.log(data);
+		if (data[type] === undefined) {
+			console.log(type, 'not found on inventory, not saving', data);
+			return;
+		}
+		data[type].push({id: equip.id, level:equip.level});
+		this.saveChunk('inventory', data)
+
+	}
+
+
 	savePlayer(id, dataToSave) {
 
 		const data = this.getChunck('player')
