@@ -7,7 +7,7 @@ import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class LoadoutCardView extends PIXI.Container {
-    constructor(texture = 'square_0006', width = 115, height = 150) {
+    constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 115, height = 150) {
         super()
         this.baseWidth = width;
         this.baseHeight = height;
@@ -19,7 +19,7 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['square_0006','square_0001', 'square_0002', 'square_0003', 'square_0004']
+        this.textures = [ UIUtils.baseButtonTexture+'_0006', UIUtils.baseButtonTexture+'_0001',  UIUtils.baseButtonTexture+'_0002',  UIUtils.baseButtonTexture+'_0003',  UIUtils.baseButtonTexture+'_0004']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);

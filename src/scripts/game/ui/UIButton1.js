@@ -2,16 +2,17 @@ import * as PIXI from 'pixi.js';
 import * as signals from 'signals';
 
 import TweenLite from 'gsap';
-import utils from '../../utils';
+import UIUtils from '../core/utils/UIUtils';
 import config from '../../config';
+import utils from '../../utils';
 
 export default class UIButton1 extends PIXI.Container {
-	constructor(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = config.assets.button.primarySquare) {
+	constructor(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = UIUtils.baseButtonTexture+"_0006") {
 		super();
 		this.build(color, icon, iconColor, width, height, texture)
 
 	}
-	build(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = config.assets.button.primarySquare) {
+	build(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = UIUtils.baseButtonTexture+"_0006") {
 		this.w = width;
 		this.h = height;
 
@@ -142,7 +143,7 @@ export default class UIButton1 extends PIXI.Container {
 		this.enabled = false;
 		this.icon.tint = 0;
 
-		this.backShape.texture = new PIXI.Texture.from(config.assets.button.greySquare);
+		this.backShape.texture = new PIXI.Texture.from(UIUtils.baseButtonTexture+"_0006");
 
 	}
 	enable(){

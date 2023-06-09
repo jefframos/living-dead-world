@@ -1,7 +1,8 @@
 import BaseButton from "./BaseButton";
+import UIUtils from "../../core/utils/UIUtils";
 
 export default class SpriteButton extends BaseButton {
-    constructor(texture = 'square_0006', width = 100, height = 150) {
+    constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {
         super(texture, width, height)
         this.setColors();
     }

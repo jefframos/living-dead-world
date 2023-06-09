@@ -23,12 +23,12 @@ export default {
 	levels: [],
 	assets: {
 		button: {
-			primarySquare: 'square_0001',
-			secondarySquare: 'square_0002',
-			tertiarySquare: 'square_0003',
-			warningSquare: 'square_0004',
-			extraSquare: 'square_0005',
-			greySquare: 'square_0006',
+			primarySquareOLD: 'square_0001',
+			secondarySquareOLD: 'square_0002',
+			tertiarySquareOLD: 'square_0003',
+			warningSquareOLD: 'square_0004',
+			extraSquareOLD: 'square_0005',
+			greySquareOLD: 'square_0006',
 
 			squarePadding: [35, 35, 35, 35],
 

@@ -23,4 +23,13 @@ export default class LocationContainer extends MainScreenModal {
         this.contentContainer.y = Game.Borders.height - this.infoBackContainer.height - 50
 
     }
+    show() {
+        this.container.visible = true;
+        this.container.alpha = 0.5;
+        TweenLite.killTweensOf(this.container)
+        TweenLite.killTweensOf(this.container.scale)
+
+        TweenLite.to(this.container, 0.25, {alpha:1})
+        this.onShow.dispatch(this)
+    }
 }

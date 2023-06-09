@@ -5,8 +5,8 @@
         "waves": [
             {
                 "areaType": "arc",
-                "radius": 250,
-                "total": 50,
+                "radius": 500,
+                "total": 5000,
                 "maxActive": 10,
                 "entity": [
                     "ZOMBIE_01",

@@ -8,6 +8,7 @@ import GameStaticData from '../../../data/GameStaticData';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
 import MainScreenModal from '../MainScreenModal';
 import UIList from '../../../ui/uiElements/UIList';
+import UIUtils from '../../../core/utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import signals from 'signals';
 
@@ -36,7 +37,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.slotsListInGame.h = (this.slotSize + 30) * 2;
         this.contentContainer.addChild(this.slotsListInGame);
 
-        this.currentWeaponSlot = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        this.currentWeaponSlot = new LoadoutCardView(UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         this.currentWeaponSlot.setIconType();
         this.slotsListInGame.addElement(this.currentWeaponSlot, { align: 0 });
 
@@ -44,21 +45,21 @@ export default class LoadoutContainer extends MainScreenModal {
             this.updateListView(this.equippableWeapons)
         })
 
-        this.currentMaskSlot = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        this.currentMaskSlot = new LoadoutCardView(UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         this.currentMaskSlot.setIconType(true);
         this.slotsList.addElement(this.currentMaskSlot, { align: 0 });
         this.currentMaskSlot.onCardClicked.add((card) => {
             this.updateListView(this.equippableMasks)
         })
 
-        this.currentTrinketSlot = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        this.currentTrinketSlot = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         this.currentTrinketSlot.setIconType(true);
         this.slotsList.addElement(this.currentTrinketSlot, { align: 0 });
         this.currentTrinketSlot.onCardClicked.add((card) => {
             this.updateListView(this.equippableTrinkets)
         })
 
-        this.currentCompanionSlot = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        this.currentCompanionSlot = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         this.currentCompanionSlot.setIconType();
         this.slotsListInGame.addElement(this.currentCompanionSlot, { align: 0 });
         this.currentCompanionSlot.onCardClicked.add((card) => {
@@ -73,8 +74,14 @@ export default class LoadoutContainer extends MainScreenModal {
         // this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
         // this.container.addChild(this.infoBackContainer);
     }
-    show() {
-        super.show();
+     show() {
+        this.visible = true;
+        this.container.alpha = 0.5;
+        TweenLite.killTweensOf(this.container)
+        TweenLite.killTweensOf(this.container.scale)
+
+        TweenLite.to(this.container, 0.25, {alpha:1})
+        this.onShow.dispatch(this)
 
         const fullInventory = GameData.instance.inventory;
 
@@ -104,7 +111,7 @@ export default class LoadoutContainer extends MainScreenModal {
         let availableCards = fullInventory.weapons
 
         for (let index = 0; index < availableCards.length; index++) {
-            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
             let dt = EntityBuilder.instance.getWeapon(availableCards[index].id)
             console.log(availableCards[index].level)
             card.setData(dt, availableCards[index].level)
@@ -122,7 +129,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.equippableCompanions = [];
 
-        let removeCompanion = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        let removeCompanion = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         removeCompanion.resetPivot()
         removeCompanion.onCardClicked.add((removeCompanion) => {
             GameData.instance.changeCompanion(null);
@@ -133,7 +140,7 @@ export default class LoadoutContainer extends MainScreenModal {
         let availableCompanions = fullInventory.companions
 
         for (let index = 0; index < availableCompanions.length; index++) {
-            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
             let dt = EntityBuilder.instance.getCompanion(availableCompanions[index].id)
             console.log(availableCompanions[index].level)
             card.setData(dt, availableCompanions[index].level)
@@ -149,7 +156,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.equippableTrinkets = [];
 
-        let removeTrinket = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        let removeTrinket = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         //removeTrinket.setData(dt)
         removeTrinket.resetPivot()
         removeTrinket.onCardClicked.add((removeTrinket) => {
@@ -164,7 +171,7 @@ export default class LoadoutContainer extends MainScreenModal {
         for (let index = 0; index < availableTrinkets.length; index++) {
             let dt = EntityBuilder.instance.getEquipable(availableTrinkets[index].id)
 
-            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
             card.setData(dt, availableTrinkets[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
@@ -180,7 +187,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.equippableMasks = [];
 
 
-        let removeMask = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+        let removeMask = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
         //removeMask.setData(dt)
         removeMask.resetPivot()
         removeMask.onCardClicked.add((removeMask) => {
@@ -195,7 +202,7 @@ export default class LoadoutContainer extends MainScreenModal {
         for (let index = 0; index < availableMasks.length; index++) {
             let dt = EntityBuilder.instance.getEquipable(availableMasks[index].id)
 
-            const card = new LoadoutCardView('square_0006', this.slotSize, this.slotSize);
+            const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
             card.setData(dt, availableMasks[index].level, 100)
             card.resetPivot()
             card.onCardClicked.add((card) => {
@@ -222,6 +229,9 @@ export default class LoadoutContainer extends MainScreenModal {
         this.weaponsScroller.addItens(this.currentSlots)
 
     }
+    recenterContainer(){
+        
+    }
     update(delta) {
         super.update(delta);
     }
@@ -245,8 +255,8 @@ export default class LoadoutContainer extends MainScreenModal {
         }
         this.weaponsScroller.addItens(this.currentSlots)
 
-        this.weaponsScroller.y = Game.Borders.height - 90 - this.weaponsScroller.rect.h
-        this.weaponsScroller.x = (Game.Borders.width - 100) / 2 - (this.weaponsScroller.rect.w) / 2
+        this.weaponsScroller.y = Game.Borders.height -20 - this.weaponsScroller.rect.h
+        this.weaponsScroller.x = (Game.Borders.width ) / 2 - (this.weaponsScroller.rect.w) / 2
 
 
         //this.slotsList.scale.set(Utils.scaleToFit(this.slotsList, Game.Borders.height / 2 - 150))

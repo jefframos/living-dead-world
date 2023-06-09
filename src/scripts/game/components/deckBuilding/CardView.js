@@ -7,7 +7,7 @@ import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class CardView extends PIXI.Container {
-    constructor(texture = 'square_0006', width = 115, height = 150) {
+    constructor(texture = UIUtils.baseButtonTexture+'_0006', width = 115, height = 150) {
         super()
         this.baseWidth = width;
         this.baseHeight = height;
@@ -97,14 +97,14 @@ export default class CardView extends PIXI.Container {
         this.safeShape.x = -width / 2
         this.safeShape.pivot.y = height
 
-        this.confirmCard = new BaseButton('square_0001s', 100, 50);
+        this.confirmCard = new BaseButton( UIUtils.baseButtonTexture+'_0001', 100, 50);
         this.addChild(this.confirmCard)
         this.confirmCard.pivot.x = this.confirmCard.safeShape.width
         UIUtils.addLabel(this.confirmCard, "Confirm", { strokeThickness: 0, fontSize: 18, fill: 0 })
         InteractableView.addMouseClick(this.confirmCard, () => { this.onCardConfirmed.dispatch(this) })
 
 
-        this.cancelCard = new BaseButton('square_0004s', 100, 50);
+        this.cancelCard = new BaseButton( UIUtils.baseButtonTexture+'_0004', 100, 50);
         //this.addChild(this.cancelCard)
 
         this.state = 0;

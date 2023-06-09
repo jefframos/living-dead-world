@@ -59,18 +59,37 @@ export default class PrizeManager {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
     getMetaPrize(maxId, max) {
+      
+        const itemPrizeList = []
+        
+        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
+        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
+
+
+        const types = [];
+        itemPrizeList.forEach(element => {
+            GameData.instance.addToInventory(element.type, element)
+            types.push(element.type)
+            
+        });
+
+
+        this.onGetMetaPrize.dispatch({ type: types, value: itemPrizeList })
+
+    }
+
+    getItemPrize(type, max){
         let allEquip = [];
 
-        switch (this.prizeList[maxId].type) {
+        switch (type) {
             case PrizeManager.PrizeType.Coin:
-                this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((50 + Math.random() * 5) * (max * max))] })
+                return { type: PrizeManager.PrizeType.Coin, value: Math.round((50 + Math.random() * 5) * (max * max)) }
 
-                return;
             case PrizeManager.PrizeType.Key:
                 if (max == 2) {
-                    this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Key], value: [1] })
+                    return{ type: PrizeManager.PrizeType.Key, value: 1 }
                 } else {
-                    this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Key, PrizeManager.PrizeType.MasterKey], value: [1, 1] })
+                    return{ type: PrizeManager.PrizeType.MasterKey, value: 1 }
                 }
                 return;
             case PrizeManager.PrizeType.Mask:
@@ -91,10 +110,8 @@ export default class PrizeManager {
         }
 
         const equipPrize = allEquip[Math.floor(Math.random() * allEquip.length)]
-        const itemPrize = { id: equipPrize.id, level: Math.floor(max * Math.random()) }
-        GameData.instance.addToInventory(this.prizeList[maxId].type, itemPrize)
+        const itemPrize = { id: equipPrize.id, level: Math.floor(max * Math.random()) , type}
 
-        this.onGetMetaPrize.dispatch({ type: [this.prizeList[maxId].type], value: [itemPrize] })
-
+        return itemPrize;
     }
 }

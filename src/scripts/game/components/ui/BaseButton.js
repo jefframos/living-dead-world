@@ -1,11 +1,12 @@
 import * as PIXI from 'pixi.js';
 
 import InteractableView from '../../view/card/InteractableView';
+import UIUtils from '../../core/utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class BaseButton extends PIXI.Container {
-    constructor(texture = 'square_0006', width = 100, height = 150) {
+    constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {
         super()
 
         this.addShape(texture, width, height);

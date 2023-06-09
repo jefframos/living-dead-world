@@ -9,6 +9,7 @@ export default class UIUtils {
     constructor() {
 
     }
+    static baseButtonTexture = 'square_button';
     static colorset = {
         skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
         clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
@@ -21,7 +22,7 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton('square_0004', 80, 80);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0004', 80, 80);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         button.addIcon('smallButton')
 
@@ -29,7 +30,7 @@ export default class UIUtils {
     }
 
     static getPrimaryButton(callback, label, icon) {
-        const button = new BaseButton('square_0001', 100, 100);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
             button.addIcon(icon)
@@ -47,18 +48,18 @@ export default class UIUtils {
             button.addIcon(icon, 80)
         }
         if (label) {
-            UIUtils.addLabel(button, label, {fontSize: 28})
+            UIUtils.addLabel(button, label, { fontSize: 28 })
         }
         return button;
     }
     static getMainPlayButton(callback, label, icon) {
-        const button = new BaseButton(null, 300, 200);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0005', 300, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
-            button.addIcon(icon, 150)
+            button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
         }
         if (label) {
-            UIUtils.addLabel(button, label, {fontSize: 48})
+            UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 })
         }
         return button;
     }
@@ -77,20 +78,20 @@ export default class UIUtils {
         }
         return textLabel;
     }
-    static addLabel(button, label, params = {}) {
+    static addLabel(button, label, params = {}, offset = { x: 0, y: 0 }) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
 
         for (const key in params) {
             textLabel.style[key] = params[key];
         }
-        button.addLabelOnCenter(textLabel)
+        button.addLabelOnCenter(textLabel, offset)
         return textLabel;
     }
     static getBodyPartySlot(callback, label, icon) {
 
         const button = Pool.instance.getElement(BodyPartySlot)
 
-        button.addShape('square_0002', 85, 85);
+        button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;
             let cb = InteractableView.addMouseUp(button, () => { button.mouseUpCallback(button) })
@@ -110,7 +111,7 @@ export default class UIUtils {
 
         const button = Pool.instance.getElement(ColorSlot)
 
-        button.addShape('square_0002', width, height);
+        button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
         button.setColor(color)
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;
@@ -120,26 +121,38 @@ export default class UIUtils {
         return button;
     }
     static getPrimaryLabelButton(callback, label, icon) {
-        const button = new BaseButton('square_0001', 100, 65);
-        button.setActiveTexture('square_0002')
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 100, 65);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, {strokeThickness:0, fontSize:18, fill:0})
+            UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 })
+        }
+        return button;
+    }
+    static getPrimaryLargeLabelButton(callback, label, icon) {
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 250, 100);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+        if (icon) {
+            button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
+        }
+        if (label) {
+            UIUtils.addLabel(button, label, { fontSize: 48 }, { x: -50, y: 0 })
         }
         return button;
     }
     static getBodyTypeLabelButton(callback, label, icon) {
-        const button = new BaseButton('square_0001', 80, 80);
-        button.setActiveTexture('square_0002')
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 80, 80);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, {strokeThickness:0, fontSize:18, fill:0})
+            UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 })
         }
         return button;
     }
@@ -147,7 +160,7 @@ export default class UIUtils {
 
         const button = Pool.instance.getElement(ColorButton)
 
-        button.addShape('square_0002', width, height);
+        button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
         button.setColor(color)
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;

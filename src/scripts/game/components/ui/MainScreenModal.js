@@ -1,6 +1,8 @@
 import * as PIXI from 'pixi.js';
 
 import Game from '../../../Game';
+import UIUtils from '../../core/utils/UIUtils';
+import signals from 'signals';
 
 export default class MainScreenModal extends PIXI.Container {
     constructor() {
@@ -14,6 +16,19 @@ export default class MainScreenModal extends PIXI.Container {
         this.addBackgroundShape();
         this.contentContainer = new PIXI.Container();
         this.container.addChild(this.contentContainer)
+
+        this.onHide = new signals.Signal();
+        this.onShow = new signals.Signal();
+
+    }
+    addScreenBlocker(){
+        this.blocker = new PIXI.Sprite.from('base-gradient');
+        this.blocker.width = 10000
+        this.blocker.height = 10000
+        this.blocker.interactive = true;
+        this.blocker.tint = 0;
+        this.blocker.alpha = 0.25;
+        this.addChildAt(this.blocker,0);
     }
     addBackgroundShape() {
         this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
@@ -21,13 +36,37 @@ export default class MainScreenModal extends PIXI.Container {
         this.infoBackContainer.tint = 0x2A292F;
     }
     get isOpen() {
-        return this.container.visible;
+        return this.visible;
     }
     show() {
-        this.container.visible = true;
+        this.recenterContainer();
+
+        this.visible = true;
+        this.container.alpha = 0.5;
+        this.container.scale.set(0.1, 0.5);
+
+        TweenLite.killTweensOf(this.container)
+        TweenLite.killTweensOf(this.container.scale)
+
+        TweenLite.to(this.container, 0.25, { alpha: 1 })
+        TweenLite.to(this.container.scale, 0.75, { x: 1, y: 1, ease: Elastic.easeOut })
+        this.onShow.dispatch(this)
     }
     hide() {
-        this.container.visible = false;
+
+        TweenLite.killTweensOf(this.container)
+        TweenLite.killTweensOf(this.container.scale)
+
+        TweenLite.to(this.container, 0.25, {
+            alpha: 0, onComplete: () => {
+                this.visible = false;
+            }
+        })
+
+        this.onHide.dispatch(this)
+    }
+    start() {
+
     }
     resize(res, newRes) {
 
@@ -36,12 +75,19 @@ export default class MainScreenModal extends PIXI.Container {
             this.infoBackContainer.width = Game.Borders.width - 80
             this.infoBackContainer.height = Game.Borders.height - 80
 
-            this.infoBackContainer.x = 50
-            this.infoBackContainer.y = 50
+
         }
 
-        this.contentContainer.x = 50
-        this.contentContainer.y = 50
+
+        this.recenterContainer();
+
+    }
+    recenterContainer() {
+        this.container.pivot.x = this.container.width / 2
+        this.container.x = Game.Borders.width/ 2
+        
+        this.container.pivot.y = this.container.height / 2
+        this.container.y = Game.Borders.height / 2
 
     }
     update(delta) {

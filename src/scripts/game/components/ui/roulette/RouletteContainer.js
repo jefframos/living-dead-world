@@ -2,13 +2,17 @@ import * as PIXI from 'pixi.js';
 
 import Game from '../../../../Game';
 import MainScreenModal from '../MainScreenModal';
+import PrizeManager from '../../../data/PrizeManager';
 import RouletteView from './RouletteView';
+import Utils from '../../../core/utils/Utils';
 
 export default class RouletteContainer extends MainScreenModal {
     constructor() {
         super();
-        this.roulette = new RouletteView();
+        this.roulette = new RouletteView(Game.Screen.width - 40, Game.Screen.height / 2);
         this.contentContainer.addChild(this.roulette)
+
+        this.roulette.onPrizeFound.add(this.givePrize.bind(this))
     }
     resize(res, newRes) {
 
@@ -16,14 +20,23 @@ export default class RouletteContainer extends MainScreenModal {
 
             this.infoBackContainer.width = Game.Borders.width - 80
             this.infoBackContainer.height = Game.Borders.height - 80
-
-            this.infoBackContainer.x = 50
-            this.infoBackContainer.y = Game.Borders.height - this.infoBackContainer.height - 50
         }
 
         this.contentContainer.x = 0
         this.contentContainer.y = 0
 
+    }
+    givePrize(type, id, amount) {
+        if (type === 0) {
+            setTimeout(() => {
+                PrizeManager.instance.getMetaLowerPrize();
+            }, 1000);
+        } else {
+
+            setTimeout(() => {
+                PrizeManager.instance.getMetaPrize(id, amount);
+            }, 1000);
+        }
     }
     addBackgroundShape() {
     }
@@ -32,7 +45,6 @@ export default class RouletteContainer extends MainScreenModal {
     }
     resize(res, newRes) {
         super.resize(res, newRes);
-        this.contentContainer.x = Game.Borders.width/2 - this.roulette.width / 2
-        this.contentContainer.y = Game.Borders.height/2 - this.roulette.height / 2
+
     }
 }

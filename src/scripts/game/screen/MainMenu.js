@@ -7,6 +7,7 @@ import InteractableView from '../view/card/InteractableView';
 import MainScreenContainer from './mainScreen/MainScreenContainer';
 import MainScreenManager from './MainScreenManager';
 import Screen from '../../screenManager/Screen'
+import UIUtils from '../core/utils/UIUtils';
 import signals from "signals";
 
 export default class MainMenu extends Screen {
@@ -22,7 +23,7 @@ export default class MainMenu extends Screen {
         
         this.onStartGame = new signals.Signal();
         
-        this.startGame = new BaseButton('square_0007', 200, 50);
+        this.startGame = new BaseButton( UIUtils.baseButtonTexture+'_0007', 200, 50);
         const confirmText = new PIXI.Text('Start', window.LABELS.LABEL1)
         confirmText.style.strokeThickness = 0
         confirmText.style.fontSize = 32
@@ -32,7 +33,7 @@ export default class MainMenu extends Screen {
         })
         this.container.addChild(this.startGame);
 
-        this.charcatrBuilder = new BaseButton('square_0007', 200, 50);
+        this.charcatrBuilder = new BaseButton( UIUtils.baseButtonTexture+'_0007', 200, 50);
         const charBuilder = new PIXI.Text('Build', window.LABELS.LABEL1)
         charBuilder.style.strokeThickness = 0
         charBuilder.style.fontSize = 32
@@ -45,7 +46,7 @@ export default class MainMenu extends Screen {
 
 
 
-        this.cleanCache = new BaseButton('square_0004', 200, 50);
+        this.cleanCache = new BaseButton( UIUtils.baseButtonTexture+'_0004', 200, 50);
         const wipData = new PIXI.Text('WipeData', window.LABELS.LABEL1)
         wipData.style.strokeThickness = 0
         wipData.style.fontSize = 32

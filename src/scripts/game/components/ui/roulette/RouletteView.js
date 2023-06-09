@@ -5,27 +5,29 @@ import PrizeManager from '../../../data/PrizeManager';
 import RouletteSlotView from './RouletteSlotView';
 import UIUtils from '../../../core/utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
+import signals from 'signals';
 
 export default class RouletteView extends PIXI.Container {
-    constructor() {
+    constructor(width = 800, height = 600) {
         super();
 
         this.container = new PIXI.Container();
         this.addChild(this.container);
 
+        this.onPrizeFound = new signals.Signal();
 
         this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
         this.infoBackContainer.tint = 0x2A292F;
-        this.infoBackContainer.width = 800
-        this.infoBackContainer.height = 600
+        this.infoBackContainer.width = width
+        this.infoBackContainer.height = height
 
         this.slotsContainer = new PIXI.Container();
         this.container.addChild(this.slotsContainer);
 
 
-        this.spinButton = UIUtils.getPrimaryLabelButton(() => {
-            this.spin(2);
+        this.spinButton = UIUtils.getPrimaryLargeLabelButton(() => {
+            this.spin(0.1);
         }, 'spin', 'video-icon')
         this.container.addChild(this.spinButton);
         this.slots = [];
@@ -98,7 +100,8 @@ export default class RouletteView extends PIXI.Container {
         }
         //console.log(foundlings, match)
         if (match <= 0) {
-            PrizeManager.instance.getMetaLowerPrize();
+
+            this.onPrizeFound.dispatch(0)
             
         } else {
             
@@ -110,7 +113,8 @@ export default class RouletteView extends PIXI.Container {
                     maxId = element.id;
                 }
             });
-            PrizeManager.instance.getMetaPrize(maxId, max);
+            this.onPrizeFound.dispatch(1, maxId, max)
+
         }
     }
     slotFinishSpin(slotId, prizeId) {

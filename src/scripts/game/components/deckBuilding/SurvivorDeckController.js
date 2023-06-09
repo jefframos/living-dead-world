@@ -110,7 +110,7 @@ export default class SurvivorDeckController extends GameObject {
 
 
 
-            let cardView = new CardView('square_0006', this.cardWidth, this.cardHeight);
+            let cardView = new CardView( UIUtils.baseButtonTexture+'_0006', this.cardWidth, this.cardHeight);
             this.cardsContainer.addChild(cardView);
             cardView.id = i;
             cardView.zIndex = i;

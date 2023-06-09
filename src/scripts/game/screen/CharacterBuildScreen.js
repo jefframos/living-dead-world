@@ -17,6 +17,7 @@ import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
+import PrizeCollectContainer from '../components/ui/prizes/PrizeCollectContainer';
 import PrizeManager from '../data/PrizeManager';
 import RouletteContainer from '../components/ui/roulette/RouletteContainer';
 import Screen from '../../screenManager/Screen';
@@ -100,7 +101,7 @@ export default class CharacterBuildScreen extends Screen {
         this.pivotOffset.y = -50
         this.buildBottomMenu();
 
-        
+
 
 
         this.modalList = [];
@@ -114,6 +115,10 @@ export default class CharacterBuildScreen extends Screen {
         this.addModal(this.locationContainer)
         this.rouletteContainer = new RouletteContainer()
         this.addModal(this.rouletteContainer)
+
+        this.popUpList = [];
+        this.prizeCollect = new PrizeCollectContainer()
+        this.addPopUp(this.prizeCollect)
 
         this.outgameUIProgression = new OutGameUIProgression();
         this.container.addChild(this.outgameUIProgression);
@@ -130,8 +135,8 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.updateHorizontalList();
 
 
-       
-        
+
+
         // setTimeout(() => {
 
         //     this.openModal(this.loadoutContainer);
@@ -168,16 +173,17 @@ export default class CharacterBuildScreen extends Screen {
     }
     updateCompanion(id) {
         const data = EntityBuilder.instance.getCompanion(id);
-        
-        if(!data){
+
+        if (!data) {
             this.playerCustomization.removeCompanion()
             return
         }
         this.playerCustomization.setCompanion(data);
-       
+
     }
-    showPrizeWindow(data){
-        console.log(data.type, data.value);
+    showPrizeWindow(data) {
+        this.prizeCollect.showPrize(data)
+        this.openPopUp(this.prizeCollect)
     }
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
@@ -187,16 +193,39 @@ export default class CharacterBuildScreen extends Screen {
             this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
         }
     }
+    addPopUp(popUp) {
+        this.popUpList.push(popUp);
+        this.container.addChild(popUp);
+        popUp.onHide.add(this.onPopUpHide.bind(this))
+        popUp.onShow.add(this.onPopUpShow.bind(this))
+        popUp.hide()
+    }
     addModal(modal) {
         this.modalList.push(modal);
         this.container.addChild(modal);
-
+        modal.onHide.add(this.onModalHide.bind(this))
+        modal.onShow.add(this.onModalShow.bind(this))
         modal.hide()
+    }
+    onPopUpShow(popup) {
+    }
+    onPopUpHide(popup) {
+    }
+    onModalShow(modal) {
+    }
+    onModalHide(modal) {
+    }
+    openPopUp(popUp) {
+        this.hideMainUI();
+        this.customizationZoom()
+        popUp.show();
+        this.previousPopUp = popUp;
     }
     openModal(modal) {
         this.hideMainUI();
         this.customizationZoom()
         modal.show();
+        this.previousModal = modal;
     }
     buildBottomMenu() {
         this.bottomMenu = new PIXI.Container()
@@ -211,13 +240,18 @@ export default class CharacterBuildScreen extends Screen {
 
         }, 'Customize', 'crown')
 
+        const bt0 = UIUtils.getPrimaryShapelessButton(() => {
+            PrizeManager.instance.getMetaPrize(Math.floor(Math.random() * 5), 1);
+        }, 'TestPopUp', 'crown')
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
         this.bottomMenuList.addElement(bt2, { align: 0 })
+        this.bottomMenuList.addElement(bt0, { align: 0 })
 
         this.menuButtons = [];
         this.menuButtons.push(this.loadoutButton)
         this.menuButtons.push(bt2)
+        this.menuButtons.push(bt0)
 
         this.bottomMenuList.updateVerticalList()
 
@@ -262,7 +296,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playGameButton = UIUtils.getMainPlayButton(() => {
             this.screenManager.redirectToGame();
-        }, 'PLAY', 'video-purple')
+        }, 'PLAY')
         this.bottomMenuRight.addChild(this.playGameButton)
     }
     addCharacter(data) {
@@ -270,7 +304,7 @@ export default class CharacterBuildScreen extends Screen {
         let customizationView = new CharacterBuildScreenCustomizationView(data, this.activePlayersCustomization.length)
         this.sceneContainer.addChild(customizationView);
 
-        customizationView.onUpdateCurrentPlayer.add((id)=>{
+        customizationView.onUpdateCurrentPlayer.add((id) => {
             this.updateCurrentPlayer(id)
         })
 
@@ -398,7 +432,7 @@ export default class CharacterBuildScreen extends Screen {
     }
     resize(res, newRes) {
         this.buttonsList.x = 20;
-        this.buttonsList.y = 20;
+        this.buttonsList.y = 50;
 
         this.updateCharactersPosition();
 
@@ -407,7 +441,9 @@ export default class CharacterBuildScreen extends Screen {
         this.modalList.forEach(element => {
             element.resize(res, newRes);
         });
-
+        this.popUpList.forEach(element => {
+            element.resize(res, newRes);
+        });
         this.campfireScene.x = Game.Borders.width / 2;
         this.campfireScene.y = Game.Borders.height / 2 - 80;
         this.campfireScene.scale.set(Math.min(1.5, Game.GlobalScale.max));
@@ -456,6 +492,9 @@ export default class CharacterBuildScreen extends Screen {
         this.modalList.forEach(element => {
             element.aspectChange(isPortrait);
         });
+        this.popUpList.forEach(element => {
+            element.aspectChange(isPortrait);
+        });
 
 
     }
@@ -467,6 +506,9 @@ export default class CharacterBuildScreen extends Screen {
         }
 
         this.modalList.forEach(element => {
+            element.update(delta)
+        });
+        this.popUpList.forEach(element => {
             element.update(delta)
         });
         this.sceneContainer.pivot.x = Utils.lerp(this.sceneContainer.pivot.x, this.playerCustomization.x + this.pivotOffset.x, 0.3);
@@ -497,14 +539,30 @@ export default class CharacterBuildScreen extends Screen {
     backButtonAction() {
 
         let modalOpen = null;
+        let popUpOpen = null;
         this.modalList.forEach(element => {
             if (element.isOpen) {
                 modalOpen = element;
             }
         });
+
+        this.popUpList.forEach(element => {
+            if (element.isOpen) {
+                popUpOpen = element;
+            }
+        });
+
         if (this.charCustomizationContainer.isOpen) {
             this.closeCustomization();
             this.unSelectPlayer();
+        } else if (popUpOpen) {
+            popUpOpen.hide();
+            console.log(modalOpen)
+            if (!modalOpen) {
+
+                this.closeCustomization();
+                this.unSelectPlayer();
+            }
         } else if (modalOpen) {
             modalOpen.hide();
             this.closeCustomization();

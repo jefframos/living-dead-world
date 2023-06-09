@@ -109,7 +109,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             // }
             this.allButtons.push(button);
             this.sectionList.addElement(button, { align: 0, vAlign: 0 })
-            this.sectionList.h += 80;
+            this.sectionList.h += 80 + 2;
         });
 
         this.currentShowingColors = [];
@@ -122,6 +122,9 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
     }
     show() {
         this.container.visible = true;
+        this.container.alpha = 0.5;
+        TweenLite.killTweensOf(this.container)
+        TweenLite.to(this.container, 0.25, { alpha: 1 })
     }
     hide() {
         this.container.visible = false;
