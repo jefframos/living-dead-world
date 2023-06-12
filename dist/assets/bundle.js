@@ -68309,6 +68309,7 @@ var LoadoutCardView = function (_PIXI$Container) {
                 _this.safeShape.alpha = 0;
 
                 _this.cardData = null;
+                _this.empty = _UIUtils2.default.baseButtonTexture + '_0006';
 
                 _this.textures = [_UIUtils2.default.baseButtonTexture + '_0001', _UIUtils2.default.baseButtonTexture + '_0002', _UIUtils2.default.baseButtonTexture + '_0003', _UIUtils2.default.baseButtonTexture + '_0004', _UIUtils2.default.baseButtonTexture + '_0005'];
 
@@ -68421,6 +68422,9 @@ var LoadoutCardView = function (_PIXI$Container) {
                         var customIconSize = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 80;
 
                         if (!cardData) {
+                                this.cardBorder.texture = PIXI.Texture.from(this.empty);
+                                this.cardImage.texture = PIXI.Texture.EMPTY;
+
                                 return;
                         }
                         this.cardData = cardData;
@@ -104048,14 +104052,14 @@ var assets = [{
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -104072,23 +104076,23 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
-}, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
@@ -104099,11 +104103,11 @@ var assets = [{
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -104160,7 +104164,7 @@ module.exports = exports['default'];
 /* 339 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/environment/environment.json","image/characters/characters.json","image/ui/ui.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

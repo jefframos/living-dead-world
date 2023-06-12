@@ -32,16 +32,16 @@ const assets = [
 	"url":"assets/json\\localization_KO.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
-	},
-	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_ZH",
@@ -64,28 +64,28 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
-	},
-	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"cards",
 	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
-	"id":"companions",
-	"url":"assets/json\\entity\\companions.json"
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
 	"id":"enemies",
 	"url":"assets/json\\entity\\enemies.json"
+	},
+	{
+	"id":"companions",
+	"url":"assets/json\\entity\\companions.json"
 	},
 	{
 	"id":"player",
@@ -100,12 +100,12 @@ const assets = [
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
-	},
-	{
 	"id":"buff-debuff",
 	"url":"assets/json\\misc\\buff-debuff.json"
+	},
+	{
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
 	"id":"main-weapons",
