@@ -8,6 +8,11 @@ export default class LocationContainer extends MainScreenModal {
         super();
 
     }
+    addBackgroundShape() {
+        this.modalTexture = 'modal_container0002';
+        super.addBackgroundShape();
+
+    }
     resize(res, newRes) {
 
         if (this.infoBackContainer) {
@@ -24,6 +29,7 @@ export default class LocationContainer extends MainScreenModal {
 
     }
     show() {
+        this.visible = true;
         this.container.visible = true;
         this.container.alpha = 0.5;
         TweenLite.killTweensOf(this.container)

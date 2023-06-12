@@ -11,7 +11,13 @@ export default class ListScroller extends PIXI.Container {
         this.totalLines = 0;
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
-        this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
+
+        this.modalTexture = 'modal_container0006'
+
+        this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
+        this.containerBackground.width = rect.w
+        this.containerBackground.height = rect.h
+        //this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
         this.containerBackground.alpha = 0.55;
 
         this.rect = rect;
@@ -54,7 +60,14 @@ export default class ListScroller extends PIXI.Container {
 
         if (this.containerBackground) {
             this.container.removeChild(this.containerBackground)
-            this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
+            // this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
+            // this.containerBackground.alpha = 0.55;
+
+
+            this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
+            this.containerBackground.width = rect.w
+            this.containerBackground.height = rect.h
+            //this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
             this.containerBackground.alpha = 0.55;
             this.container.addChildAt(this.containerBackground, 0)
         }
@@ -99,31 +112,31 @@ export default class ListScroller extends PIXI.Container {
         this.containerBackground.interactive = false;
 
 
-        const axis = this.isHorizontal?'x':'y'
+        const axis = this.isHorizontal ? 'x' : 'y'
 
         let target = 0;
         let targY = this.listContainer[axis]
         let maxH = this.itemHeight * this.totalLines + this.extraHeight;
         let maxW = this.itemWidth * this.totalLines + this.extraHeight;
-        
-        if( this.isHorizontal){
+
+        if (this.isHorizontal) {
             if (this.goingDown == 1) {
                 targY -= this.itemWidth / 2;
                 target = Math.floor(targY / this.itemWidth) * this.itemWidth
-                
+
             } else if (this.goingDown == -1) {
-    
+
                 targY += this.itemWidth / 2;
                 target = Math.ceil(targY / this.itemWidth) * this.itemWidth
             }
-        }else{
+        } else {
 
             if (this.goingDown == 1) {
                 targY -= this.itemHeight / 2;
                 target = Math.floor(targY / this.itemHeight) * this.itemHeight
-                
+
             } else if (this.goingDown == -1) {
-    
+
                 targY += this.itemHeight / 2;
                 target = Math.ceil(targY / this.itemHeight) * this.itemHeight
             }
@@ -149,7 +162,7 @@ export default class ListScroller extends PIXI.Container {
                 })
             }
         } else {
-            console.log(target , maxW, target + maxW ,this.containerBackground.width, this.containerBackground.width - maxW)
+            console.log(target, maxW, target + maxW, this.containerBackground.width, this.containerBackground.width - maxW)
             if (target > 0) {
                 TweenLite.to(this.listContainer, 0.75, {
                     x: 0,
@@ -175,7 +188,7 @@ export default class ListScroller extends PIXI.Container {
         }
         if (this.dragging) {
 
-            const axis = this.isHorizontal?'x':'y'
+            const axis = this.isHorizontal ? 'x' : 'y'
             // this.spaceShipInfoContainer.visible = false;
             // if (this.lastItemClicked) {
             //     this.lastItemClicked.visible = true;

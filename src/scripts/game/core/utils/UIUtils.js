@@ -22,7 +22,7 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton(UIUtils.baseButtonTexture + '_0004', 80, 80);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0004', 80, 60);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         button.addIcon('smallButton')
 
@@ -64,10 +64,15 @@ export default class UIUtils {
         return button;
     }
     static getPrimaryLabel(label, params = {}) {
-        const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
-        for (const key in params) {
-            textLabel.style[key] = params[key];
+        const style = {}
+        for (const key in window.LABELS.LABEL1) {
+            style[key] = window.LABELS.LABEL1[key];
         }
+
+        for (const key in params) {
+            style[key] = params[key];
+        }
+        const textLabel = new PIXI.Text(label, style)
         textLabel.text = label;
         return textLabel;
     }
@@ -170,9 +175,6 @@ export default class UIUtils {
         return button;
     }
 
-    static getPrimaryLabel() {
-        const textLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        return textLabel;
-    }
+
 
 }

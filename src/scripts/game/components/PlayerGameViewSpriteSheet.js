@@ -1,3 +1,4 @@
+import AnimationUtils from '../core/utils/AnimationUtils';
 import BaseComponent from '../core/gameObject/BaseComponent';
 import EntityBuilder from '../screen/EntityBuilder';
 import GameData from '../data/GameData';
@@ -19,6 +20,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         RotationCos: 'RotationCos',
         PositionCos: 'PositionCos',
         PositionSin: 'PositionSin',
+        FrameList: 'FrameList',
     }
     constructor() {
         super();
@@ -74,17 +76,21 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.baseData.onSpriteUpdate.add(this.spriteUpdate.bind(this))
 
 
-
         this.bodyData = [
             { type: 'visuals', area: "backArm", src: "front-arm00{frame}", frame: Utils.formatNumber(this.baseData.arms, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'skinColor', color: this.baseData.skinColor, enabled: this.baseData.arms > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 },
             { type: 'visuals', area: "backSleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset: { x: 85, y: 120 }, anchor: { x: 0.25, y: 0.6 }, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos, animForce: 2 },
 
             //  {type:'visuals', area: "sleeves", src: "sleeve-00{frame}", frame: Utils.formatNumber(this.baseData.sleeves, 1), offset:{x:90,y:120}, anchor:{x:0.25,y:0.6}, colorId: 'sleevesColor', color: this.baseData.sleevesColor, enabled: this.baseData.sleeves > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos },
             { type: 'visuals', area: "backHead", src: "back-head-00{frame}", frame: Utils.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
-            { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
-            { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
-            { type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
-            { type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
+            // { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            // { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
+            { type: 'visuals', area: "backLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 },enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
+            { type: 'visuals', area: "backShoes", src: "dynamic-shoe-00{frame}", frame: Utils.formatNumber(this.baseData.shoe, 1),  offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.shoe > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
+            { type: 'visuals', area: "bottom", src: "bottoms-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 0.5 },
+            { type: 'visuals', area: "frontLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 45, y: 160 }, anchor: { x: 0.3, y: 0.75 },  enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.frontLegTimeline },
+            { type: 'visuals', area: "frontShoes", src: "dynamic-shoe-00{frame}", frame: Utils.formatNumber(this.baseData.shoe, 1), offset: { x: 45, y: 160 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.shoe > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.frontLegTimeline },
+            //{ type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
+            //{ type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
 
             { type: 'visuals', area: "chest", src: "chest-00{frame}", frame: Utils.formatNumber(this.baseData.chest, 1), colorId: 'topClothColor', color: this.baseData.topClothColor, enabled: this.baseData.chest > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
             { type: 'equip', area: "trinketSprite", src: null, enabled: true, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 1 },
@@ -116,7 +122,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             } else {
                 sprite = new PIXI.Sprite();
             }
-            if(element.color !== undefined && element.color !== null){
+            if (element.color !== undefined && element.color !== null) {
                 sprite.tint = element.color;
             }
             this.spriteLayersData[element.area] = {
@@ -184,7 +190,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         }
     }
     spriteUpdate(region, value) {
-    
+
         let id = -1;
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
@@ -200,7 +206,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.bodyData[id].enabled = false;
             this.spriteLayersData[region].enable = false;
             this.spriteLayersData[region].sprite.texture = PIXI.Texture.EMPTY;
-        }else{
+        } else {
 
             this.bodyData[id].enabled = true;
             this.bodyData[id].sprite = value;
@@ -225,7 +231,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
     structureUpdate(region, value) {
-        
+
         let id = -1;
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
@@ -252,6 +258,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
     update(delta) {
+        const forceWalk = false;
 
         if (this.gameObject) {
             if (this.gameObject.gameView.view) {
@@ -273,8 +280,21 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
                 } else {
 
+
                     this.currentFrame = 0
                     this.currentTime = this.time
+
+                }
+            }
+        } else {
+
+            if (forceWalk) {
+                this.currentTime += delta;
+                if (this.currentTime >= this.time) {
+                    this.currentTime = 0;
+                    this.currentFrame++
+                    this.currentFrame %= this.maxFrame;
+                    this.currentFrame = Math.max(this.currentFrame, 2)
                 }
             }
         }
@@ -294,7 +314,21 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         this.bodyData.forEach(element => {
             const spriteElement = this.spriteLayersData[element.area];
             if (spriteElement.enabled) {
-                if (spriteElement.animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos) {
+                if (spriteElement.animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList) {
+
+                    const animationData = element.animationFrames[this.currentFrame]
+                    const targetAngle = animationData.rotation / 180 * Math.PI;
+
+
+                    spriteElement.sprite.rotation = Utils.angleLerp(spriteElement.sprite.rotation, targetAngle, 0.8)
+
+                    if (spriteElement.offset) {
+                        spriteElement.sprite.x = Utils.lerp(spriteElement.sprite.x, spriteElement.offset.x + animationData.offset.x, 0.5)
+                        spriteElement.sprite.y = Utils.lerp(spriteElement.sprite.y, spriteElement.offset.y + animationData.offset.y, 0.5)
+                    }
+
+                }
+                else if (spriteElement.animationType == PlayerGameViewSpriteSheet.AnimatingSequenceType.RotationCos) {
                     const targetAngle = Math.cos(normal * Math.PI * 2 + Math.PI) * 0.5;
 
                     spriteElement.sprite.rotation = Utils.angleLerp(spriteElement.sprite.rotation, targetAngle, 0.5)

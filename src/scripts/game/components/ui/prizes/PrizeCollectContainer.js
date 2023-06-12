@@ -11,16 +11,16 @@ import Utils from '../../../core/utils/Utils';
 export default class PrizeCollectContainer extends MainScreenModal {
     constructor() {
         super();
+
+        
         this.addScreenBlocker();
         this.prizesContainer = new PIXI.Container();
         this.container.addChild(this.prizesContainer);
     }
     addBackgroundShape() {
+        this.modalTexture = 'modal_container0003';
+        super.addBackgroundShape();
 
-
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
-        this.container.addChild(this.infoBackContainer);
-        this.infoBackContainer.tint = 0x000099;
     }
     resize(res, newRes) {
 

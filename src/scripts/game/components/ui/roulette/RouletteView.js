@@ -16,9 +16,8 @@ export default class RouletteView extends PIXI.Container {
 
         this.onPrizeFound = new signals.Signal();
 
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
-        this.infoBackContainer.tint = 0x2A292F;
         this.infoBackContainer.width = width
         this.infoBackContainer.height = height
 

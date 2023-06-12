@@ -49,10 +49,10 @@ export default class SurvivorDeckController extends GameObject {
 
         this.highlightedCard = null;
 
-        this.cardWidth = 130
-        this.cardHeight = 200
-        this.cardDistance = 90
-        this.cardContainerMaxWidth = 350
+        this.cardWidth = 140
+        this.cardHeight = 350
+        this.cardDistance = 180
+        this.cardContainerMaxWidth = 450
 
         this.state = 0;
     }
@@ -109,14 +109,15 @@ export default class SurvivorDeckController extends GameObject {
             }
 
 
-
             let cardView = new CardView( UIUtils.baseButtonTexture+'_0006', this.cardWidth, this.cardHeight);
             this.cardsContainer.addChild(cardView);
             cardView.id = i;
             cardView.zIndex = i;
             cardView.onCardClicked.add((card) => {
                 //this.onCardClicked.dispatch(card.cardData)
+                //this.pickCard(card);
                 //card.visible = false;
+                //return
                 if (this.state == 0) {
                     this.state = 1;
                     this.highlightCard(card)
@@ -129,13 +130,15 @@ export default class SurvivorDeckController extends GameObject {
                         this.highlightCard(card)
                     }
                 }
-
+                
             })
             cardView.onCardConfirmed.add((card) => {
+                this.highlightCard(card)
                 this.pickCard(card);
             })
             this.handCards.push(cardView)
             cardView.setData(dt, data[i]);
+            cardView.show(i)
         }
 
         this.cardsContainer.y = Game.Screen.height / 2
@@ -146,7 +149,6 @@ export default class SurvivorDeckController extends GameObject {
     pickCard(card) {
         //this.player.sessionData.addEquipment
 
-        console.log(this.holdingData)
 
         let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
 
@@ -200,14 +202,15 @@ export default class SurvivorDeckController extends GameObject {
                 const element = this.handCards[index];
                 element.update(unscaleDelta)
                 let rot = (rotChunk * index) - (arc / 2) + rotChunk / 2
-                element.rotation = Utils.angleLerp(element.rotation, rot, 0.5)
+                //element.rotation = Utils.angleLerp(element.rotation, rot, 0.5)
 
-                let extraH = 150;
-                if (this.state == 1) {
-                    extraH = 250;
-                }
+                let extraH = 200;
+                // if (this.state == 1) {
+                //     extraH = 250;
+                // }
 
-                element.y = Utils.lerp(element.y, Math.cos(rot) * -this.cardContainerMaxWidth + this.cardContainerMaxWidth + extraH, 0.25)
+                element.y = Utils.lerp(element.y, element.baseHeight / 2, 0.25)
+                //element.y = Utils.lerp(element.y, Math.cos(rot) * -this.cardContainerMaxWidth + this.cardContainerMaxWidth + extraH, 0.25)
                 element.x = Utils.lerp(element.x, dist * index - (dist * this.handCards.length / 2 - dist * 0.5), 0.5)
             }
 
@@ -235,8 +238,8 @@ export default class SurvivorDeckController extends GameObject {
             this.cardsContainer.scale.set(1.5)
             this.transitionContainer.scale.set(1.5)
         } else {
-            this.cardsContainer.scale.set(1)
-            this.transitionContainer.scale.set(1)
+            this.cardsContainer.scale.set(1.25)
+            this.transitionContainer.scale.set(1.25)
         }
     }
     resize() {

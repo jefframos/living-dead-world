@@ -42,8 +42,9 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             // {type:'visuals', label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
             //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-            { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: 'botomColor', area: "legs", subs: ["backLeg", "frontLeg"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-leg{frame}-00", "front-leg{frame}-00"], animated: true },
-            { typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: 'shoeColor', area: "shoes", subs: ["backShoes", "frontShoes"], pivot: { x: 65, y: 180 }, mainIconId: '1', iconSize: 150, range: [1, 1], src: ["back-shoe{frame}00", "front-shoe{frame}00"], animated: true },
+            { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.35, y: 0.8 }, mainIconId: '01', iconSize: 150, range: [1, 8], src: 'front-leg1-dynamic-00{frame}', animated: false },
+
+            { typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: null, area: "shoes", subs: ["backShoes", "frontShoes"], anchor: { x: 0.35, y: 0.9 }, mainIconId: '01', iconSize: 200, range: [1, 8], src: "dynamic-shoe-00{frame}", animated: false },
 
 
             { typeList: 'visuals', label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '04', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false },
@@ -367,7 +368,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             return;
         }
         this.colorContainerHairScroller.w = 60
-        this.colorContainerHairScroller.h = this.currentShowingColors.length * 60
+        this.colorContainerHairScroller.h = this.currentShowingColors.length * 62
         this.colorContainerHairScroller.updateVerticalList();
         let scale = Utils.scaleToFit(this.colorContainerHairScroller, (this.piecesScroller.y - 40))
         this.colorContainerHairScroller.scale.set(scale)
@@ -381,7 +382,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.piecesScroller.scale.set(1)
 
         this.colorContainerHairScroller.h = 60
-        this.colorContainerHairScroller.w = this.currentShowingColors.length * 60
+        this.colorContainerHairScroller.w = this.currentShowingColors.length * 62
         this.colorContainerHairScroller.updateHorizontalList();
 
         this.piecesScroller.removeAllItems();

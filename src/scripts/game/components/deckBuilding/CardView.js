@@ -1,13 +1,14 @@
 import * as PIXI from 'pixi.js';
 
 import BaseButton from '../ui/BaseButton';
+import EntityData from '../../data/EntityData';
 import InteractableView from '../../view/card/InteractableView';
 import UIUtils from '../../core/utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class CardView extends PIXI.Container {
-    constructor(texture = UIUtils.baseButtonTexture+'_0006', width = 115, height = 150) {
+    constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
         super()
         this.baseWidth = width;
         this.baseHeight = height;
@@ -19,29 +20,35 @@ export default class CardView extends PIXI.Container {
 
         this.cardData = null;
 
-        this.textures = ['card-shape-1']
+        this.textures = ['ingame-card0001', 'ingame-card0002', 'ingame-card0003', 'ingame-card0004', 'ingame-card0005', 'ingame-card0006']
+
+        this.fullContnainer = new PIXI.Container();
+        this.addChild(this.fullContnainer);
+
+        this.cardContentContnainer = new PIXI.Container();
+        this.fullContnainer.addChild(this.cardContentContnainer);
 
         this.cardContainer = new PIXI.Container();
-        this.addChild(this.cardContainer);
+        this.fullContnainer.addChild(this.cardContainer);
 
-        this.cardBackground = new PIXI.Sprite.from('card-backshape-1');
-        //this.cardContainer.addChild(this.cardBackground);
-        //this.cardBackground.tint = 0x6794C7
+        this.cardBackground = new PIXI.Sprite.from('ingame-card0003');
         this.cardBackground.width = width
         this.cardBackground.height = height
 
-        this.cardBorder = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 20, 20, 20, 20);
-        this.cardContainer.addChild(this.cardBorder);
+        this.cardBorder = new PIXI.NineSlicePlane(PIXI.Texture.from(texture), 0, 120, 0, 120);
+        this.cardContentContnainer.addChild(this.cardBorder);
         this.cardBorder.width = width
         this.cardBorder.height = height
 
-        this.cardImage = new PIXI.Sprite();
 
-        this.cardContainer.addChild(this.cardImage);
+        this.cardIconContainer = new PIXI.Sprite.from('item_card_container')
+        this.cardContainer.addChild(this.cardIconContainer);
+        this.cardIconContainer.anchor.set(0.5);
+        this.cardIconContainer.scale.set(Utils.scaleToFit(this.cardIconContainer, 80))
+
+        this.cardImage = new PIXI.Sprite();
+        this.cardIconContainer.addChild(this.cardImage);
         this.cardImage.anchor.set(0.5)
-        // this.cardImage.scale.set(0.5)
-        this.cardImage.x = width / 2
-        this.cardImage.y = height / 2
 
         this.mouseOver = false;
 
@@ -49,26 +56,16 @@ export default class CardView extends PIXI.Container {
         this.onCardConfirmed = new signals.Signal();
         this.onStartDrag = new signals.Signal();
         this.onEndDrag = new signals.Signal();
-        InteractableView.addMouseEnter(this.cardContainer, () => { this.mouseOver = true; })
-        InteractableView.addMouseOut(this.cardContainer, () => { this.mouseOver = false; })
-        InteractableView.addMouseClick(this.cardContainer, () => { this.onCardClicked.dispatch(this) })
-        InteractableView.addMouseDown(this.cardContainer, () => {
+        InteractableView.addMouseEnter(this.cardContentContnainer, () => { this.mouseOver = true; })
+        InteractableView.addMouseOut(this.cardContentContnainer, () => { this.mouseOver = false; })
+        InteractableView.addMouseClick(this.cardContentContnainer, () => { this.onCardConfirmed.dispatch(this) })
+        InteractableView.addMouseDown(this.cardContentContnainer, () => {
             this.onStartDrag.dispatch(this)
         })
 
-        this.cardDescriptionBackground = new PIXI.Sprite.from('tile');
-        this.cardContainer.addChild(this.cardDescriptionBackground);
-        this.cardDescriptionBackground.tint = 0x5F5259
-
-        this.descriptionBox = new PIXI.NineSlicePlane(PIXI.Texture.from('description-box'), 18, 18, 18, 18);
-        this.cardContainer.addChild(this.descriptionBox);
-        this.descriptionBox.width = width + 20
-        this.descriptionBox.height = 37
-        this.descriptionBox.visible = false;
-
         //this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('title-1'), 50, 0, 50, 0);
         this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
-        this.cardContainer.addChild(this.titleBox);
+        this.cardContentContnainer.addChild(this.titleBox);
         this.titleBox.width = width + 20
         this.titleBox.height = 37
         this.titleBox.x = -10
@@ -78,13 +75,14 @@ export default class CardView extends PIXI.Container {
 
         this.labelTitle = new PIXI.Text('', window.LABELS.LABEL1)
         this.titleBox.addChild(this.labelTitle);
-        this.labelTitle.style.fill = 0
+        this.labelTitle.style.fill = 0xFFFFFF
         this.labelTitle.style.strokeThickness = 0
         this.labelTitle.style.wordWrap = true
+        this.labelTitle.style.fontStyle = 'italic'
         this.labelTitle.style.wordWrapWidth = width
-        this.labelTitle.style.fontSize = 10
+        this.labelTitle.style.fontSize = 14
         this.labelTitle.anchor.set(0.5)
-        this.labelTitle.y = 25/2
+        this.labelTitle.y = 25 / 2
 
         this.offset = { x: 0, y: 0 }
 
@@ -94,28 +92,23 @@ export default class CardView extends PIXI.Container {
         this.cardContainer.x = -width / 2
         this.cardContainer.pivot.y = height
 
+        this.cardContentContnainer.x = -width / 2
+        this.cardContentContnainer.pivot.y = height
         this.safeShape.x = -width / 2
         this.safeShape.pivot.y = height
 
-        this.confirmCard = new BaseButton( UIUtils.baseButtonTexture+'_0001', 100, 50);
-        this.addChild(this.confirmCard)
-        this.confirmCard.pivot.x = this.confirmCard.safeShape.width
-        UIUtils.addLabel(this.confirmCard, "Confirm", { strokeThickness: 0, fontSize: 18, fill: 0 })
-        InteractableView.addMouseClick(this.confirmCard, () => { this.onCardConfirmed.dispatch(this) })
-
-
-        this.cancelCard = new BaseButton( UIUtils.baseButtonTexture+'_0004', 100, 50);
-        //this.addChild(this.cancelCard)
 
         this.state = 0;
 
-       this.smallFontSize = 12
-       this.largeFontSize = 16
+        this.smallFontSize = 12
+        this.largeFontSize = 16
 
     }
-    resetPivot(){
+    resetPivot() {
         this.cardContainer.x = 0
         this.cardContainer.pivot.y = 0
+        this.cardContentContnainer.x = 0
+        this.cardContentContnainer.pivot.y = 0
 
         this.safeShape.x = 0
         this.safeShape.pivot.y = 0
@@ -131,20 +124,35 @@ export default class CardView extends PIXI.Container {
         this.customWidth = this.baseWidth;
         this.customHeight = this.baseHeight;
         this.state = 0
+
     }
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
+    getIdByType(type) {
+        switch (type) {
+            case EntityData.EntityDataType.Weapon:
+                return 3
+            case EntityData.EntityDataType.Companion:
+                return 0
 
+            case EntityData.EntityDataType.Attribute:
+                return 5
+
+            case EntityData.EntityDataType.Acessory:
+                return 2
+        }
+        return 1
+    }
     setData(cardData) {
         if (this.cardData == cardData) {
             return;
         }
         this.cardData = cardData;
-        let cardID = 0
+        let cardID = this.getIdByType(cardData.entityData.type)
         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
         this.updateTexture(cardData.entityData.icon)
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 50))
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 180))
         this.labelTitle.text = cardData.entityData.name
 
         if (this.cardData.entityData.description) {
@@ -152,11 +160,10 @@ export default class CardView extends PIXI.Container {
         }
     }
     setDescription(label) {
-        if(this.labelDescription){
+        if (this.labelDescription) {
             this.labelDescription.text = label;
-        }else{
+        } else {
             this.labelDescription = new PIXI.Text(label, window.LABELS.LABEL1)
-            this.descriptionBox.addChild(this.labelDescription);
         }
         this.labelDescription.style.fill = 0xffffff
         this.labelDescription.style.strokeThickness = 1
@@ -166,88 +173,70 @@ export default class CardView extends PIXI.Container {
         this.labelDescription.x = 0
         this.labelDescription.y = 20
 
-        this.descriptionBox.visible = true;
+    }
+    show(order) {
+
+        this.animation = true;
+        this.cardContentContnainer.alpha = 0;
+
+        this.cardIconContainer.y = this.cardBorder.height / 2
+        let targetScale = Utils.scaleToFit(this.cardIconContainer, 80)
+        this.cardIconContainer.scale.set(targetScale * 2, 0);
+        TweenLite.to(this.cardIconContainer.scale, 1, { delay: order * 0.2 + 0.2, x: targetScale, y: targetScale, ease: Elastic.easeOut })
+        TweenLite.to(this.cardIconContainer, 0.3, { delay: order * 0.2 + 0.3, y: 50, ease: Back.easeOut })
+
+
+        this.cardContentContnainer.y = -150
+        TweenLite.to(this.cardContentContnainer, 0.75, { delay: order * 0.2 + 0.3, alpha: 1, y: 0, ease: Elastic.easeOut })
+
+        TweenLite.to(this.offset, 0.3, { delay: order * 0.2 + 0.3, y: 0, ease: Back.easeOut })
+
+        this.cardBorder.height = 100
+        TweenLite.to(this.cardBorder, 0.3, { delay: order * 0.2 + 0.3, height: this.baseHeight, ease: Back.easeOut })
+
+        //this.cardIconContainer.y = 50
+
+        setTimeout(() => {
+            this.animation = false;
+        }, (order * 0.2 + 1) * 1000);
+
     }
     update(delta) {
-        this.cardContainer.y = Utils.lerp(this.cardContainer.y, this.offset.y, 0.3);
+        if (!this.animation) {
 
-        if (this.mouseOver && this.state != 1) {
-            this.offset.y = -20
-        } else {
-            this.offset.y = 0
-        }
+            this.cardContainer.y = Utils.lerp(this.cardContainer.y, this.offset.y, 0.3);
+            this.cardContentContnainer.y = Utils.lerp(this.cardContentContnainer.y, this.offset.y, 0.3);
 
-        if (this.customWidth) {
-            this.cardBorder.width = Utils.lerp(this.cardBorder.width, this.customWidth, 0.2);
-            this.cardBorder.height = Utils.lerp(this.cardBorder.height, this.customHeight, 0.3);
-            this.cardBorder.x = -this.cardBorder.width / 2 + this.baseWidth / 2
-
-        }
-
-        if (this.state == 1) {
-            
-            this.cardImage.x = Utils.lerp(this.cardImage.x, this.cardBorder.x + this.cardImage.width / 2 + 20, 0.2);
-            this.cardImage.y = this.cardImage.height / 2 + 70
-            this.labelTitle.style.fontSize = this.largeFontSize
-        } else {
-
-            this.cardImage.x = Utils.lerp(this.cardImage.x, this.cardBorder.width / 2, 0.2);
-            this.labelTitle.style.fontSize = this.smallFontSize
-            this.cardImage.y = this.cardBorder.height / 2
-
-        }
-
-        
-        if (this.labelDescription) {
-            this.labelDescription.style.wordWrapWidth = this.customWidth - 130
-            
-
-           
-            this.descriptionBox.visible = this.state == 1
-            if (this.state == 1) {
-                this.labelDescription.alpha = Utils.lerp(this.labelDescription.alpha, 1, 0.2);
-                this.labelDescription.scale.x = Utils.lerp(this.labelDescription.scale.x, 1, 0.15);
+            if (this.mouseOver && this.state != 1) {
+                this.offset.y = -20
             } else {
-                this.labelDescription.alpha = 0;
-                this.labelDescription.scale.x = 0.1
+                this.offset.y = 0
             }
-
-            this.descriptionBox.width = this.cardBorder.width - 100
-            this.descriptionBox.height = this.labelDescription.height + 40
-            this.descriptionBox.pivot.x = this.descriptionBox.width / 2
-            this.descriptionBox.x = this.cardBorder.x + this.cardBorder.width / 2 + 30
-            this.descriptionBox.y = 30
-            this.labelDescription.x = (this.cardBorder.width - 100)/2
-            
         }
-        
-        this.safeShape.pivot.y = this.cardBorder.height
-        this.cardContainer.pivot.y = this.cardBorder.height
-        
-        this.margin = 20
-        
-        this.cardBackground.x =  this.cardBorder.x
-        this.cardBackground.width =  this.cardBorder.width-10
-        this.cardBackground.height =  this.cardBorder.height-10
 
-        this.cardDescriptionBackground.width =  this.descriptionBox.width-10
-        this.cardDescriptionBackground.height =  this.descriptionBox.height-10
-        this.cardDescriptionBackground.x =  this.descriptionBox.x - this.descriptionBox.pivot.x + 5
-        this.cardDescriptionBackground.y =  this.descriptionBox.y+5
-        this.cardDescriptionBackground.visible = this.descriptionBox.visible;
-        
-        this.titleBox.width = this.cardBorder.width +22
+        this.labelTitle.style.fontSize = this.smallFontSize
+
+        this.cardIconContainer.x = this.cardBorder.width / 2
+
+        this.safeShape.pivot.y = this.baseHeight
+        this.cardContainer.pivot.y = this.baseHeight
+        this.cardContentContnainer.pivot.y = this.baseHeight
+
+        this.margin = 20
+
+        this.cardBackground.x = this.cardBorder.x
+        this.cardBackground.width = this.cardBorder.width - 10
+        this.cardBackground.height = this.cardBorder.height - 10
+
+        this.titleBox.width = this.cardBorder.width
         this.titleBox.pivot.x = this.titleBox.width / 2
         this.titleBox.x = this.cardBorder.x + this.cardBorder.width / 2
+        this.titleBox.y = 110
+
+
         this.labelTitle.x = this.titleBox.width / 2
-        this.labelTitle.style.wordWrapWidth = this.cardBorder.width
+        this.labelTitle.style.wordWrapWidth = this.cardBorder.width - 20
 
-        
-        this.cancelCard.visible = this.confirmCard.visible = this.state == 1;
-        this.cancelCard.x = -this.cardBorder.width / 2 + this.margin
-        this.cancelCard.y = -this.cancelCard.height - this.margin
 
-        this.confirmCard.x = this.cardBorder.width / 2 - this.margin
-        this.confirmCard.y = -this.confirmCard.height - this.margin
     }
 }

@@ -70,7 +70,7 @@ export default class CharacterBuildScreen extends Screen {
 
 
         this.logo = new PIXI.Sprite.from('muta-logo');
-        this.container.addChild(this.logo);
+        //this.container.addChild(this.logo);
         this.logo.anchor.x = 0.5;
 
 
@@ -129,8 +129,8 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.addElement(this.closeButton, { align: 0 })
         //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
 
-        this.buttonsList.w = 250
-        this.buttonsList.h = 100;
+        this.buttonsList.w = 60
+        this.buttonsList.h = 60;
 
         this.buttonsList.updateHorizontalList();
 
@@ -431,8 +431,7 @@ export default class CharacterBuildScreen extends Screen {
 
     }
     resize(res, newRes) {
-        this.buttonsList.x = 20;
-        this.buttonsList.y = 50;
+        
 
         this.updateCharactersPosition();
 
@@ -467,8 +466,11 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList.updateVerticalList();
 
 
-        this.outgameUIProgression.x = Game.Borders.width - this.outgameUIProgression.width - 30;
+        this.outgameUIProgression.x = Game.Borders.width /2 - this.outgameUIProgression.width / 2;
         this.outgameUIProgression.y = 30;
+
+        this.buttonsList.x = this.outgameUIProgression.x - this.buttonsList.width - 10;
+        this.buttonsList.y = this.outgameUIProgression.y;
 
 
         this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;

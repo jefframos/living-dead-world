@@ -102,6 +102,9 @@ export default class PlayerViewStructure {
     set leg(value) {
         this._leg = value;
         this.onStructureUpdate.dispatch('leg', this._leg)
+        this.onStructureUpdate.dispatch('frontLeg', this._leg)
+        this.onStructureUpdate.dispatch('backLeg', this._leg)
+        this.onStructureUpdate.dispatch('bottom', this._leg)
     }
     get leg() { return this._leg; }
     set sleeves(value) {
@@ -125,6 +128,8 @@ export default class PlayerViewStructure {
     set shoe(value) {
         this._shoe = value;
         this.onStructureUpdate.dispatch('shoe', this._shoe)
+        this.onStructureUpdate.dispatch('backShoes', this._shoe)
+        this.onStructureUpdate.dispatch('frontShoes', this._shoe)
     }
     get shoe() { return this._shoe; }
     set frontFace(value) {

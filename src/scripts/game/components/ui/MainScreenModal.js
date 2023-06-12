@@ -13,12 +13,14 @@ export default class MainScreenModal extends PIXI.Container {
         this.container.interactive = true;
 
 
+        this.modalTexture = 'modal_container0001';
         this.addBackgroundShape();
         this.contentContainer = new PIXI.Container();
         this.container.addChild(this.contentContainer)
 
         this.onHide = new signals.Signal();
         this.onShow = new signals.Signal();
+
 
     }
     addScreenBlocker(){
@@ -31,9 +33,8 @@ export default class MainScreenModal extends PIXI.Container {
         this.addChildAt(this.blocker,0);
     }
     addBackgroundShape() {
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('card-shape-1'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
-        this.infoBackContainer.tint = 0x2A292F;
     }
     get isOpen() {
         return this.visible;

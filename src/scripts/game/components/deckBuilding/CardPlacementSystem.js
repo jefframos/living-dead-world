@@ -1,4 +1,6 @@
 import CardView from "./CardView";
+import EntityBuilder from "../../screen/EntityBuilder";
+import EntityData from "../../data/EntityData";
 import Game from "../../../Game";
 import GameObject from "../../core/gameObject/GameObject";
 import GameStaticData from "../../data/GameStaticData";
@@ -53,16 +55,16 @@ export default class CardPlacementSystem {
                 type: 'Weapon'
             },
             weaponId: this.player.sessionData.mainWeapon.id,
-            starter:true
+            starter: true
         })
 
         Utils.shuffle(this.currentData)
 
         let starters = [];
 
-        
+
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (this.currentData[index].starter) {
+            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable) {
                 starters.push(this.currentData[index]);
             }
             if (this.currentData[index] && !this.currentData[index].enabled) {
@@ -73,6 +75,7 @@ export default class CardPlacementSystem {
         // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
         // console.log(this.player.sessionData, starters)
         //this.deckView.buildCards(this.currentData)
+        console.log(this.currentData)
         this.deckView.buildCards(starters)
 
         this.deckView.setActive(true)
