@@ -59,11 +59,12 @@ export default class Screen extends PIXI.Container{
 	build(){
 		this.built = true;
 	}
-	transitionIn(){
+	transitionIn(param){
 		this.updateable = true;
-		this.endTransitionIn();
+		this.endTransitionIn(param);
 	}
-	endTransitionIn(){
+	endTransitionIn(param){
+		this.build(param)
 	}
 	transitionOut(nextScreen, param){
 		this.nextScreen = nextScreen;

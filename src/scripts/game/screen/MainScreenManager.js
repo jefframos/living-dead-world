@@ -32,7 +32,7 @@ export default class MainScreenManager extends ScreenManager {
                 Game.Debug[key] = parseFloat(value)
             })
         }
-       
+
         GameStaticData.instance.initialize();
 
         this.settings = {
@@ -57,6 +57,16 @@ export default class MainScreenManager extends ScreenManager {
 
         this.characterBuilding = new CharacterBuildScreen(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer)
         this.addScreen(this.characterBuilding);
+
+
+        this.screenTransition = new ScreenTransition();
+        Game.ScreenManagerContainer.addChild(this.screenTransition)
+
+        this.screenTransition.x = 0
+        this.screenTransition.y = 0
+        this.screenTransition.visible = false;
+
+        
 
         this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
@@ -85,11 +95,11 @@ export default class MainScreenManager extends ScreenManager {
             this.forceChange(MainScreenManager.Screens.CharacterBuild);
         } else if (Game.Debug.game) {
             this.forceChange(MainScreenManager.Screens.GameScreen);
-        }else if (Game.Debug.debugMenu) {
+        } else if (Game.Debug.debugMenu) {
             this.forceChange(MainScreenManager.Screens.MainMenu);
         }
 
-       
+
         this.isPaused = false;
 
         window.onAdds.add(() => {
@@ -112,6 +122,8 @@ export default class MainScreenManager extends ScreenManager {
         Game.Instance.onAspectChanged.add((isPortrait) => {
             this.aspectChange(isPortrait)
         })
+
+        
 
     }
     addCoinsParticles(pos, quant = 5, customData = {}) {
@@ -146,6 +158,7 @@ export default class MainScreenManager extends ScreenManager {
     change(screenLabel, param) {
         super.change(screenLabel, param);
 
+
     }
     redirectToDebugMenu() {
         this.change(MainScreenManager.Screens.MainMenu);
@@ -170,6 +183,10 @@ export default class MainScreenManager extends ScreenManager {
             this.prevPopUp.parent.removeChild(this.prevPopUp);
             this.prevPopUp = null;
         }
+
+        // if(this.screenTransition.active){
+        //     this.screenTransition.update(delta)
+        // }
     }
 
     toGame() {
@@ -178,11 +195,20 @@ export default class MainScreenManager extends ScreenManager {
             this.particleSystem.killAll();
         }
     }
-    toLoad() { }
-    toStart() {
-        this.showPopUp('init')
-    }
 
+    resize(newSize, innerResolution) {
+        super.resize(newSize, innerResolution);
+
+
+        if(this.screenTransition){
+            this.screenTransition.x = Game.Borders.width / 2
+            this.screenTransition.y = Game.Borders.height / 2
+            this.screenTransition.resize(newSize, innerResolution);
+        }
+    }
+    startChanging(){
+        //this.screenTransition.visible = true;
+    }
     shake(force = 1, steps = 4, time = 0.25) {
         let timelinePosition = new TimelineLite();
         let positionForce = (force * 50);

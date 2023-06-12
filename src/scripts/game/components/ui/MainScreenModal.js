@@ -74,7 +74,7 @@ export default class MainScreenModal extends PIXI.Container {
         if (this.infoBackContainer) {
 
             this.infoBackContainer.width = Game.Borders.width - 80
-            this.infoBackContainer.height = Game.Borders.height - 80
+            this.infoBackContainer.height = Game.Borders.height - 80 - 60
 
 
         }

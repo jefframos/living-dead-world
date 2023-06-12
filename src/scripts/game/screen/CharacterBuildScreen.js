@@ -447,7 +447,7 @@ export default class CharacterBuildScreen extends Screen {
         this.campfireScene.y = Game.Borders.height / 2 - 80;
         this.campfireScene.scale.set(Math.min(1.5, Game.GlobalScale.max));
 
-        const listSize = 300
+        const listSize = Game.Borders.height / 2
         this.menuButtons.forEach(element => {
             element.resize(150, listSize / this.menuButtons.length)
         });

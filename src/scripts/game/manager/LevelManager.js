@@ -113,6 +113,7 @@ export default class LevelManager {
         this.player.enabled = true;
         this.gameSessionController.playerReady()
         this.player.refreshEquipment()
+        this.player.gameReady();
         this.gameplayTime = -1;
         this.currentPhase = 0;
         for (var i = this.activeEnemies.length - 1; i >= 0; i--) {

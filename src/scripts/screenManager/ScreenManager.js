@@ -30,6 +30,8 @@ export default class ScreenManager extends PIXI.Container{
 		if(this.currentScreen){
 			this.currentScreen.transitionOut(tempScreen, param);
 		}
+
+		this.startChanging();
 		//this.resize()
 	}
 
@@ -39,6 +41,9 @@ export default class ScreenManager extends PIXI.Container{
 				this.screenList[i].aspectChange(isPortrait)
 			}
 		}
+	}
+	startChanging(){
+
 	}
 	//change between screens
 	forceChange(screenLabel, param){
@@ -53,8 +58,7 @@ export default class ScreenManager extends PIXI.Container{
 			}
 		}
 		this.currentScreen = tempScreen;
-		this.currentScreen.build(param);
-		this.currentScreen.transitionIn();
+		this.currentScreen.transitionIn(param);
 		if(this.currentScreen.targetContainer){
 			this.currentScreen.targetContainer.addChild(this.currentScreen);	
 		}else{
@@ -63,6 +67,7 @@ export default class ScreenManager extends PIXI.Container{
 		if(!this.resolution){
 			this.resolution = {width:innerWidth, height:innerHeight};
 		}
+		this.startChanging();
 		this.resize(this.resolution);
 	}
 	//update manager

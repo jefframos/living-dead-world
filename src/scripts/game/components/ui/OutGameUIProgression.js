@@ -14,7 +14,7 @@ export default class OutGameUIProgression extends PIXI.Container {
         this.addChild(this.container)
 
         this.size = {
-            width: 250,
+            width: 320,
             height: 60
         }
         const pad = 30
@@ -34,19 +34,25 @@ export default class OutGameUIProgression extends PIXI.Container {
 
         this.moneyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
         this.moneyLabel.text = 9000
-        this.uiList.addElement(this.moneyLabel, {listScl: 0.4,align: 0.85})
+        this.uiList.addElement(this.moneyLabel, {listScl: 0.3,align: 0.85})
 
         this.coinSprite = new PIXI.Sprite.from('coin3')
-        this.uiList.addElement(this.coinSprite, { listScl: 0.2, fitWidth: 0.8, align: 1 })
+        this.uiList.addElement(this.coinSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
 
 
         this.keyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
-        console.log(this.keyLabel)
         this.keyLabel.text = 2
         this.uiList.addElement(this.keyLabel, {listScl: 0.2,align: 0.9})
 
         this.keySprite = new PIXI.Sprite.from('plusBadge')
-        this.uiList.addElement(this.keySprite, { listScl: 0.2, fitWidth: 0.8, align: 1 })
+        this.uiList.addElement(this.keySprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
+
+        this.tokenLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
+        this.tokenLabel.text = 2
+        this.uiList.addElement(this.tokenLabel, {listScl: 0.2,align: 0.9})
+
+        this.tokenSprite = new PIXI.Sprite.from('icon_increase')
+        this.uiList.addElement(this.tokenSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
 
 
         this.uiList.updateHorizontalList()

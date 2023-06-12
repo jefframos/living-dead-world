@@ -32,7 +32,7 @@ export default class GameScreen extends Screen {
 
         // this.back = UIUtils.getRect(0xFF0000, 10000,10000)
         // this.addChild(this.back);
-        
+
         this.container = new PIXI.Container()
         this.addChild(this.container);
 
@@ -225,14 +225,14 @@ export default class GameScreen extends Screen {
 
     }
 
-    playerDie(){
+    playerDie() {
         setTimeout(() => {
             this.screenManager.redirectToMenu();
         }, 1000);
     }
 
     spawnPlayer() {
-       
+
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
 
         this.levelManager.setup();
@@ -248,6 +248,7 @@ export default class GameScreen extends Screen {
         this.gameEngine.start();
         this.spawnPlayer(); //SEND PLAYER PARAMETERS HERE
         this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager())
+        console.log("BUILD")
     }
     update(delta) {
         delta *= this.debug.timeScale;
@@ -281,11 +282,14 @@ export default class GameScreen extends Screen {
 
         setTimeout(function () {
             this.endTransitionOut();
-        }.bind(this), 0);
+        }.bind(this), 1000);
     }
     transitionIn() {
-        super.transitionIn();
+        this.endTransitionIn();
+        // setTimeout(function () {
+        // }.bind(this), 0.5);
     }
+ 
     destroy() {
 
     }

@@ -24,7 +24,7 @@ export default class UIUtils {
     static getCloseButton(callback) {
         const button = new BaseButton(UIUtils.baseButtonTexture + '_0004', 80, 60);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
-        button.addIcon('smallButton')
+        button.addIcon('smallButton', 40)
 
         return button;
     }

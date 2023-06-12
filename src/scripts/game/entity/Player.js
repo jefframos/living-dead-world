@@ -70,7 +70,7 @@ export default class Player extends GameAgent {
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
         //this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
-        
+
         this.currentSessionData.setMainWeapon(WeaponBuilder.instance.weaponsData[GameData.instance.currentEquippedWeaponData.id])
         this.sessionStarted();
     }
@@ -155,12 +155,32 @@ export default class Player extends GameAgent {
     }
     afterBuild() {
         super.afterBuild()
+
+
+        //this weapon is not the gameobject
+        this.activeWeapons.forEach(element => {
+            element.enable = false;
+        });
+    }
+    gameReady() {
+
+         //this weapon is not the gameobject
+        this.activeWeapons.forEach(element => {
+            element.enable = false;
+        });
+        setTimeout(() => {
+
+            this.activeWeapons.forEach(element => {
+                element.enable = true;
+            });
+        }, 2000);
+        
     }
     sessionStarted() {
-      
+
 
         const comp = GameData.instance.currentEquippedCompanionData
-        if(comp){
+        if (comp) {
             this.sessionData.addEquipmentNEW(comp)
         }
 
@@ -182,7 +202,6 @@ export default class Player extends GameAgent {
         this.clearWeapon();
         this.cleanStats();
 
-        console.log(equipmentGrid)
         for (let i = 0; i < equipmentGrid.length; i++) {
             const element = equipmentGrid[i];
             if (!element || !element.item) continue;

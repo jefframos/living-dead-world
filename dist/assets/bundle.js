@@ -2906,7 +2906,7 @@ var UIUtils = function () {
             _InteractableView2.default.addMouseUp(button, function () {
                 if (callback) callback();
             });
-            button.addIcon('smallButton');
+            button.addIcon('smallButton', 40);
 
             return button;
         }
@@ -18669,6 +18669,27 @@ var Player = function (_GameAgent) {
         key: "afterBuild",
         value: function afterBuild() {
             (0, _get3.default)(Player.prototype.__proto__ || (0, _getPrototypeOf2.default)(Player.prototype), "afterBuild", this).call(this);
+
+            //this weapon is not the gameobject
+            this.activeWeapons.forEach(function (element) {
+                element.enable = false;
+            });
+        }
+    }, {
+        key: "gameReady",
+        value: function gameReady() {
+            var _this2 = this;
+
+            //this weapon is not the gameobject
+            this.activeWeapons.forEach(function (element) {
+                element.enable = false;
+            });
+            setTimeout(function () {
+
+                _this2.activeWeapons.forEach(function (element) {
+                    element.enable = true;
+                });
+            }, 2000);
         }
     }, {
         key: "sessionStarted",
@@ -18698,12 +18719,11 @@ var Player = function (_GameAgent) {
     }, {
         key: "rebuildWeaponGrid",
         value: function rebuildWeaponGrid(equipmentGrid) {
-            var _this2 = this;
+            var _this3 = this;
 
             this.clearWeapon();
             this.cleanStats();
 
-            console.log(equipmentGrid);
             for (var i = 0; i < equipmentGrid.length; i++) {
                 var element = equipmentGrid[i];
                 if (!element || !element.item) continue;
@@ -18727,7 +18747,7 @@ var Player = function (_GameAgent) {
 
             if (this.activeAttachments.length) {
                 this.activeAttachments.forEach(function (attachmentData) {
-                    _this2.activeWeapons.forEach(function (weapon) {
+                    _this3.activeWeapons.forEach(function (weapon) {
                         console.log('THIS', attachmentData, weapon);
                         weapon.addWeaponFromData(attachmentData);
                     });
@@ -18780,7 +18800,7 @@ var Player = function (_GameAgent) {
     }, {
         key: "addWeapon",
         value: function addWeapon(inGameWeapon) {
-            var _this3 = this;
+            var _this4 = this;
 
             var slotID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
@@ -18795,7 +18815,7 @@ var Player = function (_GameAgent) {
 
             weapon.build(weaponData);
             inGameWeapon.onUpdateWeapon.add(function () {
-                _this3.refreshEquipment();
+                _this4.refreshEquipment();
             });
             this.activeWeapons[slotID] = inGameWeapon;
             this.refreshEquipment();
@@ -27289,6 +27309,7 @@ var LevelManager = function () {
             this.player.enabled = true;
             this.gameSessionController.playerReady();
             this.player.refreshEquipment();
+            this.player.gameReady();
             this.gameplayTime = -1;
             this.currentPhase = 0;
             for (var i = this.activeEnemies.length - 1; i >= 0; i--) {
@@ -29018,7 +29039,7 @@ var MainScreenModal = function (_PIXI$Container) {
             if (this.infoBackContainer) {
 
                 this.infoBackContainer.width = _Game2.default.Borders.width - 80;
-                this.infoBackContainer.height = _Game2.default.Borders.height - 80;
+                this.infoBackContainer.height = _Game2.default.Borders.height - 80 - 60;
             }
 
             this.recenterContainer();
@@ -50862,13 +50883,15 @@ var Screen = function (_PIXI$Container) {
 		}
 	}, {
 		key: 'transitionIn',
-		value: function transitionIn() {
+		value: function transitionIn(param) {
 			this.updateable = true;
-			this.endTransitionIn();
+			this.endTransitionIn(param);
 		}
 	}, {
 		key: 'endTransitionIn',
-		value: function endTransitionIn() {}
+		value: function endTransitionIn(param) {
+			this.build(param);
+		}
 	}, {
 		key: 'transitionOut',
 		value: function transitionOut(nextScreen, param) {
@@ -64191,6 +64214,13 @@ var MainScreenManager = function (_ScreenManager) {
         _this.characterBuilding = new _CharacterBuildScreen2.default(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer);
         _this.addScreen(_this.characterBuilding);
 
+        _this.screenTransition = new _ScreenTransition2.default();
+        _Game2.default.ScreenManagerContainer.addChild(_this.screenTransition);
+
+        _this.screenTransition.x = 0;
+        _this.screenTransition.y = 0;
+        _this.screenTransition.visible = false;
+
         _this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
         _this.timeScale = 1;
@@ -64318,6 +64348,10 @@ var MainScreenManager = function (_ScreenManager) {
                 this.prevPopUp.parent.removeChild(this.prevPopUp);
                 this.prevPopUp = null;
             }
+
+            // if(this.screenTransition.active){
+            //     this.screenTransition.update(delta)
+            // }
         }
     }, {
         key: 'toGame',
@@ -64328,12 +64362,20 @@ var MainScreenManager = function (_ScreenManager) {
             }
         }
     }, {
-        key: 'toLoad',
-        value: function toLoad() {}
+        key: 'resize',
+        value: function resize(newSize, innerResolution) {
+            (0, _get3.default)(MainScreenManager.prototype.__proto__ || (0, _getPrototypeOf2.default)(MainScreenManager.prototype), 'resize', this).call(this, newSize, innerResolution);
+
+            if (this.screenTransition) {
+                this.screenTransition.x = _Game2.default.Borders.width / 2;
+                this.screenTransition.y = _Game2.default.Borders.height / 2;
+                this.screenTransition.resize(newSize, innerResolution);
+            }
+        }
     }, {
-        key: 'toStart',
-        value: function toStart() {
-            this.showPopUp('init');
+        key: 'startChanging',
+        value: function startChanging() {
+            //this.screenTransition.visible = true;
         }
     }, {
         key: 'shake',
@@ -84645,7 +84687,7 @@ var CharacterBuildScreen = function (_Screen) {
                         this.campfireScene.y = _Game2.default.Borders.height / 2 - 80;
                         this.campfireScene.scale.set(Math.min(1.5, _Game2.default.GlobalScale.max));
 
-                        var listSize = 300;
+                        var listSize = _Game2.default.Borders.height / 2;
                         this.menuButtons.forEach(function (element) {
                                 element.resize(150, listSize / _this4.menuButtons.length);
                         });
@@ -92938,7 +92980,7 @@ var OutGameUIProgression = function (_PIXI$Container) {
                 _this.addChild(_this.container);
 
                 _this.size = {
-                        width: 250,
+                        width: 320,
                         height: 60
                 };
                 var pad = 30;
@@ -92958,18 +93000,24 @@ var OutGameUIProgression = function (_PIXI$Container) {
 
                 _this.moneyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' });
                 _this.moneyLabel.text = 9000;
-                _this.uiList.addElement(_this.moneyLabel, { listScl: 0.4, align: 0.85 });
+                _this.uiList.addElement(_this.moneyLabel, { listScl: 0.3, align: 0.85 });
 
                 _this.coinSprite = new PIXI.Sprite.from('coin3');
-                _this.uiList.addElement(_this.coinSprite, { listScl: 0.2, fitWidth: 0.8, align: 1 });
+                _this.uiList.addElement(_this.coinSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 });
 
                 _this.keyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' });
-                console.log(_this.keyLabel);
                 _this.keyLabel.text = 2;
                 _this.uiList.addElement(_this.keyLabel, { listScl: 0.2, align: 0.9 });
 
                 _this.keySprite = new PIXI.Sprite.from('plusBadge');
-                _this.uiList.addElement(_this.keySprite, { listScl: 0.2, fitWidth: 0.8, align: 1 });
+                _this.uiList.addElement(_this.keySprite, { listScl: 0.1, fitWidth: 0.8, align: 1 });
+
+                _this.tokenLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' });
+                _this.tokenLabel.text = 2;
+                _this.uiList.addElement(_this.tokenLabel, { listScl: 0.2, align: 0.9 });
+
+                _this.tokenSprite = new PIXI.Sprite.from('icon_increase');
+                _this.uiList.addElement(_this.tokenSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 });
 
                 _this.uiList.updateHorizontalList();
                 return _this;
@@ -94211,6 +94259,7 @@ var GameScreen = function (_Screen) {
             this.gameEngine.start();
             this.spawnPlayer(); //SEND PLAYER PARAMETERS HERE
             this.worldRender = this.gameEngine.addGameObject(new _EnvironmentManager2.default());
+            console.log("BUILD");
         }
     }, {
         key: 'update',
@@ -94245,12 +94294,14 @@ var GameScreen = function (_Screen) {
 
             setTimeout(function () {
                 this.endTransitionOut();
-            }.bind(this), 0);
+            }.bind(this), 1000);
         }
     }, {
         key: 'transitionIn',
         value: function transitionIn() {
-            (0, _get3.default)(GameScreen.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameScreen.prototype), 'transitionIn', this).call(this);
+            this.endTransitionIn();
+            // setTimeout(function () {
+            // }.bind(this), 0.5);
         }
     }, {
         key: 'destroy',
@@ -100039,6 +100090,8 @@ var ScreenManager = function (_PIXI$Container) {
 			if (this.currentScreen) {
 				this.currentScreen.transitionOut(tempScreen, param);
 			}
+
+			this.startChanging();
 			//this.resize()
 		}
 	}, {
@@ -100050,6 +100103,9 @@ var ScreenManager = function (_PIXI$Container) {
 				}
 			}
 		}
+	}, {
+		key: 'startChanging',
+		value: function startChanging() {}
 		//change between screens
 
 	}, {
@@ -100066,8 +100122,7 @@ var ScreenManager = function (_PIXI$Container) {
 				}
 			}
 			this.currentScreen = tempScreen;
-			this.currentScreen.build(param);
-			this.currentScreen.transitionIn();
+			this.currentScreen.transitionIn(param);
 			if (this.currentScreen.targetContainer) {
 				this.currentScreen.targetContainer.addChild(this.currentScreen);
 			} else {
@@ -100076,6 +100131,7 @@ var ScreenManager = function (_PIXI$Container) {
 			if (!this.resolution) {
 				this.resolution = { width: innerWidth, height: innerHeight };
 			}
+			this.startChanging();
 			this.resize(this.resolution);
 		}
 		//update manager
@@ -100114,7 +100170,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-        value: true
+    value: true
 });
 
 var _getPrototypeOf = __webpack_require__(2);
@@ -100137,13 +100193,13 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _gsap = __webpack_require__(116);
-
-var _gsap2 = _interopRequireDefault(_gsap);
-
 var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
+
+var _gsap = __webpack_require__(116);
+
+var _gsap2 = _interopRequireDefault(_gsap);
 
 var _config = __webpack_require__(33);
 
@@ -100154,126 +100210,36 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ScreenTransition = function (_PIXI$Container) {
-        (0, _inherits3.default)(ScreenTransition, _PIXI$Container);
+    (0, _inherits3.default)(ScreenTransition, _PIXI$Container);
 
-        function ScreenTransition() {
-                (0, _classCallCheck3.default)(this, ScreenTransition);
+    function ScreenTransition() {
+        (0, _classCallCheck3.default)(this, ScreenTransition);
 
-                var _this = (0, _possibleConstructorReturn3.default)(this, (ScreenTransition.__proto__ || (0, _getPrototypeOf2.default)(ScreenTransition)).call(this));
+        var _this = (0, _possibleConstructorReturn3.default)(this, (ScreenTransition.__proto__ || (0, _getPrototypeOf2.default)(ScreenTransition)).call(this));
 
-                _this.container = new PIXI.Container();
+        _this.container = new PIXI.Container();
 
-                _this.addChild(_this.container);
+        _this.addChild(_this.container);
 
-                _this.screenCover = new PIXI.Graphics().beginFill(0x3B296D).drawRect(-5000, 0, 10000, _config2.default.height * 1.5);
-                _this.container.addChild(_this.screenCover);
-                _this.screenCover.interactive = true;
-                _this.screenCover.alpha = 0;
+        _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
+        _this.infoBackContainer.width = 800;
+        _this.infoBackContainer.height = 800;
+        _this.container.addChild(_this.infoBackContainer);
 
-                _this.shapeCover1 = new PIXI.NineSlicePlane(PIXI.Texture.from('progressBarSmall'), 10, 10, 10, 10);
-                _this.shapeCover1.tint = 0x3B296D;
-                _this.container.addChild(_this.shapeCover1);
-                _this.shapeCover1.height = _config2.default.height * 2;
-                _this.shapeCover1.width = _config2.default.width * 10;
-                _this.shapeCover1.pivot.x = _this.shapeCover1.width / 2;
+        return _this;
+    }
 
-                // this.tiledBackground = new PIXI.TilingSprite(PIXI.Texture.from('patter-square', 256, 256))
-                // this.shapeCover1.addChild(this.tiledBackground);
-                // this.tiledBackground.width = this.shapeCover1.width
-                // this.tiledBackground.height = this.shapeCover1.height
-                // this.tiledBackground.alpha = 0
-
-
-                _this.logo = new PIXI.Sprite.from('logoTransparent');
-                _this.logo.anchor.set(0.5);
-
-                _this.container.addChild(_this.logo);
-
-                _this.logo.x = 0;
-                _this.logo.y = _config2.default.height / 2;
-                _this.logo.visible = false;
-
-                // this.center = new PIXI.Graphics().beginFill(0xFF296D).drawCircle(0,0,20)
-                // this.container.addChild(this.center)
-                return _this;
-        }
-
-        (0, _createClass3.default)(ScreenTransition, [{
-                key: 'startTransitionIn',
-                value: function startTransitionIn() {
-                        var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-                        var _this2 = this;
-
-                        var callback = arguments[1];
-                        var color = arguments[2];
-
-                        this.shapeCover1.tint = color;
-                        this.container.visible = true;
-                        this.screenCover.interactive = true;
-                        this.shapeCover1.y = _config2.default.height * 1.5;
-                        this.shapeCover1.alpha = 1;
-
-                        //TweenMax.to(this.tiledBackground, 1, {delay:delay+0.1, alpha:0.15});
-                        this.logo.visible = true;
-
-                        setTimeout(function () {
-
-                                _this2.transitionIn(0, callback);
-                        }, delay * 1000);
-                }
-        }, {
-                key: 'transitionIn',
-                value: function transitionIn(delay, callback) {
-                        var _this3 = this;
-
-                        SOUND_MANAGER.play('shoosh', 0.4);
-
-                        this.logo.scale.set(0, 1.5);
-                        this.logo.rotation = -Math.PI / 4;
-                        _gsap2.default.to(this.logo, 1, { delay: delay + 0.4, rotation: 0, ease: Elastic.easeOut });
-                        _gsap2.default.to(this.logo.scale, 0.6, { delay: delay + 0.4, y: 1, x: 1, ease: Elastic.easeOut });
-                        _gsap2.default.to(this.shapeCover1, 0.7, { delay: delay, y: 0, ease: Cubic.easeOut, onComplete: function onComplete() {
-                                        _this3.endTransitionIn(callback);
-                                } });
-                }
-        }, {
-                key: 'endTransitionIn',
-                value: function endTransitionIn(callback) {
-                        this.startTransitionOut(0.5);
-
-                        if (callback) {
-                                callback();
-                        }
-                }
-        }, {
-                key: 'startTransitionOut',
-                value: function startTransitionOut() {
-                        var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
-
-
-                        //this.shapeCover1.y = window.game.borders.topLeft.y
-
-                        this.transitionOut(delay);
-                }
-        }, {
-                key: 'transitionOut',
-                value: function transitionOut(delay) {
-                        var _this4 = this;
-
-                        _gsap2.default.to(this.logo.scale, 0.6, { delay: delay, y: 0, x: 0, ease: Back.easeIn });
-                        _gsap2.default.to(this.shapeCover1, 0.6, { delay: delay, y: _config2.default.height, ease: Back.easeIn, onComplete: function onComplete() {
-                                        _this4.endTransitionOut();
-                                } });
-                }
-        }, {
-                key: 'endTransitionOut',
-                value: function endTransitionOut() {
-                        this.screenCover.interactive = false;
-                        this.container.visible = false;
-                }
-        }]);
-        return ScreenTransition;
+    (0, _createClass3.default)(ScreenTransition, [{
+        key: 'transitionIn',
+        value: function transitionIn(delay) {}
+    }, {
+        key: 'transitionOut',
+        value: function transitionOut(delay) {}
+    }, {
+        key: 'resize',
+        value: function resize(newSize, innerResolution) {}
+    }]);
+    return ScreenTransition;
 }(PIXI.Container);
 
 exports.default = ScreenTransition;
@@ -104037,11 +104003,11 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -104067,6 +104033,9 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -104075,9 +104044,6 @@ var assets = [{
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
@@ -104088,26 +104054,29 @@ var assets = [{
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -104118,20 +104087,17 @@ var assets = [{
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }];
 
 exports.default = assets;
