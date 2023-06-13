@@ -23,6 +23,14 @@ export default class GameOverView extends GameObject {
         this.onRevivePlayer = new signals.Signal();
         this.container = this.gameView.view;
 
+        this.blocker = new PIXI.Sprite.from('base-gradient');
+        this.blocker.width = 1000
+        this.blocker.height = 1000
+        this.blocker.interactive = true;
+        this.blocker.tint = 0;
+        this.blocker.alpha = 0.5;
+        this.container.addChildAt(this.blocker,0);
+
 
         this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
@@ -208,6 +216,10 @@ export default class GameOverView extends GameObject {
 
         this.prizesContainer.x = this.prizeBox.width / 2 - this.prizesContainer.width / 2;
         this.prizesContainer.y = 20;
+
+
+        this.blocker.width = Game.Borders.width
+        this.blocker.height = Game.Borders.height
 
     }
 

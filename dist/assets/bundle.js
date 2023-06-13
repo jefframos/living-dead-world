@@ -87732,6 +87732,14 @@ var GameOverView = function (_GameObject) {
                 _this.onRevivePlayer = new _signals2.default.Signal();
                 _this.container = _this.gameView.view;
 
+                _this.blocker = new PIXI.Sprite.from('base-gradient');
+                _this.blocker.width = 1000;
+                _this.blocker.height = 1000;
+                _this.blocker.interactive = true;
+                _this.blocker.tint = 0;
+                _this.blocker.alpha = 0.5;
+                _this.container.addChildAt(_this.blocker, 0);
+
                 _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
                 _this.container.addChild(_this.infoBackContainer);
 
@@ -87912,6 +87920,9 @@ var GameOverView = function (_GameObject) {
 
                         this.prizesContainer.x = this.prizeBox.width / 2 - this.prizesContainer.width / 2;
                         this.prizesContainer.y = 20;
+
+                        this.blocker.width = _Game2.default.Borders.width;
+                        this.blocker.height = _Game2.default.Borders.height;
                 }
         }, {
                 key: "showPrize",
@@ -104621,11 +104632,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -104633,17 +104644,23 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
+}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -104654,26 +104671,17 @@ var assets = [{
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -104687,11 +104695,29 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -104701,21 +104727,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }];
 
 exports.default = assets;
