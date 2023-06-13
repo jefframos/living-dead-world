@@ -3,28 +3,28 @@ import * as PIXI from 'pixi.js';
 import config from './config';
 import utils from './utils';
 
-window.alphabet = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+window.alphabet = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 window.numberList = []
-window.numberList.push({value:1000, abv:'k'})
-window.numberList.push({value:1000000, abv:'Mi'})
-window.numberList.push({value:1000000000, abv:'B'})
-window.numberList.push({value:1000000000000, abv:'T'})
+window.numberList.push({ value: 1000, abv: 'k' })
+window.numberList.push({ value: 1000000, abv: 'Mi' })
+window.numberList.push({ value: 1000000000, abv: 'B' })
+window.numberList.push({ value: 1000000000000, abv: 'T' })
 let accum = 0
-for (let index = 15; index < 309; index+=3) {
+for (let index = 15; index < 309; index += 3) {
 
     let abv = ''
-    if(accum < alphabet.length){
-        abv = alphabet[accum]+alphabet[accum]
-    }else{
-        let first = Math.floor(accum / alphabet.length) - 1     
-        if(first == accum % alphabet.length)   {
-            abv = alphabet[first]+alphabet[first]+alphabet[first]
-        }else{
-            abv = alphabet[first]+alphabet[accum % alphabet.length]
+    if (accum < alphabet.length) {
+        abv = alphabet[accum] + alphabet[accum]
+    } else {
+        let first = Math.floor(accum / alphabet.length) - 1
+        if (first == accum % alphabet.length) {
+            abv = alphabet[first] + alphabet[first] + alphabet[first]
+        } else {
+            abv = alphabet[first] + alphabet[accum % alphabet.length]
         }
     }
-    accum ++
-    window.numberList.push({value:Math.floor(Math.pow(10, index)), abv:abv})    
+    accum++
+    window.numberList.push({ value: Math.floor(Math.pow(10, index)), abv: abv })
 }
 
 //console.log(window.numberList)
@@ -75,25 +75,31 @@ window.LABELS.LABEL1 = {
     fontFamily: window.SEC_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
-    align: 'center',    
+    align: 'center',
     stroke: 0,
-    strokeThickness: 4
+    dropShadow: true,
+    dropShadowAngle: 1.5,
+    dropShadowDistance: 3,
+    fillGradientType: 1,
+    fontSize: 28,
+    fontWeight: 900,
+    strokeThickness: 3,
 }
 window.LABELS.LABEL_CHEST = {
     fontFamily: window.SEC_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
-    align: 'center',    
-    stroke:0xbb00bb,
-    strokeThickness:4,
+    align: 'center',
+    stroke: 0xbb00bb,
+    strokeThickness: 4,
 }
 window.LABELS.LABEL_SPACESHIP = {
     fontFamily: window.SEC_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
-    align: 'center',    
-    stroke:0xFFFF00,
-    strokeThickness:4,
+    align: 'center',
+    stroke: 0xFFFF00,
+    strokeThickness: 4,
 }
 window.LABELS.LABEL_STATS = {
     fontFamily: window.SEC_FONT,
@@ -108,15 +114,15 @@ window.LABELS.LABEL2 = {
     fontFamily: window.SEC_FONT,
     fontSize: '24px',
     fill: 0xFFFFFF,
-    align: 'center',    
+    align: 'center',
 }
 
-window.LABELS.LABEL_DAMAGE= {
+window.LABELS.LABEL_DAMAGE = {
     fontFamily: window.SEC_FONT,
     fontSize: '14px',
     fill: 0xFFFFFF,
     align: 'center',
-    stroke:0,
-    strokeThickness:4,    
+    stroke: 0,
+    strokeThickness: 4,
 }
 

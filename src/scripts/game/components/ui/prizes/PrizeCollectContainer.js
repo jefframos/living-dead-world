@@ -16,6 +16,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.addScreenBlocker();
         this.prizesContainer = new PIXI.Container();
         this.container.addChild(this.prizesContainer);
+
+        this.slotSize = 100
     }
     addBackgroundShape() {
         this.modalTexture = 'modal_container0003';
@@ -39,8 +41,6 @@ export default class PrizeCollectContainer extends MainScreenModal {
     }
 
     showPrize(data) {
-        console.log(data)
-
         let drawPrizes = [];
         for (let index = 0; index < data.type.length; index++) {
             const element = data.type[index];
@@ -88,7 +88,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
                 prize.setData(element.entityData, element.value.level + 1)
                 prize.resetPivot()
-                prize.x = 120 * i
+                prize.x = 110 * i
             } else {
                 prize = new PIXI.Sprite.from(element.texture)
             }

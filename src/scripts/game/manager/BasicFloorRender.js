@@ -22,6 +22,9 @@ export default class BasicFloorRender extends GameObject {
 
         this.setTileSize(100)
     }
+    set groundTexture(value){
+        this.gameView.view.texture = PIXI.Texture.from(value)
+    }
     setTileSize(tileSize) {
         this.tileSize = tileSize * this.gameView.view.tileScale.x;
         this.gameView.view.width = this.tileSize * 10

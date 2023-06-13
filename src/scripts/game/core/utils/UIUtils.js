@@ -76,8 +76,30 @@ export default class UIUtils {
         textLabel.text = label;
         return textLabel;
     }
+    static getSpecialLabel1(label, params = {}) {
+        const textLabel = new PIXI.Text(label, {
+            align: "center",
+            fill: [
+                "#ff8652",
+                "#f2b650"
+            ],
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowDistance: 3,
+            fillGradientType: 1,
+            fontSize: 28,
+            fontWeight: 900,
+            strokeThickness: 3,
+            wordWrap: true,
+            wordWrapWidth: 300
+        })
+        for (const key in params) {
+            textLabel.style[key] = params[key];
+        }
+        return textLabel;
+    }
     static getSecondaryLabel(label, params = {}) {
-        const textLabel = new PIXI.Text(label, window.LABELS.LABEL2)
+        const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
         for (const key in params) {
             textLabel.style[key] = params[key];
         }
@@ -142,10 +164,14 @@ export default class UIUtils {
         button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
-            button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
+            button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 48 }, { x: -50, y: 0 })
+            if (icon) {
+                UIUtils.addLabel(button, label, { fontSize: 40 }, { x: -30, y: 0 })
+            } else {
+                UIUtils.addLabel(button, label, { fontSize: 40 })
+            }
         }
         return button;
     }

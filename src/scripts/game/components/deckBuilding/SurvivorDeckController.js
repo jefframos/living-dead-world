@@ -45,16 +45,22 @@ export default class SurvivorDeckController extends GameObject {
         this.gameView.view.addChild(this.cardsContainer)
         this.gameView.view.addChild(this.transitionContainer)
 
+        
         this.handCards = [];
-
+        
         this.highlightedCard = null;
-
-        this.cardWidth = 140
-        this.cardHeight = 350
-        this.cardDistance = 180
-        this.cardContainerMaxWidth = 450
-
+        
+        this.cardWidth = 180
+        this.cardHeight = 450
+        this.cardDistance = 220
+        this.cardContainerMaxWidth = 650
+        
         this.state = 0;
+
+        // this.test = UIUtils.getRect(0,this.cardContainerMaxWidth,this.cardContainerMaxWidth)
+        // this.test.pivot.x = this.cardContainerMaxWidth/2
+        // this.test.pivot.y = this.cardContainerMaxWidth/2
+        // this.cardsContainer.addChild(this.test)
     }
 
     start() {
@@ -234,13 +240,13 @@ export default class SurvivorDeckController extends GameObject {
 
     }
     aspectChange(isPortrait) {
-        if (isPortrait) {
-            this.cardsContainer.scale.set(1.5)
-            this.transitionContainer.scale.set(1.5)
-        } else {
-            this.cardsContainer.scale.set(1.25)
-            this.transitionContainer.scale.set(1.25)
-        }
+        // if (isPortrait) {
+        //     this.cardsContainer.scale.set(1.5)
+        //     this.transitionContainer.scale.set(1.5)
+        // } else {
+        //     this.cardsContainer.scale.set(1.25)
+        //     this.transitionContainer.scale.set(1.25)
+        // }
     }
     resize() {
 

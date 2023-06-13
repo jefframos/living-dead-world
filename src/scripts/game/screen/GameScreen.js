@@ -1,9 +1,9 @@
 import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
+import AmbientLightSystem from '../components/AmbientLightSystem';
 import BaseEnemy from '../entity/BaseEnemy';
 import Bullet from '../components/weapon/bullets/Bullet';
-import CameraFog2D from '../components/AmbientLightSystem';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import EffectsManager from '../manager/EffectsManager';
 import EnvironmentManager from '../manager/EnvironmentManager';
@@ -76,11 +76,12 @@ export default class GameScreen extends Screen {
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
         this.camera.addComponent(CameraOcclusion2D);
-        this.camera.addComponent(CameraFog2D);
+        this.camera.addComponent(AmbientLightSystem);
         this.camera.setFollowPoint(new Vector3())
 
         this.levelManager = new LevelManager(this.gameEngine);
         this.levelManager.onPlayerDie.add(this.playerDie.bind(this))
+        this.levelManager.onConfirmGameOver.add(this.confirmGameOver.bind(this))
         this.debug = {
             timeScale: 1,
             enemiesPool: 0,
@@ -224,11 +225,10 @@ export default class GameScreen extends Screen {
         //this.companion.destroy();
 
     }
-
+    confirmGameOver(){
+        this.screenManager.redirectToMenu();
+    }
     playerDie() {
-        setTimeout(() => {
-            this.screenManager.redirectToMenu();
-        }, 1000);
     }
 
     spawnPlayer() {
@@ -280,9 +280,9 @@ export default class GameScreen extends Screen {
         this.worldRender.destroy();
         this.levelManager.destroy();
 
-        setTimeout(function () {
-            this.endTransitionOut();
-        }.bind(this), 1000);
+        this.endTransitionOut();
+        // setTimeout(function () {
+        // }.bind(this), 1000);
     }
     transitionIn() {
         this.endTransitionIn();

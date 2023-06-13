@@ -135,7 +135,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
         this.resetBrust();
         this.shootFrequency = this.weaponData.weaponAttributes.frequency;
-        this.currentShootTimer = this.shootFrequency * 0.5 + 0.1;
+        this.currentShootTimer = this.shootFrequency * 0.5 + 1;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
@@ -278,10 +278,10 @@ export default class BaseWeapon extends PhysicsEntity {
                 }
 
                 if (weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentDirection) {
-                    if(this.isPlayer){
+                    if (this.isPlayer) {
 
                         finalAng = parentGameObject.parent.latestAngle
-                    }else{
+                    } else {
 
                         finalAng = parentGameObject.latestAngle
                     }
@@ -350,8 +350,8 @@ export default class BaseWeapon extends PhysicsEntity {
     }
     destroy() {
         super.destroy();
-        this.activeProjectiles = [];
 
+        this.activeProjectiles = [];
     }
 
     spawnBullet(bullet) {
@@ -416,31 +416,31 @@ export default class BaseWeapon extends PhysicsEntity {
 
                 spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF })
             } else {
-                if(type == "baseDestroyViewData"){
+                if (type == "baseDestroyViewData") {
                     EffectsManager.instance.emitParticles(
                         { x: target.x, y: target.z + target.y }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
-                    }
-                else{
+                }
+                else {
                     EffectsManager.instance.emitParticles(
-                        { x: target.x +  (baseData.viewOffset.x || weapon.weaponViewData.baseViewData.viewOffset.x), y: target.z + (baseData.viewOffset.y || weapon.weaponViewData.baseViewData.viewOffset.y) }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
-                    }
+                        { x: target.x + (baseData.viewOffset.x || weapon.weaponViewData.baseViewData.viewOffset.x), y: target.z + (baseData.viewOffset.y || weapon.weaponViewData.baseViewData.viewOffset.y) }, baseData.viewData, 1, { rotation: targetAngle, scale: { x: scale, y: scale }, tint: baseData.color ? baseData.color : 0xFFFFFF }, baseData.targetLayer)
+                }
             }
 
         } else if (baseData.viewType == EntityViewData.ViewType.Sprite) {
             bullet.gameView.view.alpha = baseData.alpha;
             bullet.gameView.view.tint = baseData.color ? baseData.color : 0xFFFFFF;
 
-            if(baseData.hasAnimation){
+            if (baseData.hasAnimation) {
 
                 bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData + baseData.frames[0])
-            }else{
-                
+            } else {
+
                 bullet.gameView.view.texture = PIXI.Texture.from(weapon.weaponViewData.viewData)
             }
             bullet.transform.position.y = baseData.viewOffset.y
-            
+
             let maxWidth = Math.min(baseData.maxWidth, weapon.weaponAttributes.radius * baseData.scale * 2)
-            if(baseData.maxWidth < 0){
+            if (baseData.maxWidth < 0) {
                 maxWidth = weapon.weaponAttributes.radius * baseData.scale * 2
             }
             let scale = Utils.scaleToFit(bullet.gameView.view, maxWidth)

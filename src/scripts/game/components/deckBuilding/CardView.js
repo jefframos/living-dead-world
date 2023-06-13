@@ -44,7 +44,7 @@ export default class CardView extends PIXI.Container {
         this.cardIconContainer = new PIXI.Sprite.from('item_card_container')
         this.cardContainer.addChild(this.cardIconContainer);
         this.cardIconContainer.anchor.set(0.5);
-        this.cardIconContainer.scale.set(Utils.scaleToFit(this.cardIconContainer, 80))
+        this.cardIconContainer.scale.set(Utils.scaleToFit(this.cardIconContainer, 100))
 
         this.cardImage = new PIXI.Sprite();
         this.cardIconContainer.addChild(this.cardImage);
@@ -80,7 +80,7 @@ export default class CardView extends PIXI.Container {
         this.labelTitle.style.wordWrap = true
         this.labelTitle.style.fontStyle = 'italic'
         this.labelTitle.style.wordWrapWidth = width
-        this.labelTitle.style.fontSize = 14
+        this.labelTitle.style.fontSize = 20
         this.labelTitle.anchor.set(0.5)
         this.labelTitle.y = 25 / 2
 
@@ -100,8 +100,8 @@ export default class CardView extends PIXI.Container {
 
         this.state = 0;
 
-        this.smallFontSize = 12
-        this.largeFontSize = 16
+        this.smallFontSize = 20
+        this.largeFontSize = 20
 
     }
     resetPivot() {
@@ -180,7 +180,7 @@ export default class CardView extends PIXI.Container {
         this.cardContentContnainer.alpha = 0;
 
         this.cardIconContainer.y = this.cardBorder.height / 2
-        let targetScale = Utils.scaleToFit(this.cardIconContainer, 80)
+        let targetScale = Utils.scaleToFit(this.cardIconContainer, 100)
         this.cardIconContainer.scale.set(targetScale * 2, 0);
         TweenLite.to(this.cardIconContainer.scale, 1, { delay: order * 0.2 + 0.2, x: targetScale, y: targetScale, ease: Elastic.easeOut })
         TweenLite.to(this.cardIconContainer, 0.3, { delay: order * 0.2 + 0.3, y: 50, ease: Back.easeOut })

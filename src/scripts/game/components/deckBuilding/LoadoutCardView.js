@@ -20,7 +20,7 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardData = null;
         this.empty = UIUtils.baseButtonTexture + '_0006';
 
-        this.textures = [UIUtils.baseButtonTexture + '_0001', UIUtils.baseButtonTexture + '_0002', UIUtils.baseButtonTexture + '_0003', UIUtils.baseButtonTexture + '_0004', UIUtils.baseButtonTexture + '_0005']
+        this.textures = [this.empty, UIUtils.baseButtonTexture + '_0001', UIUtils.baseButtonTexture + '_0002', UIUtils.baseButtonTexture + '_0003', UIUtils.baseButtonTexture + '_0004', UIUtils.baseButtonTexture + '_0005']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);

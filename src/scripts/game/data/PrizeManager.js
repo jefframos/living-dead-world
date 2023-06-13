@@ -58,27 +58,31 @@ export default class PrizeManager {
     getMetaLowerPrize() {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
-    getMetaPrize(maxId, max) {
-      
-        const itemPrizeList = []
-        
-        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
-        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
+    getMetaPrize(maxId, max, dispatch = true) {
 
+        const itemPrizeList = []
+
+        if(maxId < 0){
+            maxId = Math.floor(Math.random() * this.prizeList.length);
+        }
+
+        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
 
         const types = [];
         itemPrizeList.forEach(element => {
             GameData.instance.addToInventory(element.type, element)
             types.push(element.type)
-            
+
         });
 
-
-        this.onGetMetaPrize.dispatch({ type: types, value: itemPrizeList })
-
+        const prizeData = { type: types, value: itemPrizeList }
+        if (dispatch) {
+            this.onGetMetaPrize.dispatch(prizeData)
+        }
+        return prizeData;
     }
 
-    getItemPrize(type, max){
+    getItemPrize(type, max) {
         let allEquip = [];
 
         switch (type) {
@@ -87,9 +91,9 @@ export default class PrizeManager {
 
             case PrizeManager.PrizeType.Key:
                 if (max == 2) {
-                    return{ type: PrizeManager.PrizeType.Key, value: 1 }
+                    return { type: PrizeManager.PrizeType.Key, value: 1 }
                 } else {
-                    return{ type: PrizeManager.PrizeType.MasterKey, value: 1 }
+                    return { type: PrizeManager.PrizeType.MasterKey, value: 1 }
                 }
                 return;
             case PrizeManager.PrizeType.Mask:
@@ -110,7 +114,7 @@ export default class PrizeManager {
         }
 
         const equipPrize = allEquip[Math.floor(Math.random() * allEquip.length)]
-        const itemPrize = { id: equipPrize.id, level: Math.floor(max * Math.random()) , type}
+        const itemPrize = { id: equipPrize.id, level: Math.floor(max * Math.random()), type }
 
         return itemPrize;
     }

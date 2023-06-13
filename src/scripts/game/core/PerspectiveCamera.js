@@ -43,6 +43,7 @@ export default class PerspectiveCamera extends Camera {
             this.zoom = utils.lerp(this.zoom, this.targetZoom, 0.01 * delta*60)
 
             this.renderModule.container.scale.set(this.zoom);
+
         }
     }
     setFollowPoint(followPoint) {

@@ -25,24 +25,43 @@ export default class AmbientLightSystem extends BaseComponent {
         this.isDayTime = false;
 
         this.dayTimeSetup = {
-            day:{
-                ambientColor:0xFFFFFF,
-                intensityLight:0
+            day: {
+                ambientColor: 0xFFFFFF,
+                intensityLight: 0
             },
-            dusk:{
-                ambientColor:0xFBB474,
-                intensityLight:0.15
+            dusk: {
+                ambientColor: 0xFBB474,
+                intensityLight: 0.15
             },
-            night:{
-                ambientColor:0x2C2255,
-                intensityLight:1
+            night: {
+                ambientColor: 0x2C2255,
+                intensityLight: 1
             }
         }
-
+        this.dayTime = {
+            ambientColor: 0xFFFFFF,
+            intensityLight: 0
+        }
         this.setDaytime('day')
     }
-    setDaytime(type = 'day'){
-        this.dayTime = this.dayTimeSetup[type];
+    setDefault(){
+        this.setDaytime('day')
+
+        this.renderModule.layers[this.player.gameView.layer].gameViews.forEach(element => {
+            element.view.tint = 0xFFFFFF
+        });
+    }
+    setLevelLightSetup(ambientColor = 0xFFFFFF, intensityLight = 0) {
+
+        this.dayTime.ambientColor = ambientColor
+        this.dayTime.intensityLight = intensityLight
+
+        this.baseColor = Color.toRGB(0xFFFFFF)
+        this.targetColor = Color.toRGB(this.dayTime.ambientColor)
+    }
+    setDaytime(type = 'day') {
+        this.dayTime.ambientColor =  this.dayTimeSetup[type].ambientColor;
+        this.dayTime.intensityLight =  this.dayTimeSetup[type].intensityLight;
 
         this.baseColor = Color.toRGB(0xFFFFFF)
         this.targetColor = Color.toRGB(this.dayTime.ambientColor)
@@ -74,14 +93,21 @@ export default class AmbientLightSystem extends BaseComponent {
                 entity.gameView.intensityModifier = this.dayTime.intensityLight;
                 entity.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
             } else if (entity.gameView.layer == RenderModule.RenderLayers.Gameplay) {
-                
+
                 entity.gameView.lightRange = this.dayTime.intensityLight
 
+                if(this.dayTime.intensityLight <= 0){
+                    entity.gameView.view.tint = 0xFFFFFF;
+                }
                 this.calcEntityFog(entity.gameView);
             }
         });
     }
     elementDestroyed(entity) {
+
+        if(entity.view){
+            entity.view.tint = 0xFFFFFF
+        }
         this.lightSourceList = this.lightSourceList.filter(item => item !== entity)
     }
     entityAdded(entity) {
@@ -105,7 +131,7 @@ export default class AmbientLightSystem extends BaseComponent {
         let range = 1;
         this.lightSourceList.forEach(lightSource => {
             const lightSourceData = lightSource.gameView.lightData;
-            if(lightSource.gameObject && lightSource.gameObject.parent && lightSource.gameObject.parent.gameView){
+            if (lightSource.gameObject && lightSource.gameObject.parent && lightSource.gameObject.parent.gameView) {
                 lightSource.gameObject.parent.gameView.lightRange = 0
             }
             lightSource.gameView.intensityModifier = this.dayTime.intensityLight;

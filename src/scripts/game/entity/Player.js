@@ -13,6 +13,7 @@ import GameplayItem from "../data/GameplayItem";
 import InGameWeapon from "../data/InGameWeapon";
 import InputModule from "../core/modules/InputModule";
 import Layer from "../core/Layer";
+import LevelManager from "../manager/LevelManager";
 import PhysicsModule from "../core/modules/PhysicsModule";
 import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
 import PlayerHalo from "./PlayerHalo";
@@ -164,7 +165,7 @@ export default class Player extends GameAgent {
     }
     gameReady() {
 
-         //this weapon is not the gameobject
+        //this weapon is not the gameobject
         this.activeWeapons.forEach(element => {
             element.enable = false;
         });
@@ -174,7 +175,7 @@ export default class Player extends GameAgent {
                 element.enable = true;
             });
         }, 2000);
-        
+
     }
     sessionStarted() {
 
@@ -306,9 +307,24 @@ export default class Player extends GameAgent {
     }
     onSensorTrigger(element) {
     }
+    revive(){
+        super.revive();
+
+        const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 300)
+        closeEnemies.forEach(element => {
+            if (element.destroy && !element.destroyed) {
+                element.destroy()
+            }
+        });
+    }
     die() {
+        console.log("die");
+        this.onDie.dispatch(this);
+    }
+    confirmDeath() {
         super.die();
         Player.Deaths++;
+
     }
     damage(value) {
         let def = value - this.attributes.defense;

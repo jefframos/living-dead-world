@@ -21,6 +21,10 @@ export default class BaseButton extends PIXI.Container {
     setActiveTexture(texture) {
         this.activeTexture = texture;
     }
+    updateBackTexture(tex){
+        this.mainTexture = tex;
+        this.safeShape.texture = PIXI.Texture.from(this.mainTexture)
+    }
     setActive() {
         this.isActive = true;
         this.safeShape.texture = PIXI.Texture.from(this.activeTexture)

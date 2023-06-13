@@ -1,10 +1,13 @@
 import BaseEnemy from "../entity/BaseEnemy";
+import Camera from "../core/Camera";
 import Collectable from "../entity/Collectable";
 import DirectionPin from "../entity/DirectionPin";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
+import Eugine from "../core/Eugine";
 import Game from "../../Game";
 import GameData from "../data/GameData";
+import GameOverView from "../components/ui/gameOver/GameOverView";
 import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
 import Layer from "../core/Layer";
@@ -49,9 +52,15 @@ export default class LevelManager {
         this.gameplayTime = 0;
 
         this.onPlayerDie = new signals.Signal();
+        this.onConfirmGameOver = new signals.Signal();
 
         this.currentPhase = 0;
         this.init = false;
+
+        this.matchStats = {
+            enemiesKilled:0,
+            time:0
+        }
     }
     setup() {
         if (this.player && !this.player.isDead) {
@@ -69,10 +78,31 @@ export default class LevelManager {
         playerBuildParams.mainWeapon = GameData.instance.currentEquippedWeapon;
         this.player = this.addEntity(Player, playerBuildParams)
 
-        this.player.onDie.addOnce(() => {
-            this.onPlayerDie.dispatch();
+       
+        this.player.onDie.add(() => {
+            this.playerDie();
         })
         return this.player;
+    }
+    confirmGameOver(){
+        this.confirmPlayerDeath();
+        this.onConfirmGameOver.dispatch();
+    }
+    playerDie(){
+        this.gameOverOverlay.setActive(true)
+        this.gameOverOverlay.show(true)
+        Eugine.TimeScale = 0;
+    }
+    confirmPlayerDeath(){
+        this.directionPin.destroy()
+        this.onPlayerDie.dispatch();
+        Eugine.TimeScale = 0;
+    }
+    revivePlayer(){
+        this.player.revive()
+        this.gameOverOverlay.setActive(false)
+
+        Eugine.TimeScale = 1;
     }
     start() {
 
@@ -87,11 +117,22 @@ export default class LevelManager {
 
         this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
         this.player.setPositionXZ(0, 0)
+
+        this.gameOverOverlay = this.addEntity(GameOverView);
+        this.gameOverOverlay.setActive(false)
+        this.gameOverOverlay.onConfirmGameOver.add(() => {
+            this.confirmGameOver();
+        })
+
+        this.gameOverOverlay.onRevivePlayer.add(() => {
+            this.revivePlayer();
+        })
+
     }
     destroy() {
         this.gameSessionController.destroy();
         this.player.destroy();
-
+        this.gameOverOverlay.destroy();
         this.init = false;
         this.player.enabled = false;
 
@@ -102,6 +143,7 @@ export default class LevelManager {
             this.collectables[i].destroy();
         }
 
+
         this.collectables = [];
         this.activeEnemies = [];
     }
@@ -110,6 +152,10 @@ export default class LevelManager {
     }
     initGame() {
         this.init = true;
+        Eugine.TimeScale =1;
+
+        this.gameOverOverlay.setActive(false)
+
         this.player.enabled = true;
         this.gameSessionController.playerReady()
         this.player.refreshEquipment()
@@ -135,7 +181,12 @@ export default class LevelManager {
         this.gameEngine.camera.followPoint.z = 0;//this.player.gameView.view.position.y - this.player.transform.position.y;
         this.gameEngine.camera.snapFollowPoint()
 
-        this.addEntity(DirectionPin)
+        this.directionPin = this.addEntity(DirectionPin)
+
+        this.matchStats = {
+            enemiesKilled:0,
+            time:0
+        }
     }
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();
@@ -213,6 +264,8 @@ export default class LevelManager {
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
+
+        this.matchStats.enemiesKilled ++;
     }
     findClosestEnemy(point) {
         let closest = 0;
@@ -228,6 +281,20 @@ export default class LevelManager {
         }
 
         return this.activeEnemies[closest];
+    }
+    findEnemyInRadius(point, radius) {
+        let minDist = 999999;
+        const inRadius = [];
+        for (var i = 0; i < this.activeEnemies.length; i++) {
+            let enemy = this.activeEnemies[i];
+
+            let dist = Vector3.distance(enemy.transform.position, point)
+            if (dist < radius) {
+                inRadius.push(enemy)
+            }
+        }
+
+        return inRadius;
     }
     findClosestEnemyWithHigherTier(point) {
         let tierId = 0;
@@ -270,7 +337,7 @@ export default class LevelManager {
 
         }
 
-        this.enemyGlobalSpawner.distanceToSpawn = (Math.max(Game.Borders.width, Game.Borders.height) * Game.GlobalScale.min / 2) * 3 * this.gameEngine.camera.targetZoom// this.gameEngine.camera.zoom//2
+        this.enemyGlobalSpawner.distanceToSpawn = Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)//(Math.max(Game.Borders.width, Game.Borders.height) * Game.GlobalScale.min / 2) * 3 * this.gameEngine.camera.targetZoom// this.gameEngine.camera.zoom//2
         this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.5 + 80;
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase
@@ -295,6 +362,8 @@ export default class LevelManager {
             this.gameEngine.camera.followPoint.y = 0;
             this.gameEngine.camera.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
         }
+
+        this.matchStats.enemiesKilled = this.gameplayTime;
     }
 
     lateUpdate(delta) {

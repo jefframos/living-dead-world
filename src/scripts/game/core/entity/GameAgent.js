@@ -42,8 +42,8 @@ export default class GameAgent extends PhysicsEntity {
         return false;
     }
 
-    die() {
-        super.die();
+    revive(){
+        this.health.reset();
     }
     addWeaponData(weaponData) {
 

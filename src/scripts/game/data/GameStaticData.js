@@ -21,6 +21,9 @@ export default class GameStaticData {
     initialize() {
         let loadList = [
             { type: 'level', list: 'waves-level-1', path: ['enemy-wave-01'] },
+
+            { type: 'environment', list: 'levels', path: ['level-1','level-2'] },
+
             
             { type: 'misc', list: 'attachments', path: ['attachments'] },
             { type: 'misc', list: 'acessories', path: ['acessories'] },

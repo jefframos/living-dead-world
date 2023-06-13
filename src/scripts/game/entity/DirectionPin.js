@@ -1,3 +1,4 @@
+import Camera from "../core/Camera";
 import Game from "../../Game";
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
@@ -26,6 +27,7 @@ export default class DirectionPin extends GameObject {
         this.gameView.view.anchor.set(1, 0.5)
 
         this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
+
     }
     start() {
         super.start();
@@ -46,16 +48,21 @@ export default class DirectionPin extends GameObject {
         }
         this.gameView.update(delta)
 
+        // this.gameView.view.visible = true;
+        // this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2 - 50, 0, this.player.transform.position.z  )
+        // //this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2, 0, this.player.transform.position.z  + Camera.ViewportSize.height / 2)
+        // return;
+
         const enemy = LevelManager.instance.findClosestEnemyWithHigherTier(this.player.transform.position)
         if (enemy) {
             let distance = Vector3.distance(this.player.transform.position, enemy.transform.position);
             const angle = Vector3.atan2XZ(enemy.transform.position, this.player.transform.position)
 
-            if (distance < 200) {
+            if (distance < Camera.ViewportSize.min / 2.1) {
                 this.gameView.view.visible = false;
                 return;
-            }else{
-                distance = 150 + Math.sin(Game.Time * 4) * 4 - 10
+            } else {
+                distance = Math.min(distance, (Camera.ViewportSize.min / 2 - 100) + Math.sin(Game.Time * 4) * 4 - 50)
             }
             const lerp = this.gameView.view.visible ? 0.3 : 1;
             this.gameView.view.rotation = Utils.angleLerp(this.gameView.view.rotation, angle, lerp)

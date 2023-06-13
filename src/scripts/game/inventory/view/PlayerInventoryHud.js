@@ -181,7 +181,11 @@ export default class PlayerInventoryHud extends GameObject {
     }
 
     update(delta) {
-        this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.gameplayTime));
+        if(LevelManager.instance.gameplayTime > 0){
+            this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.gameplayTime));
+        }else{
+            this.timer.text = '00:00'
+        }
 
         this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
         this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
