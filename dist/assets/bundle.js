@@ -2517,7 +2517,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -2854,7 +2854,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -18467,7 +18467,7 @@ var _EffectsManager = __webpack_require__(25);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -18475,7 +18475,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -18583,7 +18583,7 @@ var _WeaponLoadingBar = __webpack_require__(265);
 
 var _WeaponLoadingBar2 = _interopRequireDefault(_WeaponLoadingBar);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -19053,7 +19053,7 @@ var _BounceBullet = __webpack_require__(291);
 
 var _BounceBullet2 = _interopRequireDefault(_BounceBullet);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -19069,7 +19069,7 @@ var _EffectsManager = __webpack_require__(25);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -21888,6 +21888,215 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _EntityMultipliers = __webpack_require__(73);
+
+var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EntityAttributes = function () {
+    function EntityAttributes(overrideDetaultValue) {
+        (0, _classCallCheck3.default)(this, EntityAttributes);
+
+        this.baseHealth = 100;
+        this.baseDefense = 10;
+        this.baseSpeed = 10;
+        this.baseFrequency = 1;
+        this.basePower = 10;
+        this.baseMagicDefense = 0;
+        this.baseMass = 1;
+        this.baseRadius = 10;
+        this.damageZone = 10;
+        this.baseDistance = 0;
+        this.baseCollectionRadius = 50;
+        this.level = 0;
+
+        if (overrideDetaultValue != undefined) {
+            this.overrideDefaults(overrideDetaultValue);
+        } else {
+            this.writeDefaults();
+        }
+
+        this.multipliers = new _EntityMultipliers2.default();
+    }
+
+    (0, _createClass3.default)(EntityAttributes, [{
+        key: 'resetAll',
+        value: function resetAll() {
+            this.baseHealth = 0;
+            this.baseDefense = 0;
+            this.baseSpeed = 0;
+            this.baseFrequency = 0;
+            this.basePower = 0;
+            this.baseMagicDefense = 0;
+            this.baseMass = 0;
+            this.baseRadius = 0;
+            this.damageZone = 0;
+            this.baseDistance = 0;
+            this.baseCollectionRadius = 0;
+            this.level = 0;
+
+            this.writeDefaults();
+        }
+    }, {
+        key: 'writeDefaults',
+        value: function writeDefaults() {
+            for (var key in this) {
+                if (Object.hasOwnProperty.call(this, key)) {
+                    this[key + 'default'] = this[key];
+                }
+            }
+        }
+    }, {
+        key: 'overrideDefaults',
+        value: function overrideDefaults(value) {
+            for (var key in this) {
+                if (Object.hasOwnProperty.call(this, key)) {
+                    this[key + 'default'] = value;
+                }
+            }
+        }
+    }, {
+        key: 'reset',
+        value: function reset(attributes) {
+
+            for (var key in this) {
+                if (Object.hasOwnProperty.call(this, key)) {
+                    if (this[key + 'default'] !== undefined) {
+                        this[key] = this[key + 'default'];
+                    }
+                }
+            }
+
+            if (attributes) {
+                for (var _key in attributes) {
+                    if (Object.hasOwnProperty.call(attributes, _key)) {
+                        this[_key] = attributes[_key];
+                    }
+                }
+            }
+        }
+    }, {
+        key: 'sumAttributes',
+        value: function sumAttributes(toSum) {
+            for (var key in toSum) {
+                if (toSum[key] != undefined) {
+                    this.addMultiplyer(key, toSum[key]);
+                }
+            }
+        }
+    }, {
+        key: 'addMultiplyer',
+        value: function addMultiplyer(type, value) {
+            if (this[type] !== undefined) {
+                this[type] += value;
+            }
+        }
+    }, {
+        key: 'findAttributeValue',
+        value: function findAttributeValue(att) {
+            var attribute = this[att];
+            if (Array.isArray(attribute)) {
+                var level = Math.min(this.level, attribute.length - 1);
+                return attribute[level];
+            }
+            return attribute;
+        }
+    }, {
+        key: 'clone',
+        value: function clone() {
+            var attributes = new EntityAttributes();
+
+            for (var key in this) {
+                if (this[key] && this[key].clone) {
+                    attributes[key] = this[key].clone();
+                } else {
+                    attributes[key] = this[key];
+                }
+            }
+            return attributes;
+        }
+    }, {
+        key: 'distance',
+        get: function get() {
+            return this.findAttributeValue('baseDistance') * this.multipliers.distance;
+        }
+    }, {
+        key: 'health',
+        get: function get() {
+            return this.findAttributeValue('baseHealth') * this.multipliers.health;
+        }
+    }, {
+        key: 'frequency',
+        get: function get() {
+            return this.findAttributeValue('baseFrequency') * this.multipliers.frequency;
+        }
+    }, {
+        key: 'defense',
+        get: function get() {
+            return this.findAttributeValue('baseDefense') * this.multipliers.defense;
+        }
+    }, {
+        key: 'speed',
+        get: function get() {
+            return this.findAttributeValue('baseSpeed') * this.multipliers.speed;
+        }
+    }, {
+        key: 'zone',
+        get: function get() {
+            return this.findAttributeValue('damageZone');
+        }
+    }, {
+        key: 'power',
+        get: function get() {
+            return this.findAttributeValue('basePower') * this.multipliers.power;
+        }
+    }, {
+        key: 'magicDefense',
+        get: function get() {
+            return this.findAttributeValue('baseMagicDefense') * this.multipliers.magicDefense;
+        }
+    }, {
+        key: 'mass',
+        get: function get() {
+            return this.findAttributeValue('baseMass') * this.multipliers.mass;
+        }
+    }, {
+        key: 'radius',
+        get: function get() {
+            return this.findAttributeValue('baseRadius') * this.multipliers.radius;
+        }
+    }, {
+        key: 'collectionRadius',
+        get: function get() {
+            return this.findAttributeValue('baseCollectionRadius') * this.multipliers.collectionRadius;
+        }
+    }]);
+    return EntityAttributes;
+}();
+
+exports.default = EntityAttributes;
+module.exports = exports['default'];
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EntityData = function () {
@@ -21931,7 +22140,7 @@ exports.default = EntityData;
 module.exports = exports['default'];
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22209,7 +22418,7 @@ exports.default = UIList;
 module.exports = exports['default'];
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -22307,7 +22516,7 @@ var _WeaponAttributes = __webpack_require__(60);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -22719,7 +22928,7 @@ exports.default = Bullet;
 module.exports = exports["default"];
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.5.3' };
@@ -22727,7 +22936,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23013,7 +23222,7 @@ exports.default = BaseButton;
 module.exports = exports['default'];
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23140,188 +23349,6 @@ exports.default = {
 	}
 
 };
-module.exports = exports['default'];
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _EntityMultipliers = __webpack_require__(73);
-
-var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var EntityAttributes = function () {
-    function EntityAttributes(overrideDetaultValue) {
-        (0, _classCallCheck3.default)(this, EntityAttributes);
-
-        this.baseHealth = 100;
-        this.baseDefense = 10;
-        this.baseSpeed = 10;
-        this.baseFrequency = 1;
-        this.basePower = 10;
-        this.baseMagicDefense = 0;
-        this.baseMass = 1;
-        this.baseRadius = 10;
-        this.damageZone = 10;
-        this.baseDistance = 0;
-        this.baseCollectionRadius = 50;
-        this.level = 0;
-
-        if (overrideDetaultValue != undefined) {
-            this.overrideDefaults(overrideDetaultValue);
-        } else {
-            this.writeDefaults();
-        }
-
-        this.multipliers = new _EntityMultipliers2.default();
-    }
-
-    (0, _createClass3.default)(EntityAttributes, [{
-        key: 'writeDefaults',
-        value: function writeDefaults() {
-            for (var key in this) {
-                if (Object.hasOwnProperty.call(this, key)) {
-                    this[key + 'default'] = this[key];
-                }
-            }
-        }
-    }, {
-        key: 'overrideDefaults',
-        value: function overrideDefaults(value) {
-            for (var key in this) {
-                if (Object.hasOwnProperty.call(this, key)) {
-                    this[key + 'default'] = value;
-                }
-            }
-        }
-    }, {
-        key: 'reset',
-        value: function reset(attributes) {
-
-            for (var key in this) {
-                if (Object.hasOwnProperty.call(this, key)) {
-                    if (this[key + 'default'] !== undefined) {
-                        this[key] = this[key + 'default'];
-                    }
-                }
-            }
-
-            if (attributes) {
-                for (var _key in attributes) {
-                    if (Object.hasOwnProperty.call(attributes, _key)) {
-                        this[_key] = attributes[_key];
-                    }
-                }
-            }
-        }
-    }, {
-        key: 'addMultiplyer',
-        value: function addMultiplyer(type, value) {
-            if (this[type]) {
-                this[type] += value;
-            }
-        }
-    }, {
-        key: 'findAttributeValue',
-        value: function findAttributeValue(att) {
-            var attribute = this[att];
-            if (Array.isArray(attribute)) {
-                var level = Math.min(this.level, attribute.length - 1);
-                return attribute[level];
-            }
-            return attribute;
-        }
-    }, {
-        key: 'clone',
-        value: function clone() {
-            var attributes = new EntityAttributes();
-
-            for (var key in this) {
-                if (this[key] && this[key].clone) {
-                    attributes[key] = this[key].clone();
-                } else {
-                    attributes[key] = this[key];
-                }
-            }
-            return attributes;
-        }
-    }, {
-        key: 'distance',
-        get: function get() {
-            return this.findAttributeValue('baseDistance') * this.multipliers.distance;
-        }
-    }, {
-        key: 'health',
-        get: function get() {
-            return this.findAttributeValue('baseHealth') * this.multipliers.health;
-        }
-    }, {
-        key: 'frequency',
-        get: function get() {
-            return this.findAttributeValue('baseFrequency') * this.multipliers.frequency;
-        }
-    }, {
-        key: 'defense',
-        get: function get() {
-            return this.findAttributeValue('baseDefense') * this.multipliers.defense;
-        }
-    }, {
-        key: 'speed',
-        get: function get() {
-            return this.findAttributeValue('baseSpeed') * this.multipliers.speed;
-        }
-    }, {
-        key: 'zone',
-        get: function get() {
-            return this.findAttributeValue('damageZone');
-        }
-    }, {
-        key: 'power',
-        get: function get() {
-            return this.findAttributeValue('basePower') * this.multipliers.power;
-        }
-    }, {
-        key: 'magicDefense',
-        get: function get() {
-            return this.findAttributeValue('baseMagicDefense') * this.multipliers.magicDefense;
-        }
-    }, {
-        key: 'mass',
-        get: function get() {
-            return this.findAttributeValue('baseMass') * this.multipliers.mass;
-        }
-    }, {
-        key: 'radius',
-        get: function get() {
-            return this.findAttributeValue('baseRadius') * this.multipliers.radius;
-        }
-    }, {
-        key: 'collectionRadius',
-        get: function get() {
-            return this.findAttributeValue('baseCollectionRadius') * this.multipliers.collectionRadius;
-        }
-    }]);
-    return EntityAttributes;
-}();
-
-exports.default = EntityAttributes;
 module.exports = exports['default'];
 
 /***/ }),
@@ -25817,7 +25844,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -27750,7 +27777,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(41);
-var core = __webpack_require__(31);
+var core = __webpack_require__(32);
 var ctx = __webpack_require__(135);
 var hide = __webpack_require__(53);
 var PROTOTYPE = 'prototype';
@@ -27889,6 +27916,10 @@ var _CookieManager = __webpack_require__(68);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
+var _EntityAttributes = __webpack_require__(28);
+
+var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
+
 var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
@@ -27915,9 +27946,22 @@ var GameData = function () {
 
         this.onUpdateEquipment = new _signals2.default.Signal();
         this.onUpdateCompanion = new _signals2.default.Signal();
+
+        this.attributes = new _EntityAttributes2.default();
     }
 
     (0, _createClass3.default)(GameData, [{
+        key: "getAttributesFromEquipabble",
+        value: function getAttributesFromEquipabble(equip, level) {
+            this.addAttributes = new _EntityAttributes2.default();
+            this.addAttributes.resetAll();
+            this.addAttributes.addMultiplyer(equip.attribute, equip.value[level]);
+            if (equip.secAttribute) {
+                this.addAttributes.addMultiplyer(equip.secAttribute, equip.secValue[level]);
+            }
+            return this.addAttributes;
+        }
+    }, {
         key: "getPlayer",
         value: function getPlayer(id) {
             return _CookieManager2.default.instance.getPlayer(id);
@@ -27953,7 +27997,6 @@ var GameData = function () {
         key: "changeShoe",
         value: function changeShoe(id, level) {
             _CookieManager2.default.instance.saveEquipment('currentShoe', id, level);
-            console.log('currentShoe', id);
             this.onUpdateEquipment.dispatch('shoe', id, level);
         }
     }, {
@@ -27971,6 +28014,11 @@ var GameData = function () {
         key: "currentPlayer",
         get: function get() {
             return _CookieManager2.default.instance.getPlayer(_CookieManager2.default.instance.currentPlayer);
+        }
+    }, {
+        key: "loadout",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout;
         }
     }, {
         key: "totalPlayers",
@@ -29280,7 +29328,7 @@ var _AttributeData = __webpack_require__(151);
 
 var _AttributeData2 = _interopRequireDefault(_AttributeData);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -29292,7 +29340,7 @@ var _EffectsManager = __webpack_require__(25);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -30018,11 +30066,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -31493,6 +31541,7 @@ var PrizeManager = function () {
         this.onGetMetaPrize = new _signals2.default.Signal();
         this.onUpdateCompanion = new _signals2.default.Signal();
 
+        this.prizePool = [[{ type: PrizeManager.PrizeType.Coin, value: [20, 50] }, { type: PrizeManager.PrizeType.Key, value: 1 }, { type: PrizeManager.PrizeType.Wearable, value: 1 }]];
         this.prizeList = [];
         this.prizeList.push({
             icon: 'pistol1-icon',
@@ -31608,7 +31657,9 @@ PrizeManager.PrizeType = {
     Mask: 'masks',
     Trinket: 'trinkets',
     Companion: 'companions',
-    Weapon: 'weapons'
+    Weapon: 'weapons',
+    Wearable: 'wearable',
+    Equippable: 'equippable'
 };
 exports.default = PrizeManager;
 module.exports = exports["default"];
@@ -32032,7 +32083,7 @@ var CookieManager = function () {
 			companions: [{ id: 'FLY_DRONE', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
 			trinkets: [{ id: 'TRINKET_01', level: 0 }],
-			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }]
+			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }]
 		};
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -32212,8 +32263,10 @@ var CookieManager = function () {
 				console.log(type, 'not found on loadout, not saving');
 				return;
 			}
+
 			data[type][this.currentPlayer].id = equip;
 			data[type][this.currentPlayer].level = level;
+			console.log(type, equip, 'saving', data);
 			this.saveChunk('loadout', data);
 		}
 	}, {
@@ -32254,13 +32307,15 @@ var CookieManager = function () {
 				}
 
 				var loadout = this.getChunck('loadout');
-				loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 });
-				loadout.currentTrinket.push({ id: null, level: 0 });
-				loadout.currentCompanion.push({ id: null, level: 0 });
-				loadout.currentMask.push({ id: null, level: 0 });
-				loadout.currentShoe.push({ id: null, level: 0 });
 
-				this.saveChunk('loadout', loadout);
+				if (loadout.currentWeapon.length < id + 1) {
+					loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 });
+					loadout.currentTrinket.push({ id: null, level: 0 });
+					loadout.currentCompanion.push({ id: null, level: 0 });
+					loadout.currentMask.push({ id: null, level: 0 });
+					loadout.currentShoe.push({ id: null, level: 0 });
+					this.saveChunk('loadout', loadout);
+				}
 			}
 			this.saveChunk('player', data);
 		}
@@ -37508,7 +37563,7 @@ exports.f = __webpack_require__(55);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(41);
-var core = __webpack_require__(31);
+var core = __webpack_require__(32);
 var LIBRARY = __webpack_require__(89);
 var wksExt = __webpack_require__(95);
 var defineProperty = __webpack_require__(46).f;
@@ -48614,7 +48669,7 @@ var _EffectsManager = __webpack_require__(25);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -49943,11 +49998,11 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -50429,11 +50484,11 @@ var _BaseWeapon = __webpack_require__(57);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -50842,7 +50897,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -51059,11 +51114,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -64554,7 +64609,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(45);
-var core = __webpack_require__(31);
+var core = __webpack_require__(32);
 var fails = __webpack_require__(63);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
@@ -64887,7 +64942,7 @@ var _ScreenTransition = __webpack_require__(332);
 
 var _ScreenTransition2 = _interopRequireDefault(_ScreenTransition);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -67699,11 +67754,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -68271,7 +68326,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -68279,7 +68334,7 @@ var _EffectsManager = __webpack_require__(25);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
@@ -68837,11 +68892,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -69056,7 +69111,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -83367,7 +83422,7 @@ var AnimatedSprite = /** @class */ (function (_super) {
 /* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(31);
+var core = __webpack_require__(32);
 var $JSON = core.JSON || (core.JSON = { stringify: JSON.stringify });
 module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
   return $JSON.stringify.apply($JSON, arguments);
@@ -83379,7 +83434,7 @@ module.exports = function stringify(it) { // eslint-disable-line no-unused-vars
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(202);
-var $Object = __webpack_require__(31).Object;
+var $Object = __webpack_require__(32).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
@@ -83409,7 +83464,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(205);
-module.exports = __webpack_require__(31).Object.getPrototypeOf;
+module.exports = __webpack_require__(32).Object.getPrototypeOf;
 
 
 /***/ }),
@@ -83698,7 +83753,7 @@ __webpack_require__(223);
 __webpack_require__(228);
 __webpack_require__(229);
 __webpack_require__(230);
-module.exports = __webpack_require__(31).Symbol;
+module.exports = __webpack_require__(32).Symbol;
 
 
 /***/ }),
@@ -84089,7 +84144,7 @@ module.exports = { "default": __webpack_require__(232), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(233);
-module.exports = __webpack_require__(31).Object.setPrototypeOf;
+module.exports = __webpack_require__(32).Object.setPrototypeOf;
 
 
 /***/ }),
@@ -84143,7 +84198,7 @@ module.exports = { "default": __webpack_require__(236), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(237);
-var $Object = __webpack_require__(31).Object;
+var $Object = __webpack_require__(32).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
@@ -84193,7 +84248,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(32);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -84269,7 +84324,7 @@ module.exports = { "default": __webpack_require__(240), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(241);
-var $Object = __webpack_require__(31).Object;
+var $Object = __webpack_require__(32).Object;
 module.exports = function getOwnPropertyDescriptor(it, key) {
   return $Object.getOwnPropertyDescriptor(it, key);
 };
@@ -84325,7 +84380,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(32);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -84433,7 +84488,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(32);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -84518,7 +84573,7 @@ module.exports = { "default": __webpack_require__(245), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(246);
-module.exports = __webpack_require__(31).Number.isNaN;
+module.exports = __webpack_require__(32).Number.isNaN;
 
 
 /***/ }),
@@ -84575,7 +84630,7 @@ var _AchievmentsContainer = __webpack_require__(248);
 
 var _AchievmentsContainer2 = _interopRequireDefault(_AchievmentsContainer);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -84659,7 +84714,7 @@ var _ShopContainer = __webpack_require__(310);
 
 var _ShopContainer2 = _interopRequireDefault(_ShopContainer);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -85999,7 +86054,7 @@ var _SpriteSheetAnimation = __webpack_require__(42);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -86166,11 +86221,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -86259,7 +86314,7 @@ var _BaseWeapon2 = __webpack_require__(57);
 
 var _BaseWeapon3 = _interopRequireDefault(_BaseWeapon2);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -87743,7 +87798,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -88211,7 +88266,7 @@ var _SurvivorDeckController = __webpack_require__(282);
 
 var _SurvivorDeckController2 = _interopRequireDefault(_SurvivorDeckController);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -88568,7 +88623,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -88865,7 +88920,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -88885,7 +88940,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -89037,7 +89092,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -89493,7 +89548,7 @@ var _SpriteSheetAnimation = __webpack_require__(42);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -90035,7 +90090,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -90043,7 +90098,7 @@ var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -90138,7 +90193,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -90154,7 +90209,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -90884,7 +90939,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseButton2 = __webpack_require__(32);
+var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
@@ -91582,7 +91637,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -91692,7 +91747,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -91751,11 +91806,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -91836,7 +91891,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -92202,7 +92257,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -92315,7 +92370,7 @@ var _Beam = __webpack_require__(299);
 
 var _Beam2 = _interopRequireDefault(_Beam);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -92787,7 +92842,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Bullet2 = __webpack_require__(30);
+var _Bullet2 = __webpack_require__(31);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
@@ -92845,11 +92900,11 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityAttributes = __webpack_require__(34);
+var _EntityAttributes = __webpack_require__(28);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityData = __webpack_require__(28);
+var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
@@ -92942,7 +92997,7 @@ var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -93413,6 +93468,10 @@ var _BodyPartsListScroller = __webpack_require__(72);
 
 var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
 
+var _EntityAttributes = __webpack_require__(28);
+
+var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
+
 var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
@@ -93437,7 +93496,7 @@ var _MainScreenModal2 = __webpack_require__(56);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -93575,6 +93634,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                                         console.log(card, card.level);
                                         _this2.currentWeaponSlot.setData(_EntityBuilder2.default.instance.getWeapon(card.cardData.id), card.level);
                                         _this2.onUpdateMainWeapon.dispatch(card.cardData);
+                                        _this2.refreshAttributes();
                                 });
                                 this.equippableWeapons.push(card);
                         }
@@ -93600,6 +93660,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeCompanion(card.cardData.id);
                                         _this2.currentCompanionSlot.setData(_EntityBuilder2.default.instance.getCompanion(card.cardData.id), availableCompanions[_index].level);
+                                        _this2.refreshAttributes();
                                 });
                                 _this2.equippableCompanions.push(card);
                         };
@@ -93630,6 +93691,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeTrinket(card.cardData.id);
                                         _this2.currentTrinketSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableTrinkets[_index2].level);
+                                        _this2.refreshAttributes();
                                 });
                                 _this2.equippableTrinkets.push(card);
                         };
@@ -93661,6 +93723,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeShoe(card.cardData.id);
                                         _this2.currentShoeSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableShoes[_index3].level);
+                                        _this2.refreshAttributes();
                                 });
                                 _this2.equippableShoes.push(card);
                         };
@@ -93674,6 +93737,43 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.slotsList.updateVerticalList();
                         this.slotsListInGame.updateVerticalList();
                         this.resize();
+
+                        this.refreshAttributes();
+                }
+        }, {
+                key: 'refreshAttributes',
+                value: function refreshAttributes() {
+
+                        var loadoutData = _GameData2.default.instance.loadout;
+                        var playerData = _GameStaticData2.default.instance.getEntityByIndex('player', 0);
+
+                        this.atributes = new _EntityAttributes2.default();
+                        this.atributes.reset(playerData.attributes);
+
+                        this.addAttributes = new _EntityAttributes2.default();
+                        this.addAttributes.resetAll();
+
+                        if (loadoutData.currentShoe.length > 0) {
+                                var equippedShoe = _EntityBuilder2.default.instance.getEquipable(loadoutData.currentShoe[0].id);
+                                if (equippedShoe) {
+                                        var shoeAttribute = _GameData2.default.instance.getAttributesFromEquipabble(equippedShoe, loadoutData.currentShoe[0].level);
+                                        console.log('shoeAttribute', shoeAttribute);
+                                        this.addAttributes.sumAttributes(shoeAttribute);
+                                }
+                        }
+
+                        if (loadoutData.currentTrinket.length > 0) {
+
+                                var equippedTrinket = _EntityBuilder2.default.instance.getEquipable(loadoutData.currentTrinket[0].id);
+                                if (equippedTrinket) {
+                                        var trinketAttribute = _GameData2.default.instance.getAttributesFromEquipabble(equippedTrinket, loadoutData.currentTrinket[0].level);
+                                        console.log('trinketAttribute', trinketAttribute);
+                                        this.addAttributes.sumAttributes(trinketAttribute);
+                                }
+                        }
+
+                        this.atributes.sumAttributes(this.addAttributes);
+                        console.log(this.atributes, this.addAttributes);
                 }
         }, {
                 key: 'updateListView',
@@ -93865,7 +93965,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -94580,7 +94680,7 @@ var _MainScreenModal2 = __webpack_require__(56);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -94661,7 +94761,7 @@ var _BaseEnemy = __webpack_require__(74);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
-var _Bullet = __webpack_require__(30);
+var _Bullet = __webpack_require__(31);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
@@ -94729,7 +94829,7 @@ var _UIButton = __webpack_require__(328);
 
 var _UIButton2 = _interopRequireDefault(_UIButton);
 
-var _UIList = __webpack_require__(29);
+var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
@@ -94741,7 +94841,7 @@ var _Vector = __webpack_require__(15);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -100239,7 +100339,7 @@ var _UIUtils = __webpack_require__(10);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -100574,7 +100674,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _BaseButton = __webpack_require__(32);
+var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
@@ -100947,7 +101047,7 @@ var _gsap = __webpack_require__(118);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -104608,7 +104708,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _config = __webpack_require__(33);
+var _config = __webpack_require__(34);
 
 var _config2 = _interopRequireDefault(_config);
 
@@ -104758,11 +104858,11 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -104788,6 +104888,9 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -104796,12 +104899,6 @@ var assets = [{
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -104812,23 +104909,20 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
 }, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
@@ -104836,17 +104930,23 @@ var assets = [{
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
 	"id": "weapon-vfx-pack",
 	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
@@ -104891,7 +104991,7 @@ module.exports = exports['default'];
 /* 340 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

@@ -23,6 +23,22 @@ export default class EntityAttributes {
 
         this.multipliers = new EntityMultipliers();
     }
+    resetAll() {
+        this.baseHealth = 0;
+        this.baseDefense = 0;
+        this.baseSpeed = 0;
+        this.baseFrequency = 0;
+        this.basePower = 0;
+        this.baseMagicDefense = 0;
+        this.baseMass = 0;
+        this.baseRadius = 0;
+        this.damageZone = 0;
+        this.baseDistance = 0;
+        this.baseCollectionRadius = 0;
+        this.level = 0;
+
+        this.writeDefaults();
+    }
     writeDefaults() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
@@ -41,13 +57,13 @@ export default class EntityAttributes {
 
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
-                if(this[key + 'default'] !== undefined) {
+                if (this[key + 'default'] !== undefined) {
                     this[key] = this[key + 'default'];
                 }
             }
         }
 
-        if(attributes){
+        if (attributes) {
             for (const key in attributes) {
                 if (Object.hasOwnProperty.call(attributes, key)) {
                     this[key] = attributes[key];
@@ -55,9 +71,15 @@ export default class EntityAttributes {
             }
         }
     }
-
-    addMultiplyer(type, value){
-        if(this[type]){
+    sumAttributes(toSum) {
+        for (const key in toSum) {
+            if (toSum[key] != undefined) {
+                this.addMultiplyer(key, toSum[key])
+            }
+        }
+    }
+    addMultiplyer(type, value) {
+        if (this[type] !== undefined) {
             this[type] += value;
         }
     }

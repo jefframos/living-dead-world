@@ -475,7 +475,7 @@
         "entityData": {
             "type": "Equipable"
         },
-        "acessoryId": "TRINKET_01",
+        "acessoryId": "SHOE_01",
         "tier": 1,
         "enabled": true
     },
@@ -485,7 +485,7 @@
         "entityData": {
             "type": "Equipable"
         },
-        "acessoryId": "TRINKET_02",
+        "acessoryId": "SHOE_02",
         "tier": 1,
         "enabled": true
     },
@@ -495,7 +495,7 @@
         "entityData": {
             "type": "Equipable"
         },
-        "acessoryId": "TRINKET_03",
+        "acessoryId": "SHOE_03",
         "tier": 1,
         "enabled": true
     },
@@ -505,7 +505,47 @@
         "entityData": {
             "type": "Equipable"
         },
-        "acessoryId": "TRINKET_04",
+        "acessoryId": "SHOE_04",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_05",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "SHOE_05",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_06",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "SHOE_06",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_07",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "SHOE_07",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_08",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "SHOE_08",
         "tier": 1,
         "enabled": true
     }

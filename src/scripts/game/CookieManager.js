@@ -48,7 +48,7 @@ export default class CookieManager {
 			companions:[{id: 'FLY_DRONE', level: 0}],
 			masks:[{id: 'MASK_01', level: 0}],
 			trinkets:[{id: 'TRINKET_01', level: 0}],
-			shoes:[{id: 'SHOE_01', level: 0},{id: 'SHOE_02', level: 0}],
+			shoes:[{id: 'SHOE_01', level: 0},{id: 'SHOE_02', level: 0},{id: 'SHOE_03', level: 0},{id: 'SHOE_04', level: 0},{id: 'SHOE_05', level: 0},{id: 'SHOE_06', level: 0},{id: 'SHOE_07', level: 0},{id: 'SHOE_08', level: 0}],
 		}
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -216,8 +216,12 @@ export default class CookieManager {
 			console.log(type, 'not found on loadout, not saving');
 			return;
 		}
+
+		
+		
 		data[type][this.currentPlayer].id = equip;
 		data[type][this.currentPlayer].level = level;
+		console.log(type, equip, 'saving', data);
 		this.saveChunk('loadout', data)
 
 	}
@@ -260,13 +264,15 @@ export default class CookieManager {
 			}
 
 			const loadout = this.getChunck('loadout')
-			loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 })
-			loadout.currentTrinket.push({ id: null, level: 0 })
-			loadout.currentCompanion.push({ id: null, level: 0 })
-			loadout.currentMask.push({ id: null, level: 0 })
-			loadout.currentShoe.push({ id: null, level: 0 })
 
-			this.saveChunk('loadout', loadout)
+			if(loadout.currentWeapon.length < id + 1){
+				loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 })
+				loadout.currentTrinket.push({ id: null, level: 0 })
+				loadout.currentCompanion.push({ id: null, level: 0 })
+				loadout.currentMask.push({ id: null, level: 0 })
+				loadout.currentShoe.push({ id: null, level: 0 })				
+				this.saveChunk('loadout', loadout)
+			}
 		}
 		this.saveChunk('player', data)
 

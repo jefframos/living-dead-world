@@ -41,6 +41,8 @@
         },
         "attribute": "baseDefense",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "mask",
         "playerSpriteOverride": "mask-0001"
     },
@@ -53,6 +55,8 @@
         },
         "attribute": "baseDefense",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "mask",
         "playerSpriteOverride": "mask-0002"
     },
@@ -65,6 +69,8 @@
         },
         "attribute": "baseDefense",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "mask",
         "playerSpriteOverride": "mask-0003"
     },
@@ -77,6 +83,8 @@
         },
         "attribute": "baseDefense",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "mask",
         "playerSpriteOverride": "mask-0004"
     },
@@ -89,6 +97,8 @@
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseSpeed",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0001"
     },
@@ -101,6 +111,8 @@
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseSpeed",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0002"
     },
@@ -113,6 +125,8 @@
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseSpeed",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0003"
     },
@@ -125,13 +139,15 @@
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseSpeed",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0004"
     },
     {
         "id": "SHOE_01",
         "entityData": {
-            "icon": "dynamic-shoe-0001",
+            "icon": "dynamic-shoe-icon0001",
             "type": "Equipable",
             "tier": 1
         },
@@ -144,12 +160,14 @@
     {
         "id": "SHOE_02",
         "entityData": {
-            "icon": "dynamic-shoe-0002",
+            "icon": "dynamic-shoe-icon0002",
             "type": "Equipable",
             "tier": 1
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0002",
         "playerSpriteReference": 2
@@ -157,12 +175,14 @@
     {
         "id": "SHOE_03",
         "entityData": {
-            "icon": "dynamic-shoe-0003",
+            "icon": "dynamic-shoe-icon0003",
             "type": "Equipable",
             "tier": 1
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "baseHealth",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0003",
         "playerSpriteReference": 3
@@ -170,14 +190,76 @@
     {
         "id": "SHOE_04",
         "entityData": {
-            "icon": "dynamic-shoe-0004",
+            "icon": "dynamic-shoe-icon0004",
             "type": "Equipable",
             "tier": 1
         },
         "attribute": "baseSpeed",
         "value": [2,3,4,5,6],
+        "secAttribute": "basePower",
+        "secValue": [2,3,4,5,6],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0004",
         "playerSpriteReference": 4
+    },
+    {
+        "id": "SHOE_05",
+        "entityData": {
+            "icon": "dynamic-shoe-icon0005",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "secAttribute": "baseFrequency",
+        "secValue": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0005",
+        "playerSpriteReference": 5
+    },
+    {
+        "id": "SHOE_06",
+        "entityData": {
+            "icon": "dynamic-shoe-icon0006",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseDefense",
+        "value": [2,3,4,5,6],
+        "secAttribute": "basePower",
+        "secValue": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0006",
+        "playerSpriteReference": 6
+    },
+    {
+        "id": "SHOE_07",
+        "entityData": {
+            "icon": "dynamic-shoe-icon0007",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseHealth",
+        "value": [2,3,4,5,6],
+        "secAttribute": "baseDefense",
+        "secValue": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0007",
+        "playerSpriteReference": 7
+    },
+    {
+        "id": "SHOE_08",
+        "entityData": {
+            "icon": "dynamic-shoe-icon0008",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseHealth",
+        "value": [2,3,4,5,6],
+        "secAttribute": "basePower",
+        "secValue": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0008",
+        "playerSpriteReference": 8
     }
 ]

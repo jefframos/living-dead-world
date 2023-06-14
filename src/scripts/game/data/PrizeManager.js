@@ -13,6 +13,8 @@ export default class PrizeManager {
         Trinket: 'trinkets',
         Companion: 'companions',
         Weapon: 'weapons',
+        Wearable: 'wearable',
+        Equippable: 'equippable',
     }
     static _instance;
     static get instance() {
@@ -25,7 +27,13 @@ export default class PrizeManager {
         this.onGetMetaPrize = new signals.Signal();
         this.onUpdateCompanion = new signals.Signal();
 
-
+this.prizePool = [
+    [
+        {type:PrizeManager.PrizeType.Coin, value:[20,50]},
+        {type:PrizeManager.PrizeType.Key, value:1},
+        {type:PrizeManager.PrizeType.Wearable, value:1},
+    ]
+]
         this.prizeList = [];
         this.prizeList.push({
             icon: 'pistol1-icon',
