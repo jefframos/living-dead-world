@@ -19168,6 +19168,7 @@ var EntityBuilder = function () {
         this.acessoriesData = {};
         this.equipablesData = {};
         this.trinketsData = {};
+        this.shoesData = {};
         this.masksData = {};
         weapons.forEach(function (element) {
             if (_this.weaponsData[element.id]) {} else {
@@ -19188,13 +19189,13 @@ var EntityBuilder = function () {
         acessories.forEach(function (element) {
             var attData = new _AcessoryData2.default(element);
             if (attData.entityData.type == _EntityData2.default.EntityDataType.Equipable) {
-
                 _this.equipablesData[element.id] = attData;
-
                 if (attData.bodyPart == 'mask') {
                     _this.masksData[element.id] = attData;
                 } else if (attData.bodyPart == 'trinket') {
                     _this.trinketsData[element.id] = attData;
+                } else if (attData.bodyPart == 'shoe') {
+                    _this.shoesData[element.id] = attData;
                 }
             } else {
 
@@ -19271,6 +19272,12 @@ var EntityBuilder = function () {
             return arrayData;
         }
     }, {
+        key: "getAllShoes",
+        value: function getAllShoes() {
+
+            return this.dataToArray(this.shoesData);
+        }
+    }, {
         key: "getAllMask",
         value: function getAllMask() {
 
@@ -19295,6 +19302,11 @@ var EntityBuilder = function () {
         key: "getAllCompanion",
         value: function getAllCompanion() {
             return this.dataToArray(this.companionsData);
+        }
+    }, {
+        key: "getShoe",
+        value: function getShoe(id) {
+            return this.shoesData[id];
         }
     }, {
         key: "getMask",
@@ -26999,7 +27011,7 @@ var LevelManager = function () {
         key: "playerDie",
         value: function playerDie() {
             this.gameOverOverlay.setActive(true);
-            this.gameOverOverlay.show(true, this.matchStats);
+            this.gameOverOverlay.show(false, this.matchStats);
             _Eugine2.default.TimeScale = 0;
         }
     }, {
@@ -27938,6 +27950,13 @@ var GameData = function () {
             this.onUpdateEquipment.dispatch('mask', id, level);
         }
     }, {
+        key: "changeShoe",
+        value: function changeShoe(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentShoe', id, level);
+            console.log('currentShoe', id);
+            this.onUpdateEquipment.dispatch('shoe', id, level);
+        }
+    }, {
         key: "changeTrinket",
         value: function changeTrinket(id, level) {
             _CookieManager2.default.instance.saveEquipment('currentTrinket', id, level);
@@ -27977,6 +27996,11 @@ var GameData = function () {
         key: "currentEquippedMask",
         get: function get() {
             return _CookieManager2.default.instance.loadout.currentMask[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedShoe",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentShoe[_CookieManager2.default.instance.currentPlayer];
         }
     }, {
         key: "currentEquippedWeaponData",
@@ -32007,7 +32031,8 @@ var CookieManager = function () {
 			bodyParts: [],
 			companions: [{ id: 'FLY_DRONE', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
-			trinkets: [{ id: 'TRINKET_01', level: 0 }]
+			trinkets: [{ id: 'TRINKET_01', level: 0 }],
+			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }]
 		};
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -32015,6 +32040,7 @@ var CookieManager = function () {
 			currentTrinket: [{ id: null, level: 0 }],
 			currentCompanion: [{ id: null, level: 0 }],
 			currentMask: [{ id: null, level: 0 }],
+			currentShoe: [{ id: null, level: 0 }],
 			currentPlayer: 0,
 			playerStructures: []
 		};
@@ -32232,6 +32258,7 @@ var CookieManager = function () {
 				loadout.currentTrinket.push({ id: null, level: 0 });
 				loadout.currentCompanion.push({ id: null, level: 0 });
 				loadout.currentMask.push({ id: null, level: 0 });
+				loadout.currentShoe.push({ id: null, level: 0 });
 
 				this.saveChunk('loadout', loadout);
 			}
@@ -50158,22 +50185,29 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
                 this.updateEquipment('mask', currentMask.id);
             }
 
+            var currentShoe = _GameData2.default.instance.currentEquippedShoe;
+            if (currentShoe.id) {
+                this.updateEquipment('shoe', currentShoe.id);
+            }
+
             this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
         }
     }, {
         key: 'updateEquipment',
         value: function updateEquipment(area, id) {
+
             var data = _EntityBuilder2.default.instance.getEquipable(id);
             if (area == 'trinket') {
                 this.baseData.trinketSprite = data.playerSpriteOverride;
             } else if (area == 'mask') {
                 this.baseData.maskSprite = data.playerSpriteOverride;
+            } else if (area == 'shoe') {
+                this.baseData.shoe = data.playerSpriteReference;
             }
         }
     }, {
         key: 'spriteUpdate',
         value: function spriteUpdate(region, value) {
-
             var id = -1;
             for (var i = 0; i < this.bodyData.length; i++) {
                 if (this.bodyData[i].area == region) {
@@ -50218,7 +50252,6 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
     }, {
         key: 'structureUpdate',
         value: function structureUpdate(region, value) {
-
             var id = -1;
             for (var i = 0; i < this.bodyData.length; i++) {
                 if (this.bodyData[i].area == region) {
@@ -84783,6 +84816,11 @@ var CharacterBuildScreen = function (_Screen) {
                         _this.updateEquipment('mask', currentMask.id);
                 }
 
+                var currentShoe = _GameData2.default.instance.currentEquippedShoe;
+                if (currentShoe.id) {
+                        _this.updateEquipment('shoe', currentShoe.id);
+                }
+
                 return _this;
         }
 
@@ -84811,6 +84849,8 @@ var CharacterBuildScreen = function (_Screen) {
                                 this.playerCustomization.playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
                         } else if (area == 'mask') {
                                 this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
+                        } else if (area == 'shoe') {
+                                this.playerCustomization.playerViewDataStructure.shoe = data ? data.playerSpriteReference : 0;
                         }
                 }
         }, {
@@ -85207,7 +85247,6 @@ var CharacterBuildScreen = function (_Screen) {
                                 this.unSelectPlayer();
                         } else if (popUpOpen) {
                                 popUpOpen.hide();
-                                console.log(modalOpen);
                                 if (!modalOpen) {
 
                                         this.closeCustomization();
@@ -87890,7 +87929,7 @@ var GameOverView = function (_GameObject) {
                 _this.collectButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
                         _this.collectPrizes();
                 }, 'Collect');
-                _this.collectButton.updateBackTexture('square_button_0005');
+                _this.collectButton.updateBackTexture('square_button_0001');
 
                 _this.prizesContainer.addChild(_this.collectButton);
 
@@ -92956,7 +92995,12 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
         // {type:'visuals', label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
         //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-        { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.35, y: 0.8 }, mainIconId: '01', iconSize: 150, range: [1, 8], src: 'front-leg1-dynamic-00{frame}', animated: false }, { typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: null, area: "shoes", subs: ["backShoes", "frontShoes"], anchor: { x: 0.35, y: 0.9 }, mainIconId: '01', iconSize: 200, range: [1, 8], src: "dynamic-shoe-00{frame}", animated: false }, { typeList: 'visuals', label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '04', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { typeList: 'visuals', label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '03', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false }, { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false }, { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }];
+        { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.35, y: 0.8 }, mainIconId: '01', iconSize: 150, range: [1, 8], src: 'front-leg1-dynamic-00{frame}', animated: false },
+
+        //{ typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: null, area: "shoes", subs: ["backShoes", "frontShoes"], anchor: { x: 0.35, y: 0.9 }, mainIconId: '01', iconSize: 200, range: [1, 8], src: "dynamic-shoe-00{frame}", animated: false },
+
+
+        { typeList: 'visuals', label: 'Head', param: 'head', colorParam: null, area: "head", anchor: { x: 0.45, y: 0.42 }, mainIconId: '04', iconSize: 150, range: [1, 4], src: "head-00{frame}", animated: false }, { typeList: 'visuals', label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '03', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false }, { typeList: 'visuals', label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false }, { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false }, { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: _UIUtils2.default.colorset.hair }, { typeList: 'equip', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }];
 
         _this.areas = _this.areas.filter(function (item) {
             return item.typeList == _this.typeList;
@@ -93448,11 +93492,11 @@ var LoadoutContainer = function (_MainScreenModal) {
                         _this.updateListView(_this.equippableWeapons);
                 });
 
-                _this.currentMaskSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
-                _this.currentMaskSlot.setIconType(true);
-                _this.slotsList.addElement(_this.currentMaskSlot, { align: 0 });
-                _this.currentMaskSlot.onCardClicked.add(function (card) {
-                        _this.updateListView(_this.equippableMasks);
+                _this.currentShoeSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
+                _this.currentShoeSlot.setIconType(true);
+                _this.slotsList.addElement(_this.currentShoeSlot, { align: 0 });
+                _this.currentShoeSlot.onCardClicked.add(function (card) {
+                        _this.updateListView(_this.equippableShoes);
                 });
 
                 _this.currentTrinketSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
@@ -93501,18 +93545,18 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.currentWeaponSlot.setData(_EntityBuilder2.default.instance.getWeapon(_GameData2.default.instance.currentEquippedWeaponData.id), _GameData2.default.instance.currentEquippedWeapon.level);
                         this.currentWeaponSlot.resetPivot();
 
-                        var mask = _GameData2.default.instance.currentEquippedMask;
-                        console.log(mask);
-                        this.currentMaskSlot.setData(mask ? _EntityBuilder2.default.instance.getMask(mask.id) : null, mask ? mask.level : 0, 100);
-                        this.currentMaskSlot.resetPivot();
+                        var shoe = _GameData2.default.instance.currentEquippedShoe;
+                        //console.log(shoe)
+                        this.currentShoeSlot.setData(shoe ? _EntityBuilder2.default.instance.getShoe(shoe.id) : null, shoe ? shoe.level : 0, 100);
+                        this.currentShoeSlot.resetPivot();
 
                         var trinket = _GameData2.default.instance.currentEquippedTrinket;
-                        console.log(trinket);
+                        //console.log(trinket)
                         this.currentTrinketSlot.setData(trinket ? _EntityBuilder2.default.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0);
                         this.currentTrinketSlot.resetPivot();
 
                         var companion = _GameData2.default.instance.currentEquippedCompanion;
-                        console.log(companion);
+                        //console.log(companion)
 
                         this.currentCompanionSlot.setData(companion ? _EntityBuilder2.default.instance.getCompanion(companion.id) : null, companion ? companion.level : 0);
                         this.currentCompanionSlot.resetPivot();
@@ -93523,7 +93567,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                         for (var index = 0; index < availableCards.length; index++) {
                                 var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                                 var dt = _EntityBuilder2.default.instance.getWeapon(availableCards[index].id);
-                                console.log(availableCards[index].level);
+                                //console.log(availableCards[index].level)
                                 card.setData(dt, availableCards[index].level);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
@@ -93594,33 +93638,34 @@ var LoadoutContainer = function (_MainScreenModal) {
                                 _loop2(_index2);
                         }
 
-                        this.equippableMasks = [];
+                        this.equippableShoes = [];
 
-                        var removeMask = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-                        //removeMask.setData(dt)
-                        removeMask.resetPivot();
-                        removeMask.onCardClicked.add(function (removeMask) {
-                                _GameData2.default.instance.changeMask(null);
-                                _this2.currentMaskSlot.setData(null);
-                        });
-                        this.equippableMasks.push(removeMask);
+                        // let removeShoe = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
+                        // //removeShoe.setData(dt)
+                        // removeShoe.resetPivot()
+                        // removeShoe.onCardClicked.add((removeShoe) => {
+                        //     GameData.instance.changeShoe(null);
+                        //     this.currentShoeSlot.setData(null)
+                        // })
+                        // this.equippableShoes.push(removeShoe)
 
-                        var availableMasks = fullInventory.masks;
+
+                        var availableShoes = fullInventory.shoes;
 
                         var _loop3 = function _loop3(_index3) {
-                                var dt = _EntityBuilder2.default.instance.getEquipable(availableMasks[_index3].id);
+                                var dt = _EntityBuilder2.default.instance.getEquipable(availableShoes[_index3].id);
 
                                 var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this2.slotSize, _this2.slotSize);
-                                card.setData(dt, availableMasks[_index3].level, 100);
+                                card.setData(dt, availableShoes[_index3].level, 100);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
-                                        _GameData2.default.instance.changeMask(card.cardData.id);
-                                        _this2.currentMaskSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableMasks[_index3].level);
+                                        _GameData2.default.instance.changeShoe(card.cardData.id);
+                                        _this2.currentShoeSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableShoes[_index3].level);
                                 });
-                                _this2.equippableMasks.push(card);
+                                _this2.equippableShoes.push(card);
                         };
 
-                        for (var _index3 = 0; _index3 < availableMasks.length; _index3++) {
+                        for (var _index3 = 0; _index3 < availableShoes.length; _index3++) {
                                 _loop3(_index3);
                         }
 
@@ -104713,11 +104758,11 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -104743,9 +104788,6 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -104755,11 +104797,8 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
@@ -104779,6 +104818,24 @@ var assets = [{
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
@@ -104793,18 +104850,6 @@ var assets = [{
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -104846,7 +104891,7 @@ module.exports = exports['default'];
 /* 340 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

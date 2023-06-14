@@ -167,6 +167,12 @@ export default class CharacterBuildScreen extends Screen {
             this.updateEquipment('mask', currentMask.id)
         }
 
+
+        let currentShoe = GameData.instance.currentEquippedShoe;
+        if (currentShoe.id) {
+            this.updateEquipment('shoe', currentShoe.id)
+        }
+
     }
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
@@ -191,6 +197,8 @@ export default class CharacterBuildScreen extends Screen {
             this.playerCustomization.playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
         } else if (area == 'mask') {
             this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
+        } else if (area == 'shoe') {
+            this.playerCustomization.playerViewDataStructure.shoe = data ? data.playerSpriteReference : 0;
         }
     }
     addPopUp(popUp) {
@@ -559,7 +567,6 @@ export default class CharacterBuildScreen extends Screen {
             this.unSelectPlayer();
         } else if (popUpOpen) {
             popUpOpen.hide();
-            console.log(modalOpen)
             if (!modalOpen) {
 
                 this.closeCustomization();

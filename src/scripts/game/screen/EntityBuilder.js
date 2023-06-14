@@ -70,6 +70,7 @@ export default class EntityBuilder {
         this.acessoriesData = {};
         this.equipablesData = {};
         this.trinketsData = {};
+        this.shoesData = {};
         this.masksData = {};
         weapons.forEach(element => {
             if (this.weaponsData[element.id]) {
@@ -92,13 +93,13 @@ export default class EntityBuilder {
         acessories.forEach(element => {
             let attData = new AcessoryData(element)
             if (attData.entityData.type == EntityData.EntityDataType.Equipable) {
-
                 this.equipablesData[element.id] = attData;
-
                 if (attData.bodyPart == 'mask') {
                     this.masksData[element.id] = attData;
                 } else if (attData.bodyPart == 'trinket') {
                     this.trinketsData[element.id] = attData;
+                } else if (attData.bodyPart == 'shoe') {
+                    this.shoesData[element.id] = attData;
                 }
             } else {
 
@@ -166,6 +167,10 @@ export default class EntityBuilder {
         }
         return arrayData;
     }
+    getAllShoes() {
+
+        return this.dataToArray(this.shoesData);
+    }
     getAllMask() {
 
         return this.dataToArray(this.masksData);
@@ -181,6 +186,10 @@ export default class EntityBuilder {
     }
     getAllCompanion() {
         return this.dataToArray(this.companionsData);
+    }
+    getShoe(id) {
+        return this.shoesData[id];
+
     }
     getMask(id) {
         return this.masksData[id];

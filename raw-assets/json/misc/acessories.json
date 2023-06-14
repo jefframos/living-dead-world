@@ -127,5 +127,57 @@
         "value": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0004"
+    },
+    {
+        "id": "SHOE_01",
+        "entityData": {
+            "icon": "dynamic-shoe-0001",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0001",
+        "playerSpriteReference": 1
+    },
+    {
+        "id": "SHOE_02",
+        "entityData": {
+            "icon": "dynamic-shoe-0002",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0002",
+        "playerSpriteReference": 2
+    },
+    {
+        "id": "SHOE_03",
+        "entityData": {
+            "icon": "dynamic-shoe-0003",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0003",
+        "playerSpriteReference": 3
+    },
+    {
+        "id": "SHOE_04",
+        "entityData": {
+            "icon": "dynamic-shoe-0004",
+            "type": "Equipable",
+            "tier": 1
+        },
+        "attribute": "baseSpeed",
+        "value": [2,3,4,5,6],
+        "bodyPart": "shoe",
+        "playerSpriteOverride": "dynamic-shoe-0004",
+        "playerSpriteReference": 4
     }
 ]

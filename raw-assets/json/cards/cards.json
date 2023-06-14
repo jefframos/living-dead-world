@@ -468,5 +468,45 @@
         "acessoryId": "TRINKET_04",
         "tier": 1,
         "enabled": true
+    },
+    {
+        "id": "SHOE_01",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_01",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_02",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_02",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_03",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_03",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "SHOE_04",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_04",
+        "tier": 1,
+        "enabled": true
     }
 ]

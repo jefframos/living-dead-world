@@ -35,6 +35,10 @@ export default class GameData {
     get currentEquippedMask(){
         return CookieManager.instance.loadout.currentMask[CookieManager.instance.currentPlayer]
     }
+
+    get currentEquippedShoe(){
+        return CookieManager.instance.loadout.currentShoe[CookieManager.instance.currentPlayer]
+    }
     get currentEquippedWeaponData(){
         return EntityBuilder.instance.getWeapon(this.currentEquippedWeapon.id)
     }
@@ -63,6 +67,11 @@ export default class GameData {
     changeMask(id, level){
         CookieManager.instance.saveEquipment('currentMask', id, level)
         this.onUpdateEquipment.dispatch('mask', id, level)
+    }
+    changeShoe(id, level){
+        CookieManager.instance.saveEquipment('currentShoe', id, level)
+        console.log('currentShoe', id)
+        this.onUpdateEquipment.dispatch('shoe', id, level)
     }
     changeTrinket(id, level){
         CookieManager.instance.saveEquipment('currentTrinket', id, level)

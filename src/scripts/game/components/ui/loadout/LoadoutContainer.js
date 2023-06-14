@@ -45,11 +45,11 @@ export default class LoadoutContainer extends MainScreenModal {
             this.updateListView(this.equippableWeapons)
         })
 
-        this.currentMaskSlot = new LoadoutCardView(UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
-        this.currentMaskSlot.setIconType(true);
-        this.slotsList.addElement(this.currentMaskSlot, { align: 0 });
-        this.currentMaskSlot.onCardClicked.add((card) => {
-            this.updateListView(this.equippableMasks)
+        this.currentShoeSlot = new LoadoutCardView(UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
+        this.currentShoeSlot.setIconType(true);
+        this.slotsList.addElement(this.currentShoeSlot, { align: 0 });
+        this.currentShoeSlot.onCardClicked.add((card) => {
+            this.updateListView(this.equippableShoes)
         })
 
         this.currentTrinketSlot = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
@@ -90,18 +90,18 @@ export default class LoadoutContainer extends MainScreenModal {
         this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(GameData.instance.currentEquippedWeaponData.id), GameData.instance.currentEquippedWeapon.level)
         this.currentWeaponSlot.resetPivot()
 
-        const mask = GameData.instance.currentEquippedMask
-        console.log(mask)
-        this.currentMaskSlot.setData(mask ? EntityBuilder.instance.getMask(mask.id) : null, mask ? mask.level : 0, 100)
-        this.currentMaskSlot.resetPivot()
+        const shoe = GameData.instance.currentEquippedShoe
+        //console.log(shoe)
+        this.currentShoeSlot.setData(shoe ? EntityBuilder.instance.getShoe(shoe.id) : null, shoe ? shoe.level : 0, 100)
+        this.currentShoeSlot.resetPivot()
 
         const trinket = GameData.instance.currentEquippedTrinket
-        console.log(trinket)
+        //console.log(trinket)
         this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0)
         this.currentTrinketSlot.resetPivot()
 
         const companion = GameData.instance.currentEquippedCompanion
-        console.log(companion)
+        //console.log(companion)
 
         this.currentCompanionSlot.setData(companion ? EntityBuilder.instance.getCompanion(companion.id) : null, companion ? companion.level : 0)
         this.currentCompanionSlot.resetPivot()
@@ -113,7 +113,7 @@ export default class LoadoutContainer extends MainScreenModal {
         for (let index = 0; index < availableCards.length; index++) {
             const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
             let dt = EntityBuilder.instance.getWeapon(availableCards[index].id)
-            console.log(availableCards[index].level)
+            //console.log(availableCards[index].level)
             card.setData(dt, availableCards[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
@@ -184,32 +184,32 @@ export default class LoadoutContainer extends MainScreenModal {
 
 
 
-        this.equippableMasks = [];
+        this.equippableShoes = [];
 
 
-        let removeMask = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
-        //removeMask.setData(dt)
-        removeMask.resetPivot()
-        removeMask.onCardClicked.add((removeMask) => {
-            GameData.instance.changeMask(null);
-            this.currentMaskSlot.setData(null)
-        })
-        this.equippableMasks.push(removeMask)
+        // let removeShoe = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
+        // //removeShoe.setData(dt)
+        // removeShoe.resetPivot()
+        // removeShoe.onCardClicked.add((removeShoe) => {
+        //     GameData.instance.changeShoe(null);
+        //     this.currentShoeSlot.setData(null)
+        // })
+        // this.equippableShoes.push(removeShoe)
 
 
-        let availableMasks = fullInventory.masks
+        let availableShoes = fullInventory.shoes
 
-        for (let index = 0; index < availableMasks.length; index++) {
-            let dt = EntityBuilder.instance.getEquipable(availableMasks[index].id)
+        for (let index = 0; index < availableShoes.length; index++) {
+            let dt = EntityBuilder.instance.getEquipable(availableShoes[index].id)
 
             const card = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
-            card.setData(dt, availableMasks[index].level, 100)
+            card.setData(dt, availableShoes[index].level, 100)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                GameData.instance.changeMask(card.cardData.id);
-                this.currentMaskSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableMasks[index].level)
+                GameData.instance.changeShoe(card.cardData.id);
+                this.currentShoeSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableShoes[index].level)
             })
-            this.equippableMasks.push(card)
+            this.equippableShoes.push(card)
 
         }
 

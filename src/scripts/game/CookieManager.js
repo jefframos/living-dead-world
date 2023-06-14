@@ -48,6 +48,7 @@ export default class CookieManager {
 			companions:[{id: 'FLY_DRONE', level: 0}],
 			masks:[{id: 'MASK_01', level: 0}],
 			trinkets:[{id: 'TRINKET_01', level: 0}],
+			shoes:[{id: 'SHOE_01', level: 0},{id: 'SHOE_02', level: 0}],
 		}
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -55,6 +56,7 @@ export default class CookieManager {
 			currentTrinket: [{ id: null, level: 0 }],
 			currentCompanion: [{ id: null, level: 0 }],
 			currentMask: [{ id: null, level: 0 }],
+			currentShoe: [{ id: null, level: 0 }],
 			currentPlayer: 0,
 			playerStructures: []
 		}
@@ -262,6 +264,7 @@ export default class CookieManager {
 			loadout.currentTrinket.push({ id: null, level: 0 })
 			loadout.currentCompanion.push({ id: null, level: 0 })
 			loadout.currentMask.push({ id: null, level: 0 })
+			loadout.currentShoe.push({ id: null, level: 0 })
 
 			this.saveChunk('loadout', loadout)
 		}

@@ -90,7 +90,7 @@ export default class LevelManager {
     }
     playerDie(){
         this.gameOverOverlay.setActive(true)
-        this.gameOverOverlay.show(true, this.matchStats)
+        this.gameOverOverlay.show(false, this.matchStats)
         Eugine.TimeScale = 0;
     }
     confirmPlayerDeath(){

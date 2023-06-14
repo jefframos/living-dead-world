@@ -176,21 +176,30 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.updateEquipment('mask', currentMask.id)
         }
 
+
+        let currentShoe = GameData.instance.currentEquippedShoe;
+        if (currentShoe.id) {
+            this.updateEquipment('shoe', currentShoe.id)
+        }
+
         this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
 
 
     }
 
     updateEquipment(area, id) {
+
         const data = EntityBuilder.instance.getEquipable(id);
         if (area == 'trinket') {
             this.baseData.trinketSprite = data.playerSpriteOverride
         } else if (area == 'mask') {
             this.baseData.maskSprite = data.playerSpriteOverride
+        }else if (area == 'shoe') {
+            this.baseData.shoe = data.playerSpriteReference
+
         }
     }
     spriteUpdate(region, value) {
-
         let id = -1;
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
@@ -231,7 +240,6 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
     structureUpdate(region, value) {
-
         let id = -1;
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
