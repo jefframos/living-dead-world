@@ -90,7 +90,7 @@ export default class LevelManager {
     }
     playerDie(){
         this.gameOverOverlay.setActive(true)
-        this.gameOverOverlay.show(true)
+        this.gameOverOverlay.show(true, this.matchStats)
         Eugine.TimeScale = 0;
     }
     confirmPlayerDeath(){
@@ -363,7 +363,7 @@ export default class LevelManager {
             this.gameEngine.camera.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
         }
 
-        this.matchStats.enemiesKilled = this.gameplayTime;
+        this.matchStats.time = this.gameplayTime;
     }
 
     lateUpdate(delta) {

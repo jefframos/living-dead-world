@@ -58,15 +58,17 @@ export default class PrizeManager {
     getMetaLowerPrize() {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
-    getMetaPrize(maxId, max, dispatch = true) {
+    getMetaPrize(maxId, max, total = 1, dispatch = true) {
 
         const itemPrizeList = []
 
-        if(maxId < 0){
-            maxId = Math.floor(Math.random() * this.prizeList.length);
+        for (let index = 0; index < total; index++) {
+            if(maxId < 0){
+                maxId = Math.floor(Math.random() * this.prizeList.length);
+            }
+    
+            itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
         }
-
-        itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
 
         const types = [];
         itemPrizeList.forEach(element => {

@@ -2429,6 +2429,9 @@ var Utils = function () {
     }, {
         key: "floatToTime",
         value: function floatToTime(value) {
+            if (value <= 0) {
+                return "00:00";
+            }
             var hours = Math.floor(value / 60);
             var minutes = value % 60;
 
@@ -2757,7 +2760,7 @@ var Game = function () {
                                 Game.Borders.width = Game.Borders.topRight.x;
                                 Game.Borders.height = Game.Borders.bottomLeft.y;
 
-                                window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2;
+                                window.isPortrait = this.innerResolution.width < this.innerResolution.height;
 
                                 if (Game.IsPortrait != window.isPortrait) {
                                         this.onAspectChanged.dispatch(window.isPortrait);
@@ -26996,7 +26999,7 @@ var LevelManager = function () {
         key: "playerDie",
         value: function playerDie() {
             this.gameOverOverlay.setActive(true);
-            this.gameOverOverlay.show(true);
+            this.gameOverOverlay.show(true, this.matchStats);
             _Eugine2.default.TimeScale = 0;
         }
     }, {
@@ -27309,7 +27312,7 @@ var LevelManager = function () {
                 this.gameEngine.camera.followPoint.z = this.player.gameView.view.position.y - this.player.transform.position.y;
             }
 
-            this.matchStats.enemiesKilled = this.gameplayTime;
+            this.matchStats.time = this.gameplayTime;
         }
     }, {
         key: "lateUpdate",
@@ -31501,16 +31504,19 @@ var PrizeManager = function () {
     }, {
         key: "getMetaPrize",
         value: function getMetaPrize(maxId, max) {
-            var dispatch = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
+            var total = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+            var dispatch = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
 
             var itemPrizeList = [];
 
-            if (maxId < 0) {
-                maxId = Math.floor(Math.random() * this.prizeList.length);
-            }
+            for (var index = 0; index < total; index++) {
+                if (maxId < 0) {
+                    maxId = Math.floor(Math.random() * this.prizeList.length);
+                }
 
-            itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max));
+                itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max));
+            }
 
             var types = [];
             itemPrizeList.forEach(function (element) {
@@ -87740,8 +87746,11 @@ var GameOverView = function (_GameObject) {
                 _this.blocker.alpha = 0.5;
                 _this.container.addChildAt(_this.blocker, 0);
 
+                _this.contentContainer = new PIXI.Container();
+                _this.container.addChild(_this.contentContainer);
+
                 _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
-                _this.container.addChild(_this.infoBackContainer);
+                _this.contentContainer.addChild(_this.infoBackContainer);
 
                 _this.infoBackContainer.width = 500;
                 _this.infoBackContainer.height = 700;
@@ -87857,22 +87866,33 @@ var GameOverView = function (_GameObject) {
 
                 _this.uiEndStatsList.updateHorizontalList();
 
+                _this.confirmButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
+                        if (_this.gameOverWin) {
+                                _this.onConfirmGameOver.dispatch();
+                        } else {
+                                _this.showGameOverPrizes();
+                        }
+                }, 'Continue');
+                _this.confirmButton.updateBackTexture('square_button_0005');
+
+                _this.contentContainer.addChild(_this.confirmButton);
+
+                _this.prizesContainer = new PIXI.Container();
+                _this.prizeBox.addChild(_this.prizesContainer);
+
                 _this.reviveButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
                         _this.onRevivePlayer.dispatch();
                 }, 'Revive', 'video-trim');
                 _this.reviveButton.updateBackTexture('square_button_0004');
 
-                _this.gameOverContainer.addChild(_this.reviveButton);
+                _this.prizesContainer.addChild(_this.reviveButton);
 
-                _this.confirmButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
-                        _this.onConfirmGameOver.dispatch();
-                }, 'Confirm');
-                _this.confirmButton.updateBackTexture('square_button_0005');
+                _this.collectButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
+                        _this.collectPrizes();
+                }, 'Collect');
+                _this.collectButton.updateBackTexture('square_button_0005');
 
-                _this.container.addChild(_this.confirmButton);
-
-                _this.prizesContainer = new PIXI.Container();
-                _this.prizeBox.addChild(_this.prizesContainer);
+                _this.prizesContainer.addChild(_this.collectButton);
 
                 return _this;
         }
@@ -87882,14 +87902,62 @@ var GameOverView = function (_GameObject) {
                 value: function show() {
                         var win = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
                         var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+                        var hasGameOverToken = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
-                        this.gameOverContainer.visible = win;
-                        this.victoryContainer.visible = !win;
+                        //win = !win
+                        this.gameOverContainer.visible = !win;
+                        this.victoryContainer.visible = win;
 
-                        var prizes = _PrizeManager2.default.instance.getMetaPrize(-1, 0, false);
+                        this.collectButton.interactive = true;
+                        this.collectButton.scale.set(1);
 
-                        console.log(prizes);
+                        this.gameOverWin = win;
 
+                        this.enemyCounnt.text = data.enemiesKilled;
+                        this.finalTimeLabel.text = _Utils2.default.floatToTime(Math.floor(data.time));
+
+                        this.uiEndStatsList.updateHorizontalList();
+
+                        if (win) {
+                                var prizes = _PrizeManager2.default.instance.getMetaPrize(-1, 1, 2, false);
+                                this.showPrize(prizes);
+
+                                this.confirmButton.visible = false;
+                                this.reviveButton.visible = false;
+                                this.collectButton.visible = true;
+                        } else {
+                                if (!hasGameOverToken) {
+                                        this.showGameOverPrizes(0);
+                                } else {
+                                        this.confirmButton.visible = true;
+                                        this.reviveButton.visible = true;
+                                        this.collectButton.visible = false;
+                                }
+                        }
+                }
+        }, {
+                key: "collectPrizes",
+                value: function collectPrizes() {
+                        var _this2 = this;
+
+                        console.log("ADD PARTICLES HERE");
+
+                        this.currentShowingPrizes.forEach(function (element) {
+                                TweenLite.killTweensOf(element, true);
+                        });
+
+                        setTimeout(function () {
+                                _this2.onConfirmGameOver.dispatch();
+                        }, 50);
+                }
+        }, {
+                key: "showGameOverPrizes",
+                value: function showGameOverPrizes() {
+                        this.reviveButton.visible = false;
+                        this.confirmButton.visible = false;
+                        this.collectButton.visible = true;
+
+                        var prizes = _PrizeManager2.default.instance.getMetaPrize(-1, 0, 1, false);
                         this.showPrize(prizes);
                 }
         }, {
@@ -87909,16 +87977,24 @@ var GameOverView = function (_GameObject) {
                 value: function update(delta, unscaledDelta) {
                         (0, _get3.default)(GameOverView.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameOverView.prototype), "update", this).call(this, delta, unscaledDelta);
                         this.shine.rotation += unscaledDelta * 5;
-                        this.infoBackContainer.x = _Game2.default.Borders.width / 2 - this.infoBackContainer.width / 2;
-                        this.infoBackContainer.y = _Game2.default.Borders.height / 2 - this.infoBackContainer.height / 2;
-                        this.confirmButton.x = _Game2.default.Borders.width / 2 - this.confirmButton.width / 2;
-                        this.confirmButton.y = this.infoBackContainer.y + this.infoBackContainer.height + 20;
+                        if (!_Game2.default.IsPortrait) {
+                                this.contentContainer.scale.set(0.8);
+                        } else {
+                                this.contentContainer.scale.set(1);
+                        }
 
-                        this.reviveButton.scale.set(Math.cos(_Game2.default.Time * 10) * 0.05 + 0.95 + 0.2);
-                        this.reviveButton.x = this.infoBackContainer.width / 2 - this.reviveButton.width / 2;
-                        this.reviveButton.y = this.infoBackContainer.height - 150;
+                        this.contentContainer.x = _Game2.default.Borders.width / 2 - this.contentContainer.width / 2;
+                        this.contentContainer.y = _Utils2.default.lerp(this.contentContainer.y, _Game2.default.Borders.height / 2 - this.contentContainer.height / 2 + 20, 0.5);
+                        this.confirmButton.x = this.infoBackContainer.width / 2 - this.confirmButton.width / 2;
+                        this.confirmButton.y = 740;
 
-                        this.prizesContainer.x = this.prizeBox.width / 2 - this.prizesContainer.width / 2;
+                        this.reviveButton.scale.set(Math.cos(_Game2.default.Time * 15) * 0.05 + 0.95 + 0.2);
+                        this.reviveButton.x = this.prizeBox.width / 2 - this.reviveButton.width / 2;
+                        this.reviveButton.y = this.prizeBox.height / 2 - this.reviveButton.height / 2;
+                        this.collectButton.x = this.prizeBox.width / 2 - this.collectButton.width / 2;
+                        this.collectButton.y = 120;
+
+                        //this.prizesContainer.x = Utils.lerp(this.prizesContainer.x ,this.prizeBox.width / 2 - this.prizesContainer.width / 2, 0.5);
                         this.prizesContainer.y = 20;
 
                         this.blocker.width = _Game2.default.Borders.width;
@@ -87927,6 +88003,8 @@ var GameOverView = function (_GameObject) {
         }, {
                 key: "showPrize",
                 value: function showPrize(data) {
+                        var _this3 = this;
+
                         var drawPrizes = [];
                         for (var index = 0; index < data.type.length; index++) {
                                 var element = data.type[index];
@@ -87963,9 +88041,12 @@ var GameOverView = function (_GameObject) {
                                 drawPrizes.push({ texture: texture, entityData: entityData, value: value });
                         }
 
-                        while (this.prizesContainer.children.length > 0) {
-                                this.prizesContainer.removeChildAt(0);
+                        if (this.currentShowingPrizes) {
+                                this.currentShowingPrizes.forEach(function (element) {
+                                        _this3.prizesContainer.removeChild(element);
+                                });
                         }
+                        this.currentShowingPrizes = [];
                         for (var i = 0; i < drawPrizes.length; i++) {
                                 var _element = drawPrizes[i];
 
@@ -87974,17 +88055,23 @@ var GameOverView = function (_GameObject) {
                                         prize = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', 100, 100);
                                         prize.setData(_element.entityData, _element.value.level);
                                         prize.resetPivot();
-                                        prize.x = 110 * i;
                                 } else {
                                         prize = new PIXI.Sprite.from(_element.texture);
                                 }
+                                prize.x = 110 * i + this.prizeBox.width / 2 - drawPrizes.length * 110 / 2;
+
+                                this.currentShowingPrizes.push(prize);
                                 this.prizesContainer.addChild(prize);
 
-                                // prize.alpha = 0;
-                                // TweenLite.to(prize, 0.5, {
-                                //     delay: i * 0.5 + 0.5, alpha: 1, onStart: () => {
-                                //     }
-                                // })
+                                prize.alpha = 0;
+                                TweenLite.to(prize, 0.5, {
+                                        delay: i * 0.25 + 0.35, alpha: 1, onStart: function onStart() {}
+                                });
+
+                                prize.y = -20;
+                                TweenLite.to(prize, 0.5, {
+                                        delay: i * 0.25 + 0.35, y: 0, ease: Elastic.easeOut
+                                });
                         }
                 }
         }]);
@@ -104656,20 +104743,17 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
-	"id": "player-animation",
-	"url": "assets/json\\animation\\player-animation.json"
-}, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "player-animation",
+	"url": "assets/json\\animation\\player-animation.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
@@ -104677,38 +104761,8 @@ var assets = [{
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -104718,6 +104772,39 @@ var assets = [{
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -104759,7 +104846,7 @@ module.exports = exports['default'];
 /* 340 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/environment/environment.json","image/characters/characters.json","image/ui/ui.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

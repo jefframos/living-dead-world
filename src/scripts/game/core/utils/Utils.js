@@ -118,6 +118,9 @@ export default class Utils {
     }
 
     static floatToTime(value) {
+        if(value <= 0){
+            return "00:00"
+        }
         let hours = Math.floor(value / 60);
         let minutes = value % 60;
 

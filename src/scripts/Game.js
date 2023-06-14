@@ -250,7 +250,7 @@ export default class Game {
             Game.Borders.width = Game.Borders.topRight.x
             Game.Borders.height = Game.Borders.bottomLeft.y
 
-            window.isPortrait = this.innerResolution.width < this.innerResolution.height * 1.2
+            window.isPortrait = this.innerResolution.width < this.innerResolution.height
 
             if(Game.IsPortrait != window.isPortrait){
                 this.onAspectChanged.dispatch(window.isPortrait);
