@@ -16,7 +16,7 @@ export default class RouletteView extends PIXI.Container {
 
         this.onPrizeFound = new signals.Signal();
 
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('slot-machine-modal'), 120, 80, 120, 80);
         this.container.addChild(this.infoBackContainer);
         this.infoBackContainer.width = width
         this.infoBackContainer.height = height
@@ -28,6 +28,7 @@ export default class RouletteView extends PIXI.Container {
         this.spinButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.spin(0.1);
         }, 'spin', 'video-icon')
+        this.spinButton.updateBackTexture('modal_container0004')
         this.container.addChild(this.spinButton);
         this.slots = [];
 
@@ -57,7 +58,7 @@ export default class RouletteView extends PIXI.Container {
         this.slotsContainer.y = this.infoBackContainer.height / 2 - this.slotsContainer.height / 2;
 
         this.spinButton.x = this.infoBackContainer.width / 2 - this.spinButton.width / 2;
-        this.spinButton.y = this.infoBackContainer.height / 2 - this.spinButton.height / 2 + 250;
+        this.spinButton.y = this.infoBackContainer.height / 2 - this.spinButton.height / 2 + 300;
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
 
@@ -75,11 +76,11 @@ export default class RouletteView extends PIXI.Container {
             }
         }
 
-        this.prizeMarker = new PIXI.NineSlicePlane(PIXI.Texture.from('card-border'), 20, 20, 20, 20);
-        this.container.addChild(this.prizeMarker);
-        this.prizeMarker.width = 700
-        this.prizeMarker.x = this.infoBackContainer.width / 2 - this.prizeMarker.width / 2;
-        this.prizeMarker.y = this.infoBackContainer.height / 2 - this.prizeMarker.height / 2;
+        // this.prizeMarker = new PIXI.NineSlicePlane(PIXI.Texture.from('card-border'), 20, 20, 20, 20);
+        // this.container.addChild(this.prizeMarker);
+        // this.prizeMarker.width = 700
+        // this.prizeMarker.x = this.infoBackContainer.width / 2 - this.prizeMarker.width / 2;
+        // this.prizeMarker.y = this.infoBackContainer.height / 2 - this.prizeMarker.height / 2;
 
 
 

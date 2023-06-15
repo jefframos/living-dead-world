@@ -2502,6 +2502,323 @@ module.exports = exports["default"];
 
 
 Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
+var _BaseButton = __webpack_require__(33);
+
+var _BaseButton2 = _interopRequireDefault(_BaseButton);
+
+var _BodyPartySlot = __webpack_require__(238);
+
+var _BodyPartySlot2 = _interopRequireDefault(_BodyPartySlot);
+
+var _ColorButton = __webpack_require__(242);
+
+var _ColorButton2 = _interopRequireDefault(_ColorButton);
+
+var _ColorSlot = __webpack_require__(243);
+
+var _ColorSlot2 = _interopRequireDefault(_ColorSlot);
+
+var _InteractableView = __webpack_require__(20);
+
+var _InteractableView2 = _interopRequireDefault(_InteractableView);
+
+var _Pool = __webpack_require__(17);
+
+var _Pool2 = _interopRequireDefault(_Pool);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var UIUtils = function () {
+    function UIUtils() {
+        (0, _classCallCheck3.default)(this, UIUtils);
+    }
+
+    (0, _createClass3.default)(UIUtils, null, [{
+        key: "getCircle",
+        value: function getCircle() {
+            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
+            var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+
+            return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius);
+        }
+    }, {
+        key: "getRect",
+        value: function getRect() {
+            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
+            var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
+            var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
+
+            return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height);
+        }
+    }, {
+        key: "getCloseButton",
+        value: function getCloseButton(callback) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0004', 80, 60);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            button.addIcon('smallButton', 40);
+
+            return button;
+        }
+    }, {
+        key: "getPrimaryButton",
+        value: function getPrimaryButton(callback, label, icon) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 100, 100);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label);
+            }
+            return button;
+        }
+    }, {
+        key: "getPrimaryShapelessButton",
+        value: function getPrimaryShapelessButton(callback, label, icon) {
+            var button = new _BaseButton2.default(null, 150, 150);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon, 80);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { fontSize: 28 });
+            }
+            return button;
+        }
+    }, {
+        key: "getMainPlayButton",
+        value: function getMainPlayButton(callback, label, icon) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0005', 300, 100);
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback();
+            });
+            if (icon) {
+                button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 });
+            }
+            return button;
+        }
+    }, {
+        key: "getPrimaryLabel",
+        value: function getPrimaryLabel(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var style = {};
+            for (var key in window.LABELS.LABEL1) {
+                style[key] = window.LABELS.LABEL1[key];
+            }
+
+            for (var _key in params) {
+                style[_key] = params[_key];
+            }
+            var textLabel = new PIXI.Text(label, style);
+            textLabel.text = label;
+            return textLabel;
+        }
+    }, {
+        key: "getSpecialLabel1",
+        value: function getSpecialLabel1(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var textLabel = new PIXI.Text(label, {
+                align: "center",
+                fill: ["#ff8652", "#f2b650"],
+                dropShadow: true,
+                dropShadowAngle: 1.5,
+                dropShadowDistance: 3,
+                fillGradientType: 1,
+                fontSize: 28,
+                fontWeight: 900,
+                strokeThickness: 3,
+                wordWrap: true,
+                wordWrapWidth: 300
+            });
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            return textLabel;
+        }
+    }, {
+        key: "getSecondaryLabel",
+        value: function getSecondaryLabel(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            return textLabel;
+        }
+    }, {
+        key: "addLabel",
+        value: function addLabel(button, label) {
+            var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+            var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { x: 0, y: 0 };
+
+            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
+
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            button.addLabelOnCenter(textLabel, offset);
+            return textLabel;
+        }
+    }, {
+        key: "getBodyPartySlot",
+        value: function getBodyPartySlot(callback, label, icon) {
+
+            var button = _Pool2.default.instance.getElement(_BodyPartySlot2.default);
+
+            button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label);
+            }
+
+            return button;
+        }
+    }, {
+        key: "getColorSlot",
+        value: function getColorSlot(callback) {
+            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
+            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
+
+
+            var button = _Pool2.default.instance.getElement(_ColorSlot2.default);
+
+            button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
+            button.setColor(color);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+
+            return button;
+        }
+    }, {
+        key: "getPrimaryLabelButton",
+        value: function getPrimaryLabelButton(callback, label, icon) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 100, 65);
+            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback(button);
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
+            }
+            return button;
+        }
+    }, {
+        key: "getPrimaryLargeLabelButton",
+        value: function getPrimaryLargeLabelButton(callback, label, icon) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 250, 100);
+            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback(button);
+            });
+            if (icon) {
+                button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
+            }
+            if (label) {
+                if (icon) {
+                    UIUtils.addLabel(button, label, { fontSize: 40 }, { x: -30, y: 0 });
+                } else {
+                    UIUtils.addLabel(button, label, { fontSize: 40 });
+                }
+            }
+            return button;
+        }
+    }, {
+        key: "getBodyTypeLabelButton",
+        value: function getBodyTypeLabelButton(callback, label, icon) {
+            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 80, 80);
+            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
+            _InteractableView2.default.addMouseUp(button, function () {
+                if (callback) callback(button);
+            });
+            if (icon) {
+                button.addIcon(icon);
+            }
+            if (label) {
+                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
+            }
+            return button;
+        }
+    }, {
+        key: "getColorButton",
+        value: function getColorButton(callback) {
+            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
+            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
+
+
+            var button = _Pool2.default.instance.getElement(_ColorButton2.default);
+
+            button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
+            button.setColor(color);
+            if (!button.mouseUpCallback && callback) {
+                button.mouseUpCallback = callback;
+                var cb = _InteractableView2.default.addMouseUp(button, function () {
+                    button.mouseUpCallback(button);
+                });
+            }
+
+            return button;
+        }
+    }]);
+    return UIUtils;
+}();
+
+UIUtils.baseButtonTexture = 'square_button';
+UIUtils.colorset = {
+    skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
+    clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
+    hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF]
+};
+exports.default = UIUtils;
+module.exports = exports["default"];
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
         value: true
 });
 
@@ -2834,323 +3151,6 @@ Game.Borders = {
 };
 exports.default = Game;
 module.exports = exports['default'];
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _BaseButton = __webpack_require__(33);
-
-var _BaseButton2 = _interopRequireDefault(_BaseButton);
-
-var _BodyPartySlot = __webpack_require__(238);
-
-var _BodyPartySlot2 = _interopRequireDefault(_BodyPartySlot);
-
-var _ColorButton = __webpack_require__(242);
-
-var _ColorButton2 = _interopRequireDefault(_ColorButton);
-
-var _ColorSlot = __webpack_require__(243);
-
-var _ColorSlot2 = _interopRequireDefault(_ColorSlot);
-
-var _InteractableView = __webpack_require__(20);
-
-var _InteractableView2 = _interopRequireDefault(_InteractableView);
-
-var _Pool = __webpack_require__(17);
-
-var _Pool2 = _interopRequireDefault(_Pool);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var UIUtils = function () {
-    function UIUtils() {
-        (0, _classCallCheck3.default)(this, UIUtils);
-    }
-
-    (0, _createClass3.default)(UIUtils, null, [{
-        key: "getCircle",
-        value: function getCircle() {
-            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
-            var radius = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-
-            return new PIXI.Graphics().beginFill(color).drawCircle(0, 0, radius);
-        }
-    }, {
-        key: "getRect",
-        value: function getRect() {
-            var color = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0xFF0000;
-            var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 20;
-            var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 20;
-
-            return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height);
-        }
-    }, {
-        key: "getCloseButton",
-        value: function getCloseButton(callback) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0004', 80, 60);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            button.addIcon('smallButton', 40);
-
-            return button;
-        }
-    }, {
-        key: "getPrimaryButton",
-        value: function getPrimaryButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 100, 100);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label);
-            }
-            return button;
-        }
-    }, {
-        key: "getPrimaryShapelessButton",
-        value: function getPrimaryShapelessButton(callback, label, icon) {
-            var button = new _BaseButton2.default(null, 150, 150);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            if (icon) {
-                button.addIcon(icon, 80);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { fontSize: 28 });
-            }
-            return button;
-        }
-    }, {
-        key: "getMainPlayButton",
-        value: function getMainPlayButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0005', 300, 100);
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback();
-            });
-            if (icon) {
-                button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 });
-            }
-            return button;
-        }
-    }, {
-        key: "getPrimaryLabel",
-        value: function getPrimaryLabel(label) {
-            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            var style = {};
-            for (var key in window.LABELS.LABEL1) {
-                style[key] = window.LABELS.LABEL1[key];
-            }
-
-            for (var _key in params) {
-                style[_key] = params[_key];
-            }
-            var textLabel = new PIXI.Text(label, style);
-            textLabel.text = label;
-            return textLabel;
-        }
-    }, {
-        key: "getSpecialLabel1",
-        value: function getSpecialLabel1(label) {
-            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            var textLabel = new PIXI.Text(label, {
-                align: "center",
-                fill: ["#ff8652", "#f2b650"],
-                dropShadow: true,
-                dropShadowAngle: 1.5,
-                dropShadowDistance: 3,
-                fillGradientType: 1,
-                fontSize: 28,
-                fontWeight: 900,
-                strokeThickness: 3,
-                wordWrap: true,
-                wordWrapWidth: 300
-            });
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            return textLabel;
-        }
-    }, {
-        key: "getSecondaryLabel",
-        value: function getSecondaryLabel(label) {
-            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            return textLabel;
-        }
-    }, {
-        key: "addLabel",
-        value: function addLabel(button, label) {
-            var params = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-            var offset = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : { x: 0, y: 0 };
-
-            var textLabel = new PIXI.Text(label, window.LABELS.LABEL1);
-
-            for (var key in params) {
-                textLabel.style[key] = params[key];
-            }
-            button.addLabelOnCenter(textLabel, offset);
-            return textLabel;
-        }
-    }, {
-        key: "getBodyPartySlot",
-        value: function getBodyPartySlot(callback, label, icon) {
-
-            var button = _Pool2.default.instance.getElement(_BodyPartySlot2.default);
-
-            button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label);
-            }
-
-            return button;
-        }
-    }, {
-        key: "getColorSlot",
-        value: function getColorSlot(callback) {
-            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
-            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
-
-
-            var button = _Pool2.default.instance.getElement(_ColorSlot2.default);
-
-            button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
-            button.setColor(color);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-
-            return button;
-        }
-    }, {
-        key: "getPrimaryLabelButton",
-        value: function getPrimaryLabelButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 100, 65);
-            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback(button);
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
-            }
-            return button;
-        }
-    }, {
-        key: "getPrimaryLargeLabelButton",
-        value: function getPrimaryLargeLabelButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 250, 100);
-            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback(button);
-            });
-            if (icon) {
-                button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
-            }
-            if (label) {
-                if (icon) {
-                    UIUtils.addLabel(button, label, { fontSize: 40 }, { x: -30, y: 0 });
-                } else {
-                    UIUtils.addLabel(button, label, { fontSize: 40 });
-                }
-            }
-            return button;
-        }
-    }, {
-        key: "getBodyTypeLabelButton",
-        value: function getBodyTypeLabelButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0001', 80, 80);
-            button.setActiveTexture(UIUtils.baseButtonTexture + '_0002');
-            _InteractableView2.default.addMouseUp(button, function () {
-                if (callback) callback(button);
-            });
-            if (icon) {
-                button.addIcon(icon);
-            }
-            if (label) {
-                UIUtils.addLabel(button, label, { strokeThickness: 0, fontSize: 18, fill: 0 });
-            }
-            return button;
-        }
-    }, {
-        key: "getColorButton",
-        value: function getColorButton(callback) {
-            var color = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 85;
-            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 85;
-
-
-            var button = _Pool2.default.instance.getElement(_ColorButton2.default);
-
-            button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
-            button.setColor(color);
-            if (!button.mouseUpCallback && callback) {
-                button.mouseUpCallback = callback;
-                var cb = _InteractableView2.default.addMouseUp(button, function () {
-                    button.mouseUpCallback(button);
-                });
-            }
-
-            return button;
-        }
-    }]);
-    return UIUtils;
-}();
-
-UIUtils.baseButtonTexture = 'square_button';
-UIUtils.colorset = {
-    skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
-    clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
-    hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF]
-};
-exports.default = UIUtils;
-module.exports = exports["default"];
 
 /***/ }),
 /* 11 */
@@ -14935,7 +14935,7 @@ var _EnemyStaticData = __webpack_require__(258);
 
 var _EnemyStaticData2 = _interopRequireDefault(_EnemyStaticData);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -22974,7 +22974,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -26905,7 +26905,7 @@ var _Eugine = __webpack_require__(38);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -29156,11 +29156,11 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -31338,7 +31338,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -32714,7 +32714,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -33113,7 +33113,7 @@ var _signals = __webpack_require__(7);
 
 var _signals2 = _interopRequireDefault(_signals);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -34364,7 +34364,7 @@ var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -49499,7 +49499,7 @@ var _GameView2 = __webpack_require__(13);
 
 var _GameView3 = _interopRequireDefault(_GameView2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -50905,7 +50905,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -51126,7 +51126,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -64918,7 +64918,7 @@ var _CharacterBuildScreen = __webpack_require__(247);
 
 var _CharacterBuildScreen2 = _interopRequireDefault(_CharacterBuildScreen);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -68718,7 +68718,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -68734,7 +68734,7 @@ var _PrizeManager = __webpack_require__(66);
 
 var _PrizeManager2 = _interopRequireDefault(_PrizeManager);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -68755,6 +68755,8 @@ var PrizeCollectContainer = function (_MainScreenModal) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (PrizeCollectContainer.__proto__ || (0, _getPrototypeOf2.default)(PrizeCollectContainer)).call(this));
 
         _this.addScreenBlocker();
+        _this.blocker.alpha = 0.8;
+        _this.blocker.tint = 0x00ffbf;
         _this.prizesContainer = new PIXI.Container();
         _this.container.addChild(_this.prizesContainer);
 
@@ -74164,7 +74166,7 @@ var _CookieManager = __webpack_require__(68);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -84252,7 +84254,7 @@ var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -84384,7 +84386,7 @@ var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -84492,7 +84494,7 @@ var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -84654,7 +84656,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -84718,7 +84720,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -85722,7 +85724,7 @@ var _BaseScene2 = __webpack_require__(251);
 
 var _BaseScene3 = _interopRequireDefault(_BaseScene2);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -86058,7 +86060,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -87346,7 +87348,7 @@ var _Camera = __webpack_require__(65);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -87770,7 +87772,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -87802,7 +87804,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -88226,7 +88228,7 @@ var _Eugine = __webpack_require__(38);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -88627,7 +88629,7 @@ var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -88813,7 +88815,7 @@ var _CardView = __webpack_require__(115);
 
 var _CardView2 = _interopRequireDefault(_CardView);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -88924,7 +88926,7 @@ var _BaseButton = __webpack_require__(33);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -88944,7 +88946,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -89056,7 +89058,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -89528,7 +89530,7 @@ var _CircleCounter = __webpack_require__(278);
 
 var _CircleCounter2 = _interopRequireDefault(_CircleCounter);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -89552,7 +89554,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -90213,7 +90215,7 @@ var _EntityData = __webpack_require__(29);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -90265,7 +90267,7 @@ var _SpriteButton = __webpack_require__(286);
 
 var _SpriteButton2 = _interopRequireDefault(_SpriteButton);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -90585,7 +90587,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -90660,7 +90662,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -90761,7 +90763,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -90943,7 +90945,7 @@ var _BaseButton2 = __webpack_require__(33);
 
 var _BaseButton3 = _interopRequireDefault(_BaseButton2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -92993,7 +92995,7 @@ var _BodyPartsListScroller = __webpack_require__(72);
 
 var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -93001,7 +93003,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -93476,7 +93478,7 @@ var _EntityBuilder = __webpack_require__(24);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -93500,7 +93502,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -93869,7 +93871,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -93969,7 +93971,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -94054,7 +94056,7 @@ module.exports = exports['default'];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _getPrototypeOf = __webpack_require__(2);
@@ -94085,7 +94087,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -94101,6 +94103,10 @@ var _RouletteView = __webpack_require__(308);
 
 var _RouletteView2 = _interopRequireDefault(_RouletteView);
 
+var _UIUtils = __webpack_require__(9);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
+
 var _Utils = __webpack_require__(8);
 
 var _Utils2 = _interopRequireDefault(_Utils);
@@ -94110,62 +94116,97 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var RouletteContainer = function (_MainScreenModal) {
-    (0, _inherits3.default)(RouletteContainer, _MainScreenModal);
+        (0, _inherits3.default)(RouletteContainer, _MainScreenModal);
 
-    function RouletteContainer() {
-        (0, _classCallCheck3.default)(this, RouletteContainer);
+        function RouletteContainer() {
+                (0, _classCallCheck3.default)(this, RouletteContainer);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (RouletteContainer.__proto__ || (0, _getPrototypeOf2.default)(RouletteContainer)).call(this));
+                var _this = (0, _possibleConstructorReturn3.default)(this, (RouletteContainer.__proto__ || (0, _getPrototypeOf2.default)(RouletteContainer)).call(this));
 
-        _this.roulette = new _RouletteView2.default(_Game2.default.Screen.width - 40, _Game2.default.Screen.height / 2);
-        _this.contentContainer.addChild(_this.roulette);
+                _this.roulette = new _RouletteView2.default(750, 500);
 
-        _this.roulette.onPrizeFound.add(_this.givePrize.bind(_this));
-        return _this;
-    }
+                _this.blackout = _UIUtils2.default.getRect(0x3d1468, 100, 100);
+                _this.blackout.alpha = 0.8;
 
-    (0, _createClass3.default)(RouletteContainer, [{
-        key: 'resize',
-        value: function resize(res, newRes) {
+                _this.spheres = [];
 
-            if (this.infoBackContainer) {
+                _this.shine1 = new PIXI.Sprite.from('shine');
+                _this.addChildAt(_this.shine1, 0);
+                _this.shine1.tint = 0x09ffbc;
+                _this.shine1.anchor.set(0.5);
 
-                this.infoBackContainer.width = _Game2.default.Borders.width - 80;
-                this.infoBackContainer.height = _Game2.default.Borders.height - 80;
-            }
+                _this.shine2 = new PIXI.Sprite.from('shine');
+                _this.addChildAt(_this.shine2, 0);
+                _this.shine2.tint = 0xe509ff;
+                _this.shine2.rotation = 0.45;
+                _this.shine2.anchor.set(0.5);
 
-            this.contentContainer.x = 0;
-            this.contentContainer.y = 0;
+                _this.addChildAt(_this.blackout, 0);
+                _this.contentContainer.addChild(_this.roulette);
+
+                _this.roulette.onPrizeFound.add(_this.givePrize.bind(_this));
+                return _this;
         }
-    }, {
-        key: 'givePrize',
-        value: function givePrize(type, id, amount) {
-            if (type === 0) {
-                setTimeout(function () {
-                    _PrizeManager2.default.instance.getMetaLowerPrize();
-                }, 1000);
-            } else {
 
-                setTimeout(function () {
-                    _PrizeManager2.default.instance.getMetaPrize(id, amount);
-                }, 1000);
-            }
-        }
-    }, {
-        key: 'addBackgroundShape',
-        value: function addBackgroundShape() {}
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            this.roulette.update(delta);
-        }
-    }, {
-        key: 'resize',
-        value: function resize(res, newRes) {
-            (0, _get3.default)(RouletteContainer.prototype.__proto__ || (0, _getPrototypeOf2.default)(RouletteContainer.prototype), 'resize', this).call(this, res, newRes);
-        }
-    }]);
-    return RouletteContainer;
+        (0, _createClass3.default)(RouletteContainer, [{
+                key: 'resize',
+                value: function resize(res, newRes) {
+
+                        if (this.infoBackContainer) {
+
+                                this.infoBackContainer.width = _Game2.default.Borders.width - 80;
+                                this.infoBackContainer.height = _Game2.default.Borders.height - 80;
+                        }
+
+                        this.contentContainer.x = 0;
+                        this.contentContainer.y = 0;
+                }
+        }, {
+                key: 'givePrize',
+                value: function givePrize(type, id, amount) {
+                        if (type === 0) {
+                                setTimeout(function () {
+                                        _PrizeManager2.default.instance.getMetaLowerPrize();
+                                }, 1000);
+                        } else {
+
+                                setTimeout(function () {
+                                        _PrizeManager2.default.instance.getMetaPrize(id, amount);
+                                }, 1000);
+                        }
+                }
+        }, {
+                key: 'addBackgroundShape',
+                value: function addBackgroundShape() {}
+        }, {
+                key: 'update',
+                value: function update(delta) {
+                        this.roulette.update(delta);
+                        this.shine1.rotation += delta * 2;
+                        this.shine2.rotation += delta * 2;
+
+                        var size = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height);
+                        this.shine1.width = size + Math.cos(_Game2.default.Time * 5) * size * 0.1;
+                        this.shine1.height = size + Math.sin(_Game2.default.Time * 5) * size * 0.1;
+
+                        this.shine2.width = size + Math.sin(_Game2.default.Time * 5) * size * 0.1;
+                        this.shine2.height = size + Math.cos(_Game2.default.Time * 5) * size * 0.1;
+                }
+        }, {
+                key: 'resize',
+                value: function resize(res, newRes) {
+                        (0, _get3.default)(RouletteContainer.prototype.__proto__ || (0, _getPrototypeOf2.default)(RouletteContainer.prototype), 'resize', this).call(this, res, newRes);
+                        this.blackout.width = _Game2.default.Borders.width;
+                        this.blackout.height = _Game2.default.Borders.height;
+
+                        this.shine1.x = _Game2.default.Borders.width / 2;
+                        this.shine1.y = _Game2.default.Borders.height / 2;
+
+                        this.shine2.x = _Game2.default.Borders.width / 2;
+                        this.shine2.y = _Game2.default.Borders.height / 2;
+                }
+        }]);
+        return RouletteContainer;
 }(_MainScreenModal3.default);
 
 exports.default = RouletteContainer;
@@ -94218,7 +94259,7 @@ var _RouletteSlotView = __webpack_require__(309);
 
 var _RouletteSlotView2 = _interopRequireDefault(_RouletteSlotView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -94249,7 +94290,7 @@ var RouletteView = function (_PIXI$Container) {
 
         _this.onPrizeFound = new _signals2.default.Signal();
 
-        _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
+        _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('slot-machine-modal'), 120, 80, 120, 80);
         _this.container.addChild(_this.infoBackContainer);
         _this.infoBackContainer.width = width;
         _this.infoBackContainer.height = height;
@@ -94260,6 +94301,7 @@ var RouletteView = function (_PIXI$Container) {
         _this.spinButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
             _this.spin(0.1);
         }, 'spin', 'video-icon');
+        _this.spinButton.updateBackTexture('modal_container0004');
         _this.container.addChild(_this.spinButton);
         _this.slots = [];
 
@@ -94289,7 +94331,7 @@ var RouletteView = function (_PIXI$Container) {
         _this.slotsContainer.y = _this.infoBackContainer.height / 2 - _this.slotsContainer.height / 2;
 
         _this.spinButton.x = _this.infoBackContainer.width / 2 - _this.spinButton.width / 2;
-        _this.spinButton.y = _this.infoBackContainer.height / 2 - _this.spinButton.height / 2 + 250;
+        _this.spinButton.y = _this.infoBackContainer.height / 2 - _this.spinButton.height / 2 + 300;
 
         _this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
 
@@ -94306,11 +94348,12 @@ var RouletteView = function (_PIXI$Container) {
             }
         }
 
-        _this.prizeMarker = new PIXI.NineSlicePlane(PIXI.Texture.from('card-border'), 20, 20, 20, 20);
-        _this.container.addChild(_this.prizeMarker);
-        _this.prizeMarker.width = 700;
-        _this.prizeMarker.x = _this.infoBackContainer.width / 2 - _this.prizeMarker.width / 2;
-        _this.prizeMarker.y = _this.infoBackContainer.height / 2 - _this.prizeMarker.height / 2;
+        // this.prizeMarker = new PIXI.NineSlicePlane(PIXI.Texture.from('card-border'), 20, 20, 20, 20);
+        // this.container.addChild(this.prizeMarker);
+        // this.prizeMarker.width = 700
+        // this.prizeMarker.x = this.infoBackContainer.width / 2 - this.prizeMarker.width / 2;
+        // this.prizeMarker.y = this.infoBackContainer.height / 2 - this.prizeMarker.height / 2;
+
 
         return _this;
     }
@@ -94431,7 +94474,7 @@ var _InteractableView = __webpack_require__(20);
 
 var _InteractableView2 = _interopRequireDefault(_InteractableView);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -94456,10 +94499,13 @@ var RouletteSlotView = function (_PIXI$Container) {
                 var _this = (0, _possibleConstructorReturn3.default)(this, (RouletteSlotView.__proto__ || (0, _getPrototypeOf2.default)(RouletteSlotView)).call(this));
 
                 _this.id = id;
-                _this.slotHeight = 100;
+                _this.slotHeight = 150;
                 _this.panelHeight = _this.slotHeight * 2;
-                _this.background = _UIUtils2.default.getRect(0xFF0455, 150, _this.panelHeight);
+                _this.background = new PIXI.Sprite.from('single-slot');
                 _this.addChild(_this.background);
+
+                _this.background.width = 150;
+                _this.background.height = _this.panelHeight;
 
                 _this.container = new PIXI.Container();
                 _this.addChild(_this.container);
@@ -94495,9 +94541,10 @@ var RouletteSlotView = function (_PIXI$Container) {
 
                 _this.baseGrad = new PIXI.Sprite.from('base-gradient');
                 _this.baseGrad.scale.set(_Utils2.default.scaleToFit(_this.baseGrad, 150));
+                _this.baseGrad.scale.y *= 0.5;
                 _this.topGrad = new PIXI.Sprite.from('base-gradient');
                 _this.topGrad.scale.set(_Utils2.default.scaleToFit(_this.topGrad, 150));
-                _this.topGrad.scale.y *= -1;
+                _this.topGrad.scale.y *= -0.5;
                 _this.topGrad.anchor.y = 1;
 
                 _this.baseGrad.y = _this.panelHeight - _this.baseGrad.height;
@@ -94531,7 +94578,7 @@ var RouletteSlotView = function (_PIXI$Container) {
                                 var sprite = new PIXI.Sprite.from(element.icon);
                                 sprite.y = index * this.slotHeight - this.slotHeight;
                                 this.sprites.push(sprite);
-                                sprite.scale.set(_Utils2.default.scaleToFit(sprite, this.slotHeight - 10));
+                                sprite.scale.set(_Utils2.default.scaleToFit(sprite, 100));
                                 sprite.anchor.set(0.5);
                                 sprite.x = 75;
                                 this.stripContainer.addChild(sprite);
@@ -94627,7 +94674,7 @@ var RouletteSlotView = function (_PIXI$Container) {
 
                                 var sprite = this.sprites[index];
                                 sprite.texture = PIXI.Texture.from(image.icon);
-                                sprite.scale.set(_Utils2.default.scaleToFit(sprite, this.slotHeight - 10));
+                                sprite.scale.set(_Utils2.default.scaleToFit(sprite, 100));
                         }
                 }
         }]);
@@ -94672,7 +94719,7 @@ var _BodyPartsListScroller = __webpack_require__(72);
 
 var _BodyPartsListScroller2 = _interopRequireDefault(_BodyPartsListScroller);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -94684,7 +94731,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -94781,7 +94828,7 @@ var _Eugine = __webpack_require__(38);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -94833,7 +94880,7 @@ var _UIList = __webpack_require__(30);
 
 var _UIList2 = _interopRequireDefault(_UIList);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -95323,7 +95370,7 @@ var _Camera = __webpack_require__(65);
 
 var _Camera2 = _interopRequireDefault(_Camera);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -95909,7 +95956,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -99111,7 +99158,7 @@ var _Camera2 = __webpack_require__(65);
 
 var _Camera3 = _interopRequireDefault(_Camera2);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -100335,7 +100382,7 @@ var _gsap = __webpack_require__(118);
 
 var _gsap2 = _interopRequireDefault(_gsap);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -100682,7 +100729,7 @@ var _CookieManager = __webpack_require__(68);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
-var _Game = __webpack_require__(9);
+var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
@@ -100702,7 +100749,7 @@ var _Screen2 = __webpack_require__(116);
 
 var _Screen3 = _interopRequireDefault(_Screen2);
 
-var _UIUtils = __webpack_require__(10);
+var _UIUtils = __webpack_require__(9);
 
 var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
@@ -104858,11 +104905,11 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -104876,11 +104923,11 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -104900,6 +104947,9 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -104909,26 +104959,11 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "level-1",
 	"url": "assets/json\\environment\\level-1.json"
@@ -104936,14 +104971,32 @@ var assets = [{
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }, {
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
@@ -104951,14 +105004,8 @@ var assets = [{
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }];
 
 exports.default = assets;

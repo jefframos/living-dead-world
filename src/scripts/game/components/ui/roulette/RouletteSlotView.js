@@ -10,10 +10,13 @@ export default class RouletteSlotView extends PIXI.Container {
         super();
 
         this.id = id;
-        this.slotHeight = 100;
+        this.slotHeight = 150;
         this.panelHeight = this.slotHeight * 2;
-        this.background = UIUtils.getRect(0xFF0455, 150, this.panelHeight)
+        this.background = new PIXI.Sprite.from('single-slot')
         this.addChild(this.background);
+
+        this.background.width = 150
+        this.background.height = this.panelHeight
 
         this.container = new PIXI.Container();
         this.addChild(this.container);
@@ -53,9 +56,10 @@ export default class RouletteSlotView extends PIXI.Container {
 
         this.baseGrad = new PIXI.Sprite.from('base-gradient')
         this.baseGrad.scale.set(Utils.scaleToFit(this.baseGrad, 150))
+        this.baseGrad.scale.y *= 0.5
         this.topGrad = new PIXI.Sprite.from('base-gradient')
         this.topGrad.scale.set(Utils.scaleToFit(this.topGrad, 150))
-        this.topGrad.scale.y *= -1
+        this.topGrad.scale.y *= -0.5
         this.topGrad.anchor.y = 1
 
         this.baseGrad.y = this.panelHeight - this.baseGrad.height
@@ -85,7 +89,7 @@ export default class RouletteSlotView extends PIXI.Container {
             const sprite = new PIXI.Sprite.from(element.icon);
             sprite.y = index * this.slotHeight - this.slotHeight
             this.sprites.push(sprite);
-            sprite.scale.set(Utils.scaleToFit(sprite, this.slotHeight - 10))
+            sprite.scale.set(Utils.scaleToFit(sprite, 100))
             sprite.anchor.set(0.5);
             sprite.x = 75
             this.stripContainer.addChild(sprite);
@@ -168,7 +172,7 @@ export default class RouletteSlotView extends PIXI.Container {
 
             const sprite = this.sprites[index]
             sprite.texture = PIXI.Texture.from(image.icon)
-            sprite.scale.set(Utils.scaleToFit(sprite, this.slotHeight - 10))
+            sprite.scale.set(Utils.scaleToFit(sprite, 100))
 
         }
     }

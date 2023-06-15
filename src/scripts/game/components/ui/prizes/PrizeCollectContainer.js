@@ -14,6 +14,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         
         this.addScreenBlocker();
+        this.blocker.alpha = 0.8;
+        this.blocker.tint = 0x00ffbf;
         this.prizesContainer = new PIXI.Container();
         this.container.addChild(this.prizesContainer);
 
