@@ -333,12 +333,12 @@ export default class LevelManager {
         if(Game.IsPortrait){
             this.gameEngine.camera.targetZoom = 1;
         }else{
-            this.gameEngine.camera.targetZoom = 0.75;
+            this.gameEngine.camera.targetZoom = 0.95;
 
         }
 
         this.enemyGlobalSpawner.distanceToSpawn = Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)//(Math.max(Game.Borders.width, Game.Borders.height) * Game.GlobalScale.min / 2) * 3 * this.gameEngine.camera.targetZoom// this.gameEngine.camera.zoom//2
-        this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.5 + 80;
+        this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase
         if (this.gameplayTime > 0.5 && delta > 0) {

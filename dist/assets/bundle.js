@@ -27323,11 +27323,11 @@ var LevelManager = function () {
             if (_Game2.default.IsPortrait) {
                 this.gameEngine.camera.targetZoom = 1;
             } else {
-                this.gameEngine.camera.targetZoom = 0.75;
+                this.gameEngine.camera.targetZoom = 0.95;
             }
 
             this.enemyGlobalSpawner.distanceToSpawn = Math.max(_Camera2.default.ViewportSize.width / 2, _Camera2.default.ViewportSize.height / 2); //(Math.max(Game.Borders.width, Game.Borders.height) * Game.GlobalScale.min / 2) * 3 * this.gameEngine.camera.targetZoom// this.gameEngine.camera.zoom//2
-            this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 1.5 + 80;
+            this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
             //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
             this.gameManagerStats.Phase = this.currentPhase;
             if (this.gameplayTime > 0.5 && delta > 0) {
@@ -94145,10 +94145,22 @@ var RouletteContainer = function (_MainScreenModal) {
                 _this.contentContainer.addChild(_this.roulette);
 
                 _this.roulette.onPrizeFound.add(_this.givePrize.bind(_this));
+
+                _this.visible = false;
                 return _this;
         }
 
         (0, _createClass3.default)(RouletteContainer, [{
+                key: 'show',
+                value: function show() {
+                        (0, _get3.default)(RouletteContainer.prototype.__proto__ || (0, _getPrototypeOf2.default)(RouletteContainer.prototype), 'show', this).call(this);
+
+                        this.alpha = 0.5;
+                        TweenLite.killTweensOf(this);
+
+                        TweenLite.to(this, 0.25, { alpha: 1 });
+                }
+        }, {
                 key: 'resize',
                 value: function resize(res, newRes) {
 
@@ -94185,7 +94197,7 @@ var RouletteContainer = function (_MainScreenModal) {
                         this.shine1.rotation += delta * 2;
                         this.shine2.rotation += delta * 2;
 
-                        var size = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height);
+                        var size = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height) * 0.5;
                         this.shine1.width = size + Math.cos(_Game2.default.Time * 5) * size * 0.1;
                         this.shine1.height = size + Math.sin(_Game2.default.Time * 5) * size * 0.1;
 
@@ -104905,14 +104917,14 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -104920,14 +104932,14 @@ var assets = [{
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
-}, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -104938,6 +104950,9 @@ var assets = [{
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -104947,23 +104962,20 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "level-1",
 	"url": "assets/json\\environment\\level-1.json"
@@ -104977,20 +104989,11 @@ var assets = [{
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -104998,14 +105001,23 @@ var assets = [{
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;

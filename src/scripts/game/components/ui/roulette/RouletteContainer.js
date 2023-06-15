@@ -34,6 +34,17 @@ export default class RouletteContainer extends MainScreenModal {
         this.contentContainer.addChild(this.roulette)
 
         this.roulette.onPrizeFound.add(this.givePrize.bind(this))
+
+
+        this.visible = false;
+    }
+    show() {
+        super.show();
+
+        this.alpha = 0.5;
+        TweenLite.killTweensOf(this)
+
+        TweenLite.to(this, 0.25, { alpha: 1 })
     }
     resize(res, newRes) {
 
@@ -68,7 +79,7 @@ export default class RouletteContainer extends MainScreenModal {
 
 
 
-        let size = Math.max(Game.Borders.width, Game.Borders.height)
+        let size = Math.max(Game.Borders.width, Game.Borders.height) * 0.5
         this.shine1.width = size + Math.cos(Game.Time*5) * size*0.1
         this.shine1.height = size+ Math.sin(Game.Time*5) * size*0.1
 
