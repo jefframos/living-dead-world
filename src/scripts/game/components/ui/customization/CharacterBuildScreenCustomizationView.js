@@ -86,7 +86,7 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
 
     }
     setCompanion(companionData) {
-        let idle = GameStaticData.instance.getSharedDataById('animation', companionData.animationData.idle).animationData
+        let idle = GameStaticData.instance.getSharedDataById('animation', companionData.animationData.run).animationData
         this.companion.baseScale = companionData.view.scale
         this.companion.scale.set(this.companion.baseScale)
         this.companion.anchor.x = idle.params.anchor.x
@@ -97,7 +97,7 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
 
         this.companionAnimation.addLayer('standard', idle.spriteName, {
             totalFramesRange: idle.params.totalFramesRange,
-            addZero: false,
+            addZero: idle.params.addZero,
             time: idle.params.time
         })
         this.companionAnimation.play('standard')
@@ -115,10 +115,11 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
 
         const convertedBaseScale = this.playerPreviewStructure.baseScale * this.companion.baseScale
         const cos = Math.cos(this.companionSin)
+        const sin = Math.sin(this.companionSin)
         this.companion.x = cos * 80*convertedBaseScale
         this.companion.y = Math.sin(this.companionSin) * 50*convertedBaseScale
 
-        this.companion.scale.set(cos < 0 ? convertedBaseScale * -1 :  convertedBaseScale,  convertedBaseScale)
+        this.companion.scale.set(sin > 0 ? convertedBaseScale * -1 :  convertedBaseScale,  convertedBaseScale)
 
 
         this.children.sort((a, b) => {

@@ -49,15 +49,19 @@ export default class MainScreenModal extends PIXI.Container {
         TweenLite.killTweensOf(this.container)
         TweenLite.killTweensOf(this.container.scale)
 
+        TweenLite.to(this, 0.25, {alpha:1})
         TweenLite.to(this.container, 0.25, { alpha: 1 })
         TweenLite.to(this.container.scale, 0.75, { x: 1, y: 1, ease: Elastic.easeOut })
         this.onShow.dispatch(this)
     }
     hide() {
 
+        TweenLite.killTweensOf(this)
         TweenLite.killTweensOf(this.container)
         TweenLite.killTweensOf(this.container.scale)
 
+
+        TweenLite.to(this, 0.25, {alpha:0})
         TweenLite.to(this.container, 0.25, {
             alpha: 0, onComplete: () => {
                 this.visible = false;

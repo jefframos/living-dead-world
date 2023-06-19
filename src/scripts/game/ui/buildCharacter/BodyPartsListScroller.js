@@ -20,7 +20,7 @@ export default class BodyPartsListScroller extends ListScroller {
         this.addChild(this.title)
         this.title.style.fill = 0xFFFFFF
         this.title.x = - 25
-        this.title.y = - 25
+        this.title.y = - 35
         //this.title.y= -50
     }
 
@@ -44,7 +44,7 @@ export default class BodyPartsListScroller extends ListScroller {
     }
     setTitle(label) {
         this.title.text = label;
-        this.title.x = this.rect.w -  this.title.width - 10
+        this.title.x = 5
     }
     addItens(itens) {
         let line = 0;

@@ -77,6 +77,7 @@ export default class LoadoutContainer extends MainScreenModal {
     }
     show() {
         this.visible = true;
+        this.alpha = 1;
         this.container.alpha = 0.5;
         TweenLite.killTweensOf(this.container)
         TweenLite.killTweensOf(this.container.scale)

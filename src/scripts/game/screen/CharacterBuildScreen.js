@@ -218,6 +218,18 @@ export default class CharacterBuildScreen extends Screen {
     onPopUpShow(popup) {
     }
     onPopUpHide(popup) {
+        
+        let modalOpen = null;
+        this.modalList.forEach(element => {
+            if (element.isOpen) {
+                modalOpen = element;
+            }
+        });
+
+        if (!modalOpen) {
+            this.closeCustomization();
+                this.unSelectPlayer();
+        }
     }
     onModalShow(modal) {
     }
@@ -439,7 +451,7 @@ export default class CharacterBuildScreen extends Screen {
 
     }
     resize(res, newRes) {
-        
+
 
         this.updateCharactersPosition();
 
@@ -474,7 +486,7 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList.updateVerticalList();
 
 
-        this.outgameUIProgression.x = Game.Borders.width /2 - this.outgameUIProgression.width / 2;
+        this.outgameUIProgression.x = Game.Borders.width / 2 - this.outgameUIProgression.width / 2;
         this.outgameUIProgression.y = 30;
 
         this.buttonsList.x = this.outgameUIProgression.x - this.buttonsList.width - 10;

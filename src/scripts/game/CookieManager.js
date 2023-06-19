@@ -16,6 +16,7 @@ export default class CookieManager {
 			tutorialStep: 0
 		}
 		this.defaultSettings = {
+			version: '0.0.1',
 			isMute: false
 		}
 		this.defaultEconomy = {
@@ -43,12 +44,12 @@ export default class CookieManager {
 		}
 		this.defaultInventory = {
 			version: '0.0.1',
-			weapons:[{ id: 'PISTOL_01', level: 0 }, { id: 'PISTOL_01', level: 1 }],
-			bodyParts:[],
-			companions:[{id: 'FLY_DRONE', level: 0}],
-			masks:[{id: 'MASK_01', level: 0}],
-			trinkets:[{id: 'TRINKET_01', level: 0}],
-			shoes:[{id: 'SHOE_01', level: 0},{id: 'SHOE_02', level: 0},{id: 'SHOE_03', level: 0},{id: 'SHOE_04', level: 0},{id: 'SHOE_05', level: 0},{id: 'SHOE_06', level: 0},{id: 'SHOE_07', level: 0},{id: 'SHOE_08', level: 0}],
+			weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'PISTOL_01', level: 1 }],
+			bodyParts: [],
+			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }],
+			masks: [{ id: 'MASK_01', level: 0 }],
+			trinkets: [{ id: 'TRINKET_01', level: 0 }],
+			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }],
 		}
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -99,7 +100,7 @@ export default class CookieManager {
 			}
 		}
 
-		this.version = '0.0.1'
+		this.version = '0.0.0.1'
 		this.cookieVersion = this.getCookie('cookieVersion')
 		//alert(this.cookieVersion != this.version)
 		if (!this.cookieVersion || this.cookieVersion != this.version) {
@@ -163,7 +164,12 @@ export default class CookieManager {
 		if (!this.fullData[id]) {
 			this.fullData[id] = {}
 		}
+		var version = this.getCookie('cookieVersion')
+		if (!version || version != this.version) {
+			this.wipeData2()
+		}
 
+		this.fullData[id]['settings'] = this.sortCookieData('settings', this.defaultSettings);
 		this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
 		this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);
 		this.fullData[id]['progression'] = this.sortCookieData('progression', this.defaultProgression);
@@ -217,8 +223,8 @@ export default class CookieManager {
 			return;
 		}
 
-		
-		
+
+
 		data[type][this.currentPlayer].id = equip;
 		data[type][this.currentPlayer].level = level;
 		console.log(type, equip, 'saving', data);
@@ -233,7 +239,7 @@ export default class CookieManager {
 			console.log(type, 'not found on inventory, not saving', data);
 			return;
 		}
-		data[type].push({id: equip.id, level:equip.level});
+		data[type].push({ id: equip.id, level: equip.level });
 		this.saveChunk('inventory', data)
 
 	}
@@ -251,7 +257,7 @@ export default class CookieManager {
 
 				const newP = new PlayerViewStructure();
 				data.playerStructures.push(newP.serialize());
-			}			
+			}
 
 		} else {
 			if (dataToSave) {
@@ -265,12 +271,12 @@ export default class CookieManager {
 
 			const loadout = this.getChunck('loadout')
 
-			if(loadout.currentWeapon.length < id + 1){
+			if (loadout.currentWeapon.length < id + 1) {
 				loadout.currentWeapon.push({ id: 'PISTOL_01', level: 0 })
 				loadout.currentTrinket.push({ id: null, level: 0 })
 				loadout.currentCompanion.push({ id: null, level: 0 })
 				loadout.currentMask.push({ id: null, level: 0 })
-				loadout.currentShoe.push({ id: null, level: 0 })				
+				loadout.currentShoe.push({ id: null, level: 0 })
 				this.saveChunk('loadout', loadout)
 			}
 		}

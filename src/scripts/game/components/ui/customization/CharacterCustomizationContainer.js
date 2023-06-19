@@ -86,7 +86,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
                 for (let index = element.src.length - 1; index >= 0; index--) {
                     const srcSub = element.src[index];
-                    
+
                     const src = srcSub.replace('{frame}', element.mainIconId) + (element.animated ? '01' : '')
                     const sprite = new PIXI.Sprite.from(src);
                     iconContainer.addChild(sprite)
@@ -97,7 +97,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
             }
 
-            if(element.type == "colors" && element.colorset){
+            if (element.type == "colors" && element.colorset) {
                 button.tintIcon(element.colorset[0])
             }
 
@@ -361,6 +361,8 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.piecesScroller.resize({ w: Game.Borders.width - 80, h: ((Game.Borders.height / 2) / this.piecesScroller.scale.y - 50) }, { width: 100, height: 100 })
         this.piecesScroller.addItens(this.currentShowingItems)
 
+
+
         if (this.currentShowingColors.length <= 0) {
             this.colorContainerHairScroller.visible = false;
             this.colorContainerHairScroller.scale.set(1);
@@ -374,7 +376,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.colorContainerHairScroller.scale.set(scale)
         this.colorContainerHairScroller.y = 20
         this.colorContainerHairScroller.x = Game.Borders.width - (this.colorContainerHairScroller.w * this.colorContainerHairScroller.scale.x) - 40
-        
+
 
     }
 
@@ -387,10 +389,11 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         this.piecesScroller.removeAllItems();
         this.piecesScroller.gridDimensions.j = 3
-        this.piecesScroller.resize({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
+        this.piecesScroller.resize({ w: 300, h: 500 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
         this.piecesScroller.addItens(this.currentShowingItems)
 
-        this.sectionList.scale.set(0.75)
+        this.sectionList.scale.set(0.85)
+
     }
     aspectChange(isPortrait) {
 

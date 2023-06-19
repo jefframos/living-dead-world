@@ -8,36 +8,36 @@ const assets = [
 	"url":"assets/json\\localization_DE.json"
 	},
 	{
-	"id":"localization_EN",
-	"url":"assets/json\\localization_EN.json"
-	},
-	{
 	"id":"localization_ES",
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
+	"id":"localization_EN",
+	"url":"assets/json\\localization_EN.json"
 	},
 	{
 	"id":"localization_FR",
 	"url":"assets/json\\localization_FR.json"
 	},
 	{
-	"id":"localization_JA",
-	"url":"assets/json\\localization_JA.json"
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_KO",
 	"url":"assets/json\\localization_KO.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
+	"id":"localization_JA",
+	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_TR",
@@ -52,68 +52,68 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
-	},
-	{
 	"id":"player-animation",
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"companions",
 	"url":"assets/json\\entity\\companions.json"
 	},
 	{
-	"id":"player",
-	"url":"assets/json\\entity\\player.json"
-	},
-	{
 	"id":"enemies",
 	"url":"assets/json\\entity\\enemies.json"
 	},
 	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
+	"id":"player",
+	"url":"assets/json\\entity\\player.json"
+	},
+	{
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
+	},
+	{
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
 	"id":"level-2",
 	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
-	"id":"acessories",
-	"url":"assets/json\\misc\\acessories.json"
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
 	},
 	{
 	"id":"attachments",
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
 	},
 	{
 	"id":"attribute-modifiers",
 	"url":"assets/json\\misc\\attribute-modifiers.json"
+	},
+	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
 	"id":"general-vfx",

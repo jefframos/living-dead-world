@@ -24,7 +24,7 @@ export default class PassiveCompanion extends GameAgent {
         super();
         this.gameView = new GameView(this)
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('fly-drone_0')
+        this.gameView.view = new PIXI.Sprite.from('pet-dog-10001')
     }
     build(companionData) {
         super.build()

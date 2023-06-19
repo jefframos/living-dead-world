@@ -19,7 +19,7 @@ export default class Companion extends GameAgent {
     constructor() {
         super();
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
-        this.gameView.view = new PIXI.Sprite.from('fly-drone_0')
+        this.gameView.view = new PIXI.Sprite.from('pet-dog-10001')
     }
     build(companionData) {
         super.build()
@@ -68,19 +68,20 @@ export default class Companion extends GameAgent {
         this.rigidBody.isSensor = true
 
         this.gameView.view.anchor.set(0.3, 1)
-        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2 * (this.viewData.scale || 1))
+        this.gameView.view.scale.set(20 / this.gameView.view.width * Math.abs(this.gameView.view.scale.x) * 2 * (this.viewData.scale || 1))
         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
+        
         this.gameView.applyScale();
-
+        
         this.anchorOffset = 0
-
+        
         this.addChild(this.engine.poolGameObject(Shadow))
-
+        
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 1
         spriteFacing.startScaleX = -1
-
-        this.makeAnimations(this.staticData)
+        
+        this.makeAnimations(this.staticData).stopTimerDefault = 0.5
 
         if (this.staticData.weapon) {
 
@@ -103,6 +104,7 @@ export default class Companion extends GameAgent {
         light.setArc(50, 150, Math.PI * 0.25)
         light.setColor(0xFFFED9, 0.5)
         this.addChild(light)
+
 
     }
     collisionEnter(collided) {

@@ -2658,6 +2658,29 @@ var UIUtils = function () {
             return textLabel;
         }
     }, {
+        key: "getSpecialLabel2",
+        value: function getSpecialLabel2(label) {
+            var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+            var textLabel = new PIXI.Text(label, {
+                align: "center",
+                fill: ["#FFD91C", "#1CFFFA"],
+                dropShadow: true,
+                dropShadowAngle: 1.5,
+                dropShadowDistance: 3,
+                fillGradientType: 1,
+                fontSize: 24,
+                fontWeight: 900,
+                strokeThickness: 3,
+                wordWrap: true,
+                wordWrapWidth: 300
+            });
+            for (var key in params) {
+                textLabel.style[key] = params[key];
+            }
+            return textLabel;
+        }
+    }, {
         key: "getSecondaryLabel",
         value: function getSecondaryLabel(label) {
             var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
@@ -29224,6 +29247,7 @@ var MainScreenModal = function (_PIXI$Container) {
             TweenLite.killTweensOf(this.container);
             TweenLite.killTweensOf(this.container.scale);
 
+            TweenLite.to(this, 0.25, { alpha: 1 });
             TweenLite.to(this.container, 0.25, { alpha: 1 });
             TweenLite.to(this.container.scale, 0.75, { x: 1, y: 1, ease: Elastic.easeOut });
             this.onShow.dispatch(this);
@@ -29233,9 +29257,11 @@ var MainScreenModal = function (_PIXI$Container) {
         value: function hide() {
             var _this2 = this;
 
+            TweenLite.killTweensOf(this);
             TweenLite.killTweensOf(this.container);
             TweenLite.killTweensOf(this.container.scale);
 
+            TweenLite.to(this, 0.25, { alpha: 0 });
             TweenLite.to(this.container, 0.25, {
                 alpha: 0, onComplete: function onComplete() {
                     _this2.visible = false;
@@ -31556,7 +31582,7 @@ var PrizeManager = function () {
             type: PrizeManager.PrizeType.Key
         });
         this.prizeList.push({
-            icon: 'fly-drone_icon',
+            icon: 'pet-dog-10001',
             type: PrizeManager.PrizeType.Companion
         });
         this.prizeList.push({
@@ -32051,6 +32077,7 @@ var CookieManager = function () {
 			tutorialStep: 0
 		};
 		this.defaultSettings = {
+			version: '0.0.1',
 			isMute: false
 		};
 		this.defaultEconomy = {
@@ -32080,7 +32107,7 @@ var CookieManager = function () {
 			version: '0.0.1',
 			weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'PISTOL_01', level: 1 }],
 			bodyParts: [],
-			companions: [{ id: 'FLY_DRONE', level: 0 }],
+			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
 			trinkets: [{ id: 'TRINKET_01', level: 0 }],
 			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }]
@@ -32133,7 +32160,7 @@ var CookieManager = function () {
 			}
 		};
 
-		this.version = '0.0.1';
+		this.version = '0.0.0.1';
 		this.cookieVersion = this.getCookie('cookieVersion');
 		//alert(this.cookieVersion != this.version)
 		if (!this.cookieVersion || this.cookieVersion != this.version) {
@@ -32213,7 +32240,12 @@ var CookieManager = function () {
 			if (!this.fullData[id]) {
 				this.fullData[id] = {};
 			}
+			var version = this.getCookie('cookieVersion');
+			if (!version || version != this.version) {
+				this.wipeData2();
+			}
 
+			this.fullData[id]['settings'] = this.sortCookieData('settings', this.defaultSettings);
 			this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
 			this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);
 			this.fullData[id]['progression'] = this.sortCookieData('progression', this.defaultProgression);
@@ -33144,7 +33176,7 @@ var BodyPartsListScroller = function (_ListScroller) {
         _this.addChild(_this.title);
         _this.title.style.fill = 0xFFFFFF;
         _this.title.x = -25;
-        _this.title.y = -25;
+        _this.title.y = -35;
         //this.title.y= -50
         return _this;
     }
@@ -33179,7 +33211,7 @@ var BodyPartsListScroller = function (_ListScroller) {
         key: 'setTitle',
         value: function setTitle(label) {
             this.title.text = label;
-            this.title.x = this.rect.w - this.title.width - 10;
+            this.title.x = 5;
         }
     }, {
         key: 'addItens',
@@ -49000,6 +49032,8 @@ var GameAgent = function (_PhysicsEntity) {
 
             spriteSheet.setData(animData1);
             spriteSheet.update(0.1);
+
+            return spriteSheet;
         }
     }, {
         key: "isDead",
@@ -49090,6 +49124,8 @@ var GameViewSpriteSheet = function (_BaseComponent) {
         key: 'enable',
         value: function enable() {
             (0, _get3.default)(GameViewSpriteSheet.prototype.__proto__ || (0, _getPrototypeOf2.default)(GameViewSpriteSheet.prototype), 'enable', this).call(this);
+            this.stopTimer = 0;
+            this.stopTimerDefault = 0.1;
         }
     }, {
         key: 'destroy',
@@ -49127,10 +49163,16 @@ var GameViewSpriteSheet = function (_BaseComponent) {
                 this.view.anchor = this.spriteSheet.anchor;
             }
 
-            if (this.gameObject.physics.magnitude > 0) {
+            if (this.gameObject.physics.magnitude > 0.1) {
                 this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running);
+                this.stopTimer = this.stopTimerDefault;
             } else {
-                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle);
+
+                if (this.stopTimer <= 0) {
+                    this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle);
+                } else {
+                    this.stopTimer -= delta;
+                }
             }
         }
     }]);
@@ -49879,7 +49921,7 @@ var SpriteFacing = function (_BaseComponent) {
             } else if (this.gameObject.physics.velocity.x < -0.01) {
                 this.target = this.gameObject.gameView.baseScale.x * this.startScaleX;
             }
-            this.gameObject.gameView.view.scale.x = _Utils2.default.lerp(this.gameObject.gameView.view.scale.x, this.target, this.lerp);
+            this.gameObject.gameView.view.scale.x = _Utils2.default.lerp(this.gameObject.gameView.view.scale.x, this.target, 0.1);
         }
     }]);
     return SpriteFacing;
@@ -68401,7 +68443,7 @@ var Companion = function (_GameAgent) {
                 var _this = (0, _possibleConstructorReturn3.default)(this, (Companion.__proto__ || (0, _getPrototypeOf2.default)(Companion)).call(this));
 
                 _this.gameView.layer = _RenderModule2.default.RenderLayers.Gameplay;
-                _this.gameView.view = new PIXI.Sprite.from('fly-drone_0');
+                _this.gameView.view = new PIXI.Sprite.from('pet-dog-10001');
                 return _this;
         }
 
@@ -68450,8 +68492,9 @@ var Companion = function (_GameAgent) {
                         this.rigidBody.isSensor = true;
 
                         this.gameView.view.anchor.set(0.3, 1);
-                        this.gameView.view.scale.set(20 / this.gameView.view.width * this.gameView.view.scale.x * 2 * (this.viewData.scale || 1));
+                        this.gameView.view.scale.set(20 / this.gameView.view.width * Math.abs(this.gameView.view.scale.x) * 2 * (this.viewData.scale || 1));
                         this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.y);
+
                         this.gameView.applyScale();
 
                         this.anchorOffset = 0;
@@ -68462,7 +68505,7 @@ var Companion = function (_GameAgent) {
                         spriteFacing.lerp = 1;
                         spriteFacing.startScaleX = -1;
 
-                        this.makeAnimations(this.staticData);
+                        this.makeAnimations(this.staticData).stopTimerDefault = 0.5;
 
                         if (this.staticData.weapon) {
 
@@ -68755,12 +68798,42 @@ var PrizeCollectContainer = function (_MainScreenModal) {
         var _this = (0, _possibleConstructorReturn3.default)(this, (PrizeCollectContainer.__proto__ || (0, _getPrototypeOf2.default)(PrizeCollectContainer)).call(this));
 
         _this.addScreenBlocker();
+
+        _this.topBlocker = new PIXI.Sprite.from('base-gradient');
+        //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
+        _this.topBlocker.tint = 0x851F88;
+        _this.topBlocker.scale.y = -1;
+        _this.addChildAt(_this.topBlocker, 0);
+
         _this.blocker.alpha = 0.8;
         _this.blocker.tint = 0x00ffbf;
         _this.prizesContainer = new PIXI.Container();
         _this.container.addChild(_this.prizesContainer);
 
+        _this.collectButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
+            _this.hide();
+        }, 'collect');
+        _this.collectButton.updateBackTexture('square_button_0001');
+        _this.container.addChild(_this.collectButton);
+
         _this.slotSize = 100;
+
+        _this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
+        _this.infoBackContainer.addChild(_this.prizeBox);
+
+        _this.shine = new PIXI.Sprite.from('shine');
+        _this.shine.anchor.set(0.5);
+        _this.shine.scale.set(4, 2);
+
+        _this.infoBackContainer.addChild(_this.shine);
+        _this.shine.tint = 0xfff700;
+        _this.shine.alpha = 0.5;
+
+        _this.congratulationsLabel = _UIUtils2.default.getSpecialLabel2('Collect your prize!', { fontSize: 32 });
+        _this.congratulationsLabel.anchor.set(0.5);
+
+        _this.infoBackContainer.addChild(_this.congratulationsLabel);
+
         return _this;
     }
 
@@ -68784,6 +68857,25 @@ var PrizeCollectContainer = function (_MainScreenModal) {
 
             this.blocker.width = _Game2.default.Borders.width;
             this.blocker.height = _Game2.default.Borders.height;
+
+            this.topBlocker.width = _Game2.default.Borders.width;
+            this.topBlocker.height = _Game2.default.Borders.height;
+            this.topBlocker.scale.y = -1;
+            this.topBlocker.y = _Game2.default.Borders.height / 2;
+
+            this.collectButton.x = this.infoBackContainer.width / 2 - this.collectButton.width / 2;
+            this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2;
+
+            this.prizeBox.width = this.infoBackContainer.width - 20;
+            this.prizeBox.height = this.infoBackContainer.height / 2;
+            this.prizeBox.x = 10;
+            this.prizeBox.y = this.infoBackContainer.height / 2 - 10;
+
+            this.congratulationsLabel.x = this.infoBackContainer.width / 2;
+            this.congratulationsLabel.y = this.infoBackContainer.height / 4;
+
+            this.shine.x = this.infoBackContainer.width / 2;
+            this.shine.y = this.infoBackContainer.height / 4;
 
             this.recenterContainer();
         }
@@ -68856,6 +68948,15 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             for (var i = 0; i < drawPrizes.length; i++) {
                 _loop();
             }
+
+            this.collectButton.visible = false;
+            this.collectButton.alpha = 0;
+            setTimeout(function () {
+                _this2.collectButton.visible = true;
+
+                _this2.collectButton.y = _this2.infoBackContainer.height - 50;
+                TweenLite.to(_this2.collectButton, 0.5, { alpha: 1, y: _this2.infoBackContainer.height + 10, ease: Back.easeOut });
+            }, drawPrizes.length * 500 + 250);
         }
     }, {
         key: 'update',
@@ -68866,7 +68967,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             (0, _get3.default)(PrizeCollectContainer.prototype.__proto__ || (0, _getPrototypeOf2.default)(PrizeCollectContainer.prototype), 'update', this).call(this, delta);
 
             this.prizesContainer.x = _Utils2.default.lerp(this.prizesContainer.x, this.infoBackContainer.width / 2 - this.prizesContainer.width / 2, 0.2);
-            this.prizesContainer.y = this.infoBackContainer.height / 2 - this.prizesContainer.height / 2;
+            this.prizesContainer.y = this.prizeBox.y + 10 + this.prizeBox.height / 2 - 60;
         }
     }]);
     return PrizeCollectContainer;
@@ -84933,7 +85034,20 @@ var CharacterBuildScreen = function (_Screen) {
                 value: function onPopUpShow(popup) {}
         }, {
                 key: 'onPopUpHide',
-                value: function onPopUpHide(popup) {}
+                value: function onPopUpHide(popup) {
+
+                        var modalOpen = null;
+                        this.modalList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        modalOpen = element;
+                                }
+                        });
+
+                        if (!modalOpen) {
+                                this.closeCustomization();
+                                this.unSelectPlayer();
+                        }
+                }
         }, {
                 key: 'onModalShow',
                 value: function onModalShow(modal) {}
@@ -86153,7 +86267,7 @@ var CharacterBuildScreenCustomizationView = function (_PIXI$Container) {
         }, {
                 key: 'setCompanion',
                 value: function setCompanion(companionData) {
-                        var idle = _GameStaticData2.default.instance.getSharedDataById('animation', companionData.animationData.idle).animationData;
+                        var idle = _GameStaticData2.default.instance.getSharedDataById('animation', companionData.animationData.run).animationData;
                         this.companion.baseScale = companionData.view.scale;
                         this.companion.scale.set(this.companion.baseScale);
                         this.companion.anchor.x = idle.params.anchor.x;
@@ -86163,7 +86277,7 @@ var CharacterBuildScreenCustomizationView = function (_PIXI$Container) {
 
                         this.companionAnimation.addLayer('standard', idle.spriteName, {
                                 totalFramesRange: idle.params.totalFramesRange,
-                                addZero: false,
+                                addZero: idle.params.addZero,
                                 time: idle.params.time
                         });
                         this.companionAnimation.play('standard');
@@ -86182,10 +86296,11 @@ var CharacterBuildScreenCustomizationView = function (_PIXI$Container) {
 
                         var convertedBaseScale = this.playerPreviewStructure.baseScale * this.companion.baseScale;
                         var cos = Math.cos(this.companionSin);
+                        var sin = Math.sin(this.companionSin);
                         this.companion.x = cos * 80 * convertedBaseScale;
                         this.companion.y = Math.sin(this.companionSin) * 50 * convertedBaseScale;
 
-                        this.companion.scale.set(cos < 0 ? convertedBaseScale * -1 : convertedBaseScale, convertedBaseScale);
+                        this.companion.scale.set(sin > 0 ? convertedBaseScale * -1 : convertedBaseScale, convertedBaseScale);
 
                         this.children.sort(function (a, b) {
                                 if (a.y < b.y) {
@@ -93400,10 +93515,10 @@ var CharacterCustomizationContainer = function (_PIXI$Container) {
 
             this.piecesScroller.removeAllItems();
             this.piecesScroller.gridDimensions.j = 3;
-            this.piecesScroller.resize({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
+            this.piecesScroller.resize({ w: 300, h: 500 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
             this.piecesScroller.addItens(this.currentShowingItems);
 
-            this.sectionList.scale.set(0.75);
+            this.sectionList.scale.set(0.85);
         }
     }, {
         key: 'aspectChange',
@@ -93592,6 +93707,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                         var _this2 = this;
 
                         this.visible = true;
+                        this.alpha = 1;
                         this.container.alpha = 0.5;
                         TweenLite.killTweensOf(this.container);
                         TweenLite.killTweensOf(this.container.scale);
@@ -94125,23 +94241,33 @@ var RouletteContainer = function (_MainScreenModal) {
 
                 _this.roulette = new _RouletteView2.default(750, 500);
 
+                _this.fancyBackgroundContainer = new PIXI.Container();
                 _this.blackout = _UIUtils2.default.getRect(0x3d1468, 100, 100);
                 _this.blackout.alpha = 0.8;
+                _this.fancyBackgroundContainer.addChild(_this.blackout);
 
                 _this.spheres = [];
 
                 _this.shine1 = new PIXI.Sprite.from('shine');
-                _this.addChildAt(_this.shine1, 0);
+                _this.fancyBackgroundContainer.addChild(_this.shine1);
                 _this.shine1.tint = 0x09ffbc;
                 _this.shine1.anchor.set(0.5);
 
                 _this.shine2 = new PIXI.Sprite.from('shine');
-                _this.addChildAt(_this.shine2, 0);
+                _this.fancyBackgroundContainer.addChild(_this.shine2);
                 _this.shine2.tint = 0xe509ff;
                 _this.shine2.rotation = 0.45;
                 _this.shine2.anchor.set(0.5);
 
-                _this.addChildAt(_this.blackout, 0);
+                _this.blur1 = new PIXI.Sprite.from('round-blur');
+                _this.fancyBackgroundContainer.addChild(_this.blur1);
+                _this.blur1.tint = 0x09ffff;
+                _this.blur1.anchor.set(0.5);
+                _this.blur1.width = 1200;
+                _this.blur1.height = 600;
+
+                _this.addChildAt(_this.fancyBackgroundContainer, 0);
+
                 _this.contentContainer.addChild(_this.roulette);
 
                 _this.roulette.onPrizeFound.add(_this.givePrize.bind(_this));
@@ -94159,6 +94285,27 @@ var RouletteContainer = function (_MainScreenModal) {
                         TweenLite.killTweensOf(this);
 
                         TweenLite.to(this, 0.25, { alpha: 1 });
+
+                        this.roulette.show();
+                }
+        }, {
+                key: 'hide',
+                value: function hide() {
+                        var _this2 = this;
+
+                        TweenLite.killTweensOf(this);
+                        TweenLite.killTweensOf(this.container);
+                        TweenLite.killTweensOf(this.container.scale);
+
+                        TweenLite.to(this, 0.25, { alpha: 0 });
+
+                        TweenLite.to(this.container, 0.25, {
+                                alpha: 0, onComplete: function onComplete() {
+                                        _this2.visible = false;
+                                }
+                        });
+
+                        this.onHide.dispatch(this);
                 }
         }, {
                 key: 'resize',
@@ -94197,12 +94344,16 @@ var RouletteContainer = function (_MainScreenModal) {
                         this.shine1.rotation += delta * 2;
                         this.shine2.rotation += delta * 2;
 
-                        var size = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height) * 0.5;
+                        var size = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height) * 0.75;
                         this.shine1.width = size + Math.cos(_Game2.default.Time * 5) * size * 0.1;
-                        this.shine1.height = size + Math.sin(_Game2.default.Time * 5) * size * 0.1;
+                        this.shine1.height = size + Math.sin(_Game2.default.Time * 5) * size * 0.2;
 
                         this.shine2.width = size + Math.sin(_Game2.default.Time * 5) * size * 0.1;
-                        this.shine2.height = size + Math.cos(_Game2.default.Time * 5) * size * 0.1;
+                        this.shine2.height = size + Math.cos(_Game2.default.Time * 5) * size * 0.2;
+
+                        this.blur1.y = _Game2.default.Borders.height / 2 + Math.cos(_Game2.default.Time) * 80;
+                        this.blur1.alpha = Math.sin(_Game2.default.Time * 5) * 0.25 + 0.5;
+                        this.blur1.rotation = Math.cos(_Game2.default.Time) * 0.1;
                 }
         }, {
                 key: 'resize',
@@ -94216,6 +94367,9 @@ var RouletteContainer = function (_MainScreenModal) {
 
                         this.shine2.x = _Game2.default.Borders.width / 2;
                         this.shine2.y = _Game2.default.Borders.height / 2;
+
+                        this.blur1.x = _Game2.default.Borders.width / 2;
+                        this.blur1.y = _Game2.default.Borders.height / 2;
                 }
         }]);
         return RouletteContainer;
@@ -94313,7 +94467,7 @@ var RouletteView = function (_PIXI$Container) {
         _this.spinButton = _UIUtils2.default.getPrimaryLargeLabelButton(function () {
             _this.spin(0.1);
         }, 'spin', 'video-icon');
-        _this.spinButton.updateBackTexture('modal_container0004');
+        _this.spinButton.updateBackTexture('square_button_0003');
         _this.container.addChild(_this.spinButton);
         _this.slots = [];
 
@@ -94343,7 +94497,7 @@ var RouletteView = function (_PIXI$Container) {
         _this.slotsContainer.y = _this.infoBackContainer.height / 2 - _this.slotsContainer.height / 2;
 
         _this.spinButton.x = _this.infoBackContainer.width / 2 - _this.spinButton.width / 2;
-        _this.spinButton.y = _this.infoBackContainer.height / 2 - _this.spinButton.height / 2 + 300;
+        _this.spinButton.y = _this.infoBackContainer.height / 2 - _this.spinButton.height / 2 + 220;
 
         _this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
 
@@ -94371,6 +94525,11 @@ var RouletteView = function (_PIXI$Container) {
     }
 
     (0, _createClass3.default)(RouletteView, [{
+        key: 'show',
+        value: function show() {
+            this.spinButton.visible = true;
+        }
+    }, {
         key: 'calculatePrize',
         value: function calculatePrize() {
             var foundlings = [];
@@ -94412,12 +94571,18 @@ var RouletteView = function (_PIXI$Container) {
     }, {
         key: 'findEnd',
         value: function findEnd() {
+            var _this2 = this;
+
             for (var i = 0; i < this.rouletteState.length; i++) {
                 if (this.rouletteState[i].spinning) {
                     return;
                 }
             }
             this.calculatePrize();
+
+            setTimeout(function () {
+                _this2.spinButton.visible = true;
+            }, 2000);
         }
     }, {
         key: 'spin',
@@ -94432,6 +94597,8 @@ var RouletteView = function (_PIXI$Container) {
             this.slots.forEach(function (element) {
                 element.spin(speed, force, avoid);
             });
+
+            this.spinButton.visible = false;
         }
     }, {
         key: 'update',
@@ -95480,7 +95647,7 @@ var EnvironmentManager = function (_GameObject) {
             var _this2 = this;
 
             this.levelManager = _LevelManager2.default.instance;
-            this.environmentData = _GameStaticData2.default.instance.getDataByIndex('environment', 'levels', Math.floor(Math.random() * 2));
+            this.environmentData = _GameStaticData2.default.instance.getDataByIndex('environment', 'levels', 0); // Math.floor(Math.random() * 2))
             this.patches = this.environmentData.assets;
 
             this.player = this.engine.findByType(_Player2.default);
@@ -104914,29 +105081,29 @@ var assets = [{
 	"id": "localization_DE",
 	"url": "assets/json\\localization_DE.json"
 }, {
-	"id": "localization_EN",
-	"url": "assets/json\\localization_EN.json"
-}, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
+	"id": "localization_EN",
+	"url": "assets/json\\localization_EN.json"
 }, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
@@ -104947,53 +105114,53 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
 }, {
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"

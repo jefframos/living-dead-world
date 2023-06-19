@@ -254,5 +254,7 @@ export default class GameAgent extends PhysicsEntity {
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
+
+        return spriteSheet;
     }
 }

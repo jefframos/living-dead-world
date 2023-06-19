@@ -98,6 +98,29 @@ export default class UIUtils {
         }
         return textLabel;
     }
+
+    static getSpecialLabel2(label, params = {}) {
+        const textLabel = new PIXI.Text(label, {
+            align: "center",
+            fill: [
+                "#FFD91C",
+                "#1CFFFA"
+            ],
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowDistance: 3,
+            fillGradientType: 1,
+            fontSize: 24,
+            fontWeight: 900,
+            strokeThickness: 3,
+            wordWrap: true,
+            wordWrapWidth: 300
+        })
+        for (const key in params) {
+            textLabel.style[key] = params[key];
+        }
+        return textLabel;
+    }
     static getSecondaryLabel(label, params = {}) {
         const textLabel = new PIXI.Text(label, window.LABELS.LABEL1)
         for (const key in params) {

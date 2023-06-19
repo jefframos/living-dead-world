@@ -13,7 +13,8 @@
                     "y": 1
                 },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -31,7 +32,8 @@
                     "y": 1
                 },
                 "time": 0.2,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -49,7 +51,8 @@
                     "y": 1
                 },
                 "time": 0.3,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -67,7 +70,8 @@
                     "y": 1
                 },
                 "time": 0.3,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -85,7 +89,8 @@
                     "y": 1
                 },
                 "time": 0.3,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -103,7 +108,8 @@
                     "y": 1
                 },
                 "time": 0.3,
-                "loop": true
+                "loop": true,
+                "addZero": false
             }
         }
     },
@@ -121,7 +127,160 @@
                     "y": 1
                 },
                 "time": 0.3,
-                "loop": true
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "DOG-1-IDLE",
+        "animationData": {
+            "spriteName": "pet-dog-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "DOG-1-WALK",
+        "animationData": {
+            "spriteName": "pet-dog-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 8,
+                    "max": 22
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "DOG-2-IDLE",
+        "animationData": {
+            "spriteName": "pet-dog-200",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "DOG-2-WALK",
+        "animationData": {
+            "spriteName": "pet-dog-200",
+            "params": {
+                "totalFramesRange": {
+                    "min": 8,
+                    "max": 22
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "CAT-1-IDLE",
+        "animationData": {
+            "spriteName": "pet-cat-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "CAT-1-WALK",
+        "animationData": {
+            "spriteName": "pet-cat-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 8,
+                    "max": 22
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "FISH-1-IDLE",
+        "animationData": {
+            "spriteName": "pet-fish-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 10
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "FISH-1-WALK",
+        "animationData": {
+            "spriteName": "pet-fish-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 11,
+                    "max": 34
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.06,
+                "loop": true,
+                "addZero": true
             }
         }
     }

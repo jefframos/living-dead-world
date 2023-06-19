@@ -48,7 +48,7 @@ this.prizePool = [
             type: PrizeManager.PrizeType.Key
         })
         this.prizeList.push({
-            icon: 'fly-drone_icon',
+            icon: 'pet-dog-10001',
             type: PrizeManager.PrizeType.Companion
         })
         this.prizeList.push({

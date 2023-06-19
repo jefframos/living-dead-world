@@ -8,16 +8,18 @@ import signals from 'signals';
 
 export default class GameViewSpriteSheet extends BaseComponent {
     static AnimationType = {
-        Idle :'idle',
-        Running:'running'
+        Idle: 'idle',
+        Running: 'running'
     }
     constructor() {
         super();
     }
     enable() {
         super.enable()
+        this.stopTimer = 0;
+        this.stopTimerDefault = 0.1;
     }
-    destroy(){
+    destroy() {
         super.destroy();
         Pool.instance.returnElement(this.spriteSheet);
         this.spriteSheet = null;
@@ -25,32 +27,38 @@ export default class GameViewSpriteSheet extends BaseComponent {
     setData(data) {
         this.spriteSheet = Pool.instance.getElement(SpriteSheetAnimation)
         this.view = this.gameObject.gameView.view;
-        
+
         this.spriteSheet.reset();
 
         for (const key in data) {
             if (Object.hasOwnProperty.call(data, key)) {
                 const element = data[key];
-                this.spriteSheet.addLayer(key, element.spriteName, element.params);                
+                this.spriteSheet.addLayer(key, element.spriteName, element.params);
             }
         }
 
         this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
     }
     update(delta) {
-        if(!this.spriteSheet){
+        if (!this.spriteSheet) {
             return;
         }
         this.spriteSheet.update(delta);
-        if(this.spriteSheet.currentFrame){
+        if (this.spriteSheet.currentFrame) {
             this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
             this.view.anchor = this.spriteSheet.anchor;
         }
 
-        if (this.gameObject.physics.magnitude > 0) {
+        if (this.gameObject.physics.magnitude > 0.1) {
             this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running)
+            this.stopTimer = this.stopTimerDefault
         } else {
-            this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle)
+
+            if (this.stopTimer <= 0) {
+                this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Idle)
+            } else {
+                this.stopTimer -= delta;
+            }
         }
 
     }

@@ -619,6 +619,49 @@
         }
     },
     {
+        "id": "BITE",
+        "entityData": {
+            "starter": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "dagger",
+            "name": "Dicing Dagger"
+        },
+        "isMain": true,
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 30,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 1,
+            "baseLifeRangeSpan": 30,
+            "basePower": 50,
+            "baseBulletSpeed": 0,
+            "baseFrequency": 3,
+            "basePiercing": 9999,
+            "baseAmount": [1,1],
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleStart": [0,0,1.57],
+            "baseAngleOffset": [0,0,3.14],
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
         "id": "ICE_SHARD_THROWER",
         "entityData": {
             "starter": false,
@@ -777,6 +820,50 @@
             "baseDirectionType": "Random",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 3,
+            "baseBrustFireInterval": 0.05,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 3.14
+        },
+        "bulletComponent": "BounceBullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SMOKE_PACK_01",
+            "destroyVfxPack": "SMOKE_PACK_01",
+            "overrider": {
+                "baseViewData": "BOUNCE_BASE"
+            }
+        }
+    },
+    {
+        "id": "DOG_BALL",
+        "entityData": {
+            "starter": false,
+            "type": "Weapon",
+            "tier": 4,
+            "icon": "bounceBomb",
+            "name": "Bounce"
+        },
+        "isMain": true,
+        "weaponType": "Magical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 10,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 5,
+            "baseLifeRangeSpan": -1,
+            "basePower": 25,
+            "baseBulletSpeed": 120,
+            "baseFrequency": 4,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDetectionZone": 300,
+            "baseDirectionType": "Random",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": [1,1,2,3,4],
             "baseBrustFireInterval": 0.05,
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
