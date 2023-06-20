@@ -221,13 +221,13 @@
     },
     {
         "id": "FLY_DRONE",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Companion"
         },
         "companionId": "FLY_DRONE",
         "tier": 2,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LAND_DRONE",
@@ -241,7 +241,7 @@
     },
     {
         "id": "SNIPER_DRONE",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Companion"
         },
@@ -251,13 +251,13 @@
     },
     {
         "id": "LAND_MINE_DRONE",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Companion"
         },
         "companionId": "LAND_MINE_DRONE",
         "tier": 3,
-        "enabled": true
+        "enabled": false
     },
     {
         "id": "LASER_DRONE",

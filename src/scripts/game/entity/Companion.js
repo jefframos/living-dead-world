@@ -78,7 +78,7 @@ export default class Companion extends GameAgent {
         this.addChild(this.engine.poolGameObject(Shadow))
         
         let spriteFacing = this.addComponent(SpriteFacing);
-        spriteFacing.lerp = 1
+        spriteFacing.lerp = 0.1
         spriteFacing.startScaleX = -1
         
         this.makeAnimations(this.staticData).stopTimerDefault = 0.5

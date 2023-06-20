@@ -309,5 +309,16 @@
         "rotationFacing": false,
         "hasAnimation": false,
         "alpha": 0
+    },
+    {
+        "id": "PINK-ROUND",
+        "viewData": "pink-round",
+        "hasShadow": true,
+        "rotationFacing": true,
+        "hasAnimation": false,
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": 10
     }
 ]

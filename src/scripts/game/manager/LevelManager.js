@@ -331,9 +331,9 @@ export default class LevelManager {
         }
 
         if(Game.IsPortrait){
-            this.gameEngine.camera.targetZoom = 1;
+            this.gameEngine.camera.targetZoom = 2;
         }else{
-            this.gameEngine.camera.targetZoom = 0.95;
+            this.gameEngine.camera.targetZoom = 1.5;
 
         }
 

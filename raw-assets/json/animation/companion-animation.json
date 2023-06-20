@@ -1,138 +1,5 @@
 [
     {
-        "id": "FLY_DRONE_IDLE",
-        "animationData": {
-            "spriteName": "fly-drone_",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 3
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "LAND_DRONE_IDLE",
-        "animationData": {
-            "spriteName": "land-drone_",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 3
-                },
-                "anchor": {
-                    "x": 0.3,
-                    "y": 1
-                },
-                "time": 0.2,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "SNIPER_DRONE",
-        "animationData": {
-            "spriteName": "Walk_scan_",
-            "params": {
-                "totalFramesRange": {
-                    "min": 0,
-                    "max": 7
-                },
-                "anchor": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "time": 0.3,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "LAND_MINE_DRONE",
-        "animationData": {
-            "spriteName": "land_drone_3__",
-            "params": {
-                "totalFramesRange": {
-                    "min": 1,
-                    "max": 4
-                },
-                "anchor": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "time": 0.3,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "LASER_DRONE",
-        "animationData": {
-            "spriteName": "laser_fly_drone__",
-            "params": {
-                "totalFramesRange": {
-                    "min": 1,
-                    "max": 4
-                },
-                "anchor": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "time": 0.3,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "SPIDER_DRONE",
-        "animationData": {
-            "spriteName": "land_drone_2__",
-            "params": {
-                "totalFramesRange": {
-                    "min": 1,
-                    "max": 4
-                },
-                "anchor": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "time": 0.3,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
-        "id": "ORANGE_DRONE",
-        "animationData": {
-            "spriteName": "fly_drone_orange__",
-            "params": {
-                "totalFramesRange": {
-                    "min": 1,
-                    "max": 4
-                },
-                "anchor": {
-                    "x": 0.5,
-                    "y": 1
-                },
-                "time": 0.3,
-                "loop": true,
-                "addZero": false
-            }
-        }
-    },
-    {
         "id": "DOG-1-IDLE",
         "animationData": {
             "spriteName": "pet-dog-100",
@@ -278,7 +145,83 @@
                     "x": 0.5,
                     "y": 1
                 },
-                "time": 0.06,
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "FROG-1-IDLE",
+        "animationData": {
+            "spriteName": "frog-pet-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "FROG-1-WALK",
+        "animationData": {
+            "spriteName": "frog-pet-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 7,
+                    "max": 22
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.03,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "BIRD-1-IDLE",
+        "animationData": {
+            "spriteName": "pet-bird-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 10
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.08,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "BIRD-1-WALK",
+        "animationData": {
+            "spriteName": "pet-bird-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 10
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.05,
                 "loop": true,
                 "addZero": true
             }

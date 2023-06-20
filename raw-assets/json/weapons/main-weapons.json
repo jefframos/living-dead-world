@@ -883,6 +883,51 @@
         }
     },
     {
+        "id": "CAT_PAWN",
+        "entityData": {
+            "starter": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "cat-pawn",
+            "name": "Scope-a-Dope"
+        },
+        "isMain": true,
+        "ingameViewData": "CAT_PAWN",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 8,
+            "baseSpawnDistance": 30,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 320,
+            "basePower": 20,
+            "baseBulletSpeed": 500,
+            "baseFrequency": 3,
+            "basePiercing": 2,
+            "baseAmount": 1,
+            "baseDetectionZone": 800,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 2,
+            "baseBrustFireInterval": 1,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "PINK_IMPACT",
+            "destroyVfxPack": "PINK_HIT",
+            "overrider": {
+                "baseViewData": "PINK-ROUND"
+            }
+        }
+    },
+    {
         "id": "PLAYER_AURA_OVERRIDER",
         "entityData": {
             "starter": false,

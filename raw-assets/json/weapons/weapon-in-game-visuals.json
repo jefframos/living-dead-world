@@ -488,7 +488,7 @@
         "inGameRotation": 0,
         "viewOffset": {
             "x": 0,
-            "y": -20
+            "y": 0
         },
         "anchor": {
             "x": 0.5,
@@ -867,6 +867,32 @@
     {
         "id": "LASER_OVERRIDER",
         "ingameIcon": "vfx-c1",
+        "ingameBaseWidth": -1,
+        "ingameAmountIconOverrider": -1,
+        "inGameRotation": 0,
+        "viewOffset": {
+            "x": 0,
+            "y": 0
+        },
+        "anchor": {
+            "x": 0.5,
+            "y": 0.1
+        },
+        "shootAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "defaultAnimation": {
+            "active": false,
+            "addZero": false
+        },
+        "progressBar": {
+            "active": false
+        }
+    },
+    {
+        "id": "CAT_PAWN",
+        "ingameIcon": "cat-pawn",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
