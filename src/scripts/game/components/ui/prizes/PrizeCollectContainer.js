@@ -120,8 +120,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 case PrizeManager.PrizeType.MasterKey:
                     texture = 'active_engine'
                     break;
-                case PrizeManager.PrizeType.Mask:
-                    entityData = EntityBuilder.instance.getMask(value.id)
+                case PrizeManager.PrizeType.Shoe:
+                    entityData = EntityBuilder.instance.getShoe(value.id)
                     texture = entityData.entityData.icon
                     break;
                 case PrizeManager.PrizeType.Trinket:
@@ -145,7 +145,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             let prize = null
             if (element.entityData) {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-                prize.setData(element.entityData, element.value.level + 1)
+                prize.setData(element.entityData, element.value.level)
                 prize.resetPivot()
                 prize.x = 110 * i
             } else {

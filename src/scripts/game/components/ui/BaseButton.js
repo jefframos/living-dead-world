@@ -55,19 +55,19 @@ export default class BaseButton extends PIXI.Container {
         }
         this.hitArea = new PIXI.Rectangle(0, 0, this.safeShape.width, this.safeShape.height);
 
+        
+        if (!this.text) {
+            return;            
+        }
+        this.text.x = this.safeShape.width / 2 + this.textOffset.x;
+        this.text.y = this.safeShape.height / 2 + this.textOffset.y;
+        
         if (!this.icon) {
             return;
         }
         this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
         this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
-
-        if (!this.text) {
-            return;
-        }
-        this.text.x = this.safeShape.width / 2 + this.textOffset.x;
-        this.text.y = this.safeShape.height / 2 + this.textOffset.y;
-
-        if (this.icon) {
+        if (this.text) {
             this.text.y += this.icon.height / 2 + 5
         }
     }

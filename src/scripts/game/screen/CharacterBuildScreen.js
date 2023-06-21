@@ -261,7 +261,7 @@ export default class CharacterBuildScreen extends Screen {
         }, 'Customize', 'crown')
 
         const bt0 = UIUtils.getPrimaryShapelessButton(() => {
-            PrizeManager.instance.getMetaPrize(Math.floor(Math.random() * 5), 1);
+            PrizeManager.instance.getMetaPrize(Math.floor(Math.random() * 5), 1, 3);
         }, 'TestPopUp', 'crown')
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
@@ -348,7 +348,7 @@ export default class CharacterBuildScreen extends Screen {
             this.pivotOffset.y = 80
         } else {
 
-            this.pivotOffset.y = 0
+            this.pivotOffset.y = 60
         }
     }
     showCustomization() {

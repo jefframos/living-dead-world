@@ -95,4 +95,8 @@ export default class GameData {
         CookieManager.instance.addToInventory(type, item)
 
     }
+    removeFromInventory(type, item) {
+        CookieManager.instance.removeFromInventory(type, item)
+
+    }
 }

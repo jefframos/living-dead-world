@@ -320,5 +320,27 @@
             "y": -20
         },
         "maxWidth": 10
+    },
+    {
+        "id": "BLUE-ROUND",
+        "viewData": "blue-round",
+        "hasShadow": true,
+        "rotationFacing": true,
+        "hasAnimation": false,
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": 10
+    },
+    {
+        "id": "RED-ROUND",
+        "viewData": "red-round",
+        "hasShadow": true,
+        "rotationFacing": true,
+        "hasAnimation": false,
+        "viewOffset": {
+            "y": -20
+        },
+        "maxWidth": 10
     }
 ]

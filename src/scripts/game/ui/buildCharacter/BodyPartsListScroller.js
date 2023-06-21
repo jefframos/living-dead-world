@@ -50,6 +50,10 @@ export default class BodyPartsListScroller extends ListScroller {
         let line = 0;
         let col = 0;
 
+        while(this.listContainer.children.length > 0){
+            this.listContainer.removeChildAt(0)
+        }
+
         for (var i = 0; i < itens.length; i++) {
             let tempItem = itens[i];
             

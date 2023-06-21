@@ -168,7 +168,6 @@ export default class EntityBuilder {
         return arrayData;
     }
     getAllShoes() {
-
         return this.dataToArray(this.shoesData);
     }
     getAllMask() {

@@ -74,15 +74,16 @@ export default class PlayerSessionData {
     }
     equipmentUpdateNEW() {
         this.findAttributesNEW()
-
-
         this.equipmentUpdated.dispatch(this.equipmentList);
     }
-    setMainWeapon(weapon) {
+    setMainWeapon(weapon, level = 0) {
         this.mainWeapon = weapon;
-        this.addEquipmentNEW(weapon)
+        this.addEquipmentNEW(weapon, level)
     }
-    addEquipmentNEW(equipment) {
+    levelUpMainWeapon(){
+        this.addEquipmentNEW(this.mainWeapon)
+    }
+    addEquipmentNEW(equipment, level = 0) {
 
         let gameItemId = -1;
         for (let index = 0; index < this.equipmentList.length; index++) {
@@ -97,7 +98,11 @@ export default class PlayerSessionData {
             this.equipmentList.push(new GameplayItem(equipment))
             gameItemId = this.equipmentList.length - 1;
             this.equipmentList[gameItemId].item = equipment;
-            this.equipmentList[gameItemId].level = equipment.level || 0;
+            if(level > 0){
+                this.equipmentList[gameItemId].level =level;
+            }else{                
+                this.equipmentList[gameItemId].level = equipment.level || 0;
+            }
 
         } else {
             this.equipmentList[gameItemId].level++;

@@ -44,7 +44,7 @@ export default class CookieManager {
 		}
 		this.defaultInventory = {
 			version: '0.0.1',
-			weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'PISTOL_01', level: 1 }],
+			weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'SUB_MACHINE_GUN_01', level: 0 }, { id: 'SNIPER_01', level: 0 }, { id: 'MINIGUN_01', level: 0 }, { id: 'SHOTGUN_01', level: 0 }, { id: 'PLAYER_MULTISHOT', level: 0 }],
 			bodyParts: [],
 			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }, { id: 'FROG-1', level: 0 }, { id: 'BIRD-1', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
@@ -234,7 +234,6 @@ export default class CookieManager {
 
 	addToInventory(type, equip) {
 		const data = this.getChunck('inventory')
-		console.log(data);
 		if (data[type] === undefined) {
 			console.log(type, 'not found on inventory, not saving', data);
 			return;
@@ -243,7 +242,21 @@ export default class CookieManager {
 		this.saveChunk('inventory', data)
 
 	}
+	removeFromInventory(type, equip) {
+		const data = this.getChunck('inventory')
+		if (data[type] === undefined) {
+			console.log(type, 'not found on inventory, not saving', data);
+			return;
+		}
+		for (let i = data[type].length - 1; i >= 0; i--) {
+			const element = data[type][i]
+			if (element.id == equip.id && element.level == equip.level) {
+				data[type].splice(i, 1)
+			}
+		}
+		this.saveChunk('inventory', data);
 
+	}
 
 	savePlayer(id, dataToSave) {
 

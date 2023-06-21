@@ -209,10 +209,15 @@ function startLoader() {
 
         Game.MainLoader.add(audioManifest[i].id, url)
     }
+    //console.log('load fonts here maybe...');
     Game.MainLoader
         .add('./assets/fonts/stylesheet.css')
+        .add('./assets/fonts/poppins-black-webfont.woff')
+        .add('./assets/fonts/poppins-bold-webfont.woff')
+        .add('./assets/fonts/poppins-extrabold-webfont.woff')
+        .add('./assets/fonts/poppins-medium-webfont.woff')
+        .add('./assets/fonts/poppins-regular-webfont.woff')
         .load(configGame);
-
 
     Game.MainLoader.onProgress.add((e) => {
         game.updateLoader(e.progress)

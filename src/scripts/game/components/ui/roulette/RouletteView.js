@@ -26,7 +26,7 @@ export default class RouletteView extends PIXI.Container {
 
 
         this.spinButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            this.spin(0.1);
+            this.spin(0.1, 4);
         }, 'spin', 'video-icon')
         this.spinButton.updateBackTexture('square_button_0003')
         this.container.addChild(this.spinButton);

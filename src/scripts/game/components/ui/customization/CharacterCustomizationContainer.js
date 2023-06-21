@@ -10,9 +10,21 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
     constructor(typeList = 'visuals') {
         super();
 
+
+       
+
+        
         this.typeList = typeList;
         this.container = new PIXI.Container();
         this.addChild(this.container)
+        
+        this.topBlocker = new PIXI.Sprite.from('base-gradient');
+        //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
+        this.topBlocker.tint = 0x13202F;
+       // this.topBlocker.scale.y = -1
+        this.container.addChild(this.topBlocker);
+
+        
         this.piecesScroller = new BodyPartsListScroller({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
         this.container.addChild(this.piecesScroller);
 
@@ -21,6 +33,10 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.colorContainerHairScroller.w = 100;
         this.colorContainerHairScroller.h = 100;
         this.container.addChild(this.colorContainerHairScroller);
+
+
+
+
 
         this.torsosData = {
             _1: {
@@ -60,15 +76,17 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         this.areas = this.areas.filter(item => item.typeList == this.typeList)
 
-        this.sectionListBottom = new UIList();
-        this.container.addChild(this.sectionListBottom);
-        this.sectionListBottom.w = 0
-        this.sectionListBottom.h = 0;
 
         this.sectionList = new UIList();
         this.container.addChild(this.sectionList);
         this.sectionList.w = 0
         this.sectionList.h = 0;
+
+
+        this.sectionListName = new UIList();
+        this.container.addChild(this.sectionListName);
+        this.sectionListName.w = 0
+        this.sectionListName.h = 0;
 
         this.allButtons = [];
 
@@ -101,21 +119,18 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 button.tintIcon(element.colorset[0])
             }
 
-            // if (count >= 5) {
-            //     this.sectionListBottom.addElement(button, { align: 0, vAlign: 0 })
-            //     this.sectionListBottom.h += 100;
-            // } else {
 
-            //     count++
-            // }
             this.allButtons.push(button);
             this.sectionList.addElement(button, { align: 0, vAlign: 0 })
             this.sectionList.h += 80 + 2;
+
+            this.sectionListName.addElement(UIUtils.getPrimaryLabel(element.label), { align: 0, vAlign: 0 })
+            this.sectionListName.h += 80 + 2;
         });
 
         this.currentShowingColors = [];
         this.sectionList.updateVerticalList();
-        this.sectionListBottom.updateVerticalList();
+        this.sectionListName.updateVerticalList();
 
     }
     get isOpen() {
@@ -349,11 +364,19 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         }
 
-        this.sectionListBottom.x = Game.Borders.width / 2 + 150;
-        this.sectionListBottom.y = Game.Borders.height / 2 - this.sectionListBottom.height / 2;
+        this.sectionListName.scale.set(this.sectionList.scale.x)
+        this.sectionListName.x = this.sectionList.x + 75
+        this.sectionListName.y = this.sectionList.y + 20
+
+
+        this.topBlocker.width = Game.Borders.width
+        this.topBlocker.height = Game.Borders.height / 2
+        this.topBlocker.y = Game.Borders.height / 2
+
     }
     rebuildPortraitScrollers() {
         this.sectionList.scale.set(1)
+        this.sectionListName.visible = false
 
         this.piecesScroller.removeAllItems();
         this.piecesScroller.scale.set(1.5)
@@ -382,6 +405,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
     rebuildLandscapeScroller() {
         this.piecesScroller.scale.set(1)
+        this.sectionListName.visible = true
 
         this.colorContainerHairScroller.h = 60
         this.colorContainerHairScroller.w = this.currentShowingColors.length * 62

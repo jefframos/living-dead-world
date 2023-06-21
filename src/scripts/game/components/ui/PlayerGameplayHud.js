@@ -65,6 +65,11 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.lifebarDetail.x = 2
         this.lifebarDetail.y = 2
 
+        this.levelupButton = UIUtils.getCloseButton(()=>{
+            this.player.sessionData.levelUpMainWeapon();
+        })
+        this.container.addChild(this.levelupButton);
+        this.levelupButton.y = 500
 
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')
         this.container.addChild(this.playerFaceContainer);

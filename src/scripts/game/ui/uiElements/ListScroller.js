@@ -31,7 +31,7 @@ export default class ListScroller extends PIXI.Container {
         if (masked) {
             this.maskGraphic = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
             this.addChild(this.maskGraphic)
-            this.container.mask = this.maskGraphic;
+            //this.container.mask = this.maskGraphic;
         }
         this.container.interactive = true;
 

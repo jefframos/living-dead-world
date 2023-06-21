@@ -9,7 +9,7 @@ export default class PrizeManager {
         Coin: 'coin',
         Key: 'key',
         MasterKey: 'MasterKey',
-        Mask: 'masks',
+        Shoe: 'shoes',
         Trinket: 'trinkets',
         Companion: 'companions',
         Weapon: 'weapons',
@@ -27,13 +27,13 @@ export default class PrizeManager {
         this.onGetMetaPrize = new signals.Signal();
         this.onUpdateCompanion = new signals.Signal();
 
-this.prizePool = [
-    [
-        {type:PrizeManager.PrizeType.Coin, value:[20,50]},
-        {type:PrizeManager.PrizeType.Key, value:1},
-        {type:PrizeManager.PrizeType.Wearable, value:1},
-    ]
-]
+        this.prizePool = [
+            [
+                { type: PrizeManager.PrizeType.Coin, value: [20, 50] },
+                { type: PrizeManager.PrizeType.Key, value: 1 },
+                { type: PrizeManager.PrizeType.Wearable, value: 1 },
+            ]
+        ]
         this.prizeList = [];
         this.prizeList.push({
             icon: 'pistol1-icon',
@@ -52,8 +52,8 @@ this.prizePool = [
             type: PrizeManager.PrizeType.Companion
         })
         this.prizeList.push({
-            icon: 'mask-icon0001',
-            type: PrizeManager.PrizeType.Mask
+            icon: 'dynamic-shoe-icon0001',
+            type: PrizeManager.PrizeType.Shoe
         })
         this.prizeList.push({
             icon: 'trinket-icon0001',
@@ -66,20 +66,21 @@ this.prizePool = [
     getMetaLowerPrize() {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
-    getMetaPrize(maxId, max, total = 1, dispatch = true) {
+    getMetaPrize(maxId, maxLevel, total = 1, dispatch = true) {
 
         const itemPrizeList = []
 
         for (let index = 0; index < total; index++) {
-            if(maxId < 0){
+            if (maxId < 0) {
                 maxId = Math.floor(Math.random() * this.prizeList.length);
             }
-    
-            itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, max))
+
+            itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, maxLevel))
         }
 
         const types = [];
         itemPrizeList.forEach(element => {
+            console.log(element.type, element)
             GameData.instance.addToInventory(element.type, element)
             types.push(element.type)
 
@@ -91,23 +92,28 @@ this.prizePool = [
         }
         return prizeData;
     }
+    updateItem(type, item, level){
 
-    getItemPrize(type, max) {
+        const prize =  { id: item.id, level}
+        GameData.instance.addToInventory(type,prize)
+        this.onGetMetaPrize.dispatch( { type: [type], value: [prize] })
+    }
+    getItemPrize(type, maxLevel) {
         let allEquip = [];
 
         switch (type) {
             case PrizeManager.PrizeType.Coin:
-                return { type: PrizeManager.PrizeType.Coin, value: Math.round((50 + Math.random() * 5) * (max * max)) }
+                return { type: PrizeManager.PrizeType.Coin, value: Math.round((50 + Math.random() * 5) * (maxLevel * maxLevel)) }
 
             case PrizeManager.PrizeType.Key:
-                if (max == 2) {
+                if (maxLevel == 2) {
                     return { type: PrizeManager.PrizeType.Key, value: 1 }
                 } else {
                     return { type: PrizeManager.PrizeType.MasterKey, value: 1 }
                 }
                 return;
-            case PrizeManager.PrizeType.Mask:
-                allEquip = EntityBuilder.instance.getAllMask();
+            case PrizeManager.PrizeType.Shoe:
+                allEquip = EntityBuilder.instance.getAllShoes();
                 break;
 
             case PrizeManager.PrizeType.Companion:
@@ -124,8 +130,7 @@ this.prizePool = [
         }
 
         const equipPrize = allEquip[Math.floor(Math.random() * allEquip.length)]
-        const itemPrize = { id: equipPrize.id, level: Math.floor(max * Math.random()), type }
-
+        const itemPrize = { id: equipPrize.id, level: Math.floor(maxLevel * Math.random()), type }
         return itemPrize;
     }
 }

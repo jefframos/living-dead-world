@@ -77,6 +77,23 @@ export default class LoadoutCardView extends PIXI.Container {
         this.smallFontSize = 12
         this.largeFontSize = 16
 
+        this.iconSize = 80;
+
+    }
+    resize(width, height) {
+        this.baseWidth = width;
+        this.baseHeight = height;
+
+        this.safeShape.width = width
+        this.safeShape.height = height
+
+        this.cardBorder.width = width
+        this.cardBorder.height = height
+
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, this.iconSize));
+
+        this.cardImage.x = width / 2
+        this.cardImage.y = height / 2
     }
     setIconType(left = false) {
         if (left) {
@@ -109,10 +126,11 @@ export default class LoadoutCardView extends PIXI.Container {
     }
 
     setData(cardData, level = 0, customIconSize = 80) {
+        this.iconSize = customIconSize
         if (!cardData) {
             this.cardBorder.texture = PIXI.Texture.from(this.empty);
             this.cardImage.texture = PIXI.Texture.EMPTY;
-
+            this.cardData = null;
             return;
         }
         this.cardData = cardData;

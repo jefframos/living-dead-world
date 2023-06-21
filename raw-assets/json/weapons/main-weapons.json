@@ -3,6 +3,9 @@
         "id": "PLAYER_MULTISHOT",
         "entityData": {
             "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "multishot-gun-1-icon",
@@ -17,12 +20,12 @@
             "baseRadius": 15,
             "baseSpawnDistance": 30,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 150,
-            "basePower": 10,
+            "baseLifeRangeSpan": [120,150,200,250,350],
+            "basePower": [10,18,30,50,100],
             "baseBulletSpeed": 200,
-            "baseFrequency": 1,
+            "baseFrequency": [2,1.9,1.8,1.7,1.5],
             "basePiercing": 0,
-            "baseAmount": [3,4],
+            "baseAmount": [2,3,4,5,7],
             "baseDirectionType": "ParentAngle",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 0,
@@ -31,7 +34,7 @@
             "baseGeneralOffset": 0,
             "baseForceField": true,
             "baseForceFeedback": 2,
-            "baseAngleOffset": 0.3,
+            "baseAngleOffset": [0.3,0.29,0.28,0.27,0.25],
             "baseAngleNoise": 0
         },
         "bulletComponent": "Bullet",
@@ -40,7 +43,7 @@
             "spawnVfxPack": "STANDARD_SHOOTING_2",
             "destroyVfxPack": "PURPLE_IMPACT",
             "overrider": {
-                "baseViewData": "PURPLE_SHELL_BASE_01"
+                "baseViewData": "PINK-ROUND"
             }
         }
     },
@@ -48,6 +51,9 @@
         "id": "PISTOL_01",
         "entityData": {
             "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1-icon",
@@ -61,16 +67,16 @@
             "baseRadius": 15,
             "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 300,
-            "basePower": 25,
+            "baseLifeRangeSpan": [200,250,300,350,400],
+            "basePower": [15,25,40,60,120],
             "baseBulletSpeed": 250,
-            "baseFrequency": 3,
+            "baseFrequency": [3,2.8,2.5,2,1.25],
             "basePiercing": 1,
             "baseAmount": 1,
             "baseDirectionType": "ParentDirection",
             "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 5,
-            "baseBrustFireInterval": 0.5,
+            "baseBrustFireAmount": [5,6,7,8,12],
+            "baseBrustFireInterval": [0.5,0.45,0.42,0.35,0.1],
             "baseBaseShootArc": 0,
             "baseGeneralOffset": 0,
             "baseForceField": true,
@@ -84,7 +90,197 @@
             "spawnVfxPack": "STANDARD_SHOOTING_1",
             "destroyVfxPack": "BLUE_IMPACT",
             "overrider": {
-                "baseViewData": "BLUE_SHELL_BASE_01"
+                "baseViewData": "BLUE-ROUND"
+            }
+        }
+    },
+    {
+        "id": "SUB_MACHINE_GUN_01",
+        "entityData": {
+            "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "unicornLeg-icon",
+            "name": "Fidgety Firehose"
+        },
+        "isMain": true,
+        "ingameViewData": "SUB_MACHINE_GUN_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 45,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": [200,250,300,350,400],
+            "basePower": [8,12,20,40,60],
+            "baseBulletSpeed": [300,320,340,360,400],
+            "baseFrequency": [3.5,3,2.5,1.8,1.25],
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": [8,10,12,15,18],
+            "baseBrustFireInterval": [0.25,0.23,0.2,0.15,0.12],
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0.3
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "STANDARD_SHOOTING_1",
+            "destroyVfxPack": "BLUE_IMPACT",
+            "overrider": {
+                "baseViewData": "BLUE-ROUND"
+            }
+        }
+    },
+    {
+        "id": "SHOTGUN_01",
+        "entityData": {
+            "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "shotgun-1-icon",
+            "name": "Boomstick"
+        },
+        "isMain": true,
+        "ingameViewData": "SHOTGUN_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 40,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": [100,120,150,180,250],
+            "basePower": [30,40,60,80,100],
+            "baseBulletSpeed": 450,
+            "baseFrequency": [3.5,3,2.5,2,1.5],
+            "basePiercing": 1,
+            "baseAmount": [4,5,6,7,8],
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": [0.1,0.12,0.14,0.18,0.2],
+            "baseAngleNoise": 0.2
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "STANDARD_SHOOTING_2",
+            "destroyVfxPack": "PURPLE_IMPACT",
+            "overrider": {
+                "baseViewData": "PINK-ROUND"
+            }
+        }
+    },
+    {
+        "id": "MINIGUN_01",
+        "entityData": {
+            "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "blaster-minugun-icon",
+            "name": "Micro-Maniac"
+        },
+        "isMain": true,
+        "ingameViewData": "MINIGUN_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "DAGGER_ROTATOR_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": [200,250,300,350,400],
+            "basePower": [12,18,25,40,70],
+            "baseBulletSpeed": [300,320,340,360,400],
+            "baseFrequency": [0.35,0.3,0.25,0.2,0.15],
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "AngularSequence",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": [0.3,0.28,0.25,0.22,0.18],
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "RED_IMPACT",
+            "overrider": {
+                "baseViewData": "RED-ROUND"
+            }
+        }
+    },
+    {
+        "id": "SNIPER_01",
+        "entityData": {
+            "starter": true,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "sniper-1-icon",
+            "name": "Scope-a-Dope"
+        },
+        "isMain": true,
+        "ingameViewData": "SNIPER_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 8,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 700,
+            "basePower": [80,100,140,200,300],
+            "baseBulletSpeed": 500,
+            "baseFrequency": [3.2,3,2.8,2.5,1.8],
+            "basePiercing": [3,4,5,6,7],
+            "baseAmount": 1,
+            "baseDetectionZone": 800,
+            "baseDirectionType": "ClosestEnemy",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": [1,2,2,2,4],
+            "baseBrustFireInterval": [0.7,0.6,0.5,0.4,0.25],
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "RED_IMPACT",
+            "destroyVfxPack": "RED_HIT",
+            "overrider": {
+                "baseViewData": "RED-ROUND"
             }
         }
     },
@@ -92,6 +288,9 @@
         "id": "REVOLVER_01",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1",
@@ -133,143 +332,12 @@
         }
     },
     {
-        "id": "SUB_MACHINE_GUN_01",
-        "entityData": {
-            "starter": true,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "unicornLeg-icon",
-            "name": "Fidgety Firehose"
-        },
-        "isMain": true,
-        "ingameViewData": "SUB_MACHINE_GUN_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 45,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 250,
-            "basePower": 10,
-            "baseBulletSpeed": 350,
-            "baseFrequency": 4,
-            "basePiercing": 1,
-            "baseAmount": [1,2],
-            "baseDirectionType": "ClosestEnemy",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 12,
-            "baseBrustFireInterval": 0.15,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleStart": [0,1.57],
-            "baseAngleOffset": [0,3.14],
-            "baseAngleNoise": 0.3
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "STANDARD_SHOOTING_1",
-            "destroyVfxPack": "BLUE_IMPACT",
-            "overrider": {
-                "baseViewData": "BLUE_SHELL_BASE_01"
-            }
-        }
-    },
-    {
-        "id": "SHOTGUN_01",
-        "entityData": {
-            "starter": true,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "shotgun-1-icon",
-            "name": "Boomstick"
-        },
-        "isMain": true,
-        "ingameViewData": "SHOTGUN_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 40,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 120,
-            "basePower": 50,
-            "baseBulletSpeed": 450,
-            "baseFrequency": 3,
-            "basePiercing": 1,
-            "baseAmount": 4,
-            "baseDirectionType": "ParentAngle",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0.1,
-            "baseAngleNoise": 0.2
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "STANDARD_SHOOTING_2",
-            "destroyVfxPack": "PURPLE_IMPACT",
-            "overrider": {
-                "baseViewData": "PURPLE_SHELL_BASE_01"
-            }
-        }
-    },
-    {
-        "id": "MINIGUN_01",
-        "entityData": {
-            "starter": true,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "blaster-minugun-icon",
-            "name": "Micro-Maniac"
-        },
-        "isMain": true,
-        "ingameViewData": "MINIGUN_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "overrider": "DAGGER_ROTATOR_OVERRIDER",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 50,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 200,
-            "basePower": 10,
-            "baseBulletSpeed": 300,
-            "baseFrequency": 0.3,
-            "basePiercing": 1,
-            "baseAmount": 1,
-            "baseDirectionType": "AngularSequence",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleOffset": 0.2,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
-            "destroyVfxPack": "BLUE_IMPACT",
-            "overrider": {
-                "baseViewData": "SPERM"
-            }
-        }
-    },
-    {
         "id": "FIREBALL_HOAMING",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hoaming-dude0001",
@@ -314,6 +382,9 @@
         "id": "LASER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 5,
             "icon": "laser-rainbow0001",
@@ -359,54 +430,12 @@
         }
     },
     {
-        "id": "SNIPER_01",
-        "entityData": {
-            "starter": true,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "sniper-1-icon",
-            "name": "Scope-a-Dope"
-        },
-        "isMain": true,
-        "ingameViewData": "SNIPER_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 8,
-            "baseSpawnDistance": 50,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 320,
-            "basePower": 250,
-            "baseBulletSpeed": 500,
-            "baseFrequency": 3,
-            "basePiercing": 2,
-            "baseAmount": 1,
-            "baseDetectionZone": 800,
-            "baseDirectionType": "ClosestEnemy",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 2,
-            "baseBrustFireInterval": 1,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "RED_IMPACT",
-            "destroyVfxPack": "RED_HIT",
-            "overrider": {
-                "baseViewData": "RED_SHELL_BASE_01"
-            }
-        }
-    },
-    {
         "id": "WORM_GUN",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "vfx-c1",
@@ -451,6 +480,9 @@
         "id": "BOMB_THROWER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -493,6 +525,9 @@
         "id": "SMALL_BOMB",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -536,6 +571,9 @@
         "id": "ORBIT",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "orbitGreen",
@@ -575,96 +613,12 @@
         }
     },
     {
-        "id": "MELEE_SWORD",
-        "entityData": {
-            "starter": false,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "dagger",
-            "name": "Dicing Dagger"
-        },
-        "isMain": true,
-        "ingameViewData": "MELEE_SWORD",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 20,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 60,
-            "basePower": 120,
-            "baseBulletSpeed": 150,
-            "baseFrequency": 2,
-            "basePiercing": 9999,
-            "baseAmount": [1,1],
-            "baseDirectionType": "FacingPlayer",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleStart": [0,0,1.57],
-            "baseAngleOffset": [0,0,3.14],
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "standardVfxPack": "SWORD_MELEE_PACK_01",
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
-        }
-    },
-    {
-        "id": "BITE",
-        "entityData": {
-            "starter": false,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "dagger",
-            "name": "Dicing Dagger"
-        },
-        "isMain": true,
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": 30,
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": 1,
-            "baseLifeRangeSpan": 30,
-            "basePower": 50,
-            "baseBulletSpeed": 0,
-            "baseFrequency": 3,
-            "basePiercing": 9999,
-            "baseAmount": [1,1],
-            "baseDirectionType": "FacingPlayer",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleStart": [0,0,1.57],
-            "baseAngleOffset": [0,0,3.14],
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "standardVfxPack": "SWORD_MELEE_PACK_01",
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
-        }
-    },
-    {
         "id": "ICE_SHARD_THROWER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "disk",
@@ -708,6 +662,9 @@
         "id": "BOOMERANG_AXE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "rotateRed",
@@ -753,6 +710,9 @@
         "id": "PLAYER_AURA",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "vfx-b1",
@@ -798,6 +758,9 @@
         "id": "BOUNCE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 4,
             "icon": "bounceBomb",
@@ -839,9 +802,58 @@
         }
     },
     {
+        "id": "BITE",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": true,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "dagger",
+            "name": "Dicing Dagger"
+        },
+        "isMain": true,
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 30,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 1,
+            "baseLifeRangeSpan": 30,
+            "basePower": 50,
+            "baseBulletSpeed": 0,
+            "baseFrequency": 3,
+            "basePiercing": 9999,
+            "baseAmount": [1,1],
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleStart": [0,0,1.57],
+            "baseAngleOffset": [0,0,3.14],
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
         "id": "DOG_BALL",
         "entityData": {
             "starter": false,
+            "companionWeapon": true,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 4,
             "icon": "bounceBomb",
@@ -886,6 +898,9 @@
         "id": "CAT_PAWN",
         "entityData": {
             "starter": false,
+            "companionWeapon": true,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "cat-pawn",
@@ -928,9 +943,107 @@
         }
     },
     {
+        "id": "ENEMY_MINIGUN_01",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": true,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "blaster-minugun",
+            "name": "Minigun"
+        },
+        "isMain": true,
+        "ingameViewData": "MINIGUN_01",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "overrider": "DAGGER_ROTATOR_OVERRIDER",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 200,
+            "basePower": 10,
+            "baseBulletSpeed": 50,
+            "baseFrequency": 1,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "AngularSequence",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0.6,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "RED_HIT",
+            "overrider": {
+                "baseViewData": "SPERM_ENEMY"
+            }
+        }
+    },
+    {
+        "id": "MELEE_SWORD",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "dagger",
+            "name": "Dicing Dagger"
+        },
+        "isMain": true,
+        "ingameViewData": "MELEE_SWORD",
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 20,
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 60,
+            "basePower": 120,
+            "baseBulletSpeed": 150,
+            "baseFrequency": 2,
+            "basePiercing": 9999,
+            "baseAmount": [1,1],
+            "baseDirectionType": "FacingPlayer",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleStart": [0,0,1.57],
+            "baseAngleOffset": [0,0,3.14],
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "standardVfxPack": "SWORD_MELEE_PACK_01",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
         "id": "PLAYER_AURA_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -947,6 +1060,9 @@
         "id": "PLAYER_CROSS_SHOT",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "cross",
@@ -991,6 +1107,9 @@
         "id": "PLAYER_MULTISHOT_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -1006,6 +1125,9 @@
         "id": "LAND_MINE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 1,
             "icon": "flameThrower",
@@ -1046,6 +1168,9 @@
         "id": "FALL_NUKE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "nukeBomb",
@@ -1088,6 +1213,9 @@
         "id": "FALL_NUKE_EXPLOSION",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -1129,6 +1257,9 @@
         "id": "SMALL_BOMB_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -1143,6 +1274,9 @@
         "id": "BOMB_THROWER_COMPANION",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
@@ -1184,6 +1318,9 @@
         "id": "BOMB_THROWER_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2
         },
@@ -1199,6 +1336,9 @@
         "id": "SEMI_AUTO_PISTOL_01",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "pistol6",
@@ -1243,6 +1383,9 @@
         "id": "SNIPER_01_COMPANION",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper2",
@@ -1284,54 +1427,12 @@
         }
     },
     {
-        "id": "ENEMY_MINIGUN_01",
-        "entityData": {
-            "starter": false,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "blaster-minugun",
-            "name": "Minigun"
-        },
-        "isMain": true,
-        "ingameViewData": "MINIGUN_01",
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "overrider": "DAGGER_ROTATOR_OVERRIDER",
-        "attributes": {
-            "baseRadius": 15,
-            "baseSpawnDistance": 50,
-            "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 200,
-            "basePower": 10,
-            "baseBulletSpeed": 50,
-            "baseFrequency": 1,
-            "basePiercing": 1,
-            "baseAmount": 1,
-            "baseDirectionType": "AngularSequence",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 5,
-            "baseAngleOffset": 0.6,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
-            "destroyVfxPack": "RED_HIT",
-            "overrider": {
-                "baseViewData": "SPERM_ENEMY"
-            }
-        }
-    },
-    {
         "id": "DAGGER_ROTATOR_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "tile_0106",
@@ -1376,6 +1477,9 @@
         "id": "ICE_SHARD_ROTATOR",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -1417,6 +1521,9 @@
         "id": "ORBIT_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "small-spark4",
@@ -1457,6 +1564,9 @@
         "id": "LIGHTNING",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 3,
             "icon": "electric-slash6",
@@ -1502,6 +1612,9 @@
         "id": "LIGHTNING_IN_PLACE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "electric-slash6",
@@ -1546,6 +1659,9 @@
         "id": "ELECTRIC_SLASH_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
@@ -1588,6 +1704,9 @@
         "id": "FLASH_CIRCLE",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "flash7",
@@ -1630,6 +1749,9 @@
         "id": "LASER_DRONE_WEAPON",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "laserGun1",
@@ -1677,6 +1799,9 @@
         "id": "LASER_OVERRIDER",
         "entityData": {
             "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": false,
             "type": "Weapon",
             "tier": 2,
             "icon": "vfx-c1",

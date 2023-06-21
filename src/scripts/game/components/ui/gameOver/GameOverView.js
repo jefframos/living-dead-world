@@ -216,6 +216,13 @@ export default class GameOverView extends GameObject {
 
         this.uiEndStatsList.updateHorizontalList()
 
+        if (this.currentShowingPrizes) {
+            this.currentShowingPrizes.forEach(element => {
+                this.prizesContainer.removeChild(element)
+
+            });
+        }
+
         if (win) {
             const prizes = PrizeManager.instance.getMetaPrize(-1, 1,2, false)
             this.showPrize(prizes)

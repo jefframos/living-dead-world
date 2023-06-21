@@ -70,9 +70,7 @@ export default class Player extends GameAgent {
         this.currentSessionData = value;
         this.currentSessionData.equipmentUpdated.removeAll();
         this.currentSessionData.equipmentUpdated.add(this.rebuildWeaponGrid.bind(this))
-        //this.currentSessionData.addEquipmentNEW(WeaponBuilder.instance.weaponsData[this.staticData.weapon.id])
-
-        this.currentSessionData.setMainWeapon(WeaponBuilder.instance.weaponsData[GameData.instance.currentEquippedWeaponData.id])
+        this.currentSessionData.setMainWeapon(WeaponBuilder.instance.weaponsData[GameData.instance.currentEquippedWeaponData.id], GameData.instance.currentEquippedWeapon.level)
         this.sessionStarted();
     }
     makeAnimations(data) {

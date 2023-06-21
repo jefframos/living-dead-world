@@ -56,11 +56,6 @@ export default class SurvivorDeckController extends GameObject {
         this.cardContainerMaxWidth = 650
         
         this.state = 0;
-
-        // this.test = UIUtils.getRect(0,this.cardContainerMaxWidth,this.cardContainerMaxWidth)
-        // this.test.pivot.x = this.cardContainerMaxWidth/2
-        // this.test.pivot.y = this.cardContainerMaxWidth/2
-        // this.cardsContainer.addChild(this.test)
     }
 
     start() {

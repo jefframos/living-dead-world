@@ -6,8 +6,10 @@ import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
+import ItemMergeSystem from '../../merge/ItemMergeSystem';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
 import MainScreenModal from '../MainScreenModal';
+import MergeCardView from '../../merge/MergeCardView';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../core/utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
@@ -67,9 +69,63 @@ export default class LoadoutContainer extends MainScreenModal {
             this.updateListView(this.equippableCompanions)
         })
 
+        this.mergeSectionButton = UIUtils.getPrimaryLabelButton(() => {
+            this.findMerge();
+        }, "Merge")
+        this.container.addChild(this.mergeSectionButton)
+
         this.slotsList.updateVerticalList()
         this.slotsListInGame.updateVerticalList()
 
+        this.mergeContainer = new PIXI.Container();
+        this.container.addChild(this.mergeContainer)
+        this.mergeSystem = new ItemMergeSystem(this.mergeContainer, this.slotSize);
+        this.mergeSystem.onUpgradeItem.add(() => {
+            this.refresh();
+        })
+
+    }
+    refresh() {
+        console.log("REFRESH ON MERGE")
+        if (!this.findMerge()) {
+            this.show()
+        }
+    }
+    findMerge() {
+        const entityCount = {}
+        this.currentSlots.forEach(element => {
+            if (element.cardData) {
+                if (entityCount[element.cardData.id + '-' + element.level]) {
+                    entityCount[element.cardData.id + '-' + element.level].total++
+                } else {
+                    entityCount[element.cardData.id + '-' + element.level] = {
+                        total: 1,
+                        level: element.level,
+                        data: element.cardData,
+                        card: element
+                    }
+                }
+            }
+        });
+
+        var canMerge = false;
+        for (const key in entityCount) {
+            const element = entityCount[key];
+            if (element.total >= 3) {
+                canMerge = true;
+                break;
+            }
+        }
+
+
+
+        if (!canMerge) {
+            return false
+        }
+
+        const tempMergeDraw = this.mergeSystem.buildMergeView(entityCount)
+        console.log(tempMergeDraw)
+        this.updateListView(tempMergeDraw, true)
     }
     addBackgroundShape() {
         // this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
@@ -224,8 +280,7 @@ export default class LoadoutContainer extends MainScreenModal {
         }
 
 
-
-
+        
         this.updateListView(this.equippableWeapons)
 
         this.slotsList.updateVerticalList()
@@ -246,11 +301,11 @@ export default class LoadoutContainer extends MainScreenModal {
         this.addAttributes = new EntityAttributes()
         this.addAttributes.resetAll();
 
-        if (loadoutData.currentShoe.length > 0) {            
+        if (loadoutData.currentShoe.length > 0) {
             const equippedShoe = EntityBuilder.instance.getEquipable(loadoutData.currentShoe[0].id)
             if (equippedShoe) {
                 const shoeAttribute = GameData.instance.getAttributesFromEquipabble(equippedShoe, loadoutData.currentShoe[0].level);
-                console.log('shoeAttribute',shoeAttribute)
+                console.log('shoeAttribute', shoeAttribute)
                 this.addAttributes.sumAttributes(shoeAttribute)
             }
         }
@@ -260,7 +315,7 @@ export default class LoadoutContainer extends MainScreenModal {
             const equippedTrinket = EntityBuilder.instance.getEquipable(loadoutData.currentTrinket[0].id)
             if (equippedTrinket) {
                 const trinketAttribute = GameData.instance.getAttributesFromEquipabble(equippedTrinket, loadoutData.currentTrinket[0].level);
-                console.log('trinketAttribute',trinketAttribute)
+                console.log('trinketAttribute', trinketAttribute)
                 this.addAttributes.sumAttributes(trinketAttribute)
 
             }
@@ -269,7 +324,11 @@ export default class LoadoutContainer extends MainScreenModal {
         this.atributes.sumAttributes(this.addAttributes)
         console.log(this.atributes, this.addAttributes)
     }
-    updateListView(slots) {
+    updateListView(slots, showMerge = false) {
+        //this.mergeSystem.destroyCards()
+        if (!showMerge) {
+            this.mergeSystem.hide();
+        }
         this.currentSlots = slots;
         this.weaponsScroller.removeAllItems();
         this.weaponsScroller.addItens(this.currentSlots)
@@ -312,6 +371,15 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.slotsListInGame.scale.set(Utils.scaleToFit(this.slotsListInGame, Game.Borders.height / 2 - 150))
         this.slotsList.x = this.weaponsScroller.rect.w + this.weaponsScroller.x - this.slotsList.w * this.slotsList.scale.x
         this.slotsList.y = Game.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y
+        this.mergeSectionButton.x = this.weaponsScroller.x + 10
+        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height - 20
+
+
+
+        this.mergeContainer.x = this.weaponsScroller.x + (this.weaponsScroller.rect.w) / 2
+        this.mergeContainer.y = this.weaponsScroller.y
+
+        this.mergeSystem.resize(res, newRes);
 
     }
 

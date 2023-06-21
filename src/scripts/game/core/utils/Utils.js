@@ -116,9 +116,12 @@ export default class Utils {
         }
         return data;
     }
-
+    static centerObject(target, parent) {
+        target.x = parent.width / 2 - target.width * 0.5;
+        target.y = parent.height / 2 - target.height * 0.5;
+    }
     static floatToTime(value) {
-        if(value <= 0){
+        if (value <= 0) {
             return "00:00"
         }
         let hours = Math.floor(value / 60);
