@@ -75,16 +75,13 @@ export default class PrizeManager {
             if (id < 0) {
                 id = Math.floor(Math.random() * this.prizeList.length);
             }
-
             itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }
 
         const types = [];
         itemPrizeList.forEach(element => {
-            console.log(element.type, element)
             GameData.instance.addToInventory(element.type, element)
             types.push(element.type)
-
         });
 
         const prizeData = { type: types, value: itemPrizeList }
@@ -93,12 +90,26 @@ export default class PrizeManager {
         }
         return prizeData;
     }
-    updateItem(type, item, level){
-
-        const prize =  { id: item.id, level}
-        GameData.instance.addToInventory(type,prize)
-        this.onGetMetaPrize.dispatch( { type: [type], value: [prize] })
+    updateItem(type, item, level) {
+        const prize = { id: item.id, level }
+        GameData.instance.addToInventory(type, prize)
+        this.onGetMetaPrize.dispatch({ type: [type], value: [prize] })
     }
+    updateItems(types, items, levels) {
+
+        const collectedPrize = []
+        for (let index = 0; index < items.length; index++) {
+            const element = items[index];
+
+            const prize = { id: element.id, level: levels[index] }
+            GameData.instance.addToInventory(types[index], prize)
+
+            collectedPrize.push(prize)
+        }
+        this.onGetMetaPrize.dispatch({ type: types, value: collectedPrize })
+    }
+
+
     getItemPrize(type, maxLevel) {
         let allEquip = [];
 

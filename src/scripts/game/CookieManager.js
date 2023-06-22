@@ -48,7 +48,7 @@ export default class CookieManager {
 			bodyParts: [],
 			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }, { id: 'FROG-1', level: 0 }, { id: 'BIRD-1', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
-			trinkets: [{ id: 'TRINKET_01', level: 0 }],
+			trinkets: [{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 }],
 			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }],
 		}
 		this.defaultLoadout = {

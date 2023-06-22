@@ -10,6 +10,7 @@ export default class UIUtils {
 
     }
     static baseButtonTexture = 'square_button';
+    static baseTabTexture = 'tab_button';
     static colorset = {
         skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
         clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
@@ -179,6 +180,18 @@ export default class UIUtils {
         }
         if (label) {
             UIUtils.addLabel(button, label, {  fontSize: 24, fill: 0xFFFFFF })
+        }
+        return button;
+    }
+    static getPrimaryLabelTabButton(callback, label, icon) {
+        const button = new BaseButton(UIUtils.baseTabTexture + '_0002', 150, 65);
+        button.setPadding(20,20,70,70)
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+        if (icon) {
+            button.addIcon(icon)
+        }
+        if (label) {
+            UIUtils.addLabel(button, label, {  fontSize: 24, fill: 0xFFFFFF }, { x: 0, y: -5 })
         }
         return button;
     }

@@ -75,6 +75,12 @@ export default class BaseButton extends PIXI.Container {
         this.out();
         this.onButtonClicked.dispatch(this)
     }
+    setPadding(left = 20, top = 20, right = 20, bottom = 20){
+        this.safeShape.leftWidth = left;
+        this.safeShape.topHeight = top;
+        this.safeShape.rightWidth = right;
+        this.safeShape.bottomHeight = bottom;
+    }
     addShape(texture, width, height) {
         this.mainTexture = texture;
         const tex = texture ? PIXI.Texture.from(texture): PIXI.Texture.EMPTY

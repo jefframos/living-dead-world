@@ -2,7 +2,7 @@
 
 "buttons/square_button_0001.png":
 {
-	"frame": {"x":869,"y":256,"w":75,"h":75},
+	"frame": {"x":1883,"y":97,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -10,7 +10,7 @@
 },
 "buttons/square_button_0002.png":
 {
-	"frame": {"x":869,"y":337,"w":75,"h":75},
+	"frame": {"x":1883,"y":178,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -18,7 +18,7 @@
 },
 "buttons/square_button_0003.png":
 {
-	"frame": {"x":869,"y":418,"w":75,"h":75},
+	"frame": {"x":1631,"y":353,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -26,7 +26,7 @@
 },
 "buttons/square_button_0004.png":
 {
-	"frame": {"x":869,"y":499,"w":75,"h":75},
+	"frame": {"x":1631,"y":256,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -34,7 +34,7 @@
 },
 "buttons/square_button_0005.png":
 {
-	"frame": {"x":868,"y":580,"w":75,"h":75},
+	"frame": {"x":1712,"y":353,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -42,7 +42,7 @@
 },
 "buttons/square_button_0006.png":
 {
-	"frame": {"x":868,"y":661,"w":75,"h":75},
+	"frame": {"x":1793,"y":297,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -50,7 +50,15 @@
 },
 "buttons/square_button_0007.png":
 {
-	"frame": {"x":868,"y":742,"w":75,"h":75},
+	"frame": {"x":1793,"y":378,"w":75,"h":75},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
+	"sourceSize": {"w":75,"h":75}
+},
+"buttons/square_button_0008.png":
+{
+	"frame": {"x":1874,"y":353,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -66,7 +74,7 @@
 },
 "cards/ingame-card0002.png":
 {
-	"frame": {"x":5,"y":463,"w":215,"h":452},
+	"frame": {"x":226,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -74,7 +82,7 @@
 },
 "cards/ingame-card0003.png":
 {
-	"frame": {"x":226,"y":5,"w":215,"h":452},
+	"frame": {"x":447,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -82,7 +90,7 @@
 },
 "cards/ingame-card0004.png":
 {
-	"frame": {"x":226,"y":463,"w":215,"h":452},
+	"frame": {"x":668,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -90,7 +98,7 @@
 },
 "cards/ingame-card0005.png":
 {
-	"frame": {"x":447,"y":5,"w":215,"h":452},
+	"frame": {"x":889,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -98,7 +106,7 @@
 },
 "cards/ingame-card0006.png":
 {
-	"frame": {"x":447,"y":463,"w":215,"h":452},
+	"frame": {"x":1110,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -106,7 +114,7 @@
 },
 "cards/item_card_container.png":
 {
-	"frame": {"x":668,"y":5,"w":245,"h":245},
+	"frame": {"x":1532,"y":5,"w":245,"h":245},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":245,"h":245},
@@ -114,7 +122,7 @@
 },
 "modal/modal_container0001.png":
 {
-	"frame": {"x":668,"y":512,"w":94,"h":94},
+	"frame": {"x":1331,"y":261,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -122,7 +130,7 @@
 },
 "modal/modal_container0002.png":
 {
-	"frame": {"x":668,"y":612,"w":94,"h":94},
+	"frame": {"x":1331,"y":361,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -130,7 +138,7 @@
 },
 "modal/modal_container0003.png":
 {
-	"frame": {"x":768,"y":512,"w":94,"h":94},
+	"frame": {"x":1431,"y":261,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -138,7 +146,7 @@
 },
 "modal/modal_container0004.png":
 {
-	"frame": {"x":668,"y":712,"w":94,"h":94},
+	"frame": {"x":1431,"y":361,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -146,7 +154,7 @@
 },
 "modal/modal_container0005.png":
 {
-	"frame": {"x":768,"y":612,"w":94,"h":94},
+	"frame": {"x":1531,"y":261,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -154,7 +162,7 @@
 },
 "modal/modal_container0006.png":
 {
-	"frame": {"x":668,"y":812,"w":94,"h":94},
+	"frame": {"x":1531,"y":361,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -162,7 +170,7 @@
 },
 "modal/modal_container0007.png":
 {
-	"frame": {"x":768,"y":712,"w":94,"h":94},
+	"frame": {"x":1783,"y":5,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -170,7 +178,7 @@
 },
 "modal/modal_container0008.png":
 {
-	"frame": {"x":768,"y":812,"w":94,"h":94},
+	"frame": {"x":1783,"y":105,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -178,24 +186,49 @@
 },
 "slot-machine/slot-machine-modal.png":
 {
-	"frame": {"x":668,"y":256,"w":250,"h":195},
+	"frame": {"x":1331,"y":5,"w":250,"h":195},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":195},
 	"sourceSize": {"w":250,"h":195}
+},
+"tab/tab_button_0001.png":
+{
+	"frame": {"x":1883,"y":5,"w":86,"h":76},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":76},
+	"sourceSize": {"w":89,"h":88}
+},
+"tab/tab_button_0002.png":
+{
+	"frame": {"x":1783,"y":205,"w":86,"h":88},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":88},
+	"sourceSize": {"w":89,"h":88}
+},
+"tab/tab_button_0003.png":
+{
+	"frame": {"x":1877,"y":259,"w":86,"h":88},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":88},
+	"sourceSize": {"w":89,"h":88}
 }},
 "animations": {
-	"buttons/square_button": ["buttons/square_button_0001.png","buttons/square_button_0002.png","buttons/square_button_0003.png","buttons/square_button_0004.png","buttons/square_button_0005.png","buttons/square_button_0006.png","buttons/square_button_0007.png"],
+	"buttons/square_button": ["buttons/square_button_0001.png","buttons/square_button_0002.png","buttons/square_button_0003.png","buttons/square_button_0004.png","buttons/square_button_0005.png","buttons/square_button_0006.png","buttons/square_button_0007.png","buttons/square_button_0008.png"],
 	"cards/ingame-card": ["cards/ingame-card0001.png","cards/ingame-card0002.png","cards/ingame-card0003.png","cards/ingame-card0004.png","cards/ingame-card0005.png","cards/ingame-card0006.png"],
-	"modal/modal_container": ["modal/modal_container0001.png","modal/modal_container0002.png","modal/modal_container0003.png","modal/modal_container0004.png","modal/modal_container0005.png","modal/modal_container0006.png","modal/modal_container0007.png","modal/modal_container0008.png"]
+	"modal/modal_container": ["modal/modal_container0001.png","modal/modal_container0002.png","modal/modal_container0003.png","modal/modal_container0004.png","modal/modal_container0005.png","modal/modal_container0006.png","modal/modal_container0007.png","modal/modal_container0008.png"],
+	"tab/tab_button": ["tab/tab_button_0001.png","tab/tab_button_0002.png","tab/tab_button_0003.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
 	"version": "1.0",
 	"image": "ui-no-tiny.png",
 	"format": "RGBA8888",
-	"size": {"w":949,"h":920},
+	"size": {"w":1968,"h":462},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:99eb9a8216f1d7d1f39ead0eb1a33732:4888e86c349cb5b1d48f38d1f2e9fbf4:283778344c759f5e2b0541873028f299$"
+	"smartupdate": "$TexturePacker:SmartUpdate:2d96daf72cadba605cdf233000ef47c8:c7624522a403d952cc0800055bf66c7a:283778344c759f5e2b0541873028f299$"
 }
 }

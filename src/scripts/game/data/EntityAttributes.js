@@ -42,14 +42,23 @@ export default class EntityAttributes {
     writeDefaults() {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
-                this[key + 'default'] = this[key];
+                if (key.includes("default")) {
+                    this[key] = this[key];
+                } else {
+
+                    this[key + 'default'] = this[key];
+                }
             }
         }
     }
     overrideDefaults(value) {
         for (const key in this) {
             if (Object.hasOwnProperty.call(this, key)) {
-                this[key + 'default'] = value;
+                if (key.includes("default")) {
+                    this[key] = value;
+                } else {
+                    this[key + 'default'] = value;
+                }
             }
         }
     }
@@ -79,6 +88,9 @@ export default class EntityAttributes {
         }
     }
     addMultiplyer(type, value) {
+        if ( isNaN(value) ) {
+            return;
+        }
         if (this[type] !== undefined) {
             this[type] += value;
         }

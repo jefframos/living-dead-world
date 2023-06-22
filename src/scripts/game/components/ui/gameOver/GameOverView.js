@@ -164,7 +164,7 @@ export default class GameOverView extends GameObject {
         this.uiEndStatsList.updateHorizontalList()
 
 
-  
+
 
 
         this.confirmButton = UIUtils.getPrimaryLargeLabelButton(() => {
@@ -190,7 +190,7 @@ export default class GameOverView extends GameObject {
 
         this.prizesContainer.addChild(this.reviveButton)
 
-        
+
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.collectPrizes();
         }, 'Collect')
@@ -199,7 +199,7 @@ export default class GameOverView extends GameObject {
         this.prizesContainer.addChild(this.collectButton)
 
     }
-  
+
     show(win = true, data = {}, hasGameOverToken = true) {
         //win = !win
         this.gameOverContainer.visible = !win
@@ -224,16 +224,16 @@ export default class GameOverView extends GameObject {
         }
 
         if (win) {
-            const prizes = PrizeManager.instance.getMetaPrize([-1], 1,2, false)
+            const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 2, false)
             this.showPrize(prizes)
 
             this.confirmButton.visible = false;
             this.reviveButton.visible = false;
             this.collectButton.visible = true;
         } else {
-            if(!hasGameOverToken){
+            if (!hasGameOverToken) {
                 this.showGameOverPrizes(0)
-            }else{
+            } else {
                 this.confirmButton.visible = true;
                 this.reviveButton.visible = true;
                 this.collectButton.visible = false;
@@ -241,7 +241,7 @@ export default class GameOverView extends GameObject {
         }
     }
     collectPrizes() {
-   
+
         console.log("ADD PARTICLES HERE")
 
         this.currentShowingPrizes.forEach(element => {
@@ -249,7 +249,7 @@ export default class GameOverView extends GameObject {
 
         });
 
-        setTimeout(() => {            
+        setTimeout(() => {
             this.onConfirmGameOver.dispatch();
         }, 50);
 
@@ -259,7 +259,7 @@ export default class GameOverView extends GameObject {
         this.confirmButton.visible = false;
         this.collectButton.visible = true;
 
-        const prizes = PrizeManager.instance.getMetaPrize([-1], 0,1, false)
+        const prizes = PrizeManager.instance.getMetaPrize([-1], 0, 1, false)
         this.showPrize(prizes)
     }
     enable() {
@@ -329,6 +329,10 @@ export default class GameOverView extends GameObject {
                     entityData = EntityBuilder.instance.getMask(value.id)
                     texture = entityData.entityData.icon
                     break;
+                case PrizeManager.PrizeType.Shoe:
+                    entityData = EntityBuilder.instance.getShoe(value.id)
+                    texture = entityData.entityData.icon
+                    break;
                 case PrizeManager.PrizeType.Trinket:
                     entityData = EntityBuilder.instance.getTrinket(value.id)
                     texture = entityData.entityData.icon
@@ -341,6 +345,7 @@ export default class GameOverView extends GameObject {
             drawPrizes.push({ texture, entityData, value })
         }
 
+        console.log(data, drawPrizes)
         if (this.currentShowingPrizes) {
             this.currentShowingPrizes.forEach(element => {
                 this.prizesContainer.removeChild(element)
@@ -372,7 +377,7 @@ export default class GameOverView extends GameObject {
 
             prize.y = -20
             TweenLite.to(prize, 0.5, {
-                delay: i * 0.25 + 0.35,  y:0, ease:Elastic.easeOut
+                delay: i * 0.25 + 0.35, y: 0, ease: Elastic.easeOut
             })
 
         }

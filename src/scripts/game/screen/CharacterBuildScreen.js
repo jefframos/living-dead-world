@@ -262,7 +262,7 @@ export default class CharacterBuildScreen extends Screen {
 
         const bt0 = UIUtils.getPrimaryShapelessButton(() => {
             
-            PrizeManager.instance.getMetaPrize([0,1,2,3,4], 1, 5);
+            PrizeManager.instance.getMetaPrize([0,1,2,3,4], 1, 8);
         }, 'TestPopUp', 'crown')
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })

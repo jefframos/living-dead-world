@@ -16,12 +16,12 @@ const assets = [
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_FR",
 	"url":"assets/json\\localization_FR.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_JA",
@@ -36,12 +36,12 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_RU",
-	"url":"assets/json\\localization_RU.json"
-	},
-	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
+	},
+	{
+	"id":"localization_RU",
+	"url":"assets/json\\localization_RU.json"
 	},
 	{
 	"id":"localization_ZH",
@@ -54,10 +54,6 @@ const assets = [
 	{
 	"id":"player-assets",
 	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"companion-animation",
@@ -92,6 +88,10 @@ const assets = [
 	"url":"assets/json\\entity\\enemies.json"
 	},
 	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
+	},
+	{
 	"id":"level-1",
 	"url":"assets/json\\environment\\level-1.json"
 	},
@@ -100,20 +100,12 @@ const assets = [
 	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
-	"id":"main-weapons",
-	"url":"assets/json\\weapons\\main-weapons.json"
-	},
-	{
-	"id":"weapon-in-game-visuals",
-	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
-	},
-	{
-	"id":"weapon-view-overriders",
-	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
 	"id":"acessories",
 	"url":"assets/json\\misc\\acessories.json"
+	},
+	{
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
 	"id":"attachments",
@@ -124,8 +116,16 @@ const assets = [
 	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
+	"id":"main-weapons",
+	"url":"assets/json\\weapons\\main-weapons.json"
+	},
+	{
+	"id":"weapon-view-overriders",
+	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	},
+	{
+	"id":"weapon-in-game-visuals",
+	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
 	},
 	{
 	"id":"general-vfx",
@@ -136,12 +136,12 @@ const assets = [
 	"url":"assets/json\\vfx\\particle-behaviour.json"
 	},
 	{
-	"id":"weapon-vfx-pack",
-	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
-	},
-	{
 	"id":"particle-descriptors",
 	"url":"assets/json\\vfx\\particle-descriptors.json"
+	},
+	{
+	"id":"weapon-vfx-pack",
+	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
 	},
 	{
 	"id":"weapon-vfx",

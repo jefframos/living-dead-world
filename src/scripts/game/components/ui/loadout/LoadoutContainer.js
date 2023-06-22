@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import AttributesContainer from './AttributesContainer';
 import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
 import EntityAttributes from '../../../data/EntityAttributes';
 import EntityBuilder from '../../../screen/EntityBuilder';
@@ -27,6 +28,30 @@ export default class LoadoutContainer extends MainScreenModal {
 
 
         this.slotSize = 120
+
+
+        this.mergeSectionButton = UIUtils.getPrimaryLabelTabButton(() => {
+            this.findMerge();
+        }, "Merge")
+        this.contentContainer.addChild(this.mergeSectionButton)
+        this.warningIcon = new PIXI.Sprite.from('info');
+        this.warningIcon.scale.set(Utils.scaleToFit(this.warningIcon, 30))
+        this.warningIcon.anchor.set(0.5)
+        this.warningIcon.x = this.mergeSectionButton.width - 15
+        this.mergeSectionButton.addChild(this.warningIcon)
+        this.mergeSectionButton.warningIcon = this.warningIcon;
+
+        this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
+            this.mergeSystem.findAllMerges(this.currentSlots);
+        }, "Merge All")
+        this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
+        this.autoMergeAll.setActive()
+        this.contentContainer.addChild(this.autoMergeAll)
+        this.autoMergeAll.scale.x = -1;
+        this.autoMergeAll.text.scale.x = -1;
+
+        this.autoMergeAll.visible = false;
+
         this.onUpdateMainWeapon = new signals.Signal();
         this.weaponsScroller = new BodyPartsListScroller({ w: this.slotSize * 4, h: this.slotSize }, { width: this.slotSize + 10, height: this.slotSize + 10 }, { x: 10, y: 10 })
         this.contentContainer.addChild(this.weaponsScroller);
@@ -48,39 +73,44 @@ export default class LoadoutContainer extends MainScreenModal {
         this.contentContainer.addChild(this.slotsListInGame);
 
         this.currentWeaponSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        this.currentWeaponSlot.setIconType();
+        //this.currentWeaponSlot.setIconType();
         this.slotsListInGame.addElement(this.currentWeaponSlot, { align: 0 });
 
         this.currentWeaponSlot.onCardClicked.add((card) => {
+            this.disableMainSlots();
+            card.selected();
             this.showSection(LoadoutContainer.Sections.Weapon)
         })
 
         this.currentShoeSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        this.currentShoeSlot.setIconType(true);
+        //this.currentShoeSlot.setIconType(true);
         this.slotsList.addElement(this.currentShoeSlot, { align: 0 });
         this.currentShoeSlot.onCardClicked.add((card) => {
+            this.disableMainSlots();
+            card.selected();
             this.showSection(LoadoutContainer.Sections.Shoe)
         })
-
+        
         this.currentTrinketSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        this.currentTrinketSlot.setIconType(true);
+        //this.currentTrinketSlot.setIconType(true);
         this.slotsList.addElement(this.currentTrinketSlot, { align: 0 });
         this.currentTrinketSlot.onCardClicked.add((card) => {
+            this.disableMainSlots();
+            card.selected();
             this.showSection(LoadoutContainer.Sections.Trinket)
         })
-
+        
         this.currentCompanionSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        this.currentCompanionSlot.setIconType();
+        //this.currentCompanionSlot.setIconType();
         this.slotsListInGame.addElement(this.currentCompanionSlot, { align: 0 });
         this.currentCompanionSlot.onCardClicked.add((card) => {
+            this.disableMainSlots();
+            card.selected();
             this.showSection(LoadoutContainer.Sections.Caompanion)
         })
-
-        this.mergeSectionButton = UIUtils.getPrimaryLabelButton(() => {
-            this.findMerge();
-        }, "Merge")
-        this.container.addChild(this.mergeSectionButton)
-
+        
+        
+        this.mainslots = [this.currentWeaponSlot, this.currentShoeSlot, this.currentTrinketSlot, this.currentCompanionSlot]
         this.slotsList.updateVerticalList()
         this.slotsListInGame.updateVerticalList()
 
@@ -89,23 +119,25 @@ export default class LoadoutContainer extends MainScreenModal {
         this.mergeSystem = new ItemMergeSystem(this.mergeContainer, this.slotSize);
         this.mergeSystem.onUpgradeItem.add(() => {
             setTimeout(() => {
-                
                 this.refresh();
             }, 1);
         })
+        
+        this.attributesView = new AttributesContainer();
+        this.container.addChild(this.attributesView)
 
+    }
+    disableMainSlots(){
+        this.mainslots.forEach(element => {
+            element.unselected();
+        });
+        
     }
     refresh() {
         this.refreshSection(this.previousSection, true)
-        
         let canMerge = this.findMerge()
-        console.log("REFRESH ON MERGE", canMerge)
-        if (canMerge) {
-        }else{
-
-        }
     }
-    findMerge() {
+    findMerge(show = true) {
         const entityCount = {}
         this.currentSlots.forEach(element => {
             if (element.cardData) {
@@ -132,13 +164,16 @@ export default class LoadoutContainer extends MainScreenModal {
         }
 
 
-
+        this.autoMergeAll.visible = false;
         if (!canMerge) {
             return false
         }
 
-        const tempMergeDraw = this.mergeSystem.buildMergeView(entityCount)
-        this.updateListView(tempMergeDraw, true)
+        if (show) {
+            const tempMergeDraw = this.mergeSystem.buildMergeView(entityCount)
+            this.updateListView(tempMergeDraw, true)
+            this.autoMergeAll.visible = true;
+        }
         return true;
     }
     addBackgroundShape() {
@@ -161,35 +196,44 @@ export default class LoadoutContainer extends MainScreenModal {
                 this.updateListView(this.equippableCompanions)
                 break;
         }
+
+        if (!this.findMerge(false)) {
+            this.mergeSectionButton.text.alpha = 0.5;
+            this.mergeSectionButton.warningIcon.visible = false;
+        } else {
+            this.mergeSectionButton.text.alpha = 1;
+            this.mergeSectionButton.warningIcon.visible = true;
+        }
     }
     refreshSection(id, applySection = false) {
         switch (id) {
             case LoadoutContainer.Sections.Weapon:
                 this.refreshWeapons();
                 if (applySection) {
-                    this.updateListView(this.equippableWeapons)
+                    this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Shoe:
                 this.refreshShoes();
                 if (applySection) {
-                    this.updateListView(this.equippableShoes)
+                    this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Trinket:
                 this.refreshTrinkets();
                 if (applySection) {
-                    this.updateListView(this.equippableTrinkets)
+                    this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Caompanion:
                 this.refreshCompanions();
                 if (applySection) {
-                    this.updateListView(this.equippableCompanions)
+                    this.showSection(id)
                 }
                 break;
         }
     }
+
     refreshWeapons() {
         const fullInventory = GameData.instance.inventory;
 
@@ -204,7 +248,6 @@ export default class LoadoutContainer extends MainScreenModal {
             card.resetPivot()
             card.onCardClicked.add((card) => {
                 GameData.instance.changeMainWeapon(card.cardData.id, card.level);
-                console.log(card, card.level)
                 this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id), card.level)
                 this.onUpdateMainWeapon.dispatch(card.cardData);
                 this.refreshAttributes();
@@ -213,27 +256,20 @@ export default class LoadoutContainer extends MainScreenModal {
             this.equippableWeapons.push(card)
         }
 
-
+        this.equippableWeapons.sort((a, b) => a.level - b.level);
+        this.equippableWeapons.sort((a, b) => a.cardData.id.localeCompare(b.cardData.id));
     }
     refreshCompanions() {
         const fullInventory = GameData.instance.inventory;
 
         this.equippableCompanions = [];
 
-        let removeCompanion = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        removeCompanion.resetPivot()
-        removeCompanion.onCardClicked.add((removeCompanion) => {
-            GameData.instance.changeCompanion(null);
-            this.currentCompanionSlot.setData(null)
-        })
-        this.equippableCompanions.push(removeCompanion)
 
         let availableCompanions = fullInventory.companions
 
         for (let index = 0; index < availableCompanions.length; index++) {
             const card = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
             let dt = EntityBuilder.instance.getCompanion(availableCompanions[index].id)
-            console.log(availableCompanions[index].level)
             card.setData(dt, availableCompanions[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
@@ -245,22 +281,22 @@ export default class LoadoutContainer extends MainScreenModal {
             this.equippableCompanions.push(card)
         }
 
+        this.equippableCompanions.sort((a, b) => a.level - b.level);
+        this.equippableCompanions.sort((a, b) => a.cardData.id.localeCompare(b.cardData.id));
+
+        let removeCompanion = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        removeCompanion.resetPivot()
+        removeCompanion.onCardClicked.add((removeCompanion) => {
+            GameData.instance.changeCompanion(null);
+            this.currentCompanionSlot.setData(null)
+        })
+        this.equippableCompanions.shift(removeCompanion)
+
     }
     refreshTrinkets() {
         const fullInventory = GameData.instance.inventory;
 
         this.equippableTrinkets = [];
-
-        let removeTrinket = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-        //removeTrinket.setData(dt)
-        removeTrinket.resetPivot()
-        removeTrinket.onCardClicked.add((removeTrinket) => {
-            GameData.instance.changeTrinket(null);
-            this.currentTrinketSlot.setData(null)
-        })
-        this.equippableTrinkets.push(removeTrinket)
-
-
         let availableTrinkets = fullInventory.trinkets
 
         for (let index = 0; index < availableTrinkets.length; index++) {
@@ -276,8 +312,19 @@ export default class LoadoutContainer extends MainScreenModal {
 
             })
             this.equippableTrinkets.push(card)
-
         }
+
+        this.equippableTrinkets.sort((a, b) => a.level - b.level);
+        this.equippableTrinkets.sort((a, b) => a.cardData.id.localeCompare(b.cardData.id));
+
+        let removeTrinket = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        //removeTrinket.setData(dt)
+        removeTrinket.resetPivot()
+        removeTrinket.onCardClicked.add((removeTrinket) => {
+            GameData.instance.changeTrinket(null);
+            this.currentTrinketSlot.setData(null)
+        })
+        this.equippableTrinkets.shift(removeTrinket)
     }
     refreshShoes() {
         const fullInventory = GameData.instance.inventory;
@@ -298,8 +345,10 @@ export default class LoadoutContainer extends MainScreenModal {
 
             })
             this.equippableShoes.push(card)
-
         }
+
+        this.equippableShoes.sort((a, b) => a.level - b.level);
+        this.equippableShoes.sort((a, b) => a.cardData.id.localeCompare(b.cardData.id));
     }
     show() {
         this.visible = true;
@@ -337,6 +386,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.showSection(LoadoutContainer.Sections.Weapon)
 
+        this.currentWeaponSlot.selected();
         this.slotsList.updateVerticalList()
         this.slotsListInGame.updateVerticalList()
         this.resize()
@@ -350,11 +400,12 @@ export default class LoadoutContainer extends MainScreenModal {
         const playerData = GameStaticData.instance.getEntityByIndex('player', 0)
 
         this.atributes = new EntityAttributes()
+        console.log(this.atributes.multipliers)
         this.atributes.reset(playerData.attributes)
-
+        
         this.addAttributes = new EntityAttributes()
         this.addAttributes.resetAll();
-
+        
         if (loadoutData.currentShoe.length > 0) {
             const equippedShoe = EntityBuilder.instance.getEquipable(loadoutData.currentShoe[0].id)
             if (equippedShoe) {
@@ -363,20 +414,28 @@ export default class LoadoutContainer extends MainScreenModal {
                 this.addAttributes.sumAttributes(shoeAttribute)
             }
         }
-
+        
         if (loadoutData.currentTrinket.length > 0) {
-
+            
             const equippedTrinket = EntityBuilder.instance.getEquipable(loadoutData.currentTrinket[0].id)
             if (equippedTrinket) {
                 const trinketAttribute = GameData.instance.getAttributesFromEquipabble(equippedTrinket, loadoutData.currentTrinket[0].level);
                 console.log('trinketAttribute', trinketAttribute)
                 this.addAttributes.sumAttributes(trinketAttribute)
-
+                
             }
         }
-
+        
         this.atributes.sumAttributes(this.addAttributes)
-        console.log(this.atributes, this.addAttributes)
+        console.log(this.atributes.multipliers)
+        console.log(this.atributes.health)
+        console.log(this.atributes.power)
+        console.log(this.atributes.defense)
+        console.log(this.atributes.speed)
+        console.log(this.atributes.frequency)
+
+        this.attributesView.updateAttributes(this.atributes)
+
     }
     updateListView(slots, showMerge = false) {
         //this.mergeSystem.destroyCards()
@@ -394,6 +453,8 @@ export default class LoadoutContainer extends MainScreenModal {
     }
     update(delta) {
         super.update(delta);
+
+        this.attributesView.visible = !this.autoMergeAll.visible;
     }
     resize(res, newRes) {
         super.resize(res, newRes)
@@ -426,13 +487,20 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.slotsListInGame.scale.set(Utils.scaleToFit(this.slotsListInGame, Game.Borders.height / 2 - 150))
         this.slotsList.x = this.weaponsScroller.rect.w + this.weaponsScroller.x - this.slotsList.w * this.slotsList.scale.x
         this.slotsList.y = Game.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y
-        this.mergeSectionButton.x = this.weaponsScroller.x + 10
-        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height - 20
+        this.mergeSectionButton.x = this.weaponsScroller.x
+        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 10
 
-
+        this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w
+        this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10
 
         this.mergeContainer.x = this.weaponsScroller.x + (this.weaponsScroller.rect.w) / 2
         this.mergeContainer.y = this.weaponsScroller.y
+
+        let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) / 2);
+        this.attributesView.scale.set(Math.min(1,attScale))
+
+        this.attributesView.x = (Game.Borders.width) / 2 - (this.attributesView.width) / 2
+        this.attributesView.y = this.weaponsScroller.y - this.attributesView.height - 20
 
         this.mergeSystem.resize(res, newRes);
 

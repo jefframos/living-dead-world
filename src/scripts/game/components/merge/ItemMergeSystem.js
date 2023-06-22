@@ -29,6 +29,7 @@ export default class ItemMergeSystem {
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
         this.containerBackground.width = 500
         this.containerBackground.height = 120
+        this.containerBackground.alpha = 0.5
 
         this.cardsContainer = new PIXI.Container();
         this.mergeContainer.addChild(this.containerBackground)
@@ -81,20 +82,70 @@ export default class ItemMergeSystem {
 
         this.onUpgradeItem = new signals.Signal();
     }
-    combineCurrentItems() {
+    findAllMerges(currentSelection) {
+        const entityCount = {}
+        currentSelection.forEach(element => {
+            if (element.cardData) {
+                if (entityCount[element.cardData.id + '-' + element.level]) {
+                    entityCount[element.cardData.id + '-' + element.level].total++
+                } else {
+                    entityCount[element.cardData.id + '-' + element.level] = {
+                        total: 1,
+                        level: element.level,
+                        data: element.cardData,
+                        card: element
+                    }
+                }
+            }
+        });
 
+        const allMergeData = []
+
+        const levels = []
+        const items = [];
+        const types = [];
+        for (const key in entityCount) {
+            const element = entityCount[key];
+            if (element.total >= 3) {
+                const totalUpgrades = Math.floor(element.total / 3)
+                for (let index = 0; index < totalUpgrades; index ++) {
+
+                    let data = { data: element.data, level: element.level + 1, toRemove: element.level }
+                    allMergeData.push(data);
+
+                    const dataType = this.getDataType(element.data)
+                    types.push(dataType)
+                    levels.push(element.level + 1)
+                    items.push(element.data)
+
+
+                    GameData.instance.removeFromInventory(dataType, { id: element.data.id, level: element.level }, 3)
+                }
+            }
+        }
+
+        PrizeManager.instance.updateItems(types, items, levels)
+        this.onUpgradeItem.dispatch();
+
+    }
+    getDataType(data) {
         var dataType = 'weapons'
 
-        console.log(this.previewMerge.cardData)
-        if (this.previewMerge.cardData instanceof AcessoryData) {
-            if (this.previewMerge.cardData.bodyPart == "shoe") {
+        if (data instanceof AcessoryData) {
+            if (data.bodyPart == "shoe") {
                 dataType = 'shoes'
-            } else if (this.previewMerge.cardData.bodyPart == "trinket") {
+            } else if (data.bodyPart == "trinket") {
                 dataType = 'trinkets'
             }
-        } else if (this.previewMerge.cardData instanceof CompanionData) {
+        } else if (data instanceof CompanionData) {
             dataType = 'companions'
         }
+        return dataType
+    }
+    combineCurrentItems() {
+
+        var dataType = this.getDataType(this.previewMerge.cardData);
+
         PrizeManager.instance.updateItem(dataType, this.previewMerge.cardData, this.previewMerge.level)
 
         this.previews.forEach(element => {
@@ -102,21 +153,8 @@ export default class ItemMergeSystem {
         });
 
         this.onUpgradeItem.dispatch();
-        //         switch(this.previewMerge.cardData.entityType){
-        // case EntityData.EntityDataType.Companion:
-        //     dataType = 'companions'
-        //     case EntityData.EntityDataType:
-        //     dataType = 'companions'
-        //     break;
-
-
-        // weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'SUB_MACHINE_GUN_01', level: 0 }, { id: 'SNIPER_01', level: 0 }, { id: 'MINIGUN_01', level: 0 }, { id: 'SHOTGUN_01', level: 0 }, { id: 'PLAYER_MULTISHOT', level: 0 }],
-        // 	bodyParts: [],
-        // 	companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }, { id: 'FROG-1', level: 0 }, { id: 'BIRD-1', level: 0 }],
-        // 	masks: [{ id: 'MASK_01', level: 0 }],
-        // 	trinkets: [{ id: 'TRINKET_01', level: 0 }],
-        // 	shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }],
     }
+
     buildMergeView(mergeData) {
         //POOLING DOESNT WORK PROPERLY
         //this.destroyCards();

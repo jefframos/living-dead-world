@@ -28,31 +28,31 @@ export default class OutGameUIProgression extends PIXI.Container {
         this.uiList.h = this.size.height - pad;
 
         this.uiList.x = pad / 2
-        this.uiList.y = pad / 2
+        this.uiList.y = pad / 2+2
 
         this.container.addChild(this.uiList)
 
-        this.moneyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
+        this.coinSprite = new PIXI.Sprite.from('coin2')
+        this.uiList.addElement(this.coinSprite, { listScl: 0.1, fitHeight: 0.8, align: 1 })
+
+        this.moneyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize:20});
         this.moneyLabel.text = 9000
-        this.uiList.addElement(this.moneyLabel, {listScl: 0.3,align: 0.85})
+        this.uiList.addElement(this.moneyLabel, {listScl: 0.3,align: 0.2})
 
-        this.coinSprite = new PIXI.Sprite.from('coin3')
-        this.uiList.addElement(this.coinSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
+        this.keySprite = new PIXI.Sprite.from('crownl')
+        this.uiList.addElement(this.keySprite, { listScl: 0.1, fitHeight: 0.8, align: 1 })
 
-
-        this.keyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
+        this.keyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize:20});
         this.keyLabel.text = 2
-        this.uiList.addElement(this.keyLabel, {listScl: 0.2,align: 0.9})
+        this.uiList.addElement(this.keyLabel, {listScl: 0.2,align: 0.2})
 
-        this.keySprite = new PIXI.Sprite.from('plusBadge')
-        this.uiList.addElement(this.keySprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
+        this.tokenSprite = new PIXI.Sprite.from('star')
+        this.uiList.addElement(this.tokenSprite, { listScl: 0.1, fitHeight: 0.8, align: 1 })
 
-        this.tokenLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 0, fontWeight: 'bold' })
+        this.tokenLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize:20});
         this.tokenLabel.text = 2
-        this.uiList.addElement(this.tokenLabel, {listScl: 0.2,align: 0.9})
+        this.uiList.addElement(this.tokenLabel, {listScl: 0.2,align: 0.2})
 
-        this.tokenSprite = new PIXI.Sprite.from('icon_increase')
-        this.uiList.addElement(this.tokenSprite, { listScl: 0.1, fitWidth: 0.8, align: 1 })
 
 
         this.uiList.updateHorizontalList()

@@ -87,6 +87,7 @@ export default class Player extends GameAgent {
         console.log(playerData)
         this.staticData = playerData;
         this.attributes.reset(playerData.attributes);
+        console.log("calculate here the attributes")
         this.viewData = playerData.view;
         Player.MainPlayer = this;
         super.build()

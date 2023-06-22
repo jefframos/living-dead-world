@@ -79,6 +79,13 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.iconSize = 80;
 
+
+        this.border = new PIXI.NineSlicePlane(PIXI.Texture.from(UIUtils.baseButtonTexture + '_0008'), 20, 20, 20, 20);
+        this.addChild(this.border);
+        this.border.width = width
+        this.border.height = height
+        this.unselected();
+
     }
     resize(width, height) {
         this.baseWidth = width;
@@ -87,6 +94,9 @@ export default class LoadoutCardView extends PIXI.Container {
         this.safeShape.width = width
         this.safeShape.height = height
 
+        this.border.width = width
+        this.border.height = height
+
         this.cardBorder.width = width
         this.cardBorder.height = height
 
@@ -94,6 +104,12 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.cardImage.x = width / 2
         this.cardImage.y = height / 2
+    }
+    selected() {
+        this.border.visible = true;
+    }
+    unselected() {
+        this.border.visible = false;
     }
     setIconType(left = false) {
         if (left) {
