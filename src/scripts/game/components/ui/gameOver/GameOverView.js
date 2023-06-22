@@ -224,7 +224,7 @@ export default class GameOverView extends GameObject {
         }
 
         if (win) {
-            const prizes = PrizeManager.instance.getMetaPrize(-1, 1,2, false)
+            const prizes = PrizeManager.instance.getMetaPrize([-1], 1,2, false)
             this.showPrize(prizes)
 
             this.confirmButton.visible = false;
@@ -259,7 +259,7 @@ export default class GameOverView extends GameObject {
         this.confirmButton.visible = false;
         this.collectButton.visible = true;
 
-        const prizes = PrizeManager.instance.getMetaPrize(-1, 0,1, false)
+        const prizes = PrizeManager.instance.getMetaPrize([-1], 0,1, false)
         this.showPrize(prizes)
     }
     enable() {

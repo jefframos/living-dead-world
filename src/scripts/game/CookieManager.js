@@ -242,7 +242,7 @@ export default class CookieManager {
 		this.saveChunk('inventory', data)
 
 	}
-	removeFromInventory(type, equip) {
+	removeFromInventory(type, equip, quant = 1) {
 		const data = this.getChunck('inventory')
 		if (data[type] === undefined) {
 			console.log(type, 'not found on inventory, not saving', data);
@@ -252,6 +252,10 @@ export default class CookieManager {
 			const element = data[type][i]
 			if (element.id == equip.id && element.level == equip.level) {
 				data[type].splice(i, 1)
+				quant --
+				if(quant <= 0){
+					break;
+				}
 			}
 		}
 		this.saveChunk('inventory', data);

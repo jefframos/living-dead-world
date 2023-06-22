@@ -40,14 +40,6 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Weapon,
         })
         this.prizeList.push({
-            icon: 'coin3l',
-            type: PrizeManager.PrizeType.Coin,
-        })
-        this.prizeList.push({
-            icon: 'active_engine',
-            type: PrizeManager.PrizeType.Key
-        })
-        this.prizeList.push({
             icon: 'pet-dog-10001',
             type: PrizeManager.PrizeType.Companion
         })
@@ -59,6 +51,14 @@ export default class PrizeManager {
             icon: 'trinket-icon0001',
             type: PrizeManager.PrizeType.Trinket
         })
+        this.prizeList.push({
+            icon: 'coin3l',
+            type: PrizeManager.PrizeType.Coin,
+        })
+        this.prizeList.push({
+            icon: 'active_engine',
+            type: PrizeManager.PrizeType.Key
+        })
     }
     get metaPrizeList() {
         return this.prizeList;
@@ -66,16 +66,17 @@ export default class PrizeManager {
     getMetaLowerPrize() {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
-    getMetaPrize(maxId, maxLevel, total = 1, dispatch = true) {
+    getMetaPrize(prizeId, maxLevel, total = 1, dispatch = true) {
 
         const itemPrizeList = []
 
         for (let index = 0; index < total; index++) {
-            if (maxId < 0) {
-                maxId = Math.floor(Math.random() * this.prizeList.length);
+            let id = prizeId[Math.floor(Math.random() * prizeId.length)]
+            if (id < 0) {
+                id = Math.floor(Math.random() * this.prizeList.length);
             }
 
-            itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, maxLevel))
+            itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }
 
         const types = [];

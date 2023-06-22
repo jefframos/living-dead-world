@@ -27859,8 +27859,8 @@ var GameData = function () {
         }
     }, {
         key: "removeFromInventory",
-        value: function removeFromInventory(type, item) {
-            _CookieManager2.default.instance.removeFromInventory(type, item);
+        value: function removeFromInventory(type, item, quant) {
+            _CookieManager2.default.instance.removeFromInventory(type, item, quant);
         }
     }, {
         key: "currentPlayer",
@@ -30461,14 +30461,6 @@ var PrizeManager = function () {
             type: PrizeManager.PrizeType.Weapon
         });
         this.prizeList.push({
-            icon: 'coin3l',
-            type: PrizeManager.PrizeType.Coin
-        });
-        this.prizeList.push({
-            icon: 'active_engine',
-            type: PrizeManager.PrizeType.Key
-        });
-        this.prizeList.push({
             icon: 'pet-dog-10001',
             type: PrizeManager.PrizeType.Companion
         });
@@ -30480,6 +30472,14 @@ var PrizeManager = function () {
             icon: 'trinket-icon0001',
             type: PrizeManager.PrizeType.Trinket
         });
+        this.prizeList.push({
+            icon: 'coin3l',
+            type: PrizeManager.PrizeType.Coin
+        });
+        this.prizeList.push({
+            icon: 'active_engine',
+            type: PrizeManager.PrizeType.Key
+        });
     }
 
     (0, _createClass3.default)(PrizeManager, [{
@@ -30489,7 +30489,7 @@ var PrizeManager = function () {
         }
     }, {
         key: "getMetaPrize",
-        value: function getMetaPrize(maxId, maxLevel) {
+        value: function getMetaPrize(prizeId, maxLevel) {
             var total = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
             var dispatch = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : true;
 
@@ -30497,11 +30497,12 @@ var PrizeManager = function () {
             var itemPrizeList = [];
 
             for (var index = 0; index < total; index++) {
-                if (maxId < 0) {
-                    maxId = Math.floor(Math.random() * this.prizeList.length);
+                var id = prizeId[Math.floor(Math.random() * prizeId.length)];
+                if (id < 0) {
+                    id = Math.floor(Math.random() * this.prizeList.length);
                 }
 
-                itemPrizeList.push(this.getItemPrize(this.prizeList[maxId].type, maxLevel));
+                itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel));
             }
 
             var types = [];
@@ -32567,6 +32568,8 @@ var CookieManager = function () {
 	}, {
 		key: 'removeFromInventory',
 		value: function removeFromInventory(type, equip) {
+			var quant = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 1;
+
 			var data = this.getChunck('inventory');
 			if (data[type] === undefined) {
 				console.log(type, 'not found on inventory, not saving', data);
@@ -32576,6 +32579,10 @@ var CookieManager = function () {
 				var element = data[type][i];
 				if (element.id == equip.id && element.level == equip.level) {
 					data[type].splice(i, 1);
+					quant--;
+					if (quant <= 0) {
+						break;
+					}
 				}
 			}
 			this.saveChunk('inventory', data);
@@ -68977,7 +68984,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             if (this.infoBackContainer) {
 
                 this.infoBackContainer.width = 450;
-                this.infoBackContainer.height = 450;
+                this.infoBackContainer.height = 500;
             }
             this.contentContainer.x = 0;
             this.contentContainer.y = 0;
@@ -68988,15 +68995,15 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             this.topBlocker.width = _Game2.default.Borders.width;
             this.topBlocker.height = _Game2.default.Borders.height;
             this.topBlocker.scale.y = -1;
-            this.topBlocker.y = _Game2.default.Borders.height / 2;
+            this.topBlocker.y = this.topBlocker.height;
 
             this.collectButton.x = this.infoBackContainer.width / 2 - this.collectButton.width / 2;
             this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2;
 
             this.prizeBox.width = this.infoBackContainer.width - 20;
-            this.prizeBox.height = this.infoBackContainer.height / 2;
+            this.prizeBox.height = 300;
             this.prizeBox.x = 10;
-            this.prizeBox.y = this.infoBackContainer.height / 2 - 10;
+            this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height - 10;
 
             this.congratulationsLabel.x = this.infoBackContainer.width / 2;
             this.congratulationsLabel.y = this.infoBackContainer.height / 4;
@@ -69050,6 +69057,8 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             while (this.prizesContainer.children.length > 0) {
                 this.prizesContainer.removeChildAt(0);
             }
+            var col = 0;
+            var ln = 0;
 
             var _loop = function _loop() {
                 var element = drawPrizes[i];
@@ -69059,14 +69068,23 @@ var PrizeCollectContainer = function (_MainScreenModal) {
                     prize = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this2.slotSize, _this2.slotSize);
                     prize.setData(element.entityData, element.value.level);
                     prize.resetPivot();
-                    prize.x = 110 * i;
                 } else {
                     prize = new PIXI.Sprite.from(element.texture);
                 }
 
+                prize.x = 110 * col;
+                prize.y = 110 * ln;
+
+                if (col > 0 && col >= 2) {
+                    col = 0;
+                    ln++;
+                } else {
+                    col++;
+                }
+
                 prize.alpha = 0;
                 TweenLite.to(prize, 0.5, {
-                    delay: i * 0.5 + 0.5, alpha: 1, onStart: function onStart() {
+                    delay: i * 0.25 + 0.25, alpha: 1, onStart: function onStart() {
                         _this2.prizesContainer.addChild(prize);
                     }
                 });
@@ -69083,7 +69101,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
 
                 _this2.collectButton.y = _this2.infoBackContainer.height - 50;
                 TweenLite.to(_this2.collectButton, 0.5, { alpha: 1, y: _this2.infoBackContainer.height + 10, ease: Back.easeOut });
-            }, drawPrizes.length * 500 + 250);
+            }, drawPrizes.length * 250 + 250);
         }
     }, {
         key: 'update',
@@ -69094,7 +69112,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             (0, _get3.default)(PrizeCollectContainer.prototype.__proto__ || (0, _getPrototypeOf2.default)(PrizeCollectContainer.prototype), 'update', this).call(this, delta);
 
             this.prizesContainer.x = _Utils2.default.lerp(this.prizesContainer.x, this.infoBackContainer.width / 2 - this.prizesContainer.width / 2, 0.2);
-            this.prizesContainer.y = this.prizeBox.y + 10 + this.prizeBox.height / 2 - 60;
+            this.prizesContainer.y = _Utils2.default.lerp(this.prizesContainer.y, this.prizeBox.y + this.prizeBox.height / 2 - this.prizesContainer.height / 2, 0.2);
         }
     }]);
     return PrizeCollectContainer;
@@ -85408,7 +85426,8 @@ var CharacterBuildScreen = function (_Screen) {
                         }, 'Customize', 'crown');
 
                         var bt0 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                                _PrizeManager2.default.instance.getMetaPrize(Math.floor(Math.random() * 5), 1, 3);
+
+                                _PrizeManager2.default.instance.getMetaPrize([0, 1, 2, 3, 4], 1, 5);
                         }, 'TestPopUp', 'crown');
 
                         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 });
@@ -88387,7 +88406,7 @@ var GameOverView = function (_GameObject) {
                         }
 
                         if (win) {
-                                var prizes = _PrizeManager2.default.instance.getMetaPrize(-1, 1, 2, false);
+                                var prizes = _PrizeManager2.default.instance.getMetaPrize([-1], 1, 2, false);
                                 this.showPrize(prizes);
 
                                 this.confirmButton.visible = false;
@@ -88425,7 +88444,7 @@ var GameOverView = function (_GameObject) {
                         this.confirmButton.visible = false;
                         this.collectButton.visible = true;
 
-                        var prizes = _PrizeManager2.default.instance.getMetaPrize(-1, 0, 1, false);
+                        var prizes = _PrizeManager2.default.instance.getMetaPrize([-1], 0, 1, false);
                         this.showPrize(prizes);
                 }
         }, {
@@ -93861,6 +93880,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                 _this.slotsList.h = (_this.slotSize + 30) * 2;
                 _this.contentContainer.addChild(_this.slotsList);
 
+                _this.previousSection = -1;
                 _this.slotsListInGame = new _UIList2.default();
 
                 _this.slotsListInGame.w = _this.slotSize;
@@ -93872,28 +93892,28 @@ var LoadoutContainer = function (_MainScreenModal) {
                 _this.slotsListInGame.addElement(_this.currentWeaponSlot, { align: 0 });
 
                 _this.currentWeaponSlot.onCardClicked.add(function (card) {
-                        _this.updateListView(_this.equippableWeapons);
+                        _this.showSection(LoadoutContainer.Sections.Weapon);
                 });
 
                 _this.currentShoeSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
                 _this.currentShoeSlot.setIconType(true);
                 _this.slotsList.addElement(_this.currentShoeSlot, { align: 0 });
                 _this.currentShoeSlot.onCardClicked.add(function (card) {
-                        _this.updateListView(_this.equippableShoes);
+                        _this.showSection(LoadoutContainer.Sections.Shoe);
                 });
 
                 _this.currentTrinketSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
                 _this.currentTrinketSlot.setIconType(true);
                 _this.slotsList.addElement(_this.currentTrinketSlot, { align: 0 });
                 _this.currentTrinketSlot.onCardClicked.add(function (card) {
-                        _this.updateListView(_this.equippableTrinkets);
+                        _this.showSection(LoadoutContainer.Sections.Trinket);
                 });
 
                 _this.currentCompanionSlot = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this.slotSize, _this.slotSize);
                 _this.currentCompanionSlot.setIconType();
                 _this.slotsListInGame.addElement(_this.currentCompanionSlot, { align: 0 });
                 _this.currentCompanionSlot.onCardClicked.add(function (card) {
-                        _this.updateListView(_this.equippableCompanions);
+                        _this.showSection(LoadoutContainer.Sections.Caompanion);
                 });
 
                 _this.mergeSectionButton = _UIUtils2.default.getPrimaryLabelButton(function () {
@@ -93908,7 +93928,10 @@ var LoadoutContainer = function (_MainScreenModal) {
                 _this.container.addChild(_this.mergeContainer);
                 _this.mergeSystem = new _ItemMergeSystem2.default(_this.mergeContainer, _this.slotSize);
                 _this.mergeSystem.onUpgradeItem.add(function () {
-                        _this.refresh();
+                        setTimeout(function () {
+
+                                _this.refresh();
+                        }, 1);
                 });
 
                 return _this;
@@ -93917,10 +93940,11 @@ var LoadoutContainer = function (_MainScreenModal) {
         (0, _createClass3.default)(LoadoutContainer, [{
                 key: 'refresh',
                 value: function refresh() {
-                        console.log("REFRESH ON MERGE");
-                        if (!this.findMerge()) {
-                                this.show();
-                        }
+                        this.refreshSection(this.previousSection, true);
+
+                        var canMerge = this.findMerge();
+                        console.log("REFRESH ON MERGE", canMerge);
+                        if (canMerge) {} else {}
                 }
         }, {
                 key: 'findMerge',
@@ -93955,8 +93979,8 @@ var LoadoutContainer = function (_MainScreenModal) {
                         }
 
                         var tempMergeDraw = this.mergeSystem.buildMergeView(entityCount);
-                        console.log(tempMergeDraw);
                         this.updateListView(tempMergeDraw, true);
+                        return true;
                 }
         }, {
                 key: 'addBackgroundShape',
@@ -93965,41 +93989,62 @@ var LoadoutContainer = function (_MainScreenModal) {
                         // this.container.addChild(this.infoBackContainer);
                 }
         }, {
-                key: 'show',
-                value: function show() {
+                key: 'showSection',
+                value: function showSection(id) {
+                        this.previousSection = id;
+                        switch (id) {
+                                case LoadoutContainer.Sections.Weapon:
+                                        this.updateListView(this.equippableWeapons);
+                                        break;
+                                case LoadoutContainer.Sections.Shoe:
+                                        this.updateListView(this.equippableShoes);
+                                        break;
+                                case LoadoutContainer.Sections.Trinket:
+                                        this.updateListView(this.equippableTrinkets);
+                                        break;
+                                case LoadoutContainer.Sections.Caompanion:
+                                        this.updateListView(this.equippableCompanions);
+                                        break;
+                        }
+                }
+        }, {
+                key: 'refreshSection',
+                value: function refreshSection(id) {
+                        var applySection = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+
+                        switch (id) {
+                                case LoadoutContainer.Sections.Weapon:
+                                        this.refreshWeapons();
+                                        if (applySection) {
+                                                this.updateListView(this.equippableWeapons);
+                                        }
+                                        break;
+                                case LoadoutContainer.Sections.Shoe:
+                                        this.refreshShoes();
+                                        if (applySection) {
+                                                this.updateListView(this.equippableShoes);
+                                        }
+                                        break;
+                                case LoadoutContainer.Sections.Trinket:
+                                        this.refreshTrinkets();
+                                        if (applySection) {
+                                                this.updateListView(this.equippableTrinkets);
+                                        }
+                                        break;
+                                case LoadoutContainer.Sections.Caompanion:
+                                        this.refreshCompanions();
+                                        if (applySection) {
+                                                this.updateListView(this.equippableCompanions);
+                                        }
+                                        break;
+                        }
+                }
+        }, {
+                key: 'refreshWeapons',
+                value: function refreshWeapons() {
                         var _this2 = this;
 
-                        this.visible = true;
-                        this.alpha = 1;
-                        this.container.alpha = 0.5;
-                        TweenLite.killTweensOf(this.container);
-                        TweenLite.killTweensOf(this.container.scale);
-
-                        TweenLite.to(this.container, 0.25, { alpha: 1 });
-                        this.onShow.dispatch(this);
-
                         var fullInventory = _GameData2.default.instance.inventory;
-
-                        var cards = _GameStaticData2.default.instance.getAllCards();
-
-                        this.currentWeaponSlot.setData(_EntityBuilder2.default.instance.getWeapon(_GameData2.default.instance.currentEquippedWeaponData.id), _GameData2.default.instance.currentEquippedWeapon.level);
-                        this.currentWeaponSlot.resetPivot();
-
-                        var shoe = _GameData2.default.instance.currentEquippedShoe;
-                        //console.log(shoe)
-                        this.currentShoeSlot.setData(shoe ? _EntityBuilder2.default.instance.getShoe(shoe.id) : null, shoe ? shoe.level : 0, 100);
-                        this.currentShoeSlot.resetPivot();
-
-                        var trinket = _GameData2.default.instance.currentEquippedTrinket;
-                        //console.log(trinket)
-                        this.currentTrinketSlot.setData(trinket ? _EntityBuilder2.default.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0);
-                        this.currentTrinketSlot.resetPivot();
-
-                        var companion = _GameData2.default.instance.currentEquippedCompanion;
-                        //console.log(companion)
-
-                        this.currentCompanionSlot.setData(companion ? _EntityBuilder2.default.instance.getCompanion(companion.id) : null, companion ? companion.level : 0);
-                        this.currentCompanionSlot.resetPivot();
 
                         this.equippableWeapons = [];
                         var availableCards = fullInventory.weapons;
@@ -94019,6 +94064,13 @@ var LoadoutContainer = function (_MainScreenModal) {
                                 });
                                 this.equippableWeapons.push(card);
                         }
+                }
+        }, {
+                key: 'refreshCompanions',
+                value: function refreshCompanions() {
+                        var _this3 = this;
+
+                        var fullInventory = _GameData2.default.instance.inventory;
 
                         this.equippableCompanions = [];
 
@@ -94026,29 +94078,36 @@ var LoadoutContainer = function (_MainScreenModal) {
                         removeCompanion.resetPivot();
                         removeCompanion.onCardClicked.add(function (removeCompanion) {
                                 _GameData2.default.instance.changeCompanion(null);
-                                _this2.currentCompanionSlot.setData(null);
+                                _this3.currentCompanionSlot.setData(null);
                         });
                         this.equippableCompanions.push(removeCompanion);
 
                         var availableCompanions = fullInventory.companions;
 
-                        var _loop = function _loop(_index) {
-                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this2.slotSize, _this2.slotSize);
-                                var dt = _EntityBuilder2.default.instance.getCompanion(availableCompanions[_index].id);
-                                console.log(availableCompanions[_index].level);
-                                card.setData(dt, availableCompanions[_index].level);
+                        var _loop = function _loop(index) {
+                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this3.slotSize, _this3.slotSize);
+                                var dt = _EntityBuilder2.default.instance.getCompanion(availableCompanions[index].id);
+                                console.log(availableCompanions[index].level);
+                                card.setData(dt, availableCompanions[index].level);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeCompanion(card.cardData.id);
-                                        _this2.currentCompanionSlot.setData(_EntityBuilder2.default.instance.getCompanion(card.cardData.id), availableCompanions[_index].level);
-                                        _this2.refreshAttributes();
+                                        _this3.currentCompanionSlot.setData(_EntityBuilder2.default.instance.getCompanion(card.cardData.id), availableCompanions[index].level);
+                                        _this3.refreshAttributes();
                                 });
-                                _this2.equippableCompanions.push(card);
+                                _this3.equippableCompanions.push(card);
                         };
 
-                        for (var _index = 0; _index < availableCompanions.length; _index++) {
-                                _loop(_index);
+                        for (var index = 0; index < availableCompanions.length; index++) {
+                                _loop(index);
                         }
+                }
+        }, {
+                key: 'refreshTrinkets',
+                value: function refreshTrinkets() {
+                        var _this4 = this;
+
+                        var fullInventory = _GameData2.default.instance.inventory;
 
                         this.equippableTrinkets = [];
 
@@ -94057,63 +94116,95 @@ var LoadoutContainer = function (_MainScreenModal) {
                         removeTrinket.resetPivot();
                         removeTrinket.onCardClicked.add(function (removeTrinket) {
                                 _GameData2.default.instance.changeTrinket(null);
-                                _this2.currentTrinketSlot.setData(null);
+                                _this4.currentTrinketSlot.setData(null);
                         });
                         this.equippableTrinkets.push(removeTrinket);
 
                         var availableTrinkets = fullInventory.trinkets;
 
-                        var _loop2 = function _loop2(_index2) {
-                                var dt = _EntityBuilder2.default.instance.getEquipable(availableTrinkets[_index2].id);
+                        var _loop2 = function _loop2(index) {
+                                var dt = _EntityBuilder2.default.instance.getEquipable(availableTrinkets[index].id);
 
-                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this2.slotSize, _this2.slotSize);
-                                card.setData(dt, availableTrinkets[_index2].level);
+                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this4.slotSize, _this4.slotSize);
+                                card.setData(dt, availableTrinkets[index].level);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeTrinket(card.cardData.id);
-                                        _this2.currentTrinketSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableTrinkets[_index2].level);
-                                        _this2.refreshAttributes();
+                                        _this4.currentTrinketSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableTrinkets[index].level);
+                                        _this4.refreshAttributes();
                                 });
-                                _this2.equippableTrinkets.push(card);
+                                _this4.equippableTrinkets.push(card);
                         };
 
-                        for (var _index2 = 0; _index2 < availableTrinkets.length; _index2++) {
-                                _loop2(_index2);
+                        for (var index = 0; index < availableTrinkets.length; index++) {
+                                _loop2(index);
                         }
+                }
+        }, {
+                key: 'refreshShoes',
+                value: function refreshShoes() {
+                        var _this5 = this;
+
+                        var fullInventory = _GameData2.default.instance.inventory;
 
                         this.equippableShoes = [];
-
-                        // let removeShoe = new LoadoutCardView( UIUtils.baseButtonTexture+'_0006', this.slotSize, this.slotSize);
-                        // //removeShoe.setData(dt)
-                        // removeShoe.resetPivot()
-                        // removeShoe.onCardClicked.add((removeShoe) => {
-                        //     GameData.instance.changeShoe(null);
-                        //     this.currentShoeSlot.setData(null)
-                        // })
-                        // this.equippableShoes.push(removeShoe)
-
-
                         var availableShoes = fullInventory.shoes;
 
-                        var _loop3 = function _loop3(_index3) {
-                                var dt = _EntityBuilder2.default.instance.getEquipable(availableShoes[_index3].id);
+                        var _loop3 = function _loop3(index) {
+                                var dt = _EntityBuilder2.default.instance.getEquipable(availableShoes[index].id);
 
-                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this2.slotSize, _this2.slotSize);
-                                card.setData(dt, availableShoes[_index3].level, 100);
+                                var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this5.slotSize, _this5.slotSize);
+                                card.setData(dt, availableShoes[index].level, 100);
                                 card.resetPivot();
                                 card.onCardClicked.add(function (card) {
                                         _GameData2.default.instance.changeShoe(card.cardData.id);
-                                        _this2.currentShoeSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableShoes[_index3].level);
-                                        _this2.refreshAttributes();
+                                        _this5.currentShoeSlot.setData(_EntityBuilder2.default.instance.getEquipable(card.cardData.id), availableShoes[index].level);
+                                        _this5.refreshAttributes();
                                 });
-                                _this2.equippableShoes.push(card);
+                                _this5.equippableShoes.push(card);
                         };
 
-                        for (var _index3 = 0; _index3 < availableShoes.length; _index3++) {
-                                _loop3(_index3);
+                        for (var index = 0; index < availableShoes.length; index++) {
+                                _loop3(index);
                         }
+                }
+        }, {
+                key: 'show',
+                value: function show() {
+                        this.visible = true;
+                        this.alpha = 1;
+                        this.container.alpha = 0.5;
+                        TweenLite.killTweensOf(this.container);
+                        TweenLite.killTweensOf(this.container.scale);
 
-                        this.updateListView(this.equippableWeapons);
+                        TweenLite.to(this.container, 0.25, { alpha: 1 });
+                        this.onShow.dispatch(this);
+
+                        var fullInventory = _GameData2.default.instance.inventory;
+
+                        var cards = _GameStaticData2.default.instance.getAllCards();
+
+                        this.currentWeaponSlot.setData(_EntityBuilder2.default.instance.getWeapon(_GameData2.default.instance.currentEquippedWeaponData.id), _GameData2.default.instance.currentEquippedWeapon.level);
+                        this.currentWeaponSlot.resetPivot();
+
+                        var shoe = _GameData2.default.instance.currentEquippedShoe;
+                        this.currentShoeSlot.setData(shoe ? _EntityBuilder2.default.instance.getShoe(shoe.id) : null, shoe ? shoe.level : 0, 100);
+                        this.currentShoeSlot.resetPivot();
+
+                        var trinket = _GameData2.default.instance.currentEquippedTrinket;
+                        this.currentTrinketSlot.setData(trinket ? _EntityBuilder2.default.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0);
+                        this.currentTrinketSlot.resetPivot();
+
+                        var companion = _GameData2.default.instance.currentEquippedCompanion;
+                        this.currentCompanionSlot.setData(companion ? _EntityBuilder2.default.instance.getCompanion(companion.id) : null, companion ? companion.level : 0);
+                        this.currentCompanionSlot.resetPivot();
+
+                        this.refreshSection(LoadoutContainer.Sections.Weapon);
+                        this.refreshSection(LoadoutContainer.Sections.Shoe);
+                        this.refreshSection(LoadoutContainer.Sections.Trinket);
+                        this.refreshSection(LoadoutContainer.Sections.Caompanion);
+
+                        this.showSection(LoadoutContainer.Sections.Weapon);
 
                         this.slotsList.updateVerticalList();
                         this.slotsListInGame.updateVerticalList();
@@ -94163,6 +94254,7 @@ var LoadoutContainer = function (_MainScreenModal) {
 
                         //this.mergeSystem.destroyCards()
                         if (!showMerge) {
+
                                 this.mergeSystem.hide();
                         }
                         this.currentSlots = slots;
@@ -94221,6 +94313,12 @@ var LoadoutContainer = function (_MainScreenModal) {
         return LoadoutContainer;
 }(_MainScreenModal3.default);
 
+LoadoutContainer.Sections = {
+        Weapon: 1,
+        Caompanion: 2,
+        Shoe: 3,
+        Trinket: 4
+};
 exports.default = LoadoutContainer;
 module.exports = exports['default'];
 
@@ -94396,7 +94494,7 @@ var ItemMergeSystem = function () {
             _PrizeManager2.default.instance.updateItem(dataType, this.previewMerge.cardData, this.previewMerge.level);
 
             this.previews.forEach(function (element) {
-                _GameData2.default.instance.removeFromInventory(dataType, { id: element.cardData.id, level: element.level });
+                _GameData2.default.instance.removeFromInventory(dataType, { id: element.cardData.id, level: element.level }, 1);
             });
 
             this.onUpgradeItem.dispatch();
@@ -105727,20 +105825,20 @@ var assets = [{
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
@@ -105751,6 +105849,12 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -105760,17 +105864,47 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -105786,42 +105920,6 @@ var assets = [{
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }];
 
 exports.default = assets;
@@ -105854,7 +105952,7 @@ module.exports = exports['default'];
 /* 342 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/terrain/terrain.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/particles/particles.json","image/body-parts/body-parts.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/particles/particles.json","image/body-parts/body-parts.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

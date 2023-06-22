@@ -98,7 +98,7 @@ export default class ItemMergeSystem {
         PrizeManager.instance.updateItem(dataType, this.previewMerge.cardData, this.previewMerge.level)
 
         this.previews.forEach(element => {
-            GameData.instance.removeFromInventory(dataType, { id: element.cardData.id, level: element.level })
+            GameData.instance.removeFromInventory(dataType, { id: element.cardData.id, level: element.level }, 1)
         });
 
         this.onUpgradeItem.dispatch();

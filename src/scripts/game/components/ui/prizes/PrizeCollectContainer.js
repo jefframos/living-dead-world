@@ -19,7 +19,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
         this.topBlocker.tint = 0x851F88;
         this.topBlocker.scale.y = -1
-        this.addChildAt(this.topBlocker,0);
+        this.addChildAt(this.topBlocker, 0);
 
 
         this.blocker.alpha = 0.8;
@@ -39,13 +39,13 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.infoBackContainer.addChild(this.prizeBox);
-        
+
 
 
         this.shine = new PIXI.Sprite.from('shine')
         this.shine.anchor.set(0.5)
-        this.shine.scale.set(4,2)
-        
+        this.shine.scale.set(4, 2)
+
         this.infoBackContainer.addChild(this.shine)
         this.shine.tint = 0xfff700
         this.shine.alpha = 0.5
@@ -53,7 +53,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.congratulationsLabel = UIUtils.getSpecialLabel2('Collect your prize!', { fontSize: 32 })
         this.congratulationsLabel.anchor.set(0.5)
-       
+
         this.infoBackContainer.addChild(this.congratulationsLabel)
 
 
@@ -68,7 +68,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         if (this.infoBackContainer) {
 
             this.infoBackContainer.width = 450
-            this.infoBackContainer.height = 450
+            this.infoBackContainer.height = 500
         }
         this.contentContainer.x = 0
         this.contentContainer.y = 0
@@ -80,15 +80,15 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.topBlocker.width = Game.Borders.width
         this.topBlocker.height = Game.Borders.height
         this.topBlocker.scale.y = -1
-        this.topBlocker.y = Game.Borders.height/2
+        this.topBlocker.y = this.topBlocker.height
 
         this.collectButton.x = this.infoBackContainer.width / 2 - this.collectButton.width / 2;
         this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2;
 
         this.prizeBox.width = this.infoBackContainer.width - 20
-        this.prizeBox.height = this.infoBackContainer.height / 2 
+        this.prizeBox.height = 300
         this.prizeBox.x = 10
-        this.prizeBox.y = this.infoBackContainer.height / 2 -10
+        this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height -10
 
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
         this.congratulationsLabel.y = this.infoBackContainer.height / 4
@@ -139,6 +139,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
         while (this.prizesContainer.children.length > 0) {
             this.prizesContainer.removeChildAt(0)
         }
+        let col = 0
+        let ln = 0
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
@@ -147,14 +149,25 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                 prize.setData(element.entityData, element.value.level)
                 prize.resetPivot()
-                prize.x = 110 * i
+
             } else {
                 prize = new PIXI.Sprite.from(element.texture)
             }
 
+            prize.x = 110 * col
+            prize.y = 110 * ln
+
+            if (col > 0 && col >= 2) {
+                col = 0
+                ln++
+            } else {
+                col++
+
+            }
+
             prize.alpha = 0;
             TweenLite.to(prize, 0.5, {
-                delay: i * 0.5 + 0.5, alpha: 1, onStart: () => {
+                delay: i * 0.25 + 0.25, alpha: 1, onStart: () => {
                     this.prizesContainer.addChild(prize)
                 }
             })
@@ -166,9 +179,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
         setTimeout(() => {
             this.collectButton.visible = true;
 
-            this.collectButton.y = this.infoBackContainer.height -  50;
-            TweenLite.to(this.collectButton, 0.5, { alpha: 1, y: this.infoBackContainer.height  + 10, ease: Back.easeOut })
-        }, drawPrizes.length * 500 + 250);
+            this.collectButton.y = this.infoBackContainer.height - 50;
+            TweenLite.to(this.collectButton, 0.5, { alpha: 1, y: this.infoBackContainer.height + 10, ease: Back.easeOut })
+        }, drawPrizes.length * 250 + 250);
     }
     update(delta) {
         if (!this.isOpen) {
@@ -177,7 +190,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         super.update(delta)
 
         this.prizesContainer.x = Utils.lerp(this.prizesContainer.x, this.infoBackContainer.width / 2 - this.prizesContainer.width / 2, 0.2);
-        this.prizesContainer.y = this.prizeBox.y + 10 + this.prizeBox.height / 2 - 60;
+        this.prizesContainer.y = Utils.lerp(this.prizesContainer.y, this.prizeBox.y + this.prizeBox.height / 2 - this.prizesContainer.height / 2, 0.2);
 
     }
 }
