@@ -86,9 +86,9 @@ export default class LoadoutStatsView extends PIXI.Container {
 
         for (let index = 0; index < this.starsSprites.length; index++) {
             if (index <= level) {
-                this.starsSprites[index].texture = PIXI.Texture.from('icon_confirm')
+                this.starsSprites[index].texture = PIXI.Texture.from('filled-star')
             } else {
-                this.starsSprites[index].texture = PIXI.Texture.from('icon_close')
+                this.starsSprites[index].texture = PIXI.Texture.from('blank-star')
             }
         }
         this.uiList.addElement(this.starsList, { align: 0 });
@@ -122,23 +122,30 @@ export default class LoadoutStatsView extends PIXI.Container {
     getWeaponAttributes(data, level) {
         const att = []
 
-        if (Array.isArray(data.weaponAttributes.basePower)) {
-            att.push({ icon: UIUtils.getIconByAttribute('basePower'), value: data.weaponAttributes.basePower[level] })
-        }
-        if (Array.isArray(data.weaponAttributes.baseFrequency)) {
-            att.push({ icon: UIUtils.getIconByAttribute('baseFrequency'), value: data.weaponAttributes.baseFrequency[level] })
-        }
-        if (Array.isArray(data.weaponAttributes.baseBulletSpeed)) {
-            att.push({ icon: UIUtils.getIconByAttribute('baseBulletSpeed'), value: data.weaponAttributes.baseBulletSpeed[level] })
-        }
+        att.push({ icon: UIUtils.getIconByAttribute('basePower'), value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) })
+        att.push({ icon: UIUtils.getIconByAttribute('baseFrequency'), value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) })
+        att.push({ icon: UIUtils.getIconByAttribute('baseBulletSpeed'), value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) })
+
         if (Array.isArray(data.weaponAttributes.baseAmount)) {
             att.push({ icon: UIUtils.getIconByAttribute('baseAmount'), value: data.weaponAttributes.baseAmount[level] })
-        }
-        if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
+        } else if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
             att.push({ icon: UIUtils.getIconByAttribute('baseBrustFireAmount'), value: data.weaponAttributes.baseBrustFireAmount[level] })
+        } else {
+            att.push({ icon: UIUtils.getIconByAttribute('baseAmount'), value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) })
         }
+
         return att
     }
 
-   
+
+    getAttributeValue(attributes, type, level) {
+
+        if (Array.isArray(attributes[type])) {
+            level = Math.min(level, attributes[type].length - 1)
+            return attributes[type][level]
+        } else {
+            return attributes[type]
+        }
+    }
+
 }

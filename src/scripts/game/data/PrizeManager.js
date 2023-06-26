@@ -77,10 +77,21 @@ export default class PrizeManager {
             }
             itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }
-
+console.log(itemPrizeList)
         const types = [];
         itemPrizeList.forEach(element => {
-            GameData.instance.addToInventory(element.type, element)
+            if(element.type == PrizeManager.PrizeType.Coin){
+                GameData.instance.addSoftCurrency(element.value)
+
+            }else if(element.type == PrizeManager.PrizeType.Key){
+                GameData.instance.addHardCurrency(element.value)
+
+            }else if(element.type == PrizeManager.PrizeType.MasterKey){
+                GameData.instance.addSpecialCurrency(element.value)
+
+            }else{
+                GameData.instance.addToInventory(element.type, element)
+            }
             types.push(element.type)
         });
 

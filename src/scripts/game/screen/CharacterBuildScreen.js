@@ -258,12 +258,12 @@ export default class CharacterBuildScreen extends Screen {
         const bt2 = UIUtils.getPrimaryShapelessButton(() => {
             this.showCustomization();
 
-        }, 'Customize', 'crown')
+        }, 'Customize', UIUtils.getIconUIIcon('customization'))
 
         const bt0 = UIUtils.getPrimaryShapelessButton(() => {
             
-            PrizeManager.instance.getMetaPrize([0,1,2,3,4], 1, 8);
-        }, 'TestPopUp', 'crown')
+            PrizeManager.instance.getMetaPrize([0,1,2,3,4], 3, 15);
+        }, 'TestPopUp', UIUtils.getIconUIIcon('test'))
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
         this.bottomMenuList.addElement(bt2, { align: 0 })
@@ -285,16 +285,16 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList = new UIList();
         const bt3 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.shopContainer)
-        }, 'Shop', 'money')
+        }, 'Shop', UIUtils.getIconUIIcon('shop'))
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
-        }, 'Location', 'map')
+        }, 'Location', UIUtils.getIconUIIcon('map'))
 
 
         const bt5 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.rouletteContainer);
-        }, 'Prize', 'map')
+        }, 'Prize', UIUtils.getIconUIIcon('prize'))
 
         // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
         //     this.openModal(this.achievmentsContainer)

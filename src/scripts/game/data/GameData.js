@@ -14,6 +14,7 @@ export default class GameData {
     constructor() {
         this.onUpdateEquipment = new signals.Signal();
         this.onUpdateCompanion = new signals.Signal();
+        this.onUpdateCurrency = new signals.Signal();
 
         this.attributes = new EntityAttributes()
     }
@@ -54,6 +55,33 @@ export default class GameData {
     get inventory() {
         return CookieManager.instance.inventory;
     }
+    get resources() {
+        return CookieManager.instance.resources;
+    }
+    get softCurrency() {
+        return CookieManager.instance.resources.softCurrency;
+    }
+    get hardCurrency() {
+        return CookieManager.instance.resources.hardCurrency;
+    }
+    get specialCurrency() {
+        return CookieManager.instance.resources.specialCurrency;
+    }
+    addSoftCurrency(value) {
+        const result = CookieManager.instance.addSoftCurrency(value);
+        this.onUpdateCurrency.dispatch(this.resources)
+        return result;
+    }
+    addHardCurrency(value) {
+        const result = CookieManager.instance.addHardCurrency(value);
+        this.onUpdateCurrency.dispatch(this.resources)
+        return result;
+    }
+    addSpecialCurrency(value) {
+        const result = CookieManager.instance.addSpecialCurrency(value);
+        this.onUpdateCurrency.dispatch(this.resources)
+        return result;
+    }
     getAttributesFromEquipabble(equip, level) {
         this.addAttributes = new EntityAttributes()
         this.addAttributes.resetAll();
@@ -76,7 +104,6 @@ export default class GameData {
         CookieManager.instance.saveEquipment('currentWeapon', id, level)
     }
     changeCompanion(id, level) {
-        console.log('changeCompanion',id, level)
         CookieManager.instance.saveEquipment('currentCompanion', id, level)
         this.onUpdateCompanion.dispatch(id, level)
     }

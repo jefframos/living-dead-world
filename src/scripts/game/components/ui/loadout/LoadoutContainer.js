@@ -151,7 +151,15 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.loadoutStatsView.updateData(card.cardData, card.level);
 
-        this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height
+        const isOnTop = card.y < 50;
+
+        if(isOnTop){
+
+            this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y
+        }else{
+
+            this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height
+        }
     }
 
     refresh() {

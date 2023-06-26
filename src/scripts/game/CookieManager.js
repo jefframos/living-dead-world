@@ -26,8 +26,9 @@ export default class CookieManager {
 		}
 		this.defaultResources = {
 			version: '0.0.1',
-			entities: {},
-			dataProgression: {}
+			softCurrency:0,
+			hardCurrency:0,
+			specialCurrency:0,
 		}
 		this.defaultProgression = {
 			version: '0.0.1',
@@ -178,12 +179,16 @@ export default class CookieManager {
 		this.fullData[id]['loadout'] = this.sortCookieData('loadout', this.defaultLoadout);
 		this.fullData[id]['items'] = this.sortCookieData('items', this.defaultItemProgression);
 		this.fullData[id]['inventory'] = this.sortCookieData('inventory', this.defaultInventory);
+		this.fullData[id]['resources'] = this.sortCookieData('resources', this.defaultResources);
 
 		this.storeObject('fullData', this.fullData)
 
 	}
 	get inventory() {
 		return this.getChunck('inventory');
+	}
+	get resources() {
+		return this.getChunck('resources');
 	}
 	get totalPlayers() {
 		return this.getChunck('player').totalPlayers;
@@ -193,6 +198,27 @@ export default class CookieManager {
 	}
 	get loadout() {
 		return this.getChunck('loadout');
+	}
+	addSoftCurrency(value){
+		const data = this.getChunck('resources')
+		data.softCurrency += value;
+		data.softCurrency = Math.max(data.softCurrency , 0);
+		this.saveChunk('resources', data)
+		return data.softCurrency;
+	}
+	addHardCurrency(value){
+		const data = this.getChunck('resources')
+		data.hardCurrency += value;
+		data.hardCurrency = Math.max(data.hardCurrency , 0);
+		this.saveChunk('resources', data)
+		return data.hardCurrency;
+	}
+	addSpecialCurrency(value){
+		const data = this.getChunck('resources')
+		data.specialCurrency += value;
+		data.specialCurrency = Math.max(data.specialCurrency , 0);
+		this.saveChunk('resources', data)
+		return data.specialCurrency;
 	}
 	changePlayer(id) {
 		const data = this.getChunck('player')

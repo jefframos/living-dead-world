@@ -2782,7 +2782,7 @@ var UIUtils = function () {
                 button.addIcon(icon);
             }
             if (label) {
-                UIUtils.addLabel(button, label, { fontSize: 24, fill: 0xFFFFFF }, { x: 0, y: -5 });
+                UIUtils.addLabel(button, label, { fontSize: 22, fill: 0xFFFFFF, strokeThickness: 3 }, { x: 0, y: -5 });
             }
             return button;
         }
@@ -2848,24 +2848,47 @@ var UIUtils = function () {
         value: function getIconByAttribute(attribute) {
             switch (attribute) {
                 case 'basePower':
-                    return 'new_item - Copy';
+                    return 'ico_power';
                 case 'baseFrequency':
-                    return 'ray';
+                    return 'ico_frequency';
                 case 'baseBulletSpeed':
-                    return 'smallButton';
+                    return 'ico_bullet_speed';
                 case 'baseBrustFireAmount':
-                    return 'results_arrow';
+                    return 'ico_amount';
                 case 'baseAmount':
-                    return 'results_arrow';
+                    return 'ico_amount';
                 case 'baseDefense':
-                    return 'square_0003s';
+                    return 'ico_defense';
                 case 'baseSpeed':
-                    return 'star';
+                    return 'ico_speed';
                 case 'baseHealth':
+                    return 'ico_health';
+                case 'softCurrency':
+                    return 'coin1';
+                case 'hardCurrency':
                     return 'heart';
+                case 'specialCurrency':
+                    return 'ray';
             }
 
             console.log(attribute);
+            return 'icon-help';
+        }
+    }, {
+        key: "getIconUIIcon",
+        value: function getIconUIIcon(type) {
+            switch (type) {
+                case 'map':
+                    return 'ico_map';
+                case 'prize':
+                    return 'ico_slot-machine';
+                case 'shop':
+                    return 'ico_shop';
+                case 'customization':
+                    return 'ico_customization';
+            }
+
+            console.log(type);
             return 'icon-help';
         }
     }]);
@@ -19099,7 +19122,7 @@ var _GameAgent2 = __webpack_require__(104);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -19127,7 +19150,7 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -19155,7 +19178,7 @@ var _Shaders = __webpack_require__(78);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -22844,7 +22867,7 @@ var _EffectsManager = __webpack_require__(27);
 
 var _EffectsManager2 = _interopRequireDefault(_EffectsManager);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -22876,11 +22899,11 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -26691,6 +26714,232 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _CookieManager = __webpack_require__(69);
+
+var _CookieManager2 = _interopRequireDefault(_CookieManager);
+
+var _EntityAttributes = __webpack_require__(31);
+
+var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
+
+var _EntityBuilder = __webpack_require__(21);
+
+var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
+
+var _signals = __webpack_require__(7);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var GameData = function () {
+    (0, _createClass3.default)(GameData, null, [{
+        key: "instance",
+        get: function get() {
+            if (!GameData._instance) {
+                GameData._instance = new GameData();
+            }
+            return GameData._instance;
+        }
+    }]);
+
+    function GameData() {
+        (0, _classCallCheck3.default)(this, GameData);
+
+        this.onUpdateEquipment = new _signals2.default.Signal();
+        this.onUpdateCompanion = new _signals2.default.Signal();
+        this.onUpdateCurrency = new _signals2.default.Signal();
+
+        this.attributes = new _EntityAttributes2.default();
+    }
+
+    (0, _createClass3.default)(GameData, [{
+        key: "addSoftCurrency",
+        value: function addSoftCurrency(value) {
+            var result = _CookieManager2.default.instance.addSoftCurrency(value);
+            this.onUpdateCurrency.dispatch(this.resources);
+            return result;
+        }
+    }, {
+        key: "addHardCurrency",
+        value: function addHardCurrency(value) {
+            var result = _CookieManager2.default.instance.addHardCurrency(value);
+            this.onUpdateCurrency.dispatch(this.resources);
+            return result;
+        }
+    }, {
+        key: "addSpecialCurrency",
+        value: function addSpecialCurrency(value) {
+            var result = _CookieManager2.default.instance.addSpecialCurrency(value);
+            this.onUpdateCurrency.dispatch(this.resources);
+            return result;
+        }
+    }, {
+        key: "getAttributesFromEquipabble",
+        value: function getAttributesFromEquipabble(equip, level) {
+            this.addAttributes = new _EntityAttributes2.default();
+            this.addAttributes.resetAll();
+            this.addAttributes.addMultiplyer(equip.attribute, equip.value[level]);
+            if (equip.secAttribute) {
+                this.addAttributes.addMultiplyer(equip.secAttribute, equip.secValue[level]);
+            }
+            return this.addAttributes;
+        }
+    }, {
+        key: "getPlayer",
+        value: function getPlayer(id) {
+            return _CookieManager2.default.instance.getPlayer(id);
+        }
+    }, {
+        key: "savePlayer",
+        value: function savePlayer(id, structure) {
+            _CookieManager2.default.instance.savePlayer(id, structure);
+        }
+    }, {
+        key: "changePlayer",
+        value: function changePlayer(id) {
+            _CookieManager2.default.instance.changePlayer(id);
+        }
+    }, {
+        key: "changeMainWeapon",
+        value: function changeMainWeapon(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentWeapon', id, level);
+        }
+    }, {
+        key: "changeCompanion",
+        value: function changeCompanion(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentCompanion', id, level);
+            this.onUpdateCompanion.dispatch(id, level);
+        }
+    }, {
+        key: "changeMask",
+        value: function changeMask(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentMask', id, level);
+            this.onUpdateEquipment.dispatch('mask', id, level);
+        }
+    }, {
+        key: "changeShoe",
+        value: function changeShoe(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentShoe', id, level);
+            this.onUpdateEquipment.dispatch('shoe', id, level);
+        }
+    }, {
+        key: "changeTrinket",
+        value: function changeTrinket(id, level) {
+            _CookieManager2.default.instance.saveEquipment('currentTrinket', id, level);
+            this.onUpdateEquipment.dispatch('trinket', id, level);
+        }
+    }, {
+        key: "addToInventory",
+        value: function addToInventory(type, item) {
+            _CookieManager2.default.instance.addToInventory(type, item);
+        }
+    }, {
+        key: "removeFromInventory",
+        value: function removeFromInventory(type, item, quant) {
+            _CookieManager2.default.instance.removeFromInventory(type, item, quant);
+        }
+    }, {
+        key: "currentPlayer",
+        get: function get() {
+            return _CookieManager2.default.instance.getPlayer(_CookieManager2.default.instance.currentPlayer);
+        }
+    }, {
+        key: "loadout",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout;
+        }
+    }, {
+        key: "totalPlayers",
+        get: function get() {
+            return _CookieManager2.default.instance.totalPlayers;
+        }
+    }, {
+        key: "currentEquippedWeapon",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentWeapon[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedCompanion",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentCompanion[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedTrinket",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentTrinket[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedMask",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentMask[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedShoe",
+        get: function get() {
+            return _CookieManager2.default.instance.loadout.currentShoe[_CookieManager2.default.instance.currentPlayer];
+        }
+    }, {
+        key: "currentEquippedWeaponData",
+        get: function get() {
+            return _EntityBuilder2.default.instance.getWeapon(this.currentEquippedWeapon.id);
+        }
+    }, {
+        key: "currentEquippedCompanionData",
+        get: function get() {
+            return _EntityBuilder2.default.instance.getCompanion(this.currentEquippedCompanion.id);
+        }
+    }, {
+        key: "inventory",
+        get: function get() {
+            return _CookieManager2.default.instance.inventory;
+        }
+    }, {
+        key: "resources",
+        get: function get() {
+            return _CookieManager2.default.instance.resources;
+        }
+    }, {
+        key: "softCurrency",
+        get: function get() {
+            return _CookieManager2.default.instance.resources.softCurrency;
+        }
+    }, {
+        key: "hardCurrency",
+        get: function get() {
+            return _CookieManager2.default.instance.resources.hardCurrency;
+        }
+    }, {
+        key: "specialCurrency",
+        get: function get() {
+            return _CookieManager2.default.instance.resources.specialCurrency;
+        }
+    }]);
+    return GameData;
+}();
+
+exports.default = GameData;
+module.exports = exports["default"];
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
@@ -26953,7 +27202,7 @@ exports.default = Eugine;
 module.exports = exports["default"];
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -26995,7 +27244,7 @@ var _EnemyGlobalSpawner = __webpack_require__(269);
 
 var _EnemyGlobalSpawner2 = _interopRequireDefault(_EnemyGlobalSpawner);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -27003,7 +27252,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -27490,7 +27739,7 @@ exports.default = LevelManager;
 module.exports = exports["default"];
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27589,7 +27838,7 @@ exports.default = Shadow;
 module.exports = exports['default'];
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -27601,7 +27850,7 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27772,7 +28021,7 @@ exports.default = MainScreenModal;
 module.exports = exports['default'];
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -27981,191 +28230,6 @@ exports.default = SpriteSheetAnimation;
 module.exports = exports['default'];
 
 /***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _CookieManager = __webpack_require__(69);
-
-var _CookieManager2 = _interopRequireDefault(_CookieManager);
-
-var _EntityAttributes = __webpack_require__(31);
-
-var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
-
-var _EntityBuilder = __webpack_require__(21);
-
-var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
-
-var _signals = __webpack_require__(7);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var GameData = function () {
-    (0, _createClass3.default)(GameData, null, [{
-        key: "instance",
-        get: function get() {
-            if (!GameData._instance) {
-                GameData._instance = new GameData();
-            }
-            return GameData._instance;
-        }
-    }]);
-
-    function GameData() {
-        (0, _classCallCheck3.default)(this, GameData);
-
-        this.onUpdateEquipment = new _signals2.default.Signal();
-        this.onUpdateCompanion = new _signals2.default.Signal();
-
-        this.attributes = new _EntityAttributes2.default();
-    }
-
-    (0, _createClass3.default)(GameData, [{
-        key: "getAttributesFromEquipabble",
-        value: function getAttributesFromEquipabble(equip, level) {
-            this.addAttributes = new _EntityAttributes2.default();
-            this.addAttributes.resetAll();
-            this.addAttributes.addMultiplyer(equip.attribute, equip.value[level]);
-            if (equip.secAttribute) {
-                this.addAttributes.addMultiplyer(equip.secAttribute, equip.secValue[level]);
-            }
-            return this.addAttributes;
-        }
-    }, {
-        key: "getPlayer",
-        value: function getPlayer(id) {
-            return _CookieManager2.default.instance.getPlayer(id);
-        }
-    }, {
-        key: "savePlayer",
-        value: function savePlayer(id, structure) {
-            _CookieManager2.default.instance.savePlayer(id, structure);
-        }
-    }, {
-        key: "changePlayer",
-        value: function changePlayer(id) {
-            _CookieManager2.default.instance.changePlayer(id);
-        }
-    }, {
-        key: "changeMainWeapon",
-        value: function changeMainWeapon(id, level) {
-            _CookieManager2.default.instance.saveEquipment('currentWeapon', id, level);
-        }
-    }, {
-        key: "changeCompanion",
-        value: function changeCompanion(id, level) {
-            console.log('changeCompanion', id, level);
-            _CookieManager2.default.instance.saveEquipment('currentCompanion', id, level);
-            this.onUpdateCompanion.dispatch(id, level);
-        }
-    }, {
-        key: "changeMask",
-        value: function changeMask(id, level) {
-            _CookieManager2.default.instance.saveEquipment('currentMask', id, level);
-            this.onUpdateEquipment.dispatch('mask', id, level);
-        }
-    }, {
-        key: "changeShoe",
-        value: function changeShoe(id, level) {
-            _CookieManager2.default.instance.saveEquipment('currentShoe', id, level);
-            this.onUpdateEquipment.dispatch('shoe', id, level);
-        }
-    }, {
-        key: "changeTrinket",
-        value: function changeTrinket(id, level) {
-            _CookieManager2.default.instance.saveEquipment('currentTrinket', id, level);
-            this.onUpdateEquipment.dispatch('trinket', id, level);
-        }
-    }, {
-        key: "addToInventory",
-        value: function addToInventory(type, item) {
-            _CookieManager2.default.instance.addToInventory(type, item);
-        }
-    }, {
-        key: "removeFromInventory",
-        value: function removeFromInventory(type, item, quant) {
-            _CookieManager2.default.instance.removeFromInventory(type, item, quant);
-        }
-    }, {
-        key: "currentPlayer",
-        get: function get() {
-            return _CookieManager2.default.instance.getPlayer(_CookieManager2.default.instance.currentPlayer);
-        }
-    }, {
-        key: "loadout",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout;
-        }
-    }, {
-        key: "totalPlayers",
-        get: function get() {
-            return _CookieManager2.default.instance.totalPlayers;
-        }
-    }, {
-        key: "currentEquippedWeapon",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout.currentWeapon[_CookieManager2.default.instance.currentPlayer];
-        }
-    }, {
-        key: "currentEquippedCompanion",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout.currentCompanion[_CookieManager2.default.instance.currentPlayer];
-        }
-    }, {
-        key: "currentEquippedTrinket",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout.currentTrinket[_CookieManager2.default.instance.currentPlayer];
-        }
-    }, {
-        key: "currentEquippedMask",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout.currentMask[_CookieManager2.default.instance.currentPlayer];
-        }
-    }, {
-        key: "currentEquippedShoe",
-        get: function get() {
-            return _CookieManager2.default.instance.loadout.currentShoe[_CookieManager2.default.instance.currentPlayer];
-        }
-    }, {
-        key: "currentEquippedWeaponData",
-        get: function get() {
-            return _EntityBuilder2.default.instance.getWeapon(this.currentEquippedWeapon.id);
-        }
-    }, {
-        key: "currentEquippedCompanionData",
-        get: function get() {
-            return _EntityBuilder2.default.instance.getCompanion(this.currentEquippedCompanion.id);
-        }
-    }, {
-        key: "inventory",
-        get: function get() {
-            return _CookieManager2.default.instance.inventory;
-        }
-    }]);
-    return GameData;
-}();
-
-exports.default = GameData;
-module.exports = exports["default"];
-
-/***/ }),
 /* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28222,7 +28286,7 @@ var _EntityBuilder = __webpack_require__(21);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -28302,10 +28366,18 @@ var PrizeManager = function () {
                 }
                 itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel));
             }
-
+            console.log(itemPrizeList);
             var types = [];
             itemPrizeList.forEach(function (element) {
-                _GameData2.default.instance.addToInventory(element.type, element);
+                if (element.type == PrizeManager.PrizeType.Coin) {
+                    _GameData2.default.instance.addSoftCurrency(element.value);
+                } else if (element.type == PrizeManager.PrizeType.Key) {
+                    _GameData2.default.instance.addHardCurrency(element.value);
+                } else if (element.type == PrizeManager.PrizeType.MasterKey) {
+                    _GameData2.default.instance.addSpecialCurrency(element.value);
+                } else {
+                    _GameData2.default.instance.addToInventory(element.type, element);
+                }
                 types.push(element.type);
             });
 
@@ -28428,7 +28500,7 @@ module.exports = g;
 /* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(41);
+var global = __webpack_require__(42);
 var core = __webpack_require__(33);
 var ctx = __webpack_require__(136);
 var hide = __webpack_require__(56);
@@ -29839,7 +29911,7 @@ module.exports = function (it) {
 
 var store = __webpack_require__(88)('wks');
 var uid = __webpack_require__(72);
-var Symbol = __webpack_require__(41).Symbol;
+var Symbol = __webpack_require__(42).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -29913,7 +29985,7 @@ var _EntityViewData = __webpack_require__(113);
 
 var _EntityViewData2 = _interopRequireDefault(_EntityViewData);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -32444,8 +32516,9 @@ var CookieManager = function () {
 		};
 		this.defaultResources = {
 			version: '0.0.1',
-			entities: {},
-			dataProgression: {}
+			softCurrency: 0,
+			hardCurrency: 0,
+			specialCurrency: 0
 		};
 		this.defaultProgression = {
 			version: '0.0.1',
@@ -32611,8 +32684,36 @@ var CookieManager = function () {
 			this.fullData[id]['loadout'] = this.sortCookieData('loadout', this.defaultLoadout);
 			this.fullData[id]['items'] = this.sortCookieData('items', this.defaultItemProgression);
 			this.fullData[id]['inventory'] = this.sortCookieData('inventory', this.defaultInventory);
+			this.fullData[id]['resources'] = this.sortCookieData('resources', this.defaultResources);
 
 			this.storeObject('fullData', this.fullData);
+		}
+	}, {
+		key: 'addSoftCurrency',
+		value: function addSoftCurrency(value) {
+			var data = this.getChunck('resources');
+			data.softCurrency += value;
+			data.softCurrency = Math.max(data.softCurrency, 0);
+			this.saveChunk('resources', data);
+			return data.softCurrency;
+		}
+	}, {
+		key: 'addHardCurrency',
+		value: function addHardCurrency(value) {
+			var data = this.getChunck('resources');
+			data.hardCurrency += value;
+			data.hardCurrency = Math.max(data.hardCurrency, 0);
+			this.saveChunk('resources', data);
+			return data.hardCurrency;
+		}
+	}, {
+		key: 'addSpecialCurrency',
+		value: function addSpecialCurrency(value) {
+			var data = this.getChunck('resources');
+			data.specialCurrency += value;
+			data.specialCurrency = Math.max(data.specialCurrency, 0);
+			this.saveChunk('resources', data);
+			return data.specialCurrency;
 		}
 	}, {
 		key: 'changePlayer',
@@ -33064,6 +33165,11 @@ var CookieManager = function () {
 		key: 'inventory',
 		get: function get() {
 			return this.getChunck('inventory');
+		}
+	}, {
+		key: 'resources',
+		get: function get() {
+			return this.getChunck('resources');
 		}
 	}, {
 		key: 'totalPlayers',
@@ -33939,7 +34045,7 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -33951,7 +34057,7 @@ var _Pool = __webpack_require__(17);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -34302,7 +34408,7 @@ var _signals = __webpack_require__(7);
 
 var signals = _interopRequireWildcard(_signals);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -37958,7 +38064,7 @@ module.exports = function (key) {
 /* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(41);
+var global = __webpack_require__(42);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -38113,7 +38219,7 @@ exports.f = __webpack_require__(58);
 /* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(41);
+var global = __webpack_require__(42);
 var core = __webpack_require__(33);
 var LIBRARY = __webpack_require__(91);
 var wksExt = __webpack_require__(97);
@@ -49617,7 +49723,7 @@ var _Shaders = __webpack_require__(78);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -49780,7 +49886,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -50492,7 +50598,7 @@ var _BaseComponent2 = __webpack_require__(22);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -50631,7 +50737,7 @@ var _EntityBuilder = __webpack_require__(21);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -50647,7 +50753,7 @@ var _Shaders = __webpack_require__(78);
 
 var _Shaders2 = _interopRequireDefault(_Shaders);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -64845,7 +64951,7 @@ module.exports = !__webpack_require__(50) && !__webpack_require__(65)(function (
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(57);
-var document = __webpack_require__(41).document;
+var document = __webpack_require__(42).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -68727,7 +68833,7 @@ var _Sensor = __webpack_require__(108);
 
 var _Sensor2 = _interopRequireDefault(_Sensor);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -68939,7 +69045,7 @@ var _BaseComponent2 = __webpack_require__(22);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -69081,7 +69187,7 @@ var _LoadoutCardView = __webpack_require__(54);
 
 var _LoadoutCardView2 = _interopRequireDefault(_LoadoutCardView);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -69237,7 +69343,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
             }
             var col = 0;
             var ln = 0;
-            var speed = 0.15;
+            var speed = 1.5;
 
             var _loop = function _loop() {
                 var element = drawPrizes[i];
@@ -69264,7 +69370,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
 
                 prize.alpha = 0;
                 TweenLite.to(prize, 0.5, {
-                    delay: i * speed + 0.25, alpha: 1, onStart: function onStart() {
+                    delay: i * speed / drawPrizes.length, alpha: 1, onStart: function onStart() {
                         _this2.prizesContainer.addChild(prize);
                     }
                 });
@@ -69281,7 +69387,7 @@ var PrizeCollectContainer = function (_MainScreenModal) {
 
                 _this2.collectButton.y = _this2.infoBackContainer.height - 50;
                 TweenLite.to(_this2.collectButton, 0.5, { alpha: 1, y: _this2.infoBackContainer.height + 10, ease: Back.easeOut });
-            }, drawPrizes.length * speed * 100 + 250);
+            }, speed * 800 + 250);
         }
     }, {
         key: 'update',
@@ -69908,7 +70014,7 @@ var _PhysicsEntity2 = __webpack_require__(66);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -84208,7 +84314,7 @@ module.exports = function (index, length) {
 /* 219 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(41).document;
+var document = __webpack_require__(42).document;
 module.exports = document && document.documentElement;
 
 
@@ -84217,7 +84323,7 @@ module.exports = document && document.documentElement;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(221);
-var global = __webpack_require__(41);
+var global = __webpack_require__(42);
 var hide = __webpack_require__(56);
 var Iterators = __webpack_require__(92);
 var TO_STRING_TAG = __webpack_require__(58)('toStringTag');
@@ -84318,7 +84424,7 @@ module.exports = __webpack_require__(33).Symbol;
 "use strict";
 
 // ECMAScript 6 symbols shim
-var global = __webpack_require__(41);
+var global = __webpack_require__(42);
 var has = __webpack_require__(51);
 var DESCRIPTORS = __webpack_require__(50);
 var $export = __webpack_require__(48);
@@ -85213,7 +85319,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -85536,12 +85642,12 @@ var CharacterBuildScreen = function (_Screen) {
 
                         var bt2 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.showCustomization();
-                        }, 'Customize', 'crown');
+                        }, 'Customize', _UIUtils2.default.getIconUIIcon('customization'));
 
                         var bt0 = _UIUtils2.default.getPrimaryShapelessButton(function () {
 
-                                _PrizeManager2.default.instance.getMetaPrize([0, 1, 2, 3, 4], 1, 8);
-                        }, 'TestPopUp', 'crown');
+                                _PrizeManager2.default.instance.getMetaPrize([0, 1, 2, 3, 4], 3, 15);
+                        }, 'TestPopUp', _UIUtils2.default.getIconUIIcon('test'));
 
                         this.bottomMenuList.addElement(this.loadoutButton, { align: 0 });
                         this.bottomMenuList.addElement(bt2, { align: 0 });
@@ -85562,15 +85668,15 @@ var CharacterBuildScreen = function (_Screen) {
                         this.bottomMenuRightList = new _UIList2.default();
                         var bt3 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.openModal(_this2.shopContainer);
-                        }, 'Shop', 'money');
+                        }, 'Shop', _UIUtils2.default.getIconUIIcon('shop'));
 
                         var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.openModal(_this2.locationContainer);
-                        }, 'Location', 'map');
+                        }, 'Location', _UIUtils2.default.getIconUIIcon('map'));
 
                         var bt5 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.openModal(_this2.rouletteContainer);
-                        }, 'Prize', 'map');
+                        }, 'Prize', _UIUtils2.default.getIconUIIcon('prize'));
 
                         // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
                         //     this.openModal(this.achievmentsContainer)
@@ -85929,7 +86035,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -86458,7 +86564,7 @@ var _Pool = __webpack_require__(17);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -86599,7 +86705,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -86619,7 +86725,7 @@ var _PlayerViewStructure = __webpack_require__(71);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -87859,7 +87965,7 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -87871,7 +87977,7 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -88733,7 +88839,7 @@ var _EntityBuilder = __webpack_require__(21);
 
 var _EntityBuilder2 = _interopRequireDefault(_EntityBuilder);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -89583,7 +89689,7 @@ var _GameView = __webpack_require__(13);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -90055,7 +90161,7 @@ var _Pool = __webpack_require__(17);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -91561,7 +91667,7 @@ var _BaseComponent2 = __webpack_require__(22);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -91653,7 +91759,7 @@ var _BaseComponent2 = __webpack_require__(22);
 
 var _BaseComponent3 = _interopRequireDefault(_BaseComponent2);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -91745,7 +91851,7 @@ var _BaseWeapon = __webpack_require__(59);
 
 var _BaseWeapon2 = _interopRequireDefault(_BaseWeapon);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -91765,7 +91871,7 @@ var _Spring = __webpack_require__(292);
 
 var _Spring2 = _interopRequireDefault(_Spring);
 
-var _SpriteSheetAnimation = __webpack_require__(43);
+var _SpriteSheetAnimation = __webpack_require__(44);
 
 var _SpriteSheetAnimation2 = _interopRequireDefault(_SpriteSheetAnimation);
 
@@ -92152,11 +92258,11 @@ var _Bullet2 = __webpack_require__(32);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -92703,7 +92809,7 @@ var _Bullet2 = __webpack_require__(32);
 
 var _Bullet3 = _interopRequireDefault(_Bullet2);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -93936,7 +94042,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -93956,7 +94062,7 @@ var _LoadoutStatsView = __webpack_require__(308);
 
 var _LoadoutStatsView2 = _interopRequireDefault(_LoadoutStatsView);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -94117,7 +94223,15 @@ var LoadoutContainer = function (_MainScreenModal) {
 
                         this.loadoutStatsView.updateData(card.cardData, card.level);
 
-                        this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height;
+                        var isOnTop = card.y < 50;
+
+                        if (isOnTop) {
+
+                                this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y;
+                        } else {
+
+                                this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height;
+                        }
                 }
         }, {
                 key: 'refresh',
@@ -94625,7 +94739,7 @@ var _LoadoutCardView = __webpack_require__(54);
 
 var _LoadoutCardView2 = _interopRequireDefault(_LoadoutCardView);
 
-var _MainScreenModal = __webpack_require__(42);
+var _MainScreenModal = __webpack_require__(43);
 
 var _MainScreenModal2 = _interopRequireDefault(_MainScreenModal);
 
@@ -94791,7 +94905,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _GameData = __webpack_require__(44);
+var _GameData = __webpack_require__(38);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
@@ -95199,7 +95313,7 @@ var _LoadoutCardView = __webpack_require__(54);
 
 var _LoadoutCardView2 = _interopRequireDefault(_LoadoutCardView);
 
-var _MainScreenModal = __webpack_require__(42);
+var _MainScreenModal = __webpack_require__(43);
 
 var _MainScreenModal2 = _interopRequireDefault(_MainScreenModal);
 
@@ -95312,9 +95426,9 @@ var LoadoutStatsView = function (_PIXI$Container) {
 
             for (var index = 0; index < this.starsSprites.length; index++) {
                 if (index <= level) {
-                    this.starsSprites[index].texture = PIXI.Texture.from('icon_confirm');
+                    this.starsSprites[index].texture = PIXI.Texture.from('filled-star');
                 } else {
-                    this.starsSprites[index].texture = PIXI.Texture.from('icon_close');
+                    this.starsSprites[index].texture = PIXI.Texture.from('blank-star');
                 }
             }
             this.uiList.addElement(this.starsList, { align: 0 });
@@ -95350,22 +95464,30 @@ var LoadoutStatsView = function (_PIXI$Container) {
         value: function getWeaponAttributes(data, level) {
             var att = [];
 
-            if (Array.isArray(data.weaponAttributes.basePower)) {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('basePower'), value: data.weaponAttributes.basePower[level] });
-            }
-            if (Array.isArray(data.weaponAttributes.baseFrequency)) {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseFrequency'), value: data.weaponAttributes.baseFrequency[level] });
-            }
-            if (Array.isArray(data.weaponAttributes.baseBulletSpeed)) {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseBulletSpeed'), value: data.weaponAttributes.baseBulletSpeed[level] });
-            }
+            att.push({ icon: _UIUtils2.default.getIconByAttribute('basePower'), value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) });
+            att.push({ icon: _UIUtils2.default.getIconByAttribute('baseFrequency'), value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) });
+            att.push({ icon: _UIUtils2.default.getIconByAttribute('baseBulletSpeed'), value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) });
+
             if (Array.isArray(data.weaponAttributes.baseAmount)) {
                 att.push({ icon: _UIUtils2.default.getIconByAttribute('baseAmount'), value: data.weaponAttributes.baseAmount[level] });
-            }
-            if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
+            } else if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
                 att.push({ icon: _UIUtils2.default.getIconByAttribute('baseBrustFireAmount'), value: data.weaponAttributes.baseBrustFireAmount[level] });
+            } else {
+                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseAmount'), value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) });
             }
+
             return att;
+        }
+    }, {
+        key: 'getAttributeValue',
+        value: function getAttributeValue(attributes, type, level) {
+
+            if (Array.isArray(attributes[type])) {
+                level = Math.min(level, attributes[type].length - 1);
+                return attributes[type][level];
+            } else {
+                return attributes[type];
+            }
         }
     }]);
     return LoadoutStatsView;
@@ -95417,7 +95539,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -95493,6 +95615,10 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _possibleConstructorReturn2 = __webpack_require__(3);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -95504,6 +95630,10 @@ var _inherits3 = _interopRequireDefault(_inherits2);
 var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
+
+var _GameData = __webpack_require__(38);
+
+var _GameData2 = _interopRequireDefault(_GameData);
 
 var _InteractableView = __webpack_require__(18);
 
@@ -95548,6 +95678,8 @@ var OutGameUIProgression = function (_PIXI$Container) {
                 _this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0009'), 20, 20, 20, 20);
                 _this.container.addChild(_this.infoBackContainer);
 
+                _this.infoBackContainer.alpha = 0.5;
+
                 _this.infoBackContainer.width = _this.size.width;
                 _this.infoBackContainer.height = _this.size.height;
                 _this.uiList = new _UIList2.default();
@@ -95559,31 +95691,48 @@ var OutGameUIProgression = function (_PIXI$Container) {
 
                 _this.container.addChild(_this.uiList);
 
-                _this.coinSprite = new PIXI.Sprite.from('coin2');
+                _this.coinSprite = new PIXI.Sprite.from(_UIUtils2.default.getIconByAttribute('softCurrency'));
                 _this.uiList.addElement(_this.coinSprite, { listScl: 0.1, fitHeight: 0.8, align: 1 });
 
                 _this.moneyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
                 _this.moneyLabel.text = 9000;
                 _this.uiList.addElement(_this.moneyLabel, { listScl: 0.3, align: 0.2 });
 
-                _this.keySprite = new PIXI.Sprite.from('crownl');
+                _this.keySprite = new PIXI.Sprite.from(_UIUtils2.default.getIconByAttribute('hardCurrency'));
                 _this.uiList.addElement(_this.keySprite, { listScl: 0.1, fitHeight: 0.8, align: 1 });
 
-                _this.keyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
-                _this.keyLabel.text = 2;
-                _this.uiList.addElement(_this.keyLabel, { listScl: 0.2, align: 0.2 });
+                _this.hardCurrencyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
+                _this.hardCurrencyLabel.text = 2;
+                _this.uiList.addElement(_this.hardCurrencyLabel, { listScl: 0.2, align: 0.2 });
 
-                _this.tokenSprite = new PIXI.Sprite.from('star');
+                _this.tokenSprite = new PIXI.Sprite.from(_UIUtils2.default.getIconByAttribute('specialCurrency'));
                 _this.uiList.addElement(_this.tokenSprite, { listScl: 0.1, fitHeight: 0.8, align: 1 });
 
-                _this.tokenLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
-                _this.tokenLabel.text = 2;
-                _this.uiList.addElement(_this.tokenLabel, { listScl: 0.2, align: 0.2 });
+                _this.specialCurrencyLabel = _UIUtils2.default.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
+                _this.specialCurrencyLabel.text = 2;
+                _this.uiList.addElement(_this.specialCurrencyLabel, { listScl: 0.2, align: 0.2 });
+
+                _GameData2.default.instance.onUpdateCurrency.add(function (res) {
+                        _this.updateCurrency(res);
+                });
+
+                _this.updateCurrency(_GameData2.default.instance.resources);
 
                 _this.uiList.updateHorizontalList();
                 return _this;
         }
 
+        (0, _createClass3.default)(OutGameUIProgression, [{
+                key: 'updateCurrency',
+                value: function updateCurrency(res) {
+
+                        this.moneyLabel.text = res.softCurrency;
+                        this.hardCurrencyLabel.text = res.hardCurrency;
+                        this.specialCurrencyLabel.text = res.specialCurrency;
+
+                        this.uiList.updateHorizontalList();
+                }
+        }]);
         return OutGameUIProgression;
 }(PIXI.Container);
 
@@ -95633,7 +95782,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -96328,7 +96477,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _MainScreenModal2 = __webpack_require__(42);
+var _MainScreenModal2 = __webpack_require__(43);
 
 var _MainScreenModal3 = _interopRequireDefault(_MainScreenModal2);
 
@@ -96429,7 +96578,7 @@ var _EnvironmentManager = __webpack_require__(317);
 
 var _EnvironmentManager2 = _interopRequireDefault(_EnvironmentManager);
 
-var _Eugine = __webpack_require__(38);
+var _Eugine = __webpack_require__(39);
 
 var _Eugine2 = _interopRequireDefault(_Eugine);
 
@@ -96449,7 +96598,7 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -96991,7 +97140,7 @@ var _GameView = __webpack_require__(13);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LevelManager = __webpack_require__(39);
+var _LevelManager = __webpack_require__(40);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
@@ -97460,7 +97609,7 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _Shadow = __webpack_require__(40);
+var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
 
@@ -106510,35 +106659,38 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
+}, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -106549,14 +106701,14 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -106573,8 +106725,20 @@ var assets = [{
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -106591,26 +106755,11 @@ var assets = [{
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
 	"id": "weapon-in-game-visuals",
 	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -106643,7 +106792,7 @@ module.exports = exports['default'];
 /* 344 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/particles/particles.json","image/body-parts/body-parts.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

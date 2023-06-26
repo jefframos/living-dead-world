@@ -141,7 +141,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         }
         let col = 0
         let ln = 0
-        const speed = 0.15;
+        const speed = 1.5;
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
@@ -169,7 +169,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             prize.alpha = 0;
             TweenLite.to(prize, 0.5, {
-                delay: i * speed + 0.25, alpha: 1, onStart: () => {
+                delay: i * speed / drawPrizes.length, alpha: 1, onStart: () => {
                     this.prizesContainer.addChild(prize)
                 }
             })
@@ -183,7 +183,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             this.collectButton.y = this.infoBackContainer.height - 50;
             TweenLite.to(this.collectButton, 0.5, { alpha: 1, y: this.infoBackContainer.height + 10, ease: Back.easeOut })
-        }, drawPrizes.length * speed*100 + 250);
+        }, speed * 800 + 250);
     }
     update(delta) {
         if (!this.isOpen) {

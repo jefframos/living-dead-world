@@ -191,7 +191,7 @@ export default class UIUtils {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 24, fill: 0xFFFFFF }, { x: 0, y: -5 })
+            UIUtils.addLabel(button, label, { fontSize: 22, fill: 0xFFFFFF, strokeThickness:3 }, { x: 0, y: -5 })
         }
         return button;
     }
@@ -240,25 +240,47 @@ export default class UIUtils {
     static getIconByAttribute(attribute) {
         switch (attribute) {
             case 'basePower':
-                return 'new_item - Copy'
+                return 'ico_power'
             case 'baseFrequency':
-                return 'ray'
+                return 'ico_frequency'
             case 'baseBulletSpeed':
-                return 'smallButton'
+                return 'ico_bullet_speed'
             case 'baseBrustFireAmount':
-                return 'results_arrow'
+                return 'ico_amount'
             case 'baseAmount':
-                return 'results_arrow'
+                return 'ico_amount'
             case 'baseDefense':
-                return 'square_0003s'
+                return 'ico_defense'
             case 'baseSpeed':
-                return 'star'
+                return 'ico_speed'
             case 'baseHealth':
+                return 'ico_health'
+            case 'softCurrency':
+                return 'coin1'
+            case 'hardCurrency':
                 return 'heart'
+            case 'specialCurrency':
+                return 'ray'
         }
 
 
         console.log(attribute)
+        return 'icon-help'
+    }
+    static getIconUIIcon(type) {
+        switch (type) {
+            case 'map':
+                return 'ico_map'
+            case 'prize':
+                return 'ico_slot-machine'
+            case 'shop':
+                return 'ico_shop'
+            case 'customization':
+                return 'ico_customization'
+        }
+
+
+        console.log(type)
         return 'icon-help'
     }
 
