@@ -95,7 +95,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.brustFire.amount = this.weaponData.weaponAttributes.brustFireAmount;
         this.brustFire.interval = this.weaponData.weaponAttributes.brustFireInterval;
     }
-    build(weaponData) {
+    build(weaponData, level) {
         super.build();
         this.interactiveProjectiles = [];
         this.activeProjectiles = [];
@@ -107,6 +107,8 @@ export default class BaseWeapon extends PhysicsEntity {
         } else {
             this.weaponData = new WeaponData();
         }
+
+
 
         if (this.parent instanceof Player) {
             this.isPlayer = true;
@@ -122,6 +124,9 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         weaponData.addMultiplier(this.attributesMultiplier);
+        if (level) {
+            this.weaponData.level = level;
+        }
 
         if (this.weaponData.ingameViewDataStatic.ingameIcon) {
             //poolGameObject

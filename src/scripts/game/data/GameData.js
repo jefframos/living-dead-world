@@ -76,6 +76,7 @@ export default class GameData {
         CookieManager.instance.saveEquipment('currentWeapon', id, level)
     }
     changeCompanion(id, level) {
+        console.log('changeCompanion',id, level)
         CookieManager.instance.saveEquipment('currentCompanion', id, level)
         this.onUpdateCompanion.dispatch(id, level)
     }

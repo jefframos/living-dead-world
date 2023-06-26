@@ -18,7 +18,7 @@ export default class OutGameUIProgression extends PIXI.Container {
             height: 60
         }
         const pad = 30
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0009'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
 
         this.infoBackContainer.width = this.size.width;

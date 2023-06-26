@@ -43,7 +43,7 @@ export default class WeaponInGameView extends GameObject {
 
         this.spawnDistance = weapon.weaponAttributes.spawnDistance
 
-        console.log(amount, weapon.weaponAttributes.amount);
+        
         this.defautScale = { x: 1, y: 1 }
         for (var i = 0; i < amount; i++) {
             let sprite = new PIXI.Sprite.from(weapon.ingameViewDataStatic.ingameIcon);

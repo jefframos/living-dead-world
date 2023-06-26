@@ -9,6 +9,7 @@ import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
 import ItemMergeSystem from '../../merge/ItemMergeSystem';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
+import LoadoutStatsView from './LoadoutStatsView';
 import MainScreenModal from '../MainScreenModal';
 import MergeCardView from '../../merge/MergeCardView';
 import UIList from '../../../ui/uiElements/UIList';
@@ -40,6 +41,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.warningIcon.x = this.mergeSectionButton.width - 15
         this.mergeSectionButton.addChild(this.warningIcon)
         this.mergeSectionButton.warningIcon = this.warningIcon;
+        this.mergeSectionButton.setActiveTexture(UIUtils.baseTabTexture + '_0003')
 
         this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
             this.mergeSystem.findAllMerges(this.currentSlots);
@@ -78,7 +80,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.currentWeaponSlot.onCardClicked.add((card) => {
             this.disableMainSlots();
-            card.selected();
+            this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Weapon)
         })
 
@@ -87,29 +89,29 @@ export default class LoadoutContainer extends MainScreenModal {
         this.slotsList.addElement(this.currentShoeSlot, { align: 0 });
         this.currentShoeSlot.onCardClicked.add((card) => {
             this.disableMainSlots();
-            card.selected();
+            this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Shoe)
         })
-        
+
         this.currentTrinketSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
         //this.currentTrinketSlot.setIconType(true);
         this.slotsList.addElement(this.currentTrinketSlot, { align: 0 });
         this.currentTrinketSlot.onCardClicked.add((card) => {
             this.disableMainSlots();
-            card.selected();
+            this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Trinket)
         })
-        
+
         this.currentCompanionSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
         //this.currentCompanionSlot.setIconType();
         this.slotsListInGame.addElement(this.currentCompanionSlot, { align: 0 });
         this.currentCompanionSlot.onCardClicked.add((card) => {
             this.disableMainSlots();
-            card.selected();
+            this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Caompanion)
         })
-        
-        
+
+
         this.mainslots = [this.currentWeaponSlot, this.currentShoeSlot, this.currentTrinketSlot, this.currentCompanionSlot]
         this.slotsList.updateVerticalList()
         this.slotsListInGame.updateVerticalList()
@@ -122,17 +124,36 @@ export default class LoadoutContainer extends MainScreenModal {
                 this.refresh();
             }, 1);
         })
-        
+
         this.attributesView = new AttributesContainer();
         this.container.addChild(this.attributesView)
 
+        this.loadoutStatsView = new LoadoutStatsView();
+        this.container.addChild(this.loadoutStatsView)
+
     }
-    disableMainSlots(){
+    disableMainSlots() {
         this.mainslots.forEach(element => {
             element.unselected();
         });
-        
+
     }
+    selectCard(card) {
+        this.currentSelectedCard = card;
+        card.selected();
+
+        this.loadoutStatsView.x = card.x + card.parent.x + card.parent.parent.x
+
+        const left = this.loadoutStatsView.x < Game.Borders.width / 2
+        const offset = left ? card.width + 20 : -this.loadoutStatsView.width - 20;
+
+        this.loadoutStatsView.x += offset
+
+        this.loadoutStatsView.updateData(card.cardData, card.level);
+
+        this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height
+    }
+
     refresh() {
         this.refreshSection(this.previousSection, true)
         let canMerge = this.findMerge()
@@ -140,7 +161,7 @@ export default class LoadoutContainer extends MainScreenModal {
     findMerge(show = true) {
         const entityCount = {}
         this.currentSlots.forEach(element => {
-            if (element.cardData) {
+            if (element.cardData && element.level < 5) {
                 if (entityCount[element.cardData.id + '-' + element.level]) {
                     entityCount[element.cardData.id + '-' + element.level].total++
                 } else {
@@ -198,10 +219,12 @@ export default class LoadoutContainer extends MainScreenModal {
         }
 
         if (!this.findMerge(false)) {
-            this.mergeSectionButton.text.alpha = 0.5;
+            this.mergeSectionButton.text.alpha = 0.65;
+            this.mergeSectionButton.updateBackTexture(UIUtils.baseTabTexture + '_0002')
             this.mergeSectionButton.warningIcon.visible = false;
         } else {
             this.mergeSectionButton.text.alpha = 1;
+            this.mergeSectionButton.updateBackTexture(UIUtils.baseTabTexture + '_0003')
             this.mergeSectionButton.warningIcon.visible = true;
         }
     }
@@ -232,6 +255,7 @@ export default class LoadoutContainer extends MainScreenModal {
                 }
                 break;
         }
+
     }
 
     refreshWeapons() {
@@ -250,6 +274,8 @@ export default class LoadoutContainer extends MainScreenModal {
                 GameData.instance.changeMainWeapon(card.cardData.id, card.level);
                 this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id), card.level)
                 this.onUpdateMainWeapon.dispatch(card.cardData);
+                this.loadoutStatsView.updateData(card.cardData, card.level);
+
                 this.refreshAttributes();
 
             })
@@ -273,8 +299,10 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableCompanions[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                GameData.instance.changeCompanion(card.cardData.id);
+                GameData.instance.changeCompanion(card.cardData.id, card.level);
                 this.currentCompanionSlot.setData(EntityBuilder.instance.getCompanion(card.cardData.id), availableCompanions[index].level)
+                this.loadoutStatsView.updateData(card.cardData, card.level);
+
                 this.refreshAttributes();
 
             })
@@ -306,8 +334,10 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableTrinkets[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                GameData.instance.changeTrinket(card.cardData.id);
+                GameData.instance.changeTrinket(card.cardData.id, card.level);
                 this.currentTrinketSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableTrinkets[index].level)
+                this.loadoutStatsView.updateData(card.cardData, card.level);
+
                 this.refreshAttributes();
 
             })
@@ -339,8 +369,10 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableShoes[index].level, 100)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                GameData.instance.changeShoe(card.cardData.id);
+                GameData.instance.changeShoe(card.cardData.id, card.level);
                 this.currentShoeSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableShoes[index].level)
+                this.loadoutStatsView.updateData(card.cardData, card.level);
+
                 this.refreshAttributes();
 
             })
@@ -372,7 +404,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.currentShoeSlot.resetPivot()
 
         const trinket = GameData.instance.currentEquippedTrinket
-        this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, companion ? companion.level : 0)
+        this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, trinket ? trinket.level : 0)
         this.currentTrinketSlot.resetPivot()
 
         const companion = GameData.instance.currentEquippedCompanion
@@ -386,55 +418,65 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.showSection(LoadoutContainer.Sections.Weapon)
 
-        this.currentWeaponSlot.selected();
         this.slotsList.updateVerticalList()
         this.slotsListInGame.updateVerticalList()
         this.resize()
 
         this.refreshAttributes();
+        this.selectCard(this.currentWeaponSlot)
 
     }
     refreshAttributes() {
 
+        if (this.currentSelectedCard) {
+            this.selectCard(this.currentSelectedCard)
+        }
+        
         const loadoutData = GameData.instance.loadout;
         const playerData = GameStaticData.instance.getEntityByIndex('player', 0)
 
+
+        this.defaultAttributes = new EntityAttributes()
+        //console.log(this.defaultAttributes.multipliers)
+        this.defaultAttributes.reset(playerData.attributes)
+
+
         this.atributes = new EntityAttributes()
-        console.log(this.atributes.multipliers)
+        //console.log(this.atributes.multipliers)
         this.atributes.reset(playerData.attributes)
-        
+
         this.addAttributes = new EntityAttributes()
         this.addAttributes.resetAll();
-        
+
         if (loadoutData.currentShoe.length > 0) {
             const equippedShoe = EntityBuilder.instance.getEquipable(loadoutData.currentShoe[0].id)
             if (equippedShoe) {
                 const shoeAttribute = GameData.instance.getAttributesFromEquipabble(equippedShoe, loadoutData.currentShoe[0].level);
-                console.log('shoeAttribute', shoeAttribute)
+                // console.log('shoeAttribute', shoeAttribute)
                 this.addAttributes.sumAttributes(shoeAttribute)
             }
         }
-        
+
         if (loadoutData.currentTrinket.length > 0) {
-            
+
             const equippedTrinket = EntityBuilder.instance.getEquipable(loadoutData.currentTrinket[0].id)
             if (equippedTrinket) {
                 const trinketAttribute = GameData.instance.getAttributesFromEquipabble(equippedTrinket, loadoutData.currentTrinket[0].level);
-                console.log('trinketAttribute', trinketAttribute)
+                // console.log('trinketAttribute', trinketAttribute)
                 this.addAttributes.sumAttributes(trinketAttribute)
-                
+
             }
         }
-        
-        this.atributes.sumAttributes(this.addAttributes)
-        console.log(this.atributes.multipliers)
-        console.log(this.atributes.health)
-        console.log(this.atributes.power)
-        console.log(this.atributes.defense)
-        console.log(this.atributes.speed)
-        console.log(this.atributes.frequency)
 
-        this.attributesView.updateAttributes(this.atributes)
+        this.atributes.sumAttributes(this.addAttributes)
+        // console.log(this.atributes.multipliers)
+        // console.log(this.atributes.health)
+        // console.log(this.atributes.power)
+        // console.log(this.atributes.defense)
+        // console.log(this.atributes.speed)
+        // console.log(this.atributes.frequency)
+
+        this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
     }
     updateListView(slots, showMerge = false) {
@@ -497,7 +539,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.mergeContainer.y = this.weaponsScroller.y
 
         let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) / 2);
-        this.attributesView.scale.set(Math.min(1,attScale))
+        this.attributesView.scale.set(Math.min(1, attScale))
 
         this.attributesView.x = (Game.Borders.width) / 2 - (this.attributesView.width) / 2
         this.attributesView.y = this.weaponsScroller.y - this.attributesView.height - 20

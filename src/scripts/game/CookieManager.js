@@ -227,7 +227,7 @@ export default class CookieManager {
 
 		data[type][this.currentPlayer].id = equip;
 		data[type][this.currentPlayer].level = level;
-		console.log(type, equip, 'saving', data);
+		console.log(type, equip,level,'saving', data);
 		this.saveChunk('loadout', data)
 
 	}

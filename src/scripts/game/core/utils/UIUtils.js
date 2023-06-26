@@ -179,19 +179,19 @@ export default class UIUtils {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, {  fontSize: 24, fill: 0xFFFFFF })
+            UIUtils.addLabel(button, label, { fontSize: 24, fill: 0xFFFFFF })
         }
         return button;
     }
     static getPrimaryLabelTabButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseTabTexture + '_0002', 150, 65);
-        button.setPadding(20,20,70,70)
+        const button = new BaseButton(UIUtils.baseTabTexture + '_0003', 150, 65);
+        button.setPadding(20, 20, 70, 70)
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, {  fontSize: 24, fill: 0xFFFFFF }, { x: 0, y: -5 })
+            UIUtils.addLabel(button, label, { fontSize: 24, fill: 0xFFFFFF }, { x: 0, y: -5 })
         }
         return button;
     }
@@ -237,6 +237,29 @@ export default class UIUtils {
         return button;
     }
 
+    static getIconByAttribute(attribute) {
+        switch (attribute) {
+            case 'basePower':
+                return 'new_item - Copy'
+            case 'baseFrequency':
+                return 'ray'
+            case 'baseBulletSpeed':
+                return 'smallButton'
+            case 'baseBrustFireAmount':
+                return 'results_arrow'
+            case 'baseAmount':
+                return 'results_arrow'
+            case 'baseDefense':
+                return 'square_0003s'
+            case 'baseSpeed':
+                return 'star'
+            case 'baseHealth':
+                return 'heart'
+        }
 
+
+        console.log(attribute)
+        return 'icon-help'
+    }
 
 }

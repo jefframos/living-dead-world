@@ -21,8 +21,9 @@ export default class Companion extends GameAgent {
         this.gameView.layer = RenderModule.RenderLayers.Gameplay
         this.gameView.view = new PIXI.Sprite.from('pet-dog-10001')
     }
-    build(companionData) {
+    build(companionData, level) {
         super.build()
+        this.level = level;
         this.staticData = companionData;
         this.attributes.reset(companionData.attributes);
         this.viewData = companionData.view;
@@ -85,7 +86,7 @@ export default class Companion extends GameAgent {
 
         if (this.staticData.weapon) {
 
-            this.addWeaponData(EntityBuilder.instance.weaponsData[this.staticData.weapon.id])
+            this.addWeaponData(EntityBuilder.instance.weaponsData[this.staticData.weapon.id], this.level)
         }
 
         this.targetAngle = Math.random() * Math.PI * 2;

@@ -181,16 +181,17 @@ export default class Player extends GameAgent {
 
         const comp = GameData.instance.currentEquippedCompanionData
         if (comp) {
-            this.sessionData.addEquipmentNEW(comp)
+            const compEquip = GameData.instance.currentEquippedCompanion
+            this.sessionData.addEquipmentNEW(comp, compEquip.level)
         }
 
         //this.sessionData.addEquipmentNEW(EntityBuilder.instance.getCompanion('LIGHT_DRONE'))
     }
-    addCompanion(companionID) {
+    addCompanion(companionID, level) {
         let companion = this.engine.poolGameObject(Companion)
 
         //console.log(EntityBuilder.instance.getCompanion(companionID), companionID)
-        companion.build(EntityBuilder.instance.getCompanion(companionID));
+        companion.build(EntityBuilder.instance.getCompanion(companionID), level);
         this.addChild(companion)
         let ang = Math.random() * Math.PI * 2
         companion.x = this.transform.position.x + Math.cos(ang) * 100
@@ -214,7 +215,7 @@ export default class Player extends GameAgent {
                     }
                     break;
                 case EntityData.EntityDataType.Companion:
-                    this.addCompanion(element.item.staticData.id)
+                    this.addCompanion(element.item.staticData.id, element.level)
                     break;
                 case EntityData.EntityDataType.Acessory:
                     this.addStatsModifier(element.item.effectId, element.level)
@@ -227,7 +228,7 @@ export default class Player extends GameAgent {
         if (this.activeAttachments.length) {
             this.activeAttachments.forEach(attachmentData => {
                 this.activeWeapons.forEach(weapon => {
-                    console.log('THIS', attachmentData, weapon)
+                    console.log('THIS ATTACHMENT', attachmentData, weapon)
                     weapon.addWeaponFromData(attachmentData)
                 });
             });
@@ -306,7 +307,7 @@ export default class Player extends GameAgent {
     }
     onSensorTrigger(element) {
     }
-    revive(){
+    revive() {
         super.revive();
 
         const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 300)

@@ -45,20 +45,20 @@ export default class GameAgent extends PhysicsEntity {
     revive(){
         this.health.reset();
     }
-    addWeaponData(weaponData) {
+    addWeaponData(weaponData, level = 0) {
 
         let mainWeapon = new InGameWeapon();
         mainWeapon.addWeaponFromData(weaponData)
-        this.addWeapon(mainWeapon)
+        this.addWeapon(mainWeapon, level)
     }
-    addWeapon(inGameWeapon) {
+    addWeapon(inGameWeapon, level = 0) {
         if (!inGameWeapon.hasWeapon) {
             return;
         }
         let weaponData = inGameWeapon.mainWeapon
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
-        weapon.build(weaponData)
+        weapon.build(weaponData, level)
     }
     heal(value, customFont) {
         if (!this.health.canHeal) {

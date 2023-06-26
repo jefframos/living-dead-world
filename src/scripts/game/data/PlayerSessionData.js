@@ -80,7 +80,7 @@ export default class PlayerSessionData {
         this.mainWeapon = weapon;
         this.addEquipmentNEW(weapon, level)
     }
-    levelUpMainWeapon(){
+    levelUpMainWeapon() {
         this.addEquipmentNEW(this.mainWeapon)
     }
     addEquipmentNEW(equipment, level = 0) {
@@ -98,9 +98,9 @@ export default class PlayerSessionData {
             this.equipmentList.push(new GameplayItem(equipment))
             gameItemId = this.equipmentList.length - 1;
             this.equipmentList[gameItemId].item = equipment;
-            if(level > 0){
-                this.equipmentList[gameItemId].level =level;
-            }else{                
+            if (level > 0) {
+                this.equipmentList[gameItemId].level = level;
+            } else {
                 this.equipmentList[gameItemId].level = equipment.level || 0;
             }
 

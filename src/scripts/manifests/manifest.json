@@ -4,12 +4,12 @@
         "image/texture/texture.json",
         "image/hud/hud.json",
         "image/ui-no-tiny/ui-no-tiny.json",
-        "image/guns/guns.json",
         "image/environment/environment.json",
+        "image/guns/guns.json",
         "image/ui/ui.json",
         "image/characters/characters.json",
-        "image/body-parts/body-parts.json",
         "image/particles/particles.json",
+        "image/body-parts/body-parts.json",
         "image/vfx/vfx.json"
     ]
 }
