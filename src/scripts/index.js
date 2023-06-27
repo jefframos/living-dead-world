@@ -4,6 +4,7 @@ import CookieManager from './game/CookieManager';
 import Game from './Game';
 import MainScreenManager from './game/screen/MainScreenManager';
 import SoundManager from './soundManager/SoundManager'
+import Utils from './game/core/utils/Utils';
 import audioManifest from './manifests/manifest-audio'
 import globals from './globals';
 import jsonManifest from './manifests/manifest-json'
@@ -12,6 +13,33 @@ import signals from 'signals';
 import spritesheetManifest from './manifests/manifest'
 
 window.PIXI = PIXI;
+
+
+//Utils.easeOutQuad
+// getValues(0.3, 0.2, null, 'easeOutQuad', 1)
+// getValues(0.1, 0.2, null, 'easeOutCubic', 1)
+// getValues(0.3, 0.18, null, 'easeOutCubic', 1)
+function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8) {
+
+    let list = '[' //+ value1 +','
+    for (let index = 9; index >= 0; index--) {
+        let n = Utils[ease]((index / 9 ) * scale)
+        let v = Utils.lerp(value2, value1,  n)// * Math.abs(value2 - value1) + value2
+        v = v.toFixed(2)
+        if(math){
+            v = Math[math](v)
+        }
+        list +=  v 
+    
+        if(index > 0){
+            list += ','
+        }
+        
+        
+    }
+    list += ']'
+    console.log(list)
+}
 
 
 (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
@@ -223,6 +251,7 @@ function startLoader() {
         game.updateLoader(e.progress)
     })
 }
+
 
 CookieManager.instance.sortCookie("main")
 

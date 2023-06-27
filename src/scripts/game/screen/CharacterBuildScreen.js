@@ -349,7 +349,7 @@ export default class CharacterBuildScreen extends Screen {
             this.pivotOffset.y = 80
         } else {
 
-            this.pivotOffset.y = 60
+            this.pivotOffset.y = 20
         }
     }
     showCustomization() {

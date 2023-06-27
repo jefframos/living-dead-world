@@ -96,7 +96,7 @@ export default class EnvironmentManager extends GameObject {
         }
         const floor = this.engine.poolGameObject(BasicFloorRender);
         floor.groundTexture = this.environmentData.groundTexture;
-        floor.setTileSize(this.chunkSize.width)
+        floor.setTileSize(this.environmentData.groundWidth || 256)
         this.addChild(floor)
     }
     updateLights() {
@@ -138,6 +138,7 @@ export default class EnvironmentManager extends GameObject {
 
             }
         }
+
         this.bakedData[layerName] = [];
         for (let i = -this.drawBoundsDistance.i; i <= this.drawBoundsDistance.i; i++) {
             for (let j = -this.drawBoundsDistance.j; j <= this.drawBoundsDistance.j; j++) {
@@ -167,7 +168,7 @@ export default class EnvironmentManager extends GameObject {
                             break
                     }
                     if (compare) {
-                        const data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] }
+                        const data = {layer:layer.layer,  x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] }
                         data.width = layer.width;
                         data.height = layer.height;
                         const entity = this.levelManager.addEntity(EnvironmentManager.Constructors[layer.constructor], data)

@@ -1,8 +1,80 @@
 {"frames": {
 
+"border-buttons/square_button_border_0001.png":
+{
+	"frame": {"x":768,"y":706,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0002.png":
+{
+	"frame": {"x":397,"y":921,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0003.png":
+{
+	"frame": {"x":487,"y":921,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0004.png":
+{
+	"frame": {"x":577,"y":921,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0005.png":
+{
+	"frame": {"x":869,"y":287,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0006.png":
+{
+	"frame": {"x":869,"y":376,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0007.png":
+{
+	"frame": {"x":869,"y":465,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0008.png":
+{
+	"frame": {"x":868,"y":554,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
+"border-buttons/square_button_border_0009.png":
+{
+	"frame": {"x":860,"y":643,"w":84,"h":83},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":84,"h":83},
+	"sourceSize": {"w":84,"h":83}
+},
 "buttons/square_button_0001.png":
 {
-	"frame": {"x":1723,"y":300,"w":75,"h":75},
+	"frame": {"x":858,"y":732,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -10,7 +82,7 @@
 },
 "buttons/square_button_0002.png":
 {
-	"frame": {"x":1623,"y":382,"w":75,"h":75},
+	"frame": {"x":768,"y":795,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -18,7 +90,7 @@
 },
 "buttons/square_button_0003.png":
 {
-	"frame": {"x":1815,"y":206,"w":75,"h":75},
+	"frame": {"x":849,"y":813,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -26,7 +98,7 @@
 },
 "buttons/square_button_0004.png":
 {
-	"frame": {"x":1896,"y":205,"w":75,"h":75},
+	"frame": {"x":760,"y":876,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -34,7 +106,7 @@
 },
 "buttons/square_button_0005.png":
 {
-	"frame": {"x":1704,"y":382,"w":75,"h":75},
+	"frame": {"x":841,"y":894,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -42,7 +114,7 @@
 },
 "buttons/square_button_0006.png":
 {
-	"frame": {"x":1785,"y":381,"w":75,"h":75},
+	"frame": {"x":668,"y":906,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -50,7 +122,7 @@
 },
 "buttons/square_button_0007.png":
 {
-	"frame": {"x":1804,"y":300,"w":75,"h":75},
+	"frame": {"x":939,"y":732,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -58,7 +130,7 @@
 },
 "buttons/square_button_0008.png":
 {
-	"frame": {"x":1866,"y":381,"w":75,"h":75},
+	"frame": {"x":930,"y":813,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -66,7 +138,7 @@
 },
 "buttons/square_button_0009.png":
 {
-	"frame": {"x":1896,"y":286,"w":75,"h":75},
+	"frame": {"x":922,"y":894,"w":75,"h":75},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":75,"h":75},
@@ -82,7 +154,7 @@
 },
 "cards/ingame-card0002.png":
 {
-	"frame": {"x":226,"y":5,"w":215,"h":452},
+	"frame": {"x":5,"y":463,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -90,7 +162,7 @@
 },
 "cards/ingame-card0003.png":
 {
-	"frame": {"x":447,"y":5,"w":215,"h":452},
+	"frame": {"x":226,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -98,7 +170,7 @@
 },
 "cards/ingame-card0004.png":
 {
-	"frame": {"x":668,"y":5,"w":215,"h":452},
+	"frame": {"x":226,"y":463,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -106,7 +178,7 @@
 },
 "cards/ingame-card0005.png":
 {
-	"frame": {"x":889,"y":5,"w":215,"h":452},
+	"frame": {"x":447,"y":5,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -114,7 +186,7 @@
 },
 "cards/ingame-card0006.png":
 {
-	"frame": {"x":1110,"y":5,"w":215,"h":452},
+	"frame": {"x":447,"y":463,"w":215,"h":452},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":215,"h":452},
@@ -122,7 +194,7 @@
 },
 "cards/item_card_container.png":
 {
-	"frame": {"x":1331,"y":5,"w":245,"h":245},
+	"frame": {"x":668,"y":5,"w":245,"h":245},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":245,"h":245},
@@ -130,7 +202,7 @@
 },
 "modal/modal_container0001.png":
 {
-	"frame": {"x":1331,"y":256,"w":94,"h":94},
+	"frame": {"x":5,"y":921,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -138,7 +210,7 @@
 },
 "modal/modal_container0002.png":
 {
-	"frame": {"x":1838,"y":5,"w":94,"h":94},
+	"frame": {"x":919,"y":5,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -146,7 +218,7 @@
 },
 "modal/modal_container0003.png":
 {
-	"frame": {"x":1331,"y":356,"w":94,"h":94},
+	"frame": {"x":668,"y":512,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -154,7 +226,7 @@
 },
 "modal/modal_container0004.png":
 {
-	"frame": {"x":1431,"y":256,"w":94,"h":94},
+	"frame": {"x":105,"y":921,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -162,7 +234,7 @@
 },
 "modal/modal_container0005.png":
 {
-	"frame": {"x":1838,"y":105,"w":94,"h":94},
+	"frame": {"x":919,"y":105,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -170,7 +242,7 @@
 },
 "modal/modal_container0006.png":
 {
-	"frame": {"x":1938,"y":5,"w":94,"h":94},
+	"frame": {"x":668,"y":612,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -178,7 +250,7 @@
 },
 "modal/modal_container0007.png":
 {
-	"frame": {"x":1431,"y":356,"w":94,"h":94},
+	"frame": {"x":768,"y":512,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -186,7 +258,7 @@
 },
 "modal/modal_container0008.png":
 {
-	"frame": {"x":1938,"y":105,"w":94,"h":94},
+	"frame": {"x":205,"y":921,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -194,7 +266,7 @@
 },
 "modal/modal_container0009.png":
 {
-	"frame": {"x":1531,"y":256,"w":94,"h":94},
+	"frame": {"x":668,"y":712,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -202,15 +274,15 @@
 },
 "slot-machine/slot-machine-modal.png":
 {
-	"frame": {"x":1582,"y":5,"w":250,"h":195},
-	"rotated": false,
+	"frame": {"x":668,"y":256,"w":250,"h":195},
+	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":250,"h":195},
 	"sourceSize": {"w":250,"h":195}
 },
 "tab/tab_button_0001.png":
 {
-	"frame": {"x":1631,"y":300,"w":86,"h":76},
+	"frame": {"x":919,"y":205,"w":86,"h":76},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":76},
@@ -218,7 +290,7 @@
 },
 "tab/tab_button_0002.png":
 {
-	"frame": {"x":1531,"y":356,"w":86,"h":88},
+	"frame": {"x":768,"y":612,"w":86,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":88},
@@ -226,7 +298,7 @@
 },
 "tab/tab_button_0003.png":
 {
-	"frame": {"x":1631,"y":206,"w":86,"h":88},
+	"frame": {"x":305,"y":921,"w":86,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":88},
@@ -234,13 +306,14 @@
 },
 "tab/tab_button_0004.png":
 {
-	"frame": {"x":1723,"y":206,"w":86,"h":88},
+	"frame": {"x":668,"y":812,"w":86,"h":88},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":86,"h":88},
 	"sourceSize": {"w":89,"h":88}
 }},
 "animations": {
+	"border-buttons/square_button_border": ["border-buttons/square_button_border_0001.png","border-buttons/square_button_border_0002.png","border-buttons/square_button_border_0003.png","border-buttons/square_button_border_0004.png","border-buttons/square_button_border_0005.png","border-buttons/square_button_border_0006.png","border-buttons/square_button_border_0007.png","border-buttons/square_button_border_0008.png","border-buttons/square_button_border_0009.png"],
 	"buttons/square_button": ["buttons/square_button_0001.png","buttons/square_button_0002.png","buttons/square_button_0003.png","buttons/square_button_0004.png","buttons/square_button_0005.png","buttons/square_button_0006.png","buttons/square_button_0007.png","buttons/square_button_0008.png","buttons/square_button_0009.png"],
 	"cards/ingame-card": ["cards/ingame-card0001.png","cards/ingame-card0002.png","cards/ingame-card0003.png","cards/ingame-card0004.png","cards/ingame-card0005.png","cards/ingame-card0006.png"],
 	"modal/modal_container": ["modal/modal_container0001.png","modal/modal_container0002.png","modal/modal_container0003.png","modal/modal_container0004.png","modal/modal_container0005.png","modal/modal_container0006.png","modal/modal_container0007.png","modal/modal_container0008.png","modal/modal_container0009.png"],
@@ -251,8 +324,8 @@
 	"version": "1.0",
 	"image": "ui-no-tiny.png",
 	"format": "RGBA8888",
-	"size": {"w":2037,"h":462},
+	"size": {"w":1019,"h":1020},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:a7a27c9ef8c2ed7c30dabd157083c294:c046aea10baccac3af7a8bad413f2423:283778344c759f5e2b0541873028f299$"
+	"smartupdate": "$TexturePacker:SmartUpdate:dde166a1ae7da9bb95bd0105fc84262b:8dbed2f3a0f769321fdbedb86240a485:283778344c759f5e2b0541873028f299$"
 }
 }

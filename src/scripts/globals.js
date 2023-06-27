@@ -65,14 +65,14 @@ window.console.groupCollapsed = function (teste) {
 
 window.MAX_NUMBER = 1000000;
 
-window.MAIN_FONT = 'fredokaone'
+window.MAIN_FONT = 'poppinsbold'
 window.SEC_FONT = 'poppinsbold'
 
 
 
 window.LABELS = {};
 window.LABELS.LABEL1 = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -86,7 +86,7 @@ window.LABELS.LABEL1 = {
     strokeThickness: 3,
 }
 window.LABELS.LABEL_CHEST = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -94,7 +94,7 @@ window.LABELS.LABEL_CHEST = {
     strokeThickness: 4,
 }
 window.LABELS.LABEL_SPACESHIP = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -102,7 +102,7 @@ window.LABELS.LABEL_SPACESHIP = {
     strokeThickness: 4,
 }
 window.LABELS.LABEL_STATS = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '14px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -111,14 +111,14 @@ window.LABELS.LABEL_STATS = {
 }
 
 window.LABELS.LABEL2 = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '24px',
     fill: 0xFFFFFF,
     align: 'center',
 }
 
 window.LABELS.LABEL_DAMAGE = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '14px',
     fill: 0xFFFFFF,
     align: 'center',

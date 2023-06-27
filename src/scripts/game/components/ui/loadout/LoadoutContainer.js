@@ -477,13 +477,6 @@ export default class LoadoutContainer extends MainScreenModal {
         }
 
         this.atributes.sumAttributes(this.addAttributes)
-        // console.log(this.atributes.multipliers)
-        // console.log(this.atributes.health)
-        // console.log(this.atributes.power)
-        // console.log(this.atributes.defense)
-        // console.log(this.atributes.speed)
-        // console.log(this.atributes.frequency)
-
         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
     }
@@ -543,6 +536,8 @@ export default class LoadoutContainer extends MainScreenModal {
         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w
         this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10
 
+
+        //this.mergeContainer.scale.set(Math.max(1, this.slotsList.scale.y))
         this.mergeContainer.x = this.weaponsScroller.x + (this.weaponsScroller.rect.w) / 2
         this.mergeContainer.y = this.weaponsScroller.y
 

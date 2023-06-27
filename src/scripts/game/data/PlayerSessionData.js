@@ -77,6 +77,7 @@ export default class PlayerSessionData {
         this.equipmentUpdated.dispatch(this.equipmentList);
     }
     setMainWeapon(weapon, level = 0) {
+        this.starterLevel = level;
         this.mainWeapon = weapon;
         this.addEquipmentNEW(weapon, level)
     }

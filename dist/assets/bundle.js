@@ -2543,6 +2543,10 @@ var _Pool = __webpack_require__(17);
 
 var _Pool2 = _interopRequireDefault(_Pool);
 
+var _Utils = __webpack_require__(8);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var UIUtils = function () {
@@ -2570,12 +2574,13 @@ var UIUtils = function () {
     }, {
         key: "getCloseButton",
         value: function getCloseButton(callback) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0004', 80, 60);
+            var button = new _BaseButton2.default(UIUtils.baseBorderButtonTexture + '_0004', 80, 80);
             _InteractableView2.default.addMouseUp(button, function () {
                 if (callback) callback();
             });
             button.addIcon('smallButton', 40);
 
+            button.scale.set(_Utils2.default.scaleToFit(button, 60));
             return button;
         }
     }, {
@@ -2611,7 +2616,7 @@ var UIUtils = function () {
     }, {
         key: "getMainPlayButton",
         value: function getMainPlayButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseButtonTexture + '_0005', 300, 100);
+            var button = new _BaseButton2.default(UIUtils.baseBorderButtonTexture + '_0005', 300, 100);
             _InteractableView2.default.addMouseUp(button, function () {
                 if (callback) callback();
             });
@@ -2896,6 +2901,7 @@ var UIUtils = function () {
 }();
 
 UIUtils.baseButtonTexture = 'square_button';
+UIUtils.baseBorderButtonTexture = 'square_button_border';
 UIUtils.baseTabTexture = 'tab_button';
 UIUtils.colorset = {
     skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
@@ -2927,6 +2933,10 @@ var _createClass3 = _interopRequireDefault(_createClass2);
 var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
+
+var _UIUtils = __webpack_require__(9);
+
+var _UIUtils2 = _interopRequireDefault(_UIUtils);
 
 var _config = __webpack_require__(34);
 
@@ -2969,7 +2979,7 @@ var Game = function () {
                         height: config.height,
                         resolution: Math.max(window.devicePixelRatio, 2),
                         antialias: false,
-                        backgroundColor: 0x151510
+                        backgroundColor: 0x260d31
                 });
                 document.body.appendChild(window.renderer.view);
 
@@ -2993,16 +3003,24 @@ var Game = function () {
                 key: 'makeLoader',
                 value: function makeLoader() {
                         this.loaderContainer = new PIXI.Container();
-                        var backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, 0, 300, 30);
-                        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0, 0, 300, 30);
+                        var backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, -15, 300, 30);
+                        this.fillLoader = new PIXI.Graphics().beginFill(0x29FF6D).drawRect(0, -15, 300, 30);
                         this.loaderContainer.addChild(backLoader);
                         this.loaderContainer.addChild(this.fillLoader);
                         this.fillLoader.scale.x = 0;
-                        // this.logo = new PIXI.Sprite.from('logoTransparent.png')
-                        // this.logo.anchor.set(0.5)
-                        // this.logo.x = 150
-                        // this.logo.y = -200
-                        // this.loaderContainer.addChild(this.logo)
+
+                        this.logo = new PIXI.Sprite.from('main-logo.png');
+                        this.logo.x = 150;
+                        this.logo.y = -100;
+                        this.logo.anchor.set(0.5);
+
+                        this.loadingLabel = _UIUtils2.default.getPrimaryLabel('0%');
+                        this.loadingLabel.anchor.set(0.5);
+                        this.loadingLabel.x = 150;
+                        this.loadingLabel.y = 0;
+                        this.loaderContainer.addChild(this.logo);
+                        this.loaderContainer.addChild(this.loadingLabel);
+                        this.loaderContainer.pivot.x = 150;
                         this.stage.addChild(this.loaderContainer);
 
                         this.loaderContainer.x = Game.Screen.width / 2;
@@ -3011,6 +3029,7 @@ var Game = function () {
                 key: 'updateLoader',
                 value: function updateLoader(progress) {
                         this.fillLoader.scale.x = progress / 100;
+                        this.loadingLabel.text = Math.round(progress) + '%';
                         this.resize();
                 }
         }, {
@@ -3029,6 +3048,7 @@ var Game = function () {
                 value: function _onTickEvent(deltaTime) {
                         this.dt = deltaTime / 60;
                         this.update();
+
                         if (this.latestWidth != window.innerWidth) {
                                 this.resize();
                         }
@@ -3111,7 +3131,7 @@ var Game = function () {
                                 this.loaderContainer.scale.y = newScaleY; //this.ratio
 
 
-                                this.loaderContainer.x = Game.Screen.width / 2 - this.loaderContainer.width / 2; //this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+                                this.loaderContainer.x = Game.Screen.width / 2; //this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
                                 this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50;
                         }
 
@@ -20075,12 +20095,13 @@ var EffectsManager = function (_GameObject) {
         _this.fontPool = {};
         //this.damageFontPool = [];
 
+
         _this.fontDefault = {
-            fontFamily: 'retro',
+            fontFamily: window.MAIN_FONT,
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
-            fontSize: 18,
+            fontSize: 22,
             dropShadowDistance: 2,
             fill: "#00FF00",
             fontWeight: 800,
@@ -69535,6 +69556,7 @@ var PlayerSessionData = function () {
         value: function setMainWeapon(weapon) {
             var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
+            this.starterLevel = level;
             this.mainWeapon = weapon;
             this.addEquipmentNEW(weapon, level);
         }
@@ -70014,6 +70036,10 @@ var _PhysicsEntity2 = __webpack_require__(66);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
+var _RenderModule = __webpack_require__(11);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
 var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
@@ -70042,6 +70068,16 @@ var StaticPhysicObject = function (_PhysicsEntity) {
         key: "build",
         value: function build(params) {
             (0, _get3.default)(StaticPhysicObject.prototype.__proto__ || (0, _getPrototypeOf2.default)(StaticPhysicObject.prototype), "build", this).call(this);
+
+            var render = this.engine.findByType(_RenderModule2.default);
+
+            console.log(params.layer);
+            if (params.layer && this.gameView.view.layer != _RenderModule2.default.RenderLayers[params.layer]) {
+                render.swapLayer(this.gameView, _RenderModule2.default.RenderLayers[params.layer]);
+            } else if (this.gameView.view.layer != _RenderModule2.default.RenderLayers.Base) {
+                render.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Base);
+            }
+
             this.buildRect(params.x, params.z, params.width, params.height, true);
 
             this.gameView.view.scale.set(params.width / this.gameView.view.width);
@@ -74836,6 +74872,10 @@ var _SoundManager = __webpack_require__(337);
 
 var _SoundManager2 = _interopRequireDefault(_SoundManager);
 
+var _Utils = __webpack_require__(8);
+
+var _Utils2 = _interopRequireDefault(_Utils);
+
 var _manifestAudio = __webpack_require__(340);
 
 var _manifestAudio2 = _interopRequireDefault(_manifestAudio);
@@ -74865,6 +74905,34 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 window.PIXI = PIXI;
+
+//Utils.easeOutQuad
+// getValues(0.3, 0.2, null, 'easeOutQuad', 1)
+// getValues(0.1, 0.2, null, 'easeOutCubic', 1)
+// getValues(0.3, 0.18, null, 'easeOutCubic', 1)
+function getValues(value1, value2) {
+    var math = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+    var ease = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'easeOutCubic';
+    var scale = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : 0.8;
+
+
+    var list = '['; //+ value1 +','
+    for (var index = 9; index >= 0; index--) {
+        var n = _Utils2.default[ease](index / 9 * scale);
+        var v = _Utils2.default.lerp(value2, value1, n); // * Math.abs(value2 - value1) + value2
+        v = v.toFixed(2);
+        if (math) {
+            v = Math[math](v);
+        }
+        list += v;
+
+        if (index > 0) {
+            list += ',';
+        }
+    }
+    list += ']';
+    console.log(list);
+}
 
 (function () {
     var script = document.createElement('script');script.onload = function () {
@@ -85737,7 +85805,7 @@ var CharacterBuildScreen = function (_Screen) {
                                 this.pivotOffset.y = 80;
                         } else {
 
-                                this.pivotOffset.y = 60;
+                                this.pivotOffset.y = 20;
                         }
                 }
         }, {
@@ -86468,6 +86536,9 @@ var CampfireScene = function (_BaseScene) {
                         this.grassTopRight.width = 5000;
                         this.grassTopRight.pivot.set(this.grassTopRight.width, this.grassTopRight.height / 2);
 
+                        this.grassTopRight.y = -2;
+                        this.grassTopRight.y = -2;
+
                         this.topPatch = new PIXI.Sprite.from('tile');
                         this.topPatch.anchor.set(0.5, 1);
                         this.topPatch.y = -this.grassTopRight.height / 2;
@@ -86478,7 +86549,7 @@ var CampfireScene = function (_BaseScene) {
 
                         this.bottomPatch = new PIXI.Sprite.from('tile');
                         this.bottomPatch.anchor.set(0.5, 0);
-                        this.bottomPatch.y = this.grassTopRight.height / 2;
+                        this.bottomPatch.y = this.grassTopRight.height / 2 - 5;
                         this.bottomPatch.tint = this.patchesColor;
                         this.bottomPatch.width = 5000;
                         this.bottomPatch.height = 5000;
@@ -94597,13 +94668,6 @@ var LoadoutContainer = function (_MainScreenModal) {
                         }
 
                         this.atributes.sumAttributes(this.addAttributes);
-                        // console.log(this.atributes.multipliers)
-                        // console.log(this.atributes.health)
-                        // console.log(this.atributes.power)
-                        // console.log(this.atributes.defense)
-                        // console.log(this.atributes.speed)
-                        // console.log(this.atributes.frequency)
-
                         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes);
                 }
         }, {
@@ -94668,6 +94732,7 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w;
                         this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10;
 
+                        //this.mergeContainer.scale.set(Math.max(1, this.slotsList.scale.y))
                         this.mergeContainer.x = this.weaponsScroller.x + this.weaponsScroller.rect.w / 2;
                         this.mergeContainer.y = this.weaponsScroller.y;
 
@@ -95251,8 +95316,7 @@ var ItemMergeSystem = function () {
             this.mergeSectionButton.x = -this.mergeSectionButton.width / 2;
             this.mergeSectionButton.y = -this.containerBackground.height - this.mergeSectionButton.height - 40;
 
-            this.container.scale.set(_Utils2.default.scaleToFit(this.container, _Game2.default.Borders.width / 2));
-
+            this.container.scale.set(Math.min(1, _Utils2.default.scaleToFit(this.container, _Game2.default.Borders.width / 2)));
             _Utils2.default.centerObject(this.cardsContainer, this.mergeContainer);
         }
     }]);
@@ -95411,12 +95475,18 @@ var LoadoutStatsView = function (_PIXI$Container) {
         value: function updateData(data, level) {
             var _this2 = this;
 
+            if (!data) {
+                this.uiList.removeAllElements();
+                this.visible = false;
+                return;
+            }
             if (this.currentCardData) {
                 if (this.currentCardData.id == data.id && this.currentLevel == level) {
                     return;
                 }
             }
 
+            this.visible = true;
             this.currentLevel = level;
             this.currentCardData = data;
             this.uiList.removeAllElements();
@@ -97251,7 +97321,7 @@ var EnvironmentManager = function (_GameObject) {
             }
             var floor = this.engine.poolGameObject(_BasicFloorRender2.default);
             floor.groundTexture = this.environmentData.groundTexture;
-            floor.setTileSize(this.chunkSize.width);
+            floor.setTileSize(this.environmentData.groundWidth || 256);
             this.addChild(floor);
         }
     }, {
@@ -97299,6 +97369,7 @@ var EnvironmentManager = function (_GameObject) {
                     this.bakedData[layerName][index].destroy();
                 }
             }
+
             this.bakedData[layerName] = [];
             for (var i = -this.drawBoundsDistance.i; i <= this.drawBoundsDistance.i; i++) {
                 for (var j = -this.drawBoundsDistance.j; j <= this.drawBoundsDistance.j; j++) {
@@ -97328,7 +97399,7 @@ var EnvironmentManager = function (_GameObject) {
                                 break;
                         }
                         if (compare) {
-                            var data = { x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] };
+                            var data = { layer: layer.layer, x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] };
                             data.width = layer.width;
                             data.height = layer.height;
                             var entity = this.levelManager.addEntity(EnvironmentManager.Constructors[layer.constructor], data);
@@ -97487,7 +97558,7 @@ var BasicFloorRender = function (_GameObject) {
 
         _this.gameView = new _GameView2.default();
 
-        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
+        _this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 256, 256);
         _this.gameView.view.anchor.set(0.5);
         _this.gameView.view.tileScale.set(1.5);
 
@@ -97504,8 +97575,9 @@ var BasicFloorRender = function (_GameObject) {
         key: "setTileSize",
         value: function setTileSize(tileSize) {
             this.tileSize = tileSize * this.gameView.view.tileScale.x;
-            this.gameView.view.width = this.tileSize * 10;
-            this.gameView.view.height = this.tileSize * 10;
+            this.gameView.view.scale.set(256 / tileSize);
+            this.gameView.view.width = this.tileSize * 10 / this.gameView.view.scale.x;
+            this.gameView.view.height = this.tileSize * 10 / this.gameView.view.scale.y;
         }
     }, {
         key: "build",
@@ -97609,6 +97681,10 @@ var _Layer = __webpack_require__(23);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
+var _RenderModule = __webpack_require__(11);
+
+var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
 var _Shadow = __webpack_require__(41);
 
 var _Shadow2 = _interopRequireDefault(_Shadow);
@@ -97642,6 +97718,15 @@ var StaticViewObject = function (_GameObject) {
         key: "build",
         value: function build(params) {
             (0, _get3.default)(StaticViewObject.prototype.__proto__ || (0, _getPrototypeOf2.default)(StaticViewObject.prototype), "build", this).call(this);
+
+            var render = this.engine.findByType(_RenderModule2.default);
+
+            if (params.layer && this.gameView.view.layer != _RenderModule2.default.RenderLayers[params.layer]) {
+                render.swapLayer(this.gameView, _RenderModule2.default.RenderLayers[params.layer]);
+            } else if (this.gameView.view.layer != _RenderModule2.default.RenderLayers.Base) {
+                render.swapLayer(this.gameView, _RenderModule2.default.RenderLayers.Base);
+            }
+
             if (params.width) {
                 this.gameView.view.scale.set(params.width / this.gameView.view.width);
             } else {
@@ -106583,12 +106668,12 @@ window.console.groupCollapsed = function (teste) {
 
 window.MAX_NUMBER = 1000000;
 
-window.MAIN_FONT = 'fredokaone';
+window.MAIN_FONT = 'poppinsbold';
 window.SEC_FONT = 'poppinsbold';
 
 window.LABELS = {};
 window.LABELS.LABEL1 = (_window$LABELS$LABEL = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -106599,7 +106684,7 @@ window.LABELS.LABEL1 = (_window$LABELS$LABEL = {
     fillGradientType: 1
 }, (0, _defineProperty3.default)(_window$LABELS$LABEL, 'fontSize', 28), (0, _defineProperty3.default)(_window$LABELS$LABEL, 'fontWeight', 900), (0, _defineProperty3.default)(_window$LABELS$LABEL, 'strokeThickness', 3), _window$LABELS$LABEL);
 window.LABELS.LABEL_CHEST = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -106607,7 +106692,7 @@ window.LABELS.LABEL_CHEST = {
     strokeThickness: 4
 };
 window.LABELS.LABEL_SPACESHIP = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '18px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -106615,7 +106700,7 @@ window.LABELS.LABEL_SPACESHIP = {
     strokeThickness: 4
 };
 window.LABELS.LABEL_STATS = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '14px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -106624,14 +106709,14 @@ window.LABELS.LABEL_STATS = {
 };
 
 window.LABELS.LABEL2 = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '24px',
     fill: 0xFFFFFF,
     align: 'center'
 };
 
 window.LABELS.LABEL_DAMAGE = {
-    fontFamily: window.SEC_FONT,
+    fontFamily: window.MAIN_FONT,
     fontSize: '14px',
     fill: 0xFFFFFF,
     align: 'center',
@@ -106677,20 +106762,17 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_TR",
-	"url": "assets/json\\localization_TR.json"
-}, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
+}, {
+	"id": "localization_TR",
+	"url": "assets/json\\localization_TR.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -106701,14 +106783,17 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -106719,11 +106804,17 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
 }, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -106731,26 +106822,14 @@ var assets = [{
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -106760,6 +106839,12 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }];
 
 exports.default = assets;
@@ -106792,7 +106877,7 @@ module.exports = exports['default'];
 /* 344 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

@@ -73,6 +73,9 @@ export default class CampfireScene extends BaseScene {
         this.grassTopRight.width = 5000
         this.grassTopRight.pivot.set(this.grassTopRight.width, this.grassTopRight.height / 2)        
 
+        this.grassTopRight.y = -2
+        this.grassTopRight.y = -2
+
         this.topPatch = new PIXI.Sprite.from('tile')
         this.topPatch.anchor.set(0.5,1)
         this.topPatch.y = -this.grassTopRight.height / 2
@@ -83,11 +86,12 @@ export default class CampfireScene extends BaseScene {
         
         this.bottomPatch = new PIXI.Sprite.from('tile')
         this.bottomPatch.anchor.set(0.5,0)
-        this.bottomPatch.y = this.grassTopRight.height / 2
+        this.bottomPatch.y = this.grassTopRight.height / 2 - 5
         this.bottomPatch.tint = this.patchesColor
         this.bottomPatch.width = 5000
         this.bottomPatch.height = 5000
         this.grassTopContainer.addChild(this.bottomPatch);
+
 
         // this.topPatch = new PIXI.Sprite.from('tile')
         // this.topPatch.anchor.set(0.5,1)

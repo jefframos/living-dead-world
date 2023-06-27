@@ -2,7 +2,7 @@
 
 "floor.png":
 {
-	"frame": {"x":5,"y":139,"w":64,"h":64},
+	"frame": {"x":139,"y":267,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -10,7 +10,7 @@
 },
 "floor_5.png":
 {
-	"frame": {"x":75,"y":139,"w":64,"h":64},
+	"frame": {"x":209,"y":267,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -18,15 +18,23 @@
 },
 "floor_6.png":
 {
-	"frame": {"x":145,"y":5,"w":64,"h":64},
+	"frame": {"x":267,"y":5,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
+"grass-patch-1.png":
+{
+	"frame": {"x":5,"y":5,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
 "grass.png":
 {
-	"frame": {"x":5,"y":5,"w":128,"h":128},
+	"frame": {"x":5,"y":267,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -34,7 +42,7 @@
 },
 "IndustrialTile_11.png":
 {
-	"frame": {"x":139,"y":75,"w":32,"h":32},
+	"frame": {"x":267,"y":75,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -42,7 +50,7 @@
 },
 "IndustrialTile_26.png":
 {
-	"frame": {"x":177,"y":75,"w":32,"h":32},
+	"frame": {"x":267,"y":113,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -50,7 +58,7 @@
 },
 "IndustrialTile_41.png":
 {
-	"frame": {"x":145,"y":113,"w":32,"h":32},
+	"frame": {"x":267,"y":151,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -58,7 +66,7 @@
 },
 "IndustrialTile_65.png":
 {
-	"frame": {"x":183,"y":113,"w":32,"h":32},
+	"frame": {"x":267,"y":189,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -66,7 +74,7 @@
 },
 "IndustrialTile_73.png":
 {
-	"frame": {"x":145,"y":151,"w":32,"h":32},
+	"frame": {"x":267,"y":227,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -81,8 +89,8 @@
 	"version": "1.0",
 	"image": "texture.png",
 	"format": "RGBA8888",
-	"size": {"w":220,"h":208},
+	"size": {"w":336,"h":400},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:510cfded683ab7eba0fc2f7759f316d2:652597f75685f2af1346fcab938f4cb4:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:a659201f95b9d15dfc2f07c02c72ab18:f01a9723b7d381928affd1d44c8b4d23:88db1022cd6b660616541d2788fcd4f7$"
 }
 }

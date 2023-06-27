@@ -4,12 +4,14 @@ import ColorButton from "../../components/ui/ColorButton";
 import ColorSlot from "../../components/ui/ColorSlot";
 import InteractableView from "../../view/card/InteractableView";
 import Pool from "./Pool";
+import Utils from "./Utils";
 
 export default class UIUtils {
     constructor() {
 
     }
     static baseButtonTexture = 'square_button';
+    static baseBorderButtonTexture = 'square_button_border';
     static baseTabTexture = 'tab_button';
     static colorset = {
         skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
@@ -23,10 +25,11 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton(UIUtils.baseButtonTexture + '_0004', 80, 60);
+        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0004', 80, 80);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         button.addIcon('smallButton', 40)
 
+        button.scale.set(Utils.scaleToFit(button, 60))
         return button;
     }
 
@@ -54,7 +57,7 @@ export default class UIUtils {
         return button;
     }
     static getMainPlayButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseButtonTexture + '_0005', 300, 100);
+        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0005', 300, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
             button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })

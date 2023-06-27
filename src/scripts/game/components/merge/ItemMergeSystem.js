@@ -301,8 +301,7 @@ export default class ItemMergeSystem {
         this.mergeSectionButton.x = -this.mergeSectionButton.width / 2;
         this.mergeSectionButton.y = - this.containerBackground.height - this.mergeSectionButton.height - 40
 
-        this.container.scale.set(Utils.scaleToFit(this.container, Game.Borders.width / 2))
-
+        this.container.scale.set(Math.min(1, Utils.scaleToFit(this.container, Game.Borders.width / 2)))
         Utils.centerObject(this.cardsContainer, this.mergeContainer)
     }
 

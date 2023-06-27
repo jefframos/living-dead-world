@@ -1,6 +1,7 @@
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import Layer from "../core/Layer";
+import RenderModule from "../core/modules/RenderModule";
 import Shadow from "../components/view/Shadow";
 import TagManager from "../core/TagManager";
 import Utils from "../core/utils/Utils";
@@ -16,6 +17,20 @@ export default class StaticViewObject extends GameObject {
     }
     build(params) {
         super.build()
+
+
+        const render = this.engine.findByType(RenderModule);
+
+        if( params.layer && this.gameView.view.layer != RenderModule.RenderLayers[params.layer]){
+            render.swapLayer(this.gameView, RenderModule.RenderLayers[params.layer])
+        }else if(this.gameView.view.layer != RenderModule.RenderLayers.Base){
+            render.swapLayer(this.gameView, RenderModule.RenderLayers.Base)
+        }
+
+
+
+
+
         if(params.width){
             this.gameView.view.scale.set(params.width / this.gameView.view.width )
         }else{

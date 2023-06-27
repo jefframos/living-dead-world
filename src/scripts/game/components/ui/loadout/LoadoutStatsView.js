@@ -71,12 +71,18 @@ export default class LoadoutStatsView extends PIXI.Container {
 
     }
     updateData(data, level) {
+        if(!data){
+            this.uiList.removeAllElements();
+            this.visible = false;
+            return;
+        }
         if (this.currentCardData) {
             if (this.currentCardData.id == data.id && this.currentLevel == level) {
                 return
             }
         }
-
+        
+        this.visible = true;
         this.currentLevel = level
         this.currentCardData = data
         this.uiList.removeAllElements();

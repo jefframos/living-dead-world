@@ -11,7 +11,7 @@ export default class BasicFloorRender extends GameObject {
         super()
         this.gameView = new GameView();
 
-        this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 32, 32);
+        this.gameView.view = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 256, 256);
         this.gameView.view.anchor.set(0.5)
         this.gameView.view.tileScale.set(1.5)
        
@@ -27,8 +27,9 @@ export default class BasicFloorRender extends GameObject {
     }
     setTileSize(tileSize) {
         this.tileSize = tileSize * this.gameView.view.tileScale.x;
-        this.gameView.view.width = this.tileSize * 10
-        this.gameView.view.height = this.tileSize * 10
+        this.gameView.view.scale.set(256/tileSize)
+        this.gameView.view.width = this.tileSize * 10 /  this.gameView.view.scale.x
+        this.gameView.view.height = this.tileSize * 10 /  this.gameView.view.scale.y
     }
     build(noLight) {
         super.build();

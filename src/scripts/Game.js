@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import UIUtils from './game/core/utils/UIUtils';
 import config from './config';
 import signals from 'signals';
 import utils from './utils';
@@ -45,7 +46,7 @@ export default class Game {
             height: config.height,
             resolution: Math.max(window.devicePixelRatio, 2),
             antialias: false,
-            backgroundColor: 0x151510
+            backgroundColor: 0x260d31
         });
         document.body.appendChild(window.renderer.view);
 
@@ -68,22 +69,31 @@ export default class Game {
     }
     makeLoader() {
         this.loaderContainer = new PIXI.Container()
-        let backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, 0, 300, 30)
-        this.fillLoader = new PIXI.Graphics().beginFill(0xff296D).drawRect(0, 0, 300, 30)
+        let backLoader = new PIXI.Graphics().beginFill(0).drawRect(0, -15, 300, 30)
+        this.fillLoader = new PIXI.Graphics().beginFill(0x29FF6D).drawRect(0, -15, 300, 30)
         this.loaderContainer.addChild(backLoader)
         this.loaderContainer.addChild(this.fillLoader)
         this.fillLoader.scale.x = 0
-        // this.logo = new PIXI.Sprite.from('logoTransparent.png')
-        // this.logo.anchor.set(0.5)
-        // this.logo.x = 150
-        // this.logo.y = -200
-        // this.loaderContainer.addChild(this.logo)
+
+        this.logo = new PIXI.Sprite.from('main-logo.png')
+        this.logo.x = 150
+        this.logo.y = -100
+        this.logo.anchor.set(0.5)
+
+        this.loadingLabel = UIUtils.getPrimaryLabel('0%')
+        this.loadingLabel.anchor.set(0.5)
+        this.loadingLabel.x = 150
+        this.loadingLabel.y = 0
+        this.loaderContainer.addChild(this.logo)
+        this.loaderContainer.addChild(this.loadingLabel)
+        this.loaderContainer.pivot.x = 150
         this.stage.addChild(this.loaderContainer);
 
         this.loaderContainer.x = Game.Screen.width / 2
     }
     updateLoader(progress) {
         this.fillLoader.scale.x = progress / 100
+        this.loadingLabel.text = Math.round(progress) + '%'
         this.resize()
     }
     initialize() {
@@ -97,6 +107,8 @@ export default class Game {
     _onTickEvent(deltaTime) {
         this.dt = deltaTime / 60;
         this.update();
+
+        
         if (this.latestWidth != window.innerWidth) {
             this.resize();
         }
@@ -185,7 +197,7 @@ export default class Game {
             this.loaderContainer.scale.y = newScaleY//this.ratio
 
 
-            this.loaderContainer.x = Game.Screen.width / 2 - this.loaderContainer.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
+            this.loaderContainer.x = Game.Screen.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
             this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50
 
 

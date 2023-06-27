@@ -36,12 +36,13 @@ export default class EffectsManager extends GameObject {
         this.fontPool = {};
         //this.damageFontPool = [];
 
+
         this.fontDefault = {
-            fontFamily: 'retro',
+            fontFamily: window.MAIN_FONT,
             align: "center",
             dropShadow: true,
             dropShadowAngle: 1.5,
-            fontSize: 18,
+            fontSize: 22,
             dropShadowDistance: 2,
             fill: "#00FF00",
             fontWeight: 800,
