@@ -5,7 +5,7 @@
         "Nor": "nor",
         "Between": "between",
         "Always": "always",
-        "groundTexture":"grass-patch-1",
+        "groundTexture":"grass-patch-2",
         "groundWidth":256,
         "assets": [
        
@@ -15,7 +15,7 @@
                     "layer":"Gameplay",
                     "layerName": "trees",
                     "constructor": "Trees",
-                    "list": ["tree-1", "tree-2"],
+                    "list": ["dark-pine"],
                     "width": 50,
                     "height": 50,
                     "weight": 0.5,
@@ -32,7 +32,7 @@
                 "structure": {
                     "layerName": "grass",
                     "constructor": "StaticViewObject",
-                    "list": ["grass-patches0001","grass-patches0003","grass-patches0004"],
+                    "list": ["grass-grass"],
                     "weight": 0.2,
                     "noise": 250,
                     "density": 5,

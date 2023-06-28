@@ -12,6 +12,8 @@ export default class BaseScene extends PIXI.Container {
             scale: { x: 1, y: 1 },
             position: { x: 0, y: 0 },
             tint:0xFFFFFF,
+            alpha:1,
+            onUpdate:null,
             animation: {
                 enabled: false,
                 start: 0,
@@ -48,8 +50,9 @@ export default class BaseScene extends PIXI.Container {
             sprite.position = element.position;
             sprite.scale = element.scale;
             sprite.tint = element.tint;
-
-            const sceneObject = { sprite: sprite }
+            sprite.alpha = element.alpha;
+            
+            const sceneObject = { sprite: sprite,  onUpdate: element.onUpdate }
             if (element.animation.enabled) {
                 sceneObject.animation = new SpriteSheetAnimation();
                 sceneObject.animation.addLayer('default', element.src, {
@@ -70,6 +73,9 @@ export default class BaseScene extends PIXI.Container {
             this.sceneContainer.addChild(sprite);
         });
         this.afterBuild();
+
+        console.log(this.sceneSetup.assets)
+        console.log(this.sceneSetup.inScene)
     }
     afterBuild() {
     }
@@ -78,6 +84,9 @@ export default class BaseScene extends PIXI.Container {
             if (element.animation) {
                 element.animation.update(delta)
                 element.sprite.texture = element.animation.currentTexture
+            }
+            if(element.onUpdate){
+                element.onUpdate(delta,element)
             }
         });
     }

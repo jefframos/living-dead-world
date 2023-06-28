@@ -1,3 +1,5 @@
+import AgentBlur from "./AgentBlur";
+import Clouds from "../components/Clouds";
 import Companion from "./Companion";
 import EffectsManager from "../manager/EffectsManager";
 import EntityAttributes from "../data/EntityAttributes";
@@ -150,6 +152,14 @@ export default class Player extends GameAgent {
         halo.setArc(50, 200, Math.PI * 0.25)
         halo.setColor(0xFFFED9, 0.5)
         this.addChild(halo)
+
+        let blur = this.engine.poolGameObject(AgentBlur);
+        blur.setColor(0xFFFED9)
+        this.addChild(blur)
+
+        let clouds = this.engine.poolGameObject(Clouds);
+        this.addChild(clouds)
+
 
 
     }

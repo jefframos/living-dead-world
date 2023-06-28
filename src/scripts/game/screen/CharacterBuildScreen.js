@@ -96,7 +96,6 @@ export default class CharacterBuildScreen extends Screen {
 
         this.charCustomizationContainer.hide()
 
-        this.zoom = 1;
 
         this.pivotOffset.y = -50
         this.buildBottomMenu();
@@ -172,6 +171,13 @@ export default class CharacterBuildScreen extends Screen {
         if (currentShoe.id) {
             this.updateEquipment('shoe', currentShoe.id)
         }
+
+
+        this.defaultZoom()
+        setTimeout(() => {
+            this.defaultZoom()            
+        }, 100);
+
 
     }
     get playerCustomization() {
@@ -332,23 +338,26 @@ export default class CharacterBuildScreen extends Screen {
         this.activePlayersCustomization.push(customizationView);
     }
     defaultZoom() {
-        this.zoom = 1
-
+        
         if (Game.IsPortrait) {
-
+            
+            this.zoom = 0.5
             this.pivotOffset.y = 20
         } else {
-
+            
+            this.zoom = 0.75
             this.pivotOffset.y = 0
         }
+
     }
     customizationZoom() {
-        this.zoom = 1.25
-
+        
         if (Game.IsPortrait) {
+            this.zoom = 0.8
             this.pivotOffset.y = 80
         } else {
-
+            
+            this.zoom = 0.9
             this.pivotOffset.y = 20
         }
     }

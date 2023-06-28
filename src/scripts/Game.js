@@ -46,7 +46,7 @@ export default class Game {
             height: config.height,
             resolution: Math.max(window.devicePixelRatio, 2),
             antialias: false,
-            backgroundColor: 0x260d31
+            backgroundColor: 0x16465B
         });
         document.body.appendChild(window.renderer.view);
 
