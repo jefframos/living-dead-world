@@ -8,7 +8,7 @@ import Utils from "../core/utils/Utils";
 
 export default class UIUtils {
     constructor() {
-        
+
     }
     static baseButtonTexture = 'square_button';
     static baseBorderButtonTexture = 'square_button_border';
@@ -57,10 +57,10 @@ export default class UIUtils {
         return button;
     }
     static getMainPlayButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0005', 300, 100);
+        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0002', 300, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
-            button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
+            button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
         }
         if (label) {
             UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 })
@@ -194,7 +194,7 @@ export default class UIUtils {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 22, fill: 0xFFFFFF, strokeThickness:3 }, { x: 0, y: -5 })
+            UIUtils.addLabel(button, label, { fontSize: 22, fill: 0xFFFFFF, strokeThickness: 3 }, { x: 0, y: -5 })
         }
         return button;
     }
@@ -280,6 +280,8 @@ export default class UIUtils {
                 return 'ico_shop'
             case 'customization':
                 return 'ico_customization'
+            case 'battle':
+                return 'ico_power'
         }
 
 

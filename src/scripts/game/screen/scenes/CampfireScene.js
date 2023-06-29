@@ -36,7 +36,7 @@ export default class CampfireScene extends BaseScene {
             // BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint:0xAEBD6E }),
             BaseScene.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 30 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: -4, y: 4 } }),
             BaseScene.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: 2, y: 2 } }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -200, y: -380 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha:0.2 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -200, y: -380 }, scale: { x: 10, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha:0.1 }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'container', position: { x: -200, y: -100 }, anchor: { x: 0.5, y: 1 } }),
             BaseScene.makeAssetSetup({ src: 'log-sit', position: { x: -280, y: 0 }, anchor: { x: 0.5, y: 0.5 } }),
@@ -70,7 +70,8 @@ export default class CampfireScene extends BaseScene {
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 380, y: 550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 700, y: 330 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.7, y: 1.7 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 600 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -700, y: 200 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha:0.3 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -700, y: 200 }, scale: { x: 4, y:3.5 }, anchor: { x: 0.5, y: 1 }, alpha:0.3 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: 0, y: 600 }, scale: { x: 8, y:12 }, anchor: { x: 0.5, y: 1 }, alpha:0.1 }),
         ]
 
 

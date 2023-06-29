@@ -113,6 +113,9 @@ export default class LoadoutCardView extends PIXI.Container {
 
         this.cardImage.x = width / 2
         this.cardImage.y = height / 2
+
+        this.levelLabel.x = width - 14
+        this.levelLabel.y = height - 14
     }
     selected() {
         this.border.visible = true;
@@ -151,6 +154,7 @@ export default class LoadoutCardView extends PIXI.Container {
     }
     hideLevelLabel() {
         this.levelLabel.visible = false;
+        this.shouldHideLevelLabel = true;
     }
     showLevelLabel() {
         this.levelLabel.visible = true;
@@ -161,7 +165,16 @@ export default class LoadoutCardView extends PIXI.Container {
             this.cardBorder.texture = PIXI.Texture.from(this.empty);
             this.cardImage.texture = PIXI.Texture.EMPTY;
             this.cardData = null;
+            this.levelLabel.visible = false;
             return;
+        }
+        
+        if(this.shouldHideLevelLabel){
+            this.levelLabel.visible = false;
+
+        }else{
+            this.levelLabel.visible = true;
+
         }
         this.cardData = cardData;
         this.level = level;

@@ -2971,12 +2971,12 @@ var UIUtils = function () {
     }, {
         key: "getMainPlayButton",
         value: function getMainPlayButton(callback, label, icon) {
-            var button = new _BaseButton2.default(UIUtils.baseBorderButtonTexture + '_0005', 300, 100);
+            var button = new _BaseButton2.default(UIUtils.baseBorderButtonTexture + '_0002', 300, 100);
             _InteractableView2.default.addMouseUp(button, function () {
                 if (callback) callback();
             });
             if (icon) {
-                button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
+                button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 });
             }
             if (label) {
                 UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 });
@@ -3246,6 +3246,8 @@ var UIUtils = function () {
                     return 'ico_shop';
                 case 'customization':
                     return 'ico_customization';
+                case 'battle':
+                    return 'ico_power';
             }
 
             console.log(type);
@@ -22457,7 +22459,7 @@ var BaseButton = function (_PIXI$Container) {
             if (this.safeShape) {
                 this.safeShape.texture = tex;
             } else {
-                this.safeShape = new PIXI.NineSlicePlane(tex, 20, 20, 20, 20);
+                this.safeShape = new PIXI.NineSlicePlane(tex, 25, 25, 25, 25);
                 this.addChild(this.safeShape);
             }
             this.safeShape.width = width;
@@ -28942,6 +28944,9 @@ var LoadoutCardView = function (_PIXI$Container) {
 
                         this.cardImage.x = width / 2;
                         this.cardImage.y = height / 2;
+
+                        this.levelLabel.x = width - 14;
+                        this.levelLabel.y = height - 14;
                 }
         }, {
                 key: 'selected',
@@ -28997,6 +29002,7 @@ var LoadoutCardView = function (_PIXI$Container) {
                 key: 'hideLevelLabel',
                 value: function hideLevelLabel() {
                         this.levelLabel.visible = false;
+                        this.shouldHideLevelLabel = true;
                 }
         }, {
                 key: 'showLevelLabel',
@@ -29014,7 +29020,14 @@ var LoadoutCardView = function (_PIXI$Container) {
                                 this.cardBorder.texture = PIXI.Texture.from(this.empty);
                                 this.cardImage.texture = PIXI.Texture.EMPTY;
                                 this.cardData = null;
+                                this.levelLabel.visible = false;
                                 return;
+                        }
+
+                        if (this.shouldHideLevelLabel) {
+                                this.levelLabel.visible = false;
+                        } else {
+                                this.levelLabel.visible = true;
                         }
                         this.cardData = cardData;
                         this.level = level;
@@ -49941,6 +49954,11 @@ var PlayerGameViewSpriteSheet = function (_BaseComponent) {
             this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
         }
     }, {
+        key: 'generateNewTexture',
+        value: function generateNewTexture() {
+            this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
+        }
+    }, {
         key: 'updateEquipment',
         value: function updateEquipment(area, id) {
 
@@ -69850,8 +69868,8 @@ var MergeCardView = function (_LoadoutCardView) {
 
     function MergeCardView() {
         var texture = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _UIUtils2.default.baseButtonTexture + '_0006';
-        var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 115;
-        var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 150;
+        var width = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 120;
+        var height = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 120;
         (0, _classCallCheck3.default)(this, MergeCardView);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (MergeCardView.__proto__ || (0, _getPrototypeOf2.default)(MergeCardView)).call(this, texture, width, height));
@@ -69863,7 +69881,7 @@ var MergeCardView = function (_LoadoutCardView) {
         _this.addChild(_this.lockIcon);
         _this.lockIcon.visible = false;
 
-        _this.lockIcon.scale.set(_Utils2.default.scaleToFit(_this.lockIcon, 30));
+        //this.hideLevelLabel();
         return _this;
     }
 
@@ -85290,7 +85308,7 @@ $export($export.S, 'Number', {
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _getPrototypeOf = __webpack_require__(2);
@@ -85426,614 +85444,642 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var CharacterBuildScreen = function (_Screen) {
-    (0, _inherits3.default)(CharacterBuildScreen, _Screen);
-    (0, _createClass3.default)(CharacterBuildScreen, null, [{
-        key: 'makeAssetSetup',
-        value: function makeAssetSetup(data) {
-            var obj = {
-                src: '',
-                anchor: { x: 0.5, y: 0.5 },
-                scale: { x: 1, y: 1 },
-                position: { x: 0, y: 0 },
-                animation: {
-                    enabled: false,
-                    start: 0,
-                    end: 0
+        (0, _inherits3.default)(CharacterBuildScreen, _Screen);
+        (0, _createClass3.default)(CharacterBuildScreen, null, [{
+                key: 'makeAssetSetup',
+                value: function makeAssetSetup(data) {
+                        var obj = {
+                                src: '',
+                                anchor: { x: 0.5, y: 0.5 },
+                                scale: { x: 1, y: 1 },
+                                position: { x: 0, y: 0 },
+                                animation: {
+                                        enabled: false,
+                                        start: 0,
+                                        end: 0
+                                }
+                        };
+
+                        for (var key in obj) {
+                                if (data[key] !== undefined) {
+                                        obj[key] = data[key];
+                                }
+                        }
+                        return obj;
                 }
-            };
+        }]);
 
-            for (var key in obj) {
-                if (data[key] !== undefined) {
-                    obj[key] = data[key];
+        function CharacterBuildScreen(label, targetContainer) {
+                (0, _classCallCheck3.default)(this, CharacterBuildScreen);
+
+                var _this = (0, _possibleConstructorReturn3.default)(this, (CharacterBuildScreen.__proto__ || (0, _getPrototypeOf2.default)(CharacterBuildScreen)).call(this, label, targetContainer));
+
+                _this.container = new PIXI.Container();
+                _this.addChild(_this.container);
+
+                _this.sceneContainer = new PIXI.Container();
+                _this.container.addChild(_this.sceneContainer);
+
+                _this.campfireScene = new _CampfireScene2.default();
+                _this.sceneContainer.addChild(_this.campfireScene);
+
+                _this.campfireScene.buildScene();
+
+                _this.charCustomizationContainer = new _CharacterCustomizationContainer2.default();
+                _this.container.addChild(_this.charCustomizationContainer);
+
+                _this.logo = new PIXI.Sprite.from('muta-logo');
+                //this.container.addChild(this.logo);
+                _this.logo.anchor.x = 0.5;
+
+                _this.activePlayersCustomization = [];
+
+                for (var index = 0; index < _GameData2.default.instance.totalPlayers; index++) {
+                        _this.addCharacter(_GameData2.default.instance.getPlayer(index));
                 }
-            }
-            return obj;
-        }
-    }]);
+                //this.addCharacter()
+                //this.addCharacter()
 
-    function CharacterBuildScreen(label, targetContainer) {
-        (0, _classCallCheck3.default)(this, CharacterBuildScreen);
+                _this.activePlayerId = Math.min(1, _this.activePlayersCustomization.length - 1);
+                _this.charCustomizationContainer.setPlayer(_this.activePlayersCustomization[_this.activePlayerId].playerViewDataStructure);
+                _this.updateCharactersPosition();
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (CharacterBuildScreen.__proto__ || (0, _getPrototypeOf2.default)(CharacterBuildScreen)).call(this, label, targetContainer));
+                _this.pivotOffset = { x: 0, y: 0 };
 
-        _this.container = new PIXI.Container();
-        _this.addChild(_this.container);
+                _this.sceneContainer.pivot.x = _this.activePlayersCustomization[_this.activePlayerId].x;
+                _this.sceneContainer.pivot.y = _this.activePlayersCustomization[_this.activePlayerId].y;
+                _this.sceneContainer.x = _Game2.default.Borders.width / 2;
+                _this.sceneContainer.y = _Game2.default.Borders.height / 2;
 
-        _this.sceneContainer = new PIXI.Container();
-        _this.container.addChild(_this.sceneContainer);
+                _this.charCustomizationContainer.hide();
 
-        _this.campfireScene = new _CampfireScene2.default();
-        _this.sceneContainer.addChild(_this.campfireScene);
+                _this.pivotOffset.y = -50;
+                _this.buildBottomMenu();
 
-        _this.campfireScene.buildScene();
+                _this.modalList = [];
+                _this.loadoutContainer = new _LoadoutContainer2.default();
+                _this.addModal(_this.loadoutContainer);
+                _this.shopContainer = new _ShopContainer2.default();
+                _this.addModal(_this.shopContainer);
+                _this.achievmentsContainer = new _AchievmentsContainer2.default();
+                _this.addModal(_this.achievmentsContainer);
+                _this.locationContainer = new _LocationContainer2.default();
+                _this.addModal(_this.locationContainer);
+                _this.rouletteContainer = new _RouletteContainer2.default();
+                _this.addModal(_this.rouletteContainer);
 
-        _this.charCustomizationContainer = new _CharacterCustomizationContainer2.default();
-        _this.container.addChild(_this.charCustomizationContainer);
+                _this.popUpList = [];
+                _this.prizeCollect = new _PrizeCollectContainer2.default();
+                _this.addPopUp(_this.prizeCollect);
 
-        _this.logo = new PIXI.Sprite.from('muta-logo');
-        //this.container.addChild(this.logo);
-        _this.logo.anchor.x = 0.5;
+                _this.outgameUIProgression = new _OutGameUIProgression2.default();
+                _this.container.addChild(_this.outgameUIProgression);
 
-        _this.activePlayersCustomization = [];
+                _this.buttonsList = new _UIList2.default();
+                _this.container.addChild(_this.buttonsList);
+                _this.closeButton = _UIUtils2.default.getCloseButton(function () {
+                        _this.backButtonAction();
+                });
+                _this.buttonsList.addElement(_this.closeButton, { align: 0 });
+                //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
 
-        for (var index = 0; index < _GameData2.default.instance.totalPlayers; index++) {
-            _this.addCharacter(_GameData2.default.instance.getPlayer(index));
-        }
-        //this.addCharacter()
-        //this.addCharacter()
+                _this.buttonsList.w = 60;
+                _this.buttonsList.h = 60;
 
-        _this.activePlayerId = Math.min(1, _this.activePlayersCustomization.length - 1);
-        _this.charCustomizationContainer.setPlayer(_this.activePlayersCustomization[_this.activePlayerId].playerViewDataStructure);
-        _this.updateCharactersPosition();
+                _this.buttonsList.updateHorizontalList();
 
-        _this.pivotOffset = { x: 0, y: 0 };
+                // setTimeout(() => {
 
-        _this.sceneContainer.pivot.x = _this.activePlayersCustomization[_this.activePlayerId].x;
-        _this.sceneContainer.pivot.y = _this.activePlayersCustomization[_this.activePlayerId].y;
-        _this.sceneContainer.x = _Game2.default.Borders.width / 2;
-        _this.sceneContainer.y = _Game2.default.Borders.height / 2;
-
-        _this.charCustomizationContainer.hide();
-
-        _this.pivotOffset.y = -50;
-        _this.buildBottomMenu();
-
-        _this.modalList = [];
-        _this.loadoutContainer = new _LoadoutContainer2.default();
-        _this.addModal(_this.loadoutContainer);
-        _this.shopContainer = new _ShopContainer2.default();
-        _this.addModal(_this.shopContainer);
-        _this.achievmentsContainer = new _AchievmentsContainer2.default();
-        _this.addModal(_this.achievmentsContainer);
-        _this.locationContainer = new _LocationContainer2.default();
-        _this.addModal(_this.locationContainer);
-        _this.rouletteContainer = new _RouletteContainer2.default();
-        _this.addModal(_this.rouletteContainer);
-
-        _this.popUpList = [];
-        _this.prizeCollect = new _PrizeCollectContainer2.default();
-        _this.addPopUp(_this.prizeCollect);
-
-        _this.outgameUIProgression = new _OutGameUIProgression2.default();
-        _this.container.addChild(_this.outgameUIProgression);
-
-        _this.buttonsList = new _UIList2.default();
-        _this.container.addChild(_this.buttonsList);
-        _this.closeButton = _UIUtils2.default.getCloseButton(function () {
-            _this.backButtonAction();
-        });
-        _this.buttonsList.addElement(_this.closeButton, { align: 0 });
-        //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
-
-        _this.buttonsList.w = 60;
-        _this.buttonsList.h = 60;
-
-        _this.buttonsList.updateHorizontalList();
-
-        // setTimeout(() => {
-
-        //     this.openModal(this.loadoutContainer);
-        // }, 10);
+                //     this.openModal(this.loadoutContainer);
+                // }, 10);
 
 
-        _this.loadoutContainer.onUpdateMainWeapon.add(function () {
-            _this.loadoutButton.addIcon(_GameData2.default.instance.currentEquippedWeaponData.entityData.icon, 80);
-        });
+                _this.loadoutContainer.onUpdateMainWeapon.add(function () {
+                        _this.loadoutButton.addIcon(_GameData2.default.instance.currentEquippedWeaponData.entityData.icon, 80);
+                });
 
-        _GameData2.default.instance.onUpdateEquipment.add(_this.updateEquipment.bind(_this));
-        _GameData2.default.instance.onUpdateCompanion.add(_this.updateCompanion.bind(_this));
+                _GameData2.default.instance.onUpdateEquipment.add(_this.updateEquipment.bind(_this));
+                _GameData2.default.instance.onUpdateCompanion.add(_this.updateCompanion.bind(_this));
 
-        _PrizeManager2.default.instance.onGetMetaPrize.add(_this.showPrizeWindow.bind(_this));
+                _PrizeManager2.default.instance.onGetMetaPrize.add(_this.showPrizeWindow.bind(_this));
 
-        var currentCompanion = _GameData2.default.instance.currentEquippedCompanionData;
-        if (currentCompanion) {
-            _this.updateCompanion(currentCompanion.id);
-        }
-
-        var currentTrinket = _GameData2.default.instance.currentEquippedTrinket;
-        if (currentTrinket.id) {
-            _this.updateEquipment('trinket', currentTrinket.id);
-        }
-
-        var currentMask = _GameData2.default.instance.currentEquippedMask;
-        if (currentMask.id) {
-            _this.updateEquipment('mask', currentMask.id);
-        }
-
-        var currentShoe = _GameData2.default.instance.currentEquippedShoe;
-        if (currentShoe.id) {
-            _this.updateEquipment('shoe', currentShoe.id);
-        }
-
-        _this.defaultZoom();
-        setTimeout(function () {
-            _this.defaultZoom();
-        }, 100);
-
-        return _this;
-    }
-
-    (0, _createClass3.default)(CharacterBuildScreen, [{
-        key: 'updateCompanion',
-        value: function updateCompanion(id) {
-            var data = _EntityBuilder2.default.instance.getCompanion(id);
-
-            if (!data) {
-                this.playerCustomization.removeCompanion();
-                return;
-            }
-            this.playerCustomization.setCompanion(data);
-        }
-    }, {
-        key: 'showPrizeWindow',
-        value: function showPrizeWindow(data) {
-            this.prizeCollect.showPrize(data);
-            this.openPopUp(this.prizeCollect);
-        }
-    }, {
-        key: 'updateEquipment',
-        value: function updateEquipment(area, id) {
-            var data = _EntityBuilder2.default.instance.getEquipable(id);
-            if (area == 'trinket') {
-                this.playerCustomization.playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
-            } else if (area == 'mask') {
-                this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
-            } else if (area == 'shoe') {
-                this.playerCustomization.playerViewDataStructure.shoe = data ? data.playerSpriteReference : 0;
-            }
-        }
-    }, {
-        key: 'addPopUp',
-        value: function addPopUp(popUp) {
-            this.popUpList.push(popUp);
-            this.container.addChild(popUp);
-            popUp.onHide.add(this.onPopUpHide.bind(this));
-            popUp.onShow.add(this.onPopUpShow.bind(this));
-            popUp.hide();
-        }
-    }, {
-        key: 'addModal',
-        value: function addModal(modal) {
-            this.modalList.push(modal);
-            this.container.addChild(modal);
-            modal.onHide.add(this.onModalHide.bind(this));
-            modal.onShow.add(this.onModalShow.bind(this));
-            modal.hide();
-        }
-    }, {
-        key: 'onPopUpShow',
-        value: function onPopUpShow(popup) {}
-    }, {
-        key: 'onPopUpHide',
-        value: function onPopUpHide(popup) {
-
-            var modalOpen = null;
-            this.modalList.forEach(function (element) {
-                if (element.isOpen) {
-                    modalOpen = element;
+                var currentCompanion = _GameData2.default.instance.currentEquippedCompanionData;
+                if (currentCompanion) {
+                        _this.updateCompanion(currentCompanion.id);
                 }
-            });
 
-            if (!modalOpen) {
-                this.closeCustomization();
-                this.unSelectPlayer();
-            }
-        }
-    }, {
-        key: 'onModalShow',
-        value: function onModalShow(modal) {}
-    }, {
-        key: 'onModalHide',
-        value: function onModalHide(modal) {}
-    }, {
-        key: 'openPopUp',
-        value: function openPopUp(popUp) {
-            this.hideMainUI();
-            this.customizationZoom();
-            popUp.show();
-            this.previousPopUp = popUp;
-        }
-    }, {
-        key: 'openModal',
-        value: function openModal(modal) {
-            this.hideMainUI();
-            this.customizationZoom();
-            modal.show();
-            this.previousModal = modal;
-        }
-    }, {
-        key: 'buildBottomMenu',
-        value: function buildBottomMenu() {
-            var _this2 = this;
-
-            this.bottomMenu = new PIXI.Container();
-            this.container.addChild(this.bottomMenu);
-            this.bottomMenuList = new _UIList2.default();
-            this.loadoutButton = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                _this2.openModal(_this2.loadoutContainer);
-            }, 'Loadout', _GameData2.default.instance.currentEquippedWeaponData.entityData.icon);
-
-            var bt2 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                _this2.showCustomization();
-            }, 'Customize', _UIUtils2.default.getIconUIIcon('customization'));
-
-            var bt0 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-
-                _PrizeManager2.default.instance.getMetaPrize([0, 1, 2, 3, 4], 3, 15);
-            }, 'TestPopUp', _UIUtils2.default.getIconUIIcon('test'));
-
-            this.bottomMenuList.addElement(this.loadoutButton, { align: 0 });
-            this.bottomMenuList.addElement(bt2, { align: 0 });
-            this.bottomMenuList.addElement(bt0, { align: 0 });
-
-            this.menuButtons = [];
-            this.menuButtons.push(this.loadoutButton);
-            this.menuButtons.push(bt2);
-            this.menuButtons.push(bt0);
-
-            this.bottomMenuList.updateVerticalList();
-
-            this.bottomMenu.addChild(this.bottomMenuList);
-
-            this.bottomMenuRight = new PIXI.Container();
-            this.container.addChild(this.bottomMenuRight);
-
-            this.bottomMenuRightList = new _UIList2.default();
-            var bt3 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                _this2.openModal(_this2.shopContainer);
-            }, 'Shop', _UIUtils2.default.getIconUIIcon('shop'));
-
-            var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                _this2.openModal(_this2.locationContainer);
-            }, 'Location', _UIUtils2.default.getIconUIIcon('map'));
-
-            var bt5 = _UIUtils2.default.getPrimaryShapelessButton(function () {
-                _this2.openModal(_this2.rouletteContainer);
-            }, 'Prize', _UIUtils2.default.getIconUIIcon('prize'));
-
-            // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
-            //     this.openModal(this.achievmentsContainer)
-
-            // }, 'Achievments', 'achievment')
-
-            this.bottomMenuRightList.addElement(bt3, { align: 0 });
-            this.bottomMenuRightList.addElement(bt4, { align: 0 });
-            this.bottomMenuRightList.addElement(bt5, { align: 0 });
-
-            this.menuButtonsRight = [];
-            this.menuButtonsRight.push(bt3);
-            this.menuButtonsRight.push(bt4);
-            this.menuButtonsRight.push(bt5);
-
-            this.bottomMenuRightList.updateVerticalList();
-
-            this.bottomMenuRight.addChild(this.bottomMenuRightList);
-
-            this.playGameButton = _UIUtils2.default.getMainPlayButton(function () {
-                _this2.screenManager.redirectToGame();
-            }, 'PLAY');
-            this.bottomMenuRight.addChild(this.playGameButton);
-        }
-    }, {
-        key: 'addCharacter',
-        value: function addCharacter(data) {
-            var _this3 = this;
-
-            var customizationView = new _CharacterBuildScreenCustomizationView2.default(data, this.activePlayersCustomization.length);
-            this.sceneContainer.addChild(customizationView);
-
-            customizationView.onUpdateCurrentPlayer.add(function (id) {
-                _this3.updateCurrentPlayer(id);
-            });
-
-            this.activePlayersCustomization.push(customizationView);
-        }
-    }, {
-        key: 'defaultZoom',
-        value: function defaultZoom() {
-
-            if (_Game2.default.IsPortrait) {
-
-                this.zoom = 0.5;
-                this.pivotOffset.y = 20;
-            } else {
-
-                this.zoom = 0.75;
-                this.pivotOffset.y = 0;
-            }
-        }
-    }, {
-        key: 'customizationZoom',
-        value: function customizationZoom() {
-
-            if (_Game2.default.IsPortrait) {
-                this.zoom = 0.8;
-                this.pivotOffset.y = 80;
-            } else {
-
-                this.zoom = 0.9;
-                this.pivotOffset.y = 20;
-            }
-        }
-    }, {
-        key: 'showCustomization',
-        value: function showCustomization() {
-
-            this.customizationZoom();
-            this.charCustomizationContainer.show();
-
-            this.activePlayersCustomization.forEach(function (element) {
-                element.buttonsContainer.visible = false;
-            });
-            this.hideMainUI();
-        }
-    }, {
-        key: 'closeCustomization',
-        value: function closeCustomization() {
-            this.defaultZoom();
-            this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = true;
-            this.charCustomizationContainer.hide();
-            //this.hideMainUI()
-
-        }
-    }, {
-        key: 'unSelectPlayer',
-        value: function unSelectPlayer() {
-
-            this.defaultZoom();
-            this.activePlayersCustomization.forEach(function (element) {
-                element.buttonsContainer.visible = true;
-            });
-            this.showMainUI();
-        }
-    }, {
-        key: 'hideCurrentCustomizationButton',
-        value: function hideCurrentCustomizationButton() {
-            this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = false;
-        }
-    }, {
-        key: 'updateCurrentPlayer',
-        value: function updateCurrentPlayer(id) {
-            if (this.charCustomizationContainer.isOpen) {
-                return;
-            }
-            //this.customizationZoom();
-            // this.tryHideModal();
-            // this.showCustomization()
-
-            this.activePlayerId = id;
-            _GameData2.default.instance.changePlayer(id);
-            //this.hideMainUI()
-
-            this.hideCurrentCustomizationButton();
-            this.charCustomizationContainer.setPlayer(this.playerCustomization.playerViewDataStructure);
-        }
-    }, {
-        key: 'randomize',
-        value: function randomize() {
-
-            this.activePlayers.forEach(function (element) {
-
-                element.head = Math.ceil(Math.random() * 10);
-                element.chest = Math.ceil(Math.random() * 10);
-                element.frontFace = Math.ceil(Math.random() * 5);
-                element.hat = Math.ceil(Math.random() * 5);
-            });
-        }
-    }, {
-        key: 'hideMainUI',
-        value: function hideMainUI(hideBackButton) {
-            this.bottomMenu.visible = false;
-            this.bottomMenuRight.visible = false;
-            //this.outgameUIProgression.visible = false;
-            this.hideCurrentCustomizationButton();
-            if (hideBackButton) {
-                this.closeButton.visible = false;
-            }
-        }
-    }, {
-        key: 'showMainUI',
-        value: function showMainUI() {
-            this.bottomMenu.visible = true;
-            this.bottomMenuRight.visible = true;
-            this.outgameUIProgression.visible = true;
-            this.closeButton.visible = true;
-        }
-    }, {
-        key: 'build',
-        value: function build() {}
-    }, {
-        key: 'structureUpdate',
-        value: function structureUpdate(region, value) {}
-    }, {
-        key: 'updateCharactersPosition',
-        value: function updateCharactersPosition() {
-
-            var maxWidth = Math.min(_Game2.default.Borders.width, 650);
-            var chunk = maxWidth / this.activePlayersCustomization.length;
-            var angChunk = Math.PI / (this.activePlayersCustomization.length - 1);
-            angChunk = Math.min(0, angChunk);
-
-            for (var i = 0; i < this.activePlayersCustomization.length; i++) {
-                var element = this.activePlayersCustomization[i];
-                element.x = _Game2.default.Borders.width / 2 + i * chunk + chunk * 0.5 - maxWidth / 2;
-                element.y = _Game2.default.Borders.height / 2 + Math.sin(angChunk * i) * 40;
-                element.playerPreviewStructure.baseScale = Math.min(1.5, _Game2.default.GlobalScale.max);
-            }
-            //console.log("calcular a distancia baseado na escala tb")
-
-        }
-    }, {
-        key: 'resize',
-        value: function resize(res, newRes) {
-            var _this4 = this;
-
-            this.updateCharactersPosition();
-
-            this.charCustomizationContainer.resize(res, newRes);
-
-            this.modalList.forEach(function (element) {
-                element.resize(res, newRes);
-            });
-            this.popUpList.forEach(function (element) {
-                element.resize(res, newRes);
-            });
-            this.campfireScene.x = _Game2.default.Borders.width / 2;
-            this.campfireScene.y = _Game2.default.Borders.height / 2 - 80;
-            this.campfireScene.scale.set(Math.min(1.5, _Game2.default.GlobalScale.max));
-
-            var listSize = _Game2.default.Borders.height / 2;
-            this.menuButtons.forEach(function (element) {
-                element.resize(150, listSize / _this4.menuButtons.length);
-            });
-
-            this.menuButtonsRight.forEach(function (element) {
-                element.resize(150, listSize / _this4.menuButtonsRight.length);
-            });
-
-            this.bottomMenuList.w = 150;
-            this.bottomMenuList.h = this.menuButtons.length * 10 + listSize;
-            this.bottomMenuList.updateVerticalList();
-
-            this.bottomMenuRightList.w = 150;
-            this.bottomMenuRightList.h = this.menuButtonsRight.length * 10 + listSize;
-            this.bottomMenuRightList.updateVerticalList();
-
-            this.outgameUIProgression.x = _Game2.default.Borders.width / 2 - this.outgameUIProgression.width / 2;
-            this.outgameUIProgression.y = 30;
-
-            this.buttonsList.x = this.outgameUIProgression.x - this.buttonsList.width - 10;
-            this.buttonsList.y = this.outgameUIProgression.y;
-
-            this.playGameButton.x = _Game2.default.Borders.width / 2 - this.playGameButton.width / 2;
-            this.playGameButton.y = _Game2.default.Borders.height - this.playGameButton.height - 20;
-
-            this.logo.x = _Game2.default.Borders.width / 2;
-            this.logo.y = 40;
-        }
-    }, {
-        key: 'aspectChange',
-        value: function aspectChange(isPortrait) {
-
-            // if (isPortrait) {
-            //     this.buttonsList.scale.set(1)
-            // } else {
-
-            //     this.buttonsList.scale.set(0.75)
-            // }
-
-            this.charCustomizationContainer.aspectChange(isPortrait);
-            this.modalList.forEach(function (element) {
-                element.aspectChange(isPortrait);
-            });
-            this.popUpList.forEach(function (element) {
-                element.aspectChange(isPortrait);
-            });
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-
-            for (var i = 0; i < this.activePlayersCustomization.length; i++) {
-                var element = this.activePlayersCustomization[i];
-                element.update(delta);
-            }
-
-            this.modalList.forEach(function (element) {
-                element.update(delta);
-            });
-            this.popUpList.forEach(function (element) {
-                element.update(delta);
-            });
-            this.sceneContainer.pivot.x = _Utils2.default.lerp(this.sceneContainer.pivot.x, this.playerCustomization.x + this.pivotOffset.x, 0.3);
-            this.sceneContainer.pivot.y = _Utils2.default.lerp(this.sceneContainer.pivot.y, this.playerCustomization.y + this.pivotOffset.y, 0.3);
-            this.sceneContainer.x = _Game2.default.Borders.width / 2;
-            this.sceneContainer.y = _Game2.default.Borders.height / 2;
-            this.sceneContainer.scale.x = _Utils2.default.lerp(this.sceneContainer.scale.x, this.zoom, 0.3);
-            this.sceneContainer.scale.y = _Utils2.default.lerp(this.sceneContainer.scale.y, this.zoom, 0.15);
-
-            this.campfireScene.update(delta);
-
-            this.bottomMenuList.x = 30;
-            this.bottomMenuList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
-
-            this.bottomMenuRightList.x = _Game2.default.Borders.width - this.bottomMenuList.w - 30;
-            this.bottomMenuRightList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
-        }
-    }, {
-        key: 'tryHideModal',
-        value: function tryHideModal() {
-            this.modalList.forEach(function (element) {
-                if (element.isOpen) {
-                    element.hide();
+                var currentTrinket = _GameData2.default.instance.currentEquippedTrinket;
+                if (currentTrinket.id) {
+                        _this.updateEquipment('trinket', currentTrinket.id);
                 }
-            });
-        }
-    }, {
-        key: 'backButtonAction',
-        value: function backButtonAction() {
 
-            var modalOpen = null;
-            var popUpOpen = null;
-            this.modalList.forEach(function (element) {
-                if (element.isOpen) {
-                    modalOpen = element;
+                var currentMask = _GameData2.default.instance.currentEquippedMask;
+                if (currentMask.id) {
+                        _this.updateEquipment('mask', currentMask.id);
                 }
-            });
 
-            this.popUpList.forEach(function (element) {
-                if (element.isOpen) {
-                    popUpOpen = element;
+                var currentShoe = _GameData2.default.instance.currentEquippedShoe;
+                if (currentShoe.id) {
+                        _this.updateEquipment('shoe', currentShoe.id);
                 }
-            });
 
-            if (this.charCustomizationContainer.isOpen) {
-                this.closeCustomization();
-                this.unSelectPlayer();
-            } else if (popUpOpen) {
-                popUpOpen.hide();
-                if (!modalOpen) {
+                _this.defaultZoom();
+                setTimeout(function () {
+                        _this.defaultZoom();
+                }, 100);
 
-                    this.closeCustomization();
-                    this.unSelectPlayer();
+                return _this;
+        }
+
+        (0, _createClass3.default)(CharacterBuildScreen, [{
+                key: 'updateCompanion',
+                value: function updateCompanion(id) {
+                        var data = _EntityBuilder2.default.instance.getCompanion(id);
+
+                        if (!data) {
+                                this.playerCustomization.removeCompanion();
+                                return;
+                        }
+                        this.playerCustomization.setCompanion(data);
                 }
-            } else if (modalOpen) {
-                modalOpen.hide();
-                this.closeCustomization();
-                this.unSelectPlayer();
-            } else {
-                this.closeCustomization();
-                this.unSelectPlayer();
-                this.screenManager.redirectToDebugMenu();
-            }
-        }
-    }, {
-        key: 'playerCustomization',
-        get: function get() {
-            return this.activePlayersCustomization[this.activePlayerId];
-        }
-    }]);
-    return CharacterBuildScreen;
+        }, {
+                key: 'showPrizeWindow',
+                value: function showPrizeWindow(data) {
+                        this.prizeCollect.showPrize(data);
+                        this.openPopUp(this.prizeCollect);
+                }
+        }, {
+                key: 'updateEquipment',
+                value: function updateEquipment(area, id) {
+                        var data = _EntityBuilder2.default.instance.getEquipable(id);
+                        if (area == 'trinket') {
+                                this.playerCustomization.playerViewDataStructure.trinketSprite = data ? data.playerSpriteOverride : null;
+                        } else if (area == 'mask') {
+                                this.playerCustomization.playerViewDataStructure.maskSprite = data ? data.playerSpriteOverride : null;
+                        } else if (area == 'shoe') {
+                                this.playerCustomization.playerViewDataStructure.shoe = data ? data.playerSpriteReference : 0;
+                        }
+                }
+        }, {
+                key: 'addPopUp',
+                value: function addPopUp(popUp) {
+                        this.popUpList.push(popUp);
+                        this.container.addChild(popUp);
+                        popUp.onHide.add(this.onPopUpHide.bind(this));
+                        popUp.onShow.add(this.onPopUpShow.bind(this));
+                        popUp.hide();
+                }
+        }, {
+                key: 'addModal',
+                value: function addModal(modal) {
+                        this.modalList.push(modal);
+                        this.container.addChild(modal);
+                        modal.onHide.add(this.onModalHide.bind(this));
+                        modal.onShow.add(this.onModalShow.bind(this));
+                        modal.hide();
+                }
+        }, {
+                key: 'onPopUpShow',
+                value: function onPopUpShow(popup) {}
+        }, {
+                key: 'onPopUpHide',
+                value: function onPopUpHide(popup) {
+
+                        var modalOpen = null;
+                        this.modalList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        modalOpen = element;
+                                }
+                        });
+
+                        if (!modalOpen) {
+                                this.closeCustomization();
+                                this.unSelectPlayer();
+                        }
+                }
+        }, {
+                key: 'onModalShow',
+                value: function onModalShow(modal) {}
+        }, {
+                key: 'onModalHide',
+                value: function onModalHide(modal) {}
+        }, {
+                key: 'openPopUp',
+                value: function openPopUp(popUp) {
+                        this.hideMainUI();
+                        this.customizationZoom();
+                        popUp.show();
+                        this.previousPopUp = popUp;
+                }
+        }, {
+                key: 'openModal',
+                value: function openModal(modal) {
+                        this.hideMainUI();
+                        this.customizationZoom();
+                        modal.show();
+                        this.previousModal = modal;
+                }
+        }, {
+                key: 'buildBottomMenu',
+                value: function buildBottomMenu() {
+                        var _this2 = this;
+
+                        this.bottomMenu = new PIXI.Container();
+                        this.container.addChild(this.bottomMenu);
+                        this.bottomMenuList = new _UIList2.default();
+                        this.loadoutButton = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.loadoutContainer);
+                        }, 'Loadout', _GameData2.default.instance.currentEquippedWeaponData.entityData.icon);
+
+                        this.customizeButton = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.showCustomization();
+                        }, 'Wardrobe', 'transparent');
+
+                        //this.customizeButton.icon.texture = PIXI.Texture.EMPTY;
+
+                        this.customPlayerSprite = new PIXI.Sprite();
+                        this.customizeButton.icon.addChild(this.customPlayerSprite);
+                        this.customPlayerSprite.anchor.set(0.4, 0.7);
+
+                        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
+                        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture;
+
+                        this.customPlayerSpriteMask = new PIXI.Sprite.from('tile');
+                        this.customPlayerSpriteMask.anchor.set(0.5, 1);
+                        this.customPlayerSpriteMask.width = 150;
+                        this.customPlayerSpriteMask.height = 280;
+                        this.customizeButton.icon.addChild(this.customPlayerSpriteMask);
+                        this.customizeButton.icon.mask = this.customPlayerSpriteMask;
+                        this.customPlayerSprite.y = 50;
+                        this.customPlayerSpriteMask.y = 50;
+
+                        var bt0 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+
+                                _PrizeManager2.default.instance.getMetaPrize([0, 1, 2, 3, 4], 3, 15);
+                        }, 'TestPopUp', _UIUtils2.default.getIconUIIcon('test'));
+
+                        this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0, listScr: 0.3 });
+                        this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0, listScr: 0.3 });
+                        this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0, listScr: 0.3 });
+
+                        this.menuButtons = [];
+                        this.menuButtons.push(this.loadoutButton);
+                        this.menuButtons.push(this.customizeButton);
+                        this.menuButtons.push(bt0);
+
+                        this.bottomMenuList.updateVerticalList();
+
+                        this.bottomMenu.addChild(this.bottomMenuList);
+
+                        this.bottomMenuRight = new PIXI.Container();
+                        this.container.addChild(this.bottomMenuRight);
+
+                        this.bottomMenuRightList = new _UIList2.default();
+                        var bt3 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.shopContainer);
+                        }, 'Shop', _UIUtils2.default.getIconUIIcon('shop'));
+
+                        var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.locationContainer);
+                        }, 'Location', _UIUtils2.default.getIconUIIcon('map'));
+
+                        var bt5 = _UIUtils2.default.getPrimaryShapelessButton(function () {
+                                _this2.openModal(_this2.rouletteContainer);
+                        }, 'Prize', _UIUtils2.default.getIconUIIcon('prize'));
+
+                        // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
+                        //     this.openModal(this.achievmentsContainer)
+
+                        // }, 'Achievments', 'achievment')
+
+                        this.bottomMenuRightList.addElement(bt3, { align: 0 });
+                        this.bottomMenuRightList.addElement(bt4, { align: 0 });
+                        this.bottomMenuRightList.addElement(bt5, { align: 0 });
+
+                        this.menuButtonsRight = [];
+                        this.menuButtonsRight.push(bt3);
+                        this.menuButtonsRight.push(bt4);
+                        this.menuButtonsRight.push(bt5);
+
+                        this.bottomMenuRightList.updateVerticalList();
+
+                        this.bottomMenuRight.addChild(this.bottomMenuRightList);
+
+                        this.playGameButton = _UIUtils2.default.getMainPlayButton(function () {
+                                _this2.screenManager.redirectToGame();
+                        }, 'PLAY', _UIUtils2.default.getIconUIIcon('battle'));
+                        this.bottomMenuRight.addChild(this.playGameButton);
+                }
+        }, {
+                key: 'addCharacter',
+                value: function addCharacter(data) {
+                        var _this3 = this;
+
+                        var customizationView = new _CharacterBuildScreenCustomizationView2.default(data, this.activePlayersCustomization.length);
+                        this.sceneContainer.addChild(customizationView);
+
+                        customizationView.onUpdateCurrentPlayer.add(function (id) {
+                                _this3.updateCurrentPlayer(id);
+                        });
+
+                        this.activePlayersCustomization.push(customizationView);
+                }
+        }, {
+                key: 'defaultZoom',
+                value: function defaultZoom() {
+
+                        if (_Game2.default.IsPortrait) {
+
+                                this.zoom = 0.5;
+                                this.pivotOffset.y = 20;
+                        } else {
+
+                                this.zoom = 0.75;
+                                this.pivotOffset.y = 0;
+                        }
+                }
+        }, {
+                key: 'customizationZoom',
+                value: function customizationZoom() {
+
+                        if (_Game2.default.IsPortrait) {
+                                this.zoom = 0.8;
+                                this.pivotOffset.y = 80;
+                        } else {
+
+                                this.zoom = 0.9;
+                                this.pivotOffset.y = 20;
+                        }
+                }
+        }, {
+                key: 'showCustomization',
+                value: function showCustomization() {
+
+                        this.customizationZoom();
+                        this.charCustomizationContainer.show();
+
+                        this.activePlayersCustomization.forEach(function (element) {
+                                element.buttonsContainer.visible = false;
+                        });
+                        this.hideMainUI();
+                }
+        }, {
+                key: 'closeCustomization',
+                value: function closeCustomization() {
+                        this.defaultZoom();
+                        this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = true;
+                        this.charCustomizationContainer.hide();
+                        //this.hideMainUI()
+
+                }
+        }, {
+                key: 'unSelectPlayer',
+                value: function unSelectPlayer() {
+
+                        this.defaultZoom();
+                        this.activePlayersCustomization.forEach(function (element) {
+                                element.buttonsContainer.visible = true;
+                        });
+                        this.showMainUI();
+                }
+        }, {
+                key: 'hideCurrentCustomizationButton',
+                value: function hideCurrentCustomizationButton() {
+                        this.activePlayersCustomization[this.activePlayerId].buttonsContainer.visible = false;
+                }
+        }, {
+                key: 'updateCurrentPlayer',
+                value: function updateCurrentPlayer(id) {
+                        if (this.charCustomizationContainer.isOpen) {
+                                return;
+                        }
+                        //this.customizationZoom();
+                        // this.tryHideModal();
+                        // this.showCustomization()
+
+                        this.activePlayerId = id;
+                        _GameData2.default.instance.changePlayer(id);
+                        //this.hideMainUI()
+
+                        this.hideCurrentCustomizationButton();
+                        this.charCustomizationContainer.setPlayer(this.playerCustomization.playerViewDataStructure);
+                }
+        }, {
+                key: 'randomize',
+                value: function randomize() {
+
+                        this.activePlayers.forEach(function (element) {
+
+                                element.head = Math.ceil(Math.random() * 10);
+                                element.chest = Math.ceil(Math.random() * 10);
+                                element.frontFace = Math.ceil(Math.random() * 5);
+                                element.hat = Math.ceil(Math.random() * 5);
+                        });
+                }
+        }, {
+                key: 'hideMainUI',
+                value: function hideMainUI(hideBackButton) {
+                        this.bottomMenu.visible = false;
+                        this.bottomMenuRight.visible = false;
+                        //this.outgameUIProgression.visible = false;
+                        this.hideCurrentCustomizationButton();
+                        if (hideBackButton) {
+                                this.closeButton.visible = false;
+                        }
+                }
+        }, {
+                key: 'showMainUI',
+                value: function showMainUI() {
+                        this.bottomMenu.visible = true;
+                        this.bottomMenuRight.visible = true;
+                        this.outgameUIProgression.visible = true;
+                        this.closeButton.visible = true;
+
+                        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
+                        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture;
+                        this.customPlayerSprite.anchor.set(0, 0.7);
+                        this.customPlayerSprite.x = -this.customPlayerSprite.width / 2 - 10;
+
+                        this.customPlayerSprite.y = 30;
+                        this.customPlayerSpriteMask.y = 50;
+                }
+        }, {
+                key: 'build',
+                value: function build() {}
+        }, {
+                key: 'structureUpdate',
+                value: function structureUpdate(region, value) {}
+        }, {
+                key: 'updateCharactersPosition',
+                value: function updateCharactersPosition() {
+
+                        var maxWidth = Math.min(_Game2.default.Borders.width, 650);
+                        var chunk = maxWidth / this.activePlayersCustomization.length;
+                        var angChunk = Math.PI / (this.activePlayersCustomization.length - 1);
+                        angChunk = Math.min(0, angChunk);
+
+                        for (var i = 0; i < this.activePlayersCustomization.length; i++) {
+                                var element = this.activePlayersCustomization[i];
+                                element.x = _Game2.default.Borders.width / 2 + i * chunk + chunk * 0.5 - maxWidth / 2;
+                                element.y = _Game2.default.Borders.height / 2 + Math.sin(angChunk * i) * 40;
+                                element.playerPreviewStructure.baseScale = Math.min(1.5, _Game2.default.GlobalScale.max);
+                        }
+                        //console.log("calcular a distancia baseado na escala tb")
+
+                }
+        }, {
+                key: 'resize',
+                value: function resize(res, newRes) {
+                        var _this4 = this;
+
+                        this.updateCharactersPosition();
+
+                        this.charCustomizationContainer.resize(res, newRes);
+
+                        this.modalList.forEach(function (element) {
+                                element.resize(res, newRes);
+                        });
+                        this.popUpList.forEach(function (element) {
+                                element.resize(res, newRes);
+                        });
+                        this.campfireScene.x = _Game2.default.Borders.width / 2;
+                        this.campfireScene.y = _Game2.default.Borders.height / 2 - 80;
+                        this.campfireScene.scale.set(Math.min(1.5, _Game2.default.GlobalScale.max));
+
+                        var listSize = _Game2.default.Borders.height / 2;
+                        this.menuButtons.forEach(function (element) {
+                                element.resize(150, listSize / _this4.menuButtons.length);
+                        });
+
+                        this.menuButtonsRight.forEach(function (element) {
+                                element.resize(150, listSize / _this4.menuButtonsRight.length);
+                        });
+
+                        this.bottomMenuList.w = 150;
+                        this.bottomMenuList.h = listSize;
+                        this.bottomMenuList.updateVerticalList();
+
+                        this.bottomMenuRightList.w = 150;
+                        this.bottomMenuRightList.h = listSize;
+                        this.bottomMenuRightList.updateVerticalList();
+
+                        this.outgameUIProgression.x = _Game2.default.Borders.width / 2 - this.outgameUIProgression.width / 2;
+                        this.outgameUIProgression.y = 30;
+
+                        this.buttonsList.x = this.outgameUIProgression.x - this.buttonsList.width - 10;
+                        this.buttonsList.y = this.outgameUIProgression.y;
+
+                        this.playGameButton.x = _Game2.default.Borders.width / 2 - this.playGameButton.width / 2;
+                        this.playGameButton.y = _Game2.default.Borders.height - this.playGameButton.height - 60 + Math.sin(_Game2.default.Time) * 5;
+
+                        this.logo.x = _Game2.default.Borders.width / 2;
+                        this.logo.y = 40;
+                }
+        }, {
+                key: 'aspectChange',
+                value: function aspectChange(isPortrait) {
+
+                        // if (isPortrait) {
+                        //     this.buttonsList.scale.set(1)
+                        // } else {
+
+                        //     this.buttonsList.scale.set(0.75)
+                        // }
+
+                        this.charCustomizationContainer.aspectChange(isPortrait);
+                        this.modalList.forEach(function (element) {
+                                element.aspectChange(isPortrait);
+                        });
+                        this.popUpList.forEach(function (element) {
+                                element.aspectChange(isPortrait);
+                        });
+                }
+        }, {
+                key: 'update',
+                value: function update(delta) {
+
+                        for (var i = 0; i < this.activePlayersCustomization.length; i++) {
+                                var element = this.activePlayersCustomization[i];
+                                element.update(delta);
+                        }
+
+                        this.modalList.forEach(function (element) {
+                                element.update(delta);
+                        });
+                        this.popUpList.forEach(function (element) {
+                                element.update(delta);
+                        });
+                        this.sceneContainer.pivot.x = _Utils2.default.lerp(this.sceneContainer.pivot.x, this.playerCustomization.x + this.pivotOffset.x, 0.3);
+                        this.sceneContainer.pivot.y = _Utils2.default.lerp(this.sceneContainer.pivot.y, this.playerCustomization.y + this.pivotOffset.y, 0.3);
+                        this.sceneContainer.x = _Game2.default.Borders.width / 2;
+                        this.sceneContainer.y = _Game2.default.Borders.height / 2;
+                        this.sceneContainer.scale.x = _Utils2.default.lerp(this.sceneContainer.scale.x, this.zoom, 0.3);
+                        this.sceneContainer.scale.y = _Utils2.default.lerp(this.sceneContainer.scale.y, this.zoom, 0.15);
+
+                        this.campfireScene.update(delta);
+
+                        this.bottomMenuList.x = 30;
+                        this.bottomMenuList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
+
+                        this.bottomMenuRightList.x = _Game2.default.Borders.width - this.bottomMenuList.w - 30;
+                        this.bottomMenuRightList.y = _Game2.default.Borders.height - this.bottomMenuList.h - 30;
+
+                        this.playGameButton.y = _Game2.default.Borders.height - this.playGameButton.height - 60 + Math.sin(_Game2.default.Time) * 5;
+                }
+        }, {
+                key: 'tryHideModal',
+                value: function tryHideModal() {
+                        this.modalList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        element.hide();
+                                }
+                        });
+                }
+        }, {
+                key: 'backButtonAction',
+                value: function backButtonAction() {
+
+                        var modalOpen = null;
+                        var popUpOpen = null;
+                        this.modalList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        modalOpen = element;
+                                }
+                        });
+
+                        this.popUpList.forEach(function (element) {
+                                if (element.isOpen) {
+                                        popUpOpen = element;
+                                }
+                        });
+
+                        if (this.charCustomizationContainer.isOpen) {
+                                this.closeCustomization();
+                                this.unSelectPlayer();
+                        } else if (popUpOpen) {
+                                popUpOpen.hide();
+                                if (!modalOpen) {
+
+                                        this.closeCustomization();
+                                        this.unSelectPlayer();
+                                }
+                        } else if (modalOpen) {
+                                modalOpen.hide();
+                                this.closeCustomization();
+                                this.unSelectPlayer();
+                        } else {
+                                this.closeCustomization();
+                                this.unSelectPlayer();
+                                this.screenManager.redirectToDebugMenu();
+                        }
+                }
+        }, {
+                key: 'playerCustomization',
+                get: function get() {
+                        return this.activePlayersCustomization[this.activePlayerId];
+                }
+        }]);
+        return CharacterBuildScreen;
 }(_Screen3.default);
 
 exports.default = CharacterBuildScreen;
@@ -86451,14 +86497,14 @@ var CampfireScene = function (_BaseScene) {
 
                 _this.sceneSetup.assets = [_BaseScene3.default.makeAssetSetup({ src: 'flat-pine', position: { x: 150, y: -580 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0x225772 }), _BaseScene3.default.makeAssetSetup({ src: 'flat-pine', position: { x: -150, y: -580 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0x225772 }), _BaseScene3.default.makeAssetSetup({ src: 'flat-pine', position: { x: -430, y: -550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0x225772 }), _BaseScene3.default.makeAssetSetup({ src: 'flat-pine', position: { x: 430, y: -550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0x225772 }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -550 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'flat-pine', position: { x: 30, y: -480 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.8, y: 0.8 }, tint: 0x225772 }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -480 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 260, y: -400 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -380, y: -390 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.8, y: 0.8 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 80, y: -395 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -210, y: -400 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -290, y: -390 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.4, y: 0.4 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -390 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -80, y: -375 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -80, y: -375 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -310, y: -180 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 210, y: -275 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -650, y: -200 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1, y: 1 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 650, y: -220 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1, y: 1 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -180 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }),
                 // BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint:0xAEBD6E }),
-                _BaseScene3.default.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 30 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: -4, y: 4 } }), _BaseScene3.default.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: 2, y: 2 } }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopRight.bind(_this), position: { x: -200, y: -380 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.2 }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'container', position: { x: -200, y: -100 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'log-sit', position: { x: -280, y: 0 }, anchor: { x: 0.5, y: 0.5 } }), _BaseScene3.default.makeAssetSetup({ src: 'flag', position: { x: -450, y: -300 }, anchor: { x: 0.5, y: 0.5 } }), _BaseScene3.default.makeAssetSetup({ src: 'barrel1', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0002', position: { x: -460, y: 0 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0002', position: { x: -100, y: 180 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0006', position: { x: 300, y: 150 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'tent', position: { x: 250, y: -90 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'stool', position: { x: 245, y: 50 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'barrel2', position: { x: 390, y: -5 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -230 }, anchor: { x: 0.5, y: 0.5 }, scale: { x: 5, y: 4 }, alpha: 0.45, tint: 0xFF9768 }), _BaseScene3.default.makeAssetSetup({
+                _BaseScene3.default.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 30 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: -4, y: 4 } }), _BaseScene3.default.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: 2, y: 2 } }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopRight.bind(_this), position: { x: -200, y: -380 }, scale: { x: 10, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.1 }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'container', position: { x: -200, y: -100 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'log-sit', position: { x: -280, y: 0 }, anchor: { x: 0.5, y: 0.5 } }), _BaseScene3.default.makeAssetSetup({ src: 'flag', position: { x: -450, y: -300 }, anchor: { x: 0.5, y: 0.5 } }), _BaseScene3.default.makeAssetSetup({ src: 'barrel1', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0002', position: { x: -460, y: 0 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0002', position: { x: -100, y: 180 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'rocks0006', position: { x: 300, y: 150 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'tent', position: { x: 250, y: -90 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'stool', position: { x: 245, y: 50 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'barrel2', position: { x: 390, y: -5 }, anchor: { x: 0.5, y: 1 } }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -230 }, anchor: { x: 0.5, y: 0.5 }, scale: { x: 5, y: 4 }, alpha: 0.45, tint: 0xFF9768 }), _BaseScene3.default.makeAssetSetup({
                         src: 'campfire-fire00', position: { x: -5, y: -105 }, scale: { x: 1, y: 0.8 }, anchor: { x: 0.5, y: 1 },
                         animation: {
                                 enabled: true,
                                 start: 1,
                                 end: 8
                         }
-                }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopLeft.bind(_this), position: { x: 500, y: -100 }, scale: { x: 5, y: 4 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.3 }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -170 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.75, tint: 0xF46F3C }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -130 }, anchor: { x: 0.5, y: 0.5 }, scale: { x: 5, y: 4 }, alpha: 0.25, tint: 0xFF9768 }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -180, y: 350 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -100, y: 380 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.5, y: 0.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 380 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -400, y: 500 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -690, y: 600 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1.9, y: 1.9 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -250, y: 580 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.3, y: 1.3 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 380, y: 550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 700, y: 330 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.7, y: 1.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 600 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopRight.bind(_this), position: { x: -700, y: 200 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.3 })];
+                }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopLeft.bind(_this), position: { x: 500, y: -100 }, scale: { x: 5, y: 4 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.3 }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -170 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.75, tint: 0xF46F3C }), _BaseScene3.default.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -130 }, anchor: { x: 0.5, y: 0.5 }, scale: { x: 5, y: 4 }, alpha: 0.25, tint: 0xFF9768 }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -180, y: 350 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'bushgreen', onUpdate: _this.treeCallback.bind(_this), position: { x: -100, y: 380 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.5, y: 0.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 380 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -400, y: 500 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -690, y: 600 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1.9, y: 1.9 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: -250, y: 580 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.3, y: 1.3 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 380, y: 550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'dark-pine', onUpdate: _this.treeCallback.bind(_this), position: { x: 700, y: 330 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.7, y: 1.7 }, tint: 0xffffff }), _BaseScene3.default.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 600 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopRight.bind(_this), position: { x: -700, y: 200 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 1 }, alpha: 0.3 }), _BaseScene3.default.makeAssetSetup({ src: 'cloud-fog', onUpdate: _this.loopRight.bind(_this), position: { x: 0, y: 600 }, scale: { x: 8, y: 12 }, anchor: { x: 0.5, y: 1 }, alpha: 0.1 })];
 
                 return _this;
         }
@@ -95186,7 +95232,13 @@ var LoadoutContainer = function (_MainScreenModal) {
                         this.slotsList.x = this.weaponsScroller.rect.w + this.weaponsScroller.x - this.slotsList.w * this.slotsList.scale.x;
                         this.slotsList.y = _Game2.default.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y;
                         this.mergeSectionButton.x = this.weaponsScroller.x;
-                        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 10;
+
+                        if (_Game2.default.IsPortrait) {
+                                this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 13;
+                        } else {
+
+                                this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 26;
+                        }
 
                         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w;
                         this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10;
@@ -107005,17 +107057,17 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_DE",
-	"url": "assets/json\\localization_DE.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
+	"id": "localization_DE",
+	"url": "assets/json\\localization_DE.json"
 }, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
 }, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
@@ -107032,14 +107084,23 @@ var assets = [{
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
@@ -107053,14 +107114,20 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -107070,12 +107137,6 @@ var assets = [{
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -107089,6 +107150,12 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
@@ -107097,21 +107164,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
 }];
 
 exports.default = assets;

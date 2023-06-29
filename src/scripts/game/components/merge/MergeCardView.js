@@ -8,7 +8,7 @@ import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class MergeCardView extends LoadoutCardView {
-    constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
+    constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 120, height = 120) {
         super(texture, width, height)
         this.locked = false;
         this.unhighlight();
@@ -17,7 +17,7 @@ export default class MergeCardView extends LoadoutCardView {
         this.addChild(this.lockIcon)
         this.lockIcon.visible = false
 
-        this.lockIcon.scale.set(Utils.scaleToFit(this.lockIcon, 30))
+        //this.hideLevelLabel();
     }
 
     highlight() {

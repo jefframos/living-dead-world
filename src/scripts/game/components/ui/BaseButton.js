@@ -87,7 +87,7 @@ export default class BaseButton extends PIXI.Container {
         if (this.safeShape) {
             this.safeShape.texture = tex
         } else {
-            this.safeShape = new PIXI.NineSlicePlane(tex, 20, 20, 20, 20);
+            this.safeShape = new PIXI.NineSlicePlane(tex, 25, 25, 25, 25);
             this.addChild(this.safeShape);
         }
         this.safeShape.width = width

@@ -68,7 +68,6 @@ export default class CharacterBuildScreen extends Screen {
 
 
 
-
         this.logo = new PIXI.Sprite.from('muta-logo');
         //this.container.addChild(this.logo);
         this.logo.anchor.x = 0.5;
@@ -261,23 +260,41 @@ export default class CharacterBuildScreen extends Screen {
             this.openModal(this.loadoutContainer);
         }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
 
-        const bt2 = UIUtils.getPrimaryShapelessButton(() => {
+        this.customizeButton = UIUtils.getPrimaryShapelessButton(() => {
             this.showCustomization();
 
-        }, 'Customize', UIUtils.getIconUIIcon('customization'))
+        }, 'Wardrobe', 'transparent')
+
+        //this.customizeButton.icon.texture = PIXI.Texture.EMPTY;
+        
+        this.customPlayerSprite = new PIXI.Sprite();
+        this.customizeButton.icon.addChild(this.customPlayerSprite)
+        this.customPlayerSprite.anchor.set(0.4, 0.7)
+
+        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
+        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
+        
+        this.customPlayerSpriteMask = new PIXI.Sprite.from('tile');
+        this.customPlayerSpriteMask.anchor.set(0.5, 1)
+        this.customPlayerSpriteMask.width = 150
+        this.customPlayerSpriteMask.height = 280
+        this.customizeButton.icon.addChild(this.customPlayerSpriteMask)
+        this.customizeButton.icon.mask = this.customPlayerSpriteMask;
+        this.customPlayerSprite.y = 50
+        this.customPlayerSpriteMask.y = 50
 
         const bt0 = UIUtils.getPrimaryShapelessButton(() => {
             
             PrizeManager.instance.getMetaPrize([0,1,2,3,4], 3, 15);
         }, 'TestPopUp', UIUtils.getIconUIIcon('test'))
 
-        this.bottomMenuList.addElement(this.loadoutButton, { align: 0 })
-        this.bottomMenuList.addElement(bt2, { align: 0 })
-        this.bottomMenuList.addElement(bt0, { align: 0 })
+        this.bottomMenuList.addElement(this.loadoutButton, { align: 0 , vAlign:0, listScr:0.3})
+        this.bottomMenuList.addElement(this.customizeButton, { align: 0 , vAlign:0, listScr:0.3})
+        this.bottomMenuList.addElement(bt0, { align: 0, vAlign:0 , listScr:0.3})
 
         this.menuButtons = [];
         this.menuButtons.push(this.loadoutButton)
-        this.menuButtons.push(bt2)
+        this.menuButtons.push(this.customizeButton)
         this.menuButtons.push(bt0)
 
         this.bottomMenuList.updateVerticalList()
@@ -323,7 +340,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playGameButton = UIUtils.getMainPlayButton(() => {
             this.screenManager.redirectToGame();
-        }, 'PLAY')
+        }, 'PLAY', UIUtils.getIconUIIcon('battle'))
         this.bottomMenuRight.addChild(this.playGameButton)
     }
     addCharacter(data) {
@@ -433,6 +450,13 @@ export default class CharacterBuildScreen extends Screen {
         this.outgameUIProgression.visible = true;
         this.closeButton.visible = true;
 
+        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
+        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
+        this.customPlayerSprite.anchor.set(0, 0.7)
+        this.customPlayerSprite.x = -this.customPlayerSprite.width / 2 - 10
+
+        this.customPlayerSprite.y = 30
+        this.customPlayerSpriteMask.y = 50
     }
     build() {
 
@@ -487,12 +511,12 @@ export default class CharacterBuildScreen extends Screen {
         });
 
         this.bottomMenuList.w = 150
-        this.bottomMenuList.h = this.menuButtons.length * 10 + listSize
+        this.bottomMenuList.h =  listSize
         this.bottomMenuList.updateVerticalList();
 
 
         this.bottomMenuRightList.w = 150
-        this.bottomMenuRightList.h = this.menuButtonsRight.length * 10 + listSize
+        this.bottomMenuRightList.h =  listSize
         this.bottomMenuRightList.updateVerticalList();
 
 
@@ -504,7 +528,7 @@ export default class CharacterBuildScreen extends Screen {
 
 
         this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;
-        this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 20
+        this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
         this.logo.x = Game.Borders.width / 2
         this.logo.y = 40
@@ -558,6 +582,8 @@ export default class CharacterBuildScreen extends Screen {
 
         this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
         this.bottomMenuRightList.y = Game.Borders.height - this.bottomMenuList.h - 30;
+
+        this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
     }
     tryHideModal() {

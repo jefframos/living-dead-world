@@ -4,20 +4,20 @@ const assets = [
 	"url":"assets/json\\achievments.json"
 	},
 	{
-	"id":"localization_DE",
-	"url":"assets/json\\localization_DE.json"
-	},
-	{
 	"id":"localization_EN",
 	"url":"assets/json\\localization_EN.json"
 	},
 	{
-	"id":"localization_ES",
-	"url":"assets/json\\localization_ES.json"
+	"id":"localization_DE",
+	"url":"assets/json\\localization_DE.json"
 	},
 	{
 	"id":"localization_FR",
 	"url":"assets/json\\localization_FR.json"
+	},
+	{
+	"id":"localization_ES",
+	"url":"assets/json\\localization_ES.json"
 	},
 	{
 	"id":"localization_IT",
@@ -40,16 +40,28 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
 	},
 	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
+	},
+	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
+	},
+	{
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
+	},
+	{
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
+	},
+	{
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
 	"id":"companion-animation",
@@ -68,16 +80,24 @@ const assets = [
 	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
+	"id":"general-vfx",
+	"url":"assets/json\\vfx\\general-vfx.json"
 	},
 	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id":"particle-behaviour",
+	"url":"assets/json\\vfx\\particle-behaviour.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
+	"id":"particle-descriptors",
+	"url":"assets/json\\vfx\\particle-descriptors.json"
+	},
+	{
+	"id":"weapon-vfx-pack",
+	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
+	},
+	{
+	"id":"weapon-vfx",
+	"url":"assets/json\\vfx\\weapon-vfx.json"
 	},
 	{
 	"id":"companions",
@@ -90,14 +110,6 @@ const assets = [
 	{
 	"id":"player",
 	"url":"assets/json\\entity\\player.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
-	},
-	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
 	},
 	{
 	"id":"acessories",
@@ -116,6 +128,14 @@ const assets = [
 	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
+	},
+	{
 	"id":"main-weapons",
 	"url":"assets/json\\weapons\\main-weapons.json"
 	},
@@ -126,26 +146,6 @@ const assets = [
 	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
-	"id":"general-vfx",
-	"url":"assets/json\\vfx\\general-vfx.json"
-	},
-	{
-	"id":"particle-descriptors",
-	"url":"assets/json\\vfx\\particle-descriptors.json"
-	},
-	{
-	"id":"weapon-vfx",
-	"url":"assets/json\\vfx\\weapon-vfx.json"
-	},
-	{
-	"id":"weapon-vfx-pack",
-	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
-	},
-	{
-	"id":"particle-behaviour",
-	"url":"assets/json\\vfx\\particle-behaviour.json"
 	}
 ];
 

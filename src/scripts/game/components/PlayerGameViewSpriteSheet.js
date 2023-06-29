@@ -188,6 +188,10 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
 
+    generateNewTexture(){
+        this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
+    }
+
     updateEquipment(area, id) {
 
         const data = EntityBuilder.instance.getEquipable(id);
