@@ -52,7 +52,7 @@ export default class UIUtils {
             button.addIcon(icon, 80)
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 28 })
+            UIUtils.addLabel(button, label, { fontSize: 24 })
         }
         return button;
     }
@@ -91,11 +91,11 @@ export default class UIUtils {
             dropShadowAngle: 1.5,
             dropShadowDistance: 3,
             fillGradientType: 1,
-            fontSize: 28,
-            fontWeight: 900,
+            fontSize: 34,
             strokeThickness: 3,
             wordWrap: true,
-            wordWrapWidth: 300
+            wordWrapWidth: 300,
+            fontFamily: window.MAIN_FONT
         })
         for (const key in params) {
             textLabel.style[key] = params[key];
@@ -115,10 +115,10 @@ export default class UIUtils {
             dropShadowDistance: 3,
             fillGradientType: 1,
             fontSize: 24,
-            fontWeight: 900,
             strokeThickness: 3,
             wordWrap: true,
-            wordWrapWidth: 300
+            wordWrapWidth: 300,
+            fontFamily: window.MAIN_FONT
         })
         for (const key in params) {
             textLabel.style[key] = params[key];
@@ -199,7 +199,7 @@ export default class UIUtils {
         return button;
     }
     static getPrimaryLargeLabelButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 250, 100);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 280, 100);
         button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {

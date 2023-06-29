@@ -70,8 +70,18 @@ export default class WeaponInGameView extends GameObject {
 
             //console.log(weapon.ingameViewDataStatic)
             let bar = null;
-            if (false && weapon.ingameViewDataStatic.progressBar.active) {
-                const barData = weapon.ingameViewDataStatic.progressBar
+            let hasBar = weapon.ingameViewDataStatic.progressBar.active;
+            hasBar = false;
+            if (hasBar) {
+                let barData = weapon.ingameViewDataStatic.progressBar
+
+                barData = {
+                    width: 30,
+                    height: 8,
+                    rotation: Math.PI * 0.5,
+                    x:-20,
+                    y:30
+                }
                 bar = new BaseBarView();
                 bar.build(barData.width, barData.height, 0)
                 bar.rotation = barData.rotation

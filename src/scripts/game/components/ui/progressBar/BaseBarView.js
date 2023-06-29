@@ -13,7 +13,7 @@ export default class BaseBarView extends PIXI.Container {
         this.backBar = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 5, 5, 5, 5);
         this.backBar.width = 50
         this.backBar.height = 10
-        this.backBar.tint = 0;
+        this.backBar.tint = 0x272822;
         this.barContainer.addChild(this.backBar);
 
         this.fillBar = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 5, 5, 5, 5);

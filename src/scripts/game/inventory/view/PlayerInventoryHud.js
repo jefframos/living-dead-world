@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import AttributesContainer from '../../components/ui/loadout/AttributesContainer';
 import Game from '../../../Game';
 import GameObject from '../../core/gameObject/GameObject';
 import GameStaticData from "../../data/GameStaticData";
@@ -19,7 +20,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.gameView = new GameView(this)
         this.gameView.layer = RenderModule.UILayerOverlay;
         this.gameView.view = new PIXI.Container();
-        
+
 
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.gameView.view.addChild(this.zero)
@@ -34,7 +35,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.baseBarView = new LevelUpBar()
         this.gameView.view.addChild(this.baseBarView)
         this.playerHud = new PlayerGameplayHud();
-        this.playerHud.onOpenMenu.add(()=>{
+        this.playerHud.onOpenMenu.add(() => {
             this.player.die()
         })
         this.gameView.view.addChild(this.playerHud)
@@ -86,6 +87,10 @@ export default class PlayerInventoryHud extends GameObject {
         // this.gameView.view.addChild(this.bl)
         // this.gameView.view.addChild(this.br)
 
+        this.attributesView = new AttributesContainer();
+        this.gameView.view.addChild(this.attributesView)
+
+        //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
     }
     build() {
@@ -101,15 +106,16 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.sessionData.addXp(0)
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
         this.playerHud.registerPlayer(this.player)
+        this.attributesView.updateAttributes(this.player.attributes, this.player.attributes)
     }
-    resetLevelBar(){
+    resetLevelBar() {
         this.baseBarView.updateNormal(0);
     }
-    showLevelUp(){
+    showLevelUp() {
         this.baseBarView.forceUpdateNormal(1);
     }
     updateXp(xpData) {
-        if(xpData.normalUntilNext < 1){
+        if (xpData.normalUntilNext < 1) {
             this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         }
         this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
@@ -162,9 +168,12 @@ export default class PlayerInventoryHud extends GameObject {
         this.weaponAcessoriesLabel.text = attributesWeapon;
     }
     updatePlayerEquip(player) {
-  
+
         this.updatePlayerAttributes();
         this.updatePlayerBuffs();
+
+        this.attributesView.updateAttributes(this.player.attributes, this.player.attributes)
+
 
     }
     addLine(weapon, isMaster, list) {
@@ -181,14 +190,20 @@ export default class PlayerInventoryHud extends GameObject {
     }
 
     update(delta) {
-        if(LevelManager.instance.gameplayTime > 0){
+        if (LevelManager.instance.gameplayTime > 0) {
             this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.gameplayTime));
-        }else{
+        } else {
             this.timer.text = '00:00'
         }
 
         this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
         this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+
+
+
+        this.attributesView.scale.set(0.75)
+        this.attributesView.y = Game.Borders.bottomRight.y- this.attributesView.height - 5
+        this.attributesView.x = 5
 
 
         if (this.baseBarView.maxWidth != Game.Borders.width - 100) {
@@ -208,7 +223,8 @@ export default class PlayerInventoryHud extends GameObject {
         this.playerHud.scale.set(Math.max(0.85, min));
 
     }
-    resize(res, newRes){
+    resize(res, newRes) {
         this.playerHud.resize(res, newRes);
+       
     }
 }

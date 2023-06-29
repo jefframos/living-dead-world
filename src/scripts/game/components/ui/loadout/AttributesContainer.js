@@ -13,7 +13,7 @@ export default class AttributesContainer extends PIXI.Container {
     constructor() {
         super();
 
-        this.modalTexture = 'modal_container0009'
+        this.modalTexture = 'modal_blur'
 
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
         this.containerBackground.width = 550

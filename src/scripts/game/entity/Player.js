@@ -21,6 +21,7 @@ import Shadow from "../components/view/Shadow";
 import SpriteJump from "../components/SpriteJump";
 import Vector3 from "../core/gameObject/Vector3";
 import WeaponBuilder from "../screen/EntityBuilder";
+import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
 
@@ -94,7 +95,7 @@ export default class Player extends GameAgent {
         this.health.setNewHealth(this.attributes.health)
 
         this.currentEnemiesColliding = []
-        this.weaponLoadingBars = [];
+        //this.weaponLoadingBars = [];
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -107,8 +108,17 @@ export default class Player extends GameAgent {
         this.addChild(this.lifeBar)
 
         this.lifeBar.build(20, 3, 1);
-        this.lifeBar.updateView({ x: 0, y: -70 }, 0x8636f0, 0xFF0000);
+        this.lifeBar.updateView({ x: 0, y: -75 }, 0x8636f0, 0xFF0000);
 
+
+
+        this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
+        this.addChild(this.weaponShootBar)
+        
+        this.weaponShootBar.build(20, 3, 1);
+        this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
+        
+        //this.weaponLoadingBars.push(this.weaponShootBar);
 
         this.speed = this.attributes.speed
 
@@ -248,15 +258,15 @@ export default class Player extends GameAgent {
                 this.activeCompanions[index].destroy();
             }
         }
-        for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
-            if (!this.weaponLoadingBars[index].destroyed) {
+        // for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
+        //     if (!this.weaponLoadingBars[index].destroyed) {
 
-                this.weaponLoadingBars[index].destroy();
-            }
-        }
+        //         this.weaponLoadingBars[index].destroy();
+        //     }
+        // }
 
         this.activeAttachments = [];
-        this.weaponLoadingBars = [];
+       // this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
         this.activeWeapons = [];
@@ -283,6 +293,11 @@ export default class Player extends GameAgent {
         this.weaponsGameObject.push(weapon);
 
         weapon.build(weaponData)
+
+        this.attributes.basePower = weaponData.weaponAttributes.power
+
+        this.weaponShootBar.setWeapon(weapon)
+        console.log(weapon)
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })

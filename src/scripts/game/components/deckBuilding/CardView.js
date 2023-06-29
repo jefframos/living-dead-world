@@ -76,7 +76,7 @@ export default class CardView extends PIXI.Container {
         this.labelTitle = new PIXI.Text('', window.LABELS.LABEL1)
         this.titleBox.addChild(this.labelTitle);
         this.labelTitle.style.fill = 0xFFFFFF
-        this.labelTitle.style.strokeThickness = 0
+        //this.labelTitle.style.strokeThickness = 0
         this.labelTitle.style.wordWrap = true
         this.labelTitle.style.fontStyle = 'italic'
         this.labelTitle.style.wordWrapWidth = width

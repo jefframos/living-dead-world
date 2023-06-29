@@ -71,7 +71,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             { typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
             { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false },
             { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
-            { typeList: 'equip', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }]
+            { typeList: 'visuals', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }]
 
 
         this.areas = this.areas.filter(item => item.typeList == this.typeList)

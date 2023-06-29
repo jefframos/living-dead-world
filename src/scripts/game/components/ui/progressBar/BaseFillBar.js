@@ -24,16 +24,27 @@ export default class BaseFillBar extends GameObject {
         this.bar = new BaseBarView();
         this.gameView.view.addChild(this.bar);
         this.bar.setColors(0x8636f0, 0xFF0000)
-        this.maxWidth = 50
+        this.maxWidth = 10
         this.maxHeight = 10
 
         this.offset = { x: 0, y: -50 }
+    }
+    addIcon(icon){
+        if(!this.icon){
+            this.icon = new PIXI.Sprite.from(icon);
+            this.gameView.view.addChild(this.icon);
+        }else{
+            this.icon.texture = new PIXI.Texture.from(icon);
+        }
+        this.icon.scale.set(Utils.scaleToFit(this.icon, this.maxHeight + this.border))
+        this.icon.anchor.set(0.5)
     }
 
     build(width = 50, height = 10, border = 1) {
         super.build();
         this.maxWidth = width
         this.maxHeight = height
+        this.border = border
 
         this.bar.build(width , height , border);
 
@@ -53,9 +64,15 @@ export default class BaseFillBar extends GameObject {
 
     update(delta, unscaled) {
         super.update(delta, unscaled);
+        this.barNormal = Math.max(0,Math.min(this.barNormal,1))
         this.bar.updateNormal(this.barNormal)
         this.bar.update(delta)
         this.transform.position.copy(this.parent.transform.position)
+
+        if(this.icon){
+            this.icon.x = this.bar.x - this.icon.width
+            this.icon.y = this.bar.y + this.bar.height / 2 - this.border
+        }
     }
 
     set normal(value) {

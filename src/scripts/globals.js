@@ -65,7 +65,7 @@ window.console.groupCollapsed = function (teste) {
 
 window.MAX_NUMBER = 1000000;
 
-window.MAIN_FONT = 'poppinsbold'
+window.MAIN_FONT = 'ourland'
 window.SEC_FONT = 'poppinsbold'
 
 
@@ -77,12 +77,12 @@ window.LABELS.LABEL1 = {
     fill: 0xFFFFFF,
     align: 'center',
     stroke: 0,
+    letterSpacing:1,
     dropShadow: true,
     dropShadowAngle: 1.5,
     dropShadowDistance: 3,
     fillGradientType: 1,
     fontSize: 28,
-    fontWeight: 900,
     strokeThickness: 3,
 }
 window.LABELS.LABEL_CHEST = {

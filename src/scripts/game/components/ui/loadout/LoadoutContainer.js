@@ -431,6 +431,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.resize()
 
         this.refreshAttributes();
+        this.disableMainSlots();
         this.selectCard(this.currentWeaponSlot)
 
     }
@@ -476,6 +477,10 @@ export default class LoadoutContainer extends MainScreenModal {
             }
         }
 
+        this.defaultAttributes.basePower = 0;
+
+        GameData.instance.currentEquippedWeaponData.weaponAttributes.level = GameData.instance.currentEquippedWeapon.level
+        this.atributes.basePower = GameData.instance.currentEquippedWeaponData.weaponAttributes.power;
         this.atributes.sumAttributes(this.addAttributes)
         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
