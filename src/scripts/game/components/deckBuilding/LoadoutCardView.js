@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import BaseButton from '../ui/BaseButton';
 import InteractableView from '../../view/card/InteractableView';
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 

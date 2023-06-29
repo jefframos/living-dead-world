@@ -11,7 +11,7 @@ import LoadoutCardView from '../deckBuilding/LoadoutCardView';
 import MergeCardView from './MergeCardView';
 import Pool from '../../core/utils/Pool';
 import PrizeManager from '../../data/PrizeManager';
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
@@ -19,6 +19,7 @@ export default class ItemMergeSystem {
     constructor(container, slotSize = 100) {
         this.container = container;
         this.slotSize = slotSize;
+        
         this.tempMergeDraw = [];
 
         this.mergeContainer = new PIXI.Container();

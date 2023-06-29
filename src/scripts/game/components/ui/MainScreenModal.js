@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 
 import Game from '../../../Game';
-import UIUtils from '../../core/utils/UIUtils';
 import signals from 'signals';
 
 export default class MainScreenModal extends PIXI.Container {

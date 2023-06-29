@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import ListScroller from '../../ui/uiElements/ListScroller';
 import Pool from '../../core/utils/Pool';
 import Signals from 'signals';
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 
 export default class HorizontalScroller extends ListScroller {
     constructor(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }) {

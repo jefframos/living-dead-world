@@ -7,7 +7,7 @@ import InteractableView from '../view/card/InteractableView';
 import MainScreenContainer from './mainScreen/MainScreenContainer';
 import MainScreenManager from './MainScreenManager';
 import Screen from '../../screenManager/Screen'
-import UIUtils from '../core/utils/UIUtils';
+import UIUtils from '../utils/UIUtils';
 import signals from "signals";
 
 export default class MainMenu extends Screen {

@@ -84,7 +84,6 @@ export default class PhysicsModule extends GameObject {
         }
         Matter.Composite.add(this.physicsEngine.world, physicBody.rigidBody);
 
-        //console.log('addPhysicBody')
         this.entityAdded.dispatch([physicBody])
     }
     destroyRandom(quant = 5) {

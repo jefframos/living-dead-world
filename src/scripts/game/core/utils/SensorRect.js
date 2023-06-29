@@ -24,9 +24,6 @@ export default class SensorRect extends Sensor {
         this.layerCategory = Layer.Sensor
         this.layerMask = Layer.Enemy - Layer.Player
 
-
-        //console.log(this.rigidBody)
-
     }
     destroy(){
         super.destroy()

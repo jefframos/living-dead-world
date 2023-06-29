@@ -1,4 +1,4 @@
-import AnimationUtils from '../core/utils/AnimationUtils';
+import AnimationUtils from '../utils/AnimationUtils';
 import BaseComponent from '../core/gameObject/BaseComponent';
 import EntityBuilder from '../screen/EntityBuilder';
 import GameData from '../data/GameData';
@@ -26,6 +26,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         super();
     }
     enable() {
+        
         super.enable()
         this.frame = 0;
         this.maxFrame = 8;

@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
 
 import GameView from './GameView';
-import UIUtils from '../utils/UIUtils';
 import Utils from '../utils/Utils';
 import Vector3 from '../gameObject/Vector3';
 

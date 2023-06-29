@@ -1,5 +1,5 @@
 import BaseButton from "./BaseButton";
-import UIUtils from "../../core/utils/UIUtils";
+import UIUtils from "../../utils/UIUtils";
 
 export default class ColorSlot extends BaseButton {
     constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {

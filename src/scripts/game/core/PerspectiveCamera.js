@@ -84,6 +84,8 @@ export default class PerspectiveCamera extends Camera {
             }
         }
     }
+
+    //TODO: the perspective is disabled for now
     transformView(gameView) {
         //console.log(gameView.gameObject)
         // let camM = [1, 0, 0, 0,
@@ -95,11 +97,11 @@ export default class PerspectiveCamera extends Camera {
         var somePoint = [gameView.gameObject.transform.position.x + this.cam.x, this.cam.y, gameView.gameObject.transform.position.y + this.cam.z];
         var projectedPoint = this.transformPoint(projectionMatrix, somePoint);
 
-        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width * 0.5 //- config.width / 2;
-        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height * 0.5 //+ config.height / 2;
+        var screenX = (projectedPoint[0] * 0.5 + 0.5) * config.width * 0.5
+        var screenZ = (projectedPoint[1] * -0.5 + 0.5) * config.height * 0.5
 
-        gameView.cameraOffset.x = screenX - gameView.gameObject.transform.position.x //test[0]
-        gameView.cameraOffset.y = screenZ - gameView.gameObject.transform.position.y //test[0]
+        gameView.cameraOffset.x = screenX - gameView.gameObject.transform.position.x
+        gameView.cameraOffset.y = screenZ - gameView.gameObject.transform.position.y
 
     }
     transformPoint(m, v) {

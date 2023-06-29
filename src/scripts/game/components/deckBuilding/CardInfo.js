@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 
 export default class CardInfo extends PIXI.Container {
     constructor(texture =  UIUtils.baseButtonTexture+'_0007', width = 100, height = 150) {

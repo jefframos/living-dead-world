@@ -57,25 +57,13 @@ export default class RenderModule extends GameObject {
 
         this.onNewRenderEntityAdded = new signals.Signal();
         this.onNewRenderEntityLateAdded = new signals.Signal();
-        // this.cam = {
-        //     x: 0, y: 250, z: 0, aspec: 1, fov: 5, near: 0, far: 200
-        // }
-        // window.GUI.add(this.renderStats, 'totalRenderEntities').listen();
-        // for (const key in this.cam) {
-        //     if (Object.hasOwnProperty.call(this.cam, key)) {
-
-        //         window.GUI.add(this.cam, key).listen();
-
-
-        //     }
-        // }
+    
         this.lateAdded = []
         this.layers[RenderModule.RenderLayers.Shadow].container.tint = 0
         this.layers[RenderModule.RenderLayers.Shadow].container.alpha = 0.1
     }    
     start() {
         this.physics = this.engine.findByType(PhysicsModule)
-        //this.physics.entityAdded.add(this.newEntityAdded.bind(this))
         this.engine.entityAdded.add(this.newEntityAdded.bind(this))
     }
     newEntityAdded(entities) {
@@ -83,7 +71,6 @@ export default class RenderModule extends GameObject {
             if (element.gameView) {
 
                 element.gameObjectDestroyed.add(this.elementDestroyed.bind(this))
-                //element.childAdded.add(this.newEntityAdded.bind(this))
                 if (element.gameView.layer == RenderModule.UILayer) {
                     this.uiContainer.addChild(element.gameView.view)
 
@@ -143,7 +130,6 @@ export default class RenderModule extends GameObject {
         });
 
         this.renderStats.totalRenderEntities = this.layers[RenderModule.RenderLayers.Gameplay].children.length;
-
 
         if (this.lateAdded.length) {
             this.onNewRenderEntityLateAdded.dispatch(this.lateAdded)

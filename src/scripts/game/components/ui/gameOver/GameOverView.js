@@ -7,7 +7,7 @@ import PrizeCollectContainer from "../prizes/PrizeCollectContainer";
 import PrizeManager from "../../../data/PrizeManager";
 import RenderModule from "../../../core/modules/RenderModule";
 import UIList from "../../../ui/uiElements/UIList";
-import UIUtils from "../../../core/utils/UIUtils";
+import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
 import signals from "signals";
 

@@ -3,7 +3,7 @@ import EffectsManager from "../manager/EffectsManager";
 import EntityAttributes from "../data/EntityAttributes";
 import EntityBuilder from "../screen/EntityBuilder";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
-import GameAgent from "../core/entity/GameAgent";
+import GameAgent from "./GameAgent";
 import InGameWeapon from "../data/InGameWeapon";
 import Layer from "../core/Layer";
 import Player from "./Player";

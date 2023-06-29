@@ -2,8 +2,8 @@ import Matter, { Body } from "matter-js";
 
 import GameObject from "../gameObject/GameObject";
 import PhysicsProperties from "../physics/PhysicsProperties";
+import Utils from "../utils/Utils";
 import Vector3 from "../gameObject/Vector3";
-import utils from "../../../utils";
 
 export default class PhysicsEntity extends GameObject {
     constructor() {
@@ -123,8 +123,8 @@ export default class PhysicsEntity extends GameObject {
         this.physics.force2D.x = this.physics.force.x
         this.physics.force2D.y = this.physics.force.z
 
-        this.appliedForce.x = utils.lerp(this.appliedForce.x, 0, this.friction);
-        this.appliedForce.z = utils.lerp(this.appliedForce.z, 0, this.friction);
+        this.appliedForce.x = Utils.lerp(this.appliedForce.x, 0, this.friction);
+        this.appliedForce.z = Utils.lerp(this.appliedForce.z, 0, this.friction);
 
         this.applyVelocity(this.physics.force2D);
         this.physics.angle = this.transform.angle

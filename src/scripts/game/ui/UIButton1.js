@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 import * as signals from 'signals';
 
 import TweenLite from 'gsap';
-import UIUtils from '../core/utils/UIUtils';
+import UIUtils from '../utils/UIUtils';
 import config from '../../config';
 import utils from '../../utils';
 
@@ -10,6 +10,7 @@ export default class UIButton1 extends PIXI.Container {
 	constructor(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = UIUtils.baseButtonTexture+"_0006") {
 		super();
 		this.build(color, icon, iconColor, width, height, texture)
+		
 
 	}
 	build(color, icon, iconColor = 0xFFFFFF, width = 65, height = 65, texture = UIUtils.baseButtonTexture+"_0006") {

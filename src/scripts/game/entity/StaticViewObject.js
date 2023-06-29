@@ -28,9 +28,6 @@ export default class StaticViewObject extends GameObject {
         }
 
 
-
-
-
         if(params.width){
             this.gameView.view.scale.set(params.width / this.gameView.view.width )
         }else{

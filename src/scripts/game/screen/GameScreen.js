@@ -21,7 +21,6 @@ import Screen from '../../screenManager/Screen'
 import TouchAxisInput from '../core/modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
-import UIUtils from '../core/utils/UIUtils';
 import Vector3 from '../core/gameObject/Vector3';
 import config from '../../config';
 

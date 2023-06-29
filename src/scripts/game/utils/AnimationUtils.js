@@ -21,7 +21,7 @@ export default class AnimationUtils {
         rotation: -72
     },
     {
-        offset: { x: 10, y: 5 },
+        offset: { x: 10, y: 5 },        
         rotation: -40
     },
     {

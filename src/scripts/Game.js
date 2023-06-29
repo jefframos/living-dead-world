@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-import UIUtils from './game/core/utils/UIUtils';
+import UIUtils from './game/utils/UIUtils';
 import config from './config';
 import signals from 'signals';
 import utils from './utils';

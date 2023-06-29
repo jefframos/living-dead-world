@@ -104,8 +104,6 @@ export default class EnvironmentManager extends GameObject {
             this.ambientLightSystem.setLevelLightSetup(this.environmentData.ambientColor, this.environmentData.intensityLight)
         } else {
 
-            console.log("SET DEFAULT", this.environmentData)
-
             this.ambientLightSystem.setDefault();
         }
     }

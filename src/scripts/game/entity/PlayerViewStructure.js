@@ -1,4 +1,4 @@
-import UIUtils from "../core/utils/UIUtils"
+import UIUtils from "../utils/UIUtils"
 import signals from "signals"
 
 export default class PlayerViewStructure {

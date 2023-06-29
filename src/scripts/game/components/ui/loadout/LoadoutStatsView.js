@@ -7,7 +7,7 @@ import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
 import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
 import UIList from '../../../ui/uiElements/UIList';
-import UIUtils from '../../../core/utils/UIUtils';
+import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import WeaponData from '../../../data/WeaponData';
 

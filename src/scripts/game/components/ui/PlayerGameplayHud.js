@@ -7,7 +7,7 @@ import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
 import Pool from '../../core/utils/Pool';
 import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import UIList from '../../ui/uiElements/UIList';
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 import utils from '../../../utils';
@@ -68,7 +68,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.levelupButton = UIUtils.getCloseButton(()=>{
             this.player.sessionData.levelUpMainWeapon();
         })
-        this.container.addChild(this.levelupButton);
+        //this.container.addChild(this.levelupButton);
         this.levelupButton.y = 500
 
         this.playerFaceContainer = new PIXI.Sprite.from('player-face-container')

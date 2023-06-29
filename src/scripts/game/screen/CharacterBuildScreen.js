@@ -23,12 +23,12 @@ import RouletteContainer from '../components/ui/roulette/RouletteContainer';
 import Screen from '../../screenManager/Screen';
 import ShopContainer from '../components/ui/shop/ShopContainer';
 import UIList from '../ui/uiElements/UIList';
-import UIUtils from '../core/utils/UIUtils';
+import UIUtils from '../utils/UIUtils';
 import Utils from '../core/utils/Utils';
 import signals from "signals";
 
 export default class CharacterBuildScreen extends Screen {
-    static makeAssetSetup(data) {
+    static makeAssetSetup(data) {        
         let obj = {
             src: '',
             anchor: { x: 0.5, y: 0.5 },

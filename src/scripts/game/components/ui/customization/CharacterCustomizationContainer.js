@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
 import Game from '../../../../Game';
 import UIList from '../../../ui/uiElements/UIList';
-import UIUtils from '../../../core/utils/UIUtils';
+import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 
 export default class CharacterCustomizationContainer extends PIXI.Container {

@@ -4,7 +4,7 @@ import Game from '../../../../Game';
 import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
 import RouletteView from './RouletteView';
-import UIUtils from '../../../core/utils/UIUtils';
+import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 
 export default class RouletteContainer extends MainScreenModal {

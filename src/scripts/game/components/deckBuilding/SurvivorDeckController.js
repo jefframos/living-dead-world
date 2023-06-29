@@ -16,7 +16,7 @@ import InteractableView from "../../view/card/InteractableView";
 import Player from "../../entity/Player";
 import RenderModule from "../../core/modules/RenderModule";
 import SpriteButton from "../ui/SpriteButton";
-import UIUtils from "../../core/utils/UIUtils";
+import UIUtils from "../../utils/UIUtils";
 import Utils from "../../core/utils/Utils";
 import conversionUtils from "../../../conversionUtils";
 import signals from "signals";

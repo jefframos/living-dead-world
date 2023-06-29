@@ -3,7 +3,7 @@ import * as PIXI from 'pixi.js';
 import ListScroller from '../../ui/uiElements/ListScroller';
 import Pool from '../../core/utils/Pool';
 import Signals from 'signals';
-import UIUtils from '../../core/utils/UIUtils';
+import UIUtils from '../../utils/UIUtils';
 
 export default class BodyPartsListScroller extends ListScroller {
     constructor(rect = { w: 250, h: 500 }, slotSize = { width: 75, height: 75 }, margin = { x: 0, y: 0 }) {
@@ -21,6 +21,7 @@ export default class BodyPartsListScroller extends ListScroller {
         this.title.style.fill = 0xFFFFFF
         this.title.x = - 25
         this.title.y = - 35
+        
         //this.title.y= -50
     }
 

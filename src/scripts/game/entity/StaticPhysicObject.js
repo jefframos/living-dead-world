@@ -18,7 +18,6 @@ export default class StaticPhysicObject extends PhysicsEntity {
 
         const render = this.engine.findByType(RenderModule);
 
-        console.log(params.layer)
         if( params.layer && this.gameView.view.layer != RenderModule.RenderLayers[params.layer]){
             render.swapLayer(this.gameView, RenderModule.RenderLayers[params.layer])
         }else if(this.gameView.view.layer != RenderModule.RenderLayers.Base){

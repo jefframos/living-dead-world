@@ -35,7 +35,7 @@ export default class TouchAxisInput extends PIXI.Container {
         this.id = Math.random();
         this.mainScale = 150 / this.background.height;
         this.scale.set(this.mainScale);
-        this.maxDist = (this.center.width * 2); //* this.mainScale;
+        this.maxDist = (this.center.width * 2);
     }
     testTouch(e) {
         if (!this.dragging) {
@@ -104,7 +104,6 @@ export default class TouchAxisInput extends PIXI.Container {
         this.axis = [0, 0];
         this.currentPressed = [];
         this.dragging = false;
-        //this.angle = null;
         this.touchID = null;
         this.onStopDrag.dispatch(this);
         TweenLite.to(this.center, 0.5, { x: 0, y: 0, ease: Elastic.easeOut });

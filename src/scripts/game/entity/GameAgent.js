@@ -1,13 +1,13 @@
-import EffectsManager from "../../manager/EffectsManager";
-import EntityAttributes from "../../data/EntityAttributes";
-import FlashOnDamage from "../../components/view/FlashOnDamage";
-import GameStaticData from "../../data/GameStaticData";
-import GameView from "../view/GameView";
-import GameViewSpriteSheet from "../../components/GameViewSpriteSheet";
-import Health from "../../components/Health";
-import InGameWeapon from "../../data/InGameWeapon";
-import PhysicsEntity from "../physics/PhysicsEntity";
-import StatsModifier from "../../components/StatsModifier";
+import EffectsManager from "../manager/EffectsManager";
+import EntityAttributes from "../data/EntityAttributes";
+import FlashOnDamage from "../components/view/FlashOnDamage";
+import GameStaticData from "../data/GameStaticData";
+import GameView from "../core/view/GameView";
+import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
+import Health from "../components/Health";
+import InGameWeapon from "../data/InGameWeapon";
+import PhysicsEntity from "../core/physics/PhysicsEntity";
+import StatsModifier from "../components/StatsModifier";
 import signals from "signals";
 
 export default class GameAgent extends PhysicsEntity {
@@ -26,6 +26,8 @@ export default class GameAgent extends PhysicsEntity {
         if (debug) {
             this.setDebug(15)
         }
+
+        
 
         this.attributes = new EntityAttributes();
         this.statsDictionary = {}

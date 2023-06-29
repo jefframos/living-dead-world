@@ -1,5 +1,5 @@
 import BaseButton from "./BaseButton";
-import UIUtils from "../../core/utils/UIUtils";
+import UIUtils from "../../utils/UIUtils";
 
 export default class BodyPartySlot extends BaseButton {
     constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {
@@ -7,6 +7,7 @@ export default class BodyPartySlot extends BaseButton {
         this.setActiveTexture( UIUtils.baseButtonTexture+'_0001')
 
         this.setColors(0xFFFFFF, 0xFFFFFF);
+        
     }
    
     setColors(base = 0xFFFFFF, over = 0xFF0000, baseText = 0, overText = 0xFFFFFF) {

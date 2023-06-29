@@ -1,14 +1,14 @@
-import BaseButton from "../../components/ui/BaseButton";
-import BodyPartySlot from "../../components/ui/BodyPartySlot";
-import ColorButton from "../../components/ui/ColorButton";
-import ColorSlot from "../../components/ui/ColorSlot";
-import InteractableView from "../../view/card/InteractableView";
-import Pool from "./Pool";
-import Utils from "./Utils";
+import BaseButton from "../components/ui/BaseButton";
+import BodyPartySlot from "../components/ui/BodyPartySlot";
+import ColorButton from "../components/ui/ColorButton";
+import ColorSlot from "../components/ui/ColorSlot";
+import InteractableView from "../view/card/InteractableView";
+import Pool from "../core/utils/Pool";
+import Utils from "../core/utils/Utils";
 
 export default class UIUtils {
     constructor() {
-
+        
     }
     static baseButtonTexture = 'square_button';
     static baseBorderButtonTexture = 'square_button_border';

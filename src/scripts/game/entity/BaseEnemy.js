@@ -2,7 +2,7 @@ import EffectsManager from "../manager/EffectsManager";
 import EntityBuilder from "../screen/EntityBuilder";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
 import FlashOnDamage from "../components/view/FlashOnDamage";
-import GameAgent from "../core/entity/GameAgent";
+import GameAgent from "./GameAgent";
 import GameStaticData from "../data/GameStaticData";
 import GameViewSpriteSheet from "../components/GameViewSpriteSheet";
 import Layer from "../core/Layer";
@@ -21,7 +21,7 @@ import ZombieWalk from "../components/ZombieWalk";
 export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
-        this.gameView.view = new PIXI.Sprite()
+        this.gameView.view = new PIXI.Sprite()        
     }
     get tier() { return this.staticData.entityData.tier }
     build(enemyData) {

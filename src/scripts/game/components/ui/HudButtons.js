@@ -4,7 +4,7 @@ import GameObject from "../../core/gameObject/GameObject";
 import GameView from "../../core/view/GameView";
 import RenderModule from "../../core/modules/RenderModule";
 import UIList from "../../ui/uiElements/UIList";
-import UIUtils from "../../core/utils/UIUtils";
+import UIUtils from "../../utils/UIUtils";
 import signals from "signals";
 
 export default class HudButtons extends GameObject {

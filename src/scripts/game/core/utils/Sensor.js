@@ -18,7 +18,7 @@ export default class Sensor extends PhysicsEntity {
         this.buildCircle(0, 0, radius)
         this.rigidBody.isSensor = true;
         this.layerCategory = Layer.Sensor
-        this.layerMask = Layer.Enemy - Layer.Player// &! Layer.Environment
+        this.layerMask = Layer.Enemy - Layer.Player
 
     }
     resetCollisionList(){

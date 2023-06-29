@@ -7,7 +7,6 @@ import PlayerGameViewSpriteSheet from '../../PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../../../entity/PlayerViewStructure';
 import SpriteSheetAnimation from '../../utils/SpriteSheetAnimation';
 import UIList from '../../../ui/uiElements/UIList';
-import UIUtils from '../../../core/utils/UIUtils';
 import signals from 'signals';
 
 export default class CharacterBuildScreenCustomizationView extends PIXI.Container {
