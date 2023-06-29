@@ -39,6 +39,15 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardIconContainer.y = - 20
         this.cardIconContainer.visible = false;
 
+        // this.levelLabel = UIUtils.getPrimaryLabel(1, {strokeThickness:0, dropShadow:false, fontSize:48, fill:0x4882D1});
+        this.levelLabel = UIUtils.getPrimaryLabel(1, { strokeThickness: 3, dropShadow: false, fontSize: 48, fill: "#ffffff" });
+        this.cardContainer.addChild(this.levelLabel);
+
+        this.levelLabel.anchor.set(1, 1)
+        this.levelLabel.x = width - 14
+        this.levelLabel.y = height - 14
+        this.levelLabel.alpha = 0.3
+
         this.cardImage = new PIXI.Sprite();
 
         this.cardContainer.addChild(this.cardImage);
@@ -140,7 +149,12 @@ export default class LoadoutCardView extends PIXI.Container {
     updateTexture(textureID) {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
-
+    hideLevelLabel() {
+        this.levelLabel.visible = false;
+    }
+    showLevelLabel() {
+        this.levelLabel.visible = true;
+    }
     setData(cardData, level = 0, customIconSize = 80) {
         this.iconSize = customIconSize
         if (!cardData) {
@@ -151,6 +165,11 @@ export default class LoadoutCardView extends PIXI.Container {
         }
         this.cardData = cardData;
         this.level = level;
+        // if(level <= 0){
+        //     this.levelLabel.visible = false;
+        // }else{
+        // }
+        this.levelLabel.text = level + 1
         let cardID = 0
         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
         if (cardData) {

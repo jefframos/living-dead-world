@@ -150,6 +150,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                 prize.setData(element.entityData, element.value.level, 50)
                 prize.resetPivot()
+                prize.hideLevelLabel()
 
             } else {
                 prize = new PIXI.Sprite.from(element.texture)
