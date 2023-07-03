@@ -9,6 +9,7 @@ import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
+import WeaponData from '../../data/WeaponData';
 import signals from 'signals';
 import utils from '../../../utils';
 
@@ -135,11 +136,19 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
 
         this.player.sessionData.equipaments.forEach(element => {
-            if (element) {
 
+            if (element) {
+                
                 let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
                 icon.setItem(element.item)
-                icon.setLevel(element.level)
+                
+                if(element.item instanceof WeaponData){
+                    icon.setLevel(element.level - element.item.baseLevel)
+                }else{
+
+                    icon.setLevel(element.level)
+                }
+
                 icon.align = 0
 
                 if (this.equipmentListLine1.w < this.maxSize - 50) {

@@ -125,6 +125,27 @@ export default class GameData {
     }
     removeFromInventory(type, item, quant) {
         CookieManager.instance.removeFromInventory(type, item, quant)
+    }
+    getLoadoutAttributes() {
+        const addAttributes = new EntityAttributes()
+        addAttributes.resetAll();
 
+        const equippedShoe = this.currentEquippedShoe
+        if (equippedShoe) {
+            const shoeAttribute = this.getAttributesFromEquipabble(EntityBuilder.instance.getEquipable(equippedShoe.id), equippedShoe.level);
+            addAttributes.sumAttributes(shoeAttribute)
+        }
+
+
+
+        const equippedTrinket = this.currentEquippedTrinket
+        if (equippedTrinket) {
+            const trinketAttribute = this.getAttributesFromEquipabble(EntityBuilder.instance.getEquipable(equippedTrinket.id), equippedTrinket.level);
+            addAttributes.sumAttributes(trinketAttribute)
+
+        }
+
+
+        return addAttributes;
     }
 }

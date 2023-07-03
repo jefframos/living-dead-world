@@ -15,7 +15,6 @@
         "ingameViewData": "PLAYER_MULTISHOT",
         "weaponType": "Physical",
         "customConstructor": "BaseWeapon",
-        "overrider": "PLAYER_MULTISHOT_OVERRIDER",
         "attributes": {
             "baseRadius": 15,
             "baseSpawnDistance": 30,
@@ -45,6 +44,11 @@
             "overrider": {
                 "baseViewData": "PINK-ROUND"
             }
+        },
+        "levels": {
+            "level3": "ORBIT",
+            "level4": "BOUNCE",
+            "level5": "MELEE_SWORD"
         }
     },
     {
@@ -1631,13 +1635,13 @@
         "attributes": {
             "baseRadius": 30,
             "baseSpawnDistance": 20,
-            "baseLifeSpan": 4,
+            "baseLifeSpan": 1,
             "baseLifeRangeSpan": -1,
             "basePower": 20,
             "baseBulletSpeed": 200,
             "baseFrequency": 6,
             "basePiercing": 9999,
-            "baseAmount": 2,
+            "baseAmount": 1,
             "baseDirectionType": "AngularSequence",
             "baseBlockType": "IgnoreEnemyBullets",
             "baseBrustFireAmount": 0,

@@ -79,6 +79,7 @@ export default class PlayerSessionData {
     setMainWeapon(weapon, level = 0) {
         this.starterLevel = level;
         this.mainWeapon = weapon;
+        this.mainWeapon.baseLevel = level;
         this.addEquipmentNEW(weapon, level)
     }
     levelUpMainWeapon() {

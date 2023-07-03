@@ -1,6 +1,7 @@
 import BaseEnemy from "../../../entity/BaseEnemy";
 import BaseWeapon from "../BaseWeapon";
 import EffectsManager from "../../../manager/EffectsManager";
+import GameData from "../../../data/GameData";
 import GameManager from "../../../manager/LevelManager";
 import GameView from "../../../core/view/GameView";
 import Layer from "../../../core/Layer";
@@ -73,6 +74,10 @@ export default class Bullet extends PhysicsEntity {
 
         this.speed = this.weapon.weaponAttributes.bulletSpeed
         this.power = this.weapon.weaponAttributes.power;
+
+        if(fromPlayer){
+            this.power += GameData.instance.getLoadoutAttributes().power;
+        }
 
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
         this.lifeSpan = this.weapon.weaponAttributes.lifeSpan

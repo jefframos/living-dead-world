@@ -76,10 +76,18 @@ export default class Player extends GameAgent {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
-        console.log(playerData)
+        this.loadoutAttributes =  GameData.instance.getLoadoutAttributes();
+        this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
         this.staticData = playerData;
+
+        console.log('build',this.loadoutAttributes)
+        console.log(this.loadoutAttributes)
+        console.log(this.loadoutAttributes)
+        console.log(this.loadoutAttributes)
         this.attributes.reset(playerData.attributes);
-        console.log("calculate here the attributes")
+        this.attributes.sumAttributes(this.loadoutAttributes)
+
+
         this.viewData = playerData.view;
         Player.MainPlayer = this;
         super.build()
@@ -287,17 +295,20 @@ export default class Player extends GameAgent {
             return;
         }
         let weaponData = inGameWeapon.mainWeapon
+        weaponData.baseLevel = this.baseMainWeaponLevel
 
         let weapon = this.engine.poolGameObject(weaponData.customConstructor)
         this.addChild(weapon)
         this.weaponsGameObject.push(weapon);
 
+        this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power
+        this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
+        
         weapon.build(weaponData)
 
-        this.attributes.basePower = weaponData.weaponAttributes.power
 
+        //this.baseMainWeaponLevel 
         this.weaponShootBar.setWeapon(weapon)
-        console.log(weapon)
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })

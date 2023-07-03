@@ -62,9 +62,18 @@ export default class CardPlacementSystem {
 
         let starters = [];
 
+        starters.push({
+            id: this.player.sessionData.mainWeapon.id,
+            entityData: {
+                type: 'Weapon'
+            },
+            weaponId: this.player.sessionData.mainWeapon.id,
+            starter: true
+        })
+
 
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable) {
+            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable && starters.length< 3) {
                 starters.push(this.currentData[index]);
             }
             if (this.currentData[index] && !this.currentData[index].enabled) {
@@ -75,7 +84,7 @@ export default class CardPlacementSystem {
         // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
         // console.log(this.player.sessionData, starters)
         //this.deckView.buildCards(this.currentData)
-        console.log(this.currentData)
+        console.log(starters)
         this.deckView.buildCards(starters)
 
         this.deckView.setActive(true)

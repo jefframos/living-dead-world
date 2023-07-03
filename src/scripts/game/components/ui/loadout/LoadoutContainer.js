@@ -478,9 +478,11 @@ export default class LoadoutContainer extends MainScreenModal {
         }
 
         this.defaultAttributes.basePower = 0;
+        this.defaultAttributes.baseFrequency = 0;
 
         GameData.instance.currentEquippedWeaponData.weaponAttributes.level = GameData.instance.currentEquippedWeapon.level
         this.atributes.basePower = GameData.instance.currentEquippedWeaponData.weaponAttributes.power;
+        this.atributes.baseFrequency = GameData.instance.currentEquippedWeaponData.weaponAttributes.frequency
         this.atributes.sumAttributes(this.addAttributes)
         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 

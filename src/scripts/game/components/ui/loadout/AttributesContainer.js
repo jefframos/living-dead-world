@@ -77,7 +77,9 @@ export default class AttributesContainer extends PIXI.Container {
         } else {
             this.frequencyLabel.style.fill = 0xFFFFFF
         }
-        this.frequencyLabel.text = attributes.frequency
+
+        //TODO: the frequency is wrong here, should have always the right value
+        this.frequencyLabel.text = Math.max(0.05,attributes.frequency).toFixed(2)
 
         if (defaultAttributes.power < attributes.power) {
             this.powerLabel.style.fill = 0xAFFE0F

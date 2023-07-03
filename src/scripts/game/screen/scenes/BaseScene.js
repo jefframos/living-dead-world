@@ -73,9 +73,6 @@ export default class BaseScene extends PIXI.Container {
             this.sceneContainer.addChild(sprite);
         });
         this.afterBuild();
-
-        console.log(this.sceneSetup.assets)
-        console.log(this.sceneSetup.inScene)
     }
     afterBuild() {
     }

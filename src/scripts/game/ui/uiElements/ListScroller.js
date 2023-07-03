@@ -20,6 +20,9 @@ export default class ListScroller extends PIXI.Container {
         //this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
         this.containerBackground.alpha = 0.55;
 
+
+
+
         this.rect = rect;
 
         this.isHorizontal = false;
@@ -27,6 +30,16 @@ export default class ListScroller extends PIXI.Container {
         this.container.addChild(this.containerBackground);
         this.container.addChild(this.listContainer);
         this.addChild(this.container);
+
+        this.dragCounter = 0;
+
+        this.containerForeground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
+        this.containerForeground.width = rect.w
+        this.containerForeground.height = rect.h
+        this.containerForeground.alpha = 0;
+
+        this.addChild(this.containerForeground);
+
 
         if (masked) {
             this.maskGraphic = new PIXI.Graphics().beginFill(0x000000).drawRect(0, 0, rect.w, rect.h);
@@ -67,6 +80,9 @@ export default class ListScroller extends PIXI.Container {
             this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
             this.containerBackground.width = rect.w
             this.containerBackground.height = rect.h
+
+            this.containerForeground.width = rect.w
+            this.containerForeground.height = rect.h
             //this.containerBackground = new PIXI.Graphics().beginFill(0x000000).drawRoundedRect(0, 0, rect.w, rect.h, 20);
             this.containerBackground.alpha = 0.55;
             this.container.addChildAt(this.containerBackground, 0)
@@ -110,8 +126,8 @@ export default class ListScroller extends PIXI.Container {
         }
         this.dragging = false;
         this.containerBackground.interactive = false;
-
-
+        this.containerForeground.interactive = false;
+        this.containerForeground.visible = false;
         const axis = this.isHorizontal ? 'x' : 'y'
 
         let target = 0;
@@ -162,7 +178,6 @@ export default class ListScroller extends PIXI.Container {
                 })
             }
         } else {
-            console.log(target, maxW, target + maxW, this.containerBackground.width, this.containerBackground.width - maxW)
             if (target > 0) {
                 TweenLite.to(this.listContainer, 0.75, {
                     x: 0,
@@ -207,11 +222,23 @@ export default class ListScroller extends PIXI.Container {
 
             if (this.dragVelocity[axis] > 0) {
                 this.containerBackground.interactive = true;
-                this.goingDown = 1;
+                this.containerForeground.interactive = true;
+                this.containerForeground.visible = true;
+                if (this.dragVelocity[axis] > 1) {
+
+                    this.goingDown = 1;
+                }
             } else if (this.dragVelocity[axis] < 0) {
                 this.containerBackground.interactive = true;
-                this.goingDown = -1;
+                this.containerForeground.interactive = true;
+                this.containerForeground.visible = true;
+                if (this.dragVelocity[axis] < -1) {
+
+                    this.goingDown = -1;
+                }
             }
+
+            this.dragCounter++;
         }
     }
     startDrag(e) {
@@ -219,6 +246,8 @@ export default class ListScroller extends PIXI.Container {
             return
         }
         this.enableDrag = true;
+
+        this.dragCounter = 0;
         this.goingDown = 0;
         TweenLite.killTweensOf(this.listContainer);
         this.dragging = true;

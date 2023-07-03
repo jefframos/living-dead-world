@@ -108,15 +108,21 @@ export default class BaseWeapon extends PhysicsEntity {
             this.weaponData = new WeaponData();
         }
 
-
+        this.shootFrequency = this.weaponData.weaponAttributes.frequency;
 
         if (this.parent instanceof Player) {
             this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
+            //this.parent.loadoutAttributes.frequency IS NEGATIVE
+            console.log(this.parent.loadoutAttributes.frequency, this.weaponData.weaponAttributes.frequency)
+            this.shootFrequency = this.weaponData.weaponAttributes.frequency + this.parent.loadoutAttributes.frequency
+            this.shootFrequency = Math.max(0.05, this.shootFrequency)
+
         } else {
             this.isPlayer = false;
             this.attributesMultiplier.reset();
         }
+
 
 
         if (this.parent instanceof Companion) {
@@ -139,7 +145,8 @@ export default class BaseWeapon extends PhysicsEntity {
         }
 
         this.resetBrust();
-        this.shootFrequency = this.weaponData.weaponAttributes.frequency;
+
+
         this.currentShootTimer = this.shootFrequency * 0.5 + 1;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
@@ -172,11 +179,9 @@ export default class BaseWeapon extends PhysicsEntity {
 
     }
     shoot(customWeapon, customParent) {
-
         let weapon = customWeapon ? customWeapon : this.weaponData
         let parentGameObject = customParent ? customParent : this
         let isMain = parentGameObject == this;
-
         if (!isMain && weapon.onFixedDestroyWeapon.length) {
 
             let temp = weapon.onFixedDestroyWeapon[0]
@@ -374,6 +379,10 @@ export default class BaseWeapon extends PhysicsEntity {
                 let bullets = this.shoot(element, bullet)
 
             }
+        }
+
+        if (bullet.weapon.perLevelOverrider) {
+            let bullets = this.shoot(bullet.weapon.perLevelOverrider, bullet)
         }
 
         if (bullet.weapon.onFixedDestroyWeapon.length) {

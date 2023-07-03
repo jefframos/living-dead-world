@@ -16,14 +16,36 @@ window.PIXI = PIXI;
 
 
 //Utils.easeOutQuad
- getValues(1, 6, 'floor', 'easeOutQuad', 0.8)
-// getValues(0.1, 0.2, null, 'easeOutCubic', 1)
+//   getValues(5, 60, 'floor', 'easeOutQuad', 0.8,5)
+
+//   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
+
+//   getValues(1, 15, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
+  
+//   getValues(1, 15, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(2, 25, 'floor', 'easeOutQuad', 0.8,5)
+  
+//   getValues(5, 40, 'floor', 'easeOutQuad', 0.8,5)
+  
+//   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
+  
+//   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
+
+//   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
+//   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
+
+//  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
+getValues(0.1, 0.2, null, 'easeOutCubic', 1)
 // getValues(0.3, 0.18, null, 'easeOutCubic', 1)
-function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8) {
+function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8, total = 10) {
 
     let list = '[' //+ value1 +','
-    for (let index = 9; index >= 0; index--) {
-        let n = Utils[ease]((index / 9 ) * scale)
+    for (let index = (total-1); index >= 0; index--) {
+        let n = Utils[ease]((index / (total-1) ) * scale)
         let v = Utils.lerp(value2, value1,  n)// * Math.abs(value2 - value1) + value2
         v = v.toFixed(2)
         if(math){

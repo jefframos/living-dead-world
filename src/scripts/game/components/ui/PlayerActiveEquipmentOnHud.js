@@ -21,7 +21,8 @@ export default class PlayerActiveEquipmentOnHud extends PIXI.Container {
         this.icon.y = this.icon.height/2
     }
     setLevel(level = 0) {
-        this.levelLabel.text = level ? level+1 : '';
+        this.levelLabel.text = level +1;
+        //this.levelLabel.text = level ? level+1 : '';
         this.levelLabel.x = this.icon.width
         this.levelLabel.y = this.icon.height
     }

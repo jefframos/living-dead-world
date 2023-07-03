@@ -17,22 +17,34 @@ export default class WeaponData {
         this.weaponType = WeaponData.WeaponType.Physical;
         this.bulletComponent = Bullet;
         this.entityData = new EntityData();
-        this.ingameViewDataStatic =new InGameViewDataStatic()    
+        this.ingameViewDataStatic = new InGameViewDataStatic()
         this.onDestroyId = null;
         this.isMain = true;
         this.onDestroyWeapon = [];
         this.onFixedDestroyWeapon = [];
         this.id = id;
         this.isAttachment = false;
+        this.overridersList = [];
+        this._baseLevel = 0;
         this._ingameData = null;
     }
-    set ingameData(value){
-        this.weaponAttributes.level = value?value.level:0;
+    set ingameData(value) {
+        this.weaponAttributes.level = value ? value.level : 0;
     }
-    get level(){
+    get level() {
         return this.weaponAttributes.level;
     }
-    set level(value){
+    get displayLevel() {
+        return this.weaponAttributes.level - this.baseLevel;
+    }
+
+    get baseLevel() {
+        return this.weaponAttributes.baseLevel;
+    }
+    set baseLevel(value) {
+        this.weaponAttributes.baseLevel = value;
+    }
+    set level(value) {
         this.weaponAttributes.level = value;
     }
     get bulletBehaviourComponent() {
@@ -44,10 +56,19 @@ export default class WeaponData {
         }
         return toReturn || Bullet;
     }
-    setAsAttachment(){
+    get perLevelOverrider(){
+        if(this.baseLevel < this.overridersList.length){
+            return this.overridersList[this.baseLevel];
+        }
+        return null;
+    }
+    setLevelOverriders(overridersList) {
+        this.overridersList = overridersList;
+    }
+    setAsAttachment() {
         this.isAttachment = true;
     }
-    addMultiplier(multpliers){
+    addMultiplier(multpliers) {
         this.weaponAttributes.addMultiplier(multpliers);
     }
     addFixedDestroyedWeapon(weapon) {

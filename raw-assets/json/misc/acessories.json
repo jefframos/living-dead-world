@@ -95,9 +95,8 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
-        "secAttribute": "baseSpeed",
+        "attribute": "baseDefense",
+        "value": [7,13,24,40,60],
         "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0001"
@@ -109,9 +108,8 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
-        "secAttribute": "baseSpeed",
+        "attribute": "basePower",
+        "value": [6,12,21,33,50],
         "secValue": [2,3,4,5,6],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0002"
@@ -123,10 +121,10 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
+        "attribute": "basePiercing",
+        "value": [1,1,1,2,3],
         "secAttribute": "baseSpeed",
-        "secValue": [2,3,4,5,6],
+        "secValue": [5,7,10,14,20],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0003"
     },
@@ -137,10 +135,10 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
-        "secAttribute": "baseSpeed",
-        "secValue": [2,3,4,5,6],
+        "attribute": "baseDefense",
+        "value": [6,12,21,33,50],
+        "secAttribute": "baseHealth",
+        "secValue": [19,48,96,163,250],
         "bodyPart": "trinket",
         "playerSpriteOverride": "trinket-0004"
     },
@@ -152,7 +150,7 @@
             "tier": 1
         },
         "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
+        "value": [7,13,24,40,60],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0001",
         "playerSpriteReference": 1
@@ -165,9 +163,9 @@
             "tier": 1
         },
         "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
+        "value": [3,6,12,19,30],
         "secAttribute": "baseDefense",
-        "secValue": [2,3,4,5,6],
+        "secValue": [2,3,4,7,10],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0002",
         "playerSpriteReference": 2
@@ -180,9 +178,9 @@
             "tier": 1
         },
         "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
+        "value": [1,3,6,9,15],
         "secAttribute": "baseHealth",
-        "secValue": [2,3,4,5,6],
+        "secValue": [14,27,49,80,120],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0003",
         "playerSpriteReference": 3
@@ -195,9 +193,9 @@
             "tier": 1
         },
         "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
+        "value": [1,3,6,9,15],
         "secAttribute": "basePower",
-        "secValue": [2,3,4,5,6],
+        "secValue": [2,5,10,16,25],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0004",
         "playerSpriteReference": 4
@@ -209,10 +207,8 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseSpeed",
-        "value": [2,3,4,5,6],
-        "secAttribute": "baseFrequency",
-        "secValue": [2,3,4,5,6],
+        "attribute": "basePower",
+        "value": [6,10,17,27,40],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0005",
         "playerSpriteReference": 5
@@ -225,9 +221,9 @@
             "tier": 1
         },
         "attribute": "baseDefense",
-        "value": [2,3,4,5,6],
+        "value": [3,6,12,19,30],
         "secAttribute": "basePower",
-        "secValue": [2,3,4,5,6],
+        "secValue": [2,3,4,7,10],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0006",
         "playerSpriteReference": 6
@@ -240,9 +236,9 @@
             "tier": 1
         },
         "attribute": "baseHealth",
-        "value": [2,3,4,5,6],
+        "value": [14,27,49,80,120],
         "secAttribute": "baseDefense",
-        "secValue": [2,3,4,5,6],
+        "secValue": [2,3,4,7,10],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0007",
         "playerSpriteReference": 7
@@ -255,9 +251,9 @@
             "tier": 1
         },
         "attribute": "baseHealth",
-        "value": [2,3,4,5,6],
-        "secAttribute": "basePower",
-        "secValue": [2,3,4,5,6],
+        "value": [14,27,49,80,120],
+        "secAttribute": "baseFrequency",
+        "secValue": [-0.10,-0.10,-0.10,-2, -0.12],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0008",
         "playerSpriteReference": 8

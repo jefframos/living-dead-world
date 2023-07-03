@@ -80,6 +80,9 @@ export default class EntityBuilder {
             }
         });
 
+
+
+
         companions.forEach(element => {
             let companionData = new CompanionData(element)
             this.companionsData[element.id] = companionData;
@@ -126,7 +129,7 @@ export default class EntityBuilder {
                 this.weaponsStarterArray.push(this.weaponsData[key])
             }
         }
-        console.log(this)
+
         if (!window.weaponFolder) {
             window.weaponFolder = window.GUI.addFolder("Weapons");
             window.magicFolder = window.GUI.addFolder("Magic");
@@ -153,6 +156,13 @@ export default class EntityBuilder {
                             break;
                     }
                 }
+            }
+        }
+
+        for (const key in this.weaponsData) {
+            if (Object.hasOwnProperty.call(this.weaponsData, key)) {
+                this.findWeaponLevels(this.weaponsData[key])
+
             }
         }
 
@@ -247,6 +257,8 @@ export default class EntityBuilder {
         let att = weaponData.attributes;
         let overrider = weaponData.overrider;
 
+
+
         for (const key in att) {
             if (Object.hasOwnProperty.call(weapon.weaponAttributes, key)) {
                 weapon.weaponAttributes[key] = att[key];
@@ -297,17 +309,30 @@ export default class EntityBuilder {
             }
         }
         if (weaponData.customConstructor) {
-            weapon.customConstructor = EntityBuilder.WeaponsAvailable[weaponData.customConstructor]
+            if (typeof weaponData.customConstructor === 'string') {
+                weapon.customConstructor = EntityBuilder.WeaponsAvailable[weaponData.customConstructor]
+            }
+            else{
+                weapon.customConstructor = weaponData.customConstructor;
+            }
         } else {
             weapon.customConstructor = EntityBuilder.WeaponsAvailable.BaseWeapon;
         }
+
         if (weaponData.bulletComponent) {
-            weapon.bulletComponent = EntityBuilder.BulletsAvailable[weaponData.bulletComponent]
+            if (typeof weaponData.bulletComponent === 'string') {
+                weapon.bulletComponent = EntityBuilder.BulletsAvailable[weaponData.bulletComponent]
+            }else{
+                weapon.bulletComponent = weaponData.bulletComponent;
+
+            }
         } else {
             weapon.bulletComponent = EntityBuilder.BulletsAvailable.Bullet;
         }
 
         weapon.weaponAttributes.makeOverrider()
+
+
 
         if (overrider) {
             let targetOverrider = GameStaticData.instance.getDataById('weapons', 'main', overrider)
@@ -327,6 +352,26 @@ export default class EntityBuilder {
         }
 
         return weapon
+    }
+    findWeaponLevels(weapon) {
+        let perLevelOverriders = [];
+        let weaponData = GameStaticData.instance.getDataById('weapons', 'main', weapon.id)
+
+        if (weaponData.levels) {
+
+            for (let index = 2; index <= 5; index++) {
+                const element = weaponData.levels['level' + index];
+                if (element) {
+                    let weaponStaticData = this.getWeapon(element)
+                    let wp = this.makeWeapon(weaponStaticData)
+                    perLevelOverriders.push(wp);
+                } else {
+                    perLevelOverriders.push(null)
+                }
+            }
+
+        }
+        weapon.setLevelOverriders(perLevelOverriders)
     }
     getVFXPack(vfxPackID) {
         if (!this.weaponVFXPackData[vfxPackID]) {
