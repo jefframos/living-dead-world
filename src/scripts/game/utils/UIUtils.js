@@ -14,6 +14,7 @@ export default class UIUtils {
     static baseBorderButtonTexture = 'square_button_border';
     static baseTabTexture = 'tab_button';
     static colorset = {
+        rarity: [0xC3C3C3, 0xABFD0F, 0x49A1F5, 0xBE67F1, 0xFA657D, 0xFBF658],
         skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
         clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
         hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF],
@@ -187,14 +188,14 @@ export default class UIUtils {
         return button;
     }
     static getPrimaryLabelTabButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseTabTexture + '_0003', 150, 65);
+        const button = new BaseButton(UIUtils.baseTabTexture + '_0003', 170, 65);
         button.setPadding(20, 20, 70, 70)
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
         if (icon) {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 22, fill: 0xFFFFFF, strokeThickness: 3 }, { x: 0, y: -5 })
+            UIUtils.addLabel(button, label, { fontSize: 20, fill: 0xFFFFFF, strokeThickness: 3 }, { x: -5, y: -5 })
         }
         return button;
     }

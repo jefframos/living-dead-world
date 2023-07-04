@@ -2,29 +2,31 @@ import * as PIXI from 'pixi.js';
 
 import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
 import Game from '../../../../Game';
+import GameStaticData from '../../../data/GameStaticData';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
+import ViewDatabase from '../../../data/ViewDatabase';
 
 export default class CharacterCustomizationContainer extends PIXI.Container {
     constructor(typeList = 'visuals') {
         super();
 
 
-       
 
-        
+
+
         this.typeList = typeList;
         this.container = new PIXI.Container();
         this.addChild(this.container)
-        
+
         this.topBlocker = new PIXI.Sprite.from('base-gradient');
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
         this.topBlocker.tint = 0x13202F;
-       // this.topBlocker.scale.y = -1
+        // this.topBlocker.scale.y = -1
         this.container.addChild(this.topBlocker);
 
-        
+
         this.piecesScroller = new BodyPartsListScroller({ w: 300, h: 450 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 });
         this.container.addChild(this.piecesScroller);
 
@@ -50,15 +52,18 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             },
         }
 
+
+        this.staticData = GameStaticData.instance.getAllDataFrom('database', 'body-parts')[0];
+
         this.areas = [
             { typeList: 'visuals', label: 'Skin', param: 'skin', colorParam: 'skinColor', area: "skin", type: "colors", anchor: { x: 0.45, y: 0.42 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 21], src: 'head-0001', colorset: UIUtils.colorset.skin },
 
-            { typeList: 'visuals', label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', pivot: { x: 65, y: 120 }, iconSize: 120, range: [1, 21], src: ["sleeve-00{frame}", "front-arm0001", 'head-0001', "chest-00{frame}"], animated: false },
+            { typeList: 'visuals', label: 'Torso', param: 'chest', colorParam: 'topClothColor', area: "chest", anchor: { x: 0.43, y: 0.6 }, mainIconId: '01', pivot: { x: 65, y: 120 }, iconSize: 120, range: [], src: ["sleeve-00{frame}", "front-arm0001", 'head-0001', "chest-00{frame}"], animated: false },
 
             // {type:'visuals', label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
             //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-            { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.35, y: 0.8 }, mainIconId: '01', iconSize: 150, range: [1, 8], src: 'front-leg1-dynamic-00{frame}', animated: false },
+            { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.5, y: 0.5 }, mainIconId: '01', iconSize: 80, range: [1, 8], src: 'leg-icon-exporter00{frame}', srcIcon: 'leg-icon-exporter0001', animated: false },
 
             //{ typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: null, area: "shoes", subs: ["backShoes", "frontShoes"], anchor: { x: 0.35, y: 0.9 }, mainIconId: '01', iconSize: 200, range: [1, 8], src: "dynamic-shoe-00{frame}", animated: false },
 
@@ -68,14 +73,19 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             { typeList: 'visuals', label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '03', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false },
             { typeList: 'visuals', label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false },
             { typeList: 'visuals', label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: UIUtils.colorset.hair },
-            { typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
+            //{ typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
             { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false },
             { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
-            { typeList: 'visuals', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 16], src: ["hat-00{frame}", 'head-0001'], animated: false }]
+            { typeList: 'visuals', label: 'Hat', param: 'hat', colorParam: null, area: "hat", anchor: { x: 0.45, y: 0.4 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 20], src: ["hat-00{frame}", 'head-0001'], animated: false }]
 
 
         this.areas = this.areas.filter(item => item.typeList == this.typeList)
 
+        this.areas.forEach(element => {
+            if (this.staticData[element.area]) {
+                element.range = [this.staticData[element.area].availables.min, this.staticData[element.area].availables.max]
+            }
+        });
 
         this.sectionList = new UIList();
         this.container.addChild(this.sectionList);
@@ -97,8 +107,12 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 button.setActive();
             }, '')
             if (!Array.isArray(element.src)) {
-                const src = element.src.replace('{frame}', element.mainIconId)
-                button.addIcon(src, element.iconSize, element.anchor)
+                if (element.srcIcon) {
+                    button.addIcon(element.srcIcon, element.iconSize, element.anchor)
+                } else {
+                    const src = element.src.replace('{frame}', element.mainIconId)
+                    button.addIcon(src, element.iconSize, element.anchor)
+                }
             } else {
                 const iconContainer = new PIXI.Container();
 
@@ -109,8 +123,6 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                     const sprite = new PIXI.Sprite.from(src);
                     iconContainer.addChild(sprite)
                 }
-                // element.src.forEach(srcSub => {
-                // });
                 button.addIconContainer(iconContainer, element.iconSize, element.pivot)
 
             }
@@ -207,7 +219,9 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
     }
     selectNewPiece(slot) {
-
+        if (!slot.isAvailable) {
+            return;
+        }
         if (slot.region.colorsetData) {
             const colorsetData = slot.region.colorsetData['_' + slot.itemId]
 
@@ -282,8 +296,6 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
     }
     openSection(region, value) {
-
-
         this.allButtons.forEach(element => {
             element.setDefault();
         });
@@ -313,27 +325,38 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 const frame = (this.currentRegion.animated ? index : Utils.formatNumber(index, 1))
                 const slot = UIUtils.getBodyPartySlot(this.selectNewPiece.bind(this))
 
+                const isAvailable = index <= 0 || ViewDatabase.instance.containsPiece(region.area, index)//this.staticData[region.area].starters.includes(index)
                 slot.itemId = index;
                 slot.itemParam = this.currentRegion.param;
                 slot.region = region;
+                slot.isAvailable = isAvailable;
+
                 if (index <= 0) {
                     slot.addIcon('icon_close', 50)
+                    this.currentShowingItems.push(slot)
 
-                } else if (!Array.isArray(this.currentRegion.src)) {
-                    const src = this.currentRegion.src.replace('{frame}', frame)
-                    slot.addIcon(src, this.currentRegion.iconSize, this.currentRegion.anchor)
                 } else {
-                    const iconContainer = new PIXI.Container();
-                    this.currentRegion.src.forEach(srcSub => {
-                        const src = srcSub.replace('{frame}', frame) + (this.currentRegion.animated ? "01" : "")
+                    if (isAvailable) {
+                        if (!Array.isArray(this.currentRegion.src)) {
+                            const src = this.currentRegion.src.replace('{frame}', frame)
+                            slot.addIcon(src, this.currentRegion.iconSize, this.currentRegion.anchor)
+                        } else {
+                            const iconContainer = new PIXI.Container();
+                            this.currentRegion.src.forEach(srcSub => {
+                                const src = srcSub.replace('{frame}', frame) + (this.currentRegion.animated ? "01" : "")
 
-                        const sprite = new PIXI.Sprite.from(src);
-                        iconContainer.addChildAt(sprite, 0)
-                    });
-                    slot.addIconContainer(iconContainer, this.currentRegion.iconSize, this.currentRegion.pivot)
+                                const sprite = new PIXI.Sprite.from(src);
+                                iconContainer.addChildAt(sprite, 0)
+                            });
+                            slot.addIconContainer(iconContainer, this.currentRegion.iconSize, this.currentRegion.pivot)
 
+                        }
+                    } else {
+                        slot.addIcon('icon-question', 50)
+
+                    }
+                    this.currentShowingItems.push(slot)
                 }
-                this.currentShowingItems.push(slot)
             }
 
         }

@@ -114,7 +114,6 @@ export default class BaseWeapon extends PhysicsEntity {
             this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
             //this.parent.loadoutAttributes.frequency IS NEGATIVE
-            console.log(this.parent.loadoutAttributes.frequency, this.weaponData.weaponAttributes.frequency)
             this.shootFrequency = this.weaponData.weaponAttributes.frequency + this.parent.loadoutAttributes.frequency
             this.shootFrequency = Math.max(0.05, this.shootFrequency)
 
@@ -297,6 +296,10 @@ export default class BaseWeapon extends PhysicsEntity {
                     }
                 }
 
+                if(!finalAng){
+                    finalAng = parentGameObject.latestAngle
+                }
+
                 bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                 bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x))
 
@@ -314,6 +317,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
 
         }
+
         return spawnedBullets
     }
 
@@ -427,8 +431,7 @@ export default class BaseWeapon extends PhysicsEntity {
             let targetAngle = baseData.lockRotation ? 0 : bullet.angle;
             if (baseData.movementType == EntityViewData.MovementType.Follow) {
                 let spriteSheet = bullet.addComponent(SpriteSheetGameView);
-
-                spriteSheet.setDescriptor(baseData.viewData, { rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF })
+                spriteSheet.setDescriptor(baseData.viewData, {anchor: { x: baseData.anchor.x, y: baseData.anchor.y }, rotation: targetAngle, scale: { x: scale, y: scale }, viewOffset: { x: baseData.viewOffset.x, y: baseData.viewOffset.y }, color: baseData.color ? baseData.color : 0xFFFFFF })
             } else {
                 if (type == "baseDestroyViewData") {
                     EffectsManager.instance.emitParticles(

@@ -359,7 +359,7 @@ export default class EntityBuilder {
 
         if (weaponData.levels) {
 
-            for (let index = 2; index <= 5; index++) {
+            for (let index = 1; index <= 5; index++) {
                 const element = weaponData.levels['level' + index];
                 if (element) {
                     let weaponStaticData = this.getWeapon(element)

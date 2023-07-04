@@ -178,6 +178,8 @@ export default class Player extends GameAgent {
         this.activeWeapons.forEach(element => {
             element.enable = false;
         });
+
+        this.physics.velocity.x = -1
     }
     gameReady() {
 

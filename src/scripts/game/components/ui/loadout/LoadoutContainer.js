@@ -15,6 +15,7 @@ import MergeCardView from '../../merge/MergeCardView';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
+import WeaponLevelContainer from './WeaponLevelContainer';
 import signals from 'signals';
 
 export default class LoadoutContainer extends MainScreenModal {
@@ -45,7 +46,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
             this.mergeSystem.findAllMerges(this.currentSlots);
-        }, "Merge All")
+        }, "Auto Merge")
         this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
         this.autoMergeAll.setActive()
         this.contentContainer.addChild(this.autoMergeAll)
@@ -128,6 +129,11 @@ export default class LoadoutContainer extends MainScreenModal {
         this.attributesView = new AttributesContainer();
         this.container.addChild(this.attributesView)
 
+        
+
+        this.weaponLevelView = new WeaponLevelContainer();
+        this.container.addChild(this.weaponLevelView)
+
         this.loadoutStatsView = new LoadoutStatsView();
         this.container.addChild(this.loadoutStatsView)
 
@@ -160,6 +166,10 @@ export default class LoadoutContainer extends MainScreenModal {
 
             this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height
         }
+
+
+        this.weaponLevelView.y = this.loadoutStatsView.y 
+        this.weaponLevelView.x = this.loadoutStatsView.x +  this.loadoutStatsView.width
     }
 
     refresh() {
@@ -209,11 +219,18 @@ export default class LoadoutContainer extends MainScreenModal {
         // this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
         // this.container.addChild(this.infoBackContainer);
     }
+    showWeaponLevels(){
+        this.weaponLevelView.visible = true
+        this.weaponLevelView.updateWeaponData(GameData.instance.currentEquippedWeaponData)
+        console.log(GameData.instance.currentEquippedWeaponData)
+    }
     showSection(id) {
         this.previousSection = id;
+        this.weaponLevelView.visible = false;
         switch (id) {
             case LoadoutContainer.Sections.Weapon:
                 this.updateListView(this.equippableWeapons)
+                this.showWeaponLevels();
                 break;
             case LoadoutContainer.Sections.Shoe:
                 this.updateListView(this.equippableShoes)
@@ -285,6 +302,7 @@ export default class LoadoutContainer extends MainScreenModal {
                 this.loadoutStatsView.updateData(card.cardData, card.level);
 
                 this.refreshAttributes();
+                this.showWeaponLevels();
 
             })
             this.equippableWeapons.push(card)
@@ -292,6 +310,8 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.equippableWeapons.sort((a, b) => a.level - b.level);
         this.equippableWeapons.sort((a, b) => a.cardData.id.localeCompare(b.cardData.id));
+
+        this.showWeaponLevels();
     }
     refreshCompanions() {
         const fullInventory = GameData.instance.inventory;
@@ -505,6 +525,7 @@ export default class LoadoutContainer extends MainScreenModal {
         super.update(delta);
 
         this.attributesView.visible = !this.autoMergeAll.visible;
+        //this.weaponLevelView
     }
     resize(res, newRes) {
         super.resize(res, newRes)

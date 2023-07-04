@@ -8,7 +8,7 @@ import Utils from '../../core/utils/Utils';
 import signals from 'signals';
 
 export default class CardView extends PIXI.Container {
-    constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
+    constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 125, height = 150) {
         super()
         this.baseWidth = width;
         this.baseHeight = height;
@@ -66,7 +66,7 @@ export default class CardView extends PIXI.Container {
         //this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('title-1'), 50, 0, 50, 0);
         this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
         this.cardContentContnainer.addChild(this.titleBox);
-        this.titleBox.width = width + 20
+        this.titleBox.width = width + 10
         this.titleBox.height = 37
         this.titleBox.x = -10
         this.titleBox.y = 20
@@ -228,13 +228,16 @@ export default class CardView extends PIXI.Container {
         this.cardBackground.width = this.cardBorder.width - 10
         this.cardBackground.height = this.cardBorder.height - 10
 
-        this.titleBox.width = this.cardBorder.width
+        this.titleBox.width = this.cardBorder.width - 8
+        this.titleBox.height =this.labelTitle.height + 10
         this.titleBox.pivot.x = this.titleBox.width / 2
         this.titleBox.x = this.cardBorder.x + this.cardBorder.width / 2
-        this.titleBox.y = 110
+        this.titleBox.y = 115
 
 
+        this.labelTitle.anchor.y = 0
         this.labelTitle.x = this.titleBox.width / 2
+        this.labelTitle.y = 5
         this.labelTitle.style.wordWrapWidth = this.cardBorder.width - 20
 
 

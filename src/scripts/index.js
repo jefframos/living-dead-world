@@ -16,7 +16,7 @@ window.PIXI = PIXI;
 
 
 //Utils.easeOutQuad
-//   getValues(5, 60, 'floor', 'easeOutQuad', 0.8,5)
+   getValues(-0.075, -0.2, null, 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
@@ -36,10 +36,10 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-//   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
+   getValues(50, 120, 'floor', 'easeOutQuad', 0.8)
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
-getValues(0.1, 0.2, null, 'easeOutCubic', 1)
+getValues(50, 800, 'floor', 'easeOutCubic', 1)
 // getValues(0.3, 0.18, null, 'easeOutCubic', 1)
 function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8, total = 10) {
 

@@ -2,6 +2,7 @@ import CookieManager from "../CookieManager";
 import EntityBuilder from "../screen/EntityBuilder";
 import GameData from "./GameData";
 import GameStaticData from "./GameStaticData";
+import ViewDatabase from "./ViewDatabase";
 import signals from "signals";
 
 export default class PrizeManager {
@@ -51,6 +52,10 @@ export default class PrizeManager {
             icon: 'trinket-icon0001',
             type: PrizeManager.PrizeType.Trinket
         })
+        // this.prizeList.push({
+        //     icon: 'head-0004',
+        //     type: PrizeManager.PrizeType.Wearable,
+        // })
         this.prizeList.push({
             icon: 'coin3l',
             type: PrizeManager.PrizeType.Coin,
@@ -66,6 +71,11 @@ export default class PrizeManager {
     getMetaLowerPrize() {
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
     }
+    getWearable() {
+        const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
+        this.onGetMetaPrize.dispatch(prize)
+        ViewDatabase.instance.saveWardrobePiece(prize.value[0].area, prize.value[0].id)
+    }
     getMetaPrize(prizeId, maxLevel, total = 1, dispatch = true) {
 
         const itemPrizeList = []
@@ -77,19 +87,23 @@ export default class PrizeManager {
             }
             itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }
-console.log(itemPrizeList)
+        //console.log(itemPrizeList)
         const types = [];
         itemPrizeList.forEach(element => {
-            if(element.type == PrizeManager.PrizeType.Coin){
+            if (element.type == PrizeManager.PrizeType.Coin) {
                 GameData.instance.addSoftCurrency(element.value)
 
-            }else if(element.type == PrizeManager.PrizeType.Key){
+            } else if (element.type == PrizeManager.PrizeType.Key) {
                 GameData.instance.addHardCurrency(element.value)
 
-            }else if(element.type == PrizeManager.PrizeType.MasterKey){
+            } else if (element.type == PrizeManager.PrizeType.MasterKey) {
                 GameData.instance.addSpecialCurrency(element.value)
 
-            }else{
+            } else if (element.type == PrizeManager.PrizeType.Wearable) {
+                console.log(element)
+                // GameData.instance.addSpecialCurrency(element.value)
+            }
+            else {
                 GameData.instance.addToInventory(element.type, element)
             }
             types.push(element.type)
@@ -149,6 +163,12 @@ console.log(itemPrizeList)
 
             case PrizeManager.PrizeType.Weapon:
                 allEquip = EntityBuilder.instance.getAllStarterWeapon();
+                break;
+            case PrizeManager.PrizeType.Wearable:
+                const wearable = ViewDatabase.instance.findAvailablePiece();
+                if (wearable.area) {
+                    return { type: [PrizeManager.PrizeType.Wearable], value: [wearable] }
+                }
                 break;
         }
 

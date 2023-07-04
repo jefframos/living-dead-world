@@ -88,7 +88,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.prizeBox.width = this.infoBackContainer.width - 20
         this.prizeBox.height = 300
         this.prizeBox.x = 10
-        this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height -10
+        this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height - 10
 
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
         this.congratulationsLabel.y = this.infoBackContainer.height / 4 - 20
@@ -106,6 +106,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
             const value = data.value[index];
             let entityData = null;
             let texture = '';
+
+            console.log(element)
+
             switch (element) {
                 case PrizeManager.PrizeType.Coin:
                     texture = 'coin3l'
@@ -132,6 +135,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
                     entityData = EntityBuilder.instance.getWeapon(value.id)
                     texture = entityData.entityData.icon
                     break;
+                case PrizeManager.PrizeType.Wearable:
+                    texture = 'head-0004'
+                    break;
             }
             drawPrizes.push({ texture, entityData, value })
         }
@@ -145,6 +151,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
+            console.log(element)
             let prize = null
             if (element.entityData) {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);

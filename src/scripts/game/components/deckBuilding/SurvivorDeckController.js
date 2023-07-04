@@ -50,7 +50,7 @@ export default class SurvivorDeckController extends GameObject {
         
         this.highlightedCard = null;
         
-        this.cardWidth = 180
+        this.cardWidth = 190
         this.cardHeight = 450
         this.cardDistance = 220
         this.cardContainerMaxWidth = 650

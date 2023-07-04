@@ -6,8 +6,10 @@ import Game from '../../Game';
 import GameScreen from './GameScreen';
 import GameStaticData from '../data/GameStaticData';
 import MainMenu from './MainMenu';
+import PrizeManager from '../data/PrizeManager';
 import ScreenManager from '../../screenManager/ScreenManager';
 import ScreenTransition from './ScreenTransition';
+import ViewDatabase from '../data/ViewDatabase';
 import config from '../../config';
 
 export default class MainScreenManager extends ScreenManager {
@@ -34,6 +36,12 @@ export default class MainScreenManager extends ScreenManager {
         }
 
         GameStaticData.instance.initialize();
+        ViewDatabase.instance.initialize();
+
+        setTimeout(() => {
+            console.log("CONTINUE HERE")
+            //PrizeManager.instance.getWearable()
+        }, 10);
 
         this.settings = {
             fps: 60

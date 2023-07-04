@@ -26,9 +26,9 @@ export default class CookieManager {
 		}
 		this.defaultResources = {
 			version: '0.0.1',
-			softCurrency:0,
-			hardCurrency:0,
-			specialCurrency:0,
+			softCurrency: 0,
+			hardCurrency: 0,
+			specialCurrency: 0,
 		}
 		this.defaultProgression = {
 			version: '0.0.1',
@@ -41,15 +41,26 @@ export default class CookieManager {
 			totalPlayers: 1,
 			currentPlayer: 0,
 			playerLevel: 0,
+			wardrobe: {
+				chest: [],
+				legs: [],
+				head: [],
+				eyes: [],
+				mouth: [],
+				ears: [],
+				frontFace: [],
+				hair: [],
+				hat: []
+			},
 			playerStructures: [],
 		}
 		this.defaultInventory = {
 			version: '0.0.1',
-			weapons: [{ id: 'PISTOL_01', level: 0 }, { id: 'SUB_MACHINE_GUN_01', level: 0 }, { id: 'SNIPER_01', level: 0 }, { id: 'MINIGUN_01', level: 0 }, { id: 'SHOTGUN_01', level: 0 }, { id: 'PLAYER_MULTISHOT', level: 0 }],
+			weapons: [{ id: 'BASEBAL_BAT', level: 0 }, { id: 'PISTOL_01', level: 0 }, { id: 'SUB_MACHINE_GUN_01', level: 0 }, { id: 'SNIPER_01', level: 0 }, { id: 'MINIGUN_01', level: 0 }, { id: 'SHOTGUN_01', level: 0 }, { id: 'PLAYER_MULTISHOT', level: 0 }],
 			bodyParts: [],
 			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }, { id: 'FROG-1', level: 0 }, { id: 'BIRD-1', level: 0 }],
 			masks: [{ id: 'MASK_01', level: 0 }],
-			trinkets: [{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 },{ id: 'TRINKET_01', level: 0 }],
+			trinkets: [{ id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }],
 			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }],
 		}
 		this.defaultLoadout = {
@@ -101,7 +112,7 @@ export default class CookieManager {
 			}
 		}
 
-		this.version = '0.0.0.1'
+		this.version = '0.0.0.2'
 		this.cookieVersion = this.getCookie('cookieVersion')
 		//alert(this.cookieVersion != this.version)
 		if (!this.cookieVersion || this.cookieVersion != this.version) {
@@ -122,6 +133,28 @@ export default class CookieManager {
 			this.settings = this.defaultSettings;
 		}
 
+	}
+	saveWardrobePiece(area, id) {
+		const data = this.getChunck('player')
+		if (data.wardrobe[area] && !data.wardrobe[area].includes(id)) {
+			data.wardrobe[area].push(id)
+		}
+		this.saveChunk('player', data)
+	}
+	checkWardrobeStarters(defaultData) {
+		const data = this.getChunck('player')
+
+		for (const key in data.wardrobe) {
+			const element = data.wardrobe[key];
+			if (defaultData[key]) {
+				defaultData[key].starters.forEach(starterId => {
+					if (!data.wardrobe[key].includes(starterId)) {
+						data.wardrobe[key].push(starterId)
+					}
+				});
+			}
+		}
+		this.saveChunk('player', data)
 	}
 	claimAchievment(id, type) {
 		if (this.fullData[id].achievments[type] !== undefined) {
@@ -184,6 +217,9 @@ export default class CookieManager {
 		this.storeObject('fullData', this.fullData)
 
 	}
+	get wardrobe() {
+		return this.getChunck('player').wardrobe;
+	}
 	get inventory() {
 		return this.getChunck('inventory');
 	}
@@ -199,24 +235,24 @@ export default class CookieManager {
 	get loadout() {
 		return this.getChunck('loadout');
 	}
-	addSoftCurrency(value){
+	addSoftCurrency(value) {
 		const data = this.getChunck('resources')
 		data.softCurrency += value;
-		data.softCurrency = Math.max(data.softCurrency , 0);
+		data.softCurrency = Math.max(data.softCurrency, 0);
 		this.saveChunk('resources', data)
 		return data.softCurrency;
 	}
-	addHardCurrency(value){
+	addHardCurrency(value) {
 		const data = this.getChunck('resources')
 		data.hardCurrency += value;
-		data.hardCurrency = Math.max(data.hardCurrency , 0);
+		data.hardCurrency = Math.max(data.hardCurrency, 0);
 		this.saveChunk('resources', data)
 		return data.hardCurrency;
 	}
-	addSpecialCurrency(value){
+	addSpecialCurrency(value) {
 		const data = this.getChunck('resources')
 		data.specialCurrency += value;
-		data.specialCurrency = Math.max(data.specialCurrency , 0);
+		data.specialCurrency = Math.max(data.specialCurrency, 0);
 		this.saveChunk('resources', data)
 		return data.specialCurrency;
 	}
@@ -253,7 +289,7 @@ export default class CookieManager {
 
 		data[type][this.currentPlayer].id = equip;
 		data[type][this.currentPlayer].level = level;
-		console.log(type, equip,level,'saving', data);
+		console.log(type, equip, level, 'saving', data);
 		this.saveChunk('loadout', data)
 
 	}
@@ -278,8 +314,8 @@ export default class CookieManager {
 			const element = data[type][i]
 			if (element.id == equip.id && element.level == equip.level) {
 				data[type].splice(i, 1)
-				quant --
-				if(quant <= 0){
+				quant--
+				if (quant <= 0) {
 					break;
 				}
 			}
