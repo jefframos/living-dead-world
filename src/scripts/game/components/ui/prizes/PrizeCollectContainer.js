@@ -107,7 +107,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             let entityData = null;
             let texture = '';
 
-            console.log(element)
+            console.log('showPrize' ,element, data)
 
             switch (element) {
                 case PrizeManager.PrizeType.Coin:
@@ -135,8 +135,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
                     entityData = EntityBuilder.instance.getWeapon(value.id)
                     texture = entityData.entityData.icon
                     break;
-                case PrizeManager.PrizeType.Wearable:
-                    texture = 'head-0004'
+                case PrizeManager.PrizeType.Wearable:                    
+                    texture = UIUtils.getIconUIIcon(element)
                     break;
             }
             drawPrizes.push({ texture, entityData, value })
@@ -147,11 +147,10 @@ export default class PrizeCollectContainer extends MainScreenModal {
         }
         let col = 0
         let ln = 0
-        const speed = 1.5;
+        const speed = 1.25;
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
-            console.log(element)
             let prize = null
             if (element.entityData) {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
@@ -160,8 +159,15 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize.hideLevelLabel()
 
             } else {
-                prize = new PIXI.Sprite.from(element.texture)
-                prize.scale.set(Utils.scaleToFit(prize, 70))
+
+
+                prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+                prize.setIcon(element.texture, 50)
+                prize.resetPivot()
+                prize.hideLevelLabel()
+
+              //  prize = new PIXI.Sprite.from(element.texture)
+               // prize.scale.set(Utils.scaleToFit(prize, 70))
             }
 
             prize.x = 80 * col
@@ -191,7 +197,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             this.collectButton.y = this.infoBackContainer.height - 50;
             TweenLite.to(this.collectButton, 0.5, { alpha: 1, y: this.infoBackContainer.height + 10, ease: Back.easeOut })
-        }, speed * 800 + 250);
+        }, speed * 500 + 250);
     }
     update(delta) {
         if (!this.isOpen) {

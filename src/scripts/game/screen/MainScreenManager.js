@@ -22,6 +22,11 @@ export default class MainScreenManager extends ScreenManager {
         ScreenContainer: Game.ScreenManagerContainer,
         GameplayContainer: null,
     }
+    static Transition = {
+        timeIn: 1000,
+        timeOut: 1000,
+        transitionTimer : 1.2
+    }
     constructor() {
         super();
         //this.screensContainer = Game.ScreenManagerContainer;
@@ -35,13 +40,9 @@ export default class MainScreenManager extends ScreenManager {
             })
         }
 
-        GameStaticData.instance.initialize();
-        ViewDatabase.instance.initialize();
 
-        setTimeout(() => {
-            console.log("CONTINUE HERE")
-            //PrizeManager.instance.getWearable()
-        }, 10);
+
+
 
         this.settings = {
             fps: 60
@@ -67,16 +68,10 @@ export default class MainScreenManager extends ScreenManager {
         this.addScreen(this.characterBuilding);
 
 
-        this.screenTransition = new ScreenTransition();
-        Game.ScreenManagerContainer.addChild(this.screenTransition)
+       
 
-        this.screenTransition.x = 0
-        this.screenTransition.y = 0
-        this.screenTransition.visible = false;
 
-        
 
-        this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
 
         this.timeScale = 1;
@@ -92,6 +87,7 @@ export default class MainScreenManager extends ScreenManager {
         this.prevPopUp = null;
 
 
+        this.forceChange(MainScreenManager.Screens.CharacterBuild);
 
         //debug list
         // noEnemy
@@ -99,6 +95,12 @@ export default class MainScreenManager extends ScreenManager {
         // debug
         // builder
         // game   
+        //noTransition
+        if (Game.Debug.noTransition){
+            MainScreenManager.Transition.timeIn = 1
+            MainScreenManager.Transition.timeOut = 1
+            MainScreenManager.Transition.transitionTimer = 0
+        }
         if (Game.Debug.builder) {
             this.forceChange(MainScreenManager.Screens.CharacterBuild);
         } else if (Game.Debug.game) {
@@ -131,7 +133,15 @@ export default class MainScreenManager extends ScreenManager {
             this.aspectChange(isPortrait)
         })
 
-        
+        this.screenTransition = new ScreenTransition();
+        Game.TransitionContainer.addChild(this.screenTransition)
+
+        this.screenTransition.x = 0
+        this.screenTransition.y = 0
+        //this.screenTransition.visible = false;
+
+
+        this.screenTransition.transitionOut(0, true);
 
     }
     addCoinsParticles(pos, quant = 5, customData = {}) {
@@ -164,10 +174,28 @@ export default class MainScreenManager extends ScreenManager {
         // this.screenTransition.startTransitionOut();               
     }
     change(screenLabel, param) {
+
         super.change(screenLabel, param);
 
 
     }
+    startTransitionInTo(screen) {
+        //console.log("startTransitionInTo", screen.label)
+        this.screenTransition.transitionOut();
+        
+    }
+    startTransitionOutTo(screen, nextScreen) {
+        //console.log("startTransitionOutTo", screen.label, nextScreen.label)
+        this.screenTransition.transitionIn();
+    }
+
+    endTransitionInTo(screen) {
+        //console.log("endTransitionInTo", screen.label)
+    }
+    endTransitionOutTo(screen, nextScreen) {
+        //console.log("endTransitionOutTo", screen.label, nextScreen.label)
+    }
+  
     redirectToDebugMenu() {
         this.change(MainScreenManager.Screens.MainMenu);
     }
@@ -180,6 +208,8 @@ export default class MainScreenManager extends ScreenManager {
     }
     update(delta) {
         this.settings.fps = window.FPS
+
+        this.screenTransition.update(delta)
 
         if (this.isPaused) return;
         super.update(delta * this.timeScale);
@@ -208,15 +238,13 @@ export default class MainScreenManager extends ScreenManager {
         super.resize(newSize, innerResolution);
 
 
-        if(this.screenTransition){
+        if (this.screenTransition) {
             this.screenTransition.x = Game.Borders.width / 2
             this.screenTransition.y = Game.Borders.height / 2
             this.screenTransition.resize(newSize, innerResolution);
         }
     }
-    startChanging(){
-        //this.screenTransition.visible = true;
-    }
+
     shake(force = 1, steps = 4, time = 0.25) {
         let timelinePosition = new TimelineLite();
         let positionForce = (force * 50);

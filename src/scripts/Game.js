@@ -14,6 +14,7 @@ export default class Game {
     static MainLoader = new PIXI.Loader();
     static UIOverlayContainer = new PIXI.Container();
     static ScreenManagerContainer = new PIXI.Container();
+    static TransitionContainer = new PIXI.Container();
     static Time;
     static Debug = {};
     static Borders = {
@@ -44,9 +45,9 @@ export default class Game {
         window.renderer = new PIXI.Application({
             width: config.width,
             height: config.height,
-            resolution: Math.max(window.devicePixelRatio, 2),
+            resolution: Math.max(window.devicePixelRatio, 1.5),
             antialias: false,
-            backgroundColor: 0x16465B
+            backgroundColor: 0x272822
         });
         document.body.appendChild(window.renderer.view);
 
@@ -74,16 +75,19 @@ export default class Game {
         this.loaderContainer.addChild(backLoader)
         this.loaderContainer.addChild(this.fillLoader)
         this.fillLoader.scale.x = 0
+        backLoader.y = 150
+        this.fillLoader.y = 150
+
 
         this.logo = new PIXI.Sprite.from('main-logo.png')
         this.logo.x = 150
-        this.logo.y = -100
+        this.logo.y = 0
         this.logo.anchor.set(0.5)
 
-        this.loadingLabel = UIUtils.getPrimaryLabel('0%')
+        this.loadingLabel = UIUtils.getPrimaryLabel('0%', {fontSize:20})
         this.loadingLabel.anchor.set(0.5)
         this.loadingLabel.x = 150
-        this.loadingLabel.y = 0
+        this.loadingLabel.y = 150
         this.loaderContainer.addChild(this.logo)
         this.loaderContainer.addChild(this.loadingLabel)
         this.loaderContainer.pivot.x = 150
@@ -98,10 +102,10 @@ export default class Game {
     }
     initialize() {
 
-        this.stage.removeChild(this.loaderContainer);
         window.renderer.ticker.add(this._onTickEvent, this);
         setTimeout(() => {
             this.resize()
+            this.stage.removeChild(this.loaderContainer);
         }, 10);
     }
     _onTickEvent(deltaTime) {
@@ -198,7 +202,7 @@ export default class Game {
 
 
             this.loaderContainer.x = Game.Screen.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
-            this.loaderContainer.y = Game.Screen.height - this.loaderContainer.height - 50
+            this.loaderContainer.y = Game.Screen.height / 2 
 
 
         }
@@ -211,6 +215,10 @@ export default class Game {
 
             if (!Game.ScreenManagerContainer.parent) {
                 this.stage.addChild(Game.ScreenManagerContainer)
+            }
+            
+            if (!Game.TransitionContainer.parent) {
+                this.stage.addChild(Game.TransitionContainer)
             }
             
             //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
@@ -232,7 +240,9 @@ export default class Game {
             this.screenManager.y = this.desktopResolution.height / 2 - (this.desktopResolution.height / 2 * newScaleY)
             // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
             // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
-
+   
+            Game.TransitionContainer.scale.x = this.screenManager.scale.x
+            Game.TransitionContainer.scale.y = this.screenManager.scale.y
 
             Game.GlobalScale.x = config.width / this.innerResolution.width
             Game.GlobalScale.y = config.height / this.innerResolution.height

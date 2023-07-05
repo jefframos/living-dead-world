@@ -26,9 +26,9 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0004', 80, 80);
+        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0004', 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
-        button.addIcon('smallButton', 40)
+        button.addIcon(UIUtils.getIconUIIcon('close'), 40)
 
         button.scale.set(Utils.scaleToFit(button, 60))
         return button;
@@ -49,6 +49,16 @@ export default class UIUtils {
     static getPrimaryShapelessButton(callback, label, icon) {
         const button = new BaseButton(null, 150, 150);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
+
+        const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
+        warningIcon.scale.set(Utils.scaleToFit(warningIcon, 30))
+        warningIcon.anchor.set(0.5)
+        warningIcon.x = 150 - 30
+        warningIcon.y = 30
+        button.addChild(warningIcon)
+        button.warningIcon = warningIcon;
+        warningIcon.visible = false;
+
         if (icon) {
             button.addIcon(icon, 80)
         }
@@ -144,9 +154,22 @@ export default class UIUtils {
     }
     static getBodyPartySlot(callback, label, icon) {
 
-        const button = Pool.instance.getElement(BodyPartySlot)
+        const button = new BodyPartySlot()//Pool.instance.getElement(BodyPartySlot)
 
         button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
+
+        if(!button.warningIcon){
+
+            const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
+            warningIcon.scale.set(Utils.scaleToFit(warningIcon, 30))
+            warningIcon.anchor.set(0.5)
+            warningIcon.x = 80
+            warningIcon.y = 5
+            button.addChild(warningIcon)
+            button.warningIcon = warningIcon;
+            warningIcon.visible = false;
+        }
+
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;
             let cb = InteractableView.addMouseUp(button, () => { button.mouseUpCallback(button) })
@@ -219,6 +242,17 @@ export default class UIUtils {
         const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 80, 80);
         button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+
+        const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
+        warningIcon.scale.set(Utils.scaleToFit(warningIcon, 30))
+        warningIcon.anchor.set(0.5)
+        warningIcon.x = 75
+        warningIcon.y = 5
+        button.addChild(warningIcon)
+        button.warningIcon = warningIcon;
+        warningIcon.visible = false;
+
+
         if (icon) {
             button.addIcon(icon)
         }
@@ -283,6 +317,8 @@ export default class UIUtils {
                 return 'ico_customization'
             case 'battle':
                 return 'ico_power'
+            case 'warning':
+                return 'info'
         }
 
 

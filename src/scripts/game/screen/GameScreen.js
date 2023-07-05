@@ -13,6 +13,7 @@ import GameStaticData from '../data/GameStaticData';
 import InputModule from '../core/modules/InputModule';
 import Layer from '../core/Layer';
 import LevelManager from '../manager/LevelManager';
+import MainScreenManager from './MainScreenManager';
 import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
 import Pool from '../core/utils/Pool';
@@ -276,17 +277,18 @@ export default class GameScreen extends Screen {
     transitionOut(nextScreen) {
         this.removeEvents();
         this.nextScreen = nextScreen;
-        this.worldRender.destroy();
-        this.levelManager.destroy();
 
-        this.endTransitionOut();
-        // setTimeout(function () {
-        // }.bind(this), 1000);
+        setTimeout(() => {
+            this.worldRender.destroy();            
+            this.levelManager.destroy();
+        }, MainScreenManager.Transition.timeOut);
+
+        super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
     }
     transitionIn() {
-        this.endTransitionIn();
-        // setTimeout(function () {
-        // }.bind(this), 0.5);
+       setTimeout(() => {
+         super.transitionIn();
+       }, MainScreenManager.Transition.timeIn);
     }
  
     destroy() {

@@ -159,6 +159,10 @@ export default class LoadoutCardView extends PIXI.Container {
     showLevelLabel() {
         this.levelLabel.visible = true;
     }
+    setIcon(texture, customIconSize){
+        this.cardImage.texture =  PIXI.Texture.from(texture);
+        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
+    }
     setData(cardData, level = 0, customIconSize = 80) {
         this.iconSize = customIconSize
         if (!cardData) {

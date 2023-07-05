@@ -52,16 +52,27 @@ export default class CookieManager {
 				hair: [],
 				hat: []
 			},
+			wardrobeNew: {
+				chest: [],
+				legs: [],
+				head: [],
+				eyes: [],
+				mouth: [],
+				ears: [],
+				frontFace: [],
+				hair: [],
+				hat: []
+			},
 			playerStructures: [],
 		}
 		this.defaultInventory = {
 			version: '0.0.1',
-			weapons: [{ id: 'BASEBAL_BAT', level: 0 }, { id: 'PISTOL_01', level: 0 }, { id: 'SUB_MACHINE_GUN_01', level: 0 }, { id: 'SNIPER_01', level: 0 }, { id: 'MINIGUN_01', level: 0 }, { id: 'SHOTGUN_01', level: 0 }, { id: 'PLAYER_MULTISHOT', level: 0 }],
+			weapons: [],
 			bodyParts: [],
-			companions: [{ id: 'DOG-1', level: 0 }, { id: 'DOG-2', level: 0 }, { id: 'CAT-1', level: 0 }, { id: 'FISH-1', level: 0 }, { id: 'FROG-1', level: 0 }, { id: 'BIRD-1', level: 0 }],
-			masks: [{ id: 'MASK_01', level: 0 }],
-			trinkets: [{ id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }, { id: 'TRINKET_01', level: 0 }],
-			shoes: [{ id: 'SHOE_01', level: 0 }, { id: 'SHOE_02', level: 0 }, { id: 'SHOE_03', level: 0 }, { id: 'SHOE_04', level: 0 }, { id: 'SHOE_05', level: 0 }, { id: 'SHOE_06', level: 0 }, { id: 'SHOE_07', level: 0 }, { id: 'SHOE_08', level: 0 }],
+			companions: [],
+			masks: [],
+			trinkets: [],
+			shoes: [],
 		}
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -112,7 +123,7 @@ export default class CookieManager {
 			}
 		}
 
-		this.version = '0.0.0.2'
+		this.version = '0.0.0.3'
 		this.cookieVersion = this.getCookie('cookieVersion')
 		//alert(this.cookieVersion != this.version)
 		if (!this.cookieVersion || this.cookieVersion != this.version) {
@@ -134,10 +145,41 @@ export default class CookieManager {
 		}
 
 	}
+	allNewWardrobeDiscover() {
+		const data = this.getChunck('player')
+		const newItemsSections = [];
+		for (const key in data.wardrobeNew) {
+			if (data.wardrobeNew[key] && data.wardrobeNew[key].length > 0) {
+				newItemsSections.push({ area: key, content: data.wardrobeNew[key] })
+			}
+
+		}
+		return newItemsSections;
+	}
+	getWardrobeNewDiscover(area) {
+		const data = this.getChunck('player')
+		if (data.wardrobeNew[area]) {
+			return data.wardrobeNew[area];
+		}
+	}
+	clearWardrobePieceNew(area) {
+		const data = this.getChunck('player')
+		if (data.wardrobeNew[area]) {
+			data.wardrobeNew[area] = [];
+		}
+		this.saveChunk('player', data)
+	}
+	getAreaWardrobe(area,) {
+		const data = this.getChunck('player')
+		if (data.wardrobe[area]) {
+			return data.wardrobe[area];
+		}
+	}
 	saveWardrobePiece(area, id) {
 		const data = this.getChunck('player')
 		if (data.wardrobe[area] && !data.wardrobe[area].includes(id)) {
 			data.wardrobe[area].push(id)
+			data.wardrobeNew[area].push(id)
 		}
 		this.saveChunk('player', data)
 	}
@@ -194,7 +236,7 @@ export default class CookieManager {
 		this.fullData[from][type] = data;
 		this.storeObject('fullData', this.fullData)
 	}
-	sortCookie(id) {
+	sortCookie(id, defaultInventory) {
 		if (!this.fullData[id]) {
 			this.fullData[id] = {}
 		}
@@ -203,6 +245,17 @@ export default class CookieManager {
 			this.wipeData2()
 		}
 
+		if(defaultInventory){
+			for (const key in this.defaultInventory) {
+				if (Object.hasOwnProperty.call(this.defaultInventory, key) && Object.hasOwnProperty.call(defaultInventory, key)) {
+					this.defaultInventory[key] = defaultInventory[key]						
+					if(key == 'shoes'){
+						this.defaultLoadout.currentShoe[0].id = defaultInventory[key][0].id;
+						this.defaultLoadout.currentShoe[0].level = defaultInventory[key][0].level;
+					}
+				}
+			}
+		}
 		this.fullData[id]['settings'] = this.sortCookieData('settings', this.defaultSettings);
 		this.fullData[id]['player'] = this.sortCookieData('player', this.defaultPlayer);
 		this.fullData[id]['gifts'] = this.sortCookieData('gifts', this.defaultGifts);

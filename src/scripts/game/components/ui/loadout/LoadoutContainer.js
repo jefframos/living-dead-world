@@ -560,13 +560,8 @@ export default class LoadoutContainer extends MainScreenModal {
         this.slotsList.y = Game.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y
         this.mergeSectionButton.x = this.weaponsScroller.x
 
-        if (Game.IsPortrait) {
-            this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 13
-        }else{
 
-            this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 26
-        }
-
+        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 13
         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w
         this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10
 

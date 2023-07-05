@@ -52,6 +52,7 @@ export default class EffectsManager extends GameObject {
 
         this.addBitmapFont('HEAL', {fill: "#00FF00"});
         this.addBitmapFont('DAMAGE', {fill: "#ffffff"});
+        this.addBitmapFont('PLAYER_DAMAGE', {fill: "#ff4444"});
         this.addBitmapFont('BURN', {fill: "#f97b1a"});
         this.addBitmapFont('POISON', {fill: "#a71af9"});
     }
@@ -133,10 +134,7 @@ export default class EffectsManager extends GameObject {
                 this.labels[index].alpha = this.labels[index].timer * 2;
             }
             if (this.labels[index].timer <= 0) {
-
-                //_fontName
                 this.fontPool[this.labels[index]._fontName].push(this.labels[index]);
-                //this.damageFontPool.push(this.labels[index]);
                 this.labels.splice(index, 1)
             }
 
@@ -170,6 +168,9 @@ export default class EffectsManager extends GameObject {
     }
     popDamage(entity, value) {
         this.popLabel(this.getBitmapFont('DAMAGE'), entity, value)
+    }
+    popDamagePlayer(entity, value) {
+        this.popLabel(this.getBitmapFont('PLAYER_DAMAGE'), entity, value)
     }
     popHeal(entity, value) {
         this.popLabel(this.getBitmapFont('HEAL'), entity, value)

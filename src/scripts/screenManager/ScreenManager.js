@@ -12,6 +12,19 @@ export default class ScreenManager extends PIXI.Container{
 	addScreen(screen){
 		this.screenList.push(screen);
 		this.currentScreen = screen;
+
+		if(this.currentScreen.onEndTransitionIn){
+			this.currentScreen.onEndTransitionIn.add(this.endTransitionInTo.bind(this))
+		}
+		if(this.currentScreen.onEndTransitionOut){
+			this.currentScreen.onEndTransitionOut.add(this.endTransitionOutTo.bind(this))
+		}
+		if(this.currentScreen.onStartTransitionIn){
+			this.currentScreen.onStartTransitionIn.add(this.startTransitionInTo.bind(this))
+		}
+		if(this.currentScreen.onStartTransitionOut){
+			this.currentScreen.onStartTransitionOut.add(this.startTransitionOutTo.bind(this))
+		}
 		screen.screenManager = this;
 		if(screen.onAdded){
 			screen.onAdded();
@@ -30,11 +43,10 @@ export default class ScreenManager extends PIXI.Container{
 		if(this.currentScreen){
 			this.currentScreen.transitionOut(tempScreen, param);
 		}
-
 		this.startChanging();
 		//this.resize()
 	}
-
+	
 	aspectChange(isPortrait){
 		for(let i = 0; i < this.screenList.length; i++){
 			if(this.screenList[i].aspectChange){
@@ -42,9 +54,11 @@ export default class ScreenManager extends PIXI.Container{
 			}
 		}
 	}
-	startChanging(){
-
-	}
+	startTransitionInTo(screen){}
+	startTransitionOutTo(screen, nextScreen){}
+	endTransitionInTo(screen){}
+	endTransitionOutTo(screen, nextScreen){}
+	startChanging(){}
 	//change between screens
 	forceChange(screenLabel, param){
 		if(this.currentScreen && this.currentScreen.parent){

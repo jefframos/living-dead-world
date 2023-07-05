@@ -86,7 +86,11 @@ export default class GameAgent extends PhysicsEntity {
         if (customFont) {
             EffectsManager.instance.popCustomLabel(customFont, this, value)
         } else {
-            EffectsManager.instance.popDamage(this, value)
+            if(this.isPlayer){
+                EffectsManager.instance.popDamagePlayer(this, value)
+            }else{
+                EffectsManager.instance.popDamage(this, value)
+            }
         }
         this.playVfx('onHit')
         return this.health.damage(value);

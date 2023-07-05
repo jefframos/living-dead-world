@@ -131,7 +131,7 @@ export default class GameData {
         addAttributes.resetAll();
 
         const equippedShoe = this.currentEquippedShoe
-        if (equippedShoe) {
+        if (equippedShoe.id) {
             const shoeAttribute = this.getAttributesFromEquipabble(EntityBuilder.instance.getEquipable(equippedShoe.id), equippedShoe.level);
             addAttributes.sumAttributes(shoeAttribute)
         }
@@ -139,7 +139,7 @@ export default class GameData {
 
 
         const equippedTrinket = this.currentEquippedTrinket
-        if (equippedTrinket) {
+        if (equippedTrinket.id) {
             const trinketAttribute = this.getAttributesFromEquipabble(EntityBuilder.instance.getEquipable(equippedTrinket.id), equippedTrinket.level);
             addAttributes.sumAttributes(trinketAttribute)
 

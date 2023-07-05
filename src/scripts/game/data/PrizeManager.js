@@ -52,10 +52,6 @@ export default class PrizeManager {
             icon: 'trinket-icon0001',
             type: PrizeManager.PrizeType.Trinket
         })
-        // this.prizeList.push({
-        //     icon: 'head-0004',
-        //     type: PrizeManager.PrizeType.Wearable,
-        // })
         this.prizeList.push({
             icon: 'coin3l',
             type: PrizeManager.PrizeType.Coin,
@@ -63,6 +59,10 @@ export default class PrizeManager {
         this.prizeList.push({
             icon: 'active_engine',
             type: PrizeManager.PrizeType.Key
+        })
+        this.prizeList.push({
+            icon: 'head-0004',
+            type: PrizeManager.PrizeType.Wearable,
         })
     }
     get metaPrizeList() {
@@ -74,7 +74,6 @@ export default class PrizeManager {
     getWearable() {
         const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
         this.onGetMetaPrize.dispatch(prize)
-        ViewDatabase.instance.saveWardrobePiece(prize.value[0].area, prize.value[0].id)
     }
     getMetaPrize(prizeId, maxLevel, total = 1, dispatch = true) {
 
@@ -99,9 +98,8 @@ export default class PrizeManager {
             } else if (element.type == PrizeManager.PrizeType.MasterKey) {
                 GameData.instance.addSpecialCurrency(element.value)
 
-            } else if (element.type == PrizeManager.PrizeType.Wearable) {
-                console.log(element)
-                // GameData.instance.addSpecialCurrency(element.value)
+            } else if (element.type == PrizeManager.PrizeType.Wearable) {   
+                ViewDatabase.instance.saveWardrobePiece(element.value.area, element.value.id)               
             }
             else {
                 GameData.instance.addToInventory(element.type, element)
@@ -167,7 +165,7 @@ export default class PrizeManager {
             case PrizeManager.PrizeType.Wearable:
                 const wearable = ViewDatabase.instance.findAvailablePiece();
                 if (wearable.area) {
-                    return { type: [PrizeManager.PrizeType.Wearable], value: [wearable] }
+                    return { type: PrizeManager.PrizeType.Wearable, value: wearable }
                 }
                 break;
         }

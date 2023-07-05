@@ -2,9 +2,11 @@ import * as PIXI from 'pixi.js';
 
 import CookieManager from './game/CookieManager';
 import Game from './Game';
+import GameStaticData from './game/data/GameStaticData';
 import MainScreenManager from './game/screen/MainScreenManager';
 import SoundManager from './soundManager/SoundManager'
 import Utils from './game/core/utils/Utils';
+import ViewDatabase from './game/data/ViewDatabase';
 import audioManifest from './manifests/manifest-audio'
 import globals from './globals';
 import jsonManifest from './manifests/manifest-json'
@@ -275,16 +277,22 @@ function startLoader() {
 }
 
 
-CookieManager.instance.sortCookie("main")
-
-const firstPlayer = CookieManager.instance.getPlayer(0)
-if(!firstPlayer){
-    CookieManager.instance.savePlayer(0)
-}
-CookieManager.instance.sortPlayers()
 
 function configGame(evt) {
+    
 
+    GameStaticData.instance.initialize();
+
+    const defaultInventory = GameStaticData.instance.getDataById('database', 'starter-inventory');
+
+    CookieManager.instance.sortCookie("main", defaultInventory)
+    
+    const firstPlayer = CookieManager.instance.getPlayer(0)
+    if(!firstPlayer){
+        CookieManager.instance.savePlayer(0)
+    }
+    CookieManager.instance.sortPlayers()
+    ViewDatabase.instance.initialize();
     //window.localizationManager = new LocalizationManager('');
     SOUND_MANAGER.load(audioManifest);
     window.RESOURCES = evt.resources;

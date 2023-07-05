@@ -179,7 +179,7 @@ export default class Player extends GameAgent {
             element.enable = false;
         });
 
-        this.physics.velocity.x = -1
+        this.physics.velocity.x = 1
     }
     gameReady() {
 

@@ -106,6 +106,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 this.openSection(element);
                 button.setActive();
             }, '')
+            button.area = element.area
             if (!Array.isArray(element.src)) {
                 if (element.srcIcon) {
                     button.addIcon(element.srcIcon, element.iconSize, element.anchor)
@@ -153,6 +154,20 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.container.alpha = 0.5;
         TweenLite.killTweensOf(this.container)
         TweenLite.to(this.container, 0.25, { alpha: 1 })
+
+      this.updateWarningButtons();
+    }
+    updateWarningButtons(){
+        const current = ViewDatabase.instance.getNewWearablesList()
+
+        this.allButtons.forEach(element => {
+            if(current.filter(e => e.area === element.area).length > 0 ){
+                element.warningIcon.visible = true;
+
+            }else{
+                element.warningIcon.visible = false;
+            }
+        });
     }
     hide() {
         this.container.visible = false;
@@ -222,6 +237,9 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         if (!slot.isAvailable) {
             return;
         }
+
+        slot.warningIcon.visible = false;
+
         if (slot.region.colorsetData) {
             const colorsetData = slot.region.colorsetData['_' + slot.itemId]
 
@@ -304,8 +322,22 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.piecesScroller.removeAllItems();
         this.currentShowingColors = []
 
-
         this.piecesScroller.setTitle(this.currentRegion.label)
+        if(ViewDatabase.instance.getAreaWardrobe(this.currentRegion.area)){
+
+            console.log(ViewDatabase.instance.getAreaWardrobe(this.currentRegion.area).length)
+        }
+
+        const currentNewWearables = ViewDatabase.instance.getNewWearablesList()
+        let newSectionWearablesList = currentNewWearables.filter(e => e.area === region.area)
+        
+        if(newSectionWearablesList && newSectionWearablesList.length){
+            newSectionWearablesList = newSectionWearablesList[0].content
+        }
+
+        ViewDatabase.instance.saveWardrobeOpenSection(region.area)
+        this.updateWarningButtons();
+
 
         if (this.currentRegion.type == 'colors') {
             this.buildColorListOnly(this.currentRegion.colorset, this.currentRegion.colorParam)
@@ -330,10 +362,12 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 slot.itemParam = this.currentRegion.param;
                 slot.region = region;
                 slot.isAvailable = isAvailable;
+                slot.warningIcon.visible = newSectionWearablesList.includes(index);
 
                 if (index <= 0) {
                     slot.addIcon('icon_close', 50)
                     this.currentShowingItems.push(slot)
+                    slot.warningIcon.visible = false;
 
                 } else {
                     if (isAvailable) {
@@ -436,7 +470,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         this.piecesScroller.removeAllItems();
         this.piecesScroller.gridDimensions.j = 3
-        this.piecesScroller.resize({ w: 300, h: 500 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
+        this.piecesScroller.resize({ w: 300, h: 620 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
         this.piecesScroller.addItens(this.currentShowingItems)
 
         this.sectionList.scale.set(0.85)

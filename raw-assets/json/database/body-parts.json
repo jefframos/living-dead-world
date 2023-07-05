@@ -1,37 +1,16 @@
 [
     {
         "chest": {
-            "starters": [
-                1,
-                2
-            ],
-            "availables": {
-                "min": 1,
-                "max": 21,
-                "ignore": []
-            }
+            "starters": [1,2],
+            "availables": {"min": 1,"max": 21,"ignore": []}
         },
         "legs": {
-            "starters": [
-                1,
-                2
-            ],
-            "availables": {
-                "min": 1,
-                "max": 8,
-                "ignore": []
-            }
+            "starters": [1,2],
+            "availables": {"min": 1,"max": 8,"ignore": []}
         },
         "head": {
-            "starters": [
-                1,
-                2
-            ],
-            "availables": {
-                "min": 1,
-                "max": 4,
-                "ignore": []
-            }
+            "starters": [1,2],
+            "availables": {"min": 1,"max": 4,"ignore": []}
         },
         "eyes": {
             "starters": [1,2],

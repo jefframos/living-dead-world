@@ -202,6 +202,8 @@ export default class GameOverView extends GameObject {
 
     show(win = true, data = {}, hasGameOverToken = true) {
         //win = !win
+
+        this.gameOverStarted = false;
         this.gameOverContainer.visible = !win
         this.victoryContainer.visible = win
 
@@ -242,16 +244,21 @@ export default class GameOverView extends GameObject {
     }
     collectPrizes() {
 
+        if(this.gameOverStarted){
+            return;
+        }
         console.log("ADD PARTICLES HERE")
 
+        this.gameOverStarted = true;
         this.currentShowingPrizes.forEach(element => {
             TweenLite.killTweensOf(element, true)
 
         });
 
+
         setTimeout(() => {
             this.onConfirmGameOver.dispatch();
-        }, 50);
+        }, 500);
 
     }
     showGameOverPrizes() {
@@ -340,6 +347,9 @@ export default class GameOverView extends GameObject {
                 case PrizeManager.PrizeType.Weapon:
                     entityData = EntityBuilder.instance.getWeapon(value.id)
                     texture = entityData.entityData.icon
+                    break;
+                case PrizeManager.PrizeType.Wearable:
+                    texture = UIUtils.getIconUIIcon(element)
                     break;
             }
             drawPrizes.push({ texture, entityData, value })
