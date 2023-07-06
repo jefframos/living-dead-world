@@ -2,12 +2,12 @@ export default {
 	width: 750,
 	height: 1334,
 	mobileRes:{
-		width: 750 ,
-		height: 1334 
+		width: 750 *0.9,
+		height: 1334 *0.9
 	},
 	desktopRes:{
-		width: 1024,
-		height: 768
+		width: 1024*0.9,
+		height: 768*0.9
 	},
 	webgl: true,
 	effectsLayer: null,

@@ -24,16 +24,16 @@ const assets = [
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
-	"id":"localization_PT",
-	"url":"assets/json\\localization_PT.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_KO",
 	"url":"assets/json\\localization_KO.json"
+	},
+	{
+	"id":"localization_PT",
+	"url":"assets/json\\localization_PT.json"
 	},
 	{
 	"id":"localization_RU",
@@ -64,20 +64,20 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"starter-inventory",
-	"url":"assets/json\\database\\starter-inventory.json"
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"body-parts",
 	"url":"assets/json\\database\\body-parts.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"starter-inventory",
+	"url":"assets/json\\database\\starter-inventory.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"enemy-wave-01",
@@ -86,6 +86,14 @@ const assets = [
 	{
 	"id":"waves2",
 	"url":"assets/json\\enemy-waves\\waves2.json"
+	},
+	{
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
 	"id":"companions",
@@ -100,36 +108,28 @@ const assets = [
 	"url":"assets/json\\entity\\player.json"
 	},
 	{
-	"id":"acessories",
-	"url":"assets/json\\misc\\acessories.json"
-	},
-	{
 	"id":"attachments",
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
 	},
 	{
 	"id":"attribute-modifiers",
 	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
-	},
-	{
-	"id":"general-vfx",
-	"url":"assets/json\\vfx\\general-vfx.json"
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
 	"id":"particle-behaviour",
 	"url":"assets/json\\vfx\\particle-behaviour.json"
+	},
+	{
+	"id":"general-vfx",
+	"url":"assets/json\\vfx\\general-vfx.json"
 	},
 	{
 	"id":"particle-descriptors",

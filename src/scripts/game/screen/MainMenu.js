@@ -23,7 +23,7 @@ export default class MainMenu extends Screen {
         
         this.onStartGame = new signals.Signal();
         
-        this.startGame = new BaseButton( UIUtils.baseButtonTexture+'_0007', 200, 50);
+        this.startGame = new BaseButton( UIUtils.baseButtonTexture+'_0007', 350, 50);
         const confirmText = new PIXI.Text('Start', window.LABELS.LABEL1)
         confirmText.style.strokeThickness = 0
         confirmText.style.fontSize = 32
@@ -33,7 +33,7 @@ export default class MainMenu extends Screen {
         })
         this.container.addChild(this.startGame);
 
-        this.charcatrBuilder = new BaseButton( UIUtils.baseButtonTexture+'_0007', 200, 50);
+        this.charcatrBuilder = new BaseButton( UIUtils.baseButtonTexture+'_0007', 350, 50);
         const charBuilder = new PIXI.Text('Build', window.LABELS.LABEL1)
         charBuilder.style.strokeThickness = 0
         charBuilder.style.fontSize = 32
@@ -46,7 +46,7 @@ export default class MainMenu extends Screen {
 
 
 
-        this.cleanCache = new BaseButton( UIUtils.baseButtonTexture+'_0004', 200, 50);
+        this.cleanCache = new BaseButton( UIUtils.baseButtonTexture+'_0004', 350, 50);
         const wipData = new PIXI.Text('WipeData', window.LABELS.LABEL1)
         wipData.style.strokeThickness = 0
         wipData.style.fontSize = 32
@@ -56,6 +56,17 @@ export default class MainMenu extends Screen {
         })
         
         this.container.addChild(this.cleanCache);
+
+        this.unlockCosmetics = new BaseButton( UIUtils.baseButtonTexture+'_0007', 350, 50);
+        const unlockAllCosmetics = new PIXI.Text('Cosmetics', window.LABELS.LABEL1)
+        unlockAllCosmetics.style.strokeThickness = 0
+        unlockAllCosmetics.style.fontSize = 32
+        this.unlockCosmetics.addLabelOnCenter(unlockAllCosmetics)
+        InteractableView.addMouseUp(this.unlockCosmetics, () => { 
+            CookieManager.instance.unlockAllWardrobe();
+        })
+        
+        this.container.addChild(this.unlockCosmetics);
     }
     build(){
         super.build();
@@ -71,5 +82,9 @@ export default class MainMenu extends Screen {
 
         this.cleanCache.x =  Game.Borders.width / 2 - this.cleanCache.width / 2
         this.cleanCache.y =  Game.Borders.height / 2 + 200
+
+
+        this.unlockCosmetics.x =  Game.Borders.width / 2 - this.unlockCosmetics.width / 2
+        this.unlockCosmetics.y =  Game.Borders.height / 2 - 150
     }
 }

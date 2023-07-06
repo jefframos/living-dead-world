@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import Game from '../../../../Game';
 import MainScreenModal from '../MainScreenModal';
+import PrizeManager from '../../../data/PrizeManager';
 import ShopCard from './ShopCard';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
@@ -10,24 +11,32 @@ export default class ShopContainer extends MainScreenModal {
     constructor() {
         super();
 
-        this.chest1 = new ShopCard(UIUtils.baseButtonTexture + '_0001', 250, 250)
-        this.chest2 = new ShopCard(UIUtils.baseButtonTexture + '_0001', 250, 250)
-        this.chest3 = new ShopCard(UIUtils.baseButtonTexture + '_0001', 250, 250)
+        this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, 'Small Crate')
+        this.chest1.updateButtonTitle('2x Items')
+        this.chest1.setIcon('item-chest-0001')
+        this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, 'Weapon Crate', false)
+        this.chest2.updateButtonTitle('5x Weapons')
+        this.chest2.setIcon('item-chest-0002')
+        // this.chest3 = new ShopCard(UIUtils.baseButtonTexture + '_0001', 250, 250)
         this.topLine = new UIList();
         this.container.addChild(this.topLine)
 
         this.topLine.addElement(this.chest1);
         this.topLine.addElement(this.chest2);
-        this.topLine.addElement(this.chest3);
+        // this.topLine.addElement(this.chest3);
 
         this.topButtons = [];
         this.topButtons.push(this.chest1);
         this.topButtons.push(this.chest2);
-        this.topButtons.push(this.chest3);
+        // this.topButtons.push(this.chest3);
 
-   
-        this.chestMid1 = new ShopCard(UIUtils.baseButtonTexture + '_0003', 250, 250)
-        this.chestMid2 = new ShopCard(UIUtils.baseButtonTexture + '_0003', 250, 250)
+
+        this.chestMid1 = new ShopCard(this.chestMid1Click.bind(this), this.chestMid1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0002', 250, 250, 'Cosmetics Crate')
+        this.chestMid1.updateButtonTitle('2x Cosmetics')
+        this.chestMid1.setIcon('item-chest-0001')
+        this.chestMid2 = new ShopCard(this.chestMid2Click.bind(this), this.chestMid2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, 'Acessory Crate', false)
+        this.chestMid2.updateButtonTitle('5x Acessories')
+        this.chestMid2.setIcon('item-chest-0002')
         this.midLine = new UIList();
         this.container.addChild(this.midLine)
 
@@ -40,7 +49,10 @@ export default class ShopContainer extends MainScreenModal {
 
 
 
-        this.chestBottom1 = new ShopCard(UIUtils.baseButtonTexture + '_0005', 250, 250)
+        this.chestBottom1 = new ShopCard(this.bundleClick.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, 'Bundle Crate', false)
+        this.chestBottom1.setIcon('bundle-icon', 0.5)
+        this.chestBottom1.updateButtonTitle('10x Items of Any Type')
+
         this.bottomLine = new UIList();
         this.container.addChild(this.bottomLine)
 
@@ -53,7 +65,7 @@ export default class ShopContainer extends MainScreenModal {
         this.container.addChild(this.titleBox);
         this.titleBox.width = 250
         this.titleBox.height = 80
-        
+
         this.titleBox.y = -60
 
         this.titleLabel = UIUtils.getSecondaryLabel('Shop', { fontSize: 48 })
@@ -63,25 +75,62 @@ export default class ShopContainer extends MainScreenModal {
         this.titleBox.addChild(this.titleLabel)
 
     }
+    chest1Click() {
+        PrizeManager.instance.getMetaPrize([0, 2, 3, 6], 1, 2);
+    }
+    chest1VideoClick() {
+        this.chest1Click();
+    }
+    chest2Click() {
+        PrizeManager.instance.getMetaPrize([0], 1, 5);
+    }
+    chest2VideoClick() {
+        this.chest1Click();
+    }
+    chestMid1Click() {
+        PrizeManager.instance.getMetaPrize([6], 1, 2);
+    }
+    chestMid1VideoClick() {
+        this.chest1Click();
+    }
+    chestMid2Click() {
+        PrizeManager.instance.getMetaPrize([2, 3], 1, 5);
+    }
+    chestMid2VideoClick() {
+        this.chest1Click();
+    }
+    bundleClick() {
+        PrizeManager.instance.getMetaPrize([0, 1, 2, 3, 6], 3, 10);
+    }
+    bundleVideoClick() {
+        this.chest1Click();
+    }
     addBackgroundShape() {
         this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0002'), 20, 20, 20, 20);
         this.container.addChild(this.infoBackContainer);
     }
     show() {
+        this.resize()
         super.show();
     }
     resize(res, newRes) {
-        
-        if(Game.IsPortrait){
+
+        if (Game.IsPortrait) {
             this.infoBackContainer.width = Game.Borders.width - 80
             this.infoBackContainer.height = Game.Borders.height - 300
-        }else{
-            this.infoBackContainer.width = Game.Borders.width/2 - 80
-            this.infoBackContainer.height = Game.Borders.height -200
+        } else {
+            if(Game.Borders.width / Game.Borders.height < 1.5){
+                
+                this.infoBackContainer.width = Game.Borders.width * 0.75
+                this.infoBackContainer.height = Game.Borders.height - 200
+            }else{
+                
+                this.infoBackContainer.width = Game.Borders.width *0.8
+                this.infoBackContainer.height = Game.Borders.height - 160
+            }
         }
-      
 
-        
+
         this.resizeLine(this.topLine, this.topButtons)
         this.resizeLine(this.midLine, this.midButtons)
         this.resizeLine(this.bottomLine, this.bottomButtons)
@@ -97,18 +146,18 @@ export default class ShopContainer extends MainScreenModal {
 
 
         this.titleBox.x = this.infoBackContainer.width / 2 - this.titleBox.width / 2
-        
-        this.container.y = Game.Borders.height / 2 + 160
+
+        this.recenterContainer()
     }
     recenterContainer() {
         this.container.pivot.x = this.container.width / 2
-        this.container.x = Game.Borders.width/ 2
-        
+        this.container.x = Game.Borders.width / 2
+
         this.container.pivot.y = this.container.height / 2
-        this.container.y = Game.Borders.height / 2 + 80
+        this.container.y = Game.Borders.height / 2 + 90
 
     }
-    resizeLine(list, buttons){
+    resizeLine(list, buttons) {
         list.w = this.infoBackContainer.width - 20
         list.h = (this.infoBackContainer.height - 80) / 3
         list.updateHorizontalList()

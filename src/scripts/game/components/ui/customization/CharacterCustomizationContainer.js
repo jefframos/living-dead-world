@@ -63,7 +63,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             // {type:'visuals', label: 'Sleves', param: 'sleeves', colorParam: 'sleevesColor', area: "sleeve", pivot: { x: 35, y: 140 }, mainIconId: '02', iconSize: 150, range: [0, 2], src: ["sleeve-00{frame}"] , colorset: UIUtils.colorset.clothes},
             //{ label: 'skin', param: 'arms', colorParam: null, area: "arms", subs: ["backArm", "frontArm"], pivot: { x: 35, y: 140 }, mainIconId: '01', iconSize: 150, range: [1, 1], src: ["front-arm00{frame}", "front-arm00{frame}"], animated: false },
 
-            { typeList: 'visuals', label: 'Legs', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.5, y: 0.5 }, mainIconId: '01', iconSize: 80, range: [1, 8], src: 'leg-icon-exporter00{frame}', srcIcon: 'leg-icon-exporter0001', animated: false },
+            { typeList: 'visuals', label: 'Pants', param: 'leg', colorParam: null, area: "legs", subs: ["backLeg", "frontLeg"], anchor: { x: 0.5, y: 0.5 }, mainIconId: '01', iconSize: 80, range: [1, 8], src: 'leg-icon-exporter00{frame}', srcIcon: 'leg-icon-exporter0001', animated: false },
 
             //{ typeList: 'visuals', label: 'Shoes', param: 'shoe', colorParam: null, area: "shoes", subs: ["backShoes", "frontShoes"], anchor: { x: 0.35, y: 0.9 }, mainIconId: '01', iconSize: 200, range: [1, 8], src: "dynamic-shoe-00{frame}", animated: false },
 
@@ -357,7 +357,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 const frame = (this.currentRegion.animated ? index : Utils.formatNumber(index, 1))
                 const slot = UIUtils.getBodyPartySlot(this.selectNewPiece.bind(this))
 
-                const isAvailable = index <= 0 || ViewDatabase.instance.containsPiece(region.area, index)//this.staticData[region.area].starters.includes(index)
+                const isAvailable = index <= 0 || ViewDatabase.instance.containsPiece(region.area, index) || Game.Debug.allItems
                 slot.itemId = index;
                 slot.itemParam = this.currentRegion.param;
                 slot.region = region;

@@ -175,6 +175,20 @@ export default class CookieManager {
 			return data.wardrobe[area];
 		}
 	}
+	unlockAllWardrobe() {
+		const data = this.getChunck('player')
+
+		for (const key in data.wardrobe) {
+			if (data.wardrobe[key]) {
+				for (let index = 1; index < 100; index++) {
+					data.wardrobe[key].push(index)
+				}
+			}
+			this.saveChunk('player', data)
+
+		}
+
+	}
 	saveWardrobePiece(area, id) {
 		const data = this.getChunck('player')
 		if (data.wardrobe[area] && !data.wardrobe[area].includes(id)) {
@@ -245,11 +259,11 @@ export default class CookieManager {
 			this.wipeData2()
 		}
 
-		if(defaultInventory){
+		if (defaultInventory) {
 			for (const key in this.defaultInventory) {
 				if (Object.hasOwnProperty.call(this.defaultInventory, key) && Object.hasOwnProperty.call(defaultInventory, key)) {
-					this.defaultInventory[key] = defaultInventory[key]						
-					if(key == 'shoes'){
+					this.defaultInventory[key] = defaultInventory[key]
+					if (key == 'shoes') {
 						this.defaultLoadout.currentShoe[0].id = defaultInventory[key][0].id;
 						this.defaultLoadout.currentShoe[0].level = defaultInventory[key][0].level;
 					}

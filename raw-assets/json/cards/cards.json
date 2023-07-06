@@ -111,7 +111,7 @@
     },
     {
         "id": "FIREBALL_HOAMING_CARD",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Weapon"
         },
@@ -466,6 +466,46 @@
             "type": "Equipable"
         },
         "acessoryId": "TRINKET_04",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_05",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_05",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_06",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_06",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_07",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_07",
+        "tier": 1,
+        "enabled": true
+    },
+    {
+        "id": "TRINKET_08",
+        "starter": true,
+        "entityData": {
+            "type": "Equipable"
+        },
+        "acessoryId": "TRINKET_08",
         "tier": 1,
         "enabled": true
     },

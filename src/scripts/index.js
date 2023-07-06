@@ -38,7 +38,7 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-   getValues(50, 120, 'floor', 'easeOutQuad', 0.8)
+   getValues(8, 30, 'floor', 'easeOutQuad', 0.8)
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 800, 'floor', 'easeOutCubic', 1)

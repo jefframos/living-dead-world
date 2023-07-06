@@ -8,7 +8,7 @@ import signals from 'signals';
 export default class BaseButton extends PIXI.Container {
     constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {
         super()
-
+        this.textOffset = {x:0, y:0}
         this.addShape(texture, width, height);
         this.addEvents()
 
@@ -56,20 +56,27 @@ export default class BaseButton extends PIXI.Container {
         this.hitArea = new PIXI.Rectangle(0, 0, this.safeShape.width, this.safeShape.height);
 
         
-        if (!this.text) {
-            return;            
+        if (this.text) {      
+            this.text.x = this.safeShape.width / 2 + this.textOffset.x;
+            this.text.y = this.safeShape.height / 2 + this.textOffset.y;
         }
-        this.text.x = this.safeShape.width / 2 + this.textOffset.x;
-        this.text.y = this.safeShape.height / 2 + this.textOffset.y;
         
         if (!this.icon) {
             return;
+        }else{
+
+            //this.icon.scale.set(Utils.scaleToFit(this.icon, height));
         }
         this.icon.x = this.safeShape.width / 2 + this.iconOffset.x;
         this.icon.y = this.safeShape.height / 2 + this.iconOffset.y;
+
+        
         if (this.text) {
             this.text.y += this.icon.height / 2 + 5
         }
+    }
+    resizeIcon(height){
+        this.icon.scale.set(Utils.scaleToFit(this.icon, height));
     }
     simulateClick() {
         this.out();
@@ -104,6 +111,12 @@ export default class BaseButton extends PIXI.Container {
             this.out();
             this.onButtonClicked.dispatch(this)
         })
+    }
+    fitLabel(scale = 0.8){
+
+        let newScale = this.safeShape.height / this.text.height * scale
+  
+        this.text.scale.set(Math.min(newScale, scale))
     }
     addLabelOnCenter(text, offset = { x: 0, y: 0 }) {
         this.textOffset = offset

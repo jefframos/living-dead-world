@@ -17,13 +17,15 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.topBlocker = new PIXI.Sprite.from('base-gradient');
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
-        this.topBlocker.tint = 0x851F88;
+        //this.topBlocker.tint = 0x851F88;
+        this.topBlocker.tint = 0x00ffbf;
         this.topBlocker.scale.y = -1
         this.addChildAt(this.topBlocker, 0);
 
 
-        this.blocker.alpha = 0.8;
-        this.blocker.tint = 0x00ffbf;
+        this.blocker.alpha = 1;
+        this.blocker.tint = 0;
+        //this.blocker.tint = 0x00ffbf;
         this.prizesContainer = new PIXI.Container();
         this.container.addChild(this.prizesContainer);
 
@@ -34,12 +36,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.collectButton.updateBackTexture('square_button_0001')
         this.container.addChild(this.collectButton);
 
-        this.slotSize = 70
-
-
-        this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
-        this.infoBackContainer.addChild(this.prizeBox);
-
+        this.slotSize = 90
 
 
         this.shine = new PIXI.Sprite.from('shine')
@@ -50,6 +47,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.shine.tint = 0xfff700
         this.shine.alpha = 0.5
 
+
+        this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
+        this.infoBackContainer.addChild(this.prizeBox);
 
         this.congratulationsLabel = UIUtils.getSpecialLabel2('Collect your prize!', { fontSize: 32 })
         this.congratulationsLabel.anchor.set(0.5)
@@ -67,7 +67,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         if (this.infoBackContainer) {
 
-            this.infoBackContainer.width = 450
+            this.infoBackContainer.width = 550
             this.infoBackContainer.height = 500
         }
         this.contentContainer.x = 0
@@ -86,15 +86,15 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2;
 
         this.prizeBox.width = this.infoBackContainer.width - 20
-        this.prizeBox.height = 300
+        this.prizeBox.height = 330
         this.prizeBox.x = 10
         this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height - 10
 
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
-        this.congratulationsLabel.y = this.infoBackContainer.height / 4 - 20
+        this.congratulationsLabel.y = this.infoBackContainer.height / 4 - 40
 
         this.shine.x = this.infoBackContainer.width / 2
-        this.shine.y = this.infoBackContainer.height / 4 - 20
+        this.shine.y = this.congratulationsLabel.y
 
         this.recenterContainer();
     }
@@ -154,7 +154,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             let prize = null
             if (element.entityData) {
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-                prize.setData(element.entityData, element.value.level, 50)
+                prize.setData(element.entityData, element.value.level, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
 
@@ -162,7 +162,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
 
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
-                prize.setIcon(element.texture, 50)
+                prize.setIcon(element.texture, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
 
@@ -170,8 +170,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
                // prize.scale.set(Utils.scaleToFit(prize, 70))
             }
 
-            prize.x = 80 * col
-            prize.y = 80 * ln
+            prize.x = 100 * col
+            prize.y = 100 * ln
 
             if (col > 0 && col >= 4) {
                 col = 0

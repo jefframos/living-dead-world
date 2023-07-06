@@ -15,7 +15,7 @@ export default class UIUtils {
     static baseTabTexture = 'tab_button';
     static colorset = {
         rarity: [0xC3C3C3, 0xABFD0F, 0x49A1F5, 0xBE67F1, 0xFA657D, 0xFBF658],
-        skin: [0xF9C6B2, 0x964C32, 0x6AE95D, 0x5DBFE9],
+        skin: [0xF6E4DE, 0xF8D8CB, 0xF9C6B2, 0xFDB193, 0xBB7F6A, 0xA05940, 0x964C32, 0x612E1B, 0x4BCC3E, 0x6AE95D, 0x87F37C, 0xADFFA5, 0x419AC0, 0x5DBFE9, 0x86CEEE, 0xC0EBFD],
         clothes: [0xFFFFFF, 0xEC1A62, 0x2BFF00, 0xDF65F8, 0x4260A5, 0xAA968F, 0x3C3C3C, 0x2E4476],
         hair: [0xAA968F, 0x3C3C3C, 0xFBE574, 0x856036, 0xF86C5A, 0x2BFF00, 0xDF65F8, 0xEC1A62, 0xFFFFFF],
     }
@@ -158,7 +158,7 @@ export default class UIUtils {
 
         button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
 
-        if(!button.warningIcon){
+        if (!button.warningIcon) {
 
             const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
             warningIcon.scale.set(Utils.scaleToFit(warningIcon, 30))
@@ -319,6 +319,8 @@ export default class UIUtils {
                 return 'ico_power'
             case 'warning':
                 return 'info'
+            case 'video':
+                return 'video-purple'
         }
 
 

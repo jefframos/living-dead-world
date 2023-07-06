@@ -307,14 +307,14 @@ export default class CharacterBuildScreen extends Screen {
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
         this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
-        this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0 })
-        this.bottomMenuList.addElement(getCustomizables, { align: 0, vAlign: 0 })
+       // this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0 })
+       // this.bottomMenuList.addElement(getCustomizables, { align: 0, vAlign: 0 })
 
         this.menuButtons = [];
         this.menuButtons.push(this.loadoutButton)
         this.menuButtons.push(this.customizeButton)
-        this.menuButtons.push(bt0)
-        this.menuButtons.push(getCustomizables)
+       // this.menuButtons.push(bt0)
+       // this.menuButtons.push(getCustomizables)
 
         this.bottomMenuList.updateVerticalList()
 
@@ -344,12 +344,12 @@ export default class CharacterBuildScreen extends Screen {
         // }, 'Achievments', 'achievment')
 
         this.bottomMenuRightList.addElement(bt3, { align: 0 })
-        this.bottomMenuRightList.addElement(bt4, { align: 0 })
+       // this.bottomMenuRightList.addElement(bt4, { align: 0 })
         this.bottomMenuRightList.addElement(bt5, { align: 0 })
 
         this.menuButtonsRight = [];
         this.menuButtonsRight.push(bt3)
-        this.menuButtonsRight.push(bt4)
+       // this.menuButtonsRight.push(bt4)
         this.menuButtonsRight.push(bt5)
 
         this.bottomMenuRightList.updateVerticalList()
@@ -542,7 +542,13 @@ export default class CharacterBuildScreen extends Screen {
         this.outgameUIProgression.x = Game.Borders.width / 2 - this.outgameUIProgression.width / 2;
         this.outgameUIProgression.y = 30;
 
-        this.buttonsList.x = Game.Borders.width - this.buttonsList.w - 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+        if(Game.IsPortrait){
+
+            this.buttonsList.x = this.outgameUIProgression.x + this.outgameUIProgression.width+ 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+        }else{
+
+            this.buttonsList.x = Game.Borders.width - this.buttonsList.w - 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+        }
         this.buttonsList.y = 20;
 
 
