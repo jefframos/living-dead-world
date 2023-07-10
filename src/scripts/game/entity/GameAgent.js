@@ -76,9 +76,15 @@ export default class GameAgent extends PhysicsEntity {
 
 
     }
-    getShot(value) {
-        this.damage(value)
+    getShot(value, isCritical) {
+        if(isCritical){
+            this.damage(Math.floor(value * (1.2 + Math.random() * 0.3)), 'CRITICAL')
+        }else{
+
+            this.damage(value)
+        }
     }
+   
     damage(value, customFont) {
         if (this.invencibleSpawnTime > 0) {
             return this.health.currentHealth;
@@ -243,10 +249,10 @@ export default class GameAgent extends PhysicsEntity {
         return layer;
     }
 
-    makeAnimations(data) {
+    makeAnimations(data, alwaysWalking = false) {
         let spriteSheet = this.addComponent(GameViewSpriteSheet);
         let animData1 = {}
-
+        spriteSheet.alwaysWalking = alwaysWalking;
         let idle = GameStaticData.instance.getSharedDataById('animation', data.animationData.idle).animationData
 
         let run = data.animationData.run ? GameStaticData.instance.getSharedDataById('animation', data.animationData.run) : null;
@@ -260,6 +266,7 @@ export default class GameAgent extends PhysicsEntity {
 
         spriteSheet.setData(animData1);
         spriteSheet.update(0.1);
+
 
         return spriteSheet;
     }

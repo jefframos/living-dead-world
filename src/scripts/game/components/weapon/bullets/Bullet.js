@@ -75,8 +75,12 @@ export default class Bullet extends PhysicsEntity {
         this.speed = this.weapon.weaponAttributes.bulletSpeed
         this.power = this.weapon.weaponAttributes.power;
 
+        this.critical = 0;
+        
         if(fromPlayer){
             this.power += GameData.instance.getLoadoutAttributes().power;
+            this.critical += GameData.instance.getLoadoutAttributes().critical;
+
         }
 
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
@@ -208,7 +212,8 @@ export default class Bullet extends PhysicsEntity {
 
         } else {
             if (collided.die) {
-                collided.getShot(this.power);
+             
+                collided.getShot(this.power, Math.random() < (this.critical));
                 this.piercing--;
                 this.onHit.dispatch(this, collided);
 

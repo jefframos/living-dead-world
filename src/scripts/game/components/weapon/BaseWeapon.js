@@ -95,6 +95,9 @@ export default class BaseWeapon extends PhysicsEntity {
         this.brustFire.amount = this.weaponData.weaponAttributes.brustFireAmount;
         this.brustFire.interval = this.weaponData.weaponAttributes.brustFireInterval;
     }
+    setIdOffset(index){
+        
+    }
     build(weaponData, level) {
         super.build();
         this.interactiveProjectiles = [];

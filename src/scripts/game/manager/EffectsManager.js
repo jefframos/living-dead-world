@@ -45,7 +45,7 @@ export default class EffectsManager extends GameObject {
             fontSize: 22,
             dropShadowDistance: 2,
             fill: "#00FF00",
-            fontWeight: 800,
+            fontWeight: 600,
             letterSpacing: 2,
             strokeThickness: 3,
         }
@@ -55,6 +55,25 @@ export default class EffectsManager extends GameObject {
         this.addBitmapFont('PLAYER_DAMAGE', {fill: "#ff4444"});
         this.addBitmapFont('BURN', {fill: "#f97b1a"});
         this.addBitmapFont('POISON', {fill: "#a71af9"});
+        this.addBitmapFont('EVASION', {fill: "#f5ff66", fontSize:18});
+        this.addBitmapFont('CRITICAL', {
+            align: "center",
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowBlur: 4,
+            dropShadowDistance: 3,
+            fill: [
+                "#ff0000",
+                "#f5ff66"
+            ],
+            fontSize: 28,
+            fontWeight: 600,
+            letterSpacing: 10,
+            stroke: "#ffffff",
+            strokeThickness: 3,
+            wordWrap: true,
+            wordWrapWidth: 300
+        });
     }
     addBitmapFont(name, overrides) {
 
@@ -156,12 +175,15 @@ export default class EffectsManager extends GameObject {
         textLabel.alpha = 1
         textLabel.text = value
         textLabel.x = entity.gameView.x + Math.cos(ang) * dist
-        textLabel.y = entity.gameView.y + Math.sin(ang) * dist
+        textLabel.y = entity.gameView.y - Math.sin(ang) * dist
         textLabel.timer = 1
         textLabel.anchor.set(0.5)
         textLabel.scale.set(0.5)
         this.labels.push(textLabel)
         this.effectsContainer.addChild(textLabel)
+    }
+    popEvasion(entity) {
+        this.popLabel(this.getBitmapFont('EVASION'), entity, 'Evade')
     }
     popCustomLabel(label, entity, value) {
         this.popLabel(this.getBitmapFont(label), entity, value)

@@ -13,6 +13,9 @@ export default class EntityMultipliers {
         this.baseAmount = 0;
         this.baseCollectionRadius = 1;
         this.baseDistance = 1;
+        this.baseEvasion = 1;
+        this.baseCritical = 1;
+        this.baseTotalMain = 1;
         this.level = 0;
         this.writeDefaults();
     }
@@ -54,6 +57,15 @@ export default class EntityMultipliers {
             return attribute[level]
         }
         return attribute
+    }
+    get totalMain() {
+        return this.findAttributeValue('baseTotalMain');
+    }
+    get evasion() {
+        return this.findAttributeValue('baseEvasion');
+    }
+    get critical() {
+        return this.findAttributeValue('baseCritical');
     }
     get distance() {
         return this.findAttributeValue('baseDistance');

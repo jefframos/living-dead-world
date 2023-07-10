@@ -64,6 +64,9 @@ export default class PrizeManager {
             icon: 'head-0004',
             type: PrizeManager.PrizeType.Wearable,
         })
+
+        this.mainPrizePool = [0,1,2,3,4,6]
+        this.mainPrizePoolNoWearable = [0,1,2,3,4]
     }
     get metaPrizeList() {
         return this.prizeList;
@@ -79,10 +82,22 @@ export default class PrizeManager {
 
         const itemPrizeList = []
 
+        let pool = this.mainPrizePool;
+
+        const canCosmetic = ViewDatabase.instance.canGetPiece()
+        if(!canCosmetic){
+            pool = this.mainPrizePoolNoWearable;
+
+            //REMOVE WEARABLE FROM THE LIST
+            prizeId = prizeId.filter(function(item) {
+                return item !== 6
+            })
+            
+        }
         for (let index = 0; index < total; index++) {
             let id = prizeId[Math.floor(Math.random() * prizeId.length)]
             if (id < 0) {
-                id = Math.floor(Math.random() * this.prizeList.length);
+                id = pool[Math.floor(Math.random() * pool.length)];
             }
             itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }

@@ -80,7 +80,7 @@ window.LABELS.LABEL1 = {
     letterSpacing:1,
     dropShadow: true,
     dropShadowAngle: 1.5,
-    dropShadowDistance: 3,
+    dropShadowDistance: 2,
     fillGradientType: 1,
     fontSize: 28,
     strokeThickness: 3,

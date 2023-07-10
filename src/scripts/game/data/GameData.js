@@ -145,7 +145,6 @@ export default class GameData {
 
         }
 
-
         return addAttributes;
     }
 }

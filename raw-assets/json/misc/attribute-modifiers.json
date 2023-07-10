@@ -80,7 +80,7 @@
             "type": "Attribute",
             "tier": 1
         },
-        "attributeEffect": "baseAmount",
+        "attributeEffect": "baseTotalMain",
         "modifierValue": [1,2,3,4,5]
     },
     {

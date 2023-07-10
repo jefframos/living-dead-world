@@ -32,6 +32,10 @@ export default class LoadoutContainer extends MainScreenModal {
         this.slotSize = 120
 
 
+        this.attributesView = new AttributesContainer();
+        this.contentContainer.addChild(this.attributesView)
+
+
         this.mergeSectionButton = UIUtils.getPrimaryLabelTabButton(() => {
             this.findMerge();
         }, "Merge")
@@ -112,6 +116,7 @@ export default class LoadoutContainer extends MainScreenModal {
             this.showSection(LoadoutContainer.Sections.Caompanion)
         })
 
+        
 
         this.mainslots = [this.currentWeaponSlot, this.currentShoeSlot, this.currentTrinketSlot, this.currentCompanionSlot]
         this.slotsList.updateVerticalList()
@@ -126,8 +131,7 @@ export default class LoadoutContainer extends MainScreenModal {
             }, 1);
         })
 
-        this.attributesView = new AttributesContainer();
-        this.container.addChild(this.attributesView)
+       
 
         
 
@@ -151,7 +155,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.loadoutStatsView.x = card.x + card.parent.x + card.parent.parent.x
 
         const left = this.loadoutStatsView.x < Game.Borders.width / 2
-        const offset = left ? card.width + 20 : -this.loadoutStatsView.width - 20;
+        const offset = left ? card.width + 5 : -this.loadoutStatsView.width - 5;
 
         this.loadoutStatsView.x += offset
 
@@ -501,8 +505,11 @@ export default class LoadoutContainer extends MainScreenModal {
         this.defaultAttributes.baseFrequency = 0;
 
         GameData.instance.currentEquippedWeaponData.weaponAttributes.level = GameData.instance.currentEquippedWeapon.level
+
         this.atributes.basePower = GameData.instance.currentEquippedWeaponData.weaponAttributes.power;
         this.atributes.baseFrequency = GameData.instance.currentEquippedWeaponData.weaponAttributes.frequency
+        this.atributes.baseCritical = GameData.instance.currentEquippedWeaponData.weaponAttributes.critical
+
         this.atributes.sumAttributes(this.addAttributes)
         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
@@ -561,7 +568,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.mergeSectionButton.x = this.weaponsScroller.x
 
 
-        this.mergeSectionButton.y = this.weaponsScroller.y - this.mergeSectionButton.height + 13
+        this.mergeSectionButton.y = this.weaponsScroller.y - this.autoMergeAll.height + 13
         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w
         this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10
 
@@ -570,11 +577,15 @@ export default class LoadoutContainer extends MainScreenModal {
         this.mergeContainer.x = this.weaponsScroller.x + (this.weaponsScroller.rect.w) / 2
         this.mergeContainer.y = this.weaponsScroller.y
 
-        let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) / 2);
+        let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) *0.47);
+
+        if (Game.IsPortrait) {
+            attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) *0.6);
+        }
         this.attributesView.scale.set(Math.min(1, attScale))
 
         this.attributesView.x = (Game.Borders.width) / 2 - (this.attributesView.width) / 2
-        this.attributesView.y = this.weaponsScroller.y - this.attributesView.height - 20
+        this.attributesView.y = this.weaponsScroller.y - this.attributesView.height + 1
 
         this.mergeSystem.resize(res, newRes);
 

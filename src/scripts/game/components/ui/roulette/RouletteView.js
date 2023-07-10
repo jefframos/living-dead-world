@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import GameStaticData from '../../../data/GameStaticData';
 import PrizeManager from '../../../data/PrizeManager';
+import RewardsManager from '../../../data/RewardsManager';
 import RouletteSlotView from './RouletteSlotView';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
@@ -25,11 +26,20 @@ export default class RouletteView extends PIXI.Container {
         this.container.addChild(this.slotsContainer);
 
 
-        this.spinButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            this.spin(Math.random() + 0.5);
-        }, 'spin', 'video-icon')
-        this.spinButton.updateBackTexture('square_button_0003')
-        this.container.addChild(this.spinButton);
+        this.spinVideoButton = UIUtils.getPrimaryLargeLabelButton(() => {
+            RewardsManager.instance.doReward(() => {
+                     this.spin(Math.random() + 0.65);
+            })
+        }, 'Free', UIUtils.getIconUIIcon('video'))
+        this.spinVideoButton.updateBackTexture('square_button_0003')
+        this.container.addChild(this.spinVideoButton);
+
+        this.spinMoneyButton = UIUtils.getPrimaryLargeLabelButton(() => {
+            this.spin(Math.random() + 0.65);
+        }, 'x200', UIUtils.getIconUIIcon('softCurrency'))
+        this.spinMoneyButton.updateBackTexture('square_button_0002')
+        this.container.addChild(this.spinMoneyButton);
+
         this.slots = [];
 
         this.rouletteState = []
@@ -37,7 +47,7 @@ export default class RouletteView extends PIXI.Container {
         //PrizeManager
 
         this.prizeList = PrizeManager.instance.metaPrizeList;
-     
+
         for (var i = 0; i < 3; i++) {
             let square = new RouletteSlotView(i)
             this.slotsContainer.addChild(square);
@@ -57,8 +67,13 @@ export default class RouletteView extends PIXI.Container {
         this.slotsContainer.x = this.infoBackContainer.width / 2 - this.slotsContainer.width / 2;
         this.slotsContainer.y = this.infoBackContainer.height / 2 - this.slotsContainer.height / 2;
 
-        this.spinButton.x = this.infoBackContainer.width / 2 - this.spinButton.width / 2;
-        this.spinButton.y = this.infoBackContainer.height / 2 - this.spinButton.height / 2 + 220;
+        this.spinVideoButton.x = this.infoBackContainer.width / 2 - this.spinVideoButton.width / 2 - 150;
+        this.spinVideoButton.y = this.infoBackContainer.height / 2 - this.spinVideoButton.height / 2 + 220;
+
+        this.spinMoneyButton.x = this.infoBackContainer.width / 2 - this.spinMoneyButton.width / 2 + 150;
+        this.spinMoneyButton.y = this.infoBackContainer.height / 2 - this.spinMoneyButton.height / 2 + 220;
+
+
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
 
@@ -85,8 +100,9 @@ export default class RouletteView extends PIXI.Container {
 
 
     }
-    show(){
-        this.spinButton.visible = true;
+    show() {
+        this.spinVideoButton.visible = true;
+        this.spinMoneyButton.visible = true;
     }
     calculatePrize() {
         let foundlings = [];
@@ -105,9 +121,9 @@ export default class RouletteView extends PIXI.Container {
         if (match <= 0) {
 
             this.onPrizeFound.dispatch(0)
-            
+
         } else {
-            
+
             let max = -999;
             let maxId = -1;
             foundlings.forEach(element => {
@@ -125,7 +141,7 @@ export default class RouletteView extends PIXI.Container {
         this.rouletteState[slotId].prizeId = prizeId;
         this.findEnd();
     }
-    
+
     findEnd() {
         for (var i = 0; i < this.rouletteState.length; i++) {
             if (this.rouletteState[i].spinning) {
@@ -134,8 +150,9 @@ export default class RouletteView extends PIXI.Container {
         }
         this.calculatePrize();
 
-        setTimeout(() => {            
-            this.spinButton.visible = true;
+        setTimeout(() => {
+            this.spinVideoButton.visible = true;
+            this.spinMoneyButton.visible = true;
         }, 2000);
 
     }
@@ -147,7 +164,8 @@ export default class RouletteView extends PIXI.Container {
             element.spin(speed, force, avoid);
         });
 
-        this.spinButton.visible = false;
+        this.spinVideoButton.visible = false;
+        this.spinMoneyButton.visible = false;
     }
     update(delta) {
         this.slots.forEach(element => {

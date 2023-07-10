@@ -33,8 +33,16 @@ export default class SurvivorDeckController extends GameObject {
         this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(-5000, -5000, 10000, 10000)
         this.gameView.view.addChild(this.backShape)
         this.backShape.tint = 0
-        this.backShape.alpha = 0.3
+        this.backShape.alpha = 0.8
         this.onConfirmLoudout = new signals.Signal();
+
+        this.blocker = new PIXI.Sprite.from('base-gradient');
+        this.blocker.width = 1000
+        this.blocker.height = 1000
+        this.blocker.interactive = true;
+        this.blocker.tint = 0;
+        this.blocker.alpha = 1;
+        this.gameView.view.addChildAt(this.blocker);
 
         this.gridContainer = new PIXI.Container();
         this.cardsContainer = new PIXI.Container();
@@ -246,6 +254,9 @@ export default class SurvivorDeckController extends GameObject {
     resize() {
 
         this.cardsContainer.x = Game.Borders.width * 0.5
+
+        this.blocker.width = Game.Borders.width;
+        this.blocker.height = Game.Borders.height;
     }
 
     disable() {

@@ -302,10 +302,8 @@
             "type": "Equipable",
             "tier": 1
         },
-        "attribute": "baseHealth",
-        "value": [14,27,49,80,120],
-        "secAttribute": "baseFrequency",
-        "secValue": [-0.08,-0.09,-0.12,-0.16,-0.20],
+        "attribute": "baseCritical",
+        "value": [0.1,0.12,0.15,0.2,0.25],
         "bodyPart": "shoe",
         "playerSpriteOverride": "dynamic-shoe-0008",
         "playerSpriteReference": 8

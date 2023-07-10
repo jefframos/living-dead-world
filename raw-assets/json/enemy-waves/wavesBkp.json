@@ -1,28 +1,31 @@
 [
     {
         "startAt": 0.5,
-        "duration": 100,
+        "duration": 30,
         "waves": [
             {
                 "areaType": "arc",
-                "radius": 350,
+                "radius": 500,
                 "total": 5000,
-                "maxActive": 8,
+                "maxActive": 10,
                 "entity": [
-                    "ZOMBIE_01"
+                    "ZOMBIE_01",
+                    "ZOMBIE_02",
+                    "ZOMBIE_03",
+                    "ZOMBIE_04"
                 ]
             },
             {
-                "areaType": "arc",
-                "radius": 350,
-                "total": 1000,
-                "maxActive": 5,
+                "areaType": "circle",
+                "radius": 150,
+                "total": 100,
+                "maxActive": 1,
                 "entity": "RAT_01"
             }
         ]
     },
     {
-        "startAt": 45,
+        "startAt": 12,
         "duration": 30,
         "waves": [
             {
@@ -30,10 +33,17 @@
                 "width": 400,
                 "height": 400,
                 "radius": 100,
-                "total": 500,
+                "total": 100,
                 "maxActive": 25,
                 "entity": "SPIDER_BRAIN"
-            }            
+            },
+            {
+                "areaType": "arc",
+                "radius": 350,
+                "total": 100,
+                "maxActive": 25,
+                "entity": "BUTTFLY"
+            }
         ]
     },
     {

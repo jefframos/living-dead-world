@@ -52,7 +52,7 @@ export default class BaseEnemy extends GameAgent {
             this.addComponent(ZombieWalk).speed = this.viewData.zombieWalk;
         }
 
-        this.makeAnimations(this.staticData)
+        this.makeAnimations(this.staticData, true)
 
         if (this.viewData.anchor) {
             this.gameView.view.anchor.set(this.viewData.anchor.x, this.viewData.anchor.y)
@@ -93,8 +93,8 @@ export default class BaseEnemy extends GameAgent {
 
 
     }
-    getShot(value) {
-        super.getShot(value)
+    getShot(value, isCritical) {
+        super.getShot(value, isCritical)
 
         // let stats = this.engine.poolGameObject(StatsModifier)
         // this.addChild(stats)

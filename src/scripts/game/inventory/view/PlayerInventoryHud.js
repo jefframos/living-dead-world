@@ -53,7 +53,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.x = 200
 
         this.labelsInfoContainer = new PIXI.Container();
-        this.gameView.view.addChild(this.labelsInfoContainer)
+        //this.gameView.view.addChild(this.labelsInfoContainer)
         this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1)
         this.labelsInfoContainer.addChild(this.playerAttributesLabel)
         this.playerAttributesLabel.style.fontSize = 12
@@ -166,6 +166,9 @@ export default class PlayerInventoryHud extends GameObject {
         attributesWeapon += "PIERCING: +" + this.player.sessionData.attributesMultiplier.basePiercing + "\n";
         this.playerAttributesLabel.text = attributes;
         this.weaponAcessoriesLabel.text = attributesWeapon;
+
+
+        this.attributesView.healthLabel.text = Math.round(this.player.health.currentHealth)
     }
     updatePlayerEquip(player) {
 

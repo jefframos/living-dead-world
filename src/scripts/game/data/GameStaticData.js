@@ -22,15 +22,15 @@ export default class GameStaticData {
         let loadList = [
             { type: 'level', list: 'waves-level-1', path: ['enemy-wave-01'] },
             { type: 'database', list: 'body-parts', path: ['body-parts'] },
-            { type: 'database', list: 'starter-inventory', path: ['starter-inventory'] , shared: true},
+            { type: 'database', list: 'starter-inventory', path: ['starter-inventory'], shared: true },
 
-            { type: 'environment', list: 'levels', path: ['level-1','level-2'] },
+            { type: 'environment', list: 'levels', path: ['level-1', 'level-2'] },
 
-            
+
             { type: 'misc', list: 'attachments', path: ['attachments'] },
             { type: 'misc', list: 'acessories', path: ['acessories'] },
             { type: 'misc', list: 'buffs', path: ['buff-debuff'] },
-            
+
             { type: 'entities', list: 'enemy', path: ['enemies'] },
             { type: 'entities', list: 'player', path: ['player'] },
             { type: 'entities', list: 'companions', path: ['companions'] },
@@ -90,25 +90,34 @@ export default class GameStaticData {
     convertSpriteSheet(type, subtype) {
         let data = this.getAllDataFrom(type, subtype)
         this.staticAssets[type][subtype].descriptors = []
-        data.forEach(spriteSheetParams => {            
+        data.forEach(spriteSheetParams => {
             let desc = new ParticleDescriptor()
             desc.addBaseBehaviours(SpriteSheetBehaviour, spriteSheetParams)
             this.staticAssets['vfxDescriptors'][spriteSheetParams.id] = (desc)
         });
     }
-    getDescriptor(id){
+    getDescriptor(id) {
         let data = this.staticAssets['vfxDescriptors'][id];
         if (!data) {
-            console.error('unable to find descriptor for',  id)
+            console.error('unable to find descriptor for', id)
         } else {
             return data;
         }
     }
-    getWaves(level = 'waves-level-1'){
+    getWaves(level = 'waves-level-1') {
         return this.getAllDataFrom('level', level);
     }
     getAllCards() {
         return this.getAllDataFrom('cards', 'cards');
+    }
+    getCardById(id) {
+        let all = this.getAllDataFrom('cards', 'cards');
+        for (let index = 0; index < all.length; index++) {
+            const element = all[index];
+            if (element.id == id) {
+                return element;
+            }
+        }
     }
     getEntityByIndex(subtype = 'enemy', id = 0) {
         let type = 'entities';

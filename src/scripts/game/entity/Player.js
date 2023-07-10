@@ -80,13 +80,9 @@ export default class Player extends GameAgent {
         this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
         this.staticData = playerData;
 
-        console.log('build',this.loadoutAttributes)
-        console.log(this.loadoutAttributes)
-        console.log(this.loadoutAttributes)
-        console.log(this.loadoutAttributes)
         this.attributes.reset(playerData.attributes);
-        this.attributes.sumAttributes(this.loadoutAttributes)
 
+        this.attributes.sumAttributes(this.loadoutAttributes)
 
         this.viewData = playerData.view;
         Player.MainPlayer = this;
@@ -299,18 +295,31 @@ export default class Player extends GameAgent {
         let weaponData = inGameWeapon.mainWeapon
         weaponData.baseLevel = this.baseMainWeaponLevel
 
-        let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-        this.addChild(weapon)
-        this.weaponsGameObject.push(weapon);
+        console.log(this.attributes.totalMain)
 
-        this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power
-        this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
-        
-        weapon.build(weaponData)
+        let first = null
+
+        const t = 1
+        for (let index = 0; index < t; index++) {
+           
+            let weapon = this.engine.poolGameObject(weaponData.customConstructor)
+            if(!first){
+                first = weapon;
+            }
+            this.addChild(weapon)
+            //weapon.setIdOffset(index)
+            this.weaponsGameObject.push(weapon);
+    
+            this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power
+            this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
+            this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical
+            
+            weapon.build(weaponData)
+        }
 
 
-        //this.baseMainWeaponLevel 
-        this.weaponShootBar.setWeapon(weapon)
+
+        this.weaponShootBar.setWeapon(first)
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
@@ -354,6 +363,10 @@ export default class Player extends GameAgent {
 
     }
     damage(value) {
+        if(Math.random() < this.attributes.evasion){
+            EffectsManager.instance.popEvasion(this)
+            return
+        }
         let def = value - this.attributes.defense;
         def = Math.floor(Math.max(def, 1));
         super.damage(def);

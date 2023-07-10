@@ -80,7 +80,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         })
 
         this.goo = new PIXI.Sprite.from('goo')
-        this.container.addChild(this.goo);
+        //this.container.addChild(this.goo);
         this.goo.x = 13
         this.goo.y = 108
 
@@ -155,11 +155,11 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
                     this.equipmentListLine1.w += 50;
                     this.equipmentListLine1.h = 50;
-                    this.equipmentListLine1.addElement(icon)
+                    this.equipmentListLine1.addElement(icon,{fitWidth:1})
                 } else {
                     this.equipmentListLine2.w += 50;
                     this.equipmentListLine2.h = 50;
-                    this.equipmentListLine2.addElement(icon)
+                    this.equipmentListLine2.addElement(icon,{fitWidth:1})
                 }
             }
         });

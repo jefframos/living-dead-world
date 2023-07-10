@@ -48,8 +48,7 @@ export default class GameViewSpriteSheet extends BaseComponent {
             this.view.texture = PIXI.Texture.from(this.spriteSheet.currentFrame)
             this.view.anchor = this.spriteSheet.anchor;
         }
-
-        if (this.gameObject.physics.magnitude > 0.1) {
+        if (this.gameObject.physics.magnitude > 0.1 || this.alwaysWalking) {
             this.spriteSheet.play(GameViewSpriteSheet.AnimationType.Running)
             this.stopTimer = this.stopTimerDefault
         } else {

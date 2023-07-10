@@ -64,9 +64,11 @@ export default class ViewDatabase {
                 }
             }
         }
-        console.log(toReturn)
 
         return toReturn;
+    }
+    canGetPiece(){
+        return ViewDatabase.instance.findAvailablePiece().area != null;
     }
     saveWardrobePiece(area, id) {
         CookieManager.instance.saveWardrobePiece(area, id)

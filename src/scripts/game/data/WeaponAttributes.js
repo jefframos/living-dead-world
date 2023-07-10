@@ -92,6 +92,7 @@ export default class WeaponAttributes {
         this.baseForceField = false;
         this.baseForceFeedback = 5;
         this.baseSpawnDistance = 20;
+        this.baseCritical = 20;
 
         this.baseLevel = 0;
         this.level = 0;
@@ -141,6 +142,9 @@ export default class WeaponAttributes {
     }
     get generalOffset() {
         return this.findAttributeValue('baseGeneralOffset');
+    }
+    get critical() {
+        return this.findAttributeValue('baseCritical');
     }
     get angleStart() {
         return this.findAttributeValue('baseAngleStart');

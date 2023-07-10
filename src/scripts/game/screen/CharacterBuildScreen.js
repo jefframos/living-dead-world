@@ -190,6 +190,7 @@ export default class CharacterBuildScreen extends Screen {
     updateWearables() {
 
         this.customizeButton.warningIcon.visible = ViewDatabase.instance.getNewWearablesList().length > 0
+       // this.customizeButton.warningIcon.y = this.customizeButton.text.y
         //this.customizeButton
     }
     updateCompanion(id) {
@@ -541,6 +542,9 @@ export default class CharacterBuildScreen extends Screen {
 
         this.outgameUIProgression.x = Game.Borders.width / 2 - this.outgameUIProgression.width / 2;
         this.outgameUIProgression.y = 30;
+
+
+        this.customizeButton.warningIcon.y = this.customizeButton.text.y - 40
 
         if(Game.IsPortrait){
 

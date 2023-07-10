@@ -1,5 +1,6 @@
 import EntityBuilder from "../../../screen/EntityBuilder";
 import Game from "../../../../Game";
+import GameData from "../../../data/GameData";
 import GameObject from "../../../core/gameObject/GameObject";
 import GameView from "../../../core/view/GameView";
 import LoadoutCardView from "../../deckBuilding/LoadoutCardView";
@@ -15,6 +16,8 @@ export default class GameOverView extends GameObject {
     constructor() {
         super();
 
+        this.slotSize = 100;
+        
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.UILayerOverlay;
         this.gameView.view = new PIXI.Container();
@@ -23,14 +26,21 @@ export default class GameOverView extends GameObject {
         this.onRevivePlayer = new signals.Signal();
         this.container = this.gameView.view;
 
+
+
         this.blocker = new PIXI.Sprite.from('base-gradient');
         this.blocker.width = 1000
         this.blocker.height = 1000
         this.blocker.interactive = true;
         this.blocker.tint = 0;
-        this.blocker.alpha = 0.5;
+        this.blocker.alpha = 1;
         this.container.addChildAt(this.blocker, 0);
 
+        
+        this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(-5000, -5000, 10000, 10000)
+        this.container.addChildAt(this.backShape, 0);
+        this.backShape.tint = 0
+        this.backShape.alpha = 0.8
 
         this.contentContainer = new PIXI.Container();
         this.container.addChild(this.contentContainer);
@@ -39,7 +49,7 @@ export default class GameOverView extends GameObject {
         this.contentContainer.addChild(this.infoBackContainer);
 
         this.infoBackContainer.width = 500;
-        this.infoBackContainer.height = 700;
+        this.infoBackContainer.height = 650;
 
 
         this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
@@ -154,18 +164,22 @@ export default class GameOverView extends GameObject {
         this.uiEndStatsList.addElement(this.enemyCounnt)
 
 
-        const coinIcon = new PIXI.Sprite.from('coin1l')
+        const coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
         this.uiEndStatsList.addElement(coinIcon, { fitHeight: 0.8, align: 1 })
 
-        this.coinsCount = UIUtils.getSecondaryLabel('32659', { fontSize: 32 })
+        this.coinsCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
         this.uiEndStatsList.addElement(this.coinsCount)
 
 
+
+        const hardIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('hardCurrency'))
+        this.uiEndStatsList.addElement(hardIcon, { fitHeight: 0.8, align: 1 })
+
+        this.hardCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
+        this.uiEndStatsList.addElement(this.hardCount)
+
+
         this.uiEndStatsList.updateHorizontalList()
-
-
-
-
 
         this.confirmButton = UIUtils.getPrimaryLargeLabelButton(() => {
             if (this.gameOverWin) {
@@ -185,7 +199,7 @@ export default class GameOverView extends GameObject {
 
         this.reviveButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.onRevivePlayer.dispatch();
-        }, 'Revive', 'video-trim')
+        }, 'Revive', UIUtils.getIconUIIcon('video'))
         this.reviveButton.updateBackTexture('square_button_0004')
 
         this.prizesContainer.addChild(this.reviveButton)
@@ -202,6 +216,7 @@ export default class GameOverView extends GameObject {
 
     show(win = true, data = {}, hasGameOverToken = true) {
         //win = !win
+        this.endGameData = data;
 
         this.gameOverStarted = false;
         this.gameOverContainer.visible = !win
@@ -212,8 +227,8 @@ export default class GameOverView extends GameObject {
 
         this.gameOverWin = win;
 
-        this.enemyCounnt.text = data.enemiesKilled
-        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(data.time));
+        this.enemyCounnt.text = this.endGameData.enemiesKilled
+        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(this.endGameData.time));
 
 
         this.uiEndStatsList.updateHorizontalList()
@@ -224,7 +239,8 @@ export default class GameOverView extends GameObject {
 
             });
         }
-
+        const hardCurrency = Math.floor(this.endGameData.time / 2)
+        
         if (win) {
             const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 2, false)
             this.showPrize(prizes)
@@ -232,7 +248,13 @@ export default class GameOverView extends GameObject {
             this.confirmButton.visible = false;
             this.reviveButton.visible = false;
             this.collectButton.visible = true;
+
+            this.hardCount.text = hardCurrency * 2
+            
+            GameData.instance.addHardCurrency(hardCurrency * 2)
+            
         } else {
+            this.hardCount.text = hardCurrency
             if (!hasGameOverToken) {
                 this.showGameOverPrizes(0)
             } else {
@@ -268,6 +290,11 @@ export default class GameOverView extends GameObject {
 
         const prizes = PrizeManager.instance.getMetaPrize([-1], 0, 1, false)
         this.showPrize(prizes)
+
+
+        const hardCurrency = Math.floor(this.endGameData.time / 60)
+        GameData.instance.addHardCurrency(hardCurrency)
+
     }
     enable() {
         super.enable();
@@ -291,7 +318,7 @@ export default class GameOverView extends GameObject {
         this.contentContainer.x = Game.Borders.width / 2 - this.contentContainer.width / 2
         this.contentContainer.y = Utils.lerp(this.contentContainer.y, Game.Borders.height / 2 - this.contentContainer.height / 2 + 20, 0.5);
         this.confirmButton.x = this.infoBackContainer.width / 2 - this.confirmButton.width / 2
-        this.confirmButton.y = 740
+        this.confirmButton.y = 670
 
         this.reviveButton.scale.set(Math.cos(Game.Time * 15) * 0.05 + 0.95 + 0.2)
         this.reviveButton.x = this.prizeBox.width / 2 - this.reviveButton.width / 2
@@ -368,11 +395,21 @@ export default class GameOverView extends GameObject {
 
             let prize = null
             if (element.entityData) {
-                prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', 100, 100);
-                prize.setData(element.entityData, element.value.level)
+                prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+                prize.setData(element.entityData, element.value.level, 70)
                 prize.resetPivot()
+                prize.hideLevelLabel()
+
             } else {
-                prize = new PIXI.Sprite.from(element.texture)
+
+
+                prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+                prize.setIcon(element.texture, 70)
+                prize.resetPivot()
+                prize.hideLevelLabel()
+
+              //  prize = new PIXI.Sprite.from(element.texture)
+               // prize.scale.set(Utils.scaleToFit(prize, 70))
             }
             prize.x = 110 * i + this.prizeBox.width / 2 - (drawPrizes.length * 110 / 2)
 

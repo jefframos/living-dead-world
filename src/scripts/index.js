@@ -4,6 +4,7 @@ import CookieManager from './game/CookieManager';
 import Game from './Game';
 import GameStaticData from './game/data/GameStaticData';
 import MainScreenManager from './game/screen/MainScreenManager';
+import RewardsManager from './game/data/RewardsManager';
 import SoundManager from './soundManager/SoundManager'
 import Utils from './game/core/utils/Utils';
 import ViewDatabase from './game/data/ViewDatabase';
@@ -18,27 +19,27 @@ window.PIXI = PIXI;
 
 
 //Utils.easeOutQuad
-   getValues(-0.075, -0.2, null, 'easeOutQuad', 0.8,5)
+getValues(0.075, 0.12, null, 'easeOutQuad', 0.8, 5)
 
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(1, 15, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
-  
+
 //   getValues(1, 15, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 25, 'floor', 'easeOutQuad', 0.8,5)
-  
+
 //   getValues(5, 40, 'floor', 'easeOutQuad', 0.8,5)
-  
+
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-  
+
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-   getValues(8, 30, 'floor', 'easeOutQuad', 0.8)
+getValues(8, 30, 'floor', 'easeOutQuad', 0.8)
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 800, 'floor', 'easeOutCubic', 1)
@@ -46,27 +47,27 @@ getValues(50, 800, 'floor', 'easeOutCubic', 1)
 function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8, total = 10) {
 
     let list = '[' //+ value1 +','
-    for (let index = (total-1); index >= 0; index--) {
-        let n = Utils[ease]((index / (total-1) ) * scale)
-        let v = Utils.lerp(value2, value1,  n)// * Math.abs(value2 - value1) + value2
+    for (let index = (total - 1); index >= 0; index--) {
+        let n = Utils[ease]((index / (total - 1)) * scale)
+        let v = Utils.lerp(value2, value1, n)// * Math.abs(value2 - value1) + value2
         v = v.toFixed(2)
-        if(math){
+        if (math) {
             v = Math[math](v)
         }
-        list +=  v 
-    
-        if(index > 0){
+        list += v
+
+        if (index > 0) {
             list += ','
         }
-        
-        
+
+
     }
     list += ']'
     console.log(list)
 }
 
 
-(function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+(function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
 
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
@@ -75,17 +76,17 @@ window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(w
 
 if (!window.isMobile) {
     config.width = config.desktopRes.width
-    config.height  = config.desktopRes.height
-}else{
+    config.height = config.desktopRes.height
+} else {
     config.width = config.mobileRes.width
-    config.height  = config.mobileRes.height
+    config.height = config.mobileRes.height
 }
 
 
 
 
 
-window.noPoki = true;
+window.noPoki = false;
 
 
 window.onAdds = new signals.Signal();
@@ -98,84 +99,85 @@ let audioToLoad = [] //['assets/audio/dream1.mp3', 'assets/audio/dream2.mp3']
 window.SOUND_MANAGER = new SoundManager();
 
 
+
 window.getCoinSound = function () {
     return 'coins_0' + Math.ceil(Math.random() * 4)
 }
 
 
-window.GAMEPLAY_STOP = function () {
-    if (window.noPoki) return;
-    if (window.GAMEPLAY_IS_STOP) {
-        return
-    }
-    window.GAMEPLAY_IS_STOP = true;
-    PokiSDK.gameplayStop();
-}
-window.GAMEPLAY_START = function (force = false) {
-    if (window.noPoki) return;
-    if (!window.GAMEPLAY_IS_STOP && !force) {
-        return
-    }
-    window.GAMEPLAY_IS_STOP = false;
-    PokiSDK.gameplayStart();
-}
-window.DO_COMMERCIAL = function (callback, params) {
-    if (window.noPoki) return;
-    window.GAMEPLAY_STOP()
+// window.GAMEPLAY_STOP = function () {
+//     if (window.noPoki) return;
+//     if (window.GAMEPLAY_IS_STOP) {
+//         return
+//     }
+//     window.GAMEPLAY_IS_STOP = true;
+//     PokiSDK.gameplayStop();
+// }
+// window.GAMEPLAY_START = function (force = false) {
+//     if (window.noPoki) return;
+//     if (!window.GAMEPLAY_IS_STOP && !force) {
+//         return
+//     }
+//     window.GAMEPLAY_IS_STOP = false;
+//     PokiSDK.gameplayStart();
+// }
+// window.DO_COMMERCIAL = function (callback, params) {
+//     if (window.noPoki) return;
+//     window.GAMEPLAY_STOP()
 
-    if (window.isDebug) {
-        window.GAMEPLAY_START()
+//     if (window.isDebug) {
+//         window.GAMEPLAY_START()
 
-        if (callback) callback(params)
-        return
-    }
-    window.onAdds.dispatch();
-    PokiSDK.commercialBreak().then(
-        () => {
-            console.log("Commercial break finished, proceeding to game");
-            window.GAMEPLAY_START()
-            window.onStopAdds.dispatch();
+//         if (callback) callback(params)
+//         return
+//     }
+//     window.onAdds.dispatch();
+//     PokiSDK.commercialBreak().then(
+//         () => {
+//             console.log("Commercial break finished, proceeding to game");
+//             window.GAMEPLAY_START()
+//             window.onStopAdds.dispatch();
 
-            if (callback) callback(params)
-        }
-    ).catch(
-        () => {
-            console.log("Initialized, but the user likely has adblock");
-            window.GAMEPLAY_START()
-            window.onStopAdds.dispatch();
+//             if (callback) callback(params)
+//         }
+//     ).catch(
+//         () => {
+//             console.log("Initialized, but the user likely has adblock");
+//             window.GAMEPLAY_START()
+//             window.onStopAdds.dispatch();
 
-            if (callback) callback(params)
-        }
-    );
-}
+//             if (callback) callback(params)
+//         }
+//     );
+// }
 
-window.DO_REWARD = function (callback, params) {
-    if (window.noPoki) return;
-    window.GAMEPLAY_STOP()
+// window.DO_REWARD = function (callback, params) {
+//     if (window.noPoki) return;
+//     window.GAMEPLAY_STOP()
 
-    if (window.isDebug) {
-        window.GAMEPLAY_START()
+//     if (window.isDebug) {
+//         window.GAMEPLAY_START()
 
-        if (callback) callback(params)
-        return
-    }
+//         if (callback) callback(params)
+//         return
+//     }
 
-    window.onAdds.dispatch();
-    PokiSDK.rewardedBreak().then(
-        (success) => {
-            if (success) {
-                window.onStopAdds.dispatch();
-                window.GAMEPLAY_START()
-                if (callback) callback(params)
-            } else {
-                window.onStopAdds.dispatch();
-                window.GAMEPLAY_START()
-                if (callback) callback(params)
-            }
-        }
+//     window.onAdds.dispatch();
+//     PokiSDK.rewardedBreak().then(
+//         (success) => {
+//             if (success) {
+//                 window.onStopAdds.dispatch();
+//                 window.GAMEPLAY_START()
+//                 if (callback) callback(params)
+//             } else {
+//                 window.onStopAdds.dispatch();
+//                 window.GAMEPLAY_START()
+//                 if (callback) callback(params)
+//             }
+//         }
 
-    )
-}
+//     )
+// }
 // console.log(spritesheetManifest['default'][0]);
 //startLoader();
 window.game = new Game(config);
@@ -193,16 +195,19 @@ if (!window.noPoki) {
             console.log("Poki SDK successfully initialized");
             loadManifests();
 
+
         }
     ).catch(
         () => {
             loadManifests();
             console.log("Initialized, but the user likely has adblock");
+
             // fire your function to continue to game
         }
     );
 } else {
     loadManifests();
+
 }
 
 //loadManifests();
@@ -210,7 +215,12 @@ if (!window.noPoki) {
 function loadManifests() {
     if (!window.noPoki) {
 
+
+
+        RewardsManager.instance.initialize(window.noPoki);
         PokiSDK.gameLoadingStart();
+
+
     }
 
     for (var i = spritesheetManifest['default'].length - 1; i >= 0; i--) {
@@ -279,16 +289,16 @@ function startLoader() {
 
 
 function configGame(evt) {
-    
+
 
     GameStaticData.instance.initialize();
 
     const defaultInventory = GameStaticData.instance.getDataById('database', 'starter-inventory');
 
     CookieManager.instance.sortCookie("main", defaultInventory)
-    
+
     const firstPlayer = CookieManager.instance.getPlayer(0)
-    if(!firstPlayer){
+    if (!firstPlayer) {
         CookieManager.instance.savePlayer(0)
     }
     CookieManager.instance.sortPlayers()
@@ -328,7 +338,7 @@ function configGame(evt) {
     setTimeout(() => {
         game.resize();
     }, 1);
-    window.GAMEPLAY_START(true)
+    RewardsManager.instance.gameplayStart(true)
     window.addEventListener("focus", myFocusFunction, true);
     window.addEventListener("blur", myBlurFunction, true);
 

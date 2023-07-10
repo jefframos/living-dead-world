@@ -411,12 +411,13 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
 
         } else {
-            this.colorContainerHairScroller.scale.set(1);
+            this.rebuildLandscapeScroller()
+            this.colorContainerHairScroller.scale.set(Math.min(1,Game.Borders.width / this.colorContainerHairScroller.w / 2));
             this.piecesScroller.x = Game.Borders.width - this.piecesScroller.rect.w - 20
             this.piecesScroller.y = Game.Borders.height - (this.piecesScroller.rect.h * this.piecesScroller.scale.y) - 20
             this.sectionList.y = Game.Borders.height - this.sectionList.h * this.sectionList.scale.y - 20
             this.colorContainerHairScroller.y = Game.Borders.height - (this.colorContainerHairScroller.h * this.colorContainerHairScroller.scale.y) - 20
-            let middle = Game.Borders.width - this.piecesScroller.rect.w - this.colorContainerHairScroller.w - 40
+            let middle = Game.Borders.width - this.piecesScroller.rect.w - (this.colorContainerHairScroller.w * this.colorContainerHairScroller.scale.x) - 40
             this.colorContainerHairScroller.x = Math.min(middle, Game.Borders.width / 2 - this.colorContainerHairScroller.w / 2)
 
         }
@@ -470,10 +471,10 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         this.piecesScroller.removeAllItems();
         this.piecesScroller.gridDimensions.j = 3
-        this.piecesScroller.resize({ w: 300, h: 620 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
+        this.piecesScroller.resize({ w: 300, h: 570 }, { width: 100, height: 100 }, { x: 7.5, y: 7.5 })
         this.piecesScroller.addItens(this.currentShowingItems)
 
-        this.sectionList.scale.set(0.85)
+        this.sectionList.scale.set(0.75)
 
     }
     aspectChange(isPortrait) {

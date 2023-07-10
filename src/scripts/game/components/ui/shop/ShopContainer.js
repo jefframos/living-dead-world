@@ -6,17 +6,22 @@ import PrizeManager from '../../../data/PrizeManager';
 import ShopCard from './ShopCard';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
+import ViewDatabase from '../../../data/ViewDatabase';
 
 export default class ShopContainer extends MainScreenModal {
     constructor() {
         super();
 
         this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, 'Small Crate')
-        this.chest1.updateButtonTitle('2x Items')
+        this.chest1.updateButtonTitle('2x\nItems')
         this.chest1.setIcon('item-chest-0001')
+        this.chest1.setValue('softCurrency', 'x500')
+
         this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, 'Weapon Crate', false)
-        this.chest2.updateButtonTitle('5x Weapons')
+        this.chest2.updateButtonTitle('5x\nWeapons')
         this.chest2.setIcon('item-chest-0002')
+        this.chest2.setValue('softCurrency', 'x2000')
+
         // this.chest3 = new ShopCard(UIUtils.baseButtonTexture + '_0001', 250, 250)
         this.topLine = new UIList();
         this.container.addChild(this.topLine)
@@ -32,11 +37,13 @@ export default class ShopContainer extends MainScreenModal {
 
 
         this.chestMid1 = new ShopCard(this.chestMid1Click.bind(this), this.chestMid1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0002', 250, 250, 'Cosmetics Crate')
-        this.chestMid1.updateButtonTitle('2x Cosmetics')
+        this.chestMid1.updateButtonTitle('2x\nCosmetics')
         this.chestMid1.setIcon('item-chest-0001')
+        this.chestMid1.setValue('hardCurrency', 'x5')
         this.chestMid2 = new ShopCard(this.chestMid2Click.bind(this), this.chestMid2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, 'Acessory Crate', false)
-        this.chestMid2.updateButtonTitle('5x Acessories')
+        this.chestMid2.updateButtonTitle('5x\nAcessories')
         this.chestMid2.setIcon('item-chest-0002')
+        this.chestMid2.setValue('hardCurrency', 'x5')
         this.midLine = new UIList();
         this.container.addChild(this.midLine)
 
@@ -51,7 +58,8 @@ export default class ShopContainer extends MainScreenModal {
 
         this.chestBottom1 = new ShopCard(this.bundleClick.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, 'Bundle Crate', false)
         this.chestBottom1.setIcon('bundle-icon', 0.5)
-        this.chestBottom1.updateButtonTitle('10x Items of Any Type')
+        this.chestBottom1.updateButtonTitle('10x\nAll Items')
+        this.chestBottom1.setValue('specialCurrency', 'x5', 2)
 
         this.bottomLine = new UIList();
         this.container.addChild(this.bottomLine)
@@ -112,6 +120,12 @@ export default class ShopContainer extends MainScreenModal {
     show() {
         this.resize()
         super.show();
+
+        if(!ViewDatabase.instance.canGetPiece()){
+            this.chestMid1.disableWithMessage('You Collected All Cosmestics')
+        }else{
+            this.chestMid1.enable()
+        }
     }
     resize(res, newRes) {
 
@@ -125,7 +139,7 @@ export default class ShopContainer extends MainScreenModal {
                 this.infoBackContainer.height = Game.Borders.height - 200
             }else{
                 
-                this.infoBackContainer.width = Game.Borders.width *0.8
+                this.infoBackContainer.width = Game.Borders.width *0.5
                 this.infoBackContainer.height = Game.Borders.height - 160
             }
         }

@@ -4,6 +4,7 @@ import ColorButton from "../components/ui/ColorButton";
 import ColorSlot from "../components/ui/ColorSlot";
 import InteractableView from "../view/card/InteractableView";
 import Pool from "../core/utils/Pool";
+import UIList from "../ui/uiElements/UIList";
 import Utils from "../core/utils/Utils";
 
 export default class UIUtils {
@@ -64,6 +65,9 @@ export default class UIUtils {
         }
         if (label) {
             UIUtils.addLabel(button, label, { fontSize: 24 })
+
+            warningIcon.y = button.text.y
+
         }
         return button;
     }
@@ -210,6 +214,57 @@ export default class UIUtils {
         }
         return button;
     }
+    static getPrimaryShopButton(callback, label, icon) {
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 120, 65);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+ 
+
+
+        const buttonList = new UIList();
+
+        buttonList.w = 120
+        buttonList.h = 65
+
+        button.labelButtonValue = UIUtils.getPrimaryLabel('free')
+        button.currencyButtonIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
+
+        buttonList.addElement(button.labelButtonValue, {align:1, listScl:0.5, fitHeight:0.7})
+        buttonList.addElement(button.currencyButtonIcon , {align:0, listScl:0.5, fitHeight:0.7})
+
+        button.addChild(buttonList)
+        button.buttonListContent = buttonList;
+        
+        buttonList.updateHorizontalList()
+
+
+
+
+        return button;
+    }
+    static getPrimaryVideoButton(callback, label) {
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 120, 65);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+
+
+        const buttonList = new UIList();
+
+        buttonList.w = 120
+        buttonList.h = 65
+
+        
+
+        buttonList.addElement(UIUtils.getPrimaryLabel('free'), {align:1, scaleContentMax:true, fitWidth:0.9})
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), {align:0, scaleContentMax:true, fitWidth:0.9})
+
+        button.addChild(buttonList)
+        button.buttonListContent = buttonList;
+        
+        buttonList.updateHorizontalList()
+        return button;
+    }
+
     static getPrimaryLabelTabButton(callback, label, icon) {
         const button = new BaseButton(UIUtils.baseTabTexture + '_0003', 170, 65);
         button.setPadding(20, 20, 70, 70)
@@ -293,12 +348,6 @@ export default class UIUtils {
                 return 'ico_speed'
             case 'baseHealth':
                 return 'ico_health'
-            case 'softCurrency':
-                return 'coin1'
-            case 'hardCurrency':
-                return 'heart'
-            case 'specialCurrency':
-                return 'ray'
         }
 
 
@@ -321,6 +370,12 @@ export default class UIUtils {
                 return 'info'
             case 'video':
                 return 'video-purple'
+            case 'softCurrency':
+                return 'coin1'
+            case 'hardCurrency':
+                return 'heart'
+            case 'specialCurrency':
+                return 'ray'
         }
 
 

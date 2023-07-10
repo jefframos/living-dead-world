@@ -49,6 +49,8 @@ export default class CardPlacementSystem {
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
 
+        console.log(this.currentData)
+
         this.currentData.push({
             id: this.player.sessionData.mainWeapon.id,
             entityData: {
@@ -58,8 +60,8 @@ export default class CardPlacementSystem {
             starter: true
         })
 
+        
         Utils.shuffle(this.currentData)
-
         let starters = [];
 
         starters.push({
@@ -70,10 +72,10 @@ export default class CardPlacementSystem {
             weaponId: this.player.sessionData.mainWeapon.id,
             starter: true
         })
-
+        starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
 
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable && starters.length< 3) {
+            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable){// && starters.length< 3) {
                 starters.push(this.currentData[index]);
             }
             if (this.currentData[index] && !this.currentData[index].enabled) {

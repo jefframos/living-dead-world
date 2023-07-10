@@ -13,13 +13,18 @@ export default class EntityAttributes {
         this.damageZone = 10;
         this.baseDistance = 0;
         this.baseCollectionRadius = 50;
+        this.baseEvasion = 0;
+        this.baseCritical = 0;
+        this.baseTotalMain = 0;
         this.level = 0;
 
         if (overrideDetaultValue != undefined) {
+            console.log("overrideDetaultValue",overrideDetaultValue)
             this.overrideDefaults(overrideDetaultValue);
         } else {
             this.writeDefaults();
         }
+
 
         this.multipliers = new EntityMultipliers();
     }
@@ -35,6 +40,9 @@ export default class EntityAttributes {
         this.damageZone = 0;
         this.baseDistance = 0;
         this.baseCollectionRadius = 0;
+        this.baseEvasion = 0;
+        this.baseCritical = 0;
+        this.baseTotalMain = 0;
         this.level = 0;
 
         this.writeDefaults();
@@ -106,6 +114,9 @@ export default class EntityAttributes {
     get distance() {
         return this.findAttributeValue('baseDistance') * this.multipliers.distance;
     }
+    get totalMain() {
+        return this.findAttributeValue('baseTotalMain');
+    }
     get health() {
         return this.findAttributeValue('baseHealth') * this.multipliers.health;
     }
@@ -117,6 +128,12 @@ export default class EntityAttributes {
     }
     get speed() {
         return this.findAttributeValue('baseSpeed') * this.multipliers.speed;
+    }
+    get evasion() {
+        return this.findAttributeValue('baseEvasion') * this.multipliers.evasion;
+    }
+    get critical() {
+        return this.findAttributeValue('baseCritical') * this.multipliers.critical;
     }
     get zone() {
         return this.findAttributeValue('damageZone');

@@ -131,6 +131,7 @@ export default class LoadoutStatsView extends PIXI.Container {
         att.push({ icon: UIUtils.getIconByAttribute('basePower'), value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) })
         att.push({ icon: UIUtils.getIconByAttribute('baseFrequency'), value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) })
         att.push({ icon: UIUtils.getIconByAttribute('baseBulletSpeed'), value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) })
+        att.push({ icon: UIUtils.getIconByAttribute('critical'), value: this.getAttributeValue(data.weaponAttributes, 'critical', level) })
 
         if (Array.isArray(data.weaponAttributes.baseAmount)) {
             att.push({ icon: UIUtils.getIconByAttribute('baseAmount'), value: data.weaponAttributes.baseAmount[level] })
