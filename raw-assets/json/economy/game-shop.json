@@ -1,0 +1,51 @@
+[
+    {
+        "items": [
+            {
+                "id": "SMALL_CRATE",
+                "title": "Small Crate",
+                "description": "Items",
+                "totalItems":2,
+                "video": true,
+                "currency": 1,
+                "price": 500
+            },
+            {
+                "id": "WEAPON_CRATE",
+                "title": "Weapon Crate",
+                "description": "Weapons",
+                "totalItems":5,
+                "video": false,
+                "currency": 1,
+                "price": 2000
+            },
+            {
+                "id": "COSMETIC_CRATE",
+                "title": "Cosmetics Crate",
+                "description": "Cosmetics",
+                "totalItems":5,
+                "video": true,
+                "currency": 2,
+                "price": 5
+            },
+            {
+                "id": "ACESSORY_CRATE",
+                "title": "Acessory Crate",
+                "description": "Acessories",
+                "totalItems":5,
+                "video": false,
+                "currency": 2,
+                "price": 10
+            },
+            {
+                "id": "BUNDLE_CRATE",
+                "title": "Bundle Crate",
+                "description": "All Items",
+                "totalItems":10,
+                "video": false,
+                "currency": 3,
+                "price": 5
+            }
+        ]
+    }
+]

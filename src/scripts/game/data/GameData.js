@@ -15,6 +15,7 @@ export default class GameData {
         this.onUpdateEquipment = new signals.Signal();
         this.onUpdateCompanion = new signals.Signal();
         this.onUpdateCurrency = new signals.Signal();
+        this.notEnoughcurrency = new signals.Signal();
 
         this.attributes = new EntityAttributes()
     }
@@ -81,6 +82,9 @@ export default class GameData {
         const result = CookieManager.instance.addSpecialCurrency(value);
         this.onUpdateCurrency.dispatch(this.resources)
         return result;
+    }
+    showCantBuy(data){
+        this.notEnoughcurrency.dispatch(data)
     }
     getAttributesFromEquipabble(equip, level) {
         this.addAttributes = new EntityAttributes()

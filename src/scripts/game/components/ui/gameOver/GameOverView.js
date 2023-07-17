@@ -45,17 +45,25 @@ export default class GameOverView extends GameObject {
         this.contentContainer = new PIXI.Container();
         this.container.addChild(this.contentContainer);
 
-        this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
+        this.infoBackContainer = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
+        this.sizeShape = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
+        this.infoBackContainer.addChild(this.sizeShape)
+        this.sizeShape.alpha = 0
         this.contentContainer.addChild(this.infoBackContainer);
 
-        this.infoBackContainer.width = 500;
-        this.infoBackContainer.height = 650;
+        this.sizeShape.width = 500;
+        this.sizeShape.height = 500;
 
 
-        this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
+        this.prizeBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.infoBackContainer.addChild(this.prizeBox);
-        this.prizeBox.width = this.infoBackContainer.width - 20
-        this.prizeBox.height = this.infoBackContainer.height / 2 - 70
+
+        this.prizeSizeShape = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20, 20, 20, 20);
+        this.prizeBox.addChild(this.prizeSizeShape)
+        this.prizeSizeShape.alpha = 0
+
+        this.prizeSizeShape.width = this.infoBackContainer.width - 20
+        this.prizeSizeShape.height = this.infoBackContainer.height / 2 - 70
         this.prizeBox.x = 10
         this.prizeBox.y = this.infoBackContainer.height / 2 + 60
 
@@ -66,14 +74,14 @@ export default class GameOverView extends GameObject {
         this.gameOverContainer = new PIXI.Container()
         this.infoBackContainer.addChild(this.gameOverContainer);
 
-        this.defeatTitleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
+        this.defeatTitleBox = new PIXI.Container()//PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.gameOverContainer.addChild(this.defeatTitleBox);
         this.defeatTitleBox.width = this.infoBackContainer.width / 1.5
         this.defeatTitleBox.height = 80
         this.defeatTitleBox.x = this.infoBackContainer.width / 2 - this.defeatTitleBox.width / 2
         this.defeatTitleBox.y = -40
 
-        this.defeatLabel = UIUtils.getSecondaryLabel('Defeated', { fontSize: 48 })
+        this.defeatLabel = new PIXI.Sprite.from("defeat");//UIUtils.getSecondaryLabel('Defeated', { fontSize: 48 })
         this.defeatLabel.anchor.set(0.5)
         this.defeatLabel.x = this.defeatTitleBox.width / 2
         this.defeatLabel.y = this.defeatTitleBox.height / 2
@@ -82,19 +90,20 @@ export default class GameOverView extends GameObject {
 
         this.blurDefeated = new PIXI.Sprite.from('round-blur')
         this.blurDefeated.anchor.set(0.5)
-        this.blurDefeated.scale.set(Utils.scaleToFit(this.blurDefeated, this.infoBackContainer.height / 3))
+        this.blurDefeated.scale.set(Utils.scaleToFit(this.blurDefeated, 300))
         this.blurDefeated.scale.x = this.blurDefeated.scale.y * 1.2
         this.blurDefeated.x = this.infoBackContainer.width / 2
-        this.blurDefeated.y = this.infoBackContainer.height / 4
         this.gameOverContainer.addChild(this.blurDefeated)
         this.blurDefeated.tint = 0xfc0000
         this.blurDefeated.alpha = 0.5
-
+        
         this.tryAgainLabel = UIUtils.getSpecialLabel1('Game Over!', { fontSize: 48 })
         this.tryAgainLabel.anchor.set(0.5)
         this.tryAgainLabel.x = this.infoBackContainer.width / 2
-        this.tryAgainLabel.y = this.infoBackContainer.height / 4
+        this.tryAgainLabel.y = this.infoBackContainer.height / 4 - 50
         this.gameOverContainer.addChild(this.tryAgainLabel)
+        
+        this.blurDefeated.y = this.tryAgainLabel.y
 
         this.finalTimeLabel = UIUtils.getSecondaryLabel('00:25', { fontSize: 24 })
         this.finalTimeLabel.anchor.set(0.5)
@@ -102,14 +111,14 @@ export default class GameOverView extends GameObject {
         this.finalTimeLabel.y = this.infoBackContainer.height / 4 + 120
         this.gameOverContainer.addChild(this.finalTimeLabel)
 
-        this.titleBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
+        this.titleBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
         this.victoryContainer.addChild(this.titleBox);
         this.titleBox.width = this.infoBackContainer.width / 1.5
         this.titleBox.height = 80
         this.titleBox.x = this.infoBackContainer.width / 2 - this.titleBox.width / 2
         this.titleBox.y = -40
 
-        this.victoryLabel = UIUtils.getSecondaryLabel('Victory', { fontSize: 48 })
+        this.victoryLabel = new PIXI.Sprite.from("victory");//UIUtils.getSecondaryLabel('Victory', { fontSize: 48 })
         this.victoryLabel.anchor.set(0.5)
         this.victoryLabel.x = this.titleBox.width / 2
         this.victoryLabel.y = this.titleBox.height / 2
@@ -118,35 +127,35 @@ export default class GameOverView extends GameObject {
 
         this.roundBlur = new PIXI.Sprite.from('round-blur')
         this.roundBlur.anchor.set(0.5)
-        this.roundBlur.scale.set(Utils.scaleToFit(this.roundBlur, this.infoBackContainer.height / 3))
+        this.roundBlur.scale.set(Utils.scaleToFit(this.roundBlur, 300))
         this.roundBlur.scale.x = this.roundBlur.scale.y * 1.2
         this.roundBlur.x = this.infoBackContainer.width / 2
-        this.roundBlur.y = this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.roundBlur)
         this.roundBlur.tint = 0xfc8c0b
         this.roundBlur.alpha = 0.5
-
+        
         this.shine = new PIXI.Sprite.from('shine')
         this.shine.anchor.set(0.5)
-        this.shine.scale.set(Utils.scaleToFit(this.shine, this.infoBackContainer.height / 3))
+        this.shine.scale.set(Utils.scaleToFit(this.shine, 350))
         this.shine.x = this.infoBackContainer.width / 2
-        this.shine.y = this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.shine)
         this.shine.tint = 0xfff700
-        this.shine.alpha = 0.5
-
-
+        this.shine.alpha = 0.1
+        
+        
         this.congratulationsLabel = UIUtils.getSpecialLabel1('Congratulations!', { fontSize: 48 })
         this.congratulationsLabel.anchor.set(0.5)
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
         this.congratulationsLabel.y = this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.congratulationsLabel)
-
+        
+        this.shine.y = this.congratulationsLabel.y
+        this.roundBlur.y = this.congratulationsLabel.y
 
         this.enemyCountBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
         this.enemyCountBox.width = this.infoBackContainer.width
         this.enemyCountBox.height = 50
-        this.enemyCountBox.y = this.infoBackContainer.height / 2
+        this.enemyCountBox.y = 200
         this.infoBackContainer.addChild(this.enemyCountBox);
 
 
@@ -215,7 +224,7 @@ export default class GameOverView extends GameObject {
     }
 
     show(win = true, data = {}, hasGameOverToken = true) {
-        //win = !win
+        win = !win
         this.endGameData = data;
 
         this.gameOverStarted = false;
@@ -317,12 +326,13 @@ export default class GameOverView extends GameObject {
 
         this.contentContainer.x = Game.Borders.width / 2 - this.contentContainer.width / 2
         this.contentContainer.y = Utils.lerp(this.contentContainer.y, Game.Borders.height / 2 - this.contentContainer.height / 2 + 20, 0.5);
+        this.infoBackContainer.y = 50
         this.confirmButton.x = this.infoBackContainer.width / 2 - this.confirmButton.width / 2
-        this.confirmButton.y = 670
+        this.confirmButton.y = 500
 
         this.reviveButton.scale.set(Math.cos(Game.Time * 15) * 0.05 + 0.95 + 0.2)
         this.reviveButton.x = this.prizeBox.width / 2 - this.reviveButton.width / 2
-        this.reviveButton.y = this.prizeBox.height / 2 - this.reviveButton.height / 2
+        this.reviveButton.y = this.prizeBox.height / 2 - this.reviveButton.height / 2 - 50
         this.collectButton.x = this.prizeBox.width / 2 - this.collectButton.width / 2
         this.collectButton.y = 120
 

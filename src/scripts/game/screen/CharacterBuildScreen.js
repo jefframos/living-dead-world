@@ -14,6 +14,7 @@ import InteractableView from '../view/card/InteractableView';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
 import LocationContainer from '../components/ui/location/LocationContainer';
 import MainScreenManager from './MainScreenManager';
+import NoMoneycontainer from '../components/ui/prizes/NoMoneycontainer';
 import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
@@ -117,19 +118,29 @@ export default class CharacterBuildScreen extends Screen {
         this.addModal(this.rouletteContainer)
 
         this.popUpList = [];
-        this.prizeCollect = new PrizeCollectContainer()
-        this.addPopUp(this.prizeCollect)
 
         this.outgameUIProgression = new OutGameUIProgression();
         this.container.addChild(this.outgameUIProgression);
 
+
+        this.prizeCollect = new PrizeCollectContainer()
+        this.addPopUp(this.prizeCollect)
+
+
+        this.noMoneyContainer = new NoMoneycontainer()
+        this.addPopUp(this.noMoneyContainer)
+
         this.buttonsList = new UIList();
         this.container.addChild(this.buttonsList);
         this.closeButton = UIUtils.getCloseButton(() => { this.backButtonAction(); })
-        this.buttonsList.addElement(this.closeButton, { align: 0 , fitWidth:1})
+        this.buttonsList.addElement(this.closeButton, { align: 0, fitWidth: 1 })
+
+
+        this.giveMoneyButton = UIUtils.getPrimaryButton(() => { this.giveMoney(); })
+        this.buttonsList.addElement(this.giveMoneyButton, { align: 0, fitWidth: 1 })
         //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
 
-        this.buttonsList.w = 75
+        this.buttonsList.w = 75 * this.buttonsList.elementsList.length
         this.buttonsList.h = 75;
 
         this.buttonsList.updateHorizontalList();
@@ -149,6 +160,7 @@ export default class CharacterBuildScreen extends Screen {
 
         GameData.instance.onUpdateEquipment.add(this.updateEquipment.bind(this));
         GameData.instance.onUpdateCompanion.add(this.updateCompanion.bind(this));
+        GameData.instance.notEnoughcurrency.add(this.showNoMoney.bind(this));
 
         ViewDatabase.instance.onUpdateWearables.add(this.updateWearables.bind(this));
 
@@ -186,11 +198,15 @@ export default class CharacterBuildScreen extends Screen {
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
     }
-
+    giveMoney() {
+        GameData.instance.addSoftCurrency(500)
+        GameData.instance.addHardCurrency(2)
+        GameData.instance.addSpecialCurrency(1)
+    }
     updateWearables() {
 
         this.customizeButton.warningIcon.visible = ViewDatabase.instance.getNewWearablesList().length > 0
-       // this.customizeButton.warningIcon.y = this.customizeButton.text.y
+        // this.customizeButton.warningIcon.y = this.customizeButton.text.y
         //this.customizeButton
     }
     updateCompanion(id) {
@@ -206,6 +222,11 @@ export default class CharacterBuildScreen extends Screen {
     showPrizeWindow(data) {
         this.prizeCollect.showPrize(data)
         this.openPopUp(this.prizeCollect)
+    }
+
+    showNoMoney(data) {
+        this.noMoneyContainer.showInfo(data)
+        this.openPopUp(this.noMoneyContainer)
     }
     updateEquipment(area, id) {
         const data = EntityBuilder.instance.getEquipable(id);
@@ -272,7 +293,7 @@ export default class CharacterBuildScreen extends Screen {
         }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
 
         this.customizeButton = UIUtils.getPrimaryShapelessButton(() => {
-            this.showCustomization();
+            this.showCustomization(true);
 
         }, 'Wardrobe', 'transparent')
 
@@ -308,14 +329,14 @@ export default class CharacterBuildScreen extends Screen {
 
         this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
         this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
-       // this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0 })
-       // this.bottomMenuList.addElement(getCustomizables, { align: 0, vAlign: 0 })
+        // this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0 })
+        // this.bottomMenuList.addElement(getCustomizables, { align: 0, vAlign: 0 })
 
         this.menuButtons = [];
         this.menuButtons.push(this.loadoutButton)
         this.menuButtons.push(this.customizeButton)
-       // this.menuButtons.push(bt0)
-       // this.menuButtons.push(getCustomizables)
+        // this.menuButtons.push(bt0)
+        // this.menuButtons.push(getCustomizables)
 
         this.bottomMenuList.updateVerticalList()
 
@@ -345,12 +366,12 @@ export default class CharacterBuildScreen extends Screen {
         // }, 'Achievments', 'achievment')
 
         this.bottomMenuRightList.addElement(bt3, { align: 0 })
-       // this.bottomMenuRightList.addElement(bt4, { align: 0 })
+        // this.bottomMenuRightList.addElement(bt4, { align: 0 })
         this.bottomMenuRightList.addElement(bt5, { align: 0 })
 
         this.menuButtonsRight = [];
         this.menuButtonsRight.push(bt3)
-       // this.menuButtonsRight.push(bt4)
+        // this.menuButtonsRight.push(bt4)
         this.menuButtonsRight.push(bt5)
 
         this.bottomMenuRightList.updateVerticalList()
@@ -376,9 +397,10 @@ export default class CharacterBuildScreen extends Screen {
     }
     defaultZoom() {
 
+        this.pivotOffset.x = 0
         if (Game.IsPortrait) {
 
-            this.zoom = 0.5
+            this.zoom = 0.75
             this.pivotOffset.y = 20
         } else {
 
@@ -387,20 +409,29 @@ export default class CharacterBuildScreen extends Screen {
         }
 
     }
-    customizationZoom() {
+    customizationZoom(toWardrobe) {
 
+        this.pivotOffset.x = 0
         if (Game.IsPortrait) {
             this.zoom = 0.8
             this.pivotOffset.y = 80
         } else {
+            if (toWardrobe) {
+                this.zoom = 1.5
+                this.pivotOffset.y = -50
+                this.pivotOffset.x = 50
+                this.outgameUIProgression.visible = false;
 
-            this.zoom = 0.9
-            this.pivotOffset.y = 20
+            } else {
+
+                this.zoom = 0.9
+                this.pivotOffset.y = 20
+            }
         }
     }
-    showCustomization() {
+    showCustomization(toWardrobe) {
 
-        this.customizationZoom();
+        this.customizationZoom(toWardrobe);
         this.charCustomizationContainer.show()
 
         this.activePlayersCustomization.forEach(element => {
@@ -546,10 +577,10 @@ export default class CharacterBuildScreen extends Screen {
 
         this.customizeButton.warningIcon.y = this.customizeButton.text.y - 40
 
-        if(Game.IsPortrait){
+        if (Game.IsPortrait) {
 
-            this.buttonsList.x = this.outgameUIProgression.x + this.outgameUIProgression.width+ 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
-        }else{
+            this.buttonsList.x = this.outgameUIProgression.x + this.outgameUIProgression.width + 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+        } else {
 
             this.buttonsList.x = Game.Borders.width - this.buttonsList.w - 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
         }

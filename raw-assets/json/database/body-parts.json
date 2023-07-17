@@ -25,7 +25,7 @@
             "availables": {"min": 1,"max": 8,"ignore": []}
         },
         "frontFace": {
-            "starters": [1,2],
+            "starters": [0],
             "availables": {"min": 0,"max": 9,"ignore": []}
         },
         "hair": {
@@ -33,7 +33,7 @@
             "availables": {"min": 0,"max": 28,"ignore": []}
         },
         "hat": {
-            "starters": [],
+            "starters": [0],
             "availables": {"min": 0,"max": 20,"ignore": []}
         }
     }

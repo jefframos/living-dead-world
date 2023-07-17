@@ -22,6 +22,7 @@ export default class GameStaticData {
         let loadList = [
             { type: 'level', list: 'waves-level-1', path: ['enemy-wave-01'] },
             { type: 'database', list: 'body-parts', path: ['body-parts'] },
+            { type: 'database', list: 'economy', path: ['game-shop'] },
             { type: 'database', list: 'starter-inventory', path: ['starter-inventory'], shared: true },
 
             { type: 'environment', list: 'levels', path: ['level-1', 'level-2'] },

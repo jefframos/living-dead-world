@@ -218,7 +218,7 @@ export default class UIUtils {
         const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 120, 65);
         button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
- 
+
 
 
         const buttonList = new UIList();
@@ -229,12 +229,12 @@ export default class UIUtils {
         button.labelButtonValue = UIUtils.getPrimaryLabel('free')
         button.currencyButtonIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
 
-        buttonList.addElement(button.labelButtonValue, {align:1, listScl:0.5, fitHeight:0.7})
-        buttonList.addElement(button.currencyButtonIcon , {align:0, listScl:0.5, fitHeight:0.7})
+        buttonList.addElement(button.labelButtonValue, { align: 1, listScl: 0.5, fitHeight: 0.7 })
+        buttonList.addElement(button.currencyButtonIcon, { align: 0, listScl: 0.5, fitHeight: 0.7 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
-        
+
         buttonList.updateHorizontalList()
 
 
@@ -253,14 +253,15 @@ export default class UIUtils {
         buttonList.w = 120
         buttonList.h = 65
 
-        
 
-        buttonList.addElement(UIUtils.getPrimaryLabel('free'), {align:1, scaleContentMax:true, fitWidth:0.9})
-        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), {align:0, scaleContentMax:true, fitWidth:0.9})
+        const priceLabel = UIUtils.getPrimaryLabel('free')
+        button.priceLabel = priceLabel;
+        buttonList.addElement(priceLabel, { align: 1, scaleContentMax: true, fitWidth: 0.9 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0, scaleContentMax: true, fitWidth: 0.9 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
-        
+
         buttonList.updateHorizontalList()
         return button;
     }
@@ -347,7 +348,7 @@ export default class UIUtils {
             case 'baseSpeed':
                 return 'ico_speed'
             case 'baseHealth':
-                return 'ico_health'
+                return 'interrogation'
         }
 
 
@@ -376,11 +377,15 @@ export default class UIUtils {
                 return 'heart'
             case 'specialCurrency':
                 return 'ray'
+            case 'wearable-lock':
+                return 'interrogation'
+            case 'close':
+                return 'x-icon'
         }
 
 
         console.log(type)
-        return 'icon-help'
+        return 'interrogation'
     }
 
 }

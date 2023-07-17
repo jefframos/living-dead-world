@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
 import PrizeManager from '../../../data/PrizeManager';
 import RewardsManager from '../../../data/RewardsManager';
@@ -28,15 +29,18 @@ export default class RouletteView extends PIXI.Container {
 
         this.spinVideoButton = UIUtils.getPrimaryLargeLabelButton(() => {
             RewardsManager.instance.doReward(() => {
-                     this.spin(Math.random() + 0.65);
+                this.spin(Math.random() + 0.65);
             })
         }, 'Free', UIUtils.getIconUIIcon('video'))
         this.spinVideoButton.updateBackTexture('square_button_0003')
         this.container.addChild(this.spinVideoButton);
-
+        this.rollPrice = 200
         this.spinMoneyButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            this.spin(Math.random() + 0.65);
-        }, 'x200', UIUtils.getIconUIIcon('softCurrency'))
+            if (GameData.instance.softCurrency >= this.rollPrice) {
+                GameData.instance.addSoftCurrency(-this.rollPrice)
+                this.spin(Math.random() + 0.65);
+            }
+        }, 'x' + this.rollPrice, UIUtils.getIconUIIcon('softCurrency'))
         this.spinMoneyButton.updateBackTexture('square_button_0002')
         this.container.addChild(this.spinMoneyButton);
 
@@ -103,6 +107,7 @@ export default class RouletteView extends PIXI.Container {
     show() {
         this.spinVideoButton.visible = true;
         this.spinMoneyButton.visible = true;
+        this.checkButtons()
     }
     calculatePrize() {
         let foundlings = [];
@@ -153,6 +158,7 @@ export default class RouletteView extends PIXI.Container {
         setTimeout(() => {
             this.spinVideoButton.visible = true;
             this.spinMoneyButton.visible = true;
+            this.checkButtons()
         }, 2000);
 
     }
@@ -167,9 +173,19 @@ export default class RouletteView extends PIXI.Container {
         this.spinVideoButton.visible = false;
         this.spinMoneyButton.visible = false;
     }
+    checkButtons() {
+        if (GameData.instance.softCurrency >= this.rollPrice) {
+            this.spinMoneyButton.alpha = 1
+        } else {
+            this.spinMoneyButton.alpha = 0.5
+
+        }
+    }
     update(delta) {
         this.slots.forEach(element => {
             element.update(delta);
         });
+
+
     }
 }

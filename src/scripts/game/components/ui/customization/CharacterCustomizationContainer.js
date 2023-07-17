@@ -386,7 +386,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
                         }
                     } else {
-                        slot.addIcon('icon-question', 50)
+                        slot.addIcon(UIUtils.getIconUIIcon('wearable-lock'), 50)
 
                     }
                     this.currentShowingItems.push(slot)

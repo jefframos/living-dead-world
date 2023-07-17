@@ -15,10 +15,12 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.addScreenBlocker();
 
+       
+
         this.topBlocker = new PIXI.Sprite.from('base-gradient');
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
         //this.topBlocker.tint = 0x851F88;
-        this.topBlocker.tint = 0x00ffbf;
+        this.topBlocker.tint = 0;
         this.topBlocker.scale.y = -1
         this.addChildAt(this.topBlocker, 0);
 
@@ -30,6 +32,11 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.container.addChild(this.prizesContainer);
 
 
+        this.blackout = UIUtils.getRect(0, 100, 100)
+        this.blackout.alpha = 0.8
+        this.addChildAt(this.blackout, 0);
+
+        
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.hide()
         }, 'collect')
@@ -48,7 +55,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.shine.alpha = 0.5
 
 
-        this.prizeBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
+        this.prizeBox = new PIXI.Sprite()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.infoBackContainer.addChild(this.prizeBox);
 
         this.congratulationsLabel = UIUtils.getSpecialLabel2('Collect your prize!', { fontSize: 32 })
@@ -59,8 +66,16 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
     }
     addBackgroundShape() {
-        this.modalTexture = 'modal_container0003';
+        this.modalTexture = null;
         super.addBackgroundShape();
+
+    }
+    recenterContainer() {
+        this.container.pivot.x = this.container.width / 2
+        this.container.x = Game.Borders.width/ 2
+        
+        this.container.pivot.y = this.container.height / 2
+        this.container.y = Game.Borders.height / 2 - 80
 
     }
     resize(res, newRes) {
@@ -76,6 +91,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.blocker.width = Game.Borders.width
         this.blocker.height = Game.Borders.height
 
+        this.blackout.width = Game.Borders.width
+        this.blackout.height = Game.Borders.height
 
         this.topBlocker.width = Game.Borders.width
         this.topBlocker.height = Game.Borders.height
@@ -91,7 +108,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height - 10
 
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
-        this.congratulationsLabel.y = this.infoBackContainer.height / 4 - 40
+        this.congratulationsLabel.y = this.infoBackContainer.height / 2 - 100
 
         this.shine.x = this.infoBackContainer.width / 2
         this.shine.y = this.congratulationsLabel.y
@@ -107,7 +124,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             let entityData = null;
             let texture = '';
 
-            console.log('showPrize' ,element, data)
+            //console.log('showPrize' ,element, data)
 
             switch (element) {
                 case PrizeManager.PrizeType.Coin:
@@ -147,7 +164,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         }
         let col = 0
         let ln = 0
-        const speed = 1.25;
+        const speed = Math.min(1.25, drawPrizes.length*0.2);
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
@@ -182,7 +199,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             }
 
             prize.alpha = 0;
-            TweenLite.to(prize, 0.5, {
+            TweenLite.to(prize, 0.25, {
                 delay: i * speed / drawPrizes.length, alpha: 1, onStart: () => {
                     this.prizesContainer.addChild(prize)
                 }
@@ -192,11 +209,11 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.collectButton.visible = false;
         this.collectButton.alpha = 0;
+        this.resize()
         setTimeout(() => {
             this.collectButton.visible = true;
 
-            this.collectButton.y = this.infoBackContainer.height - 50;
-            TweenLite.to(this.collectButton, 0.5, { alpha: 1, y: this.infoBackContainer.height + 10, ease: Back.easeOut })
+            TweenLite.to(this.collectButton, 0.5, { alpha: 1, ease: Back.easeOut })
         }, speed * 500 + 250);
     }
     update(delta) {

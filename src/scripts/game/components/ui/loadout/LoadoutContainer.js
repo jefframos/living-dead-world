@@ -62,7 +62,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.onUpdateMainWeapon = new signals.Signal();
         this.weaponsScroller = new BodyPartsListScroller({ w: this.slotSize * 4, h: this.slotSize }, { width: this.slotSize + 10, height: this.slotSize + 10 }, { x: 10, y: 10 })
         this.contentContainer.addChild(this.weaponsScroller);
-
+        this.weaponsScroller.addBaseGradient('base-gradient')
         this.equippableWeapons = [];
 
         this.slotsList = new UIList();
@@ -550,7 +550,7 @@ export default class LoadoutContainer extends MainScreenModal {
         } else {
 
             this.weaponsScroller.gridDimensions.j = Math.floor((Game.Borders.width - 130) / this.weaponsScroller.scale.x / (this.slotSize + margin))
-            this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: ((Game.Borders.height / 2) / this.weaponsScroller.scale.y - 130) }, { width: this.slotSize + margin, height: this.slotSize + margin })
+            this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: ((Game.Borders.height / 2) / this.weaponsScroller.scale.y -75) }, { width: this.slotSize + margin, height: this.slotSize + margin })
         }
         this.weaponsScroller.addItens(this.currentSlots)
 

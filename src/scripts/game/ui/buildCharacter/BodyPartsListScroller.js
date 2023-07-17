@@ -25,7 +25,7 @@ export default class BodyPartsListScroller extends ListScroller {
         //this.title.y= -50
     }
 
-    addBaseGradient(texture, width, color) {
+    addBaseGradient(texture, width, color = 0x312d2d) {
         this.extraHeight = 30
         this.baseGradient = new PIXI.Sprite.from(texture);
         this.baseGradient.tint = color;

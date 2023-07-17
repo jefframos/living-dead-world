@@ -333,7 +333,7 @@ export default class LevelManager {
         if(Game.IsPortrait){
             this.gameEngine.camera.targetZoom = 1.5;
         }else{
-            this.gameEngine.camera.targetZoom = 1.25;
+            this.gameEngine.camera.targetZoom = 1;
 
         }
 
