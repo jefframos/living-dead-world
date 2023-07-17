@@ -65,14 +65,45 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Wearable,
         })
 
-        this.mainPrizePool = [0,1,2,3,4,6]
-        this.mainPrizePoolNoWearable = [0,1,2,3,4]
+
+        this.cassinoList = [];
+        this.cassinoList.push({
+            icon: 'pistol1-icon',
+            type: PrizeManager.PrizeType.Weapon,
+        })
+        this.cassinoList.push({
+            icon: 'pet-dog-10001',
+            type: PrizeManager.PrizeType.Companion
+        })
+        this.cassinoList.push({
+            icon: 'dynamic-shoe-icon0001',
+            type: PrizeManager.PrizeType.Shoe
+        })
+        this.cassinoList.push({
+            icon: 'trinket-icon0001',
+            type: PrizeManager.PrizeType.Trinket
+        })
+        this.cassinoList.push({
+            icon: 'coin3l',
+            type: PrizeManager.PrizeType.Coin,
+        })
+
+        this.mainPrizePool = [0, 1, 2, 3, 4, 6]
+        this.mainPrizePoolNoWearable = [0, 1, 2, 3, 4]
     }
     get metaPrizeList() {
         return this.prizeList;
     }
-    getMetaLowerPrize() {
-        this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round((30 + Math.random() * 30))] })
+    get cassinoPrizeList() {
+        return this.cassinoList;
+    }
+    getMetaLowerPrize(amount) {
+        amount++
+        const coinValue = Math.round((30 + Math.random() * (30)) * (amount * amount * amount))
+        GameData.instance.addSoftCurrency(coinValue)
+
+        
+        this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [coinValue] })
     }
     getWearable() {
         const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
@@ -85,14 +116,14 @@ export default class PrizeManager {
         let pool = this.mainPrizePool;
 
         const canCosmetic = ViewDatabase.instance.canGetPiece()
-        if(!canCosmetic){
+        if (!canCosmetic) {
             pool = this.mainPrizePoolNoWearable;
 
             //REMOVE WEARABLE FROM THE LIST
-            prizeId = prizeId.filter(function(item) {
+            prizeId = prizeId.filter(function (item) {
                 return item !== 6
             })
-            
+
         }
         for (let index = 0; index < total; index++) {
             let id = prizeId[Math.floor(Math.random() * prizeId.length)]
@@ -101,7 +132,6 @@ export default class PrizeManager {
             }
             itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel))
         }
-        //console.log(itemPrizeList)
         const types = [];
         itemPrizeList.forEach(element => {
             if (element.type == PrizeManager.PrizeType.Coin) {
@@ -113,15 +143,17 @@ export default class PrizeManager {
             } else if (element.type == PrizeManager.PrizeType.MasterKey) {
                 GameData.instance.addSpecialCurrency(element.value)
 
-            } else if (element.type == PrizeManager.PrizeType.Wearable) {   
-                ViewDatabase.instance.saveWardrobePiece(element.value.area, element.value.id)               
+            } else if (element.type == PrizeManager.PrizeType.Wearable) {
+                ViewDatabase.instance.saveWardrobePiece(element.value.area, element.value.id)
             }
             else {
+                
                 GameData.instance.addToInventory(element.type, element)
             }
             types.push(element.type)
         });
 
+        
         const prizeData = { type: types, value: itemPrizeList }
         if (dispatch) {
             this.onGetMetaPrize.dispatch(prizeData)
@@ -153,7 +185,7 @@ export default class PrizeManager {
 
         switch (type) {
             case PrizeManager.PrizeType.Coin:
-                return { type: PrizeManager.PrizeType.Coin, value: Math.round((50 + Math.random() * 5) * (maxLevel * maxLevel)) }
+                return { type: PrizeManager.PrizeType.Coin, value: Math.round((150 + Math.random() * 5) * ((maxLevel + 1) * maxLevel)) }
 
             case PrizeManager.PrizeType.Key:
                 if (maxLevel == 2) {

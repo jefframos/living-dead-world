@@ -117,6 +117,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
     }
 
     showPrize(data) {
+        console.log(data)
+
         let drawPrizes = [];
         for (let index = 0; index < data.type.length; index++) {
             const element = data.type[index];
@@ -177,11 +179,18 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             } else {
 
-
                 prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                 prize.setIcon(element.texture, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
+
+                if ( typeof element.value == 'number' ){
+
+                    prize.valueLabel.text = element.value
+                }else{
+                    
+                    prize.valueLabel.text = element.value.value
+                }
 
               //  prize = new PIXI.Sprite.from(element.texture)
                // prize.scale.set(Utils.scaleToFit(prize, 70))

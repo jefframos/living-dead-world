@@ -95,12 +95,12 @@ export default class RouletteContainer extends MainScreenModal {
     givePrize(type, id, amount) {
         if (type === 0) {
             setTimeout(() => {
-                PrizeManager.instance.getMetaLowerPrize();
+                PrizeManager.instance.getMetaLowerPrize(amount);
             }, 1000);
         } else {
 
             setTimeout(() => {
-                PrizeManager.instance.getMetaPrize([id], amount);
+                PrizeManager.instance.getMetaPrize([id], amount, amount-1);
             }, 1000);
         }
     }

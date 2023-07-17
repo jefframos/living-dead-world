@@ -295,11 +295,13 @@ export default class Player extends GameAgent {
         let weaponData = inGameWeapon.mainWeapon
         weaponData.baseLevel = this.baseMainWeaponLevel
 
-        console.log(this.attributes.totalMain)
+        console.log('this.attributes.totalMain', weaponData)
 
         let first = null
 
-        const t = 1
+        const t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;
+
+        
         for (let index = 0; index < t; index++) {
            
             let weapon = this.engine.poolGameObject(weaponData.customConstructor)
@@ -307,14 +309,14 @@ export default class Player extends GameAgent {
                 first = weapon;
             }
             this.addChild(weapon)
-            //weapon.setIdOffset(index)
             this.weaponsGameObject.push(weapon);
-    
+            
             this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power
             this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
             this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical
             
             weapon.build(weaponData)
+            weapon.setIdOffset(index, t)
         }
 
 

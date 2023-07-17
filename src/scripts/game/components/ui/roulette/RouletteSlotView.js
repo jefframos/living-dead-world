@@ -105,7 +105,7 @@ export default class RouletteSlotView extends PIXI.Container {
 
         this.spinning = true;
 
-        this.spinSpeed = 1000 + Math.random() * 200;
+        this.spinSpeed = 2000 + Math.random() * 200;
 
         this.curveTimer = time + Math.random();
         this.curveCurrentTime = 0;
@@ -114,7 +114,9 @@ export default class RouletteSlotView extends PIXI.Container {
         this.spinning = false;
         const distNormal = Math.max(0.2, Utils.distance(this.offset, 0, this.slotHeight, 0) / this.slotHeight)
         TweenLite.to(this, (3 * distNormal), { offset: this.slotHeight * 0.5, ease: Elastic.easeOut })
-        this.centerDataIndex = (this.currentSpotId + 1) % this.prizes.length;        this.onFinishSpin.dispatch(this.id, this.centerDataIndex);
+        this.centerDataIndex = (this.currentSpotId + 1) % this.prizes.length;     
+        console.log(this.id, this.centerDataIndex)   
+        this.onFinishSpin.dispatch(this.id, this.centerDataIndex);
     }
     shouldContinueSpinning() {
 

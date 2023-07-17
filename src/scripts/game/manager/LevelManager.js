@@ -260,7 +260,12 @@ export default class LevelManager {
     }
 
     entityKilled(health, value) {
-        if (Math.random() > 0.9) return;
+        // if(health.gameObject instanceof BaseEnemy){
+        //     if(health.gameObject.staticData){
+        //         console.log(health.gameObject.staticData.entityData.tier)
+        //     }
+        // }
+        if (Math.random() > 0.6) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
@@ -338,7 +343,7 @@ export default class LevelManager {
         }
 
         //using a fixed value
-        this.enemyGlobalSpawner.distanceToSpawn = 800//Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
+        this.enemyGlobalSpawner.distanceToSpawn = 500//Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
         this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase

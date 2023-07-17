@@ -141,7 +141,7 @@ export default class WeaponInGameView extends GameObject {
             if (index >= this.spriteList.length) continue;
             const element = this.currentBulletList[index];
             const spriteElement = this.spriteList[index];
-            spriteElement.targetAngle = element.angle;
+            spriteElement.targetAngle = element.angle + this.offsetAngle;
             spriteElement.spring.x = 0.5;
             spriteElement.spring.tx = 1;
 
@@ -152,6 +152,7 @@ export default class WeaponInGameView extends GameObject {
         if (this.weapon.ingameViewDataStatic.shootAnimation.active) {
             this.spritesheetAnimation.playSequence('shoot', 'default')
         }
+
     }
     calcAngle() {
         if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentAngle) {
@@ -169,23 +170,26 @@ export default class WeaponInGameView extends GameObject {
                 }
                 let ang = finalAng + this.weapon.weaponAttributes.angleStart;
 
-                this.spriteList[index].targetAngle = ang;
+                this.spriteList[index].targetAngle = ang + this.offsetAngle;
             }
         } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.FacingPlayer || this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.Hoaming) {
             const totalBullets = this.spriteList.length;
             for (let index = 0; index < totalBullets; index++) {
-                this.spriteList[index].targetAngle = this.parent.facingAngle;
+                this.spriteList[index].targetAngle = this.parent.facingAngle + this.offsetAngle;
             }
         } else if (this.weapon.weaponAttributes.directionType == WeaponAttributes.DirectionType.ParentDirection) {
             const totalBullets = this.spriteList.length;
             for (let index = 0; index < totalBullets; index++) {
-                this.spriteList[index].targetAngle = this.parent.parent.latestAngle;
+                this.spriteList[index].targetAngle = this.parent.parent.latestAngle + this.offsetAngle;
             }
         }
     }
 
     update(delta) {
         delta *= Eugine.PhysicsTimeScale;
+
+        this.offsetAngle = this.parent.offsetAngle
+
         for (let index = 0; index < this.currentBulletList.length; index++) {
             if (index >= this.spriteList.length) continue;
 
@@ -222,7 +226,7 @@ export default class WeaponInGameView extends GameObject {
 
             this.x = this.parent.transform.position.x
             this.z = this.parent.transform.position.z;
-            if (up || this.isAlwaysUp) {
+            if (up || (this.isAlwaysUp && this.offsetAngle == 0)) {
                 this.z = this.parent.transform.position.z +1// this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
             } else {
                 this.z  = this.parent.transform.position.z -1;//this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)

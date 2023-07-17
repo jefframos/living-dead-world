@@ -15,7 +15,9 @@ import InputModule from "../../core/modules/InputModule";
 import InteractableView from "../../view/card/InteractableView";
 import Player from "../../entity/Player";
 import RenderModule from "../../core/modules/RenderModule";
+import RewardsManager from "../../data/RewardsManager";
 import SpriteButton from "../ui/SpriteButton";
+import UIList from "../../ui/uiElements/UIList";
 import UIUtils from "../../utils/UIUtils";
 import Utils from "../../core/utils/Utils";
 import conversionUtils from "../../../conversionUtils";
@@ -30,11 +32,12 @@ export default class SurvivorDeckController extends GameObject {
         this.gameView.view = new PIXI.Container();
 
 
-        this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(-5000, -5000, 10000, 10000)
+        this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(0, 0, 10000, 10000)
         this.gameView.view.addChild(this.backShape)
         this.backShape.tint = 0
-        this.backShape.alpha = 0.8
+        this.backShape.alpha = 0.9
         this.onConfirmLoudout = new signals.Signal();
+        this.onReshuffle = new signals.Signal();
 
         this.blocker = new PIXI.Sprite.from('base-gradient');
         this.blocker.width = 1000
@@ -53,19 +56,69 @@ export default class SurvivorDeckController extends GameObject {
         this.gameView.view.addChild(this.cardsContainer)
         this.gameView.view.addChild(this.transitionContainer)
 
-        
+        this.uiButtons = new UIList();
+        this.uiButtons.w = 420
+        this.uiButtons.h = 80
+
+        this.pickAll = UIUtils.getPrimaryVideoButton(() => {
+            RewardsManager.instance.doReward(() => {
+                this.pickAllCards()
+            })
+        })
+        this.uiButtons.addElement(this.pickAll)
+
+        this.pickAll.resize(200, 80)
+        this.pickAll.updateBackTexture(UIUtils.baseButtonTexture + '_0002')
+        this.pickAll.priceLabel.text = "Pick All"
+        this.pickAll.buttonListContent.w = 160
+        this.pickAll.buttonListContent.h = 60
+        this.pickAll.buttonListContent.updateHorizontalList()
+        this.pickAll.buttonListContent.x = 200 / 2 - this.pickAll.buttonListContent.w / 2
+        this.pickAll.buttonListContent.y = 80 / 2 - this.pickAll.buttonListContent.h / 2
+
+        this.reshuffle = UIUtils.getPrimaryVideoButton(() => {
+            RewardsManager.instance.doReward(() => {
+                this.reshuffleDeck()
+            })
+        }, "Reshuffle")
+
+        this.reshuffle.resize(200, 80)
+        this.reshuffle.updateBackTexture(UIUtils.baseButtonTexture + '_0002')
+        this.reshuffle.priceLabel.text = "Reshuffle"
+        this.reshuffle.buttonListContent.w = 160
+        this.reshuffle.buttonListContent.h = 60
+        this.reshuffle.buttonListContent.updateHorizontalList()
+        this.reshuffle.buttonListContent.x = 200 / 2 - this.reshuffle.buttonListContent.w / 2
+        this.reshuffle.buttonListContent.y = 80 / 2 - this.reshuffle.buttonListContent.h / 2
+
+
+        this.uiButtons.addElement(this.reshuffle)
+
+
+        this.gameView.view.addChild(this.uiButtons)
+
         this.handCards = [];
-        
+
         this.highlightedCard = null;
-        
-        this.cardWidth = 190
+
+        this.cardWidth = 170
         this.cardHeight = 450
-        this.cardDistance = 220
-        this.cardContainerMaxWidth = 650
-        
+        this.cardDistance = 190
+        this.cardContainerMaxWidth = 720
+
         this.state = 0;
     }
+    pickAllCards() {
+        //this.handCards
 
+        this.handCards.forEach(element => {
+            this.holdingData = element.cardData
+            this.pickCard(element.cardData);
+        });
+    }
+    reshuffleDeck() {
+        this.onReshuffle.dispatch();
+    }
     start() {
         super.start();
         this.input = this.engine.findByType(InputModule)
@@ -80,7 +133,7 @@ export default class SurvivorDeckController extends GameObject {
 
         //this.gridView.updateEquipment(data);
     }
-    buildCards(data, totalCards = 3) {
+    buildCards(data, totalCards = 3, pickAll, reshffleUses) {
 
         for (let i = this.handCards.length - 1; i >= 0; i--) {
             if (this.handCards[i].parent) {
@@ -111,14 +164,14 @@ export default class SurvivorDeckController extends GameObject {
                     dt = EntityBuilder.instance.getAcessory(data[i].acessoryId)
 
                     break;
-                    case EntityData.EntityDataType.WeaponAttachment:
+                case EntityData.EntityDataType.WeaponAttachment:
                     dt = EntityBuilder.instance.getWeapon(data[i].weaponId)
                     dt.setAsAttachment();
                     break;
             }
 
 
-            let cardView = new CardView( UIUtils.baseButtonTexture+'_0006', this.cardWidth, this.cardHeight);
+            let cardView = new CardView(UIUtils.baseButtonTexture + '_0006', this.cardWidth, this.cardHeight);
             this.cardsContainer.addChild(cardView);
             cardView.id = i;
             cardView.zIndex = i;
@@ -139,7 +192,7 @@ export default class SurvivorDeckController extends GameObject {
                         this.highlightCard(card)
                     }
                 }
-                
+
             })
             cardView.onCardConfirmed.add((card) => {
                 this.highlightCard(card)
@@ -154,6 +207,24 @@ export default class SurvivorDeckController extends GameObject {
         this.cardsContainer.x = Game.Screen.width / 2
         //this.cardsContainer.addChild(UIUtils.getCircle());
 
+
+        this.uiButtons.removeAllElements();
+        this.pickAll.visible = pickAll < 0.2
+        this.reshuffle.visible = reshffleUses > 0
+        if (this.pickAll.visible) {
+            this.uiButtons.addElement(this.pickAll)
+        }
+        if (this.reshuffle.visible) {
+            this.uiButtons.addElement(this.reshuffle)
+        }
+        this.reshuffle.priceLabel.text = "Reshuffle\n(" + reshffleUses + ")"
+        this.reshuffle.buttonListContent.updateHorizontalList()
+        this.uiButtons.updateHorizontalList()
+
+        TweenLite.killTweensOf(this.uiButtons)
+        this.uiButtons.alpha = 0
+        TweenLite.to(this.uiButtons, 0.5, { delay: 0.5, alpha: 1 })
+
     }
     pickCard(card) {
         //this.player.sessionData.addEquipment
@@ -161,16 +232,18 @@ export default class SurvivorDeckController extends GameObject {
 
         let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
 
+        let data = weaponData
         if (weaponData) {
             this.player.sessionData.addEquipmentNEW(weaponData);
         } else {
+            data = this.holdingData.clone()
             this.player.sessionData.addEquipmentNEW(this.holdingData.clone());
         }
 
         this.state = 0;
         this.destroyHighlighted();
 
-        this.onConfirmLoudout.dispatch()
+        this.onConfirmLoudout.dispatch(data)
 
     }
     highlightCard(card) {
@@ -233,13 +306,27 @@ export default class SurvivorDeckController extends GameObject {
         }
 
         this.cardsContainer.x = Game.Borders.width * 0.5
-        this.cardsContainer.y = Game.Borders.height * 0.5
+        this.cardsContainer.y = Game.Borders.height * 0.5 - 50
         this.transitionContainer.x = this.cardsContainer.x;
         this.transitionContainer.y = this.cardsContainer.y;
 
 
 
-        this.backShape.alpha = Utils.lerp(this.backShape.alpha, 0.4, 0.1)
+        this.backShape.alpha = Utils.lerp(this.backShape.alpha, 0.9, 0.1)
+
+        this.blocker.width = Game.Borders.width;
+        this.blocker.height = Game.Borders.height;
+
+        this.backShape.width = Game.Borders.width;
+        this.backShape.height = Game.Borders.height;
+
+
+        this.uiButtons.x = Game.Borders.width / 2 - this.uiButtons.w / 2
+        this.uiButtons.y = Game.Borders.height - this.uiButtons.height - 40
+
+        if (Game.IsPortrait) {
+            this.uiButtons.y -= 80
+        }
 
     }
     aspectChange(isPortrait) {
@@ -254,9 +341,6 @@ export default class SurvivorDeckController extends GameObject {
     resize() {
 
         this.cardsContainer.x = Game.Borders.width * 0.5
-
-        this.blocker.width = Game.Borders.width;
-        this.blocker.height = Game.Borders.height;
     }
 
     disable() {
@@ -268,5 +352,6 @@ export default class SurvivorDeckController extends GameObject {
         super.enable();
         this.backShape.alpha = 0;
         this.gameView.view.visible = true;
+        this.uiButtons.updateHorizontalList()
     }
 }

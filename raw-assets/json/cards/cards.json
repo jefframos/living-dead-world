@@ -111,7 +111,7 @@
     },
     {
         "id": "FIREBALL_HOAMING_CARD",
-        "starter": false,
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },
@@ -201,7 +201,7 @@
     },
     {
         "id": "LASER_CARD",
-        "starter": false,
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },

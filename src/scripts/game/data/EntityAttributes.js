@@ -15,7 +15,7 @@ export default class EntityAttributes {
         this.baseCollectionRadius = 50;
         this.baseEvasion = 0;
         this.baseCritical = 0;
-        this.baseTotalMain = 0;
+        this.baseTotalMain = 1;
         this.level = 0;
 
         if (overrideDetaultValue != undefined) {
@@ -42,7 +42,7 @@ export default class EntityAttributes {
         this.baseCollectionRadius = 0;
         this.baseEvasion = 0;
         this.baseCritical = 0;
-        this.baseTotalMain = 0;
+        this.baseTotalMain = 1;
         this.level = 0;
 
         this.writeDefaults();
@@ -115,7 +115,7 @@ export default class EntityAttributes {
         return this.findAttributeValue('baseDistance') * this.multipliers.distance;
     }
     get totalMain() {
-        return this.findAttributeValue('baseTotalMain');
+        return  this.multipliers.totalMain;
     }
     get health() {
         return this.findAttributeValue('baseHealth') * this.multipliers.health;

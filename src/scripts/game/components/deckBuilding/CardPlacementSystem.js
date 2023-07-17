@@ -15,10 +15,12 @@ export default class CardPlacementSystem {
         this.deckView = deckView;
 
         this.deckView.onConfirmLoudout.add(this.onCardEquipped.bind(this))
+        this.deckView.onReshuffle.add(this.onReshuffle.bind(this))
         this.cardPlacementView = cardPlacementView;
         this.enabled = false;
         this.player = null;
-
+        this.pickedCardsList = [];
+        this.typesPickedCardsList = [];
         this.onHide = new signals.Signal();
 
     }
@@ -26,18 +28,34 @@ export default class CardPlacementSystem {
 
     }
     onCardEquipped(cardData) {
-        //let currentID = 0;
-        // this.player.activeWeapons.forEach(element => {
-        //     if (element.stackWeapons.length >= 3) {
-        //         currentID++;
-        //     }
-        // });
-        // this.player.addWeaponData(EntityBuilder.instance.weaponsData[cardData.id], currentID);
         this.deckView.setActive(false)
         this.hide();
+
+
+        if (!this.pickedCardsList[cardData.entityData.type]) {
+            this.pickedCardsList[cardData.entityData.type] = [];
+        }
+
+        if (this.pickedCardsList[cardData.entityData.type][cardData.id]) {
+            this.pickedCardsList[cardData.entityData.type][cardData.id]++
+        } else {
+
+            this.pickedCardsList[cardData.entityData.type][cardData.id] = 1;
+            if (!this.typesPickedCardsList[cardData.entityData.type]) {
+                this.typesPickedCardsList[cardData.entityData.type] = 1
+            } else {
+                this.typesPickedCardsList[cardData.entityData.type]++
+            }
+        }
+    }
+    onReshuffle() {
+        this.reshufleUses --;
+        this.show()
     }
     setPlayer(player) {
         this.player = player;
+        this.pickedCardsList = [];
+        this.reshufleUses = 1;
         this.deckView.setPlayer(this.player)
     }
     setWeapons(weapons) {
@@ -51,6 +69,8 @@ export default class CardPlacementSystem {
 
         console.log(this.currentData)
 
+
+
         this.currentData.push({
             id: this.player.sessionData.mainWeapon.id,
             entityData: {
@@ -60,34 +80,48 @@ export default class CardPlacementSystem {
             starter: true
         })
 
-        
+
         Utils.shuffle(this.currentData)
         let starters = [];
 
-        starters.push({
-            id: this.player.sessionData.mainWeapon.id,
-            entityData: {
-                type: 'Weapon'
-            },
-            weaponId: this.player.sessionData.mainWeapon.id,
-            starter: true
-        })
-        starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
+        // starters.push({
+        //     id: this.player.sessionData.mainWeapon.id,
+        //     entityData: {
+        //         type: 'Weapon'
+        //     },
+        //     weaponId: this.player.sessionData.mainWeapon.id,
+        //     starter: true
+        // })
+
+        // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
+         starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
+
+        // console.log(this.typesPickedCardsList)
+        // console.log(this.pickedCardsList)
 
         for (let index = this.currentData.length - 1; index >= 0; index--) {
-            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable){// && starters.length< 3) {
-                starters.push(this.currentData[index]);
+            if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable) {
+                const cardType = this.currentData[index].entityData.type
+                const cardId = this.currentData[index].id
+                //if there is 4 of the same card type
+                if (!this.typesPickedCardsList[cardType] || this.typesPickedCardsList[cardType] < 5) {
+
+                    //if there is 5 of the same card
+                    if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
+                        starters.push(this.currentData[index]);
+                    } else {
+                        //console.log('cant',this.pickedCardsList[cardType] ,cardId)
+                    }
+                }
             }
             if (this.currentData[index] && !this.currentData[index].enabled) {
                 this.currentData.splice(index, 1);
             }
         }
-        // starters.unshift(GameStaticData.instance.getDataById('cards','cards', 'ORBIT_CARD'))
-        // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
-        // console.log(this.player.sessionData, starters)
-        //this.deckView.buildCards(this.currentData)
-        console.log(starters)
-        this.deckView.buildCards(starters)
+
+
+
+        this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses)
 
         this.deckView.setActive(true)
         this.cardPlacementView.setActive(true)

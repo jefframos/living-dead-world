@@ -293,7 +293,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "uniformParsers", function() { return __WEBPACK_IMPORTED_MODULE_5__pixi_core__["R"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_extract__ = __webpack_require__(125);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Extract", function() { return __WEBPACK_IMPORTED_MODULE_6__pixi_extract__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(74);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AppLoaderPlugin", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["a"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Loader", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["b"]; });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "LoaderResource", function() { return __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__["c"]; });
@@ -392,7 +392,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "SimpleRope", function() { return __WEBPACK_IMPORTED_MODULE_28__pixi_mesh_extras__["f"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pixi_runner__ = __webpack_require__(124);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Runner", function() { return __WEBPACK_IMPORTED_MODULE_29__pixi_runner__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__ = __webpack_require__(66);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "Sprite", function() { return __WEBPACK_IMPORTED_MODULE_30__pixi_sprite__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__ = __webpack_require__(205);
 /* harmony namespace reexport (by provided) */ __webpack_require__.d(__webpack_exports__, "AnimatedSprite", function() { return __WEBPACK_IMPORTED_MODULE_31__pixi_sprite_animated__["a"]; });
@@ -2848,7 +2848,7 @@ var UIUtils = function () {
             var priceLabel = UIUtils.getPrimaryLabel('free');
             button.priceLabel = priceLabel;
             buttonList.addElement(priceLabel, { align: 1, scaleContentMax: true, fitWidth: 0.9 });
-            buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0, scaleContentMax: true, fitWidth: 0.9 });
+            buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitWidth: 0.8 });
 
             button.addChild(buttonList);
             button.buttonListContent = buttonList;
@@ -2961,7 +2961,7 @@ var UIUtils = function () {
                     return 'interrogation';
             }
 
-            console.log(attribute);
+            console.log('NO Icon For', attribute);
             return 'icon-help';
         }
     }, {
@@ -3416,7 +3416,7 @@ var _Layer = __webpack_require__(24);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsModule = __webpack_require__(80);
+var _PhysicsModule = __webpack_require__(81);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -15673,7 +15673,7 @@ var _CircularBullet = __webpack_require__(300);
 
 var _CircularBullet2 = _interopRequireDefault(_CircularBullet);
 
-var _CompanionData = __webpack_require__(84);
+var _CompanionData = __webpack_require__(85);
 
 var _CompanionData2 = _interopRequireDefault(_CompanionData);
 
@@ -15701,7 +15701,7 @@ var _GravityBullet = __webpack_require__(304);
 
 var _GravityBullet2 = _interopRequireDefault(_GravityBullet);
 
-var _InGameWeapon = __webpack_require__(81);
+var _InGameWeapon = __webpack_require__(82);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
@@ -15733,11 +15733,11 @@ var _WeaponAttachmentData = __webpack_require__(309);
 
 var _WeaponAttachmentData2 = _interopRequireDefault(_WeaponAttachmentData);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _WeaponData = __webpack_require__(72);
+var _WeaponData = __webpack_require__(73);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -19573,11 +19573,11 @@ var _GameStaticData = __webpack_require__(15);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _InGameWeapon = __webpack_require__(81);
+var _InGameWeapon = __webpack_require__(82);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
-var _InputModule = __webpack_require__(83);
+var _InputModule = __webpack_require__(84);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -19589,7 +19589,7 @@ var _LevelManager = __webpack_require__(42);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _PhysicsModule = __webpack_require__(80);
+var _PhysicsModule = __webpack_require__(81);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -19597,7 +19597,7 @@ var _PlayerGameViewSpriteSheet = __webpack_require__(111);
 
 var _PlayerGameViewSpriteSheet2 = _interopRequireDefault(_PlayerGameViewSpriteSheet);
 
-var _PlayerHalo = __webpack_require__(82);
+var _PlayerHalo = __webpack_require__(83);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
@@ -19909,11 +19909,12 @@ var Player = function (_GameAgent) {
             var weaponData = inGameWeapon.mainWeapon;
             weaponData.baseLevel = this.baseMainWeaponLevel;
 
-            console.log(this.attributes.totalMain);
+            console.log('this.attributes.totalMain', weaponData);
 
             var first = null;
 
-            var t = 1;
+            var t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;
+
             for (var index = 0; index < t; index++) {
 
                 var weapon = this.engine.poolGameObject(weaponData.customConstructor);
@@ -19921,7 +19922,6 @@ var Player = function (_GameAgent) {
                     first = weapon;
                 }
                 this.addChild(weapon);
-                //weapon.setIdOffset(index)
                 this.weaponsGameObject.push(weapon);
 
                 this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power;
@@ -19929,6 +19929,7 @@ var Player = function (_GameAgent) {
                 this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical;
 
                 weapon.build(weaponData);
+                weapon.setIdOffset(index, t);
             }
 
             this.weaponShootBar.setWeapon(first);
@@ -20119,7 +20120,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _CookieManager = __webpack_require__(66);
+var _CookieManager = __webpack_require__(67);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
@@ -20243,6 +20244,7 @@ var GameData = function () {
     }, {
         key: "addToInventory",
         value: function addToInventory(type, item) {
+            console.log('addToInventory', type, item);
             _CookieManager2.default.instance.addToInventory(type, item);
         }
     }, {
@@ -23091,7 +23093,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _EntityMultipliers = __webpack_require__(78);
+var _EntityMultipliers = __webpack_require__(79);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -23114,7 +23116,7 @@ var EntityAttributes = function () {
         this.baseCollectionRadius = 50;
         this.baseEvasion = 0;
         this.baseCritical = 0;
-        this.baseTotalMain = 0;
+        this.baseTotalMain = 1;
         this.level = 0;
 
         if (overrideDetaultValue != undefined) {
@@ -23143,7 +23145,7 @@ var EntityAttributes = function () {
             this.baseCollectionRadius = 0;
             this.baseEvasion = 0;
             this.baseCritical = 0;
-            this.baseTotalMain = 0;
+            this.baseTotalMain = 1;
             this.level = 0;
 
             this.writeDefaults();
@@ -23246,7 +23248,7 @@ var EntityAttributes = function () {
     }, {
         key: "totalMain",
         get: function get() {
-            return this.findAttributeValue('baseTotalMain');
+            return this.multipliers.totalMain;
         }
     }, {
         key: "health",
@@ -23350,7 +23352,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _BaseEnemy = __webpack_require__(79);
+var _BaseEnemy = __webpack_require__(80);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -23378,11 +23380,11 @@ var _Layer = __webpack_require__(24);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(70);
+var _PhysicsEntity2 = __webpack_require__(71);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
-var _PhysicsModule = __webpack_require__(80);
+var _PhysicsModule = __webpack_require__(81);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -23390,7 +23392,7 @@ var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerHalo = __webpack_require__(82);
+var _PlayerHalo = __webpack_require__(83);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
@@ -23414,7 +23416,7 @@ var _Vector = __webpack_require__(16);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -23856,7 +23858,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _CookieManager = __webpack_require__(66);
+var _CookieManager = __webpack_require__(67);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
@@ -23930,14 +23932,40 @@ var PrizeManager = function () {
             type: PrizeManager.PrizeType.Wearable
         });
 
+        this.cassinoList = [];
+        this.cassinoList.push({
+            icon: 'pistol1-icon',
+            type: PrizeManager.PrizeType.Weapon
+        });
+        this.cassinoList.push({
+            icon: 'pet-dog-10001',
+            type: PrizeManager.PrizeType.Companion
+        });
+        this.cassinoList.push({
+            icon: 'dynamic-shoe-icon0001',
+            type: PrizeManager.PrizeType.Shoe
+        });
+        this.cassinoList.push({
+            icon: 'trinket-icon0001',
+            type: PrizeManager.PrizeType.Trinket
+        });
+        this.cassinoList.push({
+            icon: 'coin3l',
+            type: PrizeManager.PrizeType.Coin
+        });
+
         this.mainPrizePool = [0, 1, 2, 3, 4, 6];
         this.mainPrizePoolNoWearable = [0, 1, 2, 3, 4];
     }
 
     (0, _createClass3.default)(PrizeManager, [{
         key: "getMetaLowerPrize",
-        value: function getMetaLowerPrize() {
-            this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [Math.round(30 + Math.random() * 30)] });
+        value: function getMetaLowerPrize(amount) {
+            amount++;
+            var coinValue = Math.round((30 + Math.random() * 30) * (amount * amount * amount));
+            _GameData2.default.instance.addSoftCurrency(coinValue);
+
+            this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [coinValue] });
         }
     }, {
         key: "getWearable",
@@ -23972,7 +24000,6 @@ var PrizeManager = function () {
                 }
                 itemPrizeList.push(this.getItemPrize(this.prizeList[id].type, maxLevel));
             }
-            //console.log(itemPrizeList)
             var types = [];
             itemPrizeList.forEach(function (element) {
                 if (element.type == PrizeManager.PrizeType.Coin) {
@@ -23984,6 +24011,7 @@ var PrizeManager = function () {
                 } else if (element.type == PrizeManager.PrizeType.Wearable) {
                     _ViewDatabase2.default.instance.saveWardrobePiece(element.value.area, element.value.id);
                 } else {
+
                     _GameData2.default.instance.addToInventory(element.type, element);
                 }
                 types.push(element.type);
@@ -24024,7 +24052,7 @@ var PrizeManager = function () {
 
             switch (type) {
                 case PrizeManager.PrizeType.Coin:
-                    return { type: PrizeManager.PrizeType.Coin, value: Math.round((50 + Math.random() * 5) * (maxLevel * maxLevel)) };
+                    return { type: PrizeManager.PrizeType.Coin, value: Math.round((150 + Math.random() * 5) * ((maxLevel + 1) * maxLevel)) };
 
                 case PrizeManager.PrizeType.Key:
                     if (maxLevel == 2) {
@@ -24064,6 +24092,11 @@ var PrizeManager = function () {
         key: "metaPrizeList",
         get: function get() {
             return this.prizeList;
+        }
+    }, {
+        key: "cassinoPrizeList",
+        get: function get() {
+            return this.cassinoList;
         }
     }]);
     return PrizeManager;
@@ -27647,7 +27680,7 @@ var _GameObject = __webpack_require__(12);
 
 var _GameObject2 = _interopRequireDefault(_GameObject);
 
-var _PhysicsModule = __webpack_require__(80);
+var _PhysicsModule = __webpack_require__(81);
 
 var _PhysicsModule2 = _interopRequireDefault(_PhysicsModule);
 
@@ -27919,7 +27952,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(79);
+var _BaseEnemy = __webpack_require__(80);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -28281,7 +28314,12 @@ var LevelManager = function () {
     }, {
         key: "entityKilled",
         value: function entityKilled(health, value) {
-            if (Math.random() > 0.9) return;
+            // if(health.gameObject instanceof BaseEnemy){
+            //     if(health.gameObject.staticData){
+            //         console.log(health.gameObject.staticData.entityData.tier)
+            //     }
+            // }
+            if (Math.random() > 0.6) return;
             var collectable = this.addEntity(_Collectable2.default);
             collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z);
             this.collectables.push(collectable);
@@ -28369,7 +28407,7 @@ var LevelManager = function () {
             }
 
             //using a fixed value
-            this.enemyGlobalSpawner.distanceToSpawn = 800; //Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
+            this.enemyGlobalSpawner.distanceToSpawn = 500; //Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
             this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
             //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
             this.gameManagerStats.Phase = this.currentPhase;
@@ -28696,10 +28734,23 @@ var LoadoutCardView = function (_PIXI$Container) {
                 _this.border.height = height;
                 _this.unselected();
 
+                _this.valueLabel = _UIUtils2.default.getPrimaryLabel('', { strokeThickness: 3, dropShadow: false, fontSize: 24, fill: "#ffffff" });
+                _this.cardContainer.addChild(_this.valueLabel);
+
+                _this.valueLabel.anchor.set(0.5, 1);
+                _this.valueLabel.x = width / 2;
+                _this.valueLabel.y = height - 10;
+
                 return _this;
         }
 
         (0, _createClass3.default)(LoadoutCardView, [{
+                key: 'remover',
+                value: function remover() {
+                        this.levelLabel.text = '';
+                        this.cardImage.texture = PIXI.Texture.from(_UIUtils2.default.getIconUIIcon('close'));
+                }
+        }, {
                 key: 'resize',
                 value: function resize(width, height) {
                         this.baseWidth = width;
@@ -29183,7 +29234,7 @@ module.exports = $export;
 /* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var anObject = __webpack_require__(67);
+var anObject = __webpack_require__(68);
 var IE8_DOM_DEFINE = __webpack_require__(135);
 var toPrimitive = __webpack_require__(88);
 var dP = Object.defineProperty;
@@ -29206,7 +29257,7 @@ exports.f = __webpack_require__(51) ? Object.defineProperty : function definePro
 /***/ (function(module, exports, __webpack_require__) {
 
 // Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__(68)(function () {
+module.exports = !__webpack_require__(69)(function () {
   return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -30247,7 +30298,7 @@ var TickerPlugin = /** @class */ (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(50);
-var createDesc = __webpack_require__(74);
+var createDesc = __webpack_require__(75);
 module.exports = __webpack_require__(51) ? function (object, key, value) {
   return dP.f(object, key, createDesc(1, value));
 } : function (object, key, value) {
@@ -30270,7 +30321,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(91)('wks');
-var uid = __webpack_require__(76);
+var uid = __webpack_require__(77);
 var Symbol = __webpack_require__(45).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
@@ -30317,7 +30368,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(77);
+var _ParticleBehaviour2 = __webpack_require__(78);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -30454,7 +30505,7 @@ var _EntityAttributes = __webpack_require__(32);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
 
-var _EntityMultipliers = __webpack_require__(78);
+var _EntityMultipliers = __webpack_require__(79);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -30478,7 +30529,7 @@ var _ParticleDescriptor = __webpack_require__(54);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _PhysicsEntity2 = __webpack_require__(70);
+var _PhysicsEntity2 = __webpack_require__(71);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
@@ -30498,11 +30549,11 @@ var _Vector = __webpack_require__(16);
 
 var _Vector2 = _interopRequireDefault(_Vector);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
-var _WeaponData = __webpack_require__(72);
+var _WeaponData = __webpack_require__(73);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -30536,6 +30587,7 @@ var BaseWeapon = function (_PhysicsEntity) {
         _this.attributesMultiplier = new _EntityMultipliers2.default();
 
         _this.isPlayer = false;
+        _this.offsetAngle = 0;
 
         return _this;
     }
@@ -30567,11 +30619,18 @@ var BaseWeapon = function (_PhysicsEntity) {
         }
     }, {
         key: "setIdOffset",
-        value: function setIdOffset(index) {}
+        value: function setIdOffset(index, maxIndex) {
+            this.currentIndex = index;
+            this.maxIndex = maxIndex;
+            this.offsetAngle = this.currentIndex / this.maxIndex * Math.PI * 2;
+        }
     }, {
         key: "build",
         value: function build(weaponData, level) {
             (0, _get3.default)(BaseWeapon.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseWeapon.prototype), "build", this).call(this);
+            this.currentIndex = 0;
+            this.maxIndex = 0;
+            this.offsetAngle = 0;
             this.interactiveProjectiles = [];
             this.activeProjectiles = [];
 
@@ -30712,26 +30771,28 @@ var BaseWeapon = function (_PhysicsEntity) {
                     var targetAngle = this.bulletAccum * weapon.weaponAttributes.angleOffset;
 
                     if (!isMain) {
-                        targetAngle = parentGameObject.angle;
+                        parentGameObject.angle;
                     }
-
+                    targetAngle += this.offsetAngle;
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(targetAngle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(targetAngle) * gunDistance);
                     bullet.shoot(targetAngle + angleNoise + halfAngle, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Random) {
 
-                    var rndAng = Math.random() * Math.PI * 2;
+                    var rndAng = this.offsetAngle + Math.random() * Math.PI * 2;
                     bullet.setPosition(parentGameObject.transform.position.x + Math.cos(rndAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(rndAng) * gunDistance);
                     bullet.shoot(rndAng, 0);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ClosestEnemySnap) {
                     var closestEnemy = this.getClosestEnemy(parentGameObject, weapon.weaponAttributes.detectionZone || 100);
                     bullet.setPosition(closestEnemy.enemy.transform.position.x, 0, closestEnemy.enemy.transform.position.z);
-                    bullet.shoot(0, 0);
+                    bullet.shoot(this.offsetAngle + 0, 0);
                 } else if (weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ClosestEnemy) {
                     var _closestEnemy = this.getClosestEnemy(parentGameObject); //Math.random() * Math.PI * 2//
                     var angle = Math.random() * Math.PI * 2;
                     if (_closestEnemy.enemy) {
                         angle = _closestEnemy.angle;
                     }
+                    angle += this.offsetAngle;
+
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + Math.cos(angle) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(angle) * gunDistance);
                     bullet.shoot(angle + angleNoise, this.physics.magnitude);
                 } else if (weapon.weaponAttributes.extendedBehaviour == _WeaponAttributes2.default.ExtendedBehaviour.Boomerang) {
@@ -30741,8 +30802,9 @@ var BaseWeapon = function (_PhysicsEntity) {
                     if (!isMain) {
                         facingAng = parentGameObject.angle;
                     }
+                    facingAng += this.offsetAngle;
 
-                    bullet.shoot(facingAng + halfAngle + angleNoise + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
+                    bullet.shoot(this.offsetAngle + facingAng + halfAngle + angleNoise + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 } else {
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance, 0, parentGameObject.transform.position.z);
                     var _facingAng = BaseWeapon.getFacingAngle(weapon, parentGameObject, this.alternateFacing);
@@ -30773,7 +30835,7 @@ var BaseWeapon = function (_PhysicsEntity) {
                     if (!finalAng) {
                         finalAng = parentGameObject.latestAngle;
                     }
-
+                    finalAng += this.offsetAngle;
                     bullet.setPosition(parentGameObject.transform.position.x + this.parent.physics.velocity.x + -facing * gunDistance + Math.cos(finalAng) * gunDistance, 0, parentGameObject.transform.position.z + Math.sin(finalAng) * gunDistance);
                     bullet.shoot(finalAng + weapon.weaponAttributes.angleStart, Math.abs(this.parent.physics.velocity.x));
                 }
@@ -30844,6 +30906,8 @@ var BaseWeapon = function (_PhysicsEntity) {
     }, {
         key: "destroyBullet",
         value: function destroyBullet(bullet) {
+            var _this2 = this;
+
             this.sortGraphics('baseDestroyViewData', bullet, bullet.weapon);
 
             if (bullet.weapon.onDestroyWeapon.length) {
@@ -30856,7 +30920,11 @@ var BaseWeapon = function (_PhysicsEntity) {
             if (bullet.weapon.perLevelOverrider) {
                 var _bullets = this.shoot(bullet.weapon.perLevelOverrider, bullet);
             }
-
+            if (bullet.weapon.onFixedDestroyWeapon) {
+                bullet.weapon.onFixedDestroyWeapon.forEach(function (element) {
+                    element.level = _this2.weaponData.level;
+                });
+            }
             if (bullet.weapon.onFixedDestroyWeapon.length) {
                 for (var _index = 0; _index < bullet.weapon.onFixedDestroyWeapon.length; _index++) {
                     var _element = bullet.weapon.onFixedDestroyWeapon[_index];
@@ -30990,6 +31058,10 @@ var BaseWeapon = function (_PhysicsEntity) {
                         facing = customTransform.facingAngle;
                     }
                 }
+            }
+
+            if (customTransform.currentIndex > 0) {
+                facing += customTransform.currentIndex * 0.1;
             }
             return facing;
         }
@@ -31178,7 +31250,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _CookieManager = __webpack_require__(66);
+var _CookieManager = __webpack_require__(67);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
@@ -31329,6 +31401,149 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
+var _signals = __webpack_require__(8);
+
+var _signals2 = _interopRequireDefault(_signals);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var RewardsManager = function () {
+    (0, _createClass3.default)(RewardsManager, null, [{
+        key: "instance",
+        get: function get() {
+            if (!RewardsManager._instance) {
+                RewardsManager._instance = new RewardsManager();
+            }
+            return RewardsManager._instance;
+        }
+    }]);
+
+    function RewardsManager() {
+        (0, _classCallCheck3.default)(this, RewardsManager);
+    }
+
+    (0, _createClass3.default)(RewardsManager, [{
+        key: "initialize",
+        value: function initialize() {
+            var usePoki = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            this.usePoki = usePoki;
+            this.gameplayIsStopped = true;
+            this.onAdds = new _signals2.default.Signal();
+            this.onStopAdds = new _signals2.default.Signal();
+        }
+    }, {
+        key: "gameplayStop",
+        value: function gameplayStop() {
+            if (this.noPoki) return;
+            if (this.gameplayIsStopped) {
+                return;
+            }
+
+            this.gameplayIsStopped = true;
+            PokiSDK.gameplayStop();
+        }
+    }, {
+        key: "gameplayStart",
+        value: function gameplayStart() {
+            var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+            if (this.noPoki) return;
+            if (!this.gameplayIsStopped && !force) {
+                return;
+            }
+            this.gameplayIsStopped = false;
+            PokiSDK.gameplayStart();
+        }
+    }, {
+        key: "doComercial",
+        value: function doComercial(callback, params) {
+            var _this = this;
+
+            if (this.noPoki) {
+                if (callback) callback(params);
+                return;
+            }
+            this.gameplayStop();
+
+            if (this.isDebug) {
+                this.gameplayStart();
+
+                if (callback) callback(params);
+                return;
+            }
+            this.onAdds.dispatch();
+            PokiSDK.commercialBreak().then(function () {
+                console.log("Commercial break finished, proceeding to game");
+                _this.gameplayStart();
+                _this.onStopAdds.dispatch();
+
+                if (callback) callback(params);
+            }).catch(function () {
+                console.log("Initialized, but the user likely has adblock");
+                _this.gameplayStart();
+                _this.onStopAdds.dispatch();
+
+                if (callback) callback(params);
+            });
+        }
+    }, {
+        key: "doReward",
+        value: function doReward(callback, params) {
+            var _this2 = this;
+
+            if (this.noPoki) {
+                if (callback) callback(params);
+                return;
+            }
+            this.gameplayStop();
+
+            if (this.isDebug) {
+                this.gameplayStart();
+
+                if (callback) callback(params);
+                return;
+            }
+
+            this.onAdds.dispatch();
+            PokiSDK.rewardedBreak().then(function (success) {
+                if (success) {
+                    _this2.onStopAdds.dispatch();
+                    _this2.gameplayStart();
+                    if (callback) callback(params);
+                } else {
+                    _this2.onStopAdds.dispatch();
+                    _this2.gameplayStart();
+                    if (callback) callback(params);
+                }
+            });
+        }
+    }]);
+    return RewardsManager;
+}();
+
+exports.default = RewardsManager;
+module.exports = exports["default"];
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _classCallCheck2 = __webpack_require__(0);
+
+var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _EntityAttributes = __webpack_require__(32);
 
 var _EntityAttributes2 = _interopRequireDefault(_EntityAttributes);
@@ -31337,7 +31552,7 @@ var _EntityData = __webpack_require__(27);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityMultipliers = __webpack_require__(78);
+var _EntityMultipliers = __webpack_require__(79);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -31634,7 +31849,7 @@ exports.default = WeaponAttributes;
 module.exports = exports["default"];
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -32237,7 +32452,7 @@ var Sprite = /** @class */ (function (_super) {
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -32259,7 +32474,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _PlayerViewStructure = __webpack_require__(75);
+var _PlayerViewStructure = __webpack_require__(76);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -33097,7 +33312,7 @@ exports.default = CookieManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(57);
@@ -33108,7 +33323,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports) {
 
 module.exports = function (exec) {
@@ -33121,7 +33336,7 @@ module.exports = function (exec) {
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33488,7 +33703,7 @@ exports.default = MainScreenManager;
 module.exports = exports['default'];
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -33797,7 +34012,7 @@ exports.default = PhysicsEntity;
 module.exports = exports["default"];
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34005,7 +34220,7 @@ exports.default = LightSource;
 module.exports = exports['default'];
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34043,7 +34258,7 @@ var _InGameViewDataStatic = __webpack_require__(287);
 
 var _InGameViewDataStatic2 = _interopRequireDefault(_InGameViewDataStatic);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -34170,7 +34385,7 @@ exports.default = WeaponData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -34504,7 +34719,7 @@ var AppLoaderPlugin = /** @class */ (function () {
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports) {
 
 module.exports = function (bitmap, value) {
@@ -34518,7 +34733,7 @@ module.exports = function (bitmap, value) {
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -34878,7 +35093,7 @@ exports.default = PlayerViewStructure;
 module.exports = exports["default"];
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports) {
 
 var id = 0;
@@ -34889,7 +35104,7 @@ module.exports = function (key) {
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35020,7 +35235,7 @@ exports.default = ParticleBehaviour;
 module.exports = exports['default'];
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35212,7 +35427,7 @@ exports.default = EntityMultipliers;
 module.exports = exports['default'];
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35472,7 +35687,7 @@ exports.default = BaseEnemy;
 module.exports = exports["default"];
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35680,7 +35895,7 @@ exports.default = PhysicsModule;
 module.exports = exports['default'];
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35784,7 +35999,7 @@ exports.default = InGameWeapon;
 module.exports = exports["default"];
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -35826,7 +36041,7 @@ var _GameView = __webpack_require__(13);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LightSource = __webpack_require__(71);
+var _LightSource = __webpack_require__(72);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -35897,7 +36112,7 @@ exports.default = PlayerHalo;
 module.exports = exports["default"];
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36116,7 +36331,7 @@ exports.default = InputModule;
 module.exports = exports['default'];
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36185,143 +36400,6 @@ exports.default = CompanionData;
 module.exports = exports["default"];
 
 /***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _classCallCheck2 = __webpack_require__(0);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _signals = __webpack_require__(8);
-
-var _signals2 = _interopRequireDefault(_signals);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var RewardsManager = function () {
-    (0, _createClass3.default)(RewardsManager, null, [{
-        key: "instance",
-        get: function get() {
-            if (!RewardsManager._instance) {
-                RewardsManager._instance = new RewardsManager();
-            }
-            return RewardsManager._instance;
-        }
-    }]);
-
-    function RewardsManager() {
-        (0, _classCallCheck3.default)(this, RewardsManager);
-    }
-
-    (0, _createClass3.default)(RewardsManager, [{
-        key: "initialize",
-        value: function initialize() {
-            var usePoki = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            this.usePoki = usePoki;
-            this.gameplayIsStopped = true;
-            this.onAdds = new _signals2.default.Signal();
-            this.onStopAdds = new _signals2.default.Signal();
-        }
-    }, {
-        key: "gameplayStop",
-        value: function gameplayStop() {
-            if (this.noPoki) return;
-            if (this.gameplayIsStopped) {
-                return;
-            }
-
-            this.gameplayIsStopped = true;
-            PokiSDK.gameplayStop();
-        }
-    }, {
-        key: "gameplayStart",
-        value: function gameplayStart() {
-            var force = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-
-            if (this.noPoki) return;
-            if (!this.gameplayIsStopped && !force) {
-                return;
-            }
-            this.gameplayIsStopped = false;
-            PokiSDK.gameplayStart();
-        }
-    }, {
-        key: "doComercial",
-        value: function doComercial(callback, params) {
-            var _this = this;
-
-            if (this.noPoki) return;
-            this.gameplayStop();
-
-            if (this.isDebug) {
-                this.gameplayStart();
-
-                if (callback) callback(params);
-                return;
-            }
-            this.onAdds.dispatch();
-            PokiSDK.commercialBreak().then(function () {
-                console.log("Commercial break finished, proceeding to game");
-                _this.gameplayStart();
-                _this.onStopAdds.dispatch();
-
-                if (callback) callback(params);
-            }).catch(function () {
-                console.log("Initialized, but the user likely has adblock");
-                _this.gameplayStart();
-                _this.onStopAdds.dispatch();
-
-                if (callback) callback(params);
-            });
-        }
-    }, {
-        key: "doReward",
-        value: function doReward(callback, params) {
-            var _this2 = this;
-
-            if (this.noPoki) return;
-            this.gameplayStop();
-
-            if (this.isDebug) {
-                this.gameplayStart();
-
-                if (callback) callback(params);
-                return;
-            }
-
-            this.onAdds.dispatch();
-            PokiSDK.rewardedBreak().then(function (success) {
-                if (success) {
-                    _this2.onStopAdds.dispatch();
-                    _this2.gameplayStart();
-                    if (callback) callback(params);
-                } else {
-                    _this2.onStopAdds.dispatch();
-                    _this2.gameplayStart();
-                    if (callback) callback(params);
-                }
-            });
-        }
-    }]);
-    return RewardsManager;
-}();
-
-exports.default = RewardsManager;
-module.exports = exports["default"];
-
-/***/ }),
 /* 86 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -36330,7 +36408,7 @@ module.exports = exports["default"];
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return Text; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return TextMetrics; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return TextStyle; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_sprite__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_settings__ = __webpack_require__(29);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(22);
@@ -39157,7 +39235,7 @@ module.exports = function (it) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var shared = __webpack_require__(91)('keys');
-var uid = __webpack_require__(76);
+var uid = __webpack_require__(77);
 module.exports = function (key) {
   return shared[key] || (shared[key] = uid(key));
 };
@@ -39233,7 +39311,7 @@ module.exports = {};
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__(67);
+var anObject = __webpack_require__(68);
 var dPs = __webpack_require__(217);
 var enumBugKeys = __webpack_require__(98);
 var IE_PROTO = __webpack_require__(90)('IE_PROTO');
@@ -39345,7 +39423,7 @@ exports.f = {}.propertyIsEnumerable;
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(102);
-var createDesc = __webpack_require__(74);
+var createDesc = __webpack_require__(75);
 var toIObject = __webpack_require__(53);
 var toPrimitive = __webpack_require__(88);
 var has = __webpack_require__(52);
@@ -50550,11 +50628,11 @@ var _Health = __webpack_require__(266);
 
 var _Health2 = _interopRequireDefault(_Health);
 
-var _InGameWeapon = __webpack_require__(81);
+var _InGameWeapon = __webpack_require__(82);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
-var _PhysicsEntity2 = __webpack_require__(70);
+var _PhysicsEntity2 = __webpack_require__(71);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
@@ -50926,7 +51004,7 @@ var _Layer = __webpack_require__(24);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(70);
+var _PhysicsEntity2 = __webpack_require__(71);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
@@ -51167,7 +51245,7 @@ var _GameData = __webpack_require__(26);
 
 var _GameData2 = _interopRequireDefault(_GameData);
 
-var _PlayerViewStructure = __webpack_require__(75);
+var _PlayerViewStructure = __webpack_require__(76);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -52373,7 +52451,7 @@ var _Color = __webpack_require__(61);
 
 var _Color2 = _interopRequireDefault(_Color);
 
-var _LightSource = __webpack_require__(71);
+var _LightSource = __webpack_require__(72);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -62707,7 +62785,7 @@ var Graphics = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_math__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_utils__ = __webpack_require__(21);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_loaders__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_loaders__ = __webpack_require__(74);
 /*!
  * @pixi/spritesheet - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -63056,7 +63134,7 @@ var SpritesheetLoader = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return TilingSpriteRenderer; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_math__ = __webpack_require__(22);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_sprite__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_utils__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_constants__ = __webpack_require__(39);
 /*!
@@ -63485,7 +63563,7 @@ var TilingSpriteRenderer = /** @class */ (function (_super) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_core__ = __webpack_require__(14);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pixi_text__ = __webpack_require__(86);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pixi_display__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pixi_loaders__ = __webpack_require__(74);
 /*!
  * @pixi/text-bitmap - v5.3.12
  * Compiled Wed, 23 Mar 2022 18:34:28 UTC
@@ -65328,7 +65406,7 @@ module.exports = function (fn, that, length) {
 /* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = !__webpack_require__(51) && !__webpack_require__(68)(function () {
+module.exports = !__webpack_require__(51) && !__webpack_require__(69)(function () {
   return Object.defineProperty(__webpack_require__(136)('div'), 'a', { get: function () { return 7; } }).a != 7;
 });
 
@@ -65383,7 +65461,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(49);
 var core = __webpack_require__(35);
-var fails = __webpack_require__(68);
+var fails = __webpack_require__(69);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -69221,7 +69299,7 @@ var _ParticleDescriptor = __webpack_require__(54);
 
 var _ParticleDescriptor2 = _interopRequireDefault(_ParticleDescriptor);
 
-var _PlayerHalo = __webpack_require__(82);
+var _PlayerHalo = __webpack_require__(83);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
@@ -69529,7 +69607,7 @@ var _GameAgent2 = __webpack_require__(108);
 
 var _GameAgent3 = _interopRequireDefault(_GameAgent2);
 
-var _InGameWeapon = __webpack_require__(81);
+var _InGameWeapon = __webpack_require__(82);
 
 var _InGameWeapon2 = _interopRequireDefault(_InGameWeapon);
 
@@ -69541,7 +69619,7 @@ var _Player = __webpack_require__(25);
 
 var _Player2 = _interopRequireDefault(_Player);
 
-var _PlayerHalo = __webpack_require__(82);
+var _PlayerHalo = __webpack_require__(83);
 
 var _PlayerHalo2 = _interopRequireDefault(_PlayerHalo);
 
@@ -69996,6 +70074,8 @@ var PrizeCollectContainer = function (_MainScreenModal) {
                 value: function showPrize(data) {
                         var _this2 = this;
 
+                        console.log(data);
+
                         var drawPrizes = [];
                         for (var index = 0; index < data.type.length; index++) {
                                 var element = data.type[index];
@@ -70060,6 +70140,14 @@ var PrizeCollectContainer = function (_MainScreenModal) {
                                         prize.setIcon(element.texture, 70);
                                         prize.resetPivot();
                                         prize.hideLevelLabel();
+
+                                        if (typeof element.value == 'number') {
+
+                                                prize.valueLabel.text = element.value;
+                                        } else {
+
+                                                prize.valueLabel.text = element.value.value;
+                                        }
 
                                         //  prize = new PIXI.Sprite.from(element.texture)
                                         // prize.scale.set(Utils.scaleToFit(prize, 70))
@@ -70335,7 +70423,7 @@ var _EntityData = __webpack_require__(27);
 
 var _EntityData2 = _interopRequireDefault(_EntityData);
 
-var _EntityMultipliers = __webpack_require__(78);
+var _EntityMultipliers = __webpack_require__(79);
 
 var _EntityMultipliers2 = _interopRequireDefault(_EntityMultipliers);
 
@@ -70450,6 +70538,8 @@ var PlayerSessionData = function () {
             var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
 
+            console.log(equipment);
+
             var gameItemId = -1;
             for (var index = 0; index < this.equipmentList.length; index++) {
                 var element = this.equipmentList[index];
@@ -70499,6 +70589,7 @@ var PlayerSessionData = function () {
                     continue;
                 }
                 if (ingameData.item.entityData.type == _EntityData2.default.EntityDataType.Attribute) {
+                    console.log(ingameData.item.attributeEffect);
                     this.attributesMultiplier.addMultiplyer(ingameData.item.attributeEffect, _Utils2.default.findValueByLevel(ingameData.item.modifierValue, ingameData.level));
                 }
             }
@@ -70890,7 +70981,7 @@ var _BaseButton = __webpack_require__(31);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _CookieManager = __webpack_require__(66);
+var _CookieManager = __webpack_require__(67);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
@@ -70906,7 +70997,7 @@ var _MainScreenContainer = __webpack_require__(323);
 
 var _MainScreenContainer2 = _interopRequireDefault(_MainScreenContainer);
 
-var _MainScreenManager = __webpack_require__(69);
+var _MainScreenManager = __webpack_require__(70);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
@@ -71115,7 +71206,7 @@ var _Layer = __webpack_require__(24);
 
 var _Layer2 = _interopRequireDefault(_Layer);
 
-var _PhysicsEntity2 = __webpack_require__(70);
+var _PhysicsEntity2 = __webpack_require__(71);
 
 var _PhysicsEntity3 = _interopRequireDefault(_PhysicsEntity2);
 
@@ -75938,7 +76029,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _CookieManager = __webpack_require__(66);
+var _CookieManager = __webpack_require__(67);
 
 var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
@@ -75950,11 +76041,11 @@ var _GameStaticData = __webpack_require__(15);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _MainScreenManager = __webpack_require__(69);
+var _MainScreenManager = __webpack_require__(70);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
-var _RewardsManager = __webpack_require__(85);
+var _RewardsManager = __webpack_require__(64);
 
 var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
 
@@ -76001,7 +76092,10 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 window.PIXI = PIXI;
 
 //Utils.easeOutQuad
-getValues(0.075, 0.12, null, 'easeOutQuad', 0.8, 5);
+getValues(150, 300, 'floor', 'easeOutQuad', 1, 5);
+getValues(50, 250, 'floor', 'easeOutQuad', 1, 5);
+getValues(8, 5, null, 'easeOutQuad', 1, 5);
+getValues(3, 4.5, null, 'easeOutQuad', 1, 5);
 
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
@@ -76021,7 +76115,7 @@ getValues(0.075, 0.12, null, 'easeOutQuad', 0.8, 5);
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-getValues(8, 30, 'floor', 'easeOutQuad', 0.8);
+getValues(3, 5.5, null, 'easeOutQuad', 1, 5);
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 800, 'floor', 'easeOutCubic', 1);
@@ -83617,7 +83711,7 @@ var NoiseFilter = /** @class */ (function (_super) {
 "use strict";
 /* unused harmony export CacheData */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_display__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pixi_math__ = __webpack_require__(22);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pixi_utils__ = __webpack_require__(21);
@@ -84800,7 +84894,7 @@ var NineSlicePlane = /** @class */ (function (_super) {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AnimatedSprite; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pixi_core__ = __webpack_require__(14);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pixi_sprite__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pixi_ticker__ = __webpack_require__(55);
 /*!
  * @pixi/sprite-animated - v5.3.12
@@ -85408,7 +85502,7 @@ module.exports = function (TO_STRING) {
 "use strict";
 
 var create = __webpack_require__(96);
-var descriptor = __webpack_require__(74);
+var descriptor = __webpack_require__(75);
 var setToStringTag = __webpack_require__(99);
 var IteratorPrototype = {};
 
@@ -85426,7 +85520,7 @@ module.exports = function (Constructor, NAME, next) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(50);
-var anObject = __webpack_require__(67);
+var anObject = __webpack_require__(68);
 var getKeys = __webpack_require__(97);
 
 module.exports = __webpack_require__(51) ? Object.defineProperties : function defineProperties(O, Properties) {
@@ -85626,20 +85720,20 @@ var DESCRIPTORS = __webpack_require__(51);
 var $export = __webpack_require__(49);
 var redefine = __webpack_require__(141);
 var META = __webpack_require__(230).KEY;
-var $fails = __webpack_require__(68);
+var $fails = __webpack_require__(69);
 var shared = __webpack_require__(91);
 var setToStringTag = __webpack_require__(99);
-var uid = __webpack_require__(76);
+var uid = __webpack_require__(77);
 var wks = __webpack_require__(58);
 var wksExt = __webpack_require__(100);
 var wksDefine = __webpack_require__(101);
 var enumKeys = __webpack_require__(231);
 var isArray = __webpack_require__(232);
-var anObject = __webpack_require__(67);
+var anObject = __webpack_require__(68);
 var isObject = __webpack_require__(57);
 var toIObject = __webpack_require__(53);
 var toPrimitive = __webpack_require__(88);
-var createDesc = __webpack_require__(74);
+var createDesc = __webpack_require__(75);
 var _create = __webpack_require__(96);
 var gOPNExt = __webpack_require__(233);
 var $GOPD = __webpack_require__(103);
@@ -85858,7 +85952,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /* 230 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(76)('meta');
+var META = __webpack_require__(77)('meta');
 var isObject = __webpack_require__(57);
 var has = __webpack_require__(52);
 var setDesc = __webpack_require__(50).f;
@@ -85866,7 +85960,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(68)(function () {
+var FREEZE = !__webpack_require__(69)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -86020,7 +86114,7 @@ $export($export.S, 'Object', { setPrototypeOf: __webpack_require__(240).set });
 // Works with __proto__ only. Old v8 can't work with null proto objects.
 /* eslint-disable no-proto */
 var isObject = __webpack_require__(57);
-var anObject = __webpack_require__(67);
+var anObject = __webpack_require__(68);
 var check = function (O, proto) {
   anObject(O);
   if (!isObject(proto) && proto !== null) throw TypeError(proto + ": can't set as prototype!");
@@ -86564,7 +86658,7 @@ var _LocationContainer = __webpack_require__(315);
 
 var _LocationContainer2 = _interopRequireDefault(_LocationContainer);
 
-var _MainScreenManager = __webpack_require__(69);
+var _MainScreenManager = __webpack_require__(70);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
@@ -86580,7 +86674,7 @@ var _PlayerGameViewSpriteSheet = __webpack_require__(111);
 
 var _PlayerGameViewSpriteSheet2 = _interopRequireDefault(_PlayerGameViewSpriteSheet);
 
-var _PlayerViewStructure = __webpack_require__(75);
+var _PlayerViewStructure = __webpack_require__(76);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -88127,7 +88221,7 @@ var _PlayerGameViewSpriteSheet = __webpack_require__(111);
 
 var _PlayerGameViewSpriteSheet2 = _interopRequireDefault(_PlayerGameViewSpriteSheet);
 
-var _PlayerViewStructure = __webpack_require__(75);
+var _PlayerViewStructure = __webpack_require__(76);
 
 var _PlayerViewStructure2 = _interopRequireDefault(_PlayerViewStructure);
 
@@ -88323,7 +88417,7 @@ var _Bullet = __webpack_require__(33);
 
 var _Bullet2 = _interopRequireDefault(_Bullet);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -88427,7 +88521,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(77);
+var _ParticleBehaviour2 = __webpack_require__(78);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -88503,7 +88597,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(77);
+var _ParticleBehaviour2 = __webpack_require__(78);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -88784,7 +88878,7 @@ var _inherits2 = __webpack_require__(4);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _ParticleBehaviour2 = __webpack_require__(77);
+var _ParticleBehaviour2 = __webpack_require__(78);
 
 var _ParticleBehaviour3 = _interopRequireDefault(_ParticleBehaviour2);
 
@@ -89139,7 +89233,7 @@ var _GameView = __webpack_require__(13);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LightSource = __webpack_require__(71);
+var _LightSource = __webpack_require__(72);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -89247,7 +89341,7 @@ var _GameView = __webpack_require__(13);
 
 var _GameView2 = _interopRequireDefault(_GameView);
 
-var _LightSource = __webpack_require__(71);
+var _LightSource = __webpack_require__(72);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -89727,7 +89821,7 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _BaseEnemy = __webpack_require__(79);
+var _BaseEnemy = __webpack_require__(80);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -89895,7 +89989,7 @@ var SpawnerData = function () {
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Circle:
                 case _SessionSpawner2.default.SpawnAreaType.Arc:
-                    this.offset = { x: Math.cos(this.angle) * (this.radius * 2 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 2 + this.distanceToSpawn) };
+                    this.offset = { x: Math.cos(this.angle) * (this.radius * 3 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 3 + this.distanceToSpawn) };
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Point:
 
@@ -90030,6 +90124,10 @@ var _PrizeManager2 = _interopRequireDefault(_PrizeManager);
 var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
+
+var _RewardsManager = __webpack_require__(64);
+
+var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
 
 var _UIList = __webpack_require__(17);
 
@@ -90319,7 +90417,11 @@ var GameOverView = function (_GameObject) {
                         });
 
                         setTimeout(function () {
-                                _this3.onConfirmGameOver.dispatch();
+
+                                _RewardsManager2.default.instance.doComercial(function () {
+
+                                        _this3.onConfirmGameOver.dispatch();
+                                });
                         }, 500);
                 }
         }, {
@@ -90540,7 +90642,7 @@ var _HudButtons = __webpack_require__(280);
 
 var _HudButtons2 = _interopRequireDefault(_HudButtons);
 
-var _InputModule = __webpack_require__(83);
+var _InputModule = __webpack_require__(84);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -90966,10 +91068,12 @@ var CardPlacementSystem = function () {
         this.deckView = deckView;
 
         this.deckView.onConfirmLoudout.add(this.onCardEquipped.bind(this));
+        this.deckView.onReshuffle.add(this.onReshuffle.bind(this));
         this.cardPlacementView = cardPlacementView;
         this.enabled = false;
         this.player = null;
-
+        this.pickedCardsList = [];
+        this.typesPickedCardsList = [];
         this.onHide = new _signals2.default.Signal();
     }
 
@@ -90979,20 +91083,37 @@ var CardPlacementSystem = function () {
     }, {
         key: "onCardEquipped",
         value: function onCardEquipped(cardData) {
-            //let currentID = 0;
-            // this.player.activeWeapons.forEach(element => {
-            //     if (element.stackWeapons.length >= 3) {
-            //         currentID++;
-            //     }
-            // });
-            // this.player.addWeaponData(EntityBuilder.instance.weaponsData[cardData.id], currentID);
             this.deckView.setActive(false);
             this.hide();
+
+            if (!this.pickedCardsList[cardData.entityData.type]) {
+                this.pickedCardsList[cardData.entityData.type] = [];
+            }
+
+            if (this.pickedCardsList[cardData.entityData.type][cardData.id]) {
+                this.pickedCardsList[cardData.entityData.type][cardData.id]++;
+            } else {
+
+                this.pickedCardsList[cardData.entityData.type][cardData.id] = 1;
+                if (!this.typesPickedCardsList[cardData.entityData.type]) {
+                    this.typesPickedCardsList[cardData.entityData.type] = 1;
+                } else {
+                    this.typesPickedCardsList[cardData.entityData.type]++;
+                }
+            }
+        }
+    }, {
+        key: "onReshuffle",
+        value: function onReshuffle() {
+            this.reshufleUses--;
+            this.show();
         }
     }, {
         key: "setPlayer",
         value: function setPlayer(player) {
             this.player = player;
+            this.pickedCardsList = [];
+            this.reshufleUses = 1;
             this.deckView.setPlayer(this.player);
         }
     }, {
@@ -91021,31 +91142,42 @@ var CardPlacementSystem = function () {
             _Utils2.default.shuffle(this.currentData);
             var starters = [];
 
-            starters.push({
-                id: this.player.sessionData.mainWeapon.id,
-                entityData: {
-                    type: 'Weapon'
-                },
-                weaponId: this.player.sessionData.mainWeapon.id,
-                starter: true
-            });
-            starters.push(_GameStaticData2.default.instance.getCardById('AMOUNT_MODIFIER'));
+            // starters.push({
+            //     id: this.player.sessionData.mainWeapon.id,
+            //     entityData: {
+            //         type: 'Weapon'
+            //     },
+            //     weaponId: this.player.sessionData.mainWeapon.id,
+            //     starter: true
+            // })
+
+            // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
+            starters.push(_GameStaticData2.default.instance.getCardById('LASER_CARD'));
+
+            // console.log(this.typesPickedCardsList)
+            // console.log(this.pickedCardsList)
 
             for (var index = this.currentData.length - 1; index >= 0; index--) {
                 if (this.currentData[index].starter && this.currentData[index].entityData.type != _EntityData2.default.EntityDataType.Equipable) {
-                    // && starters.length< 3) {
-                    starters.push(this.currentData[index]);
+                    var cardType = this.currentData[index].entityData.type;
+                    var cardId = this.currentData[index].id;
+                    //if there is 4 of the same card type
+                    if (!this.typesPickedCardsList[cardType] || this.typesPickedCardsList[cardType] < 5) {
+
+                        //if there is 5 of the same card
+                        if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
+                            starters.push(this.currentData[index]);
+                        } else {
+                            //console.log('cant',this.pickedCardsList[cardType] ,cardId)
+                        }
+                    }
                 }
                 if (this.currentData[index] && !this.currentData[index].enabled) {
                     this.currentData.splice(index, 1);
                 }
             }
-            // starters.unshift(GameStaticData.instance.getDataById('cards','cards', 'ORBIT_CARD'))
-            // starters.unshift(GameStaticData.instance.getDataById('cards','cards', "AMOUNT_MODIFIER"))
-            // console.log(this.player.sessionData, starters)
-            //this.deckView.buildCards(this.currentData)
-            console.log(starters);
-            this.deckView.buildCards(starters);
+
+            this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses);
 
             this.deckView.setActive(true);
             this.cardPlacementView.setActive(true);
@@ -91887,7 +92019,7 @@ var _Utils = __webpack_require__(7);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WeaponData = __webpack_require__(72);
+var _WeaponData = __webpack_require__(73);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -92642,7 +92774,7 @@ var _GridView = __webpack_require__(292);
 
 var _GridView2 = _interopRequireDefault(_GridView);
 
-var _InputModule = __webpack_require__(83);
+var _InputModule = __webpack_require__(84);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -92658,9 +92790,17 @@ var _RenderModule = __webpack_require__(11);
 
 var _RenderModule2 = _interopRequireDefault(_RenderModule);
 
+var _RewardsManager = __webpack_require__(64);
+
+var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
+
 var _SpriteButton = __webpack_require__(293);
 
 var _SpriteButton2 = _interopRequireDefault(_SpriteButton);
+
+var _UIList = __webpack_require__(17);
+
+var _UIList2 = _interopRequireDefault(_UIList);
 
 var _UIUtils = __webpack_require__(9);
 
@@ -92692,11 +92832,12 @@ var SurvivorDeckController = function (_GameObject) {
         _this.gameView.layer = _RenderModule2.default.UILayerOverlay;
         _this.gameView.view = new PIXI.Container();
 
-        _this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(-5000, -5000, 10000, 10000);
+        _this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(0, 0, 10000, 10000);
         _this.gameView.view.addChild(_this.backShape);
         _this.backShape.tint = 0;
-        _this.backShape.alpha = 0.8;
+        _this.backShape.alpha = 0.9;
         _this.onConfirmLoudout = new _signals2.default.Signal();
+        _this.onReshuffle = new _signals2.default.Signal();
 
         _this.blocker = new PIXI.Sprite.from('base-gradient');
         _this.blocker.width = 1000;
@@ -92715,20 +92856,76 @@ var SurvivorDeckController = function (_GameObject) {
         _this.gameView.view.addChild(_this.cardsContainer);
         _this.gameView.view.addChild(_this.transitionContainer);
 
+        _this.uiButtons = new _UIList2.default();
+        _this.uiButtons.w = 420;
+        _this.uiButtons.h = 80;
+
+        _this.pickAll = _UIUtils2.default.getPrimaryVideoButton(function () {
+            _RewardsManager2.default.instance.doReward(function () {
+                _this.pickAllCards();
+            });
+        });
+        _this.uiButtons.addElement(_this.pickAll);
+
+        _this.pickAll.resize(200, 80);
+        _this.pickAll.updateBackTexture(_UIUtils2.default.baseButtonTexture + '_0002');
+        _this.pickAll.priceLabel.text = "Pick All";
+        _this.pickAll.buttonListContent.w = 160;
+        _this.pickAll.buttonListContent.h = 60;
+        _this.pickAll.buttonListContent.updateHorizontalList();
+        _this.pickAll.buttonListContent.x = 200 / 2 - _this.pickAll.buttonListContent.w / 2;
+        _this.pickAll.buttonListContent.y = 80 / 2 - _this.pickAll.buttonListContent.h / 2;
+
+        _this.reshuffle = _UIUtils2.default.getPrimaryVideoButton(function () {
+            _RewardsManager2.default.instance.doReward(function () {
+                _this.reshuffleDeck();
+            });
+        }, "Reshuffle");
+
+        _this.reshuffle.resize(200, 80);
+        _this.reshuffle.updateBackTexture(_UIUtils2.default.baseButtonTexture + '_0002');
+        _this.reshuffle.priceLabel.text = "Reshuffle";
+        _this.reshuffle.buttonListContent.w = 160;
+        _this.reshuffle.buttonListContent.h = 60;
+        _this.reshuffle.buttonListContent.updateHorizontalList();
+        _this.reshuffle.buttonListContent.x = 200 / 2 - _this.reshuffle.buttonListContent.w / 2;
+        _this.reshuffle.buttonListContent.y = 80 / 2 - _this.reshuffle.buttonListContent.h / 2;
+
+        _this.uiButtons.addElement(_this.reshuffle);
+
+        _this.gameView.view.addChild(_this.uiButtons);
+
         _this.handCards = [];
 
         _this.highlightedCard = null;
 
-        _this.cardWidth = 190;
+        _this.cardWidth = 170;
         _this.cardHeight = 450;
-        _this.cardDistance = 220;
-        _this.cardContainerMaxWidth = 650;
+        _this.cardDistance = 190;
+        _this.cardContainerMaxWidth = 720;
 
         _this.state = 0;
         return _this;
     }
 
     (0, _createClass3.default)(SurvivorDeckController, [{
+        key: "pickAllCards",
+        value: function pickAllCards() {
+            var _this2 = this;
+
+            //this.handCards
+
+            this.handCards.forEach(function (element) {
+                _this2.holdingData = element.cardData;
+                _this2.pickCard(element.cardData);
+            });
+        }
+    }, {
+        key: "reshuffleDeck",
+        value: function reshuffleDeck() {
+            this.onReshuffle.dispatch();
+        }
+    }, {
         key: "start",
         value: function start() {
             (0, _get3.default)(SurvivorDeckController.prototype.__proto__ || (0, _getPrototypeOf2.default)(SurvivorDeckController.prototype), "start", this).call(this);
@@ -92751,9 +92948,12 @@ var SurvivorDeckController = function (_GameObject) {
     }, {
         key: "buildCards",
         value: function buildCards(data) {
-            var _this2 = this;
-
             var totalCards = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 3;
+
+            var _this3 = this;
+
+            var pickAll = arguments[2];
+            var reshffleUses = arguments[3];
 
 
             for (var i = this.handCards.length - 1; i >= 0; i--) {
@@ -92799,22 +92999,22 @@ var SurvivorDeckController = function (_GameObject) {
                     //this.pickCard(card);
                     //card.visible = false;
                     //return
-                    if (_this2.state == 0) {
-                        _this2.state = 1;
-                        _this2.highlightCard(card);
+                    if (_this3.state == 0) {
+                        _this3.state = 1;
+                        _this3.highlightCard(card);
                     } else {
-                        if (_this2.highlightedCard == card) {
-                            _this2.state = 0;
-                            _this2.returnHighlighted();
+                        if (_this3.highlightedCard == card) {
+                            _this3.state = 0;
+                            _this3.returnHighlighted();
                         } else {
-                            _this2.returnHighlighted();
-                            _this2.highlightCard(card);
+                            _this3.returnHighlighted();
+                            _this3.highlightCard(card);
                         }
                     }
                 });
                 cardView.onCardConfirmed.add(function (card) {
-                    _this2.highlightCard(card);
-                    _this2.pickCard(card);
+                    _this3.highlightCard(card);
+                    _this3.pickCard(card);
                 });
                 this.handCards.push(cardView);
                 cardView.setData(dt, data[_i]);
@@ -92824,6 +93024,24 @@ var SurvivorDeckController = function (_GameObject) {
             this.cardsContainer.y = _Game2.default.Screen.height / 2;
             this.cardsContainer.x = _Game2.default.Screen.width / 2;
             //this.cardsContainer.addChild(UIUtils.getCircle());
+
+
+            this.uiButtons.removeAllElements();
+            this.pickAll.visible = pickAll < 0.2;
+            this.reshuffle.visible = reshffleUses > 0;
+            if (this.pickAll.visible) {
+                this.uiButtons.addElement(this.pickAll);
+            }
+            if (this.reshuffle.visible) {
+                this.uiButtons.addElement(this.reshuffle);
+            }
+            this.reshuffle.priceLabel.text = "Reshuffle\n(" + reshffleUses + ")";
+            this.reshuffle.buttonListContent.updateHorizontalList();
+            this.uiButtons.updateHorizontalList();
+
+            TweenLite.killTweensOf(this.uiButtons);
+            this.uiButtons.alpha = 0;
+            TweenLite.to(this.uiButtons, 0.5, { delay: 0.5, alpha: 1 });
         }
     }, {
         key: "pickCard",
@@ -92833,16 +93051,18 @@ var SurvivorDeckController = function (_GameObject) {
 
             var weaponData = _EntityBuilder2.default.instance.weaponsData[this.holdingData.id];
 
+            var data = weaponData;
             if (weaponData) {
                 this.player.sessionData.addEquipmentNEW(weaponData);
             } else {
+                data = this.holdingData.clone();
                 this.player.sessionData.addEquipmentNEW(this.holdingData.clone());
             }
 
             this.state = 0;
             this.destroyHighlighted();
 
-            this.onConfirmLoudout.dispatch();
+            this.onConfirmLoudout.dispatch(data);
         }
     }, {
         key: "highlightCard",
@@ -92911,11 +93131,24 @@ var SurvivorDeckController = function (_GameObject) {
             }
 
             this.cardsContainer.x = _Game2.default.Borders.width * 0.5;
-            this.cardsContainer.y = _Game2.default.Borders.height * 0.5;
+            this.cardsContainer.y = _Game2.default.Borders.height * 0.5 - 50;
             this.transitionContainer.x = this.cardsContainer.x;
             this.transitionContainer.y = this.cardsContainer.y;
 
-            this.backShape.alpha = _Utils2.default.lerp(this.backShape.alpha, 0.4, 0.1);
+            this.backShape.alpha = _Utils2.default.lerp(this.backShape.alpha, 0.9, 0.1);
+
+            this.blocker.width = _Game2.default.Borders.width;
+            this.blocker.height = _Game2.default.Borders.height;
+
+            this.backShape.width = _Game2.default.Borders.width;
+            this.backShape.height = _Game2.default.Borders.height;
+
+            this.uiButtons.x = _Game2.default.Borders.width / 2 - this.uiButtons.w / 2;
+            this.uiButtons.y = _Game2.default.Borders.height - this.uiButtons.height - 40;
+
+            if (_Game2.default.IsPortrait) {
+                this.uiButtons.y -= 80;
+            }
         }
     }, {
         key: "aspectChange",
@@ -92933,9 +93166,6 @@ var SurvivorDeckController = function (_GameObject) {
         value: function resize() {
 
             this.cardsContainer.x = _Game2.default.Borders.width * 0.5;
-
-            this.blocker.width = _Game2.default.Borders.width;
-            this.blocker.height = _Game2.default.Borders.height;
         }
     }, {
         key: "disable",
@@ -92949,6 +93179,7 @@ var SurvivorDeckController = function (_GameObject) {
             (0, _get3.default)(SurvivorDeckController.prototype.__proto__ || (0, _getPrototypeOf2.default)(SurvivorDeckController.prototype), "enable", this).call(this);
             this.backShape.alpha = 0;
             this.gameView.view.visible = true;
+            this.uiButtons.updateHorizontalList();
         }
     }]);
     return SurvivorDeckController;
@@ -93670,6 +93901,7 @@ var SpriteSheetGameView = function (_BaseComponent) {
         key: 'enable',
         value: function enable() {
             (0, _get3.default)(SpriteSheetGameView.prototype.__proto__ || (0, _getPrototypeOf2.default)(SpriteSheetGameView.prototype), 'enable', this).call(this);
+            this.gameObject.gameView.view.texture = PIXI.Texture.EMPTY;
         }
     }, {
         key: 'restart',
@@ -93794,7 +94026,7 @@ var _Utils = __webpack_require__(7);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WeaponAttributes = __webpack_require__(64);
+var _WeaponAttributes = __webpack_require__(65);
 
 var _WeaponAttributes2 = _interopRequireDefault(_WeaponAttributes);
 
@@ -93946,7 +94178,7 @@ var WeaponInGameView = function (_GameObject) {
                 if (index >= this.spriteList.length) continue;
                 var element = this.currentBulletList[index];
                 var spriteElement = this.spriteList[index];
-                spriteElement.targetAngle = element.angle;
+                spriteElement.targetAngle = element.angle + this.offsetAngle;
                 spriteElement.spring.x = 0.5;
                 spriteElement.spring.tx = 1;
 
@@ -93976,17 +94208,17 @@ var WeaponInGameView = function (_GameObject) {
                     }
                     var ang = finalAng + this.weapon.weaponAttributes.angleStart;
 
-                    this.spriteList[index].targetAngle = ang;
+                    this.spriteList[index].targetAngle = ang + this.offsetAngle;
                 }
             } else if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.FacingPlayer || this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.Hoaming) {
                 var _totalBullets = this.spriteList.length;
                 for (var _index = 0; _index < _totalBullets; _index++) {
-                    this.spriteList[_index].targetAngle = this.parent.facingAngle;
+                    this.spriteList[_index].targetAngle = this.parent.facingAngle + this.offsetAngle;
                 }
             } else if (this.weapon.weaponAttributes.directionType == _WeaponAttributes2.default.DirectionType.ParentDirection) {
                 var _totalBullets2 = this.spriteList.length;
                 for (var _index2 = 0; _index2 < _totalBullets2; _index2++) {
-                    this.spriteList[_index2].targetAngle = this.parent.parent.latestAngle;
+                    this.spriteList[_index2].targetAngle = this.parent.parent.latestAngle + this.offsetAngle;
                 }
             }
         }
@@ -93996,6 +94228,9 @@ var WeaponInGameView = function (_GameObject) {
             var _this2 = this;
 
             delta *= _Eugine2.default.PhysicsTimeScale;
+
+            this.offsetAngle = this.parent.offsetAngle;
+
             for (var index = 0; index < this.currentBulletList.length; index++) {
                 if (index >= this.spriteList.length) continue;
 
@@ -94029,7 +94264,7 @@ var WeaponInGameView = function (_GameObject) {
 
                 _this2.x = _this2.parent.transform.position.x;
                 _this2.z = _this2.parent.transform.position.z;
-                if (up || _this2.isAlwaysUp) {
+                if (up || _this2.isAlwaysUp && _this2.offsetAngle == 0) {
                     _this2.z = _this2.parent.transform.position.z + 1; // this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.FrontLayer)
                 } else {
                     _this2.z = _this2.parent.transform.position.z - 1; //this.renderModule.swapLayer(this.gameView, RenderModule.RenderLayers.BackLayer)
@@ -95182,7 +95417,7 @@ var BeamView = function (_PIXI$Sprite) {
 
                 var _this = (0, _possibleConstructorReturn3.default)(this, (BeamView.__proto__ || (0, _getPrototypeOf2.default)(BeamView)).call(this));
 
-                _this.startShape = new PIXI.Sprite.from('rainbowBase');
+                _this.startShape = new PIXI.Sprite.from('beamBase');
                 _this.endShape = new PIXI.Sprite.from('endBeam');
                 _this.base = new PIXI.Sprite.from('shadow');
                 _this.weaponView = new PIXI.Sprite.from('laserGun1');
@@ -95190,22 +95425,22 @@ var BeamView = function (_PIXI$Sprite) {
                 _this.weaponView.anchor.set(0.6, 0.5);
                 _this.weaponView.scale.set(0.5);
                 //this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('beam'))
-                _this.textureWidth = 214;
-                _this.textureHeight = 140;
-                _this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('rainbowBody'), _this.textureWidth, _this.textureHeight);
+                _this.textureWidth = 64;
+                _this.textureHeight = 64;
+                _this.tiledTexture = new PIXI.TilingSprite(PIXI.Texture.from('beam'), _this.textureWidth, _this.textureHeight);
 
                 //this.addChild(this.base)
                 //this.addChild(this.weaponView)
                 _this.addChild(_this.tiledTexture);
                 _this.addChild(_this.startShape);
-                //this.addChild(this.endShape)
+                _this.addChild(_this.endShape);
 
                 _this.startShape.anchor.set(0.5);
                 _this.endShape.anchor.set(0.5);
                 _this.tiledTexture.anchor.set(0.5, 0.5);
 
                 //this.startShape.tint = 0xFF0000
-                _this.endShape.tint = 0xFF0000;
+                //this.endShape.tint = 0xFF0000
                 //this.tiledTexture.tint = 0x00FFFF
                 //this.startShape.alpha = 0.1
                 //this.endShape.alpha = 0.1
@@ -95221,7 +95456,7 @@ var BeamView = function (_PIXI$Sprite) {
                         this.endShape.x = distance;
                         this.endShape.y = 0;
 
-                        var offset = 30;
+                        var offset = 25;
                         var offset2 = 25;
                         this.tiledTexture.tileScale.set(this.beamHeight / this.textureHeight);
                         this.tiledTexture.width = this.beamWidth * 2 - 50 * this.tiledTexture.tileScale.y - offset - offset2;
@@ -96413,6 +96648,8 @@ var LoadoutContainer = function (_MainScreenModal) {
 
                         var availableCompanions = fullInventory.companions;
 
+                        console.log(availableCompanions);
+
                         var _loop = function _loop(index) {
                                 var card = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', _this3.slotSize, _this3.slotSize);
                                 var dt = _EntityBuilder2.default.instance.getCompanion(availableCompanions[index].id);
@@ -96441,11 +96678,12 @@ var LoadoutContainer = function (_MainScreenModal) {
 
                         var removeCompanion = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                         removeCompanion.resetPivot();
+                        removeCompanion.remover();
                         removeCompanion.onCardClicked.add(function (removeCompanion) {
                                 _GameData2.default.instance.changeCompanion(null);
                                 _this3.currentCompanionSlot.setData(null);
                         });
-                        this.equippableCompanions.shift(removeCompanion);
+                        this.equippableCompanions.unshift(removeCompanion);
                 }
         }, {
                 key: 'refreshTrinkets',
@@ -96487,11 +96725,12 @@ var LoadoutContainer = function (_MainScreenModal) {
                         var removeTrinket = new _LoadoutCardView2.default(_UIUtils2.default.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
                         //removeTrinket.setData(dt)
                         removeTrinket.resetPivot();
+                        removeTrinket.remover();
                         removeTrinket.onCardClicked.add(function (removeTrinket) {
                                 _GameData2.default.instance.changeTrinket(null);
                                 _this4.currentTrinketSlot.setData(null);
                         });
-                        this.equippableTrinkets.shift(removeTrinket);
+                        this.equippableTrinkets.unshift(removeTrinket);
                 }
         }, {
                 key: 'refreshShoes',
@@ -96752,7 +96991,7 @@ var _BaseButton = __webpack_require__(31);
 
 var _BaseButton2 = _interopRequireDefault(_BaseButton);
 
-var _CompanionData = __webpack_require__(84);
+var _CompanionData = __webpack_require__(85);
 
 var _CompanionData2 = _interopRequireDefault(_CompanionData);
 
@@ -97156,7 +97395,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _CompanionData = __webpack_require__(84);
+var _CompanionData = __webpack_require__(85);
 
 var _CompanionData2 = _interopRequireDefault(_CompanionData);
 
@@ -97192,7 +97431,7 @@ var _Utils = __webpack_require__(7);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WeaponData = __webpack_require__(72);
+var _WeaponData = __webpack_require__(73);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -97397,7 +97636,7 @@ var _pixi = __webpack_require__(6);
 
 var PIXI = _interopRequireWildcard(_pixi);
 
-var _CompanionData = __webpack_require__(84);
+var _CompanionData = __webpack_require__(85);
 
 var _CompanionData2 = _interopRequireDefault(_CompanionData);
 
@@ -97433,7 +97672,7 @@ var _Utils = __webpack_require__(7);
 
 var _Utils2 = _interopRequireDefault(_Utils);
 
-var _WeaponData = __webpack_require__(72);
+var _WeaponData = __webpack_require__(73);
 
 var _WeaponData2 = _interopRequireDefault(_WeaponData);
 
@@ -97813,7 +98052,7 @@ var _PrizeManager = __webpack_require__(34);
 
 var _PrizeManager2 = _interopRequireDefault(_PrizeManager);
 
-var _RewardsManager = __webpack_require__(85);
+var _RewardsManager = __webpack_require__(64);
 
 var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
 
@@ -98333,12 +98572,12 @@ var RouletteContainer = function (_MainScreenModal) {
                 value: function givePrize(type, id, amount) {
                         if (type === 0) {
                                 setTimeout(function () {
-                                        _PrizeManager2.default.instance.getMetaLowerPrize();
+                                        _PrizeManager2.default.instance.getMetaLowerPrize(amount);
                                 }, 1000);
                         } else {
 
                                 setTimeout(function () {
-                                        _PrizeManager2.default.instance.getMetaPrize([id], amount);
+                                        _PrizeManager2.default.instance.getMetaPrize([id], amount, amount - 1);
                                 }, 1000);
                         }
                 }
@@ -98433,7 +98672,7 @@ var _PrizeManager = __webpack_require__(34);
 
 var _PrizeManager2 = _interopRequireDefault(_PrizeManager);
 
-var _RewardsManager = __webpack_require__(85);
+var _RewardsManager = __webpack_require__(64);
 
 var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
 
@@ -98503,7 +98742,7 @@ var RouletteView = function (_PIXI$Container) {
 
         //PrizeManager
 
-        _this.prizeList = _PrizeManager2.default.instance.metaPrizeList;
+        _this.prizeList = _PrizeManager2.default.instance.cassinoPrizeList;
 
         for (var i = 0; i < 3; i++) {
             var square = new _RouletteSlotView2.default(i);
@@ -98577,10 +98816,9 @@ var RouletteView = function (_PIXI$Container) {
                     match++;
                 }
             }
-            //console.log(foundlings, match)
             if (match <= 0) {
 
-                this.onPrizeFound.dispatch(0);
+                this.onPrizeFound.dispatch(0, 0, match);
             } else {
 
                 var max = -999;
@@ -98591,7 +98829,7 @@ var RouletteView = function (_PIXI$Container) {
                         maxId = element.id;
                     }
                 });
-                this.onPrizeFound.dispatch(1, maxId, max);
+                this.onPrizeFound.dispatch(Math.max(1, match), maxId, max);
             }
         }
     }, {
@@ -98824,7 +99062,7 @@ var RouletteSlotView = function (_PIXI$Container) {
 
                         this.spinning = true;
 
-                        this.spinSpeed = 1000 + Math.random() * 200;
+                        this.spinSpeed = 2000 + Math.random() * 200;
 
                         this.curveTimer = time + Math.random();
                         this.curveCurrentTime = 0;
@@ -98835,7 +99073,9 @@ var RouletteSlotView = function (_PIXI$Container) {
                         this.spinning = false;
                         var distNormal = Math.max(0.2, _Utils2.default.distance(this.offset, 0, this.slotHeight, 0) / this.slotHeight);
                         TweenLite.to(this, 3 * distNormal, { offset: this.slotHeight * 0.5, ease: Elastic.easeOut });
-                        this.centerDataIndex = (this.currentSpotId + 1) % this.prizes.length;this.onFinishSpin.dispatch(this.id, this.centerDataIndex);
+                        this.centerDataIndex = (this.currentSpotId + 1) % this.prizes.length;
+                        console.log(this.id, this.centerDataIndex);
+                        this.onFinishSpin.dispatch(this.id, this.centerDataIndex);
                 }
         }, {
                 key: 'shouldContinueSpinning',
@@ -98967,7 +99207,7 @@ var _PrizeManager = __webpack_require__(34);
 
 var _PrizeManager2 = _interopRequireDefault(_PrizeManager);
 
-var _RewardsManager = __webpack_require__(85);
+var _RewardsManager = __webpack_require__(64);
 
 var _RewardsManager2 = _interopRequireDefault(_RewardsManager);
 
@@ -99317,7 +99557,6 @@ var ShopContainer = function (_MainScreenModal) {
     }, {
         key: 'aspectChange',
         value: function aspectChange(isPortrait) {
-            console.log('aspectChange', isPortrait);
             if (isPortrait) {} else {}
         }
     }]);
@@ -99696,7 +99935,7 @@ var _AmbientLightSystem = __webpack_require__(116);
 
 var _AmbientLightSystem2 = _interopRequireDefault(_AmbientLightSystem);
 
-var _BaseEnemy = __webpack_require__(79);
+var _BaseEnemy = __webpack_require__(80);
 
 var _BaseEnemy2 = _interopRequireDefault(_BaseEnemy);
 
@@ -99728,7 +99967,7 @@ var _GameStaticData = __webpack_require__(15);
 
 var _GameStaticData2 = _interopRequireDefault(_GameStaticData);
 
-var _InputModule = __webpack_require__(83);
+var _InputModule = __webpack_require__(84);
 
 var _InputModule2 = _interopRequireDefault(_InputModule);
 
@@ -99740,7 +99979,7 @@ var _LevelManager = __webpack_require__(42);
 
 var _LevelManager2 = _interopRequireDefault(_LevelManager);
 
-var _MainScreenManager = __webpack_require__(69);
+var _MainScreenManager = __webpack_require__(70);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
@@ -104072,7 +104311,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _LightSource = __webpack_require__(71);
+var _LightSource = __webpack_require__(72);
 
 var _LightSource2 = _interopRequireDefault(_LightSource);
 
@@ -105811,7 +106050,7 @@ var _Game = __webpack_require__(10);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _MainScreenManager = __webpack_require__(69);
+var _MainScreenManager = __webpack_require__(70);
 
 var _MainScreenManager2 = _interopRequireDefault(_MainScreenManager);
 
@@ -109733,23 +109972,26 @@ var assets = [{
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
 }, {
+	"id": "localization_ES",
+	"url": "assets/json\\localization_ES.json"
+}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_ES",
-	"url": "assets/json\\localization_ES.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -109760,8 +110002,20 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
+	"id": "companion-animation",
+	"url": "assets/json\\animation\\companion-animation.json"
+}, {
+	"id": "player-animation",
+	"url": "assets/json\\animation\\player-animation.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "body-parts",
 	"url": "assets/json\\database\\body-parts.json"
@@ -109769,14 +110023,23 @@ var assets = [{
 	"id": "starter-inventory",
 	"url": "assets/json\\database\\starter-inventory.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "game-shop",
+	"url": "assets/json\\economy\\game-shop.json"
 }, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "wavesBkp",
+	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
@@ -109786,36 +110049,6 @@ var assets = [{
 }, {
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "game-shop",
-	"url": "assets/json\\economy\\game-shop.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
-}, {
-	"id": "wavesBkp",
-	"url": "assets/json\\enemy-waves\\wavesBkp.json"
-}, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -109829,15 +110062,6 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
-	"id": "player-animation",
-	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "companion-animation",
-	"url": "assets/json\\animation\\companion-animation.json"
-}, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
@@ -109846,6 +110070,21 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }];
 
 exports.default = assets;
@@ -109878,7 +110117,7 @@ module.exports = exports['default'];
 /* 351 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/hud/hud.json","image/icons/icons.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/icons/icons.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

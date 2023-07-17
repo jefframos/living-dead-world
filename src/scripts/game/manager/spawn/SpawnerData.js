@@ -73,7 +73,7 @@ export default class SpawnerData {
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
             case SessionSpawner.SpawnAreaType.Arc:
-                this.offset = { x: Math.cos(this.angle) * (this.radius * 2 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 2 + this.distanceToSpawn) }
+                this.offset = { x: Math.cos(this.angle) * (this.radius * 3 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 3 + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Point:
 

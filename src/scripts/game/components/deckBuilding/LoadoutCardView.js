@@ -48,6 +48,9 @@ export default class LoadoutCardView extends PIXI.Container {
         this.levelLabel.y = height - 14
         this.levelLabel.alpha = 0.3
 
+
+
+
         this.cardImage = new PIXI.Sprite();
 
         this.cardContainer.addChild(this.cardImage);
@@ -95,6 +98,18 @@ export default class LoadoutCardView extends PIXI.Container {
         this.border.height = height
         this.unselected();
 
+
+        this.valueLabel = UIUtils.getPrimaryLabel('', { strokeThickness: 3, dropShadow: false, fontSize: 24, fill: "#ffffff" });
+        this.cardContainer.addChild(this.valueLabel);
+
+        this.valueLabel.anchor.set(0.5, 1)
+        this.valueLabel.x = width / 2
+        this.valueLabel.y = height - 10
+
+    }
+    remover(){
+        this.levelLabel.text = '';
+        this.cardImage.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('close'));
     }
     resize(width, height) {
         this.baseWidth = width;

@@ -287,7 +287,6 @@ export default class ShopContainer extends MainScreenModal {
         });
     }
     aspectChange(isPortrait) {
-        console.log('aspectChange', isPortrait);
         if (isPortrait) {
         } else {
 

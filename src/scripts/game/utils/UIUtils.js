@@ -257,7 +257,7 @@ export default class UIUtils {
         const priceLabel = UIUtils.getPrimaryLabel('free')
         button.priceLabel = priceLabel;
         buttonList.addElement(priceLabel, { align: 1, scaleContentMax: true, fitWidth: 0.9 })
-        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0, scaleContentMax: true, fitWidth: 0.9 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitWidth: 0.8 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
@@ -352,7 +352,7 @@ export default class UIUtils {
         }
 
 
-        console.log(attribute)
+        console.log('NO Icon For',attribute)
         return 'icon-help'
     }
     static getIconUIIcon(type) {

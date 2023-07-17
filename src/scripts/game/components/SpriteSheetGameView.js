@@ -19,6 +19,7 @@ export default class SpriteSheetGameView extends BaseComponent {
     }
     enable() {
         super.enable();
+        this.gameObject.gameView.view.texture = PIXI.Texture.EMPTY;
     }
     restart() {
 

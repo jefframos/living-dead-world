@@ -325,6 +325,8 @@ export default class LoadoutContainer extends MainScreenModal {
 
         let availableCompanions = fullInventory.companions
 
+        console.log(availableCompanions)
+
         for (let index = 0; index < availableCompanions.length; index++) {
             const card = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
             let dt = EntityBuilder.instance.getCompanion(availableCompanions[index].id)
@@ -346,11 +348,12 @@ export default class LoadoutContainer extends MainScreenModal {
 
         let removeCompanion = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
         removeCompanion.resetPivot()
+        removeCompanion.remover()
         removeCompanion.onCardClicked.add((removeCompanion) => {
             GameData.instance.changeCompanion(null);
             this.currentCompanionSlot.setData(null)
         })
-        this.equippableCompanions.shift(removeCompanion)
+        this.equippableCompanions.unshift(removeCompanion)
 
     }
     refreshTrinkets() {
@@ -382,11 +385,12 @@ export default class LoadoutContainer extends MainScreenModal {
         let removeTrinket = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
         //removeTrinket.setData(dt)
         removeTrinket.resetPivot()
+        removeTrinket.remover()
         removeTrinket.onCardClicked.add((removeTrinket) => {
             GameData.instance.changeTrinket(null);
             this.currentTrinketSlot.setData(null)
         })
-        this.equippableTrinkets.shift(removeTrinket)
+        this.equippableTrinkets.unshift(removeTrinket)
     }
     refreshShoes() {
         const fullInventory = GameData.instance.inventory;

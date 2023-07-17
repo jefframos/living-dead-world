@@ -34,7 +34,10 @@ export default class RewardsManager {
         PokiSDK.gameplayStart();
     }
     doComercial(callback, params) {
-        if (this.noPoki) return;
+        if (this.noPoki) {
+            if (callback) callback(params)
+            return;
+        }
         this.gameplayStop()
 
         if (this.isDebug) {
@@ -64,7 +67,10 @@ export default class RewardsManager {
     }
 
     doReward(callback, params) {
-        if (this.noPoki) return;
+        if (this.noPoki) {
+            if (callback) callback(params)
+            return;
+        }
         this.gameplayStop()
 
         if (this.isDebug) {

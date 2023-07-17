@@ -50,7 +50,7 @@ export default class RouletteView extends PIXI.Container {
 
         //PrizeManager
 
-        this.prizeList = PrizeManager.instance.metaPrizeList;
+        this.prizeList = PrizeManager.instance.cassinoPrizeList;
 
         for (var i = 0; i < 3; i++) {
             let square = new RouletteSlotView(i)
@@ -122,10 +122,9 @@ export default class RouletteView extends PIXI.Container {
                 match++
             }
         }
-        //console.log(foundlings, match)
         if (match <= 0) {
-
-            this.onPrizeFound.dispatch(0)
+            
+            this.onPrizeFound.dispatch(0, 0, match)
 
         } else {
 
@@ -137,7 +136,7 @@ export default class RouletteView extends PIXI.Container {
                     maxId = element.id;
                 }
             });
-            this.onPrizeFound.dispatch(1, maxId, max)
+            this.onPrizeFound.dispatch(Math.max(1,match), maxId, max)
 
         }
     }

@@ -7,6 +7,7 @@ import LoadoutCardView from "../../deckBuilding/LoadoutCardView";
 import PrizeCollectContainer from "../prizes/PrizeCollectContainer";
 import PrizeManager from "../../../data/PrizeManager";
 import RenderModule from "../../../core/modules/RenderModule";
+import RewardsManager from "../../../data/RewardsManager";
 import UIList from "../../../ui/uiElements/UIList";
 import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
@@ -288,7 +289,11 @@ export default class GameOverView extends GameObject {
 
 
         setTimeout(() => {
-            this.onConfirmGameOver.dispatch();
+
+            RewardsManager.instance.doComercial(() => {
+                
+                this.onConfirmGameOver.dispatch();
+            })
         }, 500);
 
     }

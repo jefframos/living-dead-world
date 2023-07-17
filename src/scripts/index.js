@@ -19,7 +19,10 @@ window.PIXI = PIXI;
 
 
 //Utils.easeOutQuad
-getValues(0.075, 0.12, null, 'easeOutQuad', 0.8, 5)
+getValues(150, 300, 'floor', 'easeOutQuad', 1, 5)
+getValues(50, 250, 'floor', 'easeOutQuad', 1, 5)
+getValues(8, 5, null, 'easeOutQuad', 1, 5)
+getValues(3, 4.5, null, 'easeOutQuad', 1, 5)
 
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
@@ -39,7 +42,7 @@ getValues(0.075, 0.12, null, 'easeOutQuad', 0.8, 5)
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-getValues(8, 30, 'floor', 'easeOutQuad', 0.8)
+getValues(3, 5.5, null, 'easeOutQuad', 1,5)
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 800, 'floor', 'easeOutCubic', 1)
