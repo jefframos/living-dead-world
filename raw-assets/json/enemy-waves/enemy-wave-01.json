@@ -5,39 +5,47 @@
         "waves": [
             {
                 "areaType": "arc",
-                "radius": 350,
+                "length":250,
+                "radius": 250,
                 "total": 5000,
-                "maxActive": 5,
+                "maxActive": 8,
                 "entity": [
                     "ZOMBIE_01"
-                ]
+                ],
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 1000,
                 "maxActive": 5,
-                "entity": "RAT_01"
+                "entity": "RAT_01",
+                "levels":[0]
             }
         ]
     },
     {
-        "startAt": 45,
+        "startAt": 60,
         "duration": 60,
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 450,
                 "total": 5000,
                 "maxActive": 20,
-                "entity": "SPIDER_BRAIN"
+                "entity": "SPIDER_BRAIN",
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 1000,
                 "maxActive": 5,
-                "entity": "RAT_01"
+                "entity": "RAT_01",
+                "levels":[0]
             }
         ]
     },
@@ -47,22 +55,25 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 100,
                 "maxActive": 50,
                 "entity": [
-                    "ZOMBIE_02",
-                    "ZOMBIE_03"
-                ]
+                    "ZOMBIE_02"
+                ],
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 100,
                 "maxActive": 10,
                 "entity": [
                     "RAT_01"
-                ]
+                ],
+                "levels":[0]
             }
         ]
     },
@@ -72,12 +83,14 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 350,
                 "total": 1000,
                 "maxActive": 50,
-                "entity": "ZOMBIE_KAREN"
+                "entity": "ZOMBIE_KAREN",
+                "levels":[0]
             }
         ]
     },
@@ -87,20 +100,24 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 350,
                 "total": 1,
-                "entity": "ZOMBIE_MOM"
+                "entity": "ZOMBIE_MOM",
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 350,
                 "total": 800,
                 "maxActive": 50,
-                "entity": "BUTTFLY"
+                "entity": "BUTTFLY",
+                "levels":[0]
             }
         ]
     },
@@ -110,19 +127,23 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 1,
                 "maxActive": 1,
-                "entity": "MAN_LEGS"
+                "entity": "MAN_LEGS",
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 350,
                 "total": 5000,
                 "maxActive": 50,
-                "entity": "SPIDER_BRAIN"
+                "entity": "SPIDER_BRAIN",
+                "levels":[0]
             }
         ]
     },
@@ -132,14 +153,17 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 350,
                 "total": 1,
-                "entity": "ZOMBIE_MOM"
+                "entity": "ZOMBIE_MOM",
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 3000,
                 "maxActive": 80,
@@ -147,7 +171,8 @@
                     "ZOMBIE_02",
                     "ZOMBIE_03",
                     "ZOMBIE_04"
-                ]
+                ],
+                "levels":[0]
             }
         ]
     },
@@ -157,19 +182,23 @@
         "waves": [
             {
                 "areaType": "arc",
+                "length":250,
                 "width": 400,
                 "height": 400,
                 "radius": 300,
                 "total": 5000,
                 "maxActive": 80,
-                "entity": "SPIDER_BRAIN"
+                "entity": "SPIDER_BRAIN",
+                "levels":[0]
             },
             {
                 "areaType": "arc",
+                "length":250,
                 "radius": 350,
                 "total": 1000,
                 "maxActive": 5,
-                "entity": "RAT_01"
+                "entity": "RAT_01",
+                "levels":[0]
             }
         ]
     }

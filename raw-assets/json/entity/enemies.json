@@ -16,7 +16,7 @@
             "baseMass": 1,
             "baseDefense": 5,
             "baseRadius": 25,
-            "baseSpeed": 10
+            "baseSpeed": [10, 12,14,16,18]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -80,13 +80,13 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 10,
-            "baseHealth": 30,
+            "basePower": [10,13,22,38,60],
+            "baseHealth": [30,33,45,63,90],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 25,
-            "baseSpeed": 8
+            "baseSpeed": [8,8,10,12,16]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -110,18 +110,18 @@
             "name": "Slime",
             "description": "Green, greedy, groovy",
             "type": "Enemy",
-            "tier": 1,
+            "tier": 2,
             "title": "Jhonatan Goblin"
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 10,
-            "baseHealth": 50,
+            "basePower": [10,11,17,26,40],
+            "baseHealth": [100,106,125,156,200],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 25,
-            "baseSpeed": 6
+            "baseSpeed": [9,9,11,13,17]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -145,18 +145,18 @@
             "name": "Slime",
             "description": "Green, greedy, groovy",
             "type": "Enemy",
-            "tier": 2,
+            "tier": 3,
             "title": "Jhonatan Goblin"
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 15,
-            "baseHealth": 20,
+            "basePower": [8,9,13,19,28],
+            "baseHealth": [30,37,60,97,150],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 25,
-            "baseSpeed": 50
+            "baseSpeed": [50,53,62,78,100]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -177,16 +177,16 @@
         "id": "ZOMBIE_MOM",
         "entityData": {
             "type": "Enemy",
-            "tier": 2
+            "tier": 4
         },
         "attributes": {
-            "basePower": 20,
-            "baseHealth": 250,
+            "basePower": [40,43,55,73,100],
+            "baseHealth": [800,843,975,1193,1500],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 30,
-            "baseSpeed": 80
+            "baseSpeed": [80,82,90,102,120]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -209,18 +209,18 @@
             "name": "Bat",
             "description": "Green, greedy, groovy",
             "type": "Enemy",
-            "tier": 1,
+            "tier": 2,
             "title": "Jhonatan Goblin"
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 12,
-            "baseHealth": 15,
+            "basePower": [12,13,19,27,40],
+            "baseHealth": [15,19,31,51,80],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 15,
-            "baseSpeed": 20
+            "baseSpeed": [20,21,25,31,40]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -244,19 +244,19 @@
         "id": "MAN_LEGS",
         "entityData": {
             "type": "Enemy",
-            "tier": 2
+            "tier": 4
         },
         "weapon": {
             "id": "ENEMY_MINIGUN_01"
         },
         "attributes": {
-            "basePower": 20,
-            "baseHealth": 250,
+            "basePower": [20,31,65,121,200],
+            "baseHealth": [1200,1250,1400,1650,2000],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 30,
-            "baseSpeed": 25
+            "baseSpeed": [25,25,28,33,40]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -276,16 +276,16 @@
         "id": "SPIDER_BRAIN",
         "entityData": {
             "type": "Enemy",
-            "tier": 2
+            "tier": 1
         },
         "attributes": {
-            "basePower": 20,
-            "baseHealth": 50,
+            "basePower": [12,13,17,24,35],
+            "baseHealth": [50,53,62,78,100],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 15,
-            "baseSpeed": 12
+            "baseSpeed": [6,6,9,12,18]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -305,16 +305,16 @@
         "id": "RAT_01",
         "entityData": {
             "type": "Enemy",
-            "tier": 2
+            "tier": 1
         },
         "attributes": {
-            "basePower": 20,
-            "baseHealth": 10,
+            "basePower": [10,11,15,21,30],
+            "baseHealth": [10,13,22,38,60],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 15,
-            "baseSpeed": 12
+            "baseSpeed": [10,10,12,15,20]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

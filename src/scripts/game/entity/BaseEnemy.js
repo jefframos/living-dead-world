@@ -21,14 +21,19 @@ import ZombieWalk from "../components/ZombieWalk";
 export default class BaseEnemy extends GameAgent {
     constructor() {
         super();
-        this.gameView.view = new PIXI.Sprite()        
+        this.gameView.view = new PIXI.Sprite()
     }
     get tier() { return this.staticData.entityData.tier }
-    build(enemyData) {
+    build(enemyData, extraData) {
         super.build();
+
+        this.inBoundsX = true;
+        this.inBoundsZ = true;
 
         this.staticData = enemyData;
         this.attributes.reset(enemyData.attributes);
+
+        this.attributes.level = extraData && extraData.level >= 0 ? extraData.level : 0;
         this.viewData = enemyData.view;
 
         this.buildCircle(0, 0, this.attributes.radius);
@@ -36,13 +41,8 @@ export default class BaseEnemy extends GameAgent {
         this.layerCategory = Layer.Enemy
         this.layerMask = Layer.EnemyCollision
 
-
         this.speed = this.attributes.speed;
         this.health.setNewHealth(this.attributes.health)
-
-
-
-
 
         let spriteFacing = this.addComponent(SpriteFacing);
         spriteFacing.lerp = 0.1
@@ -129,7 +129,10 @@ export default class BaseEnemy extends GameAgent {
     }
     update(delta) {
         if (!this.dying) {
-            if (Vector3.distance(this.transform.position, Player.MainPlayer.transform.position) > LevelManager.instance.destroyDistance) {
+
+            this.inBoundsX = Vector3.distanceX(this.transform.position, Player.MainPlayer.transform.position) < LevelManager.instance.destroyDistanceV2.x
+            this.inBoundsY = Vector3.distanceZ(this.transform.position, Player.MainPlayer.transform.position) < LevelManager.instance.destroyDistanceV2.y
+            if (!this.inBoundsX || !this.inBoundsY) {
                 this.onRespawn.dispatch(this)
             }
             this.timer += delta * (this.speed * delta * Math.random())

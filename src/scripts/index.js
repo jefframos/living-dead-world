@@ -19,11 +19,14 @@ window.PIXI = PIXI;
 
 
 //Utils.easeOutQuad
-getValues(150, 300, 'floor', 'easeOutQuad', 1, 5)
-getValues(50, 250, 'floor', 'easeOutQuad', 1, 5)
-getValues(8, 5, null, 'easeOutQuad', 1, 5)
-getValues(3, 4.5, null, 'easeOutQuad', 1, 5)
-
+// getValues(10, 60, 'floor', 'easeOutQuad', 1, 5)
+// getValues(10, 40, 'floor', 'easeOutQuad', 1, 5)
+// getValues(8, 28, 'floor', 'easeOutQuad', 1, 5)
+// getValues(40, 100, 'floor', 'easeOutQuad', 1, 5)
+// getValues(12, 40, 'floor', 'easeOutQuad', 1, 5)
+// getValues(20, 200, 'floor', 'easeOutQuad', 1, 5)
+// getValues(12, 35, 'floor', 'easeOutQuad', 1, 5)
+// getValues(10, 30, 'floor', 'easeOutQuad', 1, 5)
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
 
@@ -70,7 +73,7 @@ function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0
 }
 
 
-(function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
+//(function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
 
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);

@@ -8,8 +8,10 @@ export default class SpawnerData {
         this.width = 100
         this.height = 100
         this.radius = 100
+        this.length = 100
         this.total = 15
         this.maxActive = 15
+        this.levels = [0]
         this.active = false;
         this.entity = ''
         this.toSpawnData = { entity: '', x: 0, z: 0 }
@@ -52,6 +54,9 @@ export default class SpawnerData {
     updateDistanceToSpawn(distance) {
         this.distanceToSpawn = distance;
     }
+    get level() {
+        return this.levels[Math.floor(this.levels.length * Math.random())];
+    }
     get canSpawn() {
         return this.totalSpawned < this.total;
     }
@@ -73,7 +78,8 @@ export default class SpawnerData {
                 break;
             case SessionSpawner.SpawnAreaType.Circle:
             case SessionSpawner.SpawnAreaType.Arc:
-                this.offset = { x: Math.cos(this.angle) * (this.radius * 3 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 3 + this.distanceToSpawn) }
+                const length = Math.random() * this.length
+                this.offset = { x: Math.cos(this.angle) * (this.radius + length + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius + length + this.distanceToSpawn) }
                 break;
             case SessionSpawner.SpawnAreaType.Point:
 
@@ -101,8 +107,10 @@ export default class SpawnerData {
 
                 break;
             case SessionSpawner.SpawnAreaType.Arc:
-                this.toSpawnData.x = this.randomPoint.x * this.radius// + this.offset.x;
-                this.toSpawnData.z = this.randomPoint.y * this.radius// + this.offset.y;
+
+                const length = Math.random() * this.length
+                this.toSpawnData.x = this.randomPoint.x * (this.radius + length)// + this.offset.x;
+                this.toSpawnData.z = this.randomPoint.y * (this.radius + length)// + this.offset.y;
                 this.randomPoint = Utils.randomCircle()
 
                 break;

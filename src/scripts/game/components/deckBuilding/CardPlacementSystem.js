@@ -94,7 +94,7 @@ export default class CardPlacementSystem {
         // })
 
         // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
-         starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
+        // starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
 
         // console.log(this.typesPickedCardsList)
         // console.log(this.pickedCardsList)

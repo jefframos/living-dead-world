@@ -15316,6 +15316,16 @@ var Vector3 = function () {
             return Math.sqrt((v1.x - v2.x) * (v1.x - v2.x) + (v1.y - v2.y) * (v1.y - v2.y) + (v1.z - v2.z) * (v1.z - v2.z));
         }
     }, {
+        key: "distanceX",
+        value: function distanceX(v1, v2) {
+            return Math.sqrt((v1.x - v2.x) * (v1.x - v2.x));
+        }
+    }, {
+        key: "distanceZ",
+        value: function distanceZ(v1, v2) {
+            return Math.sqrt((v1.z - v2.z) * (v1.z - v2.z));
+        }
+    }, {
         key: "atan2XZ",
         value: function atan2XZ(v1, v2) {
             return Math.atan2(v1.z - v2.z, v1.x - v2.x);
@@ -28062,7 +28072,7 @@ var LevelManager = function () {
         window.gameplayFolder.add(this.gameManagerStats, 'Phase').listen();
         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
-        this.destroyDistance = 1000;
+        //this.destroyDistance = 1000;
 
         this.enemyGlobalSpawner = new _EnemyGlobalSpawner2.default(this);
         this.gameplayTime = 0;
@@ -28218,6 +28228,9 @@ var LevelManager = function () {
                 enemiesKilled: 0,
                 time: 0
             };
+            this.destroyDistanceV2 = {
+                x: 0, y: 0
+            };
         }
     }, {
         key: "spawnRandomEnemy",
@@ -28240,9 +28253,9 @@ var LevelManager = function () {
         }
     }, {
         key: "addEntity",
-        value: function addEntity(constructor, buildParams) {
+        value: function addEntity(constructor, buildParams, extra) {
             var entity = this.gameEngine.poolGameObject(constructor, false);
-            entity.build(buildParams);
+            entity.build(buildParams, extra);
 
             this.gameplayEntities.push(entity);
 
@@ -28408,7 +28421,20 @@ var LevelManager = function () {
 
             //using a fixed value
             this.enemyGlobalSpawner.distanceToSpawn = 500; //Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
-            this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
+            //this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
+
+            if (_Game2.default.IsPortrait) {
+                this.destroyDistanceV2.x = _Camera2.default.ViewportSize.height + 200;
+                this.destroyDistanceV2.y = _Camera2.default.ViewportSize.height + 200;
+            } else {
+                this.destroyDistanceV2.x = _Camera2.default.ViewportSize.width - 200;
+                this.destroyDistanceV2.y = _Camera2.default.ViewportSize.height;
+            }
+
+            //console.log(Camera.instance.zoom)
+
+            //console.log(this.destroyDistanceV2)
+
             //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
             this.gameManagerStats.Phase = this.currentPhase;
             if (this.gameplayTime > 0.5 && delta > 0) {
@@ -35553,11 +35579,16 @@ var BaseEnemy = function (_GameAgent) {
 
     (0, _createClass3.default)(BaseEnemy, [{
         key: "build",
-        value: function build(enemyData) {
+        value: function build(enemyData, extraData) {
             (0, _get3.default)(BaseEnemy.prototype.__proto__ || (0, _getPrototypeOf2.default)(BaseEnemy.prototype), "build", this).call(this);
+
+            this.inBoundsX = true;
+            this.inBoundsZ = true;
 
             this.staticData = enemyData;
             this.attributes.reset(enemyData.attributes);
+
+            this.attributes.level = extraData && extraData.level >= 0 ? extraData.level : 0;
             this.viewData = enemyData.view;
 
             this.buildCircle(0, 0, this.attributes.radius);
@@ -35658,7 +35689,10 @@ var BaseEnemy = function (_GameAgent) {
         key: "update",
         value: function update(delta) {
             if (!this.dying) {
-                if (_Vector2.default.distance(this.transform.position, _Player2.default.MainPlayer.transform.position) > _LevelManager2.default.instance.destroyDistance) {
+
+                this.inBoundsX = _Vector2.default.distanceX(this.transform.position, _Player2.default.MainPlayer.transform.position) < _LevelManager2.default.instance.destroyDistanceV2.x;
+                this.inBoundsY = _Vector2.default.distanceZ(this.transform.position, _Player2.default.MainPlayer.transform.position) < _LevelManager2.default.instance.destroyDistanceV2.y;
+                if (!this.inBoundsX || !this.inBoundsY) {
                     this.onRespawn.dispatch(this);
                 }
                 this.timer += delta * (this.speed * delta * Math.random());
@@ -76092,11 +76126,14 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 window.PIXI = PIXI;
 
 //Utils.easeOutQuad
-getValues(150, 300, 'floor', 'easeOutQuad', 1, 5);
-getValues(50, 250, 'floor', 'easeOutQuad', 1, 5);
-getValues(8, 5, null, 'easeOutQuad', 1, 5);
-getValues(3, 4.5, null, 'easeOutQuad', 1, 5);
-
+// getValues(10, 60, 'floor', 'easeOutQuad', 1, 5)
+// getValues(10, 40, 'floor', 'easeOutQuad', 1, 5)
+// getValues(8, 28, 'floor', 'easeOutQuad', 1, 5)
+// getValues(40, 100, 'floor', 'easeOutQuad', 1, 5)
+// getValues(12, 40, 'floor', 'easeOutQuad', 1, 5)
+// getValues(20, 200, 'floor', 'easeOutQuad', 1, 5)
+// getValues(12, 35, 'floor', 'easeOutQuad', 1, 5)
+// getValues(10, 30, 'floor', 'easeOutQuad', 1, 5)
 //   getValues(2, 30, 'floor', 'easeOutQuad', 0.8,5)
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
 
@@ -76145,13 +76182,8 @@ function getValues(value1, value2) {
     console.log(list);
 }
 
-(function () {
-    var script = document.createElement('script');script.onload = function () {
-        var stats = new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop() {
-            stats.update();requestAnimationFrame(loop);
-        });
-    };script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);
-})();
+//(function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
+
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
@@ -89861,7 +89893,7 @@ var EnemyGlobalSpawner = function () {
             var enemyData = _GameStaticData2.default.instance.getEntityById('enemy', _Utils2.default.findValueOrRandom(toSpawn.entity));
 
             spawnData.totalSpawned++;
-            var enemy = this.gameManager.addEntity(_BaseEnemy2.default, enemyData);
+            var enemy = this.gameManager.addEntity(_BaseEnemy2.default, enemyData, { level: spawnData.level });
             enemy.currentSpawnPool = spawnData;
             enemy.setPositionXZ(this.gameManager.player.transform.position.x + toSpawn.x, this.gameManager.player.transform.position.z + toSpawn.z);
         }
@@ -89928,8 +89960,10 @@ var SpawnerData = function () {
         this.width = 100;
         this.height = 100;
         this.radius = 100;
+        this.length = 100;
         this.total = 15;
         this.maxActive = 15;
+        this.levels = [0];
         this.active = false;
         this.entity = '';
         this.toSpawnData = { entity: '', x: 0, z: 0 };
@@ -89989,7 +90023,8 @@ var SpawnerData = function () {
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Circle:
                 case _SessionSpawner2.default.SpawnAreaType.Arc:
-                    this.offset = { x: Math.cos(this.angle) * (this.radius * 3 + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius * 3 + this.distanceToSpawn) };
+                    var length = Math.random() * this.length;
+                    this.offset = { x: Math.cos(this.angle) * (this.radius + length + this.distanceToSpawn), y: Math.sin(this.angle) * (this.radius + length + this.distanceToSpawn) };
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Point:
 
@@ -90019,8 +90054,10 @@ var SpawnerData = function () {
 
                     break;
                 case _SessionSpawner2.default.SpawnAreaType.Arc:
-                    this.toSpawnData.x = this.randomPoint.x * this.radius; // + this.offset.x;
-                    this.toSpawnData.z = this.randomPoint.y * this.radius; // + this.offset.y;
+
+                    var length = Math.random() * this.length;
+                    this.toSpawnData.x = this.randomPoint.x * (this.radius + length); // + this.offset.x;
+                    this.toSpawnData.z = this.randomPoint.y * (this.radius + length); // + this.offset.y;
                     this.randomPoint = _Utils2.default.randomCircle();
 
                     break;
@@ -90029,6 +90066,11 @@ var SpawnerData = function () {
                     this.toSpawnData.z = 0;
                     break;
             }
+        }
+    }, {
+        key: "level",
+        get: function get() {
+            return this.levels[Math.floor(this.levels.length * Math.random())];
         }
     }, {
         key: "canSpawn",
@@ -91152,7 +91194,7 @@ var CardPlacementSystem = function () {
             // })
 
             // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
-            starters.push(_GameStaticData2.default.instance.getCardById('LASER_CARD'));
+            // starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
 
             // console.log(this.typesPickedCardsList)
             // console.log(this.pickedCardsList)
@@ -109987,47 +110029,44 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
+}, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
-}, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
+}, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
-	"id": "body-parts",
-	"url": "assets/json\\database\\body-parts.json"
-}, {
-	"id": "starter-inventory",
-	"url": "assets/json\\database\\starter-inventory.json"
-}, {
 	"id": "game-shop",
 	"url": "assets/json\\economy\\game-shop.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
@@ -110035,20 +110074,17 @@ var assets = [{
 	"id": "wavesBkp",
 	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -110062,14 +110098,11 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
+	"id": "starter-inventory",
+	"url": "assets/json\\database\\starter-inventory.json"
 }, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+	"id": "body-parts",
+	"url": "assets/json\\database\\body-parts.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -110080,11 +110113,20 @@ var assets = [{
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -110117,7 +110159,7 @@ module.exports = exports['default'];
 /* 351 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/icons/icons.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

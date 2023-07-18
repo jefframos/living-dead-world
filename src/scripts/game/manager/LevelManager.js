@@ -46,7 +46,7 @@ export default class LevelManager {
         window.gameplayFolder.add(this.gameManagerStats, 'Phase').listen();
         window.gameplayFolder.add(this.gameManagerStats, 'Time').listen();
 
-        this.destroyDistance = 1000;
+        //this.destroyDistance = 1000;
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
         this.gameplayTime = 0;
@@ -185,7 +185,10 @@ export default class LevelManager {
 
         this.matchStats = {
             enemiesKilled:0,
-            time:0
+            time:0            
+        }
+        this.destroyDistanceV2 = {
+            x:0, y:0
         }
     }
     spawnRandomEnemy() {
@@ -201,9 +204,9 @@ export default class LevelManager {
         }
         this.enemyGlobalSpawner.spawnEnemy(spawnData)
     }
-    addEntity(constructor, buildParams) {
+    addEntity(constructor, buildParams, extra) {
         let entity = this.gameEngine.poolGameObject(constructor, false)
-        entity.build(buildParams)
+        entity.build(buildParams, extra)
 
         this.gameplayEntities.push(entity);
 
@@ -344,7 +347,20 @@ export default class LevelManager {
 
         //using a fixed value
         this.enemyGlobalSpawner.distanceToSpawn = 500//Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
-        this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
+        //this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
+
+        if(Game.IsPortrait) {
+            this.destroyDistanceV2.x = Camera.ViewportSize.height + 200;
+            this.destroyDistanceV2.y = Camera.ViewportSize.height + 200;
+        }else{
+            this.destroyDistanceV2.x = Camera.ViewportSize.width - 200;
+            this.destroyDistanceV2.y = Camera.ViewportSize.height;
+        }
+
+        //console.log(Camera.instance.zoom)
+
+        //console.log(this.destroyDistanceV2)
+
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase
         if (this.gameplayTime > 0.5 && delta > 0) {

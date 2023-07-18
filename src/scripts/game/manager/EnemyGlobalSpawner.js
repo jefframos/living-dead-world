@@ -19,7 +19,7 @@ export default class EnemyGlobalSpawner {
         let enemyData = GameStaticData.instance.getEntityById('enemy', Utils.findValueOrRandom(toSpawn.entity));
 
         spawnData.totalSpawned++;
-        let enemy = this.gameManager.addEntity(BaseEnemy, enemyData)
+        let enemy = this.gameManager.addEntity(BaseEnemy, enemyData, {level:spawnData.level})
         enemy.currentSpawnPool = spawnData;
         enemy.setPositionXZ(
             this.gameManager.player.transform.position.x + toSpawn.x
