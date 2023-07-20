@@ -34,15 +34,15 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentListLine1 = new UIList();
         this.equipmentListLine1.w = 0;
         this.equipmentListLine1.h = 50;
-        this.equipmentListLine1.x = 30
-        this.equipmentListLine1.y = -5
+        this.equipmentListLine1.x = 15
+        this.equipmentListLine1.y = -25
         this.equipmentContainer.addChild(this.equipmentListLine1);
 
         this.equipmentListLine2 = new UIList();
         this.equipmentListLine2.w = 0;
         this.equipmentListLine2.h = 50;
-        this.equipmentListLine2.x = 5
-        this.equipmentListLine2.y = 45
+        this.equipmentListLine2.x = this.equipmentListLine1.x - 30
+        this.equipmentListLine2.y =  this.equipmentListLine1.y + 60
         this.equipmentContainer.addChild(this.equipmentListLine2);
 
 
@@ -151,15 +151,15 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
                 icon.align = 0
 
-                if (this.equipmentListLine1.w < this.maxSize - 50) {
+                if (this.equipmentListLine1.w < this.maxSize - 60) {
 
-                    this.equipmentListLine1.w += 50;
-                    this.equipmentListLine1.h = 50;
-                    this.equipmentListLine1.addElement(icon,{fitWidth:1})
+                    this.equipmentListLine1.w += 60;
+                    this.equipmentListLine1.h = 60;
+                    this.equipmentListLine1.addElement(icon)
                 } else {
-                    this.equipmentListLine2.w += 50;
-                    this.equipmentListLine2.h = 50;
-                    this.equipmentListLine2.addElement(icon,{fitWidth:1})
+                    this.equipmentListLine2.w += 60;
+                    this.equipmentListLine2.h = 60;
+                    this.equipmentListLine2.addElement(icon)
                 }
             }
         });

@@ -295,8 +295,6 @@ export default class Player extends GameAgent {
         let weaponData = inGameWeapon.mainWeapon
         weaponData.baseLevel = this.baseMainWeaponLevel
 
-        console.log('this.attributes.totalMain', weaponData)
-
         let first = null
 
         const t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;

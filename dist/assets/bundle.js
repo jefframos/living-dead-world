@@ -19919,8 +19919,6 @@ var Player = function (_GameAgent) {
             var weaponData = inGameWeapon.mainWeapon;
             weaponData.baseLevel = this.baseMainWeaponLevel;
 
-            console.log('this.attributes.totalMain', weaponData);
-
             var first = null;
 
             var t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;
@@ -28215,7 +28213,7 @@ var LevelManager = function () {
             this.activeSpawners = [];
             this.entitiesByType = {};
             this.entitiesByTier = [[], [], [], [], [], [], []];
-            this.gameEngine.camera.zoom = 3;
+            _Camera2.default.Zoom = 3;
 
             this.gameEngine.camera.followPoint.x = 0; //this.player.gameView.view.position.x;
             this.gameEngine.camera.followPoint.y = 0;
@@ -28420,16 +28418,9 @@ var LevelManager = function () {
             }
 
             //using a fixed value
-            this.enemyGlobalSpawner.distanceToSpawn = 500; //Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
-            //this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
-
-            if (_Game2.default.IsPortrait) {
-                this.destroyDistanceV2.x = _Camera2.default.ViewportSize.height + 200;
-                this.destroyDistanceV2.y = _Camera2.default.ViewportSize.height + 200;
-            } else {
-                this.destroyDistanceV2.x = _Camera2.default.ViewportSize.width - 200;
-                this.destroyDistanceV2.y = _Camera2.default.ViewportSize.height;
-            }
+            this.enemyGlobalSpawner.distanceToSpawn = 500;
+            this.destroyDistanceV2.x = _Camera2.default.ViewportSize.width / 2 + 100;
+            this.destroyDistanceV2.y = _Camera2.default.ViewportSize.height / 2 + 100;
 
             //console.log(Camera.instance.zoom)
 
@@ -31174,6 +31165,10 @@ var _classCallCheck2 = __webpack_require__(0);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
+var _createClass2 = __webpack_require__(1);
+
+var _createClass3 = _interopRequireDefault(_createClass2);
+
 var _possibleConstructorReturn2 = __webpack_require__(3);
 
 var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
@@ -31181,10 +31176,6 @@ var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorRet
 var _get2 = __webpack_require__(5);
 
 var _get3 = _interopRequireDefault(_get2);
-
-var _createClass2 = __webpack_require__(1);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
 
 var _inherits2 = __webpack_require__(4);
 
@@ -31212,22 +31203,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Camera = function (_GameObject) {
     (0, _inherits3.default)(Camera, _GameObject);
-    (0, _createClass3.default)(Camera, null, [{
-        key: 'instance',
-        get: function get() {
-            if (!Camera._instance) {
-                Camera._instance = this;
-            }
-            return Camera._instance;
-        }
-    }]);
 
     function Camera() {
         (0, _classCallCheck3.default)(this, Camera);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (Camera.__proto__ || (0, _getPrototypeOf2.default)(Camera)).call(this));
 
-        _this.zoom = 1;
         _this.targetZoom = _Game2.default.Debug.zoom || 0.75;
         _this.followPoint = new _Vector2.default();
         return _this;
@@ -31238,8 +31219,12 @@ var Camera = function (_GameObject) {
         value: function update(delta) {
             (0, _get3.default)(Camera.prototype.__proto__ || (0, _getPrototypeOf2.default)(Camera.prototype), 'update', this).call(this, delta);
 
-            Camera.ViewportSize.width = _Game2.default.Borders.width / (this.zoom * _Game2.default.GlobalScale.x);
-            Camera.ViewportSize.height = _Game2.default.Borders.height / (this.zoom * _Game2.default.GlobalScale.y);
+            Camera.ViewportSize.width = _Game2.default.Borders.width / Camera.Zoom;
+            Camera.ViewportSize.height = _Game2.default.Borders.height / Camera.Zoom;
+
+            // Camera.ViewportSize.width = Game.Borders.width / (Camera.Zoom /Game.GlobalScale.x)
+            // Camera.ViewportSize.height = Game.Borders.height / (Camera.Zoom / Game.GlobalScale.y)
+
             Camera.ViewportSize.min = Math.min(_Game2.default.Borders.width, _Game2.default.Borders.height);
             Camera.ViewportSize.max = Math.max(_Game2.default.Borders.width, _Game2.default.Borders.height);
         }
@@ -31248,6 +31233,7 @@ var Camera = function (_GameObject) {
 }(_GameObject3.default);
 
 Camera._instance = null;
+Camera.Zoom = 1;
 Camera.ViewportSize = {
     width: 1000,
     height: 1000,
@@ -70572,8 +70558,6 @@ var PlayerSessionData = function () {
             var level = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
 
 
-            console.log(equipment);
-
             var gameItemId = -1;
             for (var index = 0; index < this.equipmentList.length; index++) {
                 var element = this.equipmentList[index];
@@ -70623,7 +70607,6 @@ var PlayerSessionData = function () {
                     continue;
                 }
                 if (ingameData.item.entityData.type == _EntityData2.default.EntityDataType.Attribute) {
-                    console.log(ingameData.item.attributeEffect);
                     this.attributesMultiplier.addMultiplyer(ingameData.item.attributeEffect, _Utils2.default.findValueByLevel(ingameData.item.modifierValue, ingameData.level));
                 }
             }
@@ -89670,7 +89653,7 @@ module.exports = exports["default"];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _getPrototypeOf = __webpack_require__(2);
@@ -89748,87 +89731,99 @@ var _Vector2 = _interopRequireDefault(_Vector);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var DirectionPin = function (_GameObject) {
-    (0, _inherits3.default)(DirectionPin, _GameObject);
+        (0, _inherits3.default)(DirectionPin, _GameObject);
 
-    function DirectionPin() {
-        (0, _classCallCheck3.default)(this, DirectionPin);
+        function DirectionPin() {
+                (0, _classCallCheck3.default)(this, DirectionPin);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (DirectionPin.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin)).call(this));
+                var _this = (0, _possibleConstructorReturn3.default)(this, (DirectionPin.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin)).call(this));
 
-        _this.gameView = new _GameView2.default(_this);
-        _this.gameView.view = new PIXI.Sprite();
-        _this.gameView.layer = _RenderModule2.default.RenderLayers.FrontLayer;
-        return _this;
-    }
-
-    (0, _createClass3.default)(DirectionPin, [{
-        key: "build",
-        value: function build(params) {
-            (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "build", this).call(this);
-
-            this.gameView.view.texture = PIXI.Texture.from('pin-arrow');
-            this.gameView.view.anchor.set(1, 0.5);
-
-            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, 30));
+                _this.gameView = new _GameView2.default(_this);
+                _this.gameView.view = new PIXI.Sprite();
+                _this.gameView.layer = _RenderModule2.default.RenderLayers.FrontLayer;
+                return _this;
         }
-    }, {
-        key: "start",
-        value: function start() {
-            var _this2 = this;
 
-            (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "start", this).call(this);
+        (0, _createClass3.default)(DirectionPin, [{
+                key: "build",
+                value: function build(params) {
+                        (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "build", this).call(this);
 
-            this.player = this.engine.findByType(_Player2.default);
+                        this.gameView.view.texture = PIXI.Texture.from('pin-arrow');
+                        this.gameView.view.anchor.set(1, 0.5);
 
-            if (!this.player) {
-                this.engine.callbackWhenAdding(_Player2.default, function (player) {
-                    _this2.player = player[0];
-                });
-            }
-        }
-    }, {
-        key: "update",
-        value: function update(delta) {
-            (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "update", this).call(this, delta);
-            if (!this.player) {
-                return;
-            }
-            this.gameView.update(delta);
-
-            // this.gameView.view.visible = true;
-            // this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2 - 50, 0, this.player.transform.position.z  )
-            // //this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2, 0, this.player.transform.position.z  + Camera.ViewportSize.height / 2)
-            // return;
-
-            var enemy = _LevelManager2.default.instance.findClosestEnemyWithHigherTier(this.player.transform.position);
-            if (enemy) {
-                var distance = _Vector2.default.distance(this.player.transform.position, enemy.transform.position);
-                var angle = _Vector2.default.atan2XZ(enemy.transform.position, this.player.transform.position);
-
-                if (distance < _Camera2.default.ViewportSize.min / 2.1) {
-                    this.gameView.view.visible = false;
-                    return;
-                } else {
-                    distance = Math.min(distance, _Camera2.default.ViewportSize.min / 2 - 100 + Math.sin(_Game2.default.Time * 4) * 4 - 50);
+                        this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, 30));
                 }
-                var lerp = this.gameView.view.visible ? 0.3 : 1;
-                this.gameView.view.rotation = _Utils2.default.angleLerp(this.gameView.view.rotation, angle, lerp);
+        }, {
+                key: "start",
+                value: function start() {
+                        var _this2 = this;
 
-                this.transform.position.x = _Utils2.default.lerp(this.transform.position.x, this.player.transform.position.x + Math.cos(angle) * distance, lerp);
-                this.transform.position.z = _Utils2.default.lerp(this.transform.position.z, this.player.transform.position.z + Math.sin(angle) * distance, lerp);
+                        (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "start", this).call(this);
 
-                this.transform.position.y = Math.cos(_Game2.default.Time * 2) * 10 - 10;
+                        this.player = this.engine.findByType(_Player2.default);
 
-                this.gameView.view.visible = true;
-            } else {
-                this.gameView.view.visible = false;
-            }
-        }
-    }, {
-        key: "onRender",
-        value: function onRender() {}
-    }]);
-    return DirectionPin;
+                        if (!this.player) {
+                                this.engine.callbackWhenAdding(_Player2.default, function (player) {
+                                        _this2.player = player[0];
+                                });
+                        }
+                }
+        }, {
+                key: "update",
+                value: function update(delta) {
+                        (0, _get3.default)(DirectionPin.prototype.__proto__ || (0, _getPrototypeOf2.default)(DirectionPin.prototype), "update", this).call(this, delta);
+                        if (!this.player) {
+                                return;
+                        }
+                        this.gameView.update(delta);
+
+                        // this.gameView.view.visible = true;
+                        // this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2 - 50, 0, this.player.transform.position.z  )
+                        // //this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2, 0, this.player.transform.position.z  + Camera.ViewportSize.height / 2)
+                        // return;
+
+                        //this debugs the position and blablabla
+                        // if(this.lala){
+                        //     this.gameView.view.visible = true;
+
+                        //     //console.log(Camera.ViewportSize.width, Camera.Zoom)
+
+                        //     this.transform.position.x = this.player.transform.position.x + (this.lala2? Camera.ViewportSize.width / 2 : 0 )//* Camera.Zoom
+                        //     this.transform.position.z = this.player.transform.position.z + (this.lala3? Camera.ViewportSize.height / 2 : 0)//+ LevelManager.instance.destroyDistanceV2.y
+
+                        //     return;
+                        // }
+
+                        var enemy = _LevelManager2.default.instance.findClosestEnemyWithHigherTier(this.player.transform.position);
+                        if (enemy) {
+                                var distance = _Vector2.default.distance(this.player.transform.position, enemy.transform.position);
+                                var angle = _Vector2.default.atan2XZ(enemy.transform.position, this.player.transform.position);
+
+                                if (distance < _Camera2.default.ViewportSize.min / 2.1) {
+                                        this.gameView.view.visible = false;
+                                        return;
+                                } else {
+                                        distance = Math.min(distance, _Camera2.default.ViewportSize.min / 2 - 100 + Math.sin(_Game2.default.Time * 4) * 4 - 50);
+                                }
+                                var lerp = this.gameView.view.visible ? 0.3 : 1;
+                                this.gameView.view.rotation = _Utils2.default.angleLerp(this.gameView.view.rotation, angle, lerp);
+
+                                this.transform.position.x = _Utils2.default.lerp(this.transform.position.x, this.player.transform.position.x + Math.cos(angle) * distance, lerp);
+                                this.transform.position.z = _Utils2.default.lerp(this.transform.position.z, this.player.transform.position.z + Math.sin(angle) * distance, lerp);
+
+                                this.transform.position.y = Math.cos(_Game2.default.Time * 2) * 10 - 10;
+
+                                this.gameView.view.visible = true;
+                        } else {
+                                this.gameView.view.visible = false;
+                        }
+                }
+        }, {
+                key: "onRender",
+                value: function onRender() {}
+        }]);
+        return DirectionPin;
 }(_GameObject3.default);
 
 exports.default = DirectionPin;
@@ -91156,6 +91151,9 @@ var CardPlacementSystem = function () {
             this.player = player;
             this.pickedCardsList = [];
             this.reshufleUses = 1;
+            this.typesPickedCardsList['Weapon'] = 1;
+            this.pickedCardsList['Weapon'] = {};
+            this.pickedCardsList['Weapon'][this.player.sessionData.mainWeapon.id] = 1;
             this.deckView.setPlayer(this.player);
         }
     }, {
@@ -91170,7 +91168,8 @@ var CardPlacementSystem = function () {
 
             this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
 
-            console.log(this.currentData);
+            // console.log(this.currentData)
+
 
             this.currentData.push({
                 id: this.player.sessionData.mainWeapon.id,
@@ -91196,23 +91195,27 @@ var CardPlacementSystem = function () {
             // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
             // starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
 
-            // console.log(this.typesPickedCardsList)
-            // console.log(this.pickedCardsList)
 
+            var maxOf = 5;
             for (var index = this.currentData.length - 1; index >= 0; index--) {
                 if (this.currentData[index].starter && this.currentData[index].entityData.type != _EntityData2.default.EntityDataType.Equipable) {
                     var cardType = this.currentData[index].entityData.type;
                     var cardId = this.currentData[index].id;
-                    //if there is 4 of the same card type
-                    if (!this.typesPickedCardsList[cardType] || this.typesPickedCardsList[cardType] < 5) {
-
-                        //if there is 5 of the same card
-                        if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
-                            starters.push(this.currentData[index]);
-                        } else {
-                            //console.log('cant',this.pickedCardsList[cardType] ,cardId)
-                        }
+                    if (cardType == 'Weapon') {
+                        cardId = this.currentData[index].weaponId;
+                    } else if (cardType == 'Acessory') {
+                        cardId = this.currentData[index].acessoryId;
+                    } else if (cardType == 'Attribute') {
+                        cardId = this.currentData[index].attributeId;
                     }
+                    //if there is 4 of the same card type
+                    if (this.typesPickedCardsList[cardType] >= maxOf) {
+                        if (this.pickedCardsList[cardType] && this.pickedCardsList[cardType][cardId] && this.pickedCardsList[cardType][cardId] < 5) {
+                            starters.push(this.currentData[index]);
+                        }
+                    } else if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
+                        starters.push(this.currentData[index]);
+                    } else {}
                 }
                 if (this.currentData[index] && !this.currentData[index].enabled) {
                     this.currentData.splice(index, 1);
@@ -92102,15 +92105,15 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                 _this.equipmentListLine1 = new _UIList2.default();
                 _this.equipmentListLine1.w = 0;
                 _this.equipmentListLine1.h = 50;
-                _this.equipmentListLine1.x = 30;
-                _this.equipmentListLine1.y = -5;
+                _this.equipmentListLine1.x = 15;
+                _this.equipmentListLine1.y = -25;
                 _this.equipmentContainer.addChild(_this.equipmentListLine1);
 
                 _this.equipmentListLine2 = new _UIList2.default();
                 _this.equipmentListLine2.w = 0;
                 _this.equipmentListLine2.h = 50;
-                _this.equipmentListLine2.x = 5;
-                _this.equipmentListLine2.y = 45;
+                _this.equipmentListLine2.x = _this.equipmentListLine1.x - 30;
+                _this.equipmentListLine2.y = _this.equipmentListLine1.y + 60;
                 _this.equipmentContainer.addChild(_this.equipmentListLine2);
 
                 _this.lifeContainer.addChild(_this.equipmentContainer);
@@ -92226,15 +92229,15 @@ var PlayerGameplayHud = function (_PIXI$Container) {
 
                                         icon.align = 0;
 
-                                        if (_this3.equipmentListLine1.w < _this3.maxSize - 50) {
+                                        if (_this3.equipmentListLine1.w < _this3.maxSize - 60) {
 
-                                                _this3.equipmentListLine1.w += 50;
-                                                _this3.equipmentListLine1.h = 50;
-                                                _this3.equipmentListLine1.addElement(icon, { fitWidth: 1 });
+                                                _this3.equipmentListLine1.w += 60;
+                                                _this3.equipmentListLine1.h = 60;
+                                                _this3.equipmentListLine1.addElement(icon);
                                         } else {
-                                                _this3.equipmentListLine2.w += 50;
-                                                _this3.equipmentListLine2.h = 50;
-                                                _this3.equipmentListLine2.addElement(icon, { fitWidth: 1 });
+                                                _this3.equipmentListLine2.w += 60;
+                                                _this3.equipmentListLine2.h = 60;
+                                                _this3.equipmentListLine2.addElement(icon);
                                         }
                                 }
                         });
@@ -92542,6 +92545,9 @@ var PlayerActiveEquipmentOnHud = function (_PIXI$Container) {
         _this.levelLabel = new PIXI.Text("", window.LABELS.LABEL1);
         _this.levelLabel.anchor.set(0.5);
 
+        _this.background = new PIXI.Sprite.from('tile');
+        _this.background.alpha = 0;
+        _this.addChild(_this.background);
         _this.addChild(_this.icon);
         _this.addChild(_this.levelLabel);
         return _this;
@@ -92550,13 +92556,16 @@ var PlayerActiveEquipmentOnHud = function (_PIXI$Container) {
     (0, _createClass3.default)(PlayerActiveEquipmentOnHud, [{
         key: 'setItem',
         value: function setItem(item) {
-            var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 50;
+            var size = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 55;
 
             this.icon.texture = PIXI.Texture.from(item.entityData.icon);
-            this.icon.scale.set(_Utils2.default.scaleToFit(this.icon, 50));
+            this.icon.scale.set(_Utils2.default.scaleToFit(this.icon, size));
             // this.icon.rotation = Math.PI / 4
-            this.icon.x = this.icon.width / 2;
-            this.icon.y = this.icon.height / 2;
+            this.icon.x = size / 2;
+            this.icon.y = size / 2;
+
+            this.background.width = size;
+            this.background.height = size;
         }
     }, {
         key: 'setLevel',
@@ -92565,8 +92574,8 @@ var PlayerActiveEquipmentOnHud = function (_PIXI$Container) {
 
             this.levelLabel.text = level + 1;
             //this.levelLabel.text = level ? level+1 : '';
-            this.levelLabel.x = this.icon.width;
-            this.levelLabel.y = this.icon.height;
+            this.levelLabel.x = this.background.width;
+            this.levelLabel.y = this.background.height;
         }
     }]);
     return PlayerActiveEquipmentOnHud;
@@ -104414,9 +104423,9 @@ var PerspectiveCamera = function (_Camera) {
                 this.renderModule.container.pivot.x = _utils2.default.lerp(this.renderModule.container.pivot.x, this.followPoint.x, 0.1);
                 this.renderModule.container.pivot.y = _utils2.default.lerp(this.renderModule.container.pivot.y, this.followPoint.z, 0.1);
 
-                this.zoom = _utils2.default.lerp(this.zoom, this.targetZoom, 0.01 * delta * 60);
+                _Camera3.default.Zoom = _utils2.default.lerp(_Camera3.default.Zoom, this.targetZoom, 0.01 * delta * 60);
 
-                this.renderModule.container.scale.set(this.zoom);
+                this.renderModule.container.scale.set(_Camera3.default.Zoom);
             }
         }
     }, {
@@ -110008,35 +110017,35 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_DE",
-	"url": "assets/json\\localization_DE.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
+}, {
+	"id": "localization_DE",
+	"url": "assets/json\\localization_DE.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
-}, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
+}, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
 }, {
-	"id": "localization_RU",
-	"url": "assets/json\\localization_RU.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_RU",
+	"url": "assets/json\\localization_RU.json"
 }, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
@@ -110053,20 +110062,20 @@ var assets = [{
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
+	"id": "body-parts",
+	"url": "assets/json\\database\\body-parts.json"
+}, {
+	"id": "starter-inventory",
+	"url": "assets/json\\database\\starter-inventory.json"
+}, {
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
+}, {
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "game-shop",
 	"url": "assets/json\\economy\\game-shop.json"
-}, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
@@ -110086,23 +110095,11 @@ var assets = [{
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
 }, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "starter-inventory",
-	"url": "assets/json\\database\\starter-inventory.json"
-}, {
-	"id": "body-parts",
-	"url": "assets/json\\database\\body-parts.json"
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -110119,11 +110116,23 @@ var assets = [{
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
@@ -110159,7 +110168,7 @@ module.exports = exports['default'];
 /* 351 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/icons/icons.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

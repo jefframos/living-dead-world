@@ -173,7 +173,7 @@ export default class LevelManager {
         this.activeSpawners = [];
         this.entitiesByType = {};
         this.entitiesByTier = [[],[],[],[],[],[],[]];
-        this.gameEngine.camera.zoom = 3
+        Camera.Zoom = 3
 
        
         this.gameEngine.camera.followPoint.x = 0;//this.player.gameView.view.position.x;
@@ -182,7 +182,7 @@ export default class LevelManager {
         this.gameEngine.camera.snapFollowPoint()
 
         this.directionPin = this.addEntity(DirectionPin)
-
+        
         this.matchStats = {
             enemiesKilled:0,
             time:0            
@@ -346,16 +346,9 @@ export default class LevelManager {
         }
 
         //using a fixed value
-        this.enemyGlobalSpawner.distanceToSpawn = 500//Math.max(Camera.ViewportSize.width/2, Camera.ViewportSize.height/2)
-        //this.destroyDistance = this.enemyGlobalSpawner.distanceToSpawn * 2 + 80;
-
-        if(Game.IsPortrait) {
-            this.destroyDistanceV2.x = Camera.ViewportSize.height + 200;
-            this.destroyDistanceV2.y = Camera.ViewportSize.height + 200;
-        }else{
-            this.destroyDistanceV2.x = Camera.ViewportSize.width - 200;
-            this.destroyDistanceV2.y = Camera.ViewportSize.height;
-        }
+        this.enemyGlobalSpawner.distanceToSpawn = 500
+        this.destroyDistanceV2.x = Camera.ViewportSize.width / 2 + 100;        
+        this.destroyDistanceV2.y = Camera.ViewportSize.height / 2 + 100;
 
         //console.log(Camera.instance.zoom)
 

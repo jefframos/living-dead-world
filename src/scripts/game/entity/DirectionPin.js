@@ -53,6 +53,18 @@ export default class DirectionPin extends GameObject {
         // //this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2, 0, this.player.transform.position.z  + Camera.ViewportSize.height / 2)
         // return;
 
+        //this debugs the position and blablabla
+        // if(this.lala){
+        //     this.gameView.view.visible = true;
+
+        //     //console.log(Camera.ViewportSize.width, Camera.Zoom)
+
+        //     this.transform.position.x = this.player.transform.position.x + (this.lala2? Camera.ViewportSize.width / 2 : 0 )//* Camera.Zoom
+        //     this.transform.position.z = this.player.transform.position.z + (this.lala3? Camera.ViewportSize.height / 2 : 0)//+ LevelManager.instance.destroyDistanceV2.y
+
+        //     return;
+        // }
+
         const enemy = LevelManager.instance.findClosestEnemyWithHigherTier(this.player.transform.position)
         if (enemy) {
             let distance = Vector3.distance(this.player.transform.position, enemy.transform.position);

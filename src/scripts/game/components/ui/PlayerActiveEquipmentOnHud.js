@@ -10,20 +10,26 @@ export default class PlayerActiveEquipmentOnHud extends PIXI.Container {
         this.levelLabel = new PIXI.Text("", window.LABELS.LABEL1)
         this.levelLabel.anchor.set(0.5)
 
+        this.background = new PIXI.Sprite.from('tile')
+        this.background.alpha = 0;
+        this.addChild(this.background)
         this.addChild(this.icon)
         this.addChild(this.levelLabel)
     }
-    setItem(item, size = 50) {
+    setItem(item, size = 55) {
         this.icon.texture = PIXI.Texture.from(item.entityData.icon)
-        this.icon.scale.set(Utils.scaleToFit(this.icon, 50))
+        this.icon.scale.set(Utils.scaleToFit(this.icon, size))
        // this.icon.rotation = Math.PI / 4
-        this.icon.x = this.icon.width/2
-        this.icon.y = this.icon.height/2
+        this.icon.x = size/2
+        this.icon.y = size/2
+
+        this.background.width = size
+        this.background.height = size
     }
     setLevel(level = 0) {
         this.levelLabel.text = level +1;
         //this.levelLabel.text = level ? level+1 : '';
-        this.levelLabel.x = this.icon.width
-        this.levelLabel.y = this.icon.height
+        this.levelLabel.x = this.background.width
+        this.levelLabel.y = this.background.height
     }
 }

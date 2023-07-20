@@ -49,13 +49,16 @@ export default class CardPlacementSystem {
         }
     }
     onReshuffle() {
-        this.reshufleUses --;
+        this.reshufleUses--;
         this.show()
     }
     setPlayer(player) {
         this.player = player;
         this.pickedCardsList = [];
         this.reshufleUses = 1;
+        this.typesPickedCardsList['Weapon'] = 1;
+        this.pickedCardsList['Weapon'] = {}
+        this.pickedCardsList['Weapon'][this.player.sessionData.mainWeapon.id] = 1;
         this.deckView.setPlayer(this.player)
     }
     setWeapons(weapons) {
@@ -67,7 +70,7 @@ export default class CardPlacementSystem {
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
 
-        console.log(this.currentData)
+        // console.log(this.currentData)
 
 
 
@@ -96,22 +99,27 @@ export default class CardPlacementSystem {
         // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
         // starters.push(GameStaticData.instance.getCardById('LASER_CARD'))
 
-        // console.log(this.typesPickedCardsList)
-        // console.log(this.pickedCardsList)
 
+        let maxOf = 5
         for (let index = this.currentData.length - 1; index >= 0; index--) {
             if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable) {
                 const cardType = this.currentData[index].entityData.type
-                const cardId = this.currentData[index].id
+                let cardId = this.currentData[index].id
+                if (cardType == 'Weapon') {
+                    cardId = this.currentData[index].weaponId;
+                } else if (cardType == 'Acessory') {
+                    cardId = this.currentData[index].acessoryId;
+                } else if (cardType == 'Attribute') {
+                    cardId = this.currentData[index].attributeId;
+                }
                 //if there is 4 of the same card type
-                if (!this.typesPickedCardsList[cardType] || this.typesPickedCardsList[cardType] < 5) {
-
-                    //if there is 5 of the same card
-                    if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
+                if (this.typesPickedCardsList[cardType] >= maxOf) {
+                    if (this.pickedCardsList[cardType] && this.pickedCardsList[cardType][cardId] && this.pickedCardsList[cardType][cardId] < 5) {
                         starters.push(this.currentData[index]);
-                    } else {
-                        //console.log('cant',this.pickedCardsList[cardType] ,cardId)
                     }
+                } else if (!this.pickedCardsList[cardType] || !this.pickedCardsList[cardType][cardId] || this.pickedCardsList[cardType][cardId] < 5) {
+                    starters.push(this.currentData[index]);
+                } else {
                 }
             }
             if (this.currentData[index] && !this.currentData[index].enabled) {

@@ -87,8 +87,6 @@ export default class PlayerSessionData {
     }
     addEquipmentNEW(equipment, level = 0) {
 
-        console.log(equipment)
-
         let gameItemId = -1;
         for (let index = 0; index < this.equipmentList.length; index++) {
             const element = this.equipmentList[index];
@@ -137,7 +135,6 @@ export default class PlayerSessionData {
                 continue;
             }
             if (ingameData.item.entityData.type == EntityData.EntityDataType.Attribute) {
-                console.log(ingameData.item.attributeEffect)
                 this.attributesMultiplier.addMultiplyer(ingameData.item.attributeEffect, Utils.findValueByLevel(ingameData.item.modifierValue, ingameData.level));
             }
 
