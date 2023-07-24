@@ -52,7 +52,8 @@ export default class Player extends GameAgent {
 
 
     }
-    get collectRadius() {
+    get collectRadius() {        
+        console.log(this.attributes.collectionRadius)
         return this.attributes.collectionRadius;
     }
     get sessionData() {
@@ -79,10 +80,11 @@ export default class Player extends GameAgent {
         this.loadoutAttributes =  GameData.instance.getLoadoutAttributes();
         this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
         this.staticData = playerData;
-
-        this.attributes.reset(playerData.attributes);
-
-        this.attributes.sumAttributes(this.loadoutAttributes)
+        
+        console.log(playerData.attributes,this.loadoutAttributes)
+        this.attributes.reset(this.loadoutAttributes);
+        this.attributes.baseCollectionRadius = playerData.attributes.baseRadius;
+        //this.attributes.sumAttributes(this.loadoutAttributes)
 
         this.viewData = playerData.view;
         Player.MainPlayer = this;
@@ -309,7 +311,9 @@ export default class Player extends GameAgent {
             this.addChild(weapon)
             this.weaponsGameObject.push(weapon);
             
-            this.attributes.basePower = weaponData.weaponAttributes.power + this.loadoutAttributes.power
+
+            this.attributes.weaponPower = weaponData.weaponAttributes.power;
+            this.attributes.basePower = this.loadoutAttributes.power
             this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
             this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical
             

@@ -189,7 +189,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
                     prize.valueLabel.text = element.value
                 }else{
                     
-                    prize.valueLabel.text = element.value.value
+                    //prize.valueLabel.text = element.value.value
                 }
 
               //  prize = new PIXI.Sprite.from(element.texture)

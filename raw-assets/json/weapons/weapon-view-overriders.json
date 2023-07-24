@@ -203,6 +203,10 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
+        "anchor": {
+            "x": 0.5,
+            "y": 0
+        },
         "viewOffset": {
             "y": -20
         },

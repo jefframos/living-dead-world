@@ -1,6 +1,7 @@
 import CookieManager from "../CookieManager";
 import EntityAttributes from "./EntityAttributes";
 import EntityBuilder from "../screen/EntityBuilder";
+import GameStaticData from "./GameStaticData";
 import signals from "signals";
 
 export default class GameData {
@@ -17,7 +18,9 @@ export default class GameData {
         this.onUpdateCurrency = new signals.Signal();
         this.notEnoughcurrency = new signals.Signal();
 
-        this.attributes = new EntityAttributes()
+        this.attributes = new EntityAttributes();
+
+        this.defaultPlayerData = GameStaticData.instance.getEntityByIndex('player', 0);
     }
     get currentPlayer() {
         return CookieManager.instance.getPlayer(CookieManager.instance.currentPlayer)
@@ -133,8 +136,8 @@ export default class GameData {
     }
     getLoadoutAttributes() {
         const addAttributes = new EntityAttributes()
-        addAttributes.resetAll();
-
+        addAttributes.resetAll()
+        addAttributes.reset(this.defaultPlayerData.attributes);
         const equippedShoe = this.currentEquippedShoe
         if (equippedShoe.id) {
             const shoeAttribute = this.getAttributesFromEquipabble(EntityBuilder.instance.getEquipable(equippedShoe.id), equippedShoe.level);

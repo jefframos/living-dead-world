@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import AttributeDrawer from './AttributeDrawer';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
@@ -32,8 +33,7 @@ export default class AttributesContainer extends PIXI.Container {
         this.uiList.x = 10;
         this.uiList.y = 10;
 
-
-        this.healthLabel = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
+        // this.healthLabel = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
         this.speedLabel = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
         this.powerLabel = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
         this.defenseLabel = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
@@ -41,80 +41,62 @@ export default class AttributesContainer extends PIXI.Container {
         this.evasionLabel = UIUtils.getPrimaryLabel('100', { fontSize: 20 });
         this.criticalLabel = UIUtils.getPrimaryLabel('100', { fontSize: 20 });
 
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('baseHealth')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.healthLabel);
+
+        this.healthDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseHealth'));
+
+        this.powerDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('basePower'));
+
+        this.defenseDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseDefense'));
+
+        this.speedDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseSpeed'));
+
+        this.frequencyDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseFrequency'));
+
+        this.evasionDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseEvasion'));
+
+        this.critDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseCritical'));
 
 
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('basePower')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.powerLabel);
-        
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('baseDefense')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.defenseLabel);
-        
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('baseFrequency')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.frequencyLabel);
+        let attSet = { scaleContentMax: false, align:0, vAlign: 0 }
+        this.uiList.addElement(this.healthDrawer, attSet);
+        this.uiList.addElement(this.powerDrawer, attSet);
+        this.uiList.addElement(this.defenseDrawer, attSet);
+        this.uiList.addElement(this.speedDrawer, attSet);
+        this.uiList.addElement(this.frequencyDrawer, attSet);
+        this.uiList.addElement(this.evasionDrawer, attSet);
+        this.uiList.addElement(this.critDrawer, attSet);
+        this.resizeDrawers(this.uiList.w / this.uiList.elementsList.length)
 
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('baseEvasion')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.evasionLabel);
+    }
+    setSize(width, height) {
+        this.containerBackground.width = width
+        this.containerBackground.height = height
+        this.uiList.w = this.containerBackground.width - 20
+        this.uiList.h = this.containerBackground.height - 20
+        this.uiList.x = 10;
+        this.uiList.y = this.containerBackground.height / 2 - this.uiList.height / 2;
+        this.resizeDrawers(this.uiList.w / this.uiList.elementsList.length)
 
-        this.uiList.addElement(new PIXI.Sprite.from(UIUtils.getIconByAttribute('baseCritical')), { fitHeight: 0.5 });
-        this.uiList.addElement(this.criticalLabel);
-
+    }
+    resizeDrawers(width) {
+        this.healthDrawer.rebuild(width, this.uiList.h)
+        this.powerDrawer.rebuild(width, this.uiList.h)
+        this.defenseDrawer.rebuild(width, this.uiList.h)
+        this.speedDrawer.rebuild(width, this.uiList.h)
+        this.frequencyDrawer.rebuild(width, this.uiList.h)
+        this.evasionDrawer.rebuild(width, this.uiList.h)
+        this.critDrawer.rebuild(width, this.uiList.h)
         this.uiList.updateHorizontalList()
-
     }
     updateAttributes(defaultAttributes, attributes) {
 
-        if (defaultAttributes.health < attributes.health) {
-            this.healthLabel.style.fill = 0xAFFE0F
-        } else {
-            this.healthLabel.style.fill = 0xFFFFFF
-        }
-        this.healthLabel.text = attributes.health
-
-        if (defaultAttributes.speed < attributes.speed) {
-            this.speedLabel.style.fill = 0xAFFE0F
-        } else {
-            this.speedLabel.style.fill = 0xFFFFFF
-        }
-        this.speedLabel.text = attributes.speed
-        
-        if (defaultAttributes.frequency < attributes.frequency) {
-            this.frequencyLabel.style.fill = 0xAFFE0F
-        } else {
-            this.frequencyLabel.style.fill = 0xFFFFFF
-        }
-        
-        if (defaultAttributes.critical < attributes.critical) {
-            this.criticalLabel.style.fill = 0xAFFE0F
-        } else {
-            this.criticalLabel.style.fill = 0xFFFFFF
-        }
-        this.criticalLabel.text = attributes.critical.toFixed(2)
-        
-        if (defaultAttributes.evasion < attributes.evasion) {
-            this.evasionLabel.style.fill = 0xAFFE0F
-        } else {
-            this.evasionLabel.style.fill = 0xFFFFFF
-        }
-        this.evasionLabel.text = attributes.evasion.toFixed(2)
-
-        //TODO: the frequency is wrong here, should have always the right value
-        this.frequencyLabel.text = Math.max(0.05,attributes.frequency).toFixed(2)
-
-        if (defaultAttributes.power < attributes.power) {
-            this.powerLabel.style.fill = 0xAFFE0F
-        } else {
-            this.powerLabel.style.fill = 0xFFFFFF
-        }
-        this.powerLabel.text = attributes.power
-
-        if (defaultAttributes.defense < attributes.defense) {
-            this.defenseLabel.style.fill = 0xAFFE0F
-        } else {
-            this.defenseLabel.style.fill = 0xFFFFFF
-        }
-        this.defenseLabel.text = attributes.defense
+        this.healthDrawer.updateAttributes(defaultAttributes.health, Math.round(attributes.health))
+        this.powerDrawer.updateAttributes(defaultAttributes.power, Math.round(attributes.power))
+        this.defenseDrawer.updateAttributes(defaultAttributes.defense, Math.round(attributes.defense))
+        this.speedDrawer.updateAttributes(defaultAttributes.speed, Math.round(attributes.speed))
+        this.frequencyDrawer.updateAttributes(Math.max(0.05, defaultAttributes.frequency).toFixed(2), Math.max(0.05, attributes.frequency).toFixed(2))
+        this.evasionDrawer.updateAttributes(defaultAttributes.evasion, attributes.evasion.toFixed(2))
+        this.critDrawer.updateAttributes(defaultAttributes.critical, attributes.critical.toFixed(2))
         this.uiList.updateHorizontalList()
     }
 }

@@ -35,7 +35,7 @@ export default class HudButtons extends GameObject {
     update() {
 
         this.buttonsList.x = Game.Borders.bottomLeft.x + 20
-        this.buttonsList.y = Game.Borders.bottomLeft.y - this.buttonSize - 20
+        this.buttonsList.y = Game.Borders.bottomLeft.y - this.buttonSize - 80
     }
     addCallbackButton(callback, texture =  UIUtils.baseButtonTexture+'_0006') {
         this.openDeckButton = new BaseButton(texture, this.buttonSize, this.buttonSize);

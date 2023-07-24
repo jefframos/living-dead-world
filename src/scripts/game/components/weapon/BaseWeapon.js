@@ -125,6 +125,7 @@ export default class BaseWeapon extends PhysicsEntity {
             this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
             //this.parent.loadoutAttributes.frequency IS NEGATIVE
+            
             this.shootFrequency = this.weaponData.weaponAttributes.frequency + this.parent.loadoutAttributes.frequency
             this.shootFrequency = Math.max(0.05, this.shootFrequency)
 
@@ -157,7 +158,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.resetBrust();
 
 
-        this.currentShootTimer = this.shootFrequency * 0.5 + 1;
+        this.currentShootTimer = this.shootFrequency * 0.5;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         //this.setDebug(this.weaponData.weaponAttributes.detectionZone)
@@ -220,6 +221,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
         let total = weapon.weaponAttributes.amount;
 
+        
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;

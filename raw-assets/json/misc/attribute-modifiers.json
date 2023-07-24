@@ -9,7 +9,7 @@
             "tier": 1
         },
         "attributeEffect": "basePower",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "SPEED_UP_MODIFIER",
@@ -21,7 +21,7 @@
             "tier": 1
         },
         "attributeEffect": "baseSpeed",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "DEFENSE_UP_MODIFIER",
@@ -33,7 +33,7 @@
             "tier": 1
         },
         "attributeEffect": "baseDefense",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "HP_UP_MODIFIER",
@@ -45,7 +45,7 @@
             "tier": 1
         },
         "attributeEffect": "baseHealth",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "FREQUENCY_MODIFIER",
@@ -57,7 +57,7 @@
             "tier": 1
         },
         "attributeEffect": "baseFrequency",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "RADIUS_MODIFIER",
@@ -69,7 +69,7 @@
             "tier": 1
         },
         "attributeEffect": "baseRadius",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     },
     {
         "id": "AMOUNT_MODIFIER",
@@ -105,6 +105,6 @@
             "tier": 1
         },
         "attributeEffect": "baseCollectionRadius",
-        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
+        "modifierValue": [0.50,0.66,1.13,1.91,3.00]
     }
 ]

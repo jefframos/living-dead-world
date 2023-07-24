@@ -18,7 +18,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 75
         },
         "icon": "goblin_idle_anim_f0",
@@ -54,7 +54,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 90
         },
         "icon": "goblin_idle_anim_f0",
@@ -90,7 +90,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 70
         },
         "icon": "goblin_idle_anim_f0",
@@ -126,7 +126,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 60
         },
         "icon": "goblin_idle_anim_f0",
@@ -162,7 +162,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 55
         },
         "icon": "goblin_idle_anim_f0",
@@ -195,7 +195,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 100
         },
         "icon": "goblin_idle_anim_f0",
@@ -228,7 +228,7 @@
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
-            "baseRadius": 20,
+            "baseRadius": 30,
             "baseSpeed": 100
         },
         "icon": "goblin_idle_anim_f0",

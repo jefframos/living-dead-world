@@ -75,7 +75,7 @@ export default class WeaponAttributes {
         this.baseDamageOverTime = 3;
         this.baseDirectionType = WeaponAttributes.DirectionType.FacingPlayer;
         this.baseBlockType = WeaponAttributes.BlockType.IgnoreEnemyBullets;
-
+        this.useRelativePower = false;
 
         this.baseBrustFire = {
             amount: 0,
@@ -171,7 +171,7 @@ export default class WeaponAttributes {
         return this.findAttributeValue('baseLifeRangeSpan');
     }
     get power() {
-        return Math.ceil(this.findAttributeValue('basePower') * this.attributesMultiplier.power);
+        return this.findAttributeValue('basePower') * this.attributesMultiplier.power;
     }
     get radius() {
         return this.findAttributeValue('baseRadius') * this.attributesMultiplier.radius;

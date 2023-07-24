@@ -223,7 +223,8 @@ export default class SurvivorDeckController extends GameObject {
 
         TweenLite.killTweensOf(this.uiButtons)
         this.uiButtons.alpha = 0
-        TweenLite.to(this.uiButtons, 0.5, { delay: 0.5, alpha: 1 })
+        this.uiButtons.visible = false;
+        TweenLite.to(this.uiButtons, 0.3, { delay: 0.8, alpha: 1, onStart:()=>{this.uiButtons.visible = true;} })
 
     }
     pickCard(card) {

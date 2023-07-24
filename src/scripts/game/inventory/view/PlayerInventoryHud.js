@@ -90,6 +90,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.attributesView = new AttributesContainer();
         this.gameView.view.addChild(this.attributesView)
 
+        this.attributesView.setSize(600,60)
         //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
     }
@@ -107,6 +108,11 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
         this.playerHud.registerPlayer(this.player)
         this.attributesView.updateAttributes(this.player.attributes, this.player.attributes)
+
+        setTimeout(() => {
+            
+            this.resize();
+        }, 1);
     }
     resetLevelBar() {
         this.baseBarView.updateNormal(0);
@@ -168,7 +174,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.weaponAcessoriesLabel.text = attributesWeapon;
 
 
-        this.attributesView.healthLabel.text = Math.round(this.player.health.currentHealth)
+        this.attributesView.healthDrawer.updateAttributes(this.player.attributes.health, this.player.health.currentHealth)
     }
     updatePlayerEquip(player) {
 
@@ -200,7 +206,14 @@ export default class PlayerInventoryHud extends GameObject {
         }
 
         this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
-        this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+
+        if(Game.IsPortrait){
+
+            this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 50
+        }else{
+
+            this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+        }
 
 
 
@@ -228,6 +241,12 @@ export default class PlayerInventoryHud extends GameObject {
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);
+        if(Game.IsPortrait){
+            this.attributesView.setSize((Game.Borders.bottomRight.x / this.attributesView.scale.x) - 10,40)
+        }else{
+            this.attributesView.setSize(Math.min(Game.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10,40)
+        }
+        //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
        
     }
 }

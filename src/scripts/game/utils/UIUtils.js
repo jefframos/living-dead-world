@@ -348,7 +348,7 @@ export default class UIUtils {
             case 'baseSpeed':
                 return 'ico_speed'
             case 'baseHealth':
-                return 'interrogation'
+                return 'heart'
         }
 
 

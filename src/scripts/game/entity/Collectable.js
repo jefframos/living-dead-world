@@ -43,7 +43,7 @@ export default class Collectable extends GameObject {
                 this.transform.position = Vector3.lerp(this.transform.position, Vector3.sum(this.player.transform.position, new Vector3(0,-20,0)), this.currentLerp /  this.lerpTime)
             }
         }
-        if (Vector3.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius) {
+        if (Vector3.distance(this.transform.position, this.player.transform.position) < (this.player.collectRadius + 5)) {
             this.attracting = true;
         }
     }

@@ -7,6 +7,7 @@ export default class EntityAttributes {
         this.baseSpeed = 10;
         this.baseFrequency = 1;
         this.basePower = 10;
+        this.weaponPower = 0  ;
         this.baseMagicDefense = 0;
         this.baseMass = 1;
         this.baseRadius = 10;
@@ -17,6 +18,7 @@ export default class EntityAttributes {
         this.baseCritical = 0;
         this.baseTotalMain = 1;
         this.level = 0;
+        this.useRelativePower = false;
 
         if (overrideDetaultValue != undefined) {
             console.log("overrideDetaultValue",overrideDetaultValue)
@@ -34,6 +36,7 @@ export default class EntityAttributes {
         this.baseSpeed = 0;
         this.baseFrequency = 0;
         this.basePower = 0;
+        this.weaponPower = 0;
         this.baseMagicDefense = 0;
         this.baseMass = 0;
         this.baseRadius = 0;
@@ -44,7 +47,8 @@ export default class EntityAttributes {
         this.baseCritical = 0;
         this.baseTotalMain = 1;
         this.level = 0;
-
+        this.useRelativePower = false;
+        
         this.writeDefaults();
     }
     writeDefaults() {
@@ -118,7 +122,7 @@ export default class EntityAttributes {
         return  this.multipliers.totalMain;
     }
     get health() {
-        return this.findAttributeValue('baseHealth') * this.multipliers.health;
+        return Math.round(this.findAttributeValue('baseHealth') * this.multipliers.health);
     }
     get frequency() {
         return this.findAttributeValue('baseFrequency') * this.multipliers.frequency;
@@ -139,6 +143,9 @@ export default class EntityAttributes {
         return this.findAttributeValue('damageZone');
     }
     get power() {
+        return Math.ceil((this.findAttributeValue('basePower') + this.findAttributeValue('weaponPower')) * this.multipliers.power);
+    }
+    get defaultPower() {
         return this.findAttributeValue('basePower') * this.multipliers.power;
     }
     get magicDefense() {

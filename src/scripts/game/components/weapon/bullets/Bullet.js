@@ -35,6 +35,7 @@ export default class Bullet extends PhysicsEntity {
         this.onHit = new signals.Signal;
 
         this.spritesheetAnimation = new SpriteSheetAnimation();
+        this.baseScale = { x: 1, y: 1 }
         //   this.setDebug(15)
     }
     build(weapon, parent, fromPlayer) {
@@ -73,14 +74,31 @@ export default class Bullet extends PhysicsEntity {
         this.rigidBody.collisionFilter.mask = 3
 
         this.speed = this.weapon.weaponAttributes.bulletSpeed
-        this.power = this.weapon.weaponAttributes.power;
 
         this.critical = 0;
-        
-        if(fromPlayer){
-            this.power += GameData.instance.getLoadoutAttributes().power;
-            this.critical += GameData.instance.getLoadoutAttributes().critical;
+        if (this.weapon.weaponAttributes.useRelativePower) {
+            let att = parent.attributes;
+            if (!att && parent.parent) {
+                att = parent.parent.attributes
+            }
+            if (!att && parent.parent.parent) {
+                att = parent.parent.parent.attributes
+            }
+            if (!att && this.spawnParent) {
+                att = this.spawnParent.attributes
+            }
+            if (!att && this.spawnParent.spawnParent.parent) {
+                att = this.spawnParent.spawnParent.parent.attributes
+            }
+            this.power = this.weapon.weaponAttributes.power * att.defaultPower
+        } else {
+            this.power = this.weapon.weaponAttributes.power;
 
+            if (fromPlayer) {
+                const player = this.engine.findByType(Player)
+                this.power = player.attributes.power;
+                this.critical = player.attributes.critical;
+            }
         }
 
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
@@ -130,7 +148,7 @@ export default class Bullet extends PhysicsEntity {
     afterBuild() {
         super.afterBuild();
 
-        if(this.weapon.weaponViewData.baseViewData.hasShadow){
+        if (this.weapon.weaponViewData.baseViewData.hasShadow) {
 
             this.shadow = this.engine.poolGameObject(Shadow)
             this.shadow.transform.position.x = this.transform.position.x
@@ -212,7 +230,7 @@ export default class Bullet extends PhysicsEntity {
 
         } else {
             if (collided.die) {
-             
+
                 collided.getShot(this.power, Math.random() < (this.critical));
                 this.piercing--;
                 this.onHit.dispatch(this, collided);

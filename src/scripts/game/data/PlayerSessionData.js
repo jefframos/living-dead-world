@@ -1,6 +1,7 @@
 import EntityAttributes from "./EntityAttributes";
 import EntityData from "./EntityData";
 import EntityMultipliers from "./EntityMultipliers";
+import GameStaticData from "./GameStaticData";
 import GameplayItem from "./GameplayItem";
 import Utils from "../core/utils/Utils";
 import signals from "signals";
@@ -12,6 +13,9 @@ export default class PlayerSessionData {
         this.xpUpdated = new signals.Signal();
         this.onLevelUp = new signals.Signal();
         this.attributesMultiplier = new EntityMultipliers();
+
+        this.defaultPlayerData = GameStaticData.instance.getEntityByIndex('player', 0);
+        this.defaultPlayerAttributes = new EntityAttributes(this.defaultPlayerData.attributes)
     }
     reset() {
         this.healthMultiplier = 1;

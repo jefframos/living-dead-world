@@ -477,6 +477,7 @@ export default class LoadoutContainer extends MainScreenModal {
         //console.log(this.defaultAttributes.multipliers)
         this.defaultAttributes.reset(playerData.attributes)
 
+        console.log(this.defaultAttributes)
 
         this.atributes = new EntityAttributes()
         //console.log(this.atributes.multipliers)
@@ -510,7 +511,8 @@ export default class LoadoutContainer extends MainScreenModal {
 
         GameData.instance.currentEquippedWeaponData.weaponAttributes.level = GameData.instance.currentEquippedWeapon.level
 
-        this.atributes.basePower = GameData.instance.currentEquippedWeaponData.weaponAttributes.power;
+        this.atributes.weaponPower = GameData.instance.currentEquippedWeaponData.weaponAttributes.power;
+        this.atributes.basePower = this.atributes.basePower;
         this.atributes.baseFrequency = GameData.instance.currentEquippedWeaponData.weaponAttributes.frequency
         this.atributes.baseCritical = GameData.instance.currentEquippedWeaponData.weaponAttributes.critical
 
