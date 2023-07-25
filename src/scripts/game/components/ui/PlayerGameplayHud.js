@@ -135,12 +135,13 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentListLine2.w = 0;
 
 
+        let totalElements = 0;
         this.player.sessionData.equipaments.forEach(element => {
 
             if (element) {
                 
                 let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
-                icon.setItem(element.item)
+                icon.setItem(element.item, 40)
                 
                 if(element.item instanceof WeaponData){
                     icon.setLevel(element.level - element.item.baseLevel)
@@ -151,16 +152,18 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
                 icon.align = 0
 
-                if (this.equipmentListLine1.w < this.maxSize - 60) {
+                if (totalElements % 2 === 0) {
 
-                    this.equipmentListLine1.w += 60;
+                    this.equipmentListLine1.w += 50;
                     this.equipmentListLine1.h = 60;
                     this.equipmentListLine1.addElement(icon)
                 } else {
-                    this.equipmentListLine2.w += 60;
+                    this.equipmentListLine2.w += 50;
                     this.equipmentListLine2.h = 60;
                     this.equipmentListLine2.addElement(icon)
                 }
+
+                totalElements ++;
             }
         });
 
@@ -177,8 +180,8 @@ export default class PlayerGameplayHud extends PIXI.Container {
         if (!this.player) {
             return;
         }
-        if (this.maxSize != (Game.Borders.width / Game.GlobalScale.min) - 250) {
-            this.maxSize = (Game.Borders.width / Game.GlobalScale.min) - 250;
+        if (this.maxSize != (Game.Borders.width / Game.GlobalScale.x) - 250) {
+            this.maxSize = (Game.Borders.width / Game.GlobalScale.x) - 250;
             this.updatePlayerEquip();
         }
     }

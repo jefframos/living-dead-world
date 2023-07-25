@@ -106,11 +106,11 @@ export default class GameOverView extends GameObject {
         
         this.blurDefeated.y = this.tryAgainLabel.y
 
-        this.finalTimeLabel = UIUtils.getSecondaryLabel('00:25', { fontSize: 24 })
+        this.finalTimeLabel = UIUtils.getSecondaryLabel('00:25', { fontSize: 32 })
         this.finalTimeLabel.anchor.set(0.5)
         this.finalTimeLabel.x = this.infoBackContainer.width / 2
-        this.finalTimeLabel.y = this.infoBackContainer.height / 4 + 120
-        this.gameOverContainer.addChild(this.finalTimeLabel)
+        this.finalTimeLabel.y = this.infoBackContainer.height / 4 + 140
+        this.infoBackContainer.addChild(this.finalTimeLabel)
 
         this.titleBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
         this.victoryContainer.addChild(this.titleBox);
@@ -238,18 +238,18 @@ export default class GameOverView extends GameObject {
         this.gameOverWin = win;
 
         this.enemyCounnt.text = this.endGameData.enemiesKilled
-        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(this.endGameData.time));
-
-
+        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(Math.max(0,this.endGameData.time)));
+        this.coinsCount.text = data.coins;
+        
         this.uiEndStatsList.updateHorizontalList()
-
+        
         if (this.currentShowingPrizes) {
             this.currentShowingPrizes.forEach(element => {
                 this.prizesContainer.removeChild(element)
-
+                
             });
         }
-        const hardCurrency = Math.floor(this.endGameData.time / 2)
+        const hardCurrency = Math.max(0,Math.floor(this.endGameData.time / 60))
         
         if (win) {
             const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 2, false)
@@ -306,7 +306,7 @@ export default class GameOverView extends GameObject {
         this.showPrize(prizes)
 
 
-        const hardCurrency = Math.floor(this.endGameData.time / 60)
+        const hardCurrency = Math.max(0,Math.floor(this.endGameData.time / 60))
         GameData.instance.addHardCurrency(hardCurrency)
 
     }

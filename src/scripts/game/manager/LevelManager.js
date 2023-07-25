@@ -1,6 +1,7 @@
 import BaseEnemy from "../entity/BaseEnemy";
 import Camera from "../core/Camera";
 import Collectable from "../entity/Collectable";
+import Consumable from "../entity/Consumable";
 import DirectionPin from "../entity/DirectionPin";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
@@ -21,7 +22,7 @@ import signals from "signals";
 export default class LevelManager {
     static _instance;
 
-    static get instance(){
+    static get instance() {
         return LevelManager._instance;
     }
     constructor(engine) {
@@ -31,8 +32,9 @@ export default class LevelManager {
         this.entityRegister = [];
         this.activeEnemies = [];
         this.collectables = [];
+        this.consumables = [];
         this.entitiesByType = {};
-        this.entitiesByTier = [[],[],[],[],[],[],[]];
+        this.entitiesByTier = [[], [], [], [], [], [], []];
 
         this.gameManagerStats = {
             GMtotalGameObjects: 0,
@@ -58,8 +60,8 @@ export default class LevelManager {
         this.init = false;
 
         this.matchStats = {
-            enemiesKilled:0,
-            time:0
+            enemiesKilled: 0,
+            time: 0
         }
     }
     setup() {
@@ -78,27 +80,27 @@ export default class LevelManager {
         playerBuildParams.mainWeapon = GameData.instance.currentEquippedWeapon;
         this.player = this.addEntity(Player, playerBuildParams)
 
-       
+
         this.player.onDie.add(() => {
             this.playerDie();
         })
         return this.player;
     }
-    confirmGameOver(){
+    confirmGameOver() {
         this.confirmPlayerDeath();
         this.onConfirmGameOver.dispatch();
     }
-    playerDie(){
+    playerDie() {
         this.gameOverOverlay.setActive(true)
         this.gameOverOverlay.show(false, this.matchStats)
         Eugine.TimeScale = 0;
     }
-    confirmPlayerDeath(){
+    confirmPlayerDeath() {
         this.directionPin.destroy()
         this.onPlayerDie.dispatch();
         Eugine.TimeScale = 0;
     }
-    revivePlayer(){
+    revivePlayer() {
         this.player.revive()
         this.gameOverOverlay.setActive(false)
 
@@ -142,9 +144,13 @@ export default class LevelManager {
         for (var i = this.collectables.length - 1; i >= 0; i--) {
             this.collectables[i].destroy();
         }
+        for (var i = this.consumables.length - 1; i >= 0; i--) {
+            this.consumables[i].destroy();
+        }
 
 
         this.collectables = [];
+        this.consumables = [];
         this.activeEnemies = [];
     }
     onPlayerLevelUp(xpData) {
@@ -152,7 +158,7 @@ export default class LevelManager {
     }
     initGame() {
         this.init = true;
-        Eugine.TimeScale =1;
+        Eugine.TimeScale = 1;
 
         this.gameOverOverlay.setActive(false)
 
@@ -168,28 +174,36 @@ export default class LevelManager {
         for (var i = this.collectables.length - 1; i >= 0; i--) {
             this.collectables[i].destroy();
         }
+        for (var i = this.consumables.length - 1; i >= 0; i--) {
+            this.consumables[i].destroy();
+        }
         this.collectables = [];
+        this.consumables = [];
         this.activeEnemies = [];
         this.activeSpawners = [];
         this.entitiesByType = {};
-        this.entitiesByTier = [[],[],[],[],[],[],[]];
+        this.entitiesByTier = [[], [], [], [], [], [], []];
         Camera.Zoom = 3
 
-       
+
         this.gameEngine.camera.followPoint.x = 0;//this.player.gameView.view.position.x;
         this.gameEngine.camera.followPoint.y = 0;
         this.gameEngine.camera.followPoint.z = 0;//this.player.gameView.view.position.y - this.player.transform.position.y;
         this.gameEngine.camera.snapFollowPoint()
 
         this.directionPin = this.addEntity(DirectionPin)
-        
+
         this.matchStats = {
-            enemiesKilled:0,
-            time:0            
+            enemiesKilled: 0,
+            time: 0,
+            coins:0
         }
         this.destroyDistanceV2 = {
-            x:0, y:0
+            x: 0, y: 0
         }
+
+        this.addConsumable();
+
     }
     spawnRandomEnemy() {
         this.enemyGlobalSpawner.spawnRandom();
@@ -197,12 +211,20 @@ export default class LevelManager {
     respawnEntity(entity) {
         this.enemyGlobalSpawner.respawnEntity(entity)
     }
+    collectCoins(value){
+        this.matchStats.coins += value;
+    }
     spawnEnemy(spawnData) {
         if (!spawnData) {
             console.log('cant spawn without data');
             return
         }
         this.enemyGlobalSpawner.spawnEnemy(spawnData)
+    }
+    collectAllPickups() {
+        this.collectables.forEach(element => {
+            element.attracting = true;
+        });
     }
     addEntity(constructor, buildParams, extra) {
         let entity = this.gameEngine.poolGameObject(constructor, false)
@@ -261,7 +283,13 @@ export default class LevelManager {
         // if (entity.dying) return;
         // EffectsManager.instance.popDamage(entity.gameObject, value)
     }
-
+    addConsumable() {
+        let consumable = this.addEntity(Consumable);
+        consumable.setType(Consumable.Type.Heal)
+        const angle = Math.random() * Math.PI * 2;
+        consumable.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 300, this.player.transform.position.z+ Math.sin(angle) * 300)
+        this.consumables.push(consumable)
+    }
     entityKilled(health, value) {
         // if(health.gameObject instanceof BaseEnemy){
         //     if(health.gameObject.staticData){
@@ -273,7 +301,7 @@ export default class LevelManager {
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
 
-        this.matchStats.enemiesKilled ++;
+        this.matchStats.enemiesKilled++;
     }
     findClosestEnemy(point) {
         let closest = 0;
@@ -306,12 +334,12 @@ export default class LevelManager {
     }
     findClosestEnemyWithHigherTier(point) {
         let tierId = 0;
-        for (let index = this.entitiesByTier.length-1; index >= 0; index--) {
-            if(this.entitiesByTier[index].length){
+        for (let index = this.entitiesByTier.length - 1; index >= 0; index--) {
+            if (this.entitiesByTier[index].length) {
                 tierId = index;
                 break;
             }
-            
+
         }
         let closest = 0;
         let minDist = 999999;
@@ -338,16 +366,16 @@ export default class LevelManager {
             return;
         }
 
-        if(Game.IsPortrait){
+        if (Game.IsPortrait) {
             this.gameEngine.camera.targetZoom = 1.5;
-        }else{
+        } else {
             this.gameEngine.camera.targetZoom = 1;
 
         }
 
         //using a fixed value
         this.enemyGlobalSpawner.distanceToSpawn = 500
-        this.destroyDistanceV2.x = Camera.ViewportSize.width / 2 + 100;        
+        this.destroyDistanceV2.x = Camera.ViewportSize.width / 2 + 100;
         this.destroyDistanceV2.y = Camera.ViewportSize.height / 2 + 100;
 
         //console.log(Camera.instance.zoom)
@@ -371,6 +399,11 @@ export default class LevelManager {
             }
         }
 
+        for (var i = this.consumables.length - 1; i >= 0; i--) {
+            if (this.consumables[i].isDestroyed) {
+                this.consumables.splice(i, 1);
+            }
+        }
 
         if (this.player) {
             this.gameEngine.camera.followPoint.x = this.player.gameView.view.position.x;

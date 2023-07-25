@@ -55,6 +55,7 @@ export default class EffectsManager extends GameObject {
         this.addBitmapFont('PLAYER_DAMAGE', {fill: "#ff4444"});
         this.addBitmapFont('BURN', {fill: "#f97b1a"});
         this.addBitmapFont('POISON', {fill: "#a71af9"});
+        this.addBitmapFont('COIN', {fill: "#ffffff"});
         this.addBitmapFont('EVASION', {fill: "#f5ff66", fontSize:18});
         this.addBitmapFont('CRITICAL', {
             align: "center",
@@ -196,6 +197,9 @@ export default class EffectsManager extends GameObject {
     }
     popHeal(entity, value) {
         this.popLabel(this.getBitmapFont('HEAL'), entity, value)
+    }
+    popCoin(entity, value) {
+        this.popLabel(this.getBitmapFont('COIN'), entity, value)
     }
     testParticles(entity, value) {
         this.particleEmitter.emit(this.particleDescriptors['FREE_BLOOD_SPLAT'], [entity.gameView.x, entity.gameView.y]);

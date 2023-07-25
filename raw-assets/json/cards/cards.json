@@ -340,6 +340,16 @@
         "enabled": false
     },
     {
+        "id": "ITEM_HEAL_MODIFIER",
+        "starter": true,
+        "entityData": {
+            "type": "Attribute"
+        },
+        "attributeId": "ITEM_HEAL_MODIFIER",
+        "tier": 1,
+        "enabled": true
+    },
+    {
         "id": "RADIUS_MODIFIER",
         "starter": false,
         "entityData": {
@@ -371,7 +381,7 @@
     },
     {
         "id": "POISON_RING",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Acessory"
         },
@@ -391,7 +401,7 @@
     },
     {
         "id": "MASK_01",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -401,7 +411,7 @@
     },
     {
         "id": "MASK_02",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -411,7 +421,7 @@
     },
     {
         "id": "MASK_03",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -421,7 +431,7 @@
     },
     {
         "id": "MASK_04",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -431,7 +441,7 @@
     },
     {
         "id": "TRINKET_01",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -441,7 +451,7 @@
     },
     {
         "id": "TRINKET_02",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -451,7 +461,7 @@
     },
     {
         "id": "TRINKET_03",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -461,7 +471,7 @@
     },
     {
         "id": "TRINKET_04",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -471,7 +481,7 @@
     },
     {
         "id": "TRINKET_05",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -481,7 +491,7 @@
     },
     {
         "id": "TRINKET_06",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -491,7 +501,7 @@
     },
     {
         "id": "TRINKET_07",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -501,7 +511,7 @@
     },
     {
         "id": "TRINKET_08",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -511,7 +521,7 @@
     },
     {
         "id": "SHOE_01",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -521,7 +531,7 @@
     },
     {
         "id": "SHOE_02",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -531,7 +541,7 @@
     },
     {
         "id": "SHOE_03",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -541,7 +551,7 @@
     },
     {
         "id": "SHOE_04",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -551,7 +561,7 @@
     },
     {
         "id": "SHOE_05",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -561,7 +571,7 @@
     },
     {
         "id": "SHOE_06",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -571,7 +581,7 @@
     },
     {
         "id": "SHOE_07",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
@@ -581,12 +591,32 @@
     },
     {
         "id": "SHOE_08",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Equipable"
         },
         "acessoryId": "SHOE_08",
         "tier": 1,
         "enabled": true
+    },
+    {
+        "id": "COIN_CARD",
+        "starter": true,
+        "entityData": {
+            "type": "Coins"
+        },
+        "tier": 1,
+        "enabled": false,
+        "value": 50
+    },
+    {
+        "id": "HEAL_CARD",
+        "starter": true,
+        "entityData": {
+            "type": "Heal"
+        },
+        "tier": 1,
+        "enabled": false,
+        "value": 0.25
     }
 ]

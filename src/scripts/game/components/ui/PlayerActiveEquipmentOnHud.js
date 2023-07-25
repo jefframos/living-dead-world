@@ -9,6 +9,7 @@ export default class PlayerActiveEquipmentOnHud extends PIXI.Container {
         this.icon.anchor.set(0.5)
         this.levelLabel = new PIXI.Text("", window.LABELS.LABEL1)
         this.levelLabel.anchor.set(0.5)
+        this.levelLabel.style.fontSize = 20
 
         this.background = new PIXI.Sprite.from('tile')
         this.background.alpha = 0;

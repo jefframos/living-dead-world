@@ -1,5 +1,6 @@
 import BaseButton from "../ui/BaseButton";
 import CardInfo from "./CardInfo";
+import CardPlacementSystem from "./CardPlacementSystem";
 import CardView from "./CardView";
 import EntityBuilder from "../../screen/EntityBuilder";
 import EntityData from "../../data/EntityData";
@@ -168,6 +169,14 @@ export default class SurvivorDeckController extends GameObject {
                     dt = EntityBuilder.instance.getWeapon(data[i].weaponId)
                     dt.setAsAttachment();
                     break;
+                case EntityData.EntityDataType.Coins:
+                    dt = EntityBuilder.instance.getAttribute(data[i].attributeId)
+                    //dt.setAsAttachment();
+                    break;
+                case EntityData.EntityDataType.Heal:
+                    dt = EntityBuilder.instance.getAttribute(data[i].attributeId)
+                    // dt.setAsAttachment();
+                    break;
             }
 
 
@@ -199,7 +208,8 @@ export default class SurvivorDeckController extends GameObject {
                 this.pickCard(card);
             })
             this.handCards.push(cardView)
-            cardView.setData(dt, data[i]);
+            console.log(dt)
+            cardView.setData(dt, data[i], this.player);
             cardView.show(i)
         }
 
@@ -224,12 +234,17 @@ export default class SurvivorDeckController extends GameObject {
         TweenLite.killTweensOf(this.uiButtons)
         this.uiButtons.alpha = 0
         this.uiButtons.visible = false;
-        TweenLite.to(this.uiButtons, 0.3, { delay: 0.8, alpha: 1, onStart:()=>{this.uiButtons.visible = true;} })
+        TweenLite.to(this.uiButtons, 0.3, { delay: 0.8, alpha: 1, onStart: () => { this.uiButtons.visible = true; } })
 
     }
     pickCard(card) {
         //this.player.sessionData.addEquipment
-
+        
+        if (CardPlacementSystem.isSpecialType(card.cardData.entityData.type)) {
+            this.destroyHighlighted();
+            this.onConfirmLoudout.dispatch(card.cardData)
+            return;
+        }
 
         let weaponData = EntityBuilder.instance.weaponsData[this.holdingData.id]
 

@@ -33,6 +33,24 @@
         "effectId": "BURN_ON_SHOOT"
     },
     {
+        "id": "COINS",
+        "entityData": {
+            "icon": "gold-icon",
+            "name": "Coins",
+            "type": "Coin",
+            "tier": 1
+        }
+    },
+    {
+        "id": "HEAL",
+        "entityData": {
+            "icon": "ico_poison",
+            "name": "Heal",
+            "type": "Heal",
+            "tier": 1
+        }
+    },
+    {
         "id": "MASK_01",
         "entityData": {
             "icon": "mask-icon0001",

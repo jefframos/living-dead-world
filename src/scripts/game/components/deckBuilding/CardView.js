@@ -1,8 +1,12 @@
 import * as PIXI from 'pixi.js';
 
+import AttributeDrawer from '../ui/loadout/AttributeDrawer';
 import BaseButton from '../ui/BaseButton';
+import CardPlacementSystem from './CardPlacementSystem';
 import EntityData from '../../data/EntityData';
 import InteractableView from '../../view/card/InteractableView';
+import LevelStars from '../ui/loadout/LevelStars';
+import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
@@ -103,7 +107,41 @@ export default class CardView extends PIXI.Container {
         this.smallFontSize = 20
         this.largeFontSize = 20
 
+        this.descriptionContainer = new PIXI.Container();
+        this.cardContentContnainer.addChild(this.descriptionContainer)
+
+        this.level = 0
+        this.levels = new LevelStars();
+        this.descriptionContainer.addChild(this.levels)
+        this.levels.resize(this.cardBorder.width - 40, 30)
+        this.levels.x = 20
+
+        this.descriptionDrawerList = new UIList();
+        this.descriptionDrawerList.w = this.cardBorder.width - 40;
+        this.descriptionDrawerList.h = 50;
+        this.descriptionDrawerList.x = 20;
+        this.descriptionDrawerList.y = 50;
+
+        this.descriptionContainer.addChild(this.descriptionDrawerList);
+        //this.addAttributeDrawer('basePower', 50)
+        //this.addAttributeDrawer('defense', 10)
+
     }
+
+    addAttributeDrawer(attribute, value, attach = '') {
+        if(value == 0){
+            return;
+        }
+        const drawer = new AttributeDrawer();
+        drawer.updateAttributes(value - 1, value, UIUtils.getIconByAttribute(attribute), attach)
+
+        drawer.rebuild(50, 20)
+
+        this.descriptionDrawerList.addElement(drawer, { align: 0 })
+        this.descriptionDrawerList.h = this.descriptionDrawerList.elementsList.length * 30;
+        this.descriptionDrawerList.updateVerticalList();
+    }
+
     resetPivot() {
         this.cardContainer.x = 0
         this.cardContainer.pivot.y = 0
@@ -130,6 +168,7 @@ export default class CardView extends PIXI.Container {
         this.cardImage.texture = PIXI.Texture.from(textureID)
     }
     getIdByType(type) {
+        console.log(type)
         switch (type) {
             case EntityData.EntityDataType.Weapon:
                 return 3
@@ -137,6 +176,8 @@ export default class CardView extends PIXI.Container {
                 return 0
 
             case EntityData.EntityDataType.Attribute:
+            case EntityData.EntityDataType.Coins:
+            case EntityData.EntityDataType.Heal:
                 return 5
 
             case EntityData.EntityDataType.Acessory:
@@ -144,10 +185,33 @@ export default class CardView extends PIXI.Container {
         }
         return 1
     }
-    setData(cardData) {
+    setData(cardData, baseData, player) {
+
+        console.log("Show the right level")
+        this.level = 0
+        if (CardPlacementSystem.isSpecialType(baseData.entityData.type)) {
+            let cardID = this.getIdByType(baseData.entityData.type)
+            this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
+
+            if (baseData.entityData.type === EntityData.EntityDataType.Coins) {
+                this.updateTexture(UIUtils.getIconUIIcon('coinsCard'));
+                this.labelTitle.text = 'Coins'
+            } else if (baseData.entityData.type === EntityData.EntityDataType.Heal) {
+                this.updateTexture(UIUtils.getIconUIIcon('healCard'));
+                this.labelTitle.text = 'Heal'
+            }
+            
+            this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 180))
+            this.cardData = baseData;
+            this.levels.visible = false;
+            return;
+        }
         if (this.cardData == cardData) {
             return;
         }
+
+        this.levels.setLevel(this.level)
+
         this.cardData = cardData;
         let cardID = this.getIdByType(cardData.entityData.type)
         this.cardBorder.texture = PIXI.Texture.from(this.textures[cardID]);
@@ -157,6 +221,40 @@ export default class CardView extends PIXI.Container {
 
         if (this.cardData.entityData.description) {
             this.setDescription(this.cardData.entityData.description);
+        }
+        if (this.cardData.entityData.type == EntityData.EntityDataType.Weapon) {
+
+            if (Array.isArray(this.cardData.weaponAttributes.baseFrequency)) {
+                this.addAttributeDrawer('baseFrequency', this.cardData.weaponAttributes.frequency, 's')
+            }
+
+            if (Array.isArray(this.cardData.weaponAttributes.basePower)) {
+                this.addAttributeDrawer('basePower', Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower))
+            }
+
+            if (Array.isArray(this.cardData.weaponAttributes.baseAmount)) {
+                this.addAttributeDrawer('baseAmount', this.cardData.weaponAttributes.amount)
+            }
+
+            if (Array.isArray(this.cardData.weaponAttributes.baseBrustFireAmount)) {
+                this.addAttributeDrawer('baseAmount', this.cardData.weaponAttributes.brustFireAmount)
+            }
+        }else if (this.cardData.entityData.type == EntityData.EntityDataType.Attribute) {
+            console.log('Check the power', this.cardData)
+
+            if(this.cardData.attributeEffect == 'baseTotalMain' || this.cardData.attributeEffect == 'basePiercing'){
+
+                this.addAttributeDrawer(this.cardData.attributeEffect, this.cardData.modifierValue[this.level])
+            }else if(this.cardData.attributeEffect == 'baseFrequency'){
+
+                this.addAttributeDrawer(this.cardData.attributeEffect, this.cardData.modifierValue[this.level], 's')
+            }else if(this.cardData.attributeEffect == 'baseItemHeal'){
+
+                this.addAttributeDrawer(this.cardData.attributeEffect, this.cardData.modifierValue[this.level]*100, '%')
+            }else{
+
+                this.addAttributeDrawer(this.cardData.attributeEffect, Math.round(this.cardData.modifierValue[this.level] * player.attributes[this.cardData.attributeEffect]))
+            }
         }
     }
     setDescription(label) {
@@ -173,6 +271,7 @@ export default class CardView extends PIXI.Container {
         this.labelDescription.x = 0
         this.labelDescription.y = 20
 
+
     }
     show(order) {
 
@@ -187,8 +286,12 @@ export default class CardView extends PIXI.Container {
 
 
         this.cardContentContnainer.y = -150
+
+        this.descriptionContainer.alpha = 0;
+
         TweenLite.to(this.cardContentContnainer, 0.75, { delay: order * 0.2 + 0.3, alpha: 1, y: 0, ease: Elastic.easeOut })
 
+        TweenLite.to(this.descriptionContainer, 0.25, { delay: order * 0.2 + 0.55, alpha: 1 })
         TweenLite.to(this.offset, 0.3, { delay: order * 0.2 + 0.3, y: 0, ease: Back.easeOut })
 
         this.cardBorder.height = 100
@@ -229,7 +332,7 @@ export default class CardView extends PIXI.Container {
         this.cardBackground.height = this.cardBorder.height - 10
 
         this.titleBox.width = this.cardBorder.width - 8
-        this.titleBox.height =this.labelTitle.height + 10
+        this.titleBox.height = this.labelTitle.height + 10
         this.titleBox.pivot.x = this.titleBox.width / 2
         this.titleBox.x = this.cardBorder.x + this.cardBorder.width / 2
         this.titleBox.y = 115
@@ -239,6 +342,11 @@ export default class CardView extends PIXI.Container {
         this.labelTitle.x = this.titleBox.width / 2
         this.labelTitle.y = 5
         this.labelTitle.style.wordWrapWidth = this.cardBorder.width - 20
+
+        this.descriptionContainer.y = this.titleBox.y + this.titleBox.height
+
+        this.descriptionDrawerList.x = this.cardBorder.width / 2 - this.descriptionContainer.x - this.descriptionDrawerList.width / 2;
+
 
 
     }

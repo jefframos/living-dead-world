@@ -53,7 +53,6 @@ export default class Player extends GameAgent {
 
     }
     get collectRadius() {        
-        console.log(this.attributes.collectionRadius)
         return this.attributes.collectionRadius;
     }
     get sessionData() {
@@ -350,12 +349,21 @@ export default class Player extends GameAgent {
     revive() {
         super.revive();
 
-        const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 300)
+        this.explodeAround();        
+    }
+    explodeAround(){
+        const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 500)
         closeEnemies.forEach(element => {
             if (element.destroy && !element.destroyed) {
                 element.destroy()
             }
         });
+    }
+    itemHeal(){
+        this.heal(Math.round(this.health.maxHealth * this.attributes.itemHeal))
+    }
+    cardHeal(value){
+        this.heal(Math.round(this.health.maxHealth * value))
     }
     die() {
         console.log("die");

@@ -13,7 +13,7 @@ export default class AttributeDrawer extends PIXI.Container {
     constructor(icon = UIUtils.getIconByAttribute('baseHealth')) {
         super();
 
-       
+
         this.uiList = new UIList();
         this.addChild(this.uiList)
 
@@ -25,23 +25,26 @@ export default class AttributeDrawer extends PIXI.Container {
         this.label = UIUtils.getPrimaryLabel('100', { fontSize: 24 });
         this.icon = new PIXI.Sprite.from(icon)
 
-        this.uiList.addElement(this.icon, { fitHeight: 0.8, align:0.8 });
-        this.uiList.addElement(this.label, {align: 0.2});
+        this.uiList.addElement(this.icon, { fitHeight: 0.8, align: 0.5 });
+        this.uiList.addElement(this.label, { align: 0 });
 
         this.uiList.updateHorizontalList()
 
     }
-    updateAttributes(defaultAttribute, attribute) {
+    updateAttributes(defaultAttribute, attribute, customIcon, attach = '') {
 
-        if (defaultAttribute.health < attribute.health) {
+        if (customIcon) {
+            this.icon.texture = PIXI.Texture.from(customIcon)
+        }
+        if (defaultAttribute < attribute) {
             this.label.style.fill = 0xAFFE0F
         } else {
             this.label.style.fill = 0xFFFFFF
         }
-        this.label.text = attribute       
+        this.label.text = attribute + attach;
         this.uiList.updateHorizontalList()
     }
-    rebuild(w,h){
+    rebuild(w, h) {
         this.uiList.w = w
         this.uiList.h = h
         this.uiList.updateHorizontalList()

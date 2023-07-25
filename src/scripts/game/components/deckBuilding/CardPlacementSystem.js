@@ -2,10 +2,12 @@ import CardView from "./CardView";
 import EntityBuilder from "../../screen/EntityBuilder";
 import EntityData from "../../data/EntityData";
 import Game from "../../../Game";
+import GameData from "../../data/GameData";
 import GameObject from "../../core/gameObject/GameObject";
 import GameStaticData from "../../data/GameStaticData";
 import GameView from "../../core/view/GameView";
 import InteractableView from "../../view/card/InteractableView";
+import LevelManager from "../../manager/LevelManager";
 import RenderModule from "../../core/modules/RenderModule";
 import Utils from "../../core/utils/Utils";
 import signals from "signals";
@@ -24,6 +26,17 @@ export default class CardPlacementSystem {
         this.onHide = new signals.Signal();
 
     }
+    static isSpecialType(type) {
+        return type === EntityData.EntityDataType.Coins || type === EntityData.EntityDataType.Heal
+    }
+    static getSpecialCallback(type, value, player) {
+        if (type === EntityData.EntityDataType.Coins) {
+            GameData.instance.addSoftCurrency(value);
+            LevelManager.instance.collectCoins(value);
+        } else {
+            player.cardHeal(value);
+        }
+    }
     build() {
 
     }
@@ -31,6 +44,13 @@ export default class CardPlacementSystem {
         this.deckView.setActive(false)
         this.hide();
 
+        if (cardData.entityData.type) {
+            if (CardPlacementSystem.isSpecialType(cardData.entityData.type)) {
+                CardPlacementSystem.getSpecialCallback(cardData.entityData.type, cardData.value, this.player)
+
+                return;
+            }
+        }
 
         if (!this.pickedCardsList[cardData.entityData.type]) {
             this.pickedCardsList[cardData.entityData.type] = [];
@@ -97,7 +117,15 @@ export default class CardPlacementSystem {
         // })
 
         // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
-         starters.push(GameStaticData.instance.getCardById('ATTACK_MODIFIER'))
+        //starters.push(GameStaticData.instance.getCardById('ATTACK_MODIFIER'))
+
+
+        // starters.push(GameStaticData.instance.getCardById('COIN_CARD'))
+        //starters.push(GameStaticData.instance.getCardById('HEAL_CARD'))
+
+
+        //         starters.push(GameStaticData.instance.getCardById('ITEM_HEAL_MODIFIER'))
+
 
 
         let maxOf = 5

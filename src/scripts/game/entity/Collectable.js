@@ -18,33 +18,40 @@ export default class Collectable extends GameObject {
         this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
 
     }
+    setType() { }
     start() {
         super.start();
         this.player = this.engine.findByType(Player)
-
-        this.lerpTime = 0.5;
+        this.lerpTime = 0.35;
         this.currentLerp = 0;
         this.attracting = false;
-        this.gameView.view.texture = PIXI.Texture.from("pickup000" + Math.ceil(Math.random()* 5))
+        this.setCollectableTexture();
     }
     update(delta) {
         super.update(delta)
-        if(!this.player){
+        if (!this.player) {
             return;
             this.destroy()
         }
-        if(this.attracting){
+        if (this.attracting) {
             this.currentLerp += delta;
 
-            if(this.currentLerp >= this.lerpTime * 0.5){
+            if (this.currentLerp >= this.lerpTime * 0.5) {
+                this.collectCallback();
                 this.destroy()
-                this.player.sessionData.addXp(1)
-            }else{
-                this.transform.position = Vector3.lerp(this.transform.position, Vector3.sum(this.player.transform.position, new Vector3(0,-20,0)), this.currentLerp /  this.lerpTime)
+            } else {
+                this.transform.position = Vector3.lerp(this.transform.position, Vector3.sum(this.player.transform.position, new Vector3(0, -20, 0)), this.currentLerp / this.lerpTime)
             }
         }
         if (Vector3.distance(this.transform.position, this.player.transform.position) < (this.player.collectRadius + 5)) {
             this.attracting = true;
         }
+    }
+    setCollectableTexture() {
+        this.gameView.view.texture = PIXI.Texture.from("pickup000" + Math.ceil(Math.random() * 5))
+    }
+    collectCallback() {
+        this.player.sessionData.addXp(1)
+
     }
 }

@@ -106,5 +106,17 @@
         },
         "attributeEffect": "baseCollectionRadius",
         "modifierValue": [0.50,0.66,1.13,1.91,3.00]
+    },
+    {
+        "id": "ITEM_HEAL_MODIFIER",
+        "entityData": {
+            "icon": "ico_green-potion",
+            "name": "HEAL",
+            "description": "This handy gadget extends your reach and increases your item collection radius, allowing you to scoop up loot from a much greater distance. With the Loot Lasso equipped, you'll never have to worry about missing out on valuable treasure and resources again.",
+            "type": "Attribute",
+            "tier": 1
+        },
+        "attributeEffect": "baseItemHeal",
+        "modifierValue": [0.1,0.2,0.3,0.4,0.5]
     }
 ]

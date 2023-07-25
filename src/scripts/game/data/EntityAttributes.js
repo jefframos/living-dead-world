@@ -7,7 +7,7 @@ export default class EntityAttributes {
         this.baseSpeed = 10;
         this.baseFrequency = 1;
         this.basePower = 10;
-        this.weaponPower = 0  ;
+        this.weaponPower = 0;
         this.baseMagicDefense = 0;
         this.baseMass = 1;
         this.baseRadius = 10;
@@ -17,11 +17,12 @@ export default class EntityAttributes {
         this.baseEvasion = 0;
         this.baseCritical = 0;
         this.baseTotalMain = 1;
+        this.baseItemHeal = 0.1;
         this.level = 0;
         this.useRelativePower = false;
 
         if (overrideDetaultValue != undefined) {
-            console.log("overrideDetaultValue",overrideDetaultValue)
+            console.log("overrideDetaultValue", overrideDetaultValue)
             this.overrideDefaults(overrideDetaultValue);
         } else {
             this.writeDefaults();
@@ -46,9 +47,10 @@ export default class EntityAttributes {
         this.baseEvasion = 0;
         this.baseCritical = 0;
         this.baseTotalMain = 1;
+        this.baseItemHeal = 0.1;
         this.level = 0;
         this.useRelativePower = false;
-        
+
         this.writeDefaults();
     }
     writeDefaults() {
@@ -100,7 +102,7 @@ export default class EntityAttributes {
         }
     }
     addMultiplyer(type, value) {
-        if ( isNaN(value) ) {
+        if (isNaN(value)) {
             return;
         }
         if (this[type] !== undefined) {
@@ -115,11 +117,14 @@ export default class EntityAttributes {
         }
         return attribute
     }
+    get itemHeal() {
+        return this.multipliers.itemHeal;
+    }
     get distance() {
         return this.findAttributeValue('baseDistance') * this.multipliers.distance;
     }
     get totalMain() {
-        return  this.multipliers.totalMain;
+        return this.multipliers.totalMain;
     }
     get health() {
         return Math.round(this.findAttributeValue('baseHealth') * this.multipliers.health);

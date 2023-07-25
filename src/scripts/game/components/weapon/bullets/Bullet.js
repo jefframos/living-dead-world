@@ -101,6 +101,7 @@ export default class Bullet extends PhysicsEntity {
             }
         }
 
+        this.power = Math.round(this.power)
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
         this.lifeSpan = this.weapon.weaponAttributes.lifeSpan
         this.distanceSpan = this.weapon.weaponAttributes.lifeRangeSpan;

@@ -45,6 +45,7 @@ export default class PlayerSessionData {
     get equipaments() {
         return this.equipmentList;
     }
+
     updateExp(amount) {
         let nextXp = this.xpData.xp + amount;
         let nextLevel = this.xpData.currentLevel;
