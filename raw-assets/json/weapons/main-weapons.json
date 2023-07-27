@@ -10,6 +10,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "multishot-gun-1-icon",
+            "description": "Shoot Multiple Bullets",
             "name": "Jolly Jaunter"
         },
         "isMain": true,
@@ -65,6 +66,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1-icon",
+            "description": "Fire a deadly barrage of bullets in the player's direction",
             "name": "Teeny-Tiny Terror"
         },
         "isMain": true,
@@ -115,6 +117,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "unicornLeg-icon",
+            "description": "Quick shoot towards player direction",
             "name": "Fidgety Firehose"
         },
         "isMain": true,
@@ -165,6 +168,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "shotgun-1-icon",
+            "description": "Shoot a strong blast of bullets",
             "name": "Boomstick"
         },
         "isMain": true,
@@ -215,6 +219,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun-icon",
+            "description": "Shoot bullets around the player",
             "name": "Micro-Maniac"
         },
         "isMain": true,
@@ -266,6 +271,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper-1-icon",
+            "description": "Shoot the closest enemy",
             "name": "Scope-a-Dope"
         },
         "isMain": true,
@@ -317,6 +323,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "dagger",
+            "description": "Hit hard close enemies",
             "name": "Dicing Dagger"
         },
         "isMain": true,
@@ -367,6 +374,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1",
+            "description": "test",
             "name": "Spinning Spree"
         },
         "isMain": true,
@@ -417,6 +425,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hoaming-dude0001",
+            "description": "Release hoaming little explosive creatures",
             "name": "Seeking Trinket"
         },
         "isMain": true,
@@ -431,7 +440,7 @@
             "useRelativePower": true,
             "basePower": [1.50,1.72,2.38,3.47,5.00],
             "baseBulletSpeed": 80,
-            "baseFrequency": 2,
+            "baseFrequency": [8.00,7.81,7.25,6.31,5.00],
             "baseCritical": 0,
             "basePiercing": 1,
             "baseAmount": 1,
@@ -467,6 +476,7 @@
             "type": "Weapon",
             "tier": 5,
             "icon": "laser-rainbow0001",
+            "description": "Fry enemies close to you",
             "name": "Optic Obliterator"
         },
         "isMain": true,
@@ -521,6 +531,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "vfx-c1",
+            "description": "test",
             "name": "Worm Waster"
         },
         "isMain": true,
@@ -571,6 +582,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
+            "description": "Throw bombs around the player",
             "name": "Compact Catastrophe"
         },
         "isMain": true,
@@ -586,6 +598,7 @@
             "useRelativePower": true,
             "basePower": [1.50,1.72,2.38,3.47,5.00],
             "baseBulletSpeed": 80,
+            "baseFrequency": [8.00,7.81,7.25,6.31,5.00],
             "baseCritical": 0,
             "basePiercing": 9999,
             "baseAmount": 1,
@@ -619,6 +632,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
+            "description": "test",
             "name": "Itsy-Bitsy Bomb"
         },
         "isMain": false,
@@ -668,6 +682,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "orbitGreen",
+            "description": "Summon projectiles that circles the player",
             "name": "Orbit"
         },
         "isMain": true,
@@ -716,6 +731,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "disk",
+            "description": "Summon a giant shuriken",
             "name": "Disk"
         },
         "isMain": true,
@@ -765,6 +781,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "rotateRed",
+            "description": "Throw a boomerang",
             "name": "Bouncing Basher"
         },
         "isMain": true,
@@ -816,6 +833,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "vfx-b1",
+            "description": "test",
             "name": "Aura"
         },
         "isMain": true,
@@ -867,6 +885,7 @@
             "type": "Weapon",
             "tier": 4,
             "icon": "bounceBomb",
+            "description": "Throw damage balls that bounce on the enemies",
             "name": "Bounce"
         },
         "isMain": true,
@@ -907,6 +926,104 @@
         }
     },
     {
+        "id": "FALL_NUKE",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
+            "extra": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "nukeBomb",
+            "description": "Summon a giant bomb nearby",
+            "name": "Bomb"
+        },
+        "isMain": true,
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "onDestroyId": "FALL_NUKE_EXPLOSION",
+        "attributes": {
+            "baseRadius": [10,15,20,25,30],
+            "baseSpawnDistance": 0,
+            "baseLifeSpan": 3,
+            "baseLifeRangeSpan": 0,
+            "useRelativePower": false,
+            "basePower": [3.00,3.75,6.00,9.75,15.00],
+            "baseBulletSpeed": 0,
+            "baseFrequency": [8.00,7.75,7.00,5.75,4.00],
+            "baseCritical": 0,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "ClosestEnemySnap",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "FallingProjectile",
+        "view": {
+            "rotationSpeed": 0,
+            "overrider": {
+                "baseViewData": "NUKE_BASE_01"
+            }
+        }
+    },
+    {
+        "id": "FALL_NUKE_EXPLOSION",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": true,
+            "enemyWeapon": false,
+            "extra": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "flameThrower",
+            "description": "test",
+            "name": "Bomb"
+        },
+        "isMain": true,
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": [50,54,67,89,120],
+            "baseSpawnDistance": 20,
+            "baseLifeSpan": 0.5,
+            "baseLifeRangeSpan": -1,
+            "useRelativePower": false,
+            "basePower": [3.00,3.75,6.00,9.75,15.00],
+            "baseBulletSpeed": 0,
+            "baseFrequency": [8.00,7.75,7.00,5.75,4.00],
+            "baseCritical": 0,
+            "basePiercing": 9999,
+            "baseAmount": 1,
+            "baseDirectionType": "SameParentPosition",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 2,
+            "baseAngleOffset": 0,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "NUKE_PACK",
+            "overrider": {
+                "baseViewData": "TRANSPARENT"
+            }
+        }
+    },
+    {
         "id": "BITE",
         "entityData": {
             "starter": false,
@@ -917,6 +1034,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "dagger",
+            "description": "test",
             "name": "Bite"
         },
         "isMain": true,
@@ -966,6 +1084,7 @@
             "type": "Weapon",
             "tier": 4,
             "icon": "bounceBomb",
+            "description": "test",
             "name": "Bounce"
         },
         "isMain": true,
@@ -1016,6 +1135,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "cat-pawn",
+            "description": "test",
             "name": "Pawn"
         },
         "isMain": true,
@@ -1067,6 +1187,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "electric-slash6",
+            "description": "test",
             "name": "Thunder"
         },
         "isMain": true,
@@ -1395,102 +1516,6 @@
         "view": {
             "rotationSpeed": 0,
             "standardVfxPack": "LAND_MINE_PACK"
-        }
-    },
-    {
-        "id": "FALL_NUKE",
-        "entityData": {
-            "starter": false,
-            "companionWeapon": false,
-            "equippableWeapon": true,
-            "enemyWeapon": false,
-            "extra": false,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "nukeBomb",
-            "name": "Bomb"
-        },
-        "isMain": true,
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "onDestroyId": "FALL_NUKE_EXPLOSION",
-        "attributes": {
-            "baseRadius": [10,15,20,25,30],
-            "baseSpawnDistance": 0,
-            "baseLifeSpan": 3,
-            "baseLifeRangeSpan": 0,
-            "useRelativePower": false,
-            "basePower": [3.00,3.75,6.00,9.75,15.00],
-            "baseBulletSpeed": 0,
-            "baseFrequency": [8.00,7.75,7.00,5.75,4.00],
-            "baseCritical": 0,
-            "basePiercing": 1,
-            "baseAmount": 1,
-            "baseDirectionType": "ClosestEnemySnap",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "FallingProjectile",
-        "view": {
-            "rotationSpeed": 0,
-            "overrider": {
-                "baseViewData": "NUKE_BASE_01"
-            }
-        }
-    },
-    {
-        "id": "FALL_NUKE_EXPLOSION",
-        "entityData": {
-            "starter": false,
-            "companionWeapon": false,
-            "equippableWeapon": true,
-            "enemyWeapon": false,
-            "extra": false,
-            "type": "Weapon",
-            "tier": 2,
-            "icon": "flameThrower",
-            "name": "Bomb"
-        },
-        "isMain": true,
-        "weaponType": "Physical",
-        "customConstructor": "BaseWeapon",
-        "attributes": {
-            "baseRadius": [50,54,67,89,120],
-            "baseSpawnDistance": 20,
-            "baseLifeSpan": 0.5,
-            "baseLifeRangeSpan": -1,
-            "useRelativePower": false,
-            "basePower": [3.00,3.75,6.00,9.75,15.00],
-            "baseBulletSpeed": 0,
-            "baseFrequency": [8.00,7.75,7.00,5.75,4.00],
-            "baseCritical": 0,
-            "basePiercing": 9999,
-            "baseAmount": 1,
-            "baseDirectionType": "SameParentPosition",
-            "baseBlockType": "IgnoreEnemyBullets",
-            "baseBrustFireAmount": 0,
-            "baseBrustFireInterval": 0,
-            "baseBaseShootArc": 0,
-            "baseGeneralOffset": 0,
-            "baseForceField": true,
-            "baseForceFeedback": 2,
-            "baseAngleOffset": 0,
-            "baseAngleNoise": 0
-        },
-        "bulletComponent": "Bullet",
-        "view": {
-            "rotationSpeed": 0,
-            "spawnVfxPack": "NUKE_PACK",
-            "overrider": {
-                "baseViewData": "TRANSPARENT"
-            }
         }
     },
     {

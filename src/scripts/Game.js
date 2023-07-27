@@ -38,6 +38,7 @@ export default class Game {
             height: config.height,
         };
 
+        Game.Screen.AspectRatio = 1;
         Game.Screen.width = config.width
         Game.Screen.height = config.height
         Game.Time = 0;
@@ -272,7 +273,9 @@ export default class Game {
             Game.Borders.width = Game.Borders.topRight.x
             Game.Borders.height = Game.Borders.bottomLeft.y
 
-            window.isPortrait = this.innerResolution.width < this.innerResolution.height
+
+            Game.Screen.AspectRatio = Game.Borders.width /  Game.Borders.height;
+            window.isPortrait = Game.Borders.width < Game.Borders.height
 
             if(Game.IsPortrait != window.isPortrait){
                 this.onAspectChanged.dispatch(window.isPortrait);

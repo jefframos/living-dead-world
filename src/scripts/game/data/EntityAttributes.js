@@ -148,7 +148,10 @@ export default class EntityAttributes {
         return this.findAttributeValue('damageZone');
     }
     get power() {
-        return Math.ceil((this.findAttributeValue('basePower') + this.findAttributeValue('weaponPower')) * this.multipliers.power);
+        return Math.ceil(this.rawPower * this.multipliers.power);
+    }
+    get rawPower() {
+        return Math.ceil((this.findAttributeValue('basePower') + this.findAttributeValue('weaponPower')));
     }
     get defaultPower() {
         return this.findAttributeValue('basePower') * this.multipliers.power;

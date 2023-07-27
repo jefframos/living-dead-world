@@ -76,4 +76,16 @@ export default class Consumable extends Collectable {
                 break;
         }
     }
+
+    update(delta, unscaledDelta) {
+        super.update(delta, unscaledDelta);
+
+        this.timer += delta;
+
+        if(this.timer > 0.1){
+
+            EffectsManager.instance.emitById(Vector3.XZtoXY(Vector3.sum(this.transform.position, new Vector3(Math.random() * 30 - 15,0,Math.random() * 30 - 15  - 30))), 'SPARKS_01', 1)
+            this.timer = 0;
+        }
+    }
 }

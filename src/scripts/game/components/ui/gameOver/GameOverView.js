@@ -18,7 +18,7 @@ export default class GameOverView extends GameObject {
         super();
 
         this.slotSize = 100;
-        
+
         this.gameView = new GameView(this);
         this.gameView.layer = RenderModule.UILayerOverlay;
         this.gameView.view = new PIXI.Container();
@@ -37,7 +37,7 @@ export default class GameOverView extends GameObject {
         this.blocker.alpha = 1;
         this.container.addChildAt(this.blocker, 0);
 
-        
+
         this.backShape = new PIXI.Graphics().beginFill(0xffffff).drawRect(-5000, -5000, 10000, 10000)
         this.container.addChildAt(this.backShape, 0);
         this.backShape.tint = 0
@@ -52,7 +52,7 @@ export default class GameOverView extends GameObject {
         this.sizeShape.alpha = 0
         this.contentContainer.addChild(this.infoBackContainer);
 
-        this.sizeShape.width = 500;
+        this.sizeShape.width = 600;
         this.sizeShape.height = 500;
 
 
@@ -97,13 +97,13 @@ export default class GameOverView extends GameObject {
         this.gameOverContainer.addChild(this.blurDefeated)
         this.blurDefeated.tint = 0xfc0000
         this.blurDefeated.alpha = 0.5
-        
+
         this.tryAgainLabel = UIUtils.getSpecialLabel1('Game Over!', { fontSize: 48 })
         this.tryAgainLabel.anchor.set(0.5)
         this.tryAgainLabel.x = this.infoBackContainer.width / 2
         this.tryAgainLabel.y = this.infoBackContainer.height / 4 - 50
         this.gameOverContainer.addChild(this.tryAgainLabel)
-        
+
         this.blurDefeated.y = this.tryAgainLabel.y
 
         this.finalTimeLabel = UIUtils.getSecondaryLabel('00:25', { fontSize: 32 })
@@ -134,7 +134,7 @@ export default class GameOverView extends GameObject {
         this.victoryContainer.addChild(this.roundBlur)
         this.roundBlur.tint = 0xfc8c0b
         this.roundBlur.alpha = 0.5
-        
+
         this.shine = new PIXI.Sprite.from('shine')
         this.shine.anchor.set(0.5)
         this.shine.scale.set(Utils.scaleToFit(this.shine, 350))
@@ -142,14 +142,14 @@ export default class GameOverView extends GameObject {
         this.victoryContainer.addChild(this.shine)
         this.shine.tint = 0xfff700
         this.shine.alpha = 0.1
-        
-        
+
+
         this.congratulationsLabel = UIUtils.getSpecialLabel1('Congratulations!', { fontSize: 48 })
         this.congratulationsLabel.anchor.set(0.5)
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
         this.congratulationsLabel.y = this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.congratulationsLabel)
-        
+
         this.shine.y = this.congratulationsLabel.y
         this.roundBlur.y = this.congratulationsLabel.y
 
@@ -163,7 +163,7 @@ export default class GameOverView extends GameObject {
 
         this.uiEndStatsList = new UIList();
         this.uiEndStatsList.h = 50;
-        this.uiEndStatsList.w = this.infoBackContainer.width - 50;
+        this.uiEndStatsList.w = this.infoBackContainer.width;
         this.enemyCountBox.addChild(this.uiEndStatsList)
 
 
@@ -187,6 +187,12 @@ export default class GameOverView extends GameObject {
 
         this.hardCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
         this.uiEndStatsList.addElement(this.hardCount)
+
+        const specialIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('specialCurrency'))
+        this.uiEndStatsList.addElement(specialIcon, { fitHeight: 0.8, align: 1 })
+
+        this.specialCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
+        this.uiEndStatsList.addElement(this.specialCount)
 
 
         this.uiEndStatsList.updateHorizontalList()
@@ -225,7 +231,7 @@ export default class GameOverView extends GameObject {
     }
 
     show(win = true, data = {}, hasGameOverToken = true) {
-        win = !win
+        //win = !win
         this.endGameData = data;
 
         this.gameOverStarted = false;
@@ -238,31 +244,42 @@ export default class GameOverView extends GameObject {
         this.gameOverWin = win;
 
         this.enemyCounnt.text = this.endGameData.enemiesKilled
-        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(Math.max(0,this.endGameData.time)));
-        this.coinsCount.text = data.coins;
-        
+        this.finalTimeLabel.text = Utils.floatToTime(Math.floor(Math.max(0, this.endGameData.time)));
+        this.coinsCount.text = this.endGameData.coins;
+        this.specialCount.text = this.endGameData.special
+
         this.uiEndStatsList.updateHorizontalList()
-        
+
         if (this.currentShowingPrizes) {
             this.currentShowingPrizes.forEach(element => {
                 this.prizesContainer.removeChild(element)
-                
+
             });
         }
-        const hardCurrency = Math.max(0,Math.floor(this.endGameData.time / 60))
-        
+        const hardCurrency = Math.max(0, Math.floor(this.endGameData.time / 60))
+
         if (win) {
-            const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 2, false)
+            const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 3, false)
             this.showPrize(prizes)
 
             this.confirmButton.visible = false;
             this.reviveButton.visible = false;
+
             this.collectButton.visible = true;
+            this.collectButton.interactive = false;
+            TweenLite.killTweensOf(this.collectButton)
+            this.collectButton.alpha = 0;
+            TweenLite.to(this.collectButton, 0.5, {
+                delay: 0.5, alpha: 1, onStart: () => {
+                    this.collectButton.interactive = true;
+                }
+            })
 
             this.hardCount.text = hardCurrency * 2
-            
+
             GameData.instance.addHardCurrency(hardCurrency * 2)
-            
+            GameData.instance.addSpecialCurrency(this.endGameData.special)
+
         } else {
             this.hardCount.text = hardCurrency
             if (!hasGameOverToken) {
@@ -276,7 +293,7 @@ export default class GameOverView extends GameObject {
     }
     collectPrizes() {
 
-        if(this.gameOverStarted){
+        if (this.gameOverStarted) {
             return;
         }
         console.log("ADD PARTICLES HERE")
@@ -291,7 +308,7 @@ export default class GameOverView extends GameObject {
         setTimeout(() => {
 
             RewardsManager.instance.doComercial(() => {
-                
+
                 this.onConfirmGameOver.dispatch();
             })
         }, 500);
@@ -300,15 +317,24 @@ export default class GameOverView extends GameObject {
     showGameOverPrizes() {
         this.reviveButton.visible = false;
         this.confirmButton.visible = false;
+
         this.collectButton.visible = true;
+        this.collectButton.interactive = false;
+        TweenLite.killTweensOf(this.collectButton)
+        this.collectButton.alpha = 0;
+        TweenLite.to(this.collectButton, 0.5, {
+            delay: 0.5, alpha: 1, onStart: () => {
+                this.collectButton.interactive = true;
+            }
+        })
 
         const prizes = PrizeManager.instance.getMetaPrize([-1], 0, 1, false)
         this.showPrize(prizes)
 
 
-        const hardCurrency = Math.max(0,Math.floor(this.endGameData.time / 60))
+        const hardCurrency = Math.max(0, Math.floor(this.endGameData.time / 60))
         GameData.instance.addHardCurrency(hardCurrency)
-
+        GameData.instance.addSpecialCurrency(this.endGameData.special)
     }
     enable() {
         super.enable();
@@ -423,8 +449,8 @@ export default class GameOverView extends GameObject {
                 prize.resetPivot()
                 prize.hideLevelLabel()
 
-              //  prize = new PIXI.Sprite.from(element.texture)
-               // prize.scale.set(Utils.scaleToFit(prize, 70))
+                //  prize = new PIXI.Sprite.from(element.texture)
+                // prize.scale.set(Utils.scaleToFit(prize, 70))
             }
             prize.x = 110 * i + this.prizeBox.width / 2 - (drawPrizes.length * 110 / 2)
 

@@ -116,7 +116,7 @@ export default class LoadoutContainer extends MainScreenModal {
             this.showSection(LoadoutContainer.Sections.Caompanion)
         })
 
-        
+
 
         this.mainslots = [this.currentWeaponSlot, this.currentShoeSlot, this.currentTrinketSlot, this.currentCompanionSlot]
         this.slotsList.updateVerticalList()
@@ -131,9 +131,9 @@ export default class LoadoutContainer extends MainScreenModal {
             }, 1);
         })
 
-       
 
-        
+
+
 
         this.weaponLevelView = new WeaponLevelContainer();
         this.container.addChild(this.weaponLevelView)
@@ -152,30 +152,37 @@ export default class LoadoutContainer extends MainScreenModal {
         this.currentSelectedCard = card;
         card.selected();
 
-        this.loadoutStatsView.x = card.x + card.parent.x + card.parent.parent.x
+        this.updateStatsView();
+
+    }
+    updateStatsView() {
+        if(!this.currentSelectedCard || !this.loadoutStatsView){
+            return;
+        }
+        this.loadoutStatsView.x = this.currentSelectedCard.x + this.currentSelectedCard.parent.x + this.currentSelectedCard.parent.parent.x
 
         const left = this.loadoutStatsView.x < Game.Borders.width / 2
-        const offset = left ? card.width + 5 : -this.loadoutStatsView.width - 5;
+        const offset = left ? this.currentSelectedCard.width + 5 : -this.loadoutStatsView.width - 5;
 
         this.loadoutStatsView.x += offset
 
-        this.loadoutStatsView.updateData(card.cardData, card.level);
+        this.loadoutStatsView.updateData(this.currentSelectedCard.cardData, this.currentSelectedCard.level);
 
-        const isOnTop = card.y < 50;
+        const isOnTop = this.currentSelectedCard.y < 50;
 
-        if(isOnTop){
+        if (isOnTop) {
 
-            this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y
-        }else{
+            this.loadoutStatsView.y = this.currentSelectedCard.y + this.currentSelectedCard.parent.y + this.currentSelectedCard.parent.parent.y
+        } else {
 
-            this.loadoutStatsView.y = card.y + card.parent.y + card.parent.parent.y - this.loadoutStatsView.height + card.height
+            this.loadoutStatsView.y = this.currentSelectedCard.y + this.currentSelectedCard.parent.y + this.currentSelectedCard.parent.parent.y - this.loadoutStatsView.height + this.currentSelectedCard.height
         }
 
 
-        this.weaponLevelView.y = this.loadoutStatsView.y 
-        this.weaponLevelView.x = this.loadoutStatsView.x +  this.loadoutStatsView.width
-    }
+        this.weaponLevelView.y = this.loadoutStatsView.y
+        this.weaponLevelView.x = this.loadoutStatsView.x + this.loadoutStatsView.width
 
+    }
     refresh() {
         this.refreshSection(this.previousSection, true)
         let canMerge = this.findMerge()
@@ -223,7 +230,7 @@ export default class LoadoutContainer extends MainScreenModal {
         // this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('infoBack'), 20, 20, 20, 20);
         // this.container.addChild(this.infoBackContainer);
     }
-    showWeaponLevels(){
+    showWeaponLevels() {
         this.weaponLevelView.visible = true
         this.weaponLevelView.updateWeaponData(GameData.instance.currentEquippedWeaponData)
         console.log(GameData.instance.currentEquippedWeaponData)
@@ -468,7 +475,7 @@ export default class LoadoutContainer extends MainScreenModal {
         if (this.currentSelectedCard) {
             this.selectCard(this.currentSelectedCard)
         }
-        
+
         const loadoutData = GameData.instance.loadout;
         const playerData = GameStaticData.instance.getEntityByIndex('player', 0)
 
@@ -519,6 +526,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.atributes.sumAttributes(this.addAttributes)
         this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
+
     }
     updateListView(slots, showMerge = false) {
         //this.mergeSystem.destroyCards()
@@ -556,7 +564,7 @@ export default class LoadoutContainer extends MainScreenModal {
         } else {
 
             this.weaponsScroller.gridDimensions.j = Math.floor((Game.Borders.width - 130) / this.weaponsScroller.scale.x / (this.slotSize + margin))
-            this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: ((Game.Borders.height / 2) / this.weaponsScroller.scale.y -75) }, { width: this.slotSize + margin, height: this.slotSize + margin })
+            this.weaponsScroller.resize({ w: this.weaponsScroller.gridDimensions.j * (this.slotSize + margin) + 20 - margin, h: ((Game.Borders.height / 2) / this.weaponsScroller.scale.y - 75) }, { width: this.slotSize + margin, height: this.slotSize + margin })
         }
         this.weaponsScroller.addItens(this.currentSlots)
 
@@ -583,17 +591,32 @@ export default class LoadoutContainer extends MainScreenModal {
         this.mergeContainer.x = this.weaponsScroller.x + (this.weaponsScroller.rect.w) / 2
         this.mergeContainer.y = this.weaponsScroller.y
 
-        let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) *0.47);
+        let attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) * 0.47);
 
+        this.attributesView.setSize(800, 40)
         if (Game.IsPortrait) {
-            attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) *0.6);
-        }
-        this.attributesView.scale.set(Math.min(1, attScale))
+            this.attributesView.y = 100
+            attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) * 0.9);
+            this.attributesView.scale.set(Math.min(1, attScale))
+        } else {
+            let scl = 0.6;
+            if (Game.Screen.AspectRatio < 1.41) {
+                scl = 0.42
+            }
+            else if (Game.Screen.AspectRatio < 1.81) {
+                scl = 0.5
+            }
+            attScale = Utils.scaleToFit(this.attributesView, (Game.Borders.width) * scl);
+            this.attributesView.scale.set(Math.min(1, attScale))
+            this.attributesView.y = this.weaponsScroller.y - this.attributesView.height + 1
 
+        }
         this.attributesView.x = (Game.Borders.width) / 2 - (this.attributesView.width) / 2
-        this.attributesView.y = this.weaponsScroller.y - this.attributesView.height + 1
+
 
         this.mergeSystem.resize(res, newRes);
+
+        this.updateStatsView();
 
     }
 

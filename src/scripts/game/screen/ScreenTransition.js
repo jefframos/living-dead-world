@@ -14,6 +14,10 @@ export default class ScreenTransition extends PIXI.Container {
 
         this.addChild(this.container)
 
+        this.blocker = new PIXI.Graphics().beginFill(0).drawRect(-5000, -5000, 10000, 10000)
+        this.addChild(this.blocker)
+        this.blocker.interactive = true;
+        this.blocker.alpha = 0
         this.strips = [];
 
 
@@ -95,7 +99,7 @@ export default class ScreenTransition extends PIXI.Container {
         }
 
         if ((this.direction > 0 && nTime > 0.05) || (this.direction < 0 && nTime > 0.1)) {
-
+            this.blocker.visible = true;
             const targetScaleX = 1 / this.scale.x
             const targetScaleY = 1 / this.scale.y
             if (this.direction > 0) {
@@ -108,6 +112,7 @@ export default class ScreenTransition extends PIXI.Container {
             }
         } else {
             this.logo.scale.set(0)
+            this.blocker.visible = false;
         }
     }
     resize(newSize, innerResolution) {

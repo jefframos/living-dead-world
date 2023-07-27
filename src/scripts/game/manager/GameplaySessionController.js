@@ -102,11 +102,16 @@ export default class GameplaySessionController extends GameObject {
 
             this.player.refreshEquipment();
             this.player.sessionData.onLevelUp.add(this.onPlayerLevelUp.bind(this))
+            this.player.sessionData.onOpenChest.add(this.onOpenChest.bind(this))
 
             if (Game.Debug.debug) {
                 this.toggleDeck();
             }
         }, 1);
+    }
+    onOpenChest(){
+        this.cardPlacementSystem.show();
+        Eugine.TimeScale = 0;
     }
     onPlayerLevelUp(xpData) {
         this.cardPlacementSystem.show();

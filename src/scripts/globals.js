@@ -85,6 +85,20 @@ window.LABELS.LABEL1 = {
     fontSize: 28,
     strokeThickness: 3,
 }
+window.LABELS.LABEL3 = {
+    fontFamily: window.SEC_FONT,
+    fontSize: '18px',
+    fill: 0xFFFFFF,
+    align: 'center',
+    //stroke: 0,
+    letterSpacing:1,
+    //dropShadow: true,
+    dropShadowAngle: 1.5,
+    dropShadowDistance: 2,
+    fillGradientType: 1,
+    fontSize: 28,
+    //strokeThickness: 3,
+}
 window.LABELS.LABEL_CHEST = {
     fontFamily: window.MAIN_FONT,
     fontSize: '18px',

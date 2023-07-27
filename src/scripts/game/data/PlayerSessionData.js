@@ -12,6 +12,7 @@ export default class PlayerSessionData {
         this.equipmentUpdated = new signals.Signal();
         this.xpUpdated = new signals.Signal();
         this.onLevelUp = new signals.Signal();
+        this.onOpenChest = new signals.Signal();
         this.attributesMultiplier = new EntityMultipliers();
 
         this.defaultPlayerData = GameStaticData.instance.getEntityByIndex('player', 0);
@@ -146,6 +147,9 @@ export default class PlayerSessionData {
         }
     }
 
+    openChest(){
+        this.onOpenChest.dispatch();
+    }
     addXp(amount) {
         this.updateExp(amount)
         this.xpUpdated.dispatch(this.xpData);

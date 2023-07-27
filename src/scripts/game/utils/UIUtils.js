@@ -95,6 +95,20 @@ export default class UIUtils {
         textLabel.text = label;
         return textLabel;
     }
+    static getTertiaryLabel(label, params = {}) {
+        const style = {}
+        for (const key in window.LABELS.LABEL3) {
+            style[key] = window.LABELS.LABEL3[key];
+        }
+
+        for (const key in params) {
+            style[key] = params[key];
+        }
+        console.log(style)
+        const textLabel = new PIXI.Text(label, style)
+        textLabel.text = label;
+        return textLabel;
+    }
     static getSpecialLabel1(label, params = {}) {
         const textLabel = new PIXI.Text(label, {
             align: "center",
@@ -330,7 +344,47 @@ export default class UIUtils {
 
         return button;
     }
+    static getAttributShort(attribute) {
+        switch (attribute) {
+            case 'basePower':
+                return 'POW'
+            case 'baseFrequency':
+                return 'FREQ'
+            case 'baseBulletSpeed':
+                return 'BSPD'
+            case 'baseBrustFireAmount':
+                return 'AMMO'
+            case 'baseAmount':
+                return 'AMMO'
+            case 'baseDefense':
+                return 'DEF'
+            case 'baseSpeed':
+                return 'SPD'
+            case 'basePiercing':
+                return 'PIERCING'
+            case 'baseHealth':
+                return 'HP'
+            case 'baseEvasion':
+                return 'EVADE'
+            case 'baseCritical':
+                return 'CRIT'
+            case 'baseCollectionRadius':
+                return 'RAD'
+            case 'baseItemHeal':
+                return 'HEAL'
+            case 'baseTotalMain':
+                return 'WEAPON'
+            case 'coin':
+                return 'COINS'
+            case 'heal':
+                return 'HEAL'
+            case 'Damage':
+                return 'DMG'
+        }
+        console.log('NO Short For', attribute)
 
+        return attribute
+    }
     static getIconByAttribute(attribute) {
         switch (attribute) {
             case 'basePower':
@@ -352,7 +406,7 @@ export default class UIUtils {
         }
 
 
-        console.log('NO Icon For',attribute)
+        console.log('NO Icon For', attribute)
         return 'icon-help'
     }
     static getIconUIIcon(type) {
@@ -381,6 +435,12 @@ export default class UIUtils {
                 return 'interrogation'
             case 'close':
                 return 'x-icon'
+            case 'inGameChest':
+                return 'ingame-item-chest-0001'
+            case 'chestPin':
+                return 'chestPin'
+            case 'chest':
+                return 'item-chest-0001'
         }
 
 

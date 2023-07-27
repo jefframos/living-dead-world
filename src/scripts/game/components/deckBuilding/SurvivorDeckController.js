@@ -134,7 +134,7 @@ export default class SurvivorDeckController extends GameObject {
 
         //this.gridView.updateEquipment(data);
     }
-    buildCards(data, totalCards = 3, pickAll, reshffleUses) {
+    buildCards(data, totalCards = 3, pickAll, reshffleUses, pickedCards) {
 
         for (let i = this.handCards.length - 1; i >= 0; i--) {
             if (this.handCards[i].parent) {
@@ -144,6 +144,7 @@ export default class SurvivorDeckController extends GameObject {
         }
         this.cardHolding = null;
         this.holdingData = null;
+
         //this.gridView.slotOver = null;
         this.handCards = [];
         for (let i = 0; i < totalCards; i++) {
@@ -208,8 +209,18 @@ export default class SurvivorDeckController extends GameObject {
                 this.pickCard(card);
             })
             this.handCards.push(cardView)
-            console.log(dt)
-            cardView.setData(dt, data[i], this.player);
+
+           // pickedCards.find(element => element > 10)
+        
+        let level = 0;
+        
+        if(dt && dt.entityData && pickedCards[dt.entityData.type]){
+            if(pickedCards[dt.entityData.type][dt.id]){
+                level = pickedCards[dt.entityData.type][dt.id]
+            }
+        }
+
+            cardView.setData(dt, data[i], this.player, level);
             cardView.show(i)
         }
 

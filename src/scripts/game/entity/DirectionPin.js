@@ -22,12 +22,17 @@ export default class DirectionPin extends GameObject {
     build(params) {
         super.build()
 
-
+        this.customEntity = null;
         this.gameView.view.texture = PIXI.Texture.from('pin-arrow');
         this.gameView.view.anchor.set(1, 0.5)
 
         this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
+        this.gameView.view.visible = false;
 
+
+    }
+    changeIcon(icon){
+        this.gameView.view.texture = PIXI.Texture.from(icon);
     }
     start() {
         super.start();
@@ -39,6 +44,7 @@ export default class DirectionPin extends GameObject {
                 this.player = player[0];
             });
         }
+        this.gameView.view.visible = false;
 
     }
     update(delta) {
@@ -48,29 +54,14 @@ export default class DirectionPin extends GameObject {
         }
         this.gameView.update(delta)
 
-        // this.gameView.view.visible = true;
-        // this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2 - 50, 0, this.player.transform.position.z  )
-        // //this.transform.position = new Vector3(this.player.transform.position.x + Camera.ViewportSize.width / 2, 0, this.player.transform.position.z  + Camera.ViewportSize.height / 2)
-        // return;
+        const enemy = this.customEntity ? this.customEntity : LevelManager.instance.findClosestEnemyWithHigherTier(this.player.transform.position)
 
-        //this debugs the position and blablabla
-        // if(this.lala){
-        //     this.gameView.view.visible = true;
-
-        //     //console.log(Camera.ViewportSize.width, Camera.Zoom)
-
-        //     this.transform.position.x = this.player.transform.position.x + (this.lala2? Camera.ViewportSize.width / 2 : 0 )//* Camera.Zoom
-        //     this.transform.position.z = this.player.transform.position.z + (this.lala3? Camera.ViewportSize.height / 2 : 0)//+ LevelManager.instance.destroyDistanceV2.y
-
-        //     return;
-        // }
-
-        const enemy = LevelManager.instance.findClosestEnemyWithHigherTier(this.player.transform.position)
+        //console.log(this.customEntity)
         if (enemy) {
             let distance = Vector3.distance(this.player.transform.position, enemy.transform.position);
             const angle = Vector3.atan2XZ(enemy.transform.position, this.player.transform.position)
 
-            if (distance < Camera.ViewportSize.min / 2.1) {
+            if ( distance < Camera.ViewportSize.min / 2) {
                 this.gameView.view.visible = false;
                 return;
             } else {
@@ -79,10 +70,18 @@ export default class DirectionPin extends GameObject {
             const lerp = this.gameView.view.visible ? 0.3 : 1;
             this.gameView.view.rotation = Utils.angleLerp(this.gameView.view.rotation, angle, lerp)
 
+
+            if(Math.cos(this.gameView.view.rotation) > 0){
+                this.gameView.view.scale.y = Math.abs(this.gameView.view.scale.x)
+            }else{
+                this.gameView.view.scale.y =- Math.abs(this.gameView.view.scale.x)
+
+            }
+
             this.transform.position.x = Utils.lerp(this.transform.position.x, this.player.transform.position.x + Math.cos(angle) * distance, lerp)
             this.transform.position.z = Utils.lerp(this.transform.position.z, this.player.transform.position.z + Math.sin(angle) * distance, lerp)
 
-            this.transform.position.y = Math.cos(Game.Time * 2) * 10 - 10
+            this.transform.position.y = Math.cos(Game.Time * 2) * 5 - 5
 
             this.gameView.view.visible = true;
 

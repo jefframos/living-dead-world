@@ -74,5 +74,17 @@
         "texture": "spark2",
         "tint": "0xFF0000",
         "baseAmount": 3
+    },
+    {
+        "id": "SPARKS_01",
+        "lifeSpan": [0.55, 0.25],
+        "baseBehaviours": "SIMPLE_ALPHA",
+        "velocityX": [-50,50],
+        "velocityY": [-20,-50],
+        "rotationSpeed": [-3,-5],
+        "gravity": 10,
+        "scale": 0.35,
+        "texture": "star1",
+        "baseAmount": 1
     }
 ]

@@ -117,11 +117,13 @@ export default class CardPlacementSystem {
         // })
 
         // starters.push(GameStaticData.instance.getCardById('AMOUNT_MODIFIER'))
-        //starters.push(GameStaticData.instance.getCardById('ATTACK_MODIFIER'))
+        //  starters.push(GameStaticData.instance.getCardById('DEFENSE_MODIFIER'))
+        //  starters.push(GameStaticData.instance.getCardById('NUKE_CARD'))
 
 
         // starters.push(GameStaticData.instance.getCardById('COIN_CARD'))
-        //starters.push(GameStaticData.instance.getCardById('HEAL_CARD'))
+        // starters.push(GameStaticData.instance.getCardById('BURN_RING'))
+         //starters.push(GameStaticData.instance.getCardById('HEAL_CARD'))
 
 
         //         starters.push(GameStaticData.instance.getCardById('ITEM_HEAL_MODIFIER'))
@@ -154,10 +156,14 @@ export default class CardPlacementSystem {
                 this.currentData.splice(index, 1);
             }
         }
+        
+        if (starters.length < 3) {
+            while (starters.length < 3) {
+                starters.push(Math.random() > 0.5 ? GameStaticData.instance.getCardById('COIN_CARD') : GameStaticData.instance.getCardById('HEAL_CARD'))
+            }
+        }
 
-
-
-        this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses)
+        this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses, this.pickedCardsList)
 
         this.deckView.setActive(true)
         this.cardPlacementView.setActive(true)

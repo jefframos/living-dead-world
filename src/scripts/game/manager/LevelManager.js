@@ -11,6 +11,7 @@ import GameData from "../data/GameData";
 import GameOverView from "../components/ui/gameOver/GameOverView";
 import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
+import InGameChest from "../entity/InGameChest";
 import Layer from "../core/Layer";
 import Player from "../entity/Player";
 import PlayerSessionData from "../data/PlayerSessionData";
@@ -63,6 +64,9 @@ export default class LevelManager {
             enemiesKilled: 0,
             time: 0
         }
+
+        this.timeLimit =  6 * 60;
+        this.itemSpawnTime = 45;
     }
     setup() {
         if (this.player && !this.player.isDead) {
@@ -89,6 +93,12 @@ export default class LevelManager {
     confirmGameOver() {
         this.confirmPlayerDeath();
         this.onConfirmGameOver.dispatch();
+    }
+    levelWin() {
+        this.gameOverOverlay.setActive(true)
+        this.gameOverOverlay.show(true, this.matchStats)
+        this.init = false;
+        Eugine.TimeScale = 0;
     }
     playerDie() {
         this.gameOverOverlay.setActive(true)
@@ -159,7 +169,7 @@ export default class LevelManager {
     initGame() {
         this.init = true;
         Eugine.TimeScale = 1;
-
+        this.latestItem = 0;
         this.gameOverOverlay.setActive(false)
 
         this.player.enabled = true;
@@ -196,13 +206,14 @@ export default class LevelManager {
         this.matchStats = {
             enemiesKilled: 0,
             time: 0,
-            coins:0
+            coins: 0,
+            special: 0
         }
         this.destroyDistanceV2 = {
             x: 0, y: 0
         }
 
-        this.addConsumable();
+        //this.addConsumable();
 
     }
     spawnRandomEnemy() {
@@ -211,8 +222,11 @@ export default class LevelManager {
     respawnEntity(entity) {
         this.enemyGlobalSpawner.respawnEntity(entity)
     }
-    collectCoins(value){
+    collectCoins(value) {
         this.matchStats.coins += value;
+    }
+    killSpecialMonster(value) {
+        this.matchStats.special += Math.max(value, 1);
     }
     spawnEnemy(spawnData) {
         if (!spawnData) {
@@ -274,6 +288,7 @@ export default class LevelManager {
         this.gameManagerStats.totalGameObjects = this.activeEnemies.length//this.gameplayEntities.length
 
         if (entity.layerCategory && entity.layerCategory == Layer.Enemy) {
+
             this.activeEnemies = this.activeEnemies.filter(item => item !== entity)
             this.entitiesByType[entity.staticData.id] = this.entitiesByType[entity.staticData.id].filter(item => item !== entity)
             this.entitiesByTier[entity.tier] = this.entitiesByTier[entity.tier].filter(item => item !== entity)
@@ -285,23 +300,43 @@ export default class LevelManager {
     }
     addConsumable() {
         let consumable = this.addEntity(Consumable);
-        consumable.setType(Consumable.Type.Heal)
+        const types = [Consumable.Type.Heal, Consumable.Type.Bomb, Consumable.Type.Magnet, Consumable.Type.Coin]
+        consumable.setType(types[Math.floor(Math.random() * types.length)])
         const angle = Math.random() * Math.PI * 2;
-        consumable.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 300, this.player.transform.position.z+ Math.sin(angle) * 300)
+        consumable.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 300, this.player.transform.position.z + Math.sin(angle) * 300)
+        this.consumables.push(consumable)
+
+        this.latestItem = Math.round(this.gameplayTime / this.itemSpawnTime)
+    }
+    openChest() {
+        this.player.sessionData.openChest();
+    }
+    dropEnemyChest(enemy) {
+
+        let consumable = this.addEntity(InGameChest);
+        consumable.setPositionXZ(enemy.transform.position.x, enemy.transform.position.z)
         this.consumables.push(consumable)
     }
     entityKilled(health, value) {
-        // if(health.gameObject instanceof BaseEnemy){
-        //     if(health.gameObject.staticData){
-        //         console.log(health.gameObject.staticData.entityData.tier)
-        //     }
-        // }
+
+        this.matchStats.enemiesKilled++;
+        const entity = health.gameObject
+        if (entity && entity.staticData && entity.staticData.entityData) {
+            if (entity.staticData.entityData.tier) {
+
+                if (entity.staticData.entityData.tier >= 4) {
+                    this.killSpecialMonster(entity.staticData.entityData.tier - 2);
+                    this.dropEnemyChest(entity);
+                    return;
+                }
+            }
+        }
+
         if (Math.random() > 0.6) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
 
-        this.matchStats.enemiesKilled++;
     }
     findClosestEnemy(point) {
         let closest = 0;
@@ -381,6 +416,16 @@ export default class LevelManager {
         //console.log(Camera.instance.zoom)
 
         //console.log(this.destroyDistanceV2)
+
+        if (this.gameplayTime >= this.timeLimit) {
+            this.matchStats.time = this.timeLimit;
+            this.levelWin();
+            return;
+        }
+
+        if (this.latestItem != Math.round(this.gameplayTime / this.itemSpawnTime)) {
+            this.addConsumable();
+        }
 
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase

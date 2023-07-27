@@ -601,7 +601,7 @@
     },
     {
         "id": "COIN_CARD",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Coins"
         },
@@ -611,12 +611,12 @@
     },
     {
         "id": "HEAL_CARD",
-        "starter": true,
+        "starter": false,
         "entityData": {
             "type": "Heal"
         },
         "tier": 1,
         "enabled": false,
-        "value": 0.25
+        "value": 0.3
     }
 ]
