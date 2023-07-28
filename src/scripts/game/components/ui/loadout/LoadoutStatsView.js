@@ -49,17 +49,28 @@ export default class LoadoutStatsView extends PIXI.Container {
         this.currentCardData = null;
         this.currentLevel = -1;
     }
-    addRow(icon, label) {
+    addRow(attribute, label, isSprite) {
 
+
+        //(UIUtils.getIconByAttribute
 
         const rowList = new UIList();
         this.addChild(rowList)
         rowList.w = this.containerBackground.width - 30
         rowList.h = 30
-        rowList.addElement(new PIXI.Sprite.from(icon), { fitHeight: 0.8, listScl: 0.2 });
 
-        const tempLabel = UIUtils.getPrimaryLabel(label, { fontSize: 22 });
-        rowList.addElement(tempLabel, { align: 0, listScl: 0.8, scaleContentMax: true });
+        if (isSprite) {
+
+            rowList.addElement(new PIXI.Sprite.from(attribute), { fitHeight: 1, listScl: 0.3 });
+        } else {
+
+            const tempLabelAtt = UIUtils.getPrimaryLabel(UIUtils.getAttributShort(attribute), { fontSize: 22 });
+            rowList.addElement(tempLabelAtt, { align: 0, listScl: 0.6, scaleContentMax: true });
+        }
+
+
+        const tempLabel = UIUtils.getPrimaryLabel(label, { fontSize: 22, fill: 0xAFFE0F });
+        rowList.addElement(tempLabel, { align: 0, listScl: 0.7, scaleContentMax: true });
 
         this.rows++;
 
@@ -71,7 +82,7 @@ export default class LoadoutStatsView extends PIXI.Container {
 
     }
     updateData(data, level) {
-        if(!data){
+        if (!data) {
             this.uiList.removeAllElements();
             this.visible = false;
             return;
@@ -81,7 +92,7 @@ export default class LoadoutStatsView extends PIXI.Container {
                 return
             }
         }
-        
+
         this.visible = true;
         this.currentLevel = level
         this.currentCardData = data
@@ -107,7 +118,7 @@ export default class LoadoutStatsView extends PIXI.Container {
             });
         } else if (data instanceof CompanionData) {
             const weapon = EntityBuilder.instance.getWeapon(data.weapon.id)
-            this.addRow(weapon.entityData.icon, weapon.entityData.name)
+            this.addRow(weapon.entityData.icon, weapon.entityData.name, true)
             const atts = this.getWeaponAttributes(weapon, level);
             console.log(data, weapon)
             atts.forEach(element => {
@@ -115,11 +126,11 @@ export default class LoadoutStatsView extends PIXI.Container {
             });
         } else {
             if (data.attribute && data.value && level < data.value.length) {
-                this.addRow(UIUtils.getIconByAttribute(data.attribute), data.value[level])
+                this.addRow(data.attribute, data.value[level])
             }
 
             if (data.secAttribute && data.secValue && level < data.secValue.length) {
-                this.addRow(UIUtils.getIconByAttribute(data.secAttribute), data.secValue[level])
+                this.addRow(data.secAttribute, data.secValue[level])
             }
         }
         this.containerBackground.height += 20
@@ -128,17 +139,17 @@ export default class LoadoutStatsView extends PIXI.Container {
     getWeaponAttributes(data, level) {
         const att = []
 
-        att.push({ icon: UIUtils.getIconByAttribute('basePower'), value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) })
-        att.push({ icon: UIUtils.getIconByAttribute('baseFrequency'), value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) })
-        att.push({ icon: UIUtils.getIconByAttribute('baseBulletSpeed'), value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) })
-        att.push({ icon: UIUtils.getIconByAttribute('critical'), value: this.getAttributeValue(data.weaponAttributes, 'critical', level) })
+        att.push({ icon: 'basePower', value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) })
+        att.push({ icon: 'baseFrequency', value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) })
+        //att.push({ icon: 'baseBulletSpeed', value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) })
+        att.push({ icon: 'critical', value: this.getAttributeValue(data.weaponAttributes, 'critical', level) })
 
         if (Array.isArray(data.weaponAttributes.baseAmount)) {
-            att.push({ icon: UIUtils.getIconByAttribute('baseAmount'), value: data.weaponAttributes.baseAmount[level] })
+            att.push({ icon: 'baseAmount', value: data.weaponAttributes.baseAmount[level] })
         } else if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
-            att.push({ icon: UIUtils.getIconByAttribute('baseBrustFireAmount'), value: data.weaponAttributes.baseBrustFireAmount[level] })
+            att.push({ icon: 'baseBrustFireAmount', value: data.weaponAttributes.baseBrustFireAmount[level] })
         } else {
-            att.push({ icon: UIUtils.getIconByAttribute('baseAmount'), value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) })
+            att.push({ icon: 'baseAmount', value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) })
         }
 
         return att

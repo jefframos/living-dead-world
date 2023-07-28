@@ -448,7 +448,7 @@
     },
     {
         "id": "HOAMING_DUDE",
-        "ingameIcon": "hoaming-dude-gun",
+        "ingameIcon": "hoaming-dude0001",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,
@@ -564,7 +564,7 @@
     },
     {
         "id": "MELEE_SWORD",
-        "ingameIcon": "dagger",
+        "ingameIcon": "stabby-knife",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,

@@ -7,7 +7,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "pet-dog-10001"
+            "icon": "dog1-icon"
         },
         "weapon": {
             "id": "BITE"
@@ -39,7 +39,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "pet-dog-20001"
+            "icon": "dog2-icon"
         },
         "weapon": {
             "id": "DOG_BALL"
@@ -71,7 +71,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "pet-cat-10001"
+            "icon": "cat-icon"
         },
         "weapon": {
             "id": "CAT_PAWN"
@@ -103,7 +103,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "pet-fish-10001"
+            "icon": "fish-icon"
         },
         "weapon": {
             "id": "LAND_MINE"
@@ -135,7 +135,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "frog-pet-10001-icon"
+            "icon": "frog-icon"
         },
         "weapon": {
             "id": "LAND_MINE"
@@ -167,7 +167,7 @@
             "ranking": 1,
             "tier": 1,
             "type": "Companion",
-            "icon": "pet-bird-10001"
+            "icon": "bird-icon"
         },
         "weapon": {
             "id": "LIGHTNING_IN_PLACE"

@@ -11,7 +11,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": 15,
-            "baseHealth": 20,
+            "baseHealth": [15,19,31,51,80],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
@@ -46,7 +46,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": 10,
-            "baseHealth": 25,
+            "baseHealth": [15,21,41,74,120],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -280,7 +280,7 @@
         },
         "attributes": {
             "basePower": [12,13,17,24,35],
-            "baseHealth": [50,53,62,78,100],
+            "baseHealth": [15,21,41,74,120],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
@@ -324,6 +324,72 @@
         "animationData": {
             "idle": "RAT_01",
             "run": "RAT_01"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BODY_PARTS_RED"
+        }
+    },
+    {
+        "id": "BUTTFLY_02",
+        "entityData": {
+            "name": "Bat",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 2,
+            "title": "Jhonatan Goblin"
+        },
+        "ranking": 1,
+        "attributes": {
+            "basePower": [12,13,19,27,40],
+            "baseHealth": [50,65,112,190,300],
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 25,
+            "baseSpeed": [20,21,25,31,40]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "jumpHight": 30,
+            "offset": {
+                "y": 10
+            },
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "BUTTFLY_2",
+            "run": "BUTTFLY_2"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BODY_PARTS_GREEN"
+        }
+    },
+    {
+        "id": "SPIDER_BRAIN_02",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 1
+        },
+        "attributes": {
+            "basePower": [12,13,17,24,35],
+            "baseHealth": [55,75,136,237,380],
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 10,
+            "baseRadius": 25,
+            "baseSpeed": [6,6,9,12,18]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "SPIDER_BRAIN_2",
+            "run": "SPIDER_BRAIN_2"
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",

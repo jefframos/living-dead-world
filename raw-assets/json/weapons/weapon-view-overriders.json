@@ -260,7 +260,7 @@
     },
     {
         "id": "ORBIT",
-        "viewData": "orbitGreen",
+        "viewData": "purple-orbit",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
@@ -272,7 +272,7 @@
     },
     {
         "id": "DISC_TRHOWER",
-        "viewData": "disk",
+        "viewData": "shuriken",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
@@ -290,7 +290,7 @@
     },
     {
         "id": "BOUNCE_BASE",
-        "viewData": "bounceBomb",
+        "viewData": "bouncer",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false

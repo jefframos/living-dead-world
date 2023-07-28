@@ -18,6 +18,7 @@ export default class EntityAttributes {
         this.baseCritical = 0;
         this.baseTotalMain = 1;
         this.baseItemHeal = 0.1;
+        this.basePiercing = 0;
         this.level = 0;
         this.useRelativePower = false;
 
@@ -48,6 +49,7 @@ export default class EntityAttributes {
         this.baseCritical = 0;
         this.baseTotalMain = 1;
         this.baseItemHeal = 0.1;
+        this.basePiercing = 0;
         this.level = 0;
         this.useRelativePower = false;
 
@@ -119,6 +121,9 @@ export default class EntityAttributes {
     }
     get itemHeal() {
         return this.multipliers.itemHeal;
+    }
+    get piercing() {
+        return this.basePiercing;
     }
     get distance() {
         return this.findAttributeValue('baseDistance') * this.multipliers.distance;

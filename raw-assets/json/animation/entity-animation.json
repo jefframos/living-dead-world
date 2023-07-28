@@ -226,5 +226,43 @@
                 "addZero": false
             }
         }
+    },
+    {
+        "id": "SPIDER_BRAIN_2",
+        "animationData": {
+            "spriteName": "brain-spider2000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 4
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 0.9
+                },
+                "time": 0.08,
+                "loop": true,
+                "addZero": false
+            }
+        }
+    },
+    {
+        "id": "BUTTFLY_2",
+        "animationData": {
+            "spriteName": "buttfly2000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 7
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1.5
+                },
+                "time": 0.15,
+                "loop": true,
+                "addZero": false
+            }
+        }
     }
 ]

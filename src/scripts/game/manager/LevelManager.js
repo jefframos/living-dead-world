@@ -65,7 +65,7 @@ export default class LevelManager {
             time: 0
         }
 
-        this.timeLimit =  6 * 60;
+        this.timeLimit =  8 * 60;
         this.itemSpawnTime = 45;
     }
     setup() {

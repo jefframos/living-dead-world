@@ -41,6 +41,7 @@ export default class Bullet extends PhysicsEntity {
     build(weapon, parent, fromPlayer) {
         super.build()
         this.weapon = weapon;
+        this.piercing = 0;
         if (weapon.weaponViewData.baseViewData.targetLayer == EffectsManager.TargetLayer.BaseLayer) {
             if (this.gameView.layer != RenderModule.RenderLayers.Default) {
 
@@ -64,7 +65,6 @@ export default class Bullet extends PhysicsEntity {
 
         this.hitting = false;
 
-        this.piercing = this.weapon.weaponAttributes.piercing;
         this.forceField = this.weapon.weaponAttributes.forceField;
 
         this.distanceSpan = 0;
@@ -74,6 +74,12 @@ export default class Bullet extends PhysicsEntity {
         this.rigidBody.collisionFilter.mask = 3
 
         this.speed = this.weapon.weaponAttributes.bulletSpeed
+
+
+        let player = null;
+        if (fromPlayer) {
+            player = this.engine.findByType(Player)
+        }
 
         this.critical = 0;
         if (this.weapon.weaponAttributes.useRelativePower) {
@@ -95,11 +101,16 @@ export default class Bullet extends PhysicsEntity {
             this.power = this.weapon.weaponAttributes.power;
 
             if (fromPlayer) {
-                const player = this.engine.findByType(Player)
                 this.power = player.attributes.power;
                 this.critical = player.attributes.critical;
             }
         }
+
+        if (fromPlayer) {
+            this.piercing = player.attributes.critical.piercing;
+        }
+        this.piercing += this.weapon.weaponAttributes.piercing;
+
 
         this.power = Math.round(this.power)
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;

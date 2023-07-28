@@ -2,7 +2,7 @@
 
 "amount-icon.png":
 {
-	"frame": {"x":474,"y":193,"w":32,"h":18},
+	"frame": {"x":60,"y":145,"w":32,"h":18},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":32,"h":18},
@@ -10,7 +10,7 @@
 },
 "attack-icon.png":
 {
-	"frame": {"x":417,"y":201,"w":23,"h":32},
+	"frame": {"x":134,"y":215,"w":23,"h":32},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":0,"w":23,"h":32},
@@ -18,7 +18,7 @@
 },
 "blank-star.png":
 {
-	"frame": {"x":5,"y":166,"w":64,"h":64},
+	"frame": {"x":54,"y":5,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -26,31 +26,39 @@
 },
 "burn-icon.png":
 {
-	"frame": {"x":352,"y":215,"w":25,"h":31},
-	"rotated": true,
+	"frame": {"x":262,"y":215,"w":25,"h":31},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":25,"h":31},
 	"sourceSize": {"w":32,"h":32}
 },
 "defense-icon.png":
 {
-	"frame": {"x":389,"y":215,"w":22,"h":25},
-	"rotated": false,
+	"frame": {"x":456,"y":187,"w":22,"h":25},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":5,"y":4,"w":22,"h":25},
 	"sourceSize": {"w":32,"h":32}
 },
 "divine-donut.png":
 {
-	"frame": {"x":51,"y":5,"w":50,"h":65},
+	"frame": {"x":5,"y":172,"w":53,"h":68},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":65},
-	"sourceSize": {"w":53,"h":68}
+	"spriteSourceSize": {"x":0,"y":0,"w":53,"h":68},
+	"sourceSize": {"w":57,"h":72}
+},
+"donut.png":
+{
+	"frame": {"x":5,"y":172,"w":53,"h":68},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":53,"h":68},
+	"sourceSize": {"w":57,"h":72}
 },
 "filled-star.png":
 {
-	"frame": {"x":57,"y":76,"w":64,"h":64},
+	"frame": {"x":60,"y":75,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -58,7 +66,7 @@
 },
 "freq-icon.png":
 {
-	"frame": {"x":446,"y":201,"w":32,"h":22},
+	"frame": {"x":163,"y":215,"w":32,"h":22},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":6,"w":32,"h":22},
@@ -66,7 +74,7 @@
 },
 "gem.png":
 {
-	"frame": {"x":285,"y":145,"w":60,"h":64},
+	"frame": {"x":274,"y":145,"w":60,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":0,"w":60,"h":64},
@@ -74,7 +82,7 @@
 },
 "gold-icon.png":
 {
-	"frame": {"x":474,"y":217,"w":24,"h":24},
+	"frame": {"x":487,"y":187,"w":24,"h":24},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":4,"w":24,"h":24},
@@ -82,15 +90,15 @@
 },
 "healing-donnut.png":
 {
-	"frame": {"x":75,"y":216,"w":31,"h":29},
-	"rotated": false,
+	"frame": {"x":227,"y":215,"w":31,"h":29},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":31,"h":29},
 	"sourceSize": {"w":32,"h":32}
 },
 "healing-ring.png":
 {
-	"frame": {"x":220,"y":215,"w":28,"h":30},
+	"frame": {"x":329,"y":215,"w":28,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":0,"w":28,"h":30},
@@ -98,7 +106,7 @@
 },
 "health-icon.png":
 {
-	"frame": {"x":288,"y":215,"w":26,"h":28},
+	"frame": {"x":432,"y":215,"w":26,"h":28},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":4,"y":2,"w":26,"h":28},
@@ -106,7 +114,7 @@
 },
 "ico_amount.png":
 {
-	"frame": {"x":107,"y":5,"w":64,"h":64},
+	"frame": {"x":124,"y":5,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -114,7 +122,7 @@
 },
 "ico_bullet_speed.png":
 {
-	"frame": {"x":75,"y":146,"w":64,"h":64},
+	"frame": {"x":64,"y":169,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -122,7 +130,7 @@
 },
 "ico_customization.png":
 {
-	"frame": {"x":127,"y":75,"w":64,"h":64},
+	"frame": {"x":130,"y":75,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -130,7 +138,7 @@
 },
 "ico_defense.png":
 {
-	"frame": {"x":177,"y":5,"w":64,"h":64},
+	"frame": {"x":194,"y":5,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -138,7 +146,7 @@
 },
 "ico_frequency.png":
 {
-	"frame": {"x":145,"y":145,"w":64,"h":64},
+	"frame": {"x":134,"y":145,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -146,7 +154,7 @@
 },
 "ico_green-potion.png":
 {
-	"frame": {"x":351,"y":145,"w":52,"h":64},
+	"frame": {"x":340,"y":145,"w":52,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":0,"w":52,"h":64},
@@ -154,7 +162,7 @@
 },
 "ico_health.png":
 {
-	"frame": {"x":267,"y":75,"w":64,"h":63},
+	"frame": {"x":270,"y":75,"w":64,"h":63},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":63},
@@ -162,7 +170,7 @@
 },
 "ico_map.png":
 {
-	"frame": {"x":458,"y":75,"w":64,"h":50},
+	"frame": {"x":461,"y":117,"w":64,"h":50},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":7,"w":64,"h":50},
@@ -170,7 +178,7 @@
 },
 "ico_poison.png":
 {
-	"frame": {"x":400,"y":75,"w":52,"h":64},
+	"frame": {"x":403,"y":75,"w":52,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":0,"w":52,"h":64},
@@ -178,7 +186,7 @@
 },
 "ico_power.png":
 {
-	"frame": {"x":197,"y":75,"w":64,"h":64},
+	"frame": {"x":200,"y":75,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -186,7 +194,7 @@
 },
 "ico_red-potion.png":
 {
-	"frame": {"x":449,"y":5,"w":52,"h":64},
+	"frame": {"x":398,"y":145,"w":52,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":6,"y":0,"w":52,"h":64},
@@ -194,7 +202,7 @@
 },
 "ico_shop.png":
 {
-	"frame": {"x":336,"y":75,"w":64,"h":58},
+	"frame": {"x":339,"y":75,"w":64,"h":58},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":64,"h":58},
@@ -202,7 +210,7 @@
 },
 "ico_slot-machine.png":
 {
-	"frame": {"x":385,"y":5,"w":64,"h":58},
+	"frame": {"x":402,"y":5,"w":64,"h":58},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":3,"w":64,"h":58},
@@ -210,7 +218,7 @@
 },
 "ico_speed.png":
 {
-	"frame": {"x":247,"y":5,"w":64,"h":64},
+	"frame": {"x":264,"y":5,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -218,7 +226,7 @@
 },
 "ingame-item-chest-0001.png":
 {
-	"frame": {"x":409,"y":145,"w":50,"h":42},
+	"frame": {"x":466,"y":5,"w":50,"h":42},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":42},
@@ -226,15 +234,15 @@
 },
 "ingame-item-chest-0002.png":
 {
-	"frame": {"x":457,"y":145,"w":50,"h":42},
-	"rotated": false,
+	"frame": {"x":466,"y":61,"w":50,"h":42},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":50,"h":42},
 	"sourceSize": {"w":52,"h":46}
 },
 "magnet-icon.png":
 {
-	"frame": {"x":320,"y":215,"w":27,"h":26},
+	"frame": {"x":464,"y":217,"w":27,"h":26},
 	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":3,"w":27,"h":26},
@@ -242,7 +250,7 @@
 },
 "piercing-icon.png":
 {
-	"frame": {"x":112,"y":216,"w":29,"h":29},
+	"frame": {"x":363,"y":215,"w":29,"h":29},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":29,"h":29},
@@ -250,23 +258,31 @@
 },
 "poison-icon.png":
 {
-	"frame": {"x":147,"y":215,"w":31,"h":30},
-	"rotated": false,
+	"frame": {"x":191,"y":215,"w":31,"h":30},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":31,"h":30},
 	"sourceSize": {"w":32,"h":32}
 },
 "radius-modifier.png":
 {
-	"frame": {"x":184,"y":215,"w":30,"h":30},
+	"frame": {"x":293,"y":215,"w":30,"h":30},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":1,"w":30,"h":30},
 	"sourceSize": {"w":32,"h":32}
 },
+"sausage.png":
+{
+	"frame": {"x":5,"y":93,"w":49,"h":73},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":73},
+	"sourceSize": {"w":52,"h":76}
+},
 "shield.png":
 {
-	"frame": {"x":317,"y":5,"w":62,"h":64},
+	"frame": {"x":334,"y":5,"w":62,"h":64},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":62,"h":64},
@@ -274,15 +290,15 @@
 },
 "sizzling-sausage.png":
 {
-	"frame": {"x":5,"y":90,"w":46,"h":70},
+	"frame": {"x":5,"y":93,"w":49,"h":73},
 	"rotated": false,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":46,"h":70},
-	"sourceSize": {"w":49,"h":72}
+	"spriteSourceSize": {"x":0,"y":0,"w":49,"h":73},
+	"sourceSize": {"w":52,"h":76}
 },
 "speed-icon.png":
 {
-	"frame": {"x":254,"y":215,"w":28,"h":29},
+	"frame": {"x":398,"y":215,"w":28,"h":29},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":2,"y":1,"w":28,"h":29},
@@ -290,19 +306,27 @@
 },
 "sword.png":
 {
-	"frame": {"x":215,"y":145,"w":64,"h":64},
+	"frame": {"x":204,"y":145,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
 	"sourceSize": {"w":64,"h":64}
 },
-"toxic-tart.png":
+"tart.png":
 {
-	"frame": {"x":5,"y":5,"w":79,"h":40},
+	"frame": {"x":5,"y":5,"w":82,"h":43},
 	"rotated": true,
 	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":79,"h":40},
-	"sourceSize": {"w":82,"h":43}
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":43},
+	"sourceSize": {"w":86,"h":47}
+},
+"toxic-tart.png":
+{
+	"frame": {"x":5,"y":5,"w":82,"h":43},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":82,"h":43},
+	"sourceSize": {"w":86,"h":47}
 }},
 "animations": {
 	"ingame-item-chest": ["ingame-item-chest-0001.png","ingame-item-chest-0002.png"]
@@ -312,8 +336,8 @@
 	"version": "1.0",
 	"image": "icons.png",
 	"format": "RGBA8888",
-	"size": {"w":513,"h":250},
+	"size": {"w":516,"h":252},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:9f25d43a0548e4bfa03039071a2a2aee:ee2c3ebfca64db1049605a91d6bacac2:b5c5bd7252d2048fecbb1bda1760f9ef$"
+	"smartupdate": "$TexturePacker:SmartUpdate:1c988be101300017de6de65f2ccdc75c:f3186c4f65aef1d6c8a71e6c9090f101:b5c5bd7252d2048fecbb1bda1760f9ef$"
 }
 }

@@ -104,7 +104,6 @@ export default class UIUtils {
         for (const key in params) {
             style[key] = params[key];
         }
-        console.log(style)
         const textLabel = new PIXI.Text(label, style)
         textLabel.text = label;
         return textLabel;
@@ -365,7 +364,8 @@ export default class UIUtils {
             case 'baseHealth':
                 return 'HP'
             case 'baseEvasion':
-                return 'EVADE'
+                return 'EVD'
+            case 'critical':
             case 'baseCritical':
                 return 'CRIT'
             case 'baseCollectionRadius':

@@ -42,19 +42,19 @@ export default class AttributesContainer extends PIXI.Container {
         this.criticalLabel = UIUtils.getPrimaryLabel('100', { fontSize: 20 });
 
 
-        this.healthDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseHealth'));
+        this.healthDrawer = new AttributeDrawer('baseHealth');
 
-        this.powerDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('basePower'));
+        this.powerDrawer = new AttributeDrawer('basePower');
 
-        this.defenseDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseDefense'));
+        this.defenseDrawer = new AttributeDrawer('baseDefense');
 
-        this.speedDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseSpeed'));
+        this.speedDrawer = new AttributeDrawer('baseSpeed');
 
-        this.frequencyDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseFrequency'));
+        this.frequencyDrawer = new AttributeDrawer('baseFrequency');
 
-        this.evasionDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseEvasion'));
+        this.evasionDrawer = new AttributeDrawer('baseEvasion');
 
-        this.critDrawer = new AttributeDrawer(UIUtils.getIconByAttribute('baseCritical'));
+        this.critDrawer = new AttributeDrawer('baseCritical');
 
 
         let attSet = { scaleContentMax: false, align:0, vAlign: 0 }

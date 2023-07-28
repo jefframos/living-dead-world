@@ -35,7 +35,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentListLine1.w = 0;
         this.equipmentListLine1.h = 50;
         this.equipmentListLine1.x = 15
-        this.equipmentListLine1.y = -25
+        this.equipmentListLine1.y = -30
         this.equipmentContainer.addChild(this.equipmentListLine1);
 
         this.equipmentListLine2 = new UIList();
@@ -141,7 +141,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
             if (element) {
                 
                 let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
-                icon.setItem(element.item, 40)
+                icon.setItem(element.item, 60)
                 
                 if(element.item instanceof WeaponData){
                     icon.setLevel(element.level - element.item.baseLevel)
@@ -154,11 +154,11 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
                 if (totalElements % 2 === 0) {
 
-                    this.equipmentListLine1.w += 50;
+                    this.equipmentListLine1.w += 70;
                     this.equipmentListLine1.h = 60;
                     this.equipmentListLine1.addElement(icon)
                 } else {
-                    this.equipmentListLine2.w += 50;
+                    this.equipmentListLine2.w += 70;
                     this.equipmentListLine2.h = 60;
                     this.equipmentListLine2.addElement(icon)
                 }

@@ -1,15 +1,15 @@
 {
     "default": [
-        "image/texture/texture.json",
         "image/terrain/terrain.json",
+        "image/texture/texture.json",
         "image/icons/icons.json",
         "image/hud/hud.json",
-        "image/guns/guns.json",
         "image/ui-no-tiny/ui-no-tiny.json",
+        "image/guns/guns.json",
         "image/environment/environment.json",
         "image/ui/ui.json",
-        "image/characters/characters.json",
         "image/body-parts/body-parts.json",
+        "image/characters/characters.json",
         "image/particles/particles.json",
         "image/vfx/vfx.json"
     ]

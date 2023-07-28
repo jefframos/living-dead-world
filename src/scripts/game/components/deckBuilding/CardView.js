@@ -226,7 +226,6 @@ export default class CardView extends PIXI.Container {
         this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, 180))
         this.labelTitle.text = cardData.entityData.name
 
-        console.log(this.cardData.entityData.description)
         if (this.cardData.entityData.description) {
             this.setDescription(this.cardData.entityData.description);
         }
@@ -239,7 +238,7 @@ export default class CardView extends PIXI.Container {
                 if (value < 0) {
                     this.addAttributeDrawer(effect.shortDescription, '+' + Math.round(Math.abs(value) * 100), '%', true)
                     this.addAttributeDrawer('Every', effect.interval, ' s', true)
-                    console.log("VALUE", Utils.findValueByLevel(effect.value, level))
+                    //console.log("VALUE", Utils.findValueByLevel(effect.value, level))
                 } else {
 
                     let effectOnHit = GameStaticData.instance.getDataById('misc', 'buffs', effect.effectOnHit);
@@ -254,13 +253,14 @@ export default class CardView extends PIXI.Container {
 
             //console.log(EntityBuilder.instance.getAcessory(this.cardData.id))
         } else if (this.cardData.entityData.type == EntityData.EntityDataType.Weapon) {
-
+            this.cardData.weaponAttributes.level = level;
             if (Array.isArray(this.cardData.weaponAttributes.baseFrequency)) {
                 this.addAttributeDrawer('baseFrequency', this.cardData.weaponAttributes.frequency, ' s')
             }
 
             if (Array.isArray(this.cardData.weaponAttributes.basePower)) {
-                this.addAttributeDrawer('basePower', Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower))
+                let power = Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower)
+                this.addAttributeDrawer('basePower',  '+' +this.cardData.weaponAttributes.power)
             }
 
             if (Array.isArray(this.cardData.weaponAttributes.baseAmount)) {
@@ -299,7 +299,7 @@ export default class CardView extends PIXI.Container {
             this.labelDescription = UIUtils.getTertiaryLabel(label)
             this.descriptionContainer.addChild(this.labelDescription)
         }
-        
+
         //this.labelDescription.style.fill = 0xf2a627
         // this.labelDescription.style.strokeThickness = 1
         // this.labelDescription.style.w = true

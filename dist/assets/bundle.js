@@ -2674,7 +2674,6 @@ var UIUtils = function () {
             for (var _key2 in params) {
                 style[_key2] = params[_key2];
             }
-            console.log(style);
             var textLabel = new PIXI.Text(label, style);
             textLabel.text = label;
             return textLabel;
@@ -2980,7 +2979,8 @@ var UIUtils = function () {
                 case 'baseHealth':
                     return 'HP';
                 case 'baseEvasion':
-                    return 'EVADE';
+                    return 'EVD';
+                case 'critical':
                 case 'baseCritical':
                     return 'CRIT';
                 case 'baseCollectionRadius':
@@ -23227,6 +23227,7 @@ var EntityAttributes = function () {
         this.baseCritical = 0;
         this.baseTotalMain = 1;
         this.baseItemHeal = 0.1;
+        this.basePiercing = 0;
         this.level = 0;
         this.useRelativePower = false;
 
@@ -23259,6 +23260,7 @@ var EntityAttributes = function () {
             this.baseCritical = 0;
             this.baseTotalMain = 1;
             this.baseItemHeal = 0.1;
+            this.basePiercing = 0;
             this.level = 0;
             this.useRelativePower = false;
 
@@ -23358,6 +23360,11 @@ var EntityAttributes = function () {
         key: "itemHeal",
         get: function get() {
             return this.multipliers.itemHeal;
+        }
+    }, {
+        key: "piercing",
+        get: function get() {
+            return this.basePiercing;
         }
     }, {
         key: "distance",
@@ -23866,6 +23873,7 @@ var Bullet = function (_PhysicsEntity) {
         value: function build(weapon, parent, fromPlayer) {
             (0, _get3.default)(Bullet.prototype.__proto__ || (0, _getPrototypeOf2.default)(Bullet.prototype), "build", this).call(this);
             this.weapon = weapon;
+            this.piercing = 0;
             if (weapon.weaponViewData.baseViewData.targetLayer == _EffectsManager2.default.TargetLayer.BaseLayer) {
                 if (this.gameView.layer != _RenderModule2.default.RenderLayers.Default) {
 
@@ -23887,7 +23895,6 @@ var Bullet = function (_PhysicsEntity) {
 
             this.hitting = false;
 
-            this.piercing = this.weapon.weaponAttributes.piercing;
             this.forceField = this.weapon.weaponAttributes.forceField;
 
             this.distanceSpan = 0;
@@ -23897,6 +23904,11 @@ var Bullet = function (_PhysicsEntity) {
             this.rigidBody.collisionFilter.mask = 3;
 
             this.speed = this.weapon.weaponAttributes.bulletSpeed;
+
+            var player = null;
+            if (fromPlayer) {
+                player = this.engine.findByType(_Player2.default);
+            }
 
             this.critical = 0;
             if (this.weapon.weaponAttributes.useRelativePower) {
@@ -23918,11 +23930,15 @@ var Bullet = function (_PhysicsEntity) {
                 this.power = this.weapon.weaponAttributes.power;
 
                 if (fromPlayer) {
-                    var player = this.engine.findByType(_Player2.default);
                     this.power = player.attributes.power;
                     this.critical = player.attributes.critical;
                 }
             }
+
+            if (fromPlayer) {
+                this.piercing = player.attributes.critical.piercing;
+            }
+            this.piercing += this.weapon.weaponAttributes.piercing;
 
             this.power = Math.round(this.power);
             this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;
@@ -24419,7 +24435,7 @@ var LevelManager = function () {
             time: 0
         };
 
-        this.timeLimit = 6 * 60;
+        this.timeLimit = 8 * 60;
         this.itemSpawnTime = 45;
     }
 
@@ -53062,7 +53078,6 @@ var CardView = function (_PIXI$Container) {
                         this.cardImage.scale.set(_Utils2.default.scaleToFit(this.cardImage, 180));
                         this.labelTitle.text = cardData.entityData.name;
 
-                        console.log(this.cardData.entityData.description);
                         if (this.cardData.entityData.description) {
                                 this.setDescription(this.cardData.entityData.description);
                         }
@@ -53075,7 +53090,7 @@ var CardView = function (_PIXI$Container) {
                                         if (value < 0) {
                                                 this.addAttributeDrawer(effect.shortDescription, '+' + Math.round(Math.abs(value) * 100), '%', true);
                                                 this.addAttributeDrawer('Every', effect.interval, ' s', true);
-                                                console.log("VALUE", _Utils2.default.findValueByLevel(effect.value, level));
+                                                //console.log("VALUE", Utils.findValueByLevel(effect.value, level))
                                         } else {
 
                                                 var effectOnHit = _GameStaticData2.default.instance.getDataById('misc', 'buffs', effect.effectOnHit);
@@ -53088,13 +53103,14 @@ var CardView = function (_PIXI$Container) {
 
                                 //console.log(EntityBuilder.instance.getAcessory(this.cardData.id))
                         } else if (this.cardData.entityData.type == _EntityData2.default.EntityDataType.Weapon) {
-
+                                this.cardData.weaponAttributes.level = level;
                                 if (Array.isArray(this.cardData.weaponAttributes.baseFrequency)) {
                                         this.addAttributeDrawer('baseFrequency', this.cardData.weaponAttributes.frequency, ' s');
                                 }
 
                                 if (Array.isArray(this.cardData.weaponAttributes.basePower)) {
-                                        this.addAttributeDrawer('basePower', Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower));
+                                        var power = Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower);
+                                        this.addAttributeDrawer('basePower', '+' + this.cardData.weaponAttributes.power);
                                 }
 
                                 if (Array.isArray(this.cardData.weaponAttributes.baseAmount)) {
@@ -71326,7 +71342,7 @@ var AttributeDrawer = function (_PIXI$Container) {
     (0, _inherits3.default)(AttributeDrawer, _PIXI$Container);
 
     function AttributeDrawer() {
-        var icon = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _UIUtils2.default.getIconByAttribute('baseHealth');
+        var att = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'baseHealth';
         (0, _classCallCheck3.default)(this, AttributeDrawer);
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (AttributeDrawer.__proto__ || (0, _getPrototypeOf2.default)(AttributeDrawer)).call(this));
@@ -71338,9 +71354,11 @@ var AttributeDrawer = function (_PIXI$Container) {
         _this.uiList.h = 50;
 
         _this.label = _UIUtils2.default.getPrimaryLabel('100', { fontSize: 24 });
-        _this.icon = new PIXI.Sprite.from(icon);
+        _this.attName = _UIUtils2.default.getPrimaryLabel(_UIUtils2.default.getAttributShort(att), { fontSize: 18 });
+        _this.icon = new PIXI.Sprite.from(_UIUtils2.default.getIconByAttribute(att));
 
-        _this.uiList.addElement(_this.icon, { fitHeight: 0.8, align: 0.5 });
+        //this.uiList.addElement(this.icon, { fitHeight: 0.8, align: 0.5 });
+        _this.uiList.addElement(_this.attName, { align: 1 });
         _this.uiList.addElement(_this.label, { align: 0 });
 
         _this.uiList.updateHorizontalList();
@@ -71352,7 +71370,6 @@ var AttributeDrawer = function (_PIXI$Container) {
         key: 'updateAttributes',
         value: function updateAttributes(defaultAttribute, attribute, customIcon) {
             var attach = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
-
 
             if (customIcon) {
                 this.icon.texture = PIXI.Texture.from(customIcon);
@@ -71489,19 +71506,19 @@ var AttributesContainer = function (_PIXI$Container) {
                 _this.evasionLabel = _UIUtils2.default.getPrimaryLabel('100', { fontSize: 20 });
                 _this.criticalLabel = _UIUtils2.default.getPrimaryLabel('100', { fontSize: 20 });
 
-                _this.healthDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseHealth'));
+                _this.healthDrawer = new _AttributeDrawer2.default('baseHealth');
 
-                _this.powerDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('basePower'));
+                _this.powerDrawer = new _AttributeDrawer2.default('basePower');
 
-                _this.defenseDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseDefense'));
+                _this.defenseDrawer = new _AttributeDrawer2.default('baseDefense');
 
-                _this.speedDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseSpeed'));
+                _this.speedDrawer = new _AttributeDrawer2.default('baseSpeed');
 
-                _this.frequencyDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseFrequency'));
+                _this.frequencyDrawer = new _AttributeDrawer2.default('baseFrequency');
 
-                _this.evasionDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseEvasion'));
+                _this.evasionDrawer = new _AttributeDrawer2.default('baseEvasion');
 
-                _this.critDrawer = new _AttributeDrawer2.default(_UIUtils2.default.getIconByAttribute('baseCritical'));
+                _this.critDrawer = new _AttributeDrawer2.default('baseCritical');
 
                 var attSet = { scaleContentMax: false, align: 0, vAlign: 0 };
                 _this.uiList.addElement(_this.healthDrawer, attSet);
@@ -77292,8 +77309,9 @@ window.PIXI = PIXI;
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
 getValues(0.1, 3, null, 'easeOutCubic', 0.8, 5);
-getValues(3, 15, null, 'easeOutQuad', 1, 5);
-getValues(8, 4, null, 'easeOutQuad', 1, 5);
+getValues(4, 8, null, 'easeOutQuad', 1, 5);
+getValues(50, 300, 'floor', 'easeOutQuad', 1, 5);
+getValues(55, 380, 'floor', 'easeOutQuad', 1, 5);
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 120, 'floor', 'easeOutCubic', 1, 5, 0.8);
@@ -93169,7 +93187,7 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                 _this.equipmentListLine1.w = 0;
                 _this.equipmentListLine1.h = 50;
                 _this.equipmentListLine1.x = 15;
-                _this.equipmentListLine1.y = -25;
+                _this.equipmentListLine1.y = -30;
                 _this.equipmentContainer.addChild(_this.equipmentListLine1);
 
                 _this.equipmentListLine2 = new _UIList2.default();
@@ -93282,7 +93300,7 @@ var PlayerGameplayHud = function (_PIXI$Container) {
                                 if (element) {
 
                                         var icon = _Pool2.default.instance.getElement(_PlayerActiveEquipmentOnHud2.default); //new PIXI.Sprite.from(element.item.entityData.icon)
-                                        icon.setItem(element.item, 40);
+                                        icon.setItem(element.item, 60);
 
                                         if (element.item instanceof _WeaponData2.default) {
                                                 icon.setLevel(element.level - element.item.baseLevel);
@@ -93295,11 +93313,11 @@ var PlayerGameplayHud = function (_PIXI$Container) {
 
                                         if (totalElements % 2 === 0) {
 
-                                                _this3.equipmentListLine1.w += 50;
+                                                _this3.equipmentListLine1.w += 70;
                                                 _this3.equipmentListLine1.h = 60;
                                                 _this3.equipmentListLine1.addElement(icon);
                                         } else {
-                                                _this3.equipmentListLine2.w += 50;
+                                                _this3.equipmentListLine2.w += 70;
                                                 _this3.equipmentListLine2.h = 60;
                                                 _this3.equipmentListLine2.addElement(icon);
                                         }
@@ -98816,16 +98834,26 @@ var LoadoutStatsView = function (_PIXI$Container) {
 
     (0, _createClass3.default)(LoadoutStatsView, [{
         key: 'addRow',
-        value: function addRow(icon, label) {
+        value: function addRow(attribute, label, isSprite) {
+
+            //(UIUtils.getIconByAttribute
 
             var rowList = new _UIList2.default();
             this.addChild(rowList);
             rowList.w = this.containerBackground.width - 30;
             rowList.h = 30;
-            rowList.addElement(new PIXI.Sprite.from(icon), { fitHeight: 0.8, listScl: 0.2 });
 
-            var tempLabel = _UIUtils2.default.getPrimaryLabel(label, { fontSize: 22 });
-            rowList.addElement(tempLabel, { align: 0, listScl: 0.8, scaleContentMax: true });
+            if (isSprite) {
+
+                rowList.addElement(new PIXI.Sprite.from(attribute), { fitHeight: 1, listScl: 0.3 });
+            } else {
+
+                var tempLabelAtt = _UIUtils2.default.getPrimaryLabel(_UIUtils2.default.getAttributShort(attribute), { fontSize: 22 });
+                rowList.addElement(tempLabelAtt, { align: 0, listScl: 0.6, scaleContentMax: true });
+            }
+
+            var tempLabel = _UIUtils2.default.getPrimaryLabel(label, { fontSize: 22, fill: 0xAFFE0F });
+            rowList.addElement(tempLabel, { align: 0, listScl: 0.7, scaleContentMax: true });
 
             this.rows++;
 
@@ -98876,7 +98904,7 @@ var LoadoutStatsView = function (_PIXI$Container) {
                 });
             } else if (data instanceof _CompanionData2.default) {
                 var weapon = _EntityBuilder2.default.instance.getWeapon(data.weapon.id);
-                this.addRow(weapon.entityData.icon, weapon.entityData.name);
+                this.addRow(weapon.entityData.icon, weapon.entityData.name, true);
                 var _atts = this.getWeaponAttributes(weapon, level);
                 console.log(data, weapon);
                 _atts.forEach(function (element) {
@@ -98884,11 +98912,11 @@ var LoadoutStatsView = function (_PIXI$Container) {
                 });
             } else {
                 if (data.attribute && data.value && level < data.value.length) {
-                    this.addRow(_UIUtils2.default.getIconByAttribute(data.attribute), data.value[level]);
+                    this.addRow(data.attribute, data.value[level]);
                 }
 
                 if (data.secAttribute && data.secValue && level < data.secValue.length) {
-                    this.addRow(_UIUtils2.default.getIconByAttribute(data.secAttribute), data.secValue[level]);
+                    this.addRow(data.secAttribute, data.secValue[level]);
                 }
             }
             this.containerBackground.height += 20;
@@ -98899,17 +98927,17 @@ var LoadoutStatsView = function (_PIXI$Container) {
         value: function getWeaponAttributes(data, level) {
             var att = [];
 
-            att.push({ icon: _UIUtils2.default.getIconByAttribute('basePower'), value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) });
-            att.push({ icon: _UIUtils2.default.getIconByAttribute('baseFrequency'), value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) });
-            att.push({ icon: _UIUtils2.default.getIconByAttribute('baseBulletSpeed'), value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) });
-            att.push({ icon: _UIUtils2.default.getIconByAttribute('critical'), value: this.getAttributeValue(data.weaponAttributes, 'critical', level) });
+            att.push({ icon: 'basePower', value: this.getAttributeValue(data.weaponAttributes, 'basePower', level) });
+            att.push({ icon: 'baseFrequency', value: this.getAttributeValue(data.weaponAttributes, 'baseFrequency', level) });
+            //att.push({ icon: 'baseBulletSpeed', value: this.getAttributeValue(data.weaponAttributes, 'baseBulletSpeed', level) })
+            att.push({ icon: 'critical', value: this.getAttributeValue(data.weaponAttributes, 'critical', level) });
 
             if (Array.isArray(data.weaponAttributes.baseAmount)) {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseAmount'), value: data.weaponAttributes.baseAmount[level] });
+                att.push({ icon: 'baseAmount', value: data.weaponAttributes.baseAmount[level] });
             } else if (Array.isArray(data.weaponAttributes.baseBrustFireAmount)) {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseBrustFireAmount'), value: data.weaponAttributes.baseBrustFireAmount[level] });
+                att.push({ icon: 'baseBrustFireAmount', value: data.weaponAttributes.baseBrustFireAmount[level] });
             } else {
-                att.push({ icon: _UIUtils2.default.getIconByAttribute('baseAmount'), value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) });
+                att.push({ icon: 'baseAmount', value: this.getAttributeValue(data.weaponAttributes, 'baseAmount', level) });
             }
 
             return att;
@@ -111323,17 +111351,17 @@ var assets = [{
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
@@ -111341,32 +111369,26 @@ var assets = [{
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
 }, {
-	"id": "localization_ZH",
-	"url": "assets/json\\localization_ZH.json"
-}, {
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
+}, {
+	"id": "localization_ZH",
+	"url": "assets/json\\localization_ZH.json"
 }, {
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "companion-animation",
-	"url": "assets/json\\animation\\companion-animation.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
+	"id": "companion-animation",
+	"url": "assets/json\\animation\\companion-animation.json"
+}, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "body-parts",
-	"url": "assets/json\\database\\body-parts.json"
-}, {
-	"id": "starter-inventory",
-	"url": "assets/json\\database\\starter-inventory.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
@@ -111383,6 +111405,12 @@ var assets = [{
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
+	"id": "body-parts",
+	"url": "assets/json\\database\\body-parts.json"
+}, {
+	"id": "starter-inventory",
+	"url": "assets/json\\database\\starter-inventory.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -111397,15 +111425,6 @@ var assets = [{
 }, {
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "weapon-in-game-visuals",
-	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
-}, {
-	"id": "weapon-view-overriders",
-	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "main-weapons",
-	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -111422,17 +111441,26 @@ var assets = [{
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
 }, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+	"id": "main-weapons",
+	"url": "assets/json\\weapons\\main-weapons.json"
+}, {
+	"id": "weapon-in-game-visuals",
+	"url": "assets/json\\weapons\\weapon-in-game-visuals.json"
+}, {
+	"id": "weapon-view-overriders",
+	"url": "assets/json\\weapons\\weapon-view-overriders.json"
 }];
 
 exports.default = assets;
@@ -111465,7 +111493,7 @@ module.exports = exports['default'];
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/texture/texture.json","image/terrain/terrain.json","image/icons/icons.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/icons/icons.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);
