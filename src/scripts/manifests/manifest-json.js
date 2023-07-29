@@ -24,12 +24,12 @@ const assets = [
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
-	},
-	{
 	"id":"localization_JA",
 	"url":"assets/json\\localization_JA.json"
+	},
+	{
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
 	},
 	{
 	"id":"localization_PT",
@@ -72,6 +72,14 @@ const assets = [
 	"url":"assets/json\\cards\\cards.json"
 	},
 	{
+	"id":"body-parts",
+	"url":"assets/json\\database\\body-parts.json"
+	},
+	{
+	"id":"starter-inventory",
+	"url":"assets/json\\database\\starter-inventory.json"
+	},
+	{
 	"id":"game-shop",
 	"url":"assets/json\\economy\\game-shop.json"
 	},
@@ -80,20 +88,12 @@ const assets = [
 	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
-	"id":"wavesBkp",
-	"url":"assets/json\\enemy-waves\\wavesBkp.json"
-	},
-	{
 	"id":"waves2",
 	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
-	"id":"body-parts",
-	"url":"assets/json\\database\\body-parts.json"
-	},
-	{
-	"id":"starter-inventory",
-	"url":"assets/json\\database\\starter-inventory.json"
+	"id":"wavesBkp",
+	"url":"assets/json\\enemy-waves\\wavesBkp.json"
 	},
 	{
 	"id":"companions",
@@ -124,12 +124,12 @@ const assets = [
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
-	},
-	{
 	"id":"attribute-modifiers",
 	"url":"assets/json\\misc\\attribute-modifiers.json"
+	},
+	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
 	"id":"general-vfx",
@@ -140,12 +140,12 @@ const assets = [
 	"url":"assets/json\\vfx\\particle-behaviour.json"
 	},
 	{
-	"id":"weapon-vfx-pack",
-	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
-	},
-	{
 	"id":"particle-descriptors",
 	"url":"assets/json\\vfx\\particle-descriptors.json"
+	},
+	{
+	"id":"weapon-vfx-pack",
+	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
 	},
 	{
 	"id":"weapon-vfx",

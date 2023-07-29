@@ -52,7 +52,7 @@ export default class Player extends GameAgent {
 
 
     }
-    get collectRadius() {        
+    get collectRadius() {
         return this.attributes.collectionRadius;
     }
     get sessionData() {
@@ -76,11 +76,11 @@ export default class Player extends GameAgent {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
-        this.loadoutAttributes =  GameData.instance.getLoadoutAttributes();
+        this.loadoutAttributes = GameData.instance.getLoadoutAttributes();
         this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
         this.staticData = playerData;
-        
-        console.log(playerData.attributes,this.loadoutAttributes)
+
+        console.log(playerData.attributes, this.loadoutAttributes)
         this.attributes.reset(this.loadoutAttributes);
         this.attributes.baseCollectionRadius = playerData.attributes.baseRadius;
         //this.attributes.sumAttributes(this.loadoutAttributes)
@@ -119,10 +119,10 @@ export default class Player extends GameAgent {
 
         this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
         this.addChild(this.weaponShootBar)
-        
+
         this.weaponShootBar.build(20, 3, 1);
         this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
-        
+
         //this.weaponLoadingBars.push(this.weaponShootBar);
 
         this.speed = this.attributes.speed
@@ -273,7 +273,7 @@ export default class Player extends GameAgent {
         // }
 
         this.activeAttachments = [];
-       // this.weaponLoadingBars = [];
+        // this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
         this.activeWeapons = [];
@@ -300,22 +300,26 @@ export default class Player extends GameAgent {
 
         const t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;
 
-        
+
         for (let index = 0; index < t; index++) {
-           
+
             let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-            if(!first){
+            if (!first) {
                 first = weapon;
             }
             this.addChild(weapon)
             this.weaponsGameObject.push(weapon);
-            
 
-            this.attributes.weaponPower = weaponData.weaponAttributes.power;
-            this.attributes.basePower = this.loadoutAttributes.power
-            this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
-            this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical
-            
+            console.log(weaponData.id, this.sessionData.mainWeapon.id)
+
+            if (weaponData.id == this.sessionData.mainWeapon.id) {
+
+                this.attributes.weaponPower = weaponData.weaponAttributes.power;
+                this.attributes.basePower = this.loadoutAttributes.power
+                this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency
+                this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical
+
+            }
             weapon.build(weaponData)
             weapon.setIdOffset(index, t)
         }
@@ -349,9 +353,9 @@ export default class Player extends GameAgent {
     revive() {
         super.revive();
 
-        this.explodeAround();        
+        this.explodeAround();
     }
-    explodeAround(){
+    explodeAround() {
         const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 500)
         closeEnemies.forEach(element => {
             if (element.destroy && !element.destroyed) {
@@ -359,10 +363,10 @@ export default class Player extends GameAgent {
             }
         });
     }
-    itemHeal(){
+    itemHeal() {
         this.heal(Math.round(this.health.maxHealth * this.attributes.itemHeal))
     }
-    cardHeal(value){
+    cardHeal(value) {
         this.heal(Math.round(this.health.maxHealth * value))
     }
     die() {
@@ -375,7 +379,7 @@ export default class Player extends GameAgent {
 
     }
     damage(value) {
-        if(Math.random() < this.attributes.evasion){
+        if (Math.random() < this.attributes.evasion) {
             EffectsManager.instance.popEvasion(this)
             return
         }

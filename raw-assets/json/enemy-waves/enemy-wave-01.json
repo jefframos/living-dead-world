@@ -142,7 +142,7 @@
                 "radius": 350,
                 "total": 5000,
                 "maxActive": 50,
-                "entity": "SPIDER_BRAIN",
+                "entity": "SPIDER_BRAIN_02",
                 "levels":[3]
             }
         ]
@@ -187,10 +187,9 @@
                 "height": 400,
                 "radius": 300,
                 "total": 5000,
-                "maxActive": 80,
+                "maxActive": 30,
                 "entity": [
-                    "BUTTFLY_02",
-                    "SPIDER_BRAIN_02"
+                    "BUTTFLY_02"
                 ],
                 "levels":[3]
             },

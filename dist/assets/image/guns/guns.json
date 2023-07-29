@@ -72,14 +72,6 @@
 	"spriteSourceSize": {"x":15,"y":1,"w":55,"h":86},
 	"sourceSize": {"w":88,"h":94}
 },
-"bullets/bommerang.png":
-{
-	"frame": {"x":1321,"y":132,"w":65,"h":45},
-	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":45},
-	"sourceSize": {"w":67,"h":48}
-},
 "bullets/boomerang-icon.png":
 {
 	"frame": {"x":5,"y":135,"w":65,"h":92},
@@ -87,6 +79,14 @@
 	"trimmed": true,
 	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":92},
 	"sourceSize": {"w":68,"h":95}
+},
+"bullets/boomerang.png":
+{
+	"frame": {"x":1321,"y":132,"w":65,"h":45},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":65,"h":45},
+	"sourceSize": {"w":67,"h":48}
 },
 "bullets/bounceBomb.png":
 {
@@ -1013,6 +1013,6 @@
 	"format": "RGBA8888",
 	"size": {"w":1764,"h":252},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:925c36770eb39c31caa7e986ac50cef7:06631a322fb23a2634f2dc2e4982375f:62c1f540b5fd80b9e41584087e1ed9b4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:6aa0ef119f002eeecc877a962bbbb368:791d375ab56e1fc379f2ab2f9fef44a0:62c1f540b5fd80b9e41584087e1ed9b4$"
 }
 }

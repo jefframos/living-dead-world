@@ -17151,11 +17151,15 @@ var Player = function (_GameAgent) {
                 this.addChild(weapon);
                 this.weaponsGameObject.push(weapon);
 
-                this.attributes.weaponPower = weaponData.weaponAttributes.power;
-                this.attributes.basePower = this.loadoutAttributes.power;
-                this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency;
-                this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical;
+                console.log(weaponData.id, this.sessionData.mainWeapon.id);
 
+                if (weaponData.id == this.sessionData.mainWeapon.id) {
+
+                    this.attributes.weaponPower = weaponData.weaponAttributes.power;
+                    this.attributes.basePower = this.loadoutAttributes.power;
+                    this.attributes.baseFrequency = weaponData.weaponAttributes.frequency + this.loadoutAttributes.frequency;
+                    this.attributes.baseCritical = weaponData.weaponAttributes.critical + this.loadoutAttributes.critical;
+                }
                 weapon.build(weaponData);
                 weapon.setIdOffset(index, t);
             }
@@ -111357,11 +111361,11 @@ var assets = [{
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
+}, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
@@ -111393,23 +111397,23 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
+	"id": "body-parts",
+	"url": "assets/json\\database\\body-parts.json"
+}, {
+	"id": "starter-inventory",
+	"url": "assets/json\\database\\starter-inventory.json"
+}, {
 	"id": "game-shop",
 	"url": "assets/json\\economy\\game-shop.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "wavesBkp",
-	"url": "assets/json\\enemy-waves\\wavesBkp.json"
-}, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "body-parts",
-	"url": "assets/json\\database\\body-parts.json"
-}, {
-	"id": "starter-inventory",
-	"url": "assets/json\\database\\starter-inventory.json"
+	"id": "wavesBkp",
+	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
@@ -111432,11 +111436,11 @@ var assets = [{
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -111444,11 +111448,11 @@ var assets = [{
 	"id": "particle-behaviour",
 	"url": "assets/json\\vfx\\particle-behaviour.json"
 }, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
 	"id": "particle-descriptors",
 	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }, {
 	"id": "weapon-vfx",
 	"url": "assets/json\\vfx\\weapon-vfx.json"
@@ -111493,7 +111497,7 @@ module.exports = exports['default'];
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/icons/icons.json","image/hud/hud.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/icons/icons.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);
