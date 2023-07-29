@@ -430,7 +430,7 @@ export default class UIUtils {
             case 'hardCurrency':
                 return 'heart'
             case 'specialCurrency':
-                return 'ray'
+                return 'special-currency'
             case 'wearable-lock':
                 return 'interrogation'
             case 'close':
@@ -441,6 +441,12 @@ export default class UIUtils {
                 return 'chestPin'
             case 'chest':
                 return 'item-chest-0001'
+            case 'heal':
+                return 'burguer'
+            case 'bomb':
+                return 'dynamite'
+            case 'magnet':
+                return 'magnet'
         }
 
 

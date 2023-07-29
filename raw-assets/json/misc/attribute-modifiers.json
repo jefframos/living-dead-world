@@ -110,8 +110,8 @@
     {
         "id": "ITEM_HEAL_MODIFIER",
         "entityData": {
-            "icon": "ico_green-potion",
-            "name": "Potent Healing",
+            "icon": "burguer-plus",
+            "name": "Good Burguer",
             "description": "Items Heal More",
             "type": "Attribute",
             "tier": 1

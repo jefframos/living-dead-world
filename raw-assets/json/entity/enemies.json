@@ -11,7 +11,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [26,30,38,51,80],
+            "baseHealth": [26,30,42,62,90,126,170,222,282,350],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
@@ -46,7 +46,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [15,21,41,74,120],
+            "baseHealth": [15,18,29,46,71,102,141,187,240,300],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -81,7 +81,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.12,0.13,0.17,0.24,0.35],
-            "baseHealth": [30,33,45,63,90],
+            "baseHealth": [40,44,57,80,111,151,200,257,324,400],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -116,7 +116,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.12,0.13,0.17,0.24,0.35],
-            "baseHealth": [100,106,125,156,200],
+            "baseHealth": [100,104,119,144,179,223,277,341,416,500],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -151,7 +151,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [30,37,60,97,150],
+            "baseHealth": [35,38,47,62,83,110,143,183,228,280],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -181,7 +181,7 @@
         },
         "attributes": {
             "basePower": [0.20,0.21,0.23,0.28,0.35],
-            "baseHealth": [800,843,975,1193,1500],
+            "baseHealth": [800,820,883,988,1135,1324,1555,1828,2143,2500],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
@@ -215,7 +215,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [15,19,31,51,80],
+            "baseHealth": [22,25,34,50,72,101,136,178,225,280],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -251,7 +251,7 @@
         },
         "attributes": {
             "basePower": [0.20,0.21,0.23,0.28,0.35],
-            "baseHealth": [1200,1250,1400,1650,2000],
+            "baseHealth": [1000,1024,1098,1222,1395,1617,1888,2209,2580,3000],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
@@ -280,7 +280,7 @@
         },
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [15,21,41,74,120],
+            "baseHealth": [15,18,28,44,67,96,132,175,224,280],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
@@ -309,7 +309,7 @@
         },
         "attributes": {
             "basePower": [0.10,0.11,0.14,0.20,0.30],
-            "baseHealth": [10,13,22,38,60],
+            "baseHealth": [15,18,28,44,67,96,132,175,224,280],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
@@ -342,7 +342,7 @@
         "ranking": 1,
         "attributes": {
             "basePower": [0.12,0.13,0.17,0.24,0.35],
-            "baseHealth": [50,65,112,190,300],
+            "baseHealth": [50,58,84,127,188,266,361,473,603,750],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
@@ -375,7 +375,7 @@
         },
         "attributes": {
             "basePower": [0.12,0.13,0.17,0.24,0.35],
-            "baseHealth": [55,75,136,237,380],
+            "baseHealth": [55,65,96,148,221,315,430,566,722,900],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,

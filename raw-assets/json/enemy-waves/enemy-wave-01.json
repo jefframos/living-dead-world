@@ -167,7 +167,7 @@
                         "maxActive": 50,
                         "entity": "SPIDER_BRAIN_02",
                         "levels": [
-                            2
+                            3,4
                         ]
                     }
                 ]
@@ -185,7 +185,7 @@
                         "total": 1,
                         "entity": "ZOMBIE_MOM",
                         "levels": [
-                            2
+                            4
                         ]
                     },
                     {
@@ -200,7 +200,7 @@
                             "ZOMBIE_04"
                         ],
                         "levels": [
-                            1
+                            6
                         ]
                     }
                 ]
@@ -221,7 +221,7 @@
                             "BUTTFLY_02"
                         ],
                         "levels": [
-                            3
+                            4
                         ]
                     },
                     {
@@ -229,10 +229,10 @@
                         "length": 250,
                         "radius": 350,
                         "total": 100,
-                        "maxActive": 20,
+                        "maxActive": 30,
                         "entity": "ZOMBIE_KAREN",
                         "levels": [
-                            3
+                            5
                         ]
                     }
                 ]

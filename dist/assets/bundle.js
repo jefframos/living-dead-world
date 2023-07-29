@@ -3048,7 +3048,7 @@ var UIUtils = function () {
                 case 'hardCurrency':
                     return 'heart';
                 case 'specialCurrency':
-                    return 'ray';
+                    return 'special-currency';
                 case 'wearable-lock':
                     return 'interrogation';
                 case 'close':
@@ -3059,6 +3059,12 @@ var UIUtils = function () {
                     return 'chestPin';
                 case 'chest':
                     return 'item-chest-0001';
+                case 'heal':
+                    return 'burguer';
+                case 'bomb':
+                    return 'dynamite';
+                case 'magnet':
+                    return 'magnet';
             }
 
             console.log(type);
@@ -23951,7 +23957,7 @@ var Bullet = function (_PhysicsEntity) {
             }
 
             if (fromPlayer) {
-                this.piercing = player.attributes.critical.piercing;
+                this.piercing = player.attributes.piercing;
             }
             this.piercing += this.weapon.weaponAttributes.piercing;
 
@@ -77333,11 +77339,23 @@ getValues(0.025, 0.2, null, 'easeOutCubic', 0.8, 5);
 getValues(0.12, 0.35, null, 'easeOutCubic', 0.8, 5);
 getValues(0.20, 0.35, null, 'easeOutCubic', 0.8, 5);
 getValues(4, 8, null, 'easeOutQuad', 1, 5);
-getValues(50, 300, 'floor', 'easeOutQuad', 1, 5);
 getValues(55, 380, 'floor', 'easeOutQuad', 1, 5);
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 120, 'floor', 'easeOutCubic', 1, 5, 0.8);
+
+getValues(26, 350, 'floor', 'easeOutQuad', 1, 10);
+getValues(15, 300, 'floor', 'easeOutQuad', 1, 10);
+getValues(40, 400, 'floor', 'easeOutQuad', 1, 10);
+getValues(100, 500, 'floor', 'easeOutQuad', 1, 10);
+getValues(35, 280, 'floor', 'easeOutQuad', 1, 10);
+getValues(800, 2500, 'floor', 'easeOutQuad', 1, 10);
+getValues(22, 280, 'floor', 'easeOutQuad', 1, 10);
+getValues(1000, 3000, 'floor', 'easeOutQuad', 1, 10);
+getValues(15, 280, 'floor', 'easeOutQuad', 1, 10);
+getValues(50, 750, 'floor', 'easeOutQuad', 1, 10);
+getValues(55, 900, 'floor', 'easeOutQuad', 1, 10);
+
 // getValues(0.3, 0.18, null, 'easeOutCubic', 1)
 function getValues(value1, value2) {
     var math = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
@@ -88276,7 +88294,7 @@ var CharacterBuildScreen = function (_Screen) {
                         this.bottomMenuRightList = new _UIList2.default();
                         var bt3 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.openModal(_this2.shopContainer);
-                        }, 'Shop', _UIUtils2.default.getIconUIIcon('shop'));
+                        }, '', _UIUtils2.default.getIconUIIcon('shop'));
 
                         var bt4 = _UIUtils2.default.getPrimaryShapelessButton(function () {
                                 _this2.openModal(_this2.locationContainer);
@@ -90841,7 +90859,7 @@ var Consumable = function (_Collectable) {
                     break;
             }
 
-            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, 30));
+            this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, 40));
         }
     }, {
         key: 'setCollectableTexture',
@@ -98859,6 +98877,9 @@ var LoadoutStatsView = function (_PIXI$Container) {
         key: 'addRow',
         value: function addRow(attribute, label, isSprite) {
 
+            if (!label) {
+                return;
+            }
             //(UIUtils.getIconByAttribute
 
             var rowList = new _UIList2.default();
@@ -111365,11 +111386,11 @@ var assets = [{
 	"id": "achievments",
 	"url": "assets/json\\achievments.json"
 }, {
-	"id": "localization_DE",
-	"url": "assets/json\\localization_DE.json"
-}, {
 	"id": "localization_EN",
 	"url": "assets/json\\localization_EN.json"
+}, {
+	"id": "localization_DE",
+	"url": "assets/json\\localization_DE.json"
 }, {
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
@@ -111377,14 +111398,14 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
+	"id": "localization_KO",
+	"url": "assets/json\\localization_KO.json"
+}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
-}, {
-	"id": "localization_KO",
-	"url": "assets/json\\localization_KO.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
@@ -111401,14 +111422,11 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
-}, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
@@ -111416,14 +111434,8 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
-}, {
-	"id": "wavesBkp",
-	"url": "assets/json\\enemy-waves\\wavesBkp.json"
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
 }, {
 	"id": "body-parts",
 	"url": "assets/json\\database\\body-parts.json"
@@ -111434,6 +111446,15 @@ var assets = [{
 	"id": "game-shop",
 	"url": "assets/json\\economy\\game-shop.json"
 }, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
+}, {
+	"id": "wavesBkp",
+	"url": "assets/json\\enemy-waves\\wavesBkp.json"
+}, {
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -111443,17 +111464,23 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
 }, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "general-vfx",
 	"url": "assets/json\\vfx\\general-vfx.json"
@@ -111478,12 +111505,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
 }];
 
 exports.default = assets;
@@ -111516,7 +111537,7 @@ module.exports = exports['default'];
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/hud/hud.json","image/texture/texture.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

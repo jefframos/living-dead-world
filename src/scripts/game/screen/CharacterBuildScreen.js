@@ -349,7 +349,7 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRightList = new UIList();
         const bt3 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.shopContainer)
-        }, 'Shop', UIUtils.getIconUIIcon('shop'))
+        }, '', UIUtils.getIconUIIcon('shop'))
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);

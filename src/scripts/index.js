@@ -50,11 +50,25 @@ getValues(0.025, 0.2, null, 'easeOutCubic', 0.8,5)
 getValues(0.12, 0.35, null, 'easeOutCubic', 0.8,5)
 getValues(0.20, 0.35, null, 'easeOutCubic', 0.8,5)
 getValues(4, 8, null, 'easeOutQuad', 1,5)
-getValues(50, 300, 'floor', 'easeOutQuad', 1,5)
 getValues(55, 380, 'floor', 'easeOutQuad', 1,5)
+
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
 getValues(50, 120, 'floor', 'easeOutCubic', 1,5, 0.8)
+
+
+getValues(26, 350, 'floor', 'easeOutQuad', 1,10)
+getValues(15, 300, 'floor', 'easeOutQuad', 1,10)
+getValues(40, 400, 'floor', 'easeOutQuad', 1,10)
+getValues(100, 500, 'floor', 'easeOutQuad', 1,10)
+getValues(35, 280, 'floor', 'easeOutQuad', 1,10)
+getValues(800, 2500, 'floor', 'easeOutQuad', 1,10)
+getValues(22, 280, 'floor', 'easeOutQuad', 1,10)
+getValues(1000, 3000, 'floor', 'easeOutQuad', 1,10)
+getValues(15, 280, 'floor', 'easeOutQuad', 1,10)
+getValues(50, 750, 'floor', 'easeOutQuad', 1,10)
+getValues(55, 900, 'floor', 'easeOutQuad', 1,10)
+
 // getValues(0.3, 0.18, null, 'easeOutCubic', 1)
 function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8, total = 10) {
 

@@ -47,7 +47,7 @@ export default class Consumable extends Collectable {
                 break;
         }
 
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 30))
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 40))
 
     }
     setCollectableTexture() {

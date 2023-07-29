@@ -107,7 +107,7 @@ export default class Bullet extends PhysicsEntity {
         }
 
         if (fromPlayer) {
-            this.piercing = player.attributes.critical.piercing;
+            this.piercing = player.attributes.piercing;
         }
         this.piercing += this.weapon.weaponAttributes.piercing;
 

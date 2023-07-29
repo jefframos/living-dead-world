@@ -51,7 +51,9 @@ export default class LoadoutStatsView extends PIXI.Container {
     }
     addRow(attribute, label, isSprite) {
 
-
+if(!label){
+    return;
+}
         //(UIUtils.getIconByAttribute
 
         const rowList = new UIList();
@@ -67,7 +69,6 @@ export default class LoadoutStatsView extends PIXI.Container {
             const tempLabelAtt = UIUtils.getPrimaryLabel(UIUtils.getAttributShort(attribute), { fontSize: 22 });
             rowList.addElement(tempLabelAtt, { align: 0, listScl: 0.6, scaleContentMax: true });
         }
-
 
         const tempLabel = UIUtils.getPrimaryLabel(label, { fontSize: 22, fill: 0xAFFE0F });
         rowList.addElement(tempLabel, { align: 0, listScl: 0.7, scaleContentMax: true });
