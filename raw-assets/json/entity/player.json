@@ -17,9 +17,9 @@
             "baseHealth": 100,
             "baseMagicDefense": 2,
             "baseMass": 1,
-            "baseDefense": 8,
+            "baseDefense": 4,
             "baseRadius": 30,
-            "baseSpeed": 75
+            "baseSpeed": 60
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

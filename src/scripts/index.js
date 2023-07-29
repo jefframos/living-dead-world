@@ -45,7 +45,10 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-getValues(0.1, 3, null, 'easeOutCubic', 0.8,5)
+getValues(0.1, 0.3, null, 'easeOutCubic', 0.8,5)
+getValues(0.025, 0.2, null, 'easeOutCubic', 0.8,5)
+getValues(0.12, 0.35, null, 'easeOutCubic', 0.8,5)
+getValues(0.20, 0.35, null, 'easeOutCubic', 0.8,5)
 getValues(4, 8, null, 'easeOutQuad', 1,5)
 getValues(50, 300, 'floor', 'easeOutQuad', 1,5)
 getValues(55, 380, 'floor', 'easeOutQuad', 1,5)

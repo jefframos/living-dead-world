@@ -310,7 +310,7 @@ export default class Player extends GameAgent {
             this.addChild(weapon)
             this.weaponsGameObject.push(weapon);
 
-            console.log(weaponData.id, this.sessionData.mainWeapon.id)
+            //console.log(weaponData.id, this.sessionData.mainWeapon.id)
 
             if (weaponData.id == this.sessionData.mainWeapon.id) {
 
@@ -415,7 +415,8 @@ export default class Player extends GameAgent {
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
             const element = this.currentEnemiesColliding[index];
             if (element.timer <= 0) {
-                let dead = this.damage(element.entity.attributes.power);
+                //console.log('=>=',this.attributes.rawHealth , element.entity.attributes.power2)
+                let dead = this.damage(Math.round(this.attributes.rawHealth * element.entity.attributes.power2));
                 if (dead) {
                     return
                 }

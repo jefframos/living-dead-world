@@ -17151,7 +17151,7 @@ var Player = function (_GameAgent) {
                 this.addChild(weapon);
                 this.weaponsGameObject.push(weapon);
 
-                console.log(weaponData.id, this.sessionData.mainWeapon.id);
+                //console.log(weaponData.id, this.sessionData.mainWeapon.id)
 
                 if (weaponData.id == this.sessionData.mainWeapon.id) {
 
@@ -17275,7 +17275,8 @@ var Player = function (_GameAgent) {
             for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
                 var element = this.currentEnemiesColliding[index];
                 if (element.timer <= 0) {
-                    var dead = this.damage(element.entity.attributes.power);
+                    //console.log('=>=',this.attributes.rawHealth , element.entity.attributes.power2)
+                    var dead = this.damage(Math.round(this.attributes.rawHealth * element.entity.attributes.power2));
                     if (dead) {
                         return;
                     }
@@ -23381,6 +23382,11 @@ var EntityAttributes = function () {
             return this.multipliers.totalMain;
         }
     }, {
+        key: "rawHealth",
+        get: function get() {
+            return Math.round(this.findAttributeValue('baseHealth'));
+        }
+    }, {
         key: "health",
         get: function get() {
             return Math.round(this.findAttributeValue('baseHealth') * this.multipliers.health);
@@ -23414,6 +23420,11 @@ var EntityAttributes = function () {
         key: "zone",
         get: function get() {
             return this.findAttributeValue('damageZone');
+        }
+    }, {
+        key: "power2",
+        get: function get() {
+            return (this.findAttributeValue('basePower') + this.findAttributeValue('weaponPower')) * this.multipliers.power;
         }
     }, {
         key: "power",
@@ -24510,7 +24521,12 @@ var LevelManager = function () {
 
             this.player.enabled = false;
 
-            this.currentLevelWaves = _GameStaticData2.default.instance.getWaves();
+            var levelData = _GameStaticData2.default.instance.getWaves()[0];
+            this.currentLevelWaves = levelData.waves;
+
+            console.log(levelData);
+            this.timeLimit = levelData.lenght;
+            //alert(this.timeLimit)
 
             this.levelStructure = { phases: [] };
             this.currentLevelWaves.forEach(function (element) {
@@ -77312,7 +77328,10 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-getValues(0.1, 3, null, 'easeOutCubic', 0.8, 5);
+getValues(0.1, 0.3, null, 'easeOutCubic', 0.8, 5);
+getValues(0.025, 0.2, null, 'easeOutCubic', 0.8, 5);
+getValues(0.12, 0.35, null, 'easeOutCubic', 0.8, 5);
+getValues(0.20, 0.35, null, 'easeOutCubic', 0.8, 5);
 getValues(4, 8, null, 'easeOutQuad', 1, 5);
 getValues(50, 300, 'floor', 'easeOutQuad', 1, 5);
 getValues(55, 380, 'floor', 'easeOutQuad', 1, 5);
@@ -111385,26 +111404,17 @@ var assets = [{
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
 }, {
-	"id": "entity-animation",
-	"url": "assets/json\\animation\\entity-animation.json"
-}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
+}, {
+	"id": "entity-animation",
+	"url": "assets/json\\animation\\entity-animation.json"
 }, {
 	"id": "player-animation",
 	"url": "assets/json\\animation\\player-animation.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
-}, {
-	"id": "body-parts",
-	"url": "assets/json\\database\\body-parts.json"
-}, {
-	"id": "starter-inventory",
-	"url": "assets/json\\database\\starter-inventory.json"
-}, {
-	"id": "game-shop",
-	"url": "assets/json\\economy\\game-shop.json"
 }, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
@@ -111415,6 +111425,15 @@ var assets = [{
 	"id": "wavesBkp",
 	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
+	"id": "body-parts",
+	"url": "assets/json\\database\\body-parts.json"
+}, {
+	"id": "starter-inventory",
+	"url": "assets/json\\database\\starter-inventory.json"
+}, {
+	"id": "game-shop",
+	"url": "assets/json\\economy\\game-shop.json"
+}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
@@ -111423,12 +111442,6 @@ var assets = [{
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
-}, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -111465,6 +111478,12 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }];
 
 exports.default = assets;
@@ -111497,7 +111516,7 @@ module.exports = exports['default'];
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/icons/icons.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/hud/hud.json","image/texture/texture.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

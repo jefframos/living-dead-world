@@ -56,12 +56,12 @@ const assets = [
 	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
-	},
-	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
+	},
+	{
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
 	},
 	{
 	"id":"player-animation",
@@ -70,18 +70,6 @@ const assets = [
 	{
 	"id":"cards",
 	"url":"assets/json\\cards\\cards.json"
-	},
-	{
-	"id":"body-parts",
-	"url":"assets/json\\database\\body-parts.json"
-	},
-	{
-	"id":"starter-inventory",
-	"url":"assets/json\\database\\starter-inventory.json"
-	},
-	{
-	"id":"game-shop",
-	"url":"assets/json\\economy\\game-shop.json"
 	},
 	{
 	"id":"enemy-wave-01",
@@ -96,6 +84,18 @@ const assets = [
 	"url":"assets/json\\enemy-waves\\wavesBkp.json"
 	},
 	{
+	"id":"body-parts",
+	"url":"assets/json\\database\\body-parts.json"
+	},
+	{
+	"id":"starter-inventory",
+	"url":"assets/json\\database\\starter-inventory.json"
+	},
+	{
+	"id":"game-shop",
+	"url":"assets/json\\economy\\game-shop.json"
+	},
+	{
 	"id":"companions",
 	"url":"assets/json\\entity\\companions.json"
 	},
@@ -106,14 +106,6 @@ const assets = [
 	{
 	"id":"player",
 	"url":"assets/json\\entity\\player.json"
-	},
-	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
 	"id":"acessories",
@@ -162,6 +154,14 @@ const assets = [
 	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
+	},
+	{
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
 	}
 ];
 

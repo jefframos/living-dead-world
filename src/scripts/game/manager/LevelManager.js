@@ -120,7 +120,12 @@ export default class LevelManager {
 
         this.player.enabled = false
 
-        this.currentLevelWaves = GameStaticData.instance.getWaves();
+        const levelData = GameStaticData.instance.getWaves()[0]
+        this.currentLevelWaves = levelData.waves;
+
+        console.log(levelData)
+        this.timeLimit =  levelData.lenght;
+//alert(this.timeLimit)
 
         this.levelStructure = { phases: [] }
         this.currentLevelWaves.forEach(element => {

@@ -131,6 +131,9 @@ export default class EntityAttributes {
     get totalMain() {
         return this.multipliers.totalMain;
     }
+    get rawHealth() {
+        return Math.round(this.findAttributeValue('baseHealth'));
+    }
     get health() {
         return Math.round(this.findAttributeValue('baseHealth') * this.multipliers.health);
     }
@@ -151,6 +154,9 @@ export default class EntityAttributes {
     }
     get zone() {
         return this.findAttributeValue('damageZone');
+    }
+    get power2() {
+        return (this.findAttributeValue('basePower') + this.findAttributeValue('weaponPower')) * this.multipliers.power;
     }
     get power() {
         return Math.ceil(this.rawPower * this.multipliers.power);

@@ -10,8 +10,8 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 15,
-            "baseHealth": [15,19,31,51,80],
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
+            "baseHealth": [26,30,38,51,80],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 5,
@@ -45,13 +45,13 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": 10,
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
             "baseHealth": [15,21,41,74,120],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 25,
-            "baseSpeed": 8
+            "baseSpeed": [10, 12,14,16,18]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -80,7 +80,7 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": [10,13,22,38,60],
+            "basePower": [0.12,0.13,0.17,0.24,0.35],
             "baseHealth": [30,33,45,63,90],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -115,7 +115,7 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": [10,11,17,26,40],
+            "basePower": [0.12,0.13,0.17,0.24,0.35],
             "baseHealth": [100,106,125,156,200],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -150,7 +150,7 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": [8,9,13,19,28],
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
             "baseHealth": [30,37,60,97,150],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -180,7 +180,7 @@
             "tier": 4
         },
         "attributes": {
-            "basePower": [40,43,55,73,100],
+            "basePower": [0.20,0.21,0.23,0.28,0.35],
             "baseHealth": [800,843,975,1193,1500],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -214,7 +214,7 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": [12,13,19,27,40],
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
             "baseHealth": [15,19,31,51,80],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -250,7 +250,7 @@
             "id": "ENEMY_MINIGUN_01"
         },
         "attributes": {
-            "basePower": [20,31,65,121,200],
+            "basePower": [0.20,0.21,0.23,0.28,0.35],
             "baseHealth": [1200,1250,1400,1650,2000],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -279,7 +279,7 @@
             "tier": 1
         },
         "attributes": {
-            "basePower": [12,13,17,24,35],
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
             "baseHealth": [15,21,41,74,120],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -308,13 +308,13 @@
             "tier": 1
         },
         "attributes": {
-            "basePower": [10,11,15,21,30],
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
             "baseHealth": [10,13,22,38,60],
             "baseMagicDefense": 2,
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 15,
-            "baseSpeed": [10,10,12,15,20]
+            "baseSpeed": [20,21,25,31,40]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -341,7 +341,7 @@
         },
         "ranking": 1,
         "attributes": {
-            "basePower": [12,13,19,27,40],
+            "basePower": [0.12,0.13,0.17,0.24,0.35],
             "baseHealth": [50,65,112,190,300],
             "baseMagicDefense": 2,
             "baseMass": 1,
@@ -374,7 +374,7 @@
             "tier": 1
         },
         "attributes": {
-            "basePower": [12,13,17,24,35],
+            "basePower": [0.12,0.13,0.17,0.24,0.35],
             "baseHealth": [55,75,136,237,380],
             "baseMagicDefense": 2,
             "baseMass": 1,
