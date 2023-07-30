@@ -154,11 +154,11 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
                 if (totalElements % 2 === 0) {
 
-                    this.equipmentListLine1.w += 70;
+                    this.equipmentListLine1.w += 60;
                     this.equipmentListLine1.h = 60;
                     this.equipmentListLine1.addElement(icon)
                 } else {
-                    this.equipmentListLine2.w += 70;
+                    this.equipmentListLine2.w += 60;
                     this.equipmentListLine2.h = 60;
                     this.equipmentListLine2.addElement(icon)
                 }

@@ -30,8 +30,8 @@
             "run": "ZOMBIE_01"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -65,8 +65,8 @@
             "run": "ZOMBIE_02"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -100,8 +100,8 @@
             "run": "ZOMBIE_03"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -135,8 +135,8 @@
             "run": "ZOMBIE_04"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -169,8 +169,8 @@
             "run": "ZOMBIE_KAREN"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -199,8 +199,8 @@
             "run": "ZOMBIE_MOM"
         },
         "vfx": {
-            "onHit": "BLOOD_SPLAT_GREEN",
-            "onDie": "BODY_PARTS_GREEN"
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -237,7 +237,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_GREEN"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -269,7 +269,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_RED"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -298,7 +298,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_RED"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -327,7 +327,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_RED"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -364,7 +364,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_GREEN"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     },
     {
@@ -393,7 +393,7 @@
         },
         "vfx": {
             "onHit": "BLOOD_SPLAT_RED",
-            "onDie": "BODY_PARTS_RED"
+            "onDie": "BLOOD_SPLAT_RED"
         }
     }
 ]

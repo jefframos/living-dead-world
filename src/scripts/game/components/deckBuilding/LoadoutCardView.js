@@ -207,11 +207,11 @@ export default class LoadoutCardView extends PIXI.Container {
         if (cardData) {
             this.updateTexture(cardData.entityData.icon)
             this.cardBorder.texture = PIXI.Texture.from(this.textures[level])
+            this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
         } else {
             this.cardImage.texture = PIXI.Texture.EMPTY;
             this.cardBorder.texture = PIXI.Texture.from(this.textures[level])
         }
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
     }
 
 }

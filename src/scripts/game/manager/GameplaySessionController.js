@@ -13,6 +13,7 @@ import PlayerInventoryHud from "../inventory/view/PlayerInventoryHud";
 import PlayerSessionData from "../data/PlayerSessionData";
 import RenderModule from "../core/modules/RenderModule";
 import SurvivorDeckController from "../components/deckBuilding/SurvivorDeckController";
+import UIUtils from "../utils/UIUtils";
 import config from "../../config";
 import signals from "signals";
 
@@ -38,7 +39,7 @@ export default class GameplaySessionController extends GameObject {
         this.onPlayerDead = new signals.Signal();
         this.onGameStart = new signals.Signal();
 
-        
+
     }
     build() {
 
@@ -59,7 +60,7 @@ export default class GameplaySessionController extends GameObject {
         this.hudButtons.addCallbackButton(() => {
             this.player.clearWeapon();
         }, config.assets.button.warningSquare)
-        
+
         this.addChild(this.hudButtons)
 
         this.cardPlacementView = this.engine.poolGameObject(CardPlacementView, true)
@@ -79,8 +80,27 @@ export default class GameplaySessionController extends GameObject {
         }
 
 
+        this.levelInfoContainer = new PIXI.Container();
+        this.gameView.view.addChild(this.levelInfoContainer)
+
+        this.infoLevelLabel = UIUtils.getSpecialLabel2('labelHere', { fontSize: 36 });
+        this.infoLevelLabel.anchor.set(0.5)
+        this.infoLevelLabel.scale.set(0.5)
+        this.infoLevelLabel.y = 50
+        this.levelInfoContainer.addChild(this.infoLevelLabel)
         //this.setBuildingMode();
         //this.toggleDeck();
+    }
+    setLabelInfo(label, toHide = 0) {
+        this.infoLevelLabel.alpha = 1;
+        this.infoLevelLabel.text = label;
+
+
+        TweenLite.killTweensOf(this.infoLevelLabel)
+        if (toHide) {
+            TweenLite.to(this.infoLevelLabel, 1, { delay: toHide, alpha: 0 })
+        }
+
     }
     playerReady() {
 
@@ -109,15 +129,15 @@ export default class GameplaySessionController extends GameObject {
             }
         }, 1);
     }
-    onOpenChest(){
+    onOpenChest() {
         this.cardPlacementSystem.show();
         Eugine.TimeScale = 0;
     }
     onPlayerLevelUp(xpData) {
         this.cardPlacementSystem.show();
         Eugine.TimeScale = 0;
-        
-        setTimeout(() => {            
+        this.player.resetVelocity();
+        setTimeout(() => {
             this.playerInventoryHud.showLevelUp();
         }, 1);
     }
@@ -184,5 +204,5 @@ export default class GameplaySessionController extends GameObject {
         }
 
     }
-    
+
 }

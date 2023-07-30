@@ -10,7 +10,7 @@ export default class EntityLifebar extends BaseFillBar {
         super.build(width, height, border);        
         this.health = this.parent.health;
 
-        this.addIcon(UIUtils.getIconByAttribute("baseHealth"))
+       // this.addIcon(UIUtils.getIconByAttribute("baseHealth"))
     }
     update(delta, unscaled){
         super.update(delta, unscaled);

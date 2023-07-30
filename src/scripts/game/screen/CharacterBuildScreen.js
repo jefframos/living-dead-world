@@ -136,8 +136,10 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.addElement(this.closeButton, { align: 0, fitWidth: 1 })
 
 
-        this.giveMoneyButton = UIUtils.getPrimaryButton(() => { this.giveMoney(); })
-        this.buttonsList.addElement(this.giveMoneyButton, { align: 0, fitWidth: 1 })
+        if(Game.Debug.debug){            
+            this.giveMoneyButton = UIUtils.getPrimaryButton(() => { this.giveMoney(); })
+            this.buttonsList.addElement(this.giveMoneyButton, { align: 0, fitWidth: 1 })
+        }
         //this.buttonsList.addElement(UIUtils.getPrimaryButton(() => { this.randomize() }), { align: 0 })
 
         this.buttonsList.w = 75 * this.buttonsList.elementsList.length
@@ -194,6 +196,11 @@ export default class CharacterBuildScreen extends Screen {
         }, 100);
 
         this.updateWearables();
+
+        setTimeout(() => {
+
+            this.showMainUI();
+        }, 1);
     }
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
@@ -288,6 +295,11 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenu = new PIXI.Container()
         this.container.addChild(this.bottomMenu);
         this.bottomMenuList = new UIList();
+
+        this.bottomMenuRight = new PIXI.Container()
+        this.container.addChild(this.bottomMenuRight);
+        this.bottomMenuRightList = new UIList();
+
         this.loadoutButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.loadoutContainer);
         }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
@@ -295,7 +307,7 @@ export default class CharacterBuildScreen extends Screen {
         this.customizeButton = UIUtils.getPrimaryShapelessButton(() => {
             this.showCustomization(true);
 
-        }, 'Wardrobe', 'transparent')
+        }, 'Outfit', 'transparent')
 
         //this.customizeButton.icon.texture = PIXI.Texture.EMPTY;
 
@@ -327,54 +339,50 @@ export default class CharacterBuildScreen extends Screen {
             PrizeManager.instance.getMetaPrize([6], 3, 2);
         }, 'Get Wareables', UIUtils.getIconUIIcon('test'))
 
-        this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
-        this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
-        // this.bottomMenuList.addElement(bt0, { align: 0, vAlign: 0 })
-        // this.bottomMenuList.addElement(getCustomizables, { align: 0, vAlign: 0 })
 
-        this.menuButtons = [];
-        this.menuButtons.push(this.loadoutButton)
-        this.menuButtons.push(this.customizeButton)
-        // this.menuButtons.push(bt0)
-        // this.menuButtons.push(getCustomizables)
-
-        this.bottomMenuList.updateVerticalList()
 
         this.bottomMenu.addChild(this.bottomMenuList)
 
 
-        this.bottomMenuRight = new PIXI.Container()
-        this.container.addChild(this.bottomMenuRight);
 
-        this.bottomMenuRightList = new UIList();
-        const bt3 = UIUtils.getPrimaryShapelessButton(() => {
+        this.shopButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.shopContainer)
-        }, '', UIUtils.getIconUIIcon('shop'))
+        }, 'Shop', UIUtils.getIconUIIcon('shop'))
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
         }, 'Location', UIUtils.getIconUIIcon('map'))
 
 
-        const bt5 = UIUtils.getPrimaryShapelessButton(() => {
+        this.prizeButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.rouletteContainer);
-        }, 'Prize', UIUtils.getIconUIIcon('prize'))
+        }, 'Rewards', UIUtils.getIconUIIcon('prize'))
 
         // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
         //     this.openModal(this.achievmentsContainer)
 
         // }, 'Achievments', 'achievment')
 
-        this.bottomMenuRightList.addElement(bt3, { align: 0 })
-        // this.bottomMenuRightList.addElement(bt4, { align: 0 })
-        this.bottomMenuRightList.addElement(bt5, { align: 0 })
+        this.bottomMenuRightList.removeAllElements();
+        this.bottomMenuRightList.addElement(this.shopButton, { align: 0 })
+        this.bottomMenuRightList.addElement(this.prizeButton, { align: 0 })
 
         this.menuButtonsRight = [];
-        this.menuButtonsRight.push(bt3)
-        // this.menuButtonsRight.push(bt4)
-        this.menuButtonsRight.push(bt5)
+        this.menuButtonsRight.push(this.shopButton)
+        this.menuButtonsRight.push(this.prizeButton)
 
         this.bottomMenuRightList.updateVerticalList()
+
+
+        this.bottomMenuList.removeAllElements();
+        this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
+        this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
+
+        this.menuButtons = [];
+        this.menuButtons.push(this.loadoutButton)
+        this.menuButtons.push(this.customizeButton)
+
+        this.bottomMenuList.updateVerticalList()
 
         this.bottomMenuRight.addChild(this.bottomMenuRightList)
 
@@ -489,6 +497,7 @@ export default class CharacterBuildScreen extends Screen {
     hideMainUI(hideBackButton) {
         this.bottomMenu.visible = false;
         this.bottomMenuRight.visible = false;
+        this.buttonsList.visible = true;
         //this.outgameUIProgression.visible = false;
         this.hideCurrentCustomizationButton()
         if (hideBackButton) {
@@ -499,7 +508,11 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenu.visible = true;
         this.bottomMenuRight.visible = true;
         this.outgameUIProgression.visible = true;
-        this.closeButton.visible = true;
+
+
+        if(!Game.Debug.debug){
+            this.buttonsList.visible = false;
+        }
 
         this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
         this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
@@ -552,7 +565,7 @@ export default class CharacterBuildScreen extends Screen {
         this.campfireScene.y = Game.Borders.height / 2 - 80;
         this.campfireScene.scale.set(Math.min(1.5, Game.GlobalScale.max));
 
-        const listSize = Game.Borders.height / 2
+        const listSize = Game.IsPortrait ? Game.Borders.width *0.9 : Game.Borders.height - 120
         this.menuButtons.forEach(element => {
             element.resize(150, listSize / this.menuButtons.length)
         });
@@ -561,14 +574,23 @@ export default class CharacterBuildScreen extends Screen {
             element.resize(150, listSize / this.menuButtonsRight.length)
         });
 
+
+
         this.bottomMenuList.w = 150
         this.bottomMenuList.h = listSize
         this.bottomMenuList.updateVerticalList();
 
+        if(Game.IsPortrait){
 
-        this.bottomMenuRightList.w = 150
-        this.bottomMenuRightList.h = listSize
-        this.bottomMenuRightList.updateVerticalList();
+            this.bottomMenuRightList.h = 150
+            this.bottomMenuRightList.w = listSize
+            this.bottomMenuRightList.updateHorizontalList();
+        }else{
+
+            this.bottomMenuRightList.w = 150
+            this.bottomMenuRightList.h = listSize
+            this.bottomMenuRightList.updateVerticalList();
+        }
 
 
         this.outgameUIProgression.x = Game.Borders.width / 2 - this.outgameUIProgression.width / 2;
@@ -604,6 +626,35 @@ export default class CharacterBuildScreen extends Screen {
         //     this.buttonsList.scale.set(0.75)
         // }
 
+        this.bottomMenuRightList.removeAllElements();
+        this.bottomMenuList.removeAllElements();
+        this.menuButtonsRight = [];
+        this.menuButtons = [];
+        if (false) {
+            this.bottomMenuRightList.addElement(this.shopButton, { align: 0 })
+            this.bottomMenuRightList.addElement(this.prizeButton, { align: 0 })
+            this.menuButtonsRight.push(this.shopButton)
+            this.menuButtonsRight.push(this.prizeButton)
+
+
+            this.bottomMenuList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
+            this.bottomMenuList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
+            this.menuButtons.push(this.loadoutButton)
+            this.menuButtons.push(this.customizeButton)
+
+        } else {
+            this.bottomMenuRightList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
+            this.bottomMenuRightList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
+            this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })            
+            this.bottomMenuRightList.addElement(this.shopButton, { align: 0, vAlign: 0 })
+            
+            this.menuButtonsRight.push(this.shopButton)
+            this.menuButtonsRight.push(this.prizeButton)
+            this.menuButtonsRight.push(this.loadoutButton)
+            this.menuButtonsRight.push(this.customizeButton)
+        }
+        this.bottomMenuRightList.updateVerticalList()
+        this.bottomMenuList.updateVerticalList()
         this.charCustomizationContainer.aspectChange(isPortrait)
         this.modalList.forEach(element => {
             element.aspectChange(isPortrait);
@@ -636,12 +687,20 @@ export default class CharacterBuildScreen extends Screen {
 
         this.campfireScene.update(delta)
 
+
+        if (Game.IsPortrait) {
+            this.bottomMenuRightList.y = Game.Borders.height - this.playGameButton.height - 150 - this.bottomMenuRightList.height;
+            this.bottomMenuRightList.x = Game.Borders.width / 2 - this.bottomMenuRightList.w / 2;
+
+        } else {
+
+            this.bottomMenuRightList.y = 80//Game.Borders.height - this.bottomMenuList.h - 30;
+            this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
+        }
         this.bottomMenuList.x = 30;
         this.bottomMenuList.y = Game.Borders.height - this.bottomMenuList.h - 30;
 
 
-        this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
-        this.bottomMenuRightList.y = Game.Borders.height - this.bottomMenuList.h - 30;
 
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
@@ -684,6 +743,7 @@ export default class CharacterBuildScreen extends Screen {
             modalOpen.hide();
             this.closeCustomization();
             this.unSelectPlayer();
+
         } else {
             this.closeCustomization();
             this.unSelectPlayer();

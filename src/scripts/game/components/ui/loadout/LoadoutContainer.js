@@ -359,6 +359,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeCompanion.onCardClicked.add((removeCompanion) => {
             GameData.instance.changeCompanion(null);
             this.currentCompanionSlot.setData(null)
+            this.currentCompanionSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
         })
         this.equippableCompanions.unshift(removeCompanion)
 
@@ -396,6 +397,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeTrinket.onCardClicked.add((removeTrinket) => {
             GameData.instance.changeTrinket(null);
             this.currentTrinketSlot.setData(null)
+            this.currentTrinketSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
         })
         this.equippableTrinkets.unshift(removeTrinket)
     }
@@ -448,10 +450,16 @@ export default class LoadoutContainer extends MainScreenModal {
 
         const trinket = GameData.instance.currentEquippedTrinket
         this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, trinket ? trinket.level : 0)
+        if(!trinket.id){
+            this.currentTrinketSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
+        }
         this.currentTrinketSlot.resetPivot()
 
         const companion = GameData.instance.currentEquippedCompanion
         this.currentCompanionSlot.setData(companion ? EntityBuilder.instance.getCompanion(companion.id) : null, companion ? companion.level : 0)
+        if(!companion.id){
+            this.currentCompanionSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
+        }
         this.currentCompanionSlot.resetPivot();
 
         this.refreshSection(LoadoutContainer.Sections.Weapon)

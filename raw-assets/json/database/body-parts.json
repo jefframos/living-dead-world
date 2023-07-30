@@ -10,7 +10,7 @@
         },
         "head": {
             "starters": [1,2],
-            "availables": {"min": 1,"max": 6,"ignore": []}
+            "availables": {"min": 1,"max": 5,"ignore": [5]}
         },
         "eyes": {
             "starters": [1,2],

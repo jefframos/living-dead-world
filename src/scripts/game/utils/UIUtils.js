@@ -61,7 +61,7 @@ export default class UIUtils {
         warningIcon.visible = false;
 
         if (icon) {
-            button.addIcon(icon, 80)
+            button.addIcon(icon, 90)
         }
         if (label) {
             UIUtils.addLabel(button, label, { fontSize: 24 })
@@ -75,7 +75,7 @@ export default class UIUtils {
         const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0002', 300, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
-            button.addIcon(icon, 60, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
+            button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
         }
         if (label) {
             UIUtils.addLabel(button, label, { fontSize: 48 }, icon ? { x: -50, y: 0 } : { x: 0, y: 0 })
@@ -411,28 +411,34 @@ export default class UIUtils {
     }
     static getIconUIIcon(type) {
         switch (type) {
+            case 'companion':
+                return 'pet-icon'
             case 'map':
                 return 'ico_map'
+            case 'coin-bag':
+                return 'money-bag'
+            case 'enemy-kill':
+                return 'enemy-icon'
             case 'prize':
                 return 'ico_slot-machine'
             case 'shop':
                 return 'ico_shop'
             case 'customization':
-                return 'ico_customization'
+                return 'customize-icon'
             case 'battle':
-                return 'ico_power'
+                return 'play-level-icon'
             case 'warning':
                 return 'info'
             case 'video':
-                return 'video-purple'
+                return 'video-icon'
             case 'softCurrency':
                 return 'coin1'
             case 'hardCurrency':
-                return 'heart'
+                return 'hard-currency'
             case 'specialCurrency':
                 return 'special-currency'
-            case 'wearable-lock':
-                return 'interrogation'
+            case 'wearable':
+                return 'customize-icon'
             case 'close':
                 return 'x-icon'
             case 'inGameChest':

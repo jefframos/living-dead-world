@@ -19,6 +19,7 @@ import RenderModule from "../core/modules/RenderModule";
 import Sensor from "../core/utils/Sensor";
 import Shadow from "../components/view/Shadow";
 import SpriteJump from "../components/SpriteJump";
+import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import WeaponBuilder from "../screen/EntityBuilder";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
@@ -112,16 +113,16 @@ export default class Player extends GameAgent {
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         this.addChild(this.lifeBar)
 
-        this.lifeBar.build(20, 3, 1);
-        this.lifeBar.updateView({ x: 0, y: -75 }, 0x8636f0, 0xFF0000);
+        this.lifeBar.build(40, 5, 2);
+        this.lifeBar.updateView({ x: 0, y: -75 }, 0xFF33E4, 0xFF0000);
 
 
 
-        this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
-        this.addChild(this.weaponShootBar)
+        //this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
+        //this.addChild(this.weaponShootBar)
 
-        this.weaponShootBar.build(20, 3, 1);
-        this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
+        //this.weaponShootBar.build(20, 3, 1);
+        //this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
 
         //this.weaponLoadingBars.push(this.weaponShootBar);
 
@@ -326,7 +327,7 @@ export default class Player extends GameAgent {
 
 
 
-        this.weaponShootBar.setWeapon(first)
+        //this.weaponShootBar.setWeapon(first)
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
@@ -352,7 +353,8 @@ export default class Player extends GameAgent {
     }
     revive() {
         super.revive();
-
+        this.isDyingNow = false;
+        this.gameView.view.scale.y = this.gameView.view.scale.x
         this.explodeAround();
     }
     explodeAround() {
@@ -371,11 +373,14 @@ export default class Player extends GameAgent {
     }
     die() {
         console.log("die");
+        this.isDyingNow = true;
+        //this.clearWeapon();
         this.onDie.dispatch(this);
     }
     confirmDeath() {
         super.die();
         Player.Deaths++;
+        this.isDyingNow = false;
 
     }
     damage(value) {
@@ -390,6 +395,8 @@ export default class Player extends GameAgent {
     start() {
         this.input = this.engine.findByType(InputModule)
         this.physicsModule = this.engine.findByType(PhysicsModule)
+        this.isDyingNow = false;
+
     }
 
     collisionEnter(collided) {
@@ -402,8 +409,22 @@ export default class Player extends GameAgent {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
-
+    resetVelocity(){
+        this.physics.velocity.x = 0;
+        this.physics.velocity.z = 0;
+    }
     update(delta) {
+        if(this.isDyingNow){
+
+            if(this.gameView.view.scale.y > 0.5 && Math.random() < 0.5){
+                EffectsManager.instance.emitById(
+                    Vector3.XZtoXY(this.transform.position)
+                , 'BLOOD_SPLAT_RED', 1)
+
+            }
+            this.gameView.view.scale.y = Utils.lerp(this.gameView.view.scale.y, 0, 0.12)
+            return;
+        }
         this.framesAfterStart++
         if (this.framesAfterStart == 1) {
             this.sensor.collisionList.forEach(element => {

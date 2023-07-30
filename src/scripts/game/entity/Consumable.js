@@ -2,12 +2,14 @@ import * as PIXI from 'pixi.js';
 
 import Collectable from './Collectable';
 import EffectsManager from '../manager/EffectsManager';
+import Game from '../../Game';
 import GameData from '../data/GameData';
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
 import LevelManager from '../manager/LevelManager';
 import Player from './Player';
 import RenderModule from "../core/modules/RenderModule";
+import Shadow from '../components/view/Shadow';
 import UIUtils from '../utils/UIUtils';
 import Utils from '../core/utils/Utils';
 import Vector3 from '../core/gameObject/Vector3';
@@ -18,12 +20,23 @@ export default class Consumable extends Collectable {
         Coin: 2,
         Chest: 3,
         Heal: 4,
-        Bomb: 5
+        Bomb: 5,
+        SingleCoin: 6
     }
     constructor() {
-        super();
+        super();        
+        this.glow = new PIXI.Sprite.from('shine')
+        this.glow.anchor.set(0.5)
+        this.glow.alpha = 0.1
+        this.gameView.view.addChild(this.glow)
+    }
+    build(params){
+        super.build(params);
+        
+        //this.addChild(this.engine.poolGameObject(Shadow))
     }
     setType(value) {
+        let size = 40
         this.type = value;
         switch (value) {
             case Consumable.Type.Magnet:
@@ -31,7 +44,12 @@ export default class Consumable extends Collectable {
 
                 break;
             case Consumable.Type.Coin:
+                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('coin-bag'))
+
+                break;
+            case Consumable.Type.SingleCoin:
                 this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('softCurrency'))
+                size = 15;
 
                 break;
             case Consumable.Type.Chest:
@@ -47,7 +65,9 @@ export default class Consumable extends Collectable {
                 break;
         }
 
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, 40))
+        this.glow.y = - size / 2
+        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, size))
+
 
     }
     setCollectableTexture() {
@@ -62,10 +82,16 @@ export default class Consumable extends Collectable {
                 const value = Math.round(Math.random() * 20 + 10);
                 GameData.instance.addSoftCurrency(value);
                 LevelManager.instance.collectCoins(value);
-                EffectsManager.instance.popCoin(this, value)
+                EffectsManager.instance.popCoin(this, '+'+value)
                 break;
             case Consumable.Type.Chest:
 
+                break;
+            case Consumable.Type.SingleCoin:
+                const value2 = Math.round(Math.random() * 3 + 1);
+                GameData.instance.addSoftCurrency(value2);
+                LevelManager.instance.collectCoins(value2);
+                EffectsManager.instance.popCoin(this, '+'+value2)
                 break;
             case Consumable.Type.Heal:
                 this.player.itemHeal();
@@ -73,6 +99,8 @@ export default class Consumable extends Collectable {
                 break;
             case Consumable.Type.Bomb:
                 this.player.explodeAround();
+
+                EffectsManager.instance.bombExplode();
                 break;
         }
     }
@@ -82,9 +110,11 @@ export default class Consumable extends Collectable {
 
         this.timer += delta;
 
-        if(this.timer > 0.1){
+        this.glow.rotation = Game.Time % Math.PI * 5;
 
-            EffectsManager.instance.emitById(Vector3.XZtoXY(Vector3.sum(this.transform.position, new Vector3(Math.random() * 30 - 15,0,Math.random() * 30 - 15  - 30))), 'SPARKS_01', 1)
+        if (this.timer > 0.1) {
+
+            EffectsManager.instance.emitById(Vector3.XZtoXY(Vector3.sum(this.transform.position, new Vector3(Math.random() * 30 - 15, 0, Math.random() * 30 - 15 - 30))), 'SPARKS_01', 1)
             this.timer = 0;
         }
     }

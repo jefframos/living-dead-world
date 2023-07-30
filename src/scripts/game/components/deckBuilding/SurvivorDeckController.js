@@ -69,7 +69,7 @@ export default class SurvivorDeckController extends GameObject {
         this.uiButtons.addElement(this.pickAll)
 
         this.pickAll.resize(200, 80)
-        this.pickAll.updateBackTexture(UIUtils.baseButtonTexture + '_0002')
+        this.pickAll.updateBackTexture(UIUtils.baseButtonTexture + '_0005')
         this.pickAll.priceLabel.text = "Pick All"
         this.pickAll.buttonListContent.w = 160
         this.pickAll.buttonListContent.h = 60

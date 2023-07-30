@@ -1,5 +1,6 @@
 import AlphaBehaviour from "../components/particleSystem/particleBehaviour/AlphaBehaviour";
 import ColorBehaviour from "../components/particleSystem/particleBehaviour/ColorBehaviour";
+import Game from "../../Game";
 import GameObject from "../core/gameObject/GameObject";
 import GameStaticData from "../data/GameStaticData";
 import ParticleDescriptor from "../components/particleSystem/ParticleDescriptor";
@@ -55,7 +56,7 @@ export default class EffectsManager extends GameObject {
         this.addBitmapFont('PLAYER_DAMAGE', {fill: "#ff4444"});
         this.addBitmapFont('BURN', {fill: "#f97b1a"});
         this.addBitmapFont('POISON', {fill: "#a71af9"});
-        this.addBitmapFont('COIN', {fill: "#ffffff"});
+        this.addBitmapFont('COIN', {fill: "#FFC900"});
         this.addBitmapFont('EVASION', {fill: "#f5ff66", fontSize:18});
         this.addBitmapFont('CRITICAL', {
             align: "center",
@@ -75,6 +76,10 @@ export default class EffectsManager extends GameObject {
             wordWrap: true,
             wordWrapWidth: 300
         });
+
+        this.explosionShape = new PIXI.Graphics().beginFill(0xFFFFFF).drawRect(-5000,-5000,10000,10000);
+        Game.UIOverlayContainer.addChild(this.explosionShape )
+        this.explosionShape.alpha = 0;
     }
     addBitmapFont(name, overrides) {
 
@@ -89,6 +94,11 @@ export default class EffectsManager extends GameObject {
             }
         }
         PIXI.BitmapFont.from(name, copyDefault);
+    }
+    bombExplode(){
+        TweenLite.killTweensOf(this.explosionShape.alpha)
+        this.explosionShape.alpha = 1;
+        TweenLite.to(this.explosionShape, 1, {delay:0.15, alpha:0});
     }
     makeDescriptors() {
         let descriptors = GameStaticData.instance.getAllDataFrom('vfx', 'particleDescriptors')

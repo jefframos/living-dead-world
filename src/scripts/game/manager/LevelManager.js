@@ -17,6 +17,7 @@ import Player from "../entity/Player";
 import PlayerSessionData from "../data/PlayerSessionData";
 import Pool from "../core/utils/Pool";
 import SessionSpawner from "./spawn/SessionSpawner";
+import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import signals from "signals";
 
@@ -65,7 +66,7 @@ export default class LevelManager {
             time: 0
         }
 
-        this.timeLimit =  8 * 60;
+        this.timeLimit = 8 * 60;
         this.itemSpawnTime = 45;
     }
     setup() {
@@ -101,9 +102,13 @@ export default class LevelManager {
         Eugine.TimeScale = 0;
     }
     playerDie() {
+        this.dyingTimer = 2;
+    }
+    completeDieTimer() {
         this.gameOverOverlay.setActive(true)
-        this.gameOverOverlay.show(false, this.matchStats)
+        this.gameOverOverlay.show(false, this.matchStats, this.revives > 0)
         Eugine.TimeScale = 0;
+        this.dyingTimer = 0;
     }
     confirmPlayerDeath() {
         this.directionPin.destroy()
@@ -115,17 +120,23 @@ export default class LevelManager {
         this.gameOverOverlay.setActive(false)
 
         Eugine.TimeScale = 1;
+
+        this.revives--;
+
+        EffectsManager.instance.bombExplode();
     }
     start() {
 
+        this.revives = 1;
+        this.dyingTimer = 0;
         this.player.enabled = false
 
         const levelData = GameStaticData.instance.getWaves()[0]
         this.currentLevelWaves = levelData.waves;
 
         console.log(levelData)
-        this.timeLimit =  levelData.lenght;
-//alert(this.timeLimit)
+        this.timeLimit = levelData.lenght;
+        //alert(this.timeLimit)
 
         this.levelStructure = { phases: [] }
         this.currentLevelWaves.forEach(element => {
@@ -134,6 +145,8 @@ export default class LevelManager {
 
         this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
         this.player.setPositionXZ(0, 0)
+
+        this.gameSessionController.setLabelInfo('')
 
         this.gameOverOverlay = this.addEntity(GameOverView);
         this.gameOverOverlay.setActive(false)
@@ -144,6 +157,9 @@ export default class LevelManager {
         this.gameOverOverlay.onRevivePlayer.add(() => {
             this.revivePlayer();
         })
+
+        this.gameSessionController.setLabelInfo('Survive for '+Utils.floatToTime(this.timeLimit), 10)
+
 
     }
     destroy() {
@@ -217,6 +233,7 @@ export default class LevelManager {
         this.destroyDistanceV2 = {
             x: 0, y: 0
         }
+
 
         //this.addConsumable();
 
@@ -312,6 +329,17 @@ export default class LevelManager {
         this.consumables.push(consumable)
 
         this.latestItem = Math.round(this.gameplayTime / this.itemSpawnTime)
+
+    }
+    addSingleCoin(entity) {
+        let consumable = this.addEntity(Consumable);
+        consumable.setType(Consumable.Type.SingleCoin)
+        const angle = Math.random() * Math.PI * 2;
+        const dist = Math.random() * 20 + 5
+        consumable.setPositionXZ(entity.transform.position.x + Math.cos(angle) * dist, entity.transform.position.z + Math.sin(angle) * dist)
+        this.consumables.push(consumable)
+
+
     }
     openChest() {
         this.player.sessionData.openChest();
@@ -337,6 +365,9 @@ export default class LevelManager {
             }
         }
 
+        if (Math.random() > 0.85) {
+            this.addSingleCoin(health.gameObject)
+        }
         if (Math.random() > 0.6) return;
         let collectable = this.addEntity(Collectable);
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
@@ -406,6 +437,14 @@ export default class LevelManager {
             return;
         }
 
+
+        if (this.dyingTimer > 0) {
+            this.dyingTimer -= delta;
+            if (this.dyingTimer < 0) {
+                this.completeDieTimer();
+            }
+            return;
+        }
         if (Game.IsPortrait) {
             this.gameEngine.camera.targetZoom = 1.5;
         } else {

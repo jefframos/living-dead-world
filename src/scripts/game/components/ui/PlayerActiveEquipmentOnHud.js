@@ -30,7 +30,7 @@ export default class PlayerActiveEquipmentOnHud extends PIXI.Container {
     setLevel(level = 0) {
         this.levelLabel.text = level +1;
         //this.levelLabel.text = level ? level+1 : '';
-        this.levelLabel.x = this.background.width
-        this.levelLabel.y = this.background.height
+        this.levelLabel.x = this.background.width- 10
+        this.levelLabel.y = this.background.height - 10
     }
 }

@@ -10,7 +10,7 @@
             "icon": "dog1-icon"
         },
         "weapon": {
-            "id": "BITE"
+            "id": "BASEBAL_BAT"
         },
         "attributes": {
             "basePower": 10,
@@ -42,7 +42,7 @@
             "icon": "dog2-icon"
         },
         "weapon": {
-            "id": "DOG_BALL"
+            "id": "BOUNCE"
         },
         "attributes": {
             "basePower": 10,
@@ -106,7 +106,7 @@
             "icon": "fish-icon"
         },
         "weapon": {
-            "id": "LAND_MINE"
+            "id": "PLAYER_MULTISHOT"
         },
         "attributes": {
             "basePower": 10,
@@ -138,7 +138,7 @@
             "icon": "frog-icon"
         },
         "weapon": {
-            "id": "LAND_MINE"
+            "id": "BOOMERANG_AXE"
         },
         "attributes": {
             "basePower": 10,

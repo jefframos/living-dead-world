@@ -38,7 +38,7 @@
     {
         "id": "HP_UP_MODIFIER",
         "entityData": {
-            "icon": "health-icon",
+            "icon": "heart-icon",
             "name": "Enhanced Vitality",
             "description": "Boost your MAX HP",
             "type": "Attribute",
@@ -50,7 +50,7 @@
     {
         "id": "FREQUENCY_MODIFIER",
         "entityData": {
-            "icon": "freq-icon",
+            "icon": "bullet-icon",
             "name": "Rapid Fire",
             "description": "Unleash a torrent of projectiles",
             "type": "Attribute",

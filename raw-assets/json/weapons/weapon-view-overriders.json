@@ -256,7 +256,7 @@
             "y": -20
         },
         "scale": 1.5,
-        "rotationSpeed": 50
+        "rotationSpeed": 15
     },
     {
         "id": "ORBIT",
@@ -276,7 +276,7 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
-        "rotationSpeed": 60
+        "rotationSpeed": 30
     },
     {
         "id": "FIREBALL_HOAMING",

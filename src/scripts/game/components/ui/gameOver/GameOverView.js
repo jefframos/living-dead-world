@@ -167,7 +167,7 @@ export default class GameOverView extends GameObject {
         this.enemyCountBox.addChild(this.uiEndStatsList)
 
 
-        const deathIcon = new PIXI.Sprite.from('new_item')
+        const deathIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'))
         this.uiEndStatsList.addElement(deathIcon, { fitHeight: 0.8, align: 1 })
 
         this.enemyCounnt = UIUtils.getSecondaryLabel('32659', { fontSize: 32 })

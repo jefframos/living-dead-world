@@ -128,8 +128,9 @@ export default class ShopContainer extends MainScreenModal {
     }
     chest1Click(force) {
         const shopData = this.shopList[0];
+        console.log(shopData)
         if (this.canBuy(shopData) || force) {
-            PrizeManager.instance.getMetaPrize([0, 2, 3, 6], 1, 2);
+            PrizeManager.instance.getMetaPrize([0, 2, 3, 6], 1, shopData.totalItems);
             if (force) {
                 return;
             }
@@ -146,7 +147,7 @@ export default class ShopContainer extends MainScreenModal {
     chest2Click(force) {
         const shopData = this.shopList[1];
         if (this.canBuy(shopData) || force) {
-            PrizeManager.instance.getMetaPrize([0], 2, 5);
+            PrizeManager.instance.getMetaPrize([0], 2, shopData.totalItems);
             if (force) {
                 return;
             }
@@ -163,7 +164,7 @@ export default class ShopContainer extends MainScreenModal {
     chestMid1Click(force) {
         const shopData = this.shopList[2];
         if (this.canBuy(shopData) || force) {
-            PrizeManager.instance.getMetaPrize([6], 1, 2);
+            PrizeManager.instance.getMetaPrize([6], 1, shopData.totalItems);
             if (force) {
                 return;
             }
@@ -181,7 +182,7 @@ export default class ShopContainer extends MainScreenModal {
     chestMid2Click(force) {
         const shopData = this.shopList[3];
         if (this.canBuy(shopData) || force) {
-            PrizeManager.instance.getMetaPrize([2, 3], 2, 5);
+            PrizeManager.instance.getMetaPrize([2, 3], 2, shopData.totalItems);
             if (force) {
                 return;
             }
@@ -198,7 +199,7 @@ export default class ShopContainer extends MainScreenModal {
     bundleClick(force) {
         const shopData = this.shopList[4];
         if (this.canBuy(shopData) || force) {
-            PrizeManager.instance.getMetaPrize([0, 1, 2, 3, 6], 3, 10);
+            PrizeManager.instance.getMetaPrize([0, 1, 2, 3, 6], 3, shopData.totalItems);
             if (force) {
                 return;
             }
