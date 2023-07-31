@@ -302,6 +302,7 @@ export default class Player extends GameAgent {
         const t = weaponData.entityData.starter ? Math.max(1, this.attributes.totalMain) : 1;
 
 
+
         for (let index = 0; index < t; index++) {
 
             let weapon = this.engine.poolGameObject(weaponData.customConstructor)
@@ -323,6 +324,11 @@ export default class Player extends GameAgent {
             }
             weapon.build(weaponData)
             weapon.setIdOffset(index, t)
+            if (index > 0) {
+                weapon.currentShootTimer = first.currentShootTimer
+                weapon.realShootTimer = first.realShootTimer;
+            }
+
         }
 
 
@@ -411,17 +417,17 @@ export default class Player extends GameAgent {
         if (!this.findInCollision(collided)) return;
         this.currentEnemiesColliding = this.currentEnemiesColliding.filter(item => item.entity !== collided);
     }
-    resetVelocity(){
+    resetVelocity() {
         this.physics.velocity.x = 0;
         this.physics.velocity.z = 0;
     }
     update(delta) {
-        if(this.isDyingNow){
+        if (this.isDyingNow) {
             this.dieTimer += delta;
-            if(this.dieTimer < 0.5 && Math.random() < 0.5){
+            if (this.dieTimer < 0.5 && Math.random() < 0.5) {
                 EffectsManager.instance.emitById(
                     Vector3.XZtoXY(this.transform.position)
-                , 'BLOOD_SPLAT_RED', 1)
+                    , 'BLOOD_SPLAT_RED', 1)
 
             }
             this.gameView.view.scale.y = Utils.lerp(this.gameView.view.scale.y, 0, 0.12)
