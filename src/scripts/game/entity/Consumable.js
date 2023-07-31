@@ -24,19 +24,23 @@ export default class Consumable extends Collectable {
         SingleCoin: 6
     }
     constructor() {
-        super();        
+        super();
+
         this.glow = new PIXI.Sprite.from('shine')
         this.glow.anchor.set(0.5)
         this.glow.alpha = 0.1
+        this.gameView.layer = RenderModule.RenderLayers.Gameplay;
         this.gameView.view.addChild(this.glow)
+
+        console.log("ADD AN EXP PLANT")
     }
-    build(params){
+    build(params) {
         super.build(params);
-        
+
         //this.addChild(this.engine.poolGameObject(Shadow))
     }
     setType(value) {
-        let size = 40
+        let size = 25
         this.type = value;
         switch (value) {
             case Consumable.Type.Magnet:
@@ -68,7 +72,7 @@ export default class Consumable extends Collectable {
         this.glow.y = - size / 2
         this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, size))
 
-
+        this.posSin = 0;
     }
     setCollectableTexture() {
     }
@@ -82,7 +86,7 @@ export default class Consumable extends Collectable {
                 const value = Math.round(Math.random() * 20 + 10);
                 GameData.instance.addSoftCurrency(value);
                 LevelManager.instance.collectCoins(value);
-                EffectsManager.instance.popCoin(this, '+'+value)
+                EffectsManager.instance.popCoin(this, '+' + value)
                 break;
             case Consumable.Type.Chest:
 
@@ -91,7 +95,7 @@ export default class Consumable extends Collectable {
                 const value2 = Math.round(Math.random() * 3 + 1);
                 GameData.instance.addSoftCurrency(value2);
                 LevelManager.instance.collectCoins(value2);
-                EffectsManager.instance.popCoin(this, '+'+value2)
+                EffectsManager.instance.popCoin(this, '+' + value2)
                 break;
             case Consumable.Type.Heal:
                 this.player.itemHeal();
@@ -109,7 +113,9 @@ export default class Consumable extends Collectable {
         super.update(delta, unscaledDelta);
 
         this.timer += delta;
+        this.posSin += delta;
 
+        this.transform.position.y = Math.sin(this.posSin) * 10 + 10
         this.glow.rotation = Game.Time % Math.PI * 5;
 
         if (this.timer > 0.1) {

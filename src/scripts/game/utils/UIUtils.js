@@ -453,6 +453,10 @@ export default class UIUtils {
                 return 'dynamite'
             case 'magnet':
                 return 'magnet'
+            case 'healCard':
+                return 'burguer'
+            case 'coinsCard':
+                return 'money-bag'
         }
 
 

@@ -67,6 +67,24 @@ export default class LevelManager {
         }
 
         this.timeLimit = 8 * 60;
+
+        this.itemPools = [
+            {
+                types: [Consumable.Type.Heal, Consumable.Type.Bomb, Consumable.Type.Magnet, Consumable.Type.Coin],
+                spawnTime: 45,
+                currentSpawnTime: 0
+            },
+            {
+                types: [Consumable.Type.Heal, Consumable.Type.Coin],
+                spawnTime: 60,
+                currentSpawnTime: 0
+            },
+            {
+                types: [Consumable.Type.Bomb, Consumable.Type.Magnet],
+                spawnTime: 180,
+                currentSpawnTime: 0
+            }
+        ]
         this.itemSpawnTime = 45;
     }
     setup() {
@@ -89,6 +107,8 @@ export default class LevelManager {
         this.player.onDie.add(() => {
             this.playerDie();
         })
+
+        console.log('ADD XP AMOUNT ON ENTITY DATA');
         return this.player;
     }
     confirmGameOver() {
@@ -158,7 +178,7 @@ export default class LevelManager {
             this.revivePlayer();
         })
 
-        this.gameSessionController.setLabelInfo('Survive for '+Utils.floatToTime(this.timeLimit), 10)
+        this.gameSessionController.setLabelInfo('Survive for ' + Utils.floatToTime(this.timeLimit), 10)
 
 
     }
@@ -320,9 +340,8 @@ export default class LevelManager {
         // if (entity.dying) return;
         // EffectsManager.instance.popDamage(entity.gameObject, value)
     }
-    addConsumable() {
+    addConsumable(types) {
         let consumable = this.addEntity(Consumable);
-        const types = [Consumable.Type.Heal, Consumable.Type.Bomb, Consumable.Type.Magnet, Consumable.Type.Coin]
         consumable.setType(types[Math.floor(Math.random() * types.length)])
         const angle = Math.random() * Math.PI * 2;
         consumable.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 300, this.player.transform.position.z + Math.sin(angle) * 300)
@@ -370,6 +389,13 @@ export default class LevelManager {
         }
         if (Math.random() > 0.6) return;
         let collectable = this.addEntity(Collectable);
+
+        if (health.gameObject && health.gameObject.staticData && health.gameObject.staticData.entityData) {
+            //console.log(health.gameObject.staticData.entityData.tier)
+            collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier);
+            //////////MORE XP HERE console.log(collectable.xp)
+            collectable.setCollectableTexture();
+        }
         collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z)
         this.collectables.push(collectable);
 
@@ -467,9 +493,15 @@ export default class LevelManager {
             return;
         }
 
-        if (this.latestItem != Math.round(this.gameplayTime / this.itemSpawnTime)) {
-            this.addConsumable();
-        }
+
+        this.itemPools.forEach(element => {
+            element.currentSpawnTime += delta;
+            if (element.currentSpawnTime >= element.spawnTime) {
+                this.addConsumable(element.types)
+                element.currentSpawnTime = Math.random() * element.spawnTime * 0.1;
+            }
+        });
+
 
         //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
         this.gameManagerStats.Phase = this.currentPhase

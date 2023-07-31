@@ -62,7 +62,7 @@ export default class AttributesContainer extends PIXI.Container {
         this.uiList.addElement(this.powerDrawer, attSet);
         this.uiList.addElement(this.defenseDrawer, attSet);
         this.uiList.addElement(this.speedDrawer, attSet);
-        this.uiList.addElement(this.frequencyDrawer, attSet);
+        //this.uiList.addElement(this.frequencyDrawer, attSet);
         this.uiList.addElement(this.evasionDrawer, attSet);
         this.uiList.addElement(this.critDrawer, attSet);
         this.resizeDrawers(this.uiList.w / this.uiList.elementsList.length)

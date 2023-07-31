@@ -114,7 +114,8 @@ export default class SurvivorDeckController extends GameObject {
 
         this.handCards.forEach(element => {
             this.holdingData = element.cardData
-            this.pickCard(element.cardData);
+            console.log(element.cardData)
+            this.pickCard(element);
         });
     }
     reshuffleDeck() {

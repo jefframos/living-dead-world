@@ -130,7 +130,7 @@ export default class GameplaySessionController extends GameObject {
         }, 1);
     }
     onOpenChest() {
-        this.cardPlacementSystem.show();
+        this.cardPlacementSystem.show(true);
         Eugine.TimeScale = 0;
     }
     onPlayerLevelUp(xpData) {

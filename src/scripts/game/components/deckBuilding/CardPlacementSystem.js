@@ -85,7 +85,7 @@ export default class CardPlacementSystem {
         this.weapons = weapons;
 
     }
-    show() {
+    show(fromChest) {
         this.enabled = true;
 
         this.currentData = Utils.cloneArray(GameStaticData.instance.getAllCards());
@@ -163,8 +163,13 @@ export default class CardPlacementSystem {
             }
         }
 
-        this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses, this.pickedCardsList)
 
+        let cards = Math.random() < 0.1 ? 4 : 3;
+        if(fromChest){
+            cards = 4;
+        }
+        this.deckView.buildCards(starters, cards , Math.random(), this.reshufleUses, this.pickedCardsList)
+        
         this.deckView.setActive(true)
         this.cardPlacementView.setActive(true)
     }

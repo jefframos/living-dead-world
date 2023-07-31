@@ -19,7 +19,7 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 40,
+            "baseSpeed": 50,
             "baseDistance": 50
         },
         "view": {
@@ -51,7 +51,7 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 40,
+            "baseSpeed": 50,
             "baseDistance": 50
         },
         "view": {
@@ -83,7 +83,7 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 40,
+            "baseSpeed": 60,
             "baseDistance": 50
         },
         "view": {
@@ -115,7 +115,7 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 40,
+            "baseSpeed": 50,
             "baseDistance": 50
         },
         "view": {
@@ -147,7 +147,7 @@
             "baseMass": 1,
             "baseDefense": 8,
             "baseRadius": 10,
-            "baseSpeed": 40,
+            "baseSpeed": 50,
             "baseDistance": 50
         },
         "view": {

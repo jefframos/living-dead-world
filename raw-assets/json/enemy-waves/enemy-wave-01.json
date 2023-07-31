@@ -103,7 +103,7 @@
                         "height": 400,
                         "radius": 350,
                         "total": 1000,
-                        "maxActive": 50,
+                        "maxActive": 40,
                         "entity": "ZOMBIE_KAREN",
                         "levels": [
                             0
@@ -202,6 +202,17 @@
                         "levels": [
                             6
                         ]
+                    },
+                    {
+                        "areaType": "arc",
+                        "length": 300,
+                        "radius": 350,
+                        "total": 100,
+                        "maxActive": 5,
+                        "entity": "ZOMBIE_KAREN",
+                        "levels": [
+                            4
+                        ]
                     }
                 ]
             },
@@ -211,7 +222,7 @@
                 "waves": [
                     {
                         "areaType": "arc",
-                        "length": 250,
+                        "length": 350,
                         "width": 400,
                         "height": 400,
                         "radius": 300,
@@ -235,17 +246,6 @@
                         "entity": "ZOMBIE_MOM",
                         "levels": [
                             4
-                        ]
-                    },
-                    {
-                        "areaType": "arc",
-                        "length": 250,
-                        "radius": 350,
-                        "total": 100,
-                        "maxActive": 30,
-                        "entity": "ZOMBIE_KAREN",
-                        "levels": [
-                            5
                         ]
                     }
                 ]

@@ -360,8 +360,8 @@ export default class Player extends GameAgent {
     explodeAround() {
         const closeEnemies = LevelManager.instance.findEnemyInRadius(this.transform.position, 500)
         closeEnemies.forEach(element => {
-            if (element.destroy && !element.destroyed) {
-                element.destroy()
+            if (element.destroy && !element.destroyed && element.damage) {
+                element.damage(Math.round(Math.random() * 1000 + 1000));
             }
         });
     }
@@ -374,6 +374,8 @@ export default class Player extends GameAgent {
     die() {
         console.log("die");
         this.isDyingNow = true;
+
+        this.dieTimer = 0;
         //this.clearWeapon();
         this.onDie.dispatch(this);
     }
@@ -415,8 +417,8 @@ export default class Player extends GameAgent {
     }
     update(delta) {
         if(this.isDyingNow){
-
-            if(this.gameView.view.scale.y > 0.5 && Math.random() < 0.5){
+            this.dieTimer += delta;
+            if(this.dieTimer < 0.5 && Math.random() < 0.5){
                 EffectsManager.instance.emitById(
                     Vector3.XZtoXY(this.transform.position)
                 , 'BLOOD_SPLAT_RED', 1)

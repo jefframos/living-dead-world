@@ -3071,6 +3071,10 @@ var UIUtils = function () {
                     return 'dynamite';
                 case 'magnet':
                     return 'magnet';
+                case 'healCard':
+                    return 'burguer';
+                case 'coinsCard':
+                    return 'money-bag';
             }
 
             console.log(type);
@@ -17218,8 +17222,8 @@ var Player = function (_GameAgent) {
         value: function explodeAround() {
             var closeEnemies = _LevelManager2.default.instance.findEnemyInRadius(this.transform.position, 500);
             closeEnemies.forEach(function (element) {
-                if (element.destroy && !element.destroyed) {
-                    element.destroy();
+                if (element.destroy && !element.destroyed && element.damage) {
+                    element.damage(Math.round(Math.random() * 1000 + 1000));
                 }
             });
         }
@@ -17238,6 +17242,8 @@ var Player = function (_GameAgent) {
         value: function die() {
             console.log("die");
             this.isDyingNow = true;
+
+            this.dieTimer = 0;
             //this.clearWeapon();
             this.onDie.dispatch(this);
         }
@@ -17292,8 +17298,8 @@ var Player = function (_GameAgent) {
         key: "update",
         value: function update(delta) {
             if (this.isDyingNow) {
-
-                if (this.gameView.view.scale.y > 0.5 && Math.random() < 0.5) {
+                this.dieTimer += delta;
+                if (this.dieTimer < 0.5 && Math.random() < 0.5) {
                     _EffectsManager2.default.instance.emitById(_Vector2.default.XZtoXY(this.transform.position), 'BLOOD_SPLAT_RED', 1);
                 }
                 this.gameView.view.scale.y = _Utils2.default.lerp(this.gameView.view.scale.y, 0, 0.12);
@@ -24505,6 +24511,20 @@ var LevelManager = function () {
         };
 
         this.timeLimit = 8 * 60;
+
+        this.itemPools = [{
+            types: [_Consumable2.default.Type.Heal, _Consumable2.default.Type.Bomb, _Consumable2.default.Type.Magnet, _Consumable2.default.Type.Coin],
+            spawnTime: 45,
+            currentSpawnTime: 0
+        }, {
+            types: [_Consumable2.default.Type.Heal, _Consumable2.default.Type.Coin],
+            spawnTime: 60,
+            currentSpawnTime: 0
+        }, {
+            types: [_Consumable2.default.Type.Bomb, _Consumable2.default.Type.Magnet],
+            spawnTime: 180,
+            currentSpawnTime: 0
+        }];
         this.itemSpawnTime = 45;
     }
 
@@ -24530,6 +24550,8 @@ var LevelManager = function () {
             this.player.onDie.add(function () {
                 _this.playerDie();
             });
+
+            console.log('ADD XP AMOUNT ON ENTITY DATA');
             return this.player;
         }
     }, {
@@ -24805,9 +24827,8 @@ var LevelManager = function () {
         }
     }, {
         key: "addConsumable",
-        value: function addConsumable() {
+        value: function addConsumable(types) {
             var consumable = this.addEntity(_Consumable2.default);
-            var types = [_Consumable2.default.Type.Heal, _Consumable2.default.Type.Bomb, _Consumable2.default.Type.Magnet, _Consumable2.default.Type.Coin];
             consumable.setType(types[Math.floor(Math.random() * types.length)]);
             var angle = Math.random() * Math.PI * 2;
             consumable.setPositionXZ(this.player.transform.position.x + Math.cos(angle) * 300, this.player.transform.position.z + Math.sin(angle) * 300);
@@ -24860,6 +24881,13 @@ var LevelManager = function () {
             }
             if (Math.random() > 0.6) return;
             var collectable = this.addEntity(_Collectable2.default);
+
+            if (health.gameObject && health.gameObject.staticData && health.gameObject.staticData.entityData) {
+                //console.log(health.gameObject.staticData.entityData.tier)
+                collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier);
+                //////////MORE XP HERE console.log(collectable.xp)
+                collectable.setCollectableTexture();
+            }
             collectable.setPositionXZ(health.gameObject.transform.position.x, health.gameObject.transform.position.z);
             this.collectables.push(collectable);
         }
@@ -24933,6 +24961,8 @@ var LevelManager = function () {
     }, {
         key: "update",
         value: function update(delta) {
+            var _this3 = this;
+
             if (!this.init) {
                 return;
             }
@@ -24965,9 +24995,13 @@ var LevelManager = function () {
                 return;
             }
 
-            if (this.latestItem != Math.round(this.gameplayTime / this.itemSpawnTime)) {
-                this.addConsumable();
-            }
+            this.itemPools.forEach(function (element) {
+                element.currentSpawnTime += delta;
+                if (element.currentSpawnTime >= element.spawnTime) {
+                    _this3.addConsumable(element.types);
+                    element.currentSpawnTime = Math.random() * element.spawnTime * 0.1;
+                }
+            });
 
             //console.log(this.enemyGlobalSpawner.distanceToSpawn, this.destroyDistance)
             this.gameManagerStats.Phase = this.currentPhase;
@@ -25009,7 +25043,7 @@ var LevelManager = function () {
     }, {
         key: "updateLevelPhase",
         value: function updateLevelPhase(phase) {
-            var _this3 = this;
+            var _this4 = this;
 
             if (_Game2.default.Debug.noEnemy || !phase) return;
             phase.spawnData.forEach(function (spawnerData) {
@@ -25019,17 +25053,17 @@ var LevelManager = function () {
                         var count = 0;
 
                         spawnerData.entity.forEach(function (element) {
-                            if (_this3.entitiesByType[element]) {
-                                count += _this3.entitiesByType[element].length;
+                            if (_this4.entitiesByType[element]) {
+                                count += _this4.entitiesByType[element].length;
                             }
                         });
                         if (count < spawnerData.maxActive) {
-                            _this3.spawnEnemy(spawnerData);
+                            _this4.spawnEnemy(spawnerData);
                         }
                     } else {
 
-                        if (!_this3.entitiesByType[spawnerData.entityId] || _this3.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
-                            _this3.spawnEnemy(spawnerData);
+                        if (!_this4.entitiesByType[spawnerData.entityId] || _this4.entitiesByType[spawnerData.entityId].length < spawnerData.maxActive) {
+                            _this4.spawnEnemy(spawnerData);
                         }
                     }
                 }
@@ -51753,8 +51787,9 @@ var Collectable = function (_GameObject) {
         _this.gameView = new _GameView2.default(_this);
         _this.gameView.layer = _RenderModule2.default.RenderLayers.Base;
         _this.gameView.view = new PIXI.Sprite.from("pickup0001");
-        _this.gameView.view.anchor.set(0.5, 1);
+        _this.gameView.view.anchor.set(0.5, 0.5);
         _this.gameView.view.scale.set(_Utils2.default.scaleToFit(_this.gameView.view, 30));
+        _this.xp = 1;
 
         return _this;
     }
@@ -51767,7 +51802,7 @@ var Collectable = function (_GameObject) {
         value: function start() {
             (0, _get3.default)(Collectable.prototype.__proto__ || (0, _getPrototypeOf2.default)(Collectable.prototype), "start", this).call(this);
             this.player = this.engine.findByType(_Player2.default);
-            this.lerpTime = 0.35;
+            this.lerpTime = 0.35 + Math.random() * 0.15;
             this.currentLerp = 0;
             this.attracting = false;
             this.setCollectableTexture();
@@ -51790,19 +51825,25 @@ var Collectable = function (_GameObject) {
                     this.transform.position = _Vector2.default.lerp(this.transform.position, _Vector2.default.sum(this.player.transform.position, new _Vector2.default(0, -20, 0)), this.currentLerp / this.lerpTime);
                 }
             }
-            if (_Vector2.default.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius + 5) {
+            if (_Vector2.default.distance(this.transform.position, this.player.transform.position) < this.player.collectRadius + 10) {
                 this.attracting = true;
             }
         }
     }, {
         key: "setCollectableTexture",
         value: function setCollectableTexture() {
-            this.gameView.view.texture = PIXI.Texture.from("pickup000" + Math.ceil(Math.random() * 5));
+            var pickup = '';
+            if (this.xp > 3) {
+                pickup = '3';
+            } else if (this.xp >= 2) {
+                pickup = '2';
+            }
+            this.gameView.view.texture = PIXI.Texture.from("pickup" + pickup + "000" + Math.ceil(Math.random() * 5));
         }
     }, {
         key: "collectCallback",
         value: function collectCallback() {
-            this.player.sessionData.addXp(1);
+            this.player.sessionData.addXp(this.xp);
         }
     }]);
     return Collectable;
@@ -52732,7 +52773,7 @@ var CardPlacementSystem = function () {
         }
     }, {
         key: "show",
-        value: function show() {
+        value: function show(fromChest) {
             this.enabled = true;
 
             this.currentData = _Utils2.default.cloneArray(_GameStaticData2.default.instance.getAllCards());
@@ -52806,7 +52847,11 @@ var CardPlacementSystem = function () {
                 }
             }
 
-            this.deckView.buildCards(starters, Math.random() < 0.1 ? 4 : 3, Math.random(), this.reshufleUses, this.pickedCardsList);
+            var cards = Math.random() < 0.1 ? 4 : 3;
+            if (fromChest) {
+                cards = 4;
+            }
+            this.deckView.buildCards(starters, cards, Math.random(), this.reshufleUses, this.pickedCardsList);
 
             this.deckView.setActive(true);
             this.cardPlacementView.setActive(true);
@@ -71639,7 +71684,7 @@ var AttributesContainer = function (_PIXI$Container) {
                 _this.uiList.addElement(_this.powerDrawer, attSet);
                 _this.uiList.addElement(_this.defenseDrawer, attSet);
                 _this.uiList.addElement(_this.speedDrawer, attSet);
-                _this.uiList.addElement(_this.frequencyDrawer, attSet);
+                //this.uiList.addElement(this.frequencyDrawer, attSet);
                 _this.uiList.addElement(_this.evasionDrawer, attSet);
                 _this.uiList.addElement(_this.critDrawer, attSet);
                 _this.resizeDrawers(_this.uiList.w / _this.uiList.elementsList.length);
@@ -90980,7 +91025,10 @@ var Consumable = function (_Collectable) {
         _this.glow = new PIXI.Sprite.from('shine');
         _this.glow.anchor.set(0.5);
         _this.glow.alpha = 0.1;
+        _this.gameView.layer = _RenderModule2.default.RenderLayers.Gameplay;
         _this.gameView.view.addChild(_this.glow);
+
+        console.log("ADD AN EXP PLANT");
         return _this;
     }
 
@@ -90994,7 +91042,7 @@ var Consumable = function (_Collectable) {
     }, {
         key: 'setType',
         value: function setType(value) {
-            var size = 40;
+            var size = 25;
             this.type = value;
             switch (value) {
                 case Consumable.Type.Magnet:
@@ -91025,6 +91073,8 @@ var Consumable = function (_Collectable) {
 
             this.glow.y = -size / 2;
             this.gameView.view.scale.set(_Utils2.default.scaleToFit(this.gameView.view, size));
+
+            this.posSin = 0;
         }
     }, {
         key: 'setCollectableTexture',
@@ -91069,7 +91119,9 @@ var Consumable = function (_Collectable) {
             (0, _get3.default)(Consumable.prototype.__proto__ || (0, _getPrototypeOf2.default)(Consumable.prototype), 'update', this).call(this, delta, unscaledDelta);
 
             this.timer += delta;
+            this.posSin += delta;
 
+            this.transform.position.y = Math.sin(this.posSin) * 10 + 10;
             this.glow.rotation = _Game2.default.Time % Math.PI * 5;
 
             if (this.timer > 0.1) {
@@ -92132,7 +92184,7 @@ var GameplaySessionController = function (_GameObject) {
     }, {
         key: "onOpenChest",
         value: function onOpenChest() {
-            this.cardPlacementSystem.show();
+            this.cardPlacementSystem.show(true);
             _Eugine2.default.TimeScale = 0;
         }
     }, {
@@ -94299,7 +94351,8 @@ var SurvivorDeckController = function (_GameObject) {
 
             this.handCards.forEach(function (element) {
                 _this2.holdingData = element.cardData;
-                _this2.pickCard(element.cardData);
+                console.log(element.cardData);
+                _this2.pickCard(element);
             });
         }
     }, {
@@ -111605,11 +111658,11 @@ var assets = [{
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_FR",
-	"url": "assets/json\\localization_FR.json"
-}, {
 	"id": "localization_IT",
 	"url": "assets/json\\localization_IT.json"
+}, {
+	"id": "localization_FR",
+	"url": "assets/json\\localization_FR.json"
 }, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
@@ -111632,6 +111685,12 @@ var assets = [{
 	"id": "modifyers",
 	"url": "assets/json\\modifyers.json"
 }, {
+	"id": "player-assets",
+	"url": "assets/json\\assets\\player-assets.json"
+}, {
+	"id": "game-shop",
+	"url": "assets/json\\economy\\game-shop.json"
+}, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
@@ -111640,12 +111699,6 @@ var assets = [{
 }, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
-}, {
-	"id": "player-assets",
-	"url": "assets/json\\assets\\player-assets.json"
-}, {
-	"id": "game-shop",
-	"url": "assets/json\\economy\\game-shop.json"
 }, {
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
@@ -111656,29 +111709,23 @@ var assets = [{
 	"id": "starter-inventory",
 	"url": "assets/json\\database\\starter-inventory.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "wavesBkp",
 	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
 }, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
-}, {
 	"id": "enemies",
 	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
 }, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
@@ -111692,6 +111739,27 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
+}, {
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
 }, {
@@ -111700,21 +111768,6 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
 }];
 
 exports.default = assets;
