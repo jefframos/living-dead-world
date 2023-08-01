@@ -6,7 +6,7 @@ export default class SpriteFacing extends BaseComponent{
     constructor() {
         super();    
         
-        this.lerp = 0.1
+        this.lerp = 0.15
         this.startScaleX = 1
     }
     enable(){
@@ -20,6 +20,14 @@ export default class SpriteFacing extends BaseComponent{
         }else if(this.gameObject.physics.velocity.x < -0.01){
             this.target = this.gameObject.gameView.baseScale.x * this.startScaleX;
         }
+        // if(this.gameObject.gameView.view.scale.x < 0.1 && this.gameObject.gameView.view.scale.x > -0.1){
+        //     if(this.gameObject.gameView.view.scale.x < 0){
+        //         this.gameObject.gameView.view.scale.x = -0.1
+        //     }else{
+        //         this.gameObject.gameView.view.scale.x = 0.1
+        //     }
+        // }
         this.gameObject.gameView.view.scale.x = Utils.lerp(this.gameObject.gameView.view.scale.x, this.target,this.lerp)
+
     }
 }

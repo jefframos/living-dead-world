@@ -77,6 +77,7 @@ export default class Player extends GameAgent {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
+        this.invencibleTimer = 0;
         this.loadoutAttributes = GameData.instance.getLoadoutAttributes();
         this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
         this.staticData = playerData;
@@ -441,11 +442,13 @@ export default class Player extends GameAgent {
                 }
             });
         }
+
         for (let index = 0; index < this.currentEnemiesColliding.length; index++) {
             const element = this.currentEnemiesColliding[index];
-            if (element.timer <= 0) {
+            if (element.timer <= 0 && this.invencibleTimer <= 0) {
                 //console.log('=>=',this.attributes.rawHealth , element.entity.attributes.power2)
                 let dead = this.damage(Math.round(this.attributes.rawHealth * element.entity.attributes.power2));
+                this.invencibleTimer = 0.1;
                 if (dead) {
                     return
                 }
@@ -453,6 +456,10 @@ export default class Player extends GameAgent {
             } else {
                 element.timer -= delta;
             }
+        }
+
+        if(this.invencibleTimer > 0){
+            this.invencibleTimer -= delta;
         }
         this.playerStats.health = this.health.currentHealth
         this.playerStats.deaths = Player.Deaths

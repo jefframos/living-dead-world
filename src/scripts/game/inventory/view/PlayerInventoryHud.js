@@ -44,7 +44,7 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.text)
-        this.text.style.fontSize = 18
+        this.text.style.fontSize = 24
         this.text.x = 50
         this.text.y = 15
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
@@ -53,30 +53,42 @@ export default class PlayerInventoryHud extends GameObject {
         this.timer.x = 200
 
         this.labelsInfoContainer = new PIXI.Container();
-        //this.gameView.view.addChild(this.labelsInfoContainer)
+        if (Game.Debug.debug || Game.Debug.stats) {
+
+        }
+        this.gameView.view.addChild(this.labelsInfoContainer)
+
+        this.attributesDebugList = new UIList();
+        this.attributesDebugList.w = 1
+        this.attributesDebugList.h = 50
+        this.labelsInfoContainer.addChild(this.attributesDebugList)
+
         this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.labelsInfoContainer.addChild(this.playerAttributesLabel)
+        //this.attributesDebugList.addElement(this.playerAttributesLabel)
         this.playerAttributesLabel.style.fontSize = 12
         this.playerAttributesLabel.style.align = 'left'
-        this.playerAttributesLabel.x = 150
+        this.playerAttributesLabel.x = 0
         this.playerAttributesLabel.y = 40
 
 
         this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.labelsInfoContainer.addChild(this.playerAcessoriesLabel)
+        //this.attributesDebugList.addElement(this.playerAcessoriesLabel)
         this.playerAcessoriesLabel.style.fontSize = 12
         this.playerAcessoriesLabel.style.align = 'left'
-        this.playerAcessoriesLabel.x = 550
+        this.playerAcessoriesLabel.x = 0
         this.playerAcessoriesLabel.y = 40
 
         this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
-        this.labelsInfoContainer.addChild(this.weaponAcessoriesLabel)
+        this.attributesDebugList.addElement(this.weaponAcessoriesLabel, { align: 0 })
         this.weaponAcessoriesLabel.style.fontSize = 12
         this.weaponAcessoriesLabel.style.align = 'left'
-        this.weaponAcessoriesLabel.x = 350
+        this.weaponAcessoriesLabel.x = 0
         this.weaponAcessoriesLabel.y = 40
-        this.labelsInfoContainer.x = 70
-        this.labelsInfoContainer.y = 120
+
+        this.labelsInfoContainer.x = 20
+        this.labelsInfoContainer.y = 170
+
+        this.attributesDebugList.updateVerticalList()
 
         this.tl = new PIXI.Graphics().beginFill(0xFFff00).drawCircle(0, 0, 50)
         this.bl = new PIXI.Graphics().beginFill(0x000fff).drawCircle(0, 0, 50)
@@ -90,7 +102,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.attributesView = new AttributesContainer();
         this.gameView.view.addChild(this.attributesView)
 
-        this.attributesView.setSize(600,60)
+        this.attributesView.setSize(600, 60)
         //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
     }
@@ -110,7 +122,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.attributesView.updateAttributes(this.player.attributes, this.player.attributes)
 
         setTimeout(() => {
-            
+
             this.resize();
         }, 1);
     }
@@ -128,13 +140,21 @@ export default class PlayerInventoryHud extends GameObject {
     }
     updatePlayerHealth() {
         this.updatePlayerAttributes();
-
+        this.updatePlayerBuffs();
     }
-    extraAtt(type, defaulType) {
+    extraAtt(type, defaulType, round = true) {
 
         if (this.player.attributes[type] != this.player.attributes[defaulType]) {
-            return "/ (+" + Math.round(this.player.attributes[type] - this.player.attributes[defaulType]) + ")"
+            if (round) {
+                return "/ (+" + Math.round(this.player.attributes[type] - this.player.attributes[defaulType]) + ")"
+            } else {
+                return "/ (+" + Math.round((this.player.attributes[type] - this.player.attributes[defaulType]) * 100) + "%)"
+
+            }
         } else {
+            if (!round) {
+                return "%";
+            }
             return "";
         }
 
@@ -157,21 +177,29 @@ export default class PlayerInventoryHud extends GameObject {
             }
         });
 
-        this.playerAcessoriesLabel.text = attributes;
+        this.weaponAcessoriesLabel.text += attributes;
     }
     updatePlayerAttributes() {
         let attributes = '';
         let attributesWeapon = '';
-        attributes += "HP: " + Math.round(this.player.health.currentHealth) + " / " + Math.round(this.player.attributes.health) + this.extraAtt('health', 'baseHealth') + "\n";
-        attributes += "SPEED: " + Math.round(this.player.attributes.speed) + this.extraAtt('speed', 'baseSpeed') + "\n";
-        attributes += "POWER: " + Math.round(this.player.attributes.power) + this.extraAtt('power', 'basePower') + "\n";
-        attributes += "DEFENSE: " + Math.round(this.player.attributes.defense) + this.extraAtt('defense', 'baseDefense') + "\n";
+        attributesWeapon += "HP: " + Math.round(this.player.health.currentHealth) + " / " + Math.round(this.player.attributes.health) + this.extraAtt('health', 'baseHealth') + "\n";
+        attributesWeapon += "SPEED: " + Math.round(this.player.attributes.speed) + this.extraAtt('speed', 'baseSpeed') + "\n";
+        attributesWeapon += "POWER: " + Math.round(this.player.attributes.power) + this.extraAtt('power', 'basePower') + "\n";
+        attributesWeapon += "DEFENSE: " + Math.round(this.player.attributes.defense) + this.extraAtt('defense', 'baseDefense') + "\n";
         attributesWeapon += "RADIUS: " + Math.round(this.player.attributes.collectionRadius) + this.extraAtt('collectionRadius', 'baseCollectionRadius') + "\n";
         attributesWeapon += "SHOOT SPEED: x" + this.player.sessionData.attributesMultiplier.baseFrequency.toFixed(1) + "\n";
-        attributesWeapon += "AMOUNT: +" + this.player.sessionData.attributesMultiplier.baseAmount + "\n";
-        attributesWeapon += "PIERCING: +" + this.player.sessionData.attributesMultiplier.basePiercing + "\n";
-        this.playerAttributesLabel.text = attributes;
+        attributesWeapon += "CRIT: +" + Math.round(this.player.attributes.baseCritical * 100) + this.extraAtt('critical', 'baseCritical', false) + "\n";
+        attributesWeapon += "EVASION: +" + Math.round(this.player.attributes.baseEvasion * 100) + this.extraAtt('evasion', 'baseEvasion', false) + "\n";
+        if (this.player.sessionData.attributesMultiplier.basePiercing) {
+
+            attributesWeapon += "PIERCING: +" + this.player.attributes.piercing + ' (+' + this.player.sessionData.attributesMultiplier.basePiercing + ")\n";
+        } else {
+
+            attributesWeapon += "PIERCING: +" + this.player.attributes.piercing + "\n";
+        }
+        //this.playerAttributesLabel.text = attributes;
         this.weaponAcessoriesLabel.text = attributesWeapon;
+
 
 
         this.attributesView.healthDrawer.updateAttributes(this.player.attributes.health, this.player.health.currentHealth)
@@ -205,20 +233,23 @@ export default class PlayerInventoryHud extends GameObject {
             this.timer.text = '00:00'
         }
 
-        this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
+        this.timer.x = Game.Borders.width / 2 - this.timer.width / 2
+        this.timer.y = 35
 
-        if(Game.IsPortrait){
+        // this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
 
-            this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 50
-        }else{
+        // if(Game.IsPortrait){
 
-            this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
-        }
+        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 50
+        // }else{
+
+        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+        // }
 
 
 
         this.attributesView.scale.set(0.75)
-        this.attributesView.y = Game.Borders.bottomRight.y- this.attributesView.height - 5
+        this.attributesView.y = Game.Borders.bottomRight.y - this.attributesView.height - 5
         this.attributesView.x = 5
 
 
@@ -241,12 +272,12 @@ export default class PlayerInventoryHud extends GameObject {
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);
-        if(Game.IsPortrait){
-            this.attributesView.setSize((Game.Borders.bottomRight.x / this.attributesView.scale.x) - 10,40)
-        }else{
-            this.attributesView.setSize(Math.min(Game.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10,40)
+        if (Game.IsPortrait) {
+            this.attributesView.setSize((Game.Borders.bottomRight.x / this.attributesView.scale.x) - 10, 40)
+        } else {
+            this.attributesView.setSize(Math.min(Game.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10, 40)
         }
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
-       
+
     }
 }

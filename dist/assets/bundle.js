@@ -16927,6 +16927,7 @@ var Player = function (_GameAgent) {
                 playerData = _GameStaticData2.default.instance.getEntityByIndex('player', Math.floor(Math.random() * 7));
             }
 
+            this.invencibleTimer = 0;
             this.loadoutAttributes = _GameData2.default.instance.getLoadoutAttributes();
             this.baseMainWeaponLevel = _GameData2.default.instance.currentEquippedWeapon.level;
             this.staticData = playerData;
@@ -17317,11 +17318,13 @@ var Player = function (_GameAgent) {
                     }
                 });
             }
+
             for (var index = 0; index < this.currentEnemiesColliding.length; index++) {
                 var element = this.currentEnemiesColliding[index];
-                if (element.timer <= 0) {
+                if (element.timer <= 0 && this.invencibleTimer <= 0) {
                     //console.log('=>=',this.attributes.rawHealth , element.entity.attributes.power2)
                     var dead = this.damage(Math.round(this.attributes.rawHealth * element.entity.attributes.power2));
+                    this.invencibleTimer = 0.1;
                     if (dead) {
                         return;
                     }
@@ -17329,6 +17332,10 @@ var Player = function (_GameAgent) {
                 } else {
                     element.timer -= delta;
                 }
+            }
+
+            if (this.invencibleTimer > 0) {
+                this.invencibleTimer -= delta;
             }
             this.playerStats.health = this.health.currentHealth;
             this.playerStats.deaths = Player.Deaths;
@@ -70906,7 +70913,7 @@ var SpriteFacing = function (_BaseComponent) {
 
         var _this = (0, _possibleConstructorReturn3.default)(this, (SpriteFacing.__proto__ || (0, _getPrototypeOf2.default)(SpriteFacing)).call(this));
 
-        _this.lerp = 0.1;
+        _this.lerp = 0.15;
         _this.startScaleX = 1;
         return _this;
     }
@@ -70926,6 +70933,13 @@ var SpriteFacing = function (_BaseComponent) {
             } else if (this.gameObject.physics.velocity.x < -0.01) {
                 this.target = this.gameObject.gameView.baseScale.x * this.startScaleX;
             }
+            // if(this.gameObject.gameView.view.scale.x < 0.1 && this.gameObject.gameView.view.scale.x > -0.1){
+            //     if(this.gameObject.gameView.view.scale.x < 0){
+            //         this.gameObject.gameView.view.scale.x = -0.1
+            //     }else{
+            //         this.gameObject.gameView.view.scale.x = 0.1
+            //     }
+            // }
             this.gameObject.gameView.view.scale.x = _Utils2.default.lerp(this.gameObject.gameView.view.scale.x, this.target, this.lerp);
         }
     }]);
@@ -88401,8 +88415,11 @@ var CharacterBuildScreen = function (_Screen) {
                         this.customizeButton.icon.addChild(this.customPlayerSprite);
                         this.customPlayerSprite.anchor.set(0.4, 0.7);
 
-                        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
-                        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture;
+                        setTimeout(function () {
+                                _this2.activePlayersCustomization[_this2.activePlayerId].playerPreviewStructure.generateNewTexture();
+
+                                _this2.customPlayerSprite.texture = _this2.activePlayersCustomization[_this2.activePlayerId].playerPreviewStructure.staticTexture;
+                        }, 1);
 
                         this.customPlayerSpriteMask = new PIXI.Sprite.from('tile');
                         this.customPlayerSpriteMask.anchor.set(0.5, 1);
@@ -92872,7 +92889,7 @@ module.exports = exports["default"];
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _getPrototypeOf = __webpack_require__(2);
@@ -92956,263 +92973,294 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var PlayerInventoryHud = function (_GameObject) {
-    (0, _inherits3.default)(PlayerInventoryHud, _GameObject);
+        (0, _inherits3.default)(PlayerInventoryHud, _GameObject);
 
-    function PlayerInventoryHud() {
-        (0, _classCallCheck3.default)(this, PlayerInventoryHud);
+        function PlayerInventoryHud() {
+                (0, _classCallCheck3.default)(this, PlayerInventoryHud);
 
-        var _this = (0, _possibleConstructorReturn3.default)(this, (PlayerInventoryHud.__proto__ || (0, _getPrototypeOf2.default)(PlayerInventoryHud)).call(this));
+                var _this = (0, _possibleConstructorReturn3.default)(this, (PlayerInventoryHud.__proto__ || (0, _getPrototypeOf2.default)(PlayerInventoryHud)).call(this));
 
-        _this.gameView = new _GameView2.default(_this);
-        _this.gameView.layer = _RenderModule2.default.UILayerOverlay;
-        _this.gameView.view = new PIXI.Container();
+                _this.gameView = new _GameView2.default(_this);
+                _this.gameView.layer = _RenderModule2.default.UILayerOverlay;
+                _this.gameView.view = new PIXI.Container();
 
-        _this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50);
-        // this.gameView.view.addChild(this.zero)
-        _this.darkBlur = new PIXI.Sprite.from('bigblur');
-        _this.gameView.view.addChild(_this.darkBlur);
-        _this.darkBlur.anchor.set(0.5);
-        _this.darkBlur.width = 500;
-        _this.darkBlur.height = 400;
-        _this.darkBlur.x = 70;
-        _this.darkBlur.y = 50;
-        _this.darkBlur.tint = 0x171C21;
-        _this.baseBarView = new _LevelUpBar2.default();
-        _this.gameView.view.addChild(_this.baseBarView);
-        _this.playerHud = new _PlayerGameplayHud2.default();
-        _this.playerHud.onOpenMenu.add(function () {
-            _this.player.die();
-        });
-        _this.gameView.view.addChild(_this.playerHud);
-        _this.baseBarView.build(0);
-        _this.baseBarView.forceUpdateNormal(0);
+                _this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50);
+                // this.gameView.view.addChild(this.zero)
+                _this.darkBlur = new PIXI.Sprite.from('bigblur');
+                _this.gameView.view.addChild(_this.darkBlur);
+                _this.darkBlur.anchor.set(0.5);
+                _this.darkBlur.width = 500;
+                _this.darkBlur.height = 400;
+                _this.darkBlur.x = 70;
+                _this.darkBlur.y = 50;
+                _this.darkBlur.tint = 0x171C21;
+                _this.baseBarView = new _LevelUpBar2.default();
+                _this.gameView.view.addChild(_this.baseBarView);
+                _this.playerHud = new _PlayerGameplayHud2.default();
+                _this.playerHud.onOpenMenu.add(function () {
+                        _this.player.die();
+                });
+                _this.gameView.view.addChild(_this.playerHud);
+                _this.baseBarView.build(0);
+                _this.baseBarView.forceUpdateNormal(0);
 
-        _this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1);
-        _this.gameView.view.addChild(_this.text);
-        _this.text.style.fontSize = 18;
-        _this.text.x = 50;
-        _this.text.y = 15;
-        _this.timer = new PIXI.Text('', window.LABELS.LABEL1);
-        _this.gameView.view.addChild(_this.timer);
-        _this.timer.style.fontSize = 24;
-        _this.timer.x = 200;
+                _this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1);
+                _this.gameView.view.addChild(_this.text);
+                _this.text.style.fontSize = 24;
+                _this.text.x = 50;
+                _this.text.y = 15;
+                _this.timer = new PIXI.Text('', window.LABELS.LABEL1);
+                _this.gameView.view.addChild(_this.timer);
+                _this.timer.style.fontSize = 24;
+                _this.timer.x = 200;
 
-        _this.labelsInfoContainer = new PIXI.Container();
-        //this.gameView.view.addChild(this.labelsInfoContainer)
-        _this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1);
-        _this.labelsInfoContainer.addChild(_this.playerAttributesLabel);
-        _this.playerAttributesLabel.style.fontSize = 12;
-        _this.playerAttributesLabel.style.align = 'left';
-        _this.playerAttributesLabel.x = 150;
-        _this.playerAttributesLabel.y = 40;
+                _this.labelsInfoContainer = new PIXI.Container();
+                if (_Game2.default.Debug.debug || _Game2.default.Debug.stats) {}
+                _this.gameView.view.addChild(_this.labelsInfoContainer);
 
-        _this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1);
-        _this.labelsInfoContainer.addChild(_this.playerAcessoriesLabel);
-        _this.playerAcessoriesLabel.style.fontSize = 12;
-        _this.playerAcessoriesLabel.style.align = 'left';
-        _this.playerAcessoriesLabel.x = 550;
-        _this.playerAcessoriesLabel.y = 40;
+                _this.attributesDebugList = new _UIList2.default();
+                _this.attributesDebugList.w = 1;
+                _this.attributesDebugList.h = 50;
+                _this.labelsInfoContainer.addChild(_this.attributesDebugList);
 
-        _this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1);
-        _this.labelsInfoContainer.addChild(_this.weaponAcessoriesLabel);
-        _this.weaponAcessoriesLabel.style.fontSize = 12;
-        _this.weaponAcessoriesLabel.style.align = 'left';
-        _this.weaponAcessoriesLabel.x = 350;
-        _this.weaponAcessoriesLabel.y = 40;
-        _this.labelsInfoContainer.x = 70;
-        _this.labelsInfoContainer.y = 120;
+                _this.playerAttributesLabel = new PIXI.Text('', window.LABELS.LABEL1);
+                //this.attributesDebugList.addElement(this.playerAttributesLabel)
+                _this.playerAttributesLabel.style.fontSize = 12;
+                _this.playerAttributesLabel.style.align = 'left';
+                _this.playerAttributesLabel.x = 0;
+                _this.playerAttributesLabel.y = 40;
 
-        _this.tl = new PIXI.Graphics().beginFill(0xFFff00).drawCircle(0, 0, 50);
-        _this.bl = new PIXI.Graphics().beginFill(0x000fff).drawCircle(0, 0, 50);
-        _this.br = new PIXI.Graphics().beginFill(0xFF0ff0).drawCircle(0, 0, 50);
-        _this.tr = new PIXI.Graphics().beginFill(0x0Ff00f).drawCircle(0, 0, 50);
-        // this.gameView.view.addChild(this.tl)
-        // this.gameView.view.addChild(this.tr)
-        // this.gameView.view.addChild(this.bl)
-        // this.gameView.view.addChild(this.br)
+                _this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1);
+                //this.attributesDebugList.addElement(this.playerAcessoriesLabel)
+                _this.playerAcessoriesLabel.style.fontSize = 12;
+                _this.playerAcessoriesLabel.style.align = 'left';
+                _this.playerAcessoriesLabel.x = 0;
+                _this.playerAcessoriesLabel.y = 40;
 
-        _this.attributesView = new _AttributesContainer2.default();
-        _this.gameView.view.addChild(_this.attributesView);
+                _this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1);
+                _this.attributesDebugList.addElement(_this.weaponAcessoriesLabel, { align: 0 });
+                _this.weaponAcessoriesLabel.style.fontSize = 12;
+                _this.weaponAcessoriesLabel.style.align = 'left';
+                _this.weaponAcessoriesLabel.x = 0;
+                _this.weaponAcessoriesLabel.y = 40;
 
-        _this.attributesView.setSize(600, 60);
-        //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
+                _this.labelsInfoContainer.x = 20;
+                _this.labelsInfoContainer.y = 170;
 
-        return _this;
-    }
+                _this.attributesDebugList.updateVerticalList();
 
-    (0, _createClass3.default)(PlayerInventoryHud, [{
-        key: 'build',
-        value: function build() {
-            (0, _get3.default)(PlayerInventoryHud.prototype.__proto__ || (0, _getPrototypeOf2.default)(PlayerInventoryHud.prototype), 'build', this).call(this);
-            this.gameView.view.x = 0;
-            this.gameView.view.y = 0;
+                _this.tl = new PIXI.Graphics().beginFill(0xFFff00).drawCircle(0, 0, 50);
+                _this.bl = new PIXI.Graphics().beginFill(0x000fff).drawCircle(0, 0, 50);
+                _this.br = new PIXI.Graphics().beginFill(0xFF0ff0).drawCircle(0, 0, 50);
+                _this.tr = new PIXI.Graphics().beginFill(0x0Ff00f).drawCircle(0, 0, 50);
+                // this.gameView.view.addChild(this.tl)
+                // this.gameView.view.addChild(this.tr)
+                // this.gameView.view.addChild(this.bl)
+                // this.gameView.view.addChild(this.br)
+
+                _this.attributesView = new _AttributesContainer2.default();
+                _this.gameView.view.addChild(_this.attributesView);
+
+                _this.attributesView.setSize(600, 60);
+                //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
+
+                return _this;
         }
-    }, {
-        key: 'registerPlayer',
-        value: function registerPlayer(player) {
-            var _this2 = this;
 
-            this.player = player;
-            this.text.text = 'Level 1';
-            this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
-            this.player.sessionData.xpUpdated.add(this.updateXp.bind(this));
-            this.player.sessionData.addXp(0);
-            this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this));
-            this.playerHud.registerPlayer(this.player);
-            this.attributesView.updateAttributes(this.player.attributes, this.player.attributes);
-
-            setTimeout(function () {
-
-                _this2.resize();
-            }, 1);
-        }
-    }, {
-        key: 'resetLevelBar',
-        value: function resetLevelBar() {
-            this.baseBarView.updateNormal(0);
-        }
-    }, {
-        key: 'showLevelUp',
-        value: function showLevelUp() {
-            this.baseBarView.forceUpdateNormal(1);
-        }
-    }, {
-        key: 'updateXp',
-        value: function updateXp(xpData) {
-            if (xpData.normalUntilNext < 1) {
-                this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
-            }
-            this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
-        }
-    }, {
-        key: 'updatePlayerHealth',
-        value: function updatePlayerHealth() {
-            this.updatePlayerAttributes();
-        }
-    }, {
-        key: 'extraAtt',
-        value: function extraAtt(type, defaulType) {
-
-            if (this.player.attributes[type] != this.player.attributes[defaulType]) {
-                return "/ (+" + Math.round(this.player.attributes[type] - this.player.attributes[defaulType]) + ")";
-            } else {
-                return "";
-            }
-        }
-    }, {
-        key: 'updatePlayerBuffs',
-        value: function updatePlayerBuffs() {
-            var attributes = '';
-
-            this.player.activeAcessories.forEach(function (element) {
-                if (element.item && element.item.effectId) {
-                    attributes += element.item.entityData.name;
-                    var stat = _GameStaticData2.default.instance.getDataById('misc', 'buffs', element.item.effectId);
-                    var chance = _Utils2.default.findValueByLevel(stat.chance, element.level);
-                    if (chance < 1) {
-                        attributes += "  " + chance * 100 + "% chance";
-                    } else {
-                        attributes += "  " + Math.abs(_Utils2.default.findValueByLevel(stat.value, element.level) * 100) + "% - ";
-                        attributes += _Utils2.default.findValueByLevel(stat.interval, element.level) + "s";
-                    }
-                    attributes += "\n";
+        (0, _createClass3.default)(PlayerInventoryHud, [{
+                key: 'build',
+                value: function build() {
+                        (0, _get3.default)(PlayerInventoryHud.prototype.__proto__ || (0, _getPrototypeOf2.default)(PlayerInventoryHud.prototype), 'build', this).call(this);
+                        this.gameView.view.x = 0;
+                        this.gameView.view.y = 0;
                 }
-            });
+        }, {
+                key: 'registerPlayer',
+                value: function registerPlayer(player) {
+                        var _this2 = this;
 
-            this.playerAcessoriesLabel.text = attributes;
-        }
-    }, {
-        key: 'updatePlayerAttributes',
-        value: function updatePlayerAttributes() {
-            var attributes = '';
-            var attributesWeapon = '';
-            attributes += "HP: " + Math.round(this.player.health.currentHealth) + " / " + Math.round(this.player.attributes.health) + this.extraAtt('health', 'baseHealth') + "\n";
-            attributes += "SPEED: " + Math.round(this.player.attributes.speed) + this.extraAtt('speed', 'baseSpeed') + "\n";
-            attributes += "POWER: " + Math.round(this.player.attributes.power) + this.extraAtt('power', 'basePower') + "\n";
-            attributes += "DEFENSE: " + Math.round(this.player.attributes.defense) + this.extraAtt('defense', 'baseDefense') + "\n";
-            attributesWeapon += "RADIUS: " + Math.round(this.player.attributes.collectionRadius) + this.extraAtt('collectionRadius', 'baseCollectionRadius') + "\n";
-            attributesWeapon += "SHOOT SPEED: x" + this.player.sessionData.attributesMultiplier.baseFrequency.toFixed(1) + "\n";
-            attributesWeapon += "AMOUNT: +" + this.player.sessionData.attributesMultiplier.baseAmount + "\n";
-            attributesWeapon += "PIERCING: +" + this.player.sessionData.attributesMultiplier.basePiercing + "\n";
-            this.playerAttributesLabel.text = attributes;
-            this.weaponAcessoriesLabel.text = attributesWeapon;
+                        this.player = player;
+                        this.text.text = 'Level 1';
+                        this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
+                        this.player.sessionData.xpUpdated.add(this.updateXp.bind(this));
+                        this.player.sessionData.addXp(0);
+                        this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this));
+                        this.playerHud.registerPlayer(this.player);
+                        this.attributesView.updateAttributes(this.player.attributes, this.player.attributes);
 
-            this.attributesView.healthDrawer.updateAttributes(this.player.attributes.health, this.player.health.currentHealth);
-        }
-    }, {
-        key: 'updatePlayerEquip',
-        value: function updatePlayerEquip(player) {
+                        setTimeout(function () {
 
-            this.updatePlayerAttributes();
-            this.updatePlayerBuffs();
+                                _this2.resize();
+                        }, 1);
+                }
+        }, {
+                key: 'resetLevelBar',
+                value: function resetLevelBar() {
+                        this.baseBarView.updateNormal(0);
+                }
+        }, {
+                key: 'showLevelUp',
+                value: function showLevelUp() {
+                        this.baseBarView.forceUpdateNormal(1);
+                }
+        }, {
+                key: 'updateXp',
+                value: function updateXp(xpData) {
+                        if (xpData.normalUntilNext < 1) {
+                                this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
+                        }
+                        this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+                }
+        }, {
+                key: 'updatePlayerHealth',
+                value: function updatePlayerHealth() {
+                        this.updatePlayerAttributes();
+                        this.updatePlayerBuffs();
+                }
+        }, {
+                key: 'extraAtt',
+                value: function extraAtt(type, defaulType) {
+                        var round = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
-            this.attributesView.updateAttributes(this.player.attributes, this.player.attributes);
-        }
-    }, {
-        key: 'addLine',
-        value: function addLine(weapon, isMaster, list) {
-            var line = new _PlayerInventorySlotEquipView2.default();
-            line.registerItem(weapon, isMaster);
-            line.anchorX = 0;
 
-            list.addElement(line);
-            list.h += 35;
+                        if (this.player.attributes[type] != this.player.attributes[defaulType]) {
+                                if (round) {
+                                        return "/ (+" + Math.round(this.player.attributes[type] - this.player.attributes[defaulType]) + ")";
+                                } else {
+                                        return "/ (+" + Math.round((this.player.attributes[type] - this.player.attributes[defaulType]) * 100) + "%)";
+                                }
+                        } else {
+                                if (!round) {
+                                        return "%";
+                                }
+                                return "";
+                        }
+                }
+        }, {
+                key: 'updatePlayerBuffs',
+                value: function updatePlayerBuffs() {
+                        var attributes = '';
 
-            if (weapon.onDestroyWeapon.length > 0) {
-                this.addLine(weapon.onDestroyWeapon[weapon.onDestroyWeapon.length - 1], false, list);
-            }
-        }
-    }, {
-        key: 'update',
-        value: function update(delta) {
-            if (_LevelManager2.default.instance.gameplayTime > 0) {
-                this.timer.text = _Utils2.default.floatToTime(Math.floor(_LevelManager2.default.instance.gameplayTime));
-            } else {
-                this.timer.text = '00:00';
-            }
+                        this.player.activeAcessories.forEach(function (element) {
+                                if (element.item && element.item.effectId) {
+                                        attributes += element.item.entityData.name;
+                                        var stat = _GameStaticData2.default.instance.getDataById('misc', 'buffs', element.item.effectId);
+                                        var chance = _Utils2.default.findValueByLevel(stat.chance, element.level);
+                                        if (chance < 1) {
+                                                attributes += "  " + chance * 100 + "% chance";
+                                        } else {
+                                                attributes += "  " + Math.abs(_Utils2.default.findValueByLevel(stat.value, element.level) * 100) + "% - ";
+                                                attributes += _Utils2.default.findValueByLevel(stat.interval, element.level) + "s";
+                                        }
+                                        attributes += "\n";
+                                }
+                        });
 
-            this.timer.x = _Game2.default.Borders.topRight.x - this.timer.width - 20;
+                        this.weaponAcessoriesLabel.text += attributes;
+                }
+        }, {
+                key: 'updatePlayerAttributes',
+                value: function updatePlayerAttributes() {
+                        var attributes = '';
+                        var attributesWeapon = '';
+                        attributesWeapon += "HP: " + Math.round(this.player.health.currentHealth) + " / " + Math.round(this.player.attributes.health) + this.extraAtt('health', 'baseHealth') + "\n";
+                        attributesWeapon += "SPEED: " + Math.round(this.player.attributes.speed) + this.extraAtt('speed', 'baseSpeed') + "\n";
+                        attributesWeapon += "POWER: " + Math.round(this.player.attributes.power) + this.extraAtt('power', 'basePower') + "\n";
+                        attributesWeapon += "DEFENSE: " + Math.round(this.player.attributes.defense) + this.extraAtt('defense', 'baseDefense') + "\n";
+                        attributesWeapon += "RADIUS: " + Math.round(this.player.attributes.collectionRadius) + this.extraAtt('collectionRadius', 'baseCollectionRadius') + "\n";
+                        attributesWeapon += "SHOOT SPEED: x" + this.player.sessionData.attributesMultiplier.baseFrequency.toFixed(1) + "\n";
+                        attributesWeapon += "CRIT: +" + Math.round(this.player.attributes.baseCritical * 100) + this.extraAtt('critical', 'baseCritical', false) + "\n";
+                        attributesWeapon += "EVASION: +" + Math.round(this.player.attributes.baseEvasion * 100) + this.extraAtt('evasion', 'baseEvasion', false) + "\n";
+                        if (this.player.sessionData.attributesMultiplier.basePiercing) {
 
-            if (_Game2.default.IsPortrait) {
+                                attributesWeapon += "PIERCING: +" + this.player.attributes.piercing + ' (+' + this.player.sessionData.attributesMultiplier.basePiercing + ")\n";
+                        } else {
 
-                this.timer.y = _Game2.default.Borders.bottomRight.y - this.timer.height - 50;
-            } else {
+                                attributesWeapon += "PIERCING: +" + this.player.attributes.piercing + "\n";
+                        }
+                        //this.playerAttributesLabel.text = attributes;
+                        this.weaponAcessoriesLabel.text = attributesWeapon;
 
-                this.timer.y = _Game2.default.Borders.bottomRight.y - this.timer.height - 20;
-            }
+                        this.attributesView.healthDrawer.updateAttributes(this.player.attributes.health, this.player.health.currentHealth);
+                }
+        }, {
+                key: 'updatePlayerEquip',
+                value: function updatePlayerEquip(player) {
 
-            this.attributesView.scale.set(0.75);
-            this.attributesView.y = _Game2.default.Borders.bottomRight.y - this.attributesView.height - 5;
-            this.attributesView.x = 5;
+                        this.updatePlayerAttributes();
+                        this.updatePlayerBuffs();
 
-            if (this.baseBarView.maxWidth != _Game2.default.Borders.width - 100) {
-                this.baseBarView.rebuild(_Game2.default.Borders.width - 100);
-                this.baseBarView.x = 80;
-                this.baseBarView.y = 20;
-            }
+                        this.attributesView.updateAttributes(this.player.attributes, this.player.attributes);
+                }
+        }, {
+                key: 'addLine',
+                value: function addLine(weapon, isMaster, list) {
+                        var line = new _PlayerInventorySlotEquipView2.default();
+                        line.registerItem(weapon, isMaster);
+                        line.anchorX = 0;
 
-            this.text.x = _Game2.default.Borders.width - 250;
-            this.text.y = 35;
-            this.baseBarView.update(delta);
-            this.playerHud.update(delta);
+                        list.addElement(line);
+                        list.h += 35;
 
-            //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            var min = Math.min(_Game2.default.GlobalScale.min, 1);
-            this.playerHud.scale.set(Math.max(0.85, min));
-        }
-    }, {
-        key: 'resize',
-        value: function resize(res, newRes) {
-            this.playerHud.resize(res, newRes);
-            if (_Game2.default.IsPortrait) {
-                this.attributesView.setSize(_Game2.default.Borders.bottomRight.x / this.attributesView.scale.x - 10, 40);
-            } else {
-                this.attributesView.setSize(Math.min(_Game2.default.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10, 40);
-            }
-            //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
-        }
-    }]);
-    return PlayerInventoryHud;
+                        if (weapon.onDestroyWeapon.length > 0) {
+                                this.addLine(weapon.onDestroyWeapon[weapon.onDestroyWeapon.length - 1], false, list);
+                        }
+                }
+        }, {
+                key: 'update',
+                value: function update(delta) {
+                        if (_LevelManager2.default.instance.gameplayTime > 0) {
+                                this.timer.text = _Utils2.default.floatToTime(Math.floor(_LevelManager2.default.instance.gameplayTime));
+                        } else {
+                                this.timer.text = '00:00';
+                        }
+
+                        this.timer.x = _Game2.default.Borders.width / 2 - this.timer.width / 2;
+                        this.timer.y = 35;
+
+                        // this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
+
+                        // if(Game.IsPortrait){
+
+                        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 50
+                        // }else{
+
+                        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
+                        // }
+
+
+                        this.attributesView.scale.set(0.75);
+                        this.attributesView.y = _Game2.default.Borders.bottomRight.y - this.attributesView.height - 5;
+                        this.attributesView.x = 5;
+
+                        if (this.baseBarView.maxWidth != _Game2.default.Borders.width - 100) {
+                                this.baseBarView.rebuild(_Game2.default.Borders.width - 100);
+                                this.baseBarView.x = 80;
+                                this.baseBarView.y = 20;
+                        }
+
+                        this.text.x = _Game2.default.Borders.width - 250;
+                        this.text.y = 35;
+                        this.baseBarView.update(delta);
+                        this.playerHud.update(delta);
+
+                        //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        var min = Math.min(_Game2.default.GlobalScale.min, 1);
+                        this.playerHud.scale.set(Math.max(0.85, min));
+                }
+        }, {
+                key: 'resize',
+                value: function resize(res, newRes) {
+                        this.playerHud.resize(res, newRes);
+                        if (_Game2.default.IsPortrait) {
+                                this.attributesView.setSize(_Game2.default.Borders.bottomRight.x / this.attributesView.scale.x - 10, 40);
+                        } else {
+                                this.attributesView.setSize(Math.min(_Game2.default.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10, 40);
+                        }
+                        //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
+                }
+        }]);
+        return PlayerInventoryHud;
 }(_GameObject3.default);
 
 exports.default = PlayerInventoryHud;
@@ -111667,11 +111715,11 @@ var assets = [{
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
+}, {
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
@@ -111685,23 +111733,23 @@ var assets = [{
 	"id": "localization_TR",
 	"url": "assets/json\\localization_TR.json"
 }, {
-	"id": "modifyers",
-	"url": "assets/json\\modifyers.json"
-}, {
 	"id": "localization_ZH",
 	"url": "assets/json\\localization_ZH.json"
 }, {
-	"id": "cards",
-	"url": "assets/json\\cards\\cards.json"
+	"id": "modifyers",
+	"url": "assets/json\\modifyers.json"
 }, {
 	"id": "companion-animation",
 	"url": "assets/json\\animation\\companion-animation.json"
 }, {
+	"id": "player-animation",
+	"url": "assets/json\\animation\\player-animation.json"
+}, {
 	"id": "entity-animation",
 	"url": "assets/json\\animation\\entity-animation.json"
 }, {
-	"id": "player-animation",
-	"url": "assets/json\\animation\\player-animation.json"
+	"id": "cards",
+	"url": "assets/json\\cards\\cards.json"
 }, {
 	"id": "player-assets",
 	"url": "assets/json\\assets\\player-assets.json"
@@ -111715,35 +111763,26 @@ var assets = [{
 	"id": "game-shop",
 	"url": "assets/json\\economy\\game-shop.json"
 }, {
-	"id": "enemy-wave-01",
-	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
 	"id": "waves2",
 	"url": "assets/json\\enemy-waves\\waves2.json"
+}, {
+	"id": "enemy-wave-01",
+	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
 	"id": "wavesBkp",
 	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
-	"id": "level-1",
-	"url": "assets/json\\environment\\level-1.json"
-}, {
-	"id": "level-2",
-	"url": "assets/json\\environment\\level-2.json"
-}, {
 	"id": "companions",
 	"url": "assets/json\\entity\\companions.json"
-}, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
 }, {
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
@@ -111751,20 +111790,14 @@ var assets = [{
 	"id": "buff-debuff",
 	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
 }, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
+	"id": "level-1",
+	"url": "assets/json\\environment\\level-1.json"
 }, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+	"id": "level-2",
+	"url": "assets/json\\environment\\level-2.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -111774,6 +111807,21 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
 }];
 
 exports.default = assets;
@@ -111806,7 +111854,7 @@ module.exports = exports['default'];
 /* 356 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/hud/hud.json","image/icons/icons.json","image/texture/texture.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/body-parts/body-parts.json","image/characters/characters.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/guns/guns.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

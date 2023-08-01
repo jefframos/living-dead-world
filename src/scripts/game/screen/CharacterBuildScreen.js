@@ -315,8 +315,11 @@ export default class CharacterBuildScreen extends Screen {
         this.customizeButton.icon.addChild(this.customPlayerSprite)
         this.customPlayerSprite.anchor.set(0.4, 0.7)
 
-        this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
-        this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
+        setTimeout(() => {
+            this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
+            
+            this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
+        }, 1);
 
         this.customPlayerSpriteMask = new PIXI.Sprite.from('tile');
         this.customPlayerSpriteMask.anchor.set(0.5, 1)
