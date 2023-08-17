@@ -546,8 +546,8 @@
 },
 "burning/vfx_burning_5.png":
 {
-	"frame": {"x":758,"y":1157,"w":34,"h":72},
-	"rotated": false,
+	"frame": {"x":718,"y":1117,"w":34,"h":72},
+	"rotated": true,
 	"trimmed": true,
 	"spriteSourceSize": {"x":32,"y":9,"w":34,"h":72},
 	"sourceSize": {"w":96,"h":96}
@@ -586,8 +586,8 @@
 },
 "burning/vfx_burning_10.png":
 {
-	"frame": {"x":718,"y":1117,"w":34,"h":72},
-	"rotated": true,
+	"frame": {"x":758,"y":1157,"w":34,"h":72},
+	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":31,"y":9,"w":34,"h":72},
 	"sourceSize": {"w":96,"h":96}
@@ -1962,7 +1962,7 @@
 },
 "whiteVFX/electric-slash/electric-slash11.png":
 {
-	"frame": {"x":1163,"y":1405,"w":30,"h":31},
+	"frame": {"x":1162,"y":1368,"w":30,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":50,"y":59,"w":30,"h":31},
@@ -2098,7 +2098,7 @@
 },
 "whiteVFX/Hit-J/hit-j2.png":
 {
-	"frame": {"x":1162,"y":1368,"w":30,"h":31},
+	"frame": {"x":1163,"y":1405,"w":30,"h":31},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":0,"w":30,"h":31},
@@ -3124,11 +3124,11 @@
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
+	"version": "1.1",
 	"image": "vfx.png",
 	"format": "RGBA8888",
 	"size": {"w":1427,"h":1567},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:1925443d396a85fccd786577f54597ec:40688b461a52dc9da2f7c68c797b01fe:e8a10d8fa8e9d60843a1977c276b63e3$"
+	"smartupdate": "$TexturePacker:SmartUpdate:8dfe9c2482548727f9c47b74ff9f0945:40688b461a52dc9da2f7c68c797b01fe:e8a10d8fa8e9d60843a1977c276b63e3$"
 }
 }

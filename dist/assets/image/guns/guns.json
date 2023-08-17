@@ -1016,11 +1016,11 @@
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
+	"version": "1.1",
 	"image": "guns.png",
 	"format": "RGBA8888",
 	"size": {"w":1776,"h":254},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:d2164a4640862fd1009790d4526ff751:0deeb5a55bcd7ea70a46c8363bfe2935:62c1f540b5fd80b9e41584087e1ed9b4$"
+	"smartupdate": "$TexturePacker:SmartUpdate:77e714d661b4e75ea3117283a294ee29:0deeb5a55bcd7ea70a46c8363bfe2935:62c1f540b5fd80b9e41584087e1ed9b4$"
 }
 }

@@ -36,7 +36,10 @@ export default class PlayerInventoryHud extends GameObject {
         this.gameView.view.addChild(this.baseBarView)
         this.playerHud = new PlayerGameplayHud();
         this.playerHud.onOpenMenu.add(() => {
-            this.player.die()
+            if (Game.Debug.debug) {
+
+                this.player.die()
+            }
         })
         this.gameView.view.addChild(this.playerHud)
         this.baseBarView.build(0)
@@ -55,8 +58,8 @@ export default class PlayerInventoryHud extends GameObject {
         this.labelsInfoContainer = new PIXI.Container();
         if (Game.Debug.debug || Game.Debug.stats) {
 
+            this.gameView.view.addChild(this.labelsInfoContainer)
         }
-        this.gameView.view.addChild(this.labelsInfoContainer)
 
         this.attributesDebugList = new UIList();
         this.attributesDebugList.w = 1
