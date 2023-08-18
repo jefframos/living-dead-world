@@ -52,6 +52,7 @@ export default class ShopCard extends PIXI.Container {
         
         this.videoButton = UIUtils.getPrimaryVideoButton((button) => {
             videoCallback();
+           // this.videoButton.visible = false;
         }, 'Free')
 
         this.videoButton.updateBackTexture(UIUtils.baseButtonTexture + '_0002')
@@ -91,6 +92,11 @@ export default class ShopCard extends PIXI.Container {
         this.descriptionList.addElement(this.iconSprite, {  align:1,fitHeight:1.2,listScl:0.5})
         this.descriptionList.addElement(this.description, { align:0,  fitHeight:1, listScl:0.5, scaleContentMax:true})
         this.descriptionList.updateHorizontalList();
+    }
+    restore(){
+        if(this.hasVideo){
+            this.videoButton.visible = true;
+        }
     }
     setValue(currencyType, value, customIconScale = 1.5){
         this.iconSprite.fitHeight = customIconScale

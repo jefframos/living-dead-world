@@ -72,7 +72,7 @@ export default class UIUtils {
         return button;
     }
     static getMainPlayButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0002', 300, 100);
+        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0001', 300, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
         if (icon) {
             button.addIcon(icon, 80, { x: 0.5, y: 0.5 }, { x: 80, y: 0 })
@@ -173,7 +173,7 @@ export default class UIUtils {
 
         const button = new BodyPartySlot()//Pool.instance.getElement(BodyPartySlot)
 
-        button.addShape(UIUtils.baseButtonTexture + '_0002', 85, 85);
+        button.addShape(UIUtils.baseButtonTexture + '_0009', 85, 85);
 
         if (!button.warningIcon) {
 
@@ -206,7 +206,7 @@ export default class UIUtils {
 
         const button = Pool.instance.getElement(ColorSlot)
 
-        button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
+        button.addShape(UIUtils.baseButtonTexture + '_0009', width, height);
         button.setColor(color)
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;
@@ -243,7 +243,7 @@ export default class UIUtils {
         button.currencyButtonIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
 
         buttonList.addElement(button.labelButtonValue, { align: 1, listScl: 0.5, fitHeight: 0.7 })
-        buttonList.addElement(button.currencyButtonIcon, { align: 0, listScl: 0.5, fitHeight: 0.7 })
+        buttonList.addElement(button.currencyButtonIcon, { align: 0.2, listScl: 0.5, fitHeight: 0.7 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
@@ -269,8 +269,8 @@ export default class UIUtils {
 
         const priceLabel = UIUtils.getPrimaryLabel('free')
         button.priceLabel = priceLabel;
-        buttonList.addElement(priceLabel, { align: 1, scaleContentMax: true, fitWidth: 0.9 })
-        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitWidth: 0.8 })
+        buttonList.addElement(priceLabel, { align: 0, scaleContentMax: true, fitWidth: 0.9 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 1, scaleContentMax: true, fitWidth: 0.8, listScl:0.4 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
@@ -308,8 +308,8 @@ export default class UIUtils {
         return button;
     }
     static getBodyTypeLabelButton(callback, label, icon) {
-        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 80, 80);
-        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0009', 80, 80);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0010')
         InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
 
         const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
@@ -334,7 +334,7 @@ export default class UIUtils {
 
         const button = Pool.instance.getElement(ColorButton)
 
-        button.addShape(UIUtils.baseButtonTexture + '_0002', width, height);
+        button.addShape(UIUtils.baseButtonTexture + '_0009', width, height);
         button.setColor(color)
         if (!button.mouseUpCallback && callback) {
             button.mouseUpCallback = callback;

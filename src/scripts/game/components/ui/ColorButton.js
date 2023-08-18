@@ -2,9 +2,9 @@ import BaseButton from "./BaseButton";
 import UIUtils from "../../utils/UIUtils";
 
 export default class ColorButton extends BaseButton {
-    constructor(texture =  UIUtils.baseButtonTexture+'_0006', width = 100, height = 150) {
+    constructor(texture =  UIUtils.baseButtonTexture+'_0009', width = 100, height = 150) {
         super(texture, width, height)
-        this.setActiveTexture( UIUtils.baseButtonTexture+'_0001')
+        this.setActiveTexture( UIUtils.baseButtonTexture+'_0010')
         this.setColors(0xFFFFFF,0xFFFFFF);
         this.color = 0;
 

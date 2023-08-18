@@ -114,9 +114,11 @@ export default class SurvivorDeckController extends GameObject {
 
         this.handCards.forEach(element => {
             this.holdingData = element.cardData
-            console.log(element.cardData)
             this.pickCard(element);
         });
+
+        RewardsManager.instance.gameplayStart();
+
     }
     reshuffleDeck() {
         this.onReshuffle.dispatch();
@@ -137,6 +139,7 @@ export default class SurvivorDeckController extends GameObject {
     }
     buildCards(data, totalCards = 3, pickAll, reshffleUses, pickedCards) {
 
+        RewardsManager.instance.gameplayStop();
         for (let i = this.handCards.length - 1; i >= 0; i--) {
             if (this.handCards[i].parent) {
                 this.handCards[i].parent.removeChild(this.handCards[i]);
@@ -208,6 +211,7 @@ export default class SurvivorDeckController extends GameObject {
             cardView.onCardConfirmed.add((card) => {
                 this.highlightCard(card)
                 this.pickCard(card);
+                RewardsManager.instance.gameplayStart();
             })
             this.handCards.push(cardView)
 

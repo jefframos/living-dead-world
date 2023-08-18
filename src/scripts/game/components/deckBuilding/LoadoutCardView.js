@@ -5,6 +5,7 @@ import InteractableView from '../../view/card/InteractableView';
 import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
+import LevelStars from '../ui/loadout/LevelStars';
 
 export default class LoadoutCardView extends PIXI.Container {
     constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
@@ -41,7 +42,7 @@ export default class LoadoutCardView extends PIXI.Container {
 
         // this.levelLabel = UIUtils.getPrimaryLabel(1, {strokeThickness:0, dropShadow:false, fontSize:48, fill:0x4882D1});
         this.levelLabel = UIUtils.getPrimaryLabel(1, { strokeThickness: 3, dropShadow: false, fontSize: 48, fill: "#ffffff" });
-        this.cardContainer.addChild(this.levelLabel);
+        //this.cardContainer.addChild(this.levelLabel);
 
         this.levelLabel.anchor.set(1, 1)
         this.levelLabel.x = width - 14
@@ -49,7 +50,8 @@ export default class LoadoutCardView extends PIXI.Container {
         this.levelLabel.alpha = 0.3
 
 
-
+        this.stars = new LevelStars();
+        //this.cardContainer.addChild(this.stars);
 
         this.cardImage = new PIXI.Sprite();
 
@@ -107,7 +109,7 @@ export default class LoadoutCardView extends PIXI.Container {
         this.valueLabel.y = height - 10
 
     }
-    remover(){
+    remover() {
         this.levelLabel.text = '';
         this.cardImage.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('close'));
     }
@@ -174,9 +176,14 @@ export default class LoadoutCardView extends PIXI.Container {
     showLevelLabel() {
         this.levelLabel.visible = true;
     }
-    setIcon(texture, customIconSize){
-        this.cardImage.texture =  PIXI.Texture.from(texture);
-        this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
+    setIcon(texture, customIconSize) {
+        if (typeof texture === 'string'){
+            this.cardImage.texture = PIXI.Texture.from(texture);
+        }else{
+            this.cardImage.texture = PIXI.Texture.EMPTY;
+            this.cardImage.addChild(texture)
+        }
+        //this.cardImage.scale.set(Utils.scaleToFit(this.cardImage, customIconSize))
     }
     setData(cardData, level = 0, customIconSize = 80) {
         this.iconSize = customIconSize
@@ -187,11 +194,11 @@ export default class LoadoutCardView extends PIXI.Container {
             this.levelLabel.visible = false;
             return;
         }
-        
-        if(this.shouldHideLevelLabel){
+
+        if (this.shouldHideLevelLabel) {
             this.levelLabel.visible = false;
 
-        }else{
+        } else {
             this.levelLabel.visible = true;
 
         }

@@ -29,6 +29,8 @@ import UIUtils from '../utils/UIUtils';
 import Utils from '../core/utils/Utils';
 import ViewDatabase from '../data/ViewDatabase';
 import signals from "signals";
+import RewardsManager from '../data/RewardsManager';
+import PopUpGenericModal from '../components/ui/PopUpGenericModal';
 
 export default class CharacterBuildScreen extends Screen {
     static makeAssetSetup(data) {
@@ -123,12 +125,6 @@ export default class CharacterBuildScreen extends Screen {
         this.container.addChild(this.outgameUIProgression);
 
 
-        this.prizeCollect = new PrizeCollectContainer()
-        this.addPopUp(this.prizeCollect)
-
-
-        this.noMoneyContainer = new NoMoneycontainer()
-        this.addPopUp(this.noMoneyContainer)
 
         this.buttonsList = new UIList();
         this.container.addChild(this.buttonsList);
@@ -148,6 +144,15 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.updateHorizontalList();
 
 
+        this.prizeCollect = new PrizeCollectContainer()
+        this.addPopUp(this.prizeCollect)
+
+
+        this.noMoneyContainer = new NoMoneycontainer()
+        this.addPopUp(this.noMoneyContainer)
+        
+        this.genericPopUp = new PopUpGenericModal();
+        this.addPopUp(this.genericPopUp)
 
 
         // setTimeout(() => {
@@ -168,6 +173,8 @@ export default class CharacterBuildScreen extends Screen {
 
         PrizeManager.instance.onGetMetaPrize.add(this.showPrizeWindow.bind(this));
 
+        RewardsManager.instance.onAddBlock.add(this.showAdBlockMessage.bind(this));
+        
         let currentCompanion = GameData.instance.currentEquippedCompanionData;
         if (currentCompanion) {
             this.updateCompanion(currentCompanion.id)
@@ -201,9 +208,25 @@ export default class CharacterBuildScreen extends Screen {
 
             this.showMainUI();
         }, 1);
+
+        window.onEscPressed.add(()=>{
+            if(this.screenManager.currentScreen.label == this.label){
+                this.backButtonAction();
+            }
+        })
+
+        window.onSpacePressed.add(()=>{
+            if(this.mainShow){
+                this.screenManager.redirectToGame();
+            }
+        })
     }
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
+    }
+    showAdBlockMessage(){
+        this.genericPopUp.showInfo("You need to disable the adblock to access this")
+        this.openModal(this.genericPopUp, true)
     }
     giveMoney() {
         GameData.instance.addSoftCurrency(500)
@@ -260,6 +283,9 @@ export default class CharacterBuildScreen extends Screen {
         modal.hide()
     }
     onPopUpShow(popup) {
+        if(popup.hideCloseButton){
+            this.closeButton.visible = false;
+        }
     }
     onPopUpHide(popup) {
 
@@ -271,11 +297,16 @@ export default class CharacterBuildScreen extends Screen {
         });
 
         if (!modalOpen) {
-            this.closeCustomization();
-            this.unSelectPlayer();
+            console.log("THIS?")
+            //this.closeCustomization();
+            //this.unSelectPlayer();
+        }
+        if(popup.hideCloseButton){
+            this.closeButton.visible = true;
         }
     }
     onModalShow(modal) {
+       
     }
     onModalHide(modal) {
     }
@@ -285,9 +316,11 @@ export default class CharacterBuildScreen extends Screen {
         popUp.show();
         this.previousPopUp = popUp;
     }
-    openModal(modal) {
-        this.hideMainUI();
-        this.customizationZoom()
+    openModal(modal, ignoreStates) {
+        if(!ignoreStates){
+            this.hideMainUI();
+            this.customizationZoom()
+        }
         modal.show();
         this.previousModal = modal;
     }
@@ -498,6 +531,7 @@ export default class CharacterBuildScreen extends Screen {
 
     }
     hideMainUI(hideBackButton) {
+        this.mainShow = false;
         this.bottomMenu.visible = false;
         this.bottomMenuRight.visible = false;
         this.buttonsList.visible = true;
@@ -508,6 +542,7 @@ export default class CharacterBuildScreen extends Screen {
         }
     }
     showMainUI() {
+        this.mainShow = true;
         this.bottomMenu.visible = true;
         this.bottomMenuRight.visible = true;
         this.outgameUIProgression.visible = true;
@@ -707,6 +742,10 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
+        if(this.charCustomizationContainer.isOpen){
+            this.charCustomizationContainer.update(delta)
+        }
+
     }
     tryHideModal() {
         this.modalList.forEach(element => {
@@ -738,7 +777,6 @@ export default class CharacterBuildScreen extends Screen {
         } else if (popUpOpen) {
             popUpOpen.hide();
             if (!modalOpen) {
-
                 this.closeCustomization();
                 this.unSelectPlayer();
             }
@@ -757,6 +795,11 @@ export default class CharacterBuildScreen extends Screen {
         super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
     }
     transitionIn() {
+
+        if(this.screenManager.prevScreen == "GameScreen")
+        {
+            this.shopContainer.resetAllButtons();            
+        }
         setTimeout(() => {
             super.transitionIn();
         }, MainScreenManager.Transition.timeIn);

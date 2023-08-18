@@ -12,6 +12,8 @@ import UIList from "../../../ui/uiElements/UIList";
 import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
 import signals from "signals";
+import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
+import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
 
 export default class GameOverView extends GameObject {
     constructor() {
@@ -214,7 +216,12 @@ export default class GameOverView extends GameObject {
 
 
         this.reviveButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            this.onRevivePlayer.dispatch();
+
+            RewardsManager.instance.doReward(() => {
+
+                this.onRevivePlayer.dispatch();
+            }, {}, true)
+
         }, 'Revive', UIUtils.getIconUIIcon('video'))
         this.reviveButton.updateBackTexture('square_button_0004')
 
@@ -232,6 +239,8 @@ export default class GameOverView extends GameObject {
 
     show(win = true, data = {}, hasGameOverToken = true) {
         //win = !win
+
+        RewardsManager.instance.gameplayStop();
         this.endGameData = data;
 
         this.gameOverStarted = false;
@@ -310,7 +319,7 @@ export default class GameOverView extends GameObject {
             RewardsManager.instance.doComercial(() => {
 
                 this.onConfirmGameOver.dispatch();
-            })
+            }, {}, false)
         }, 500);
 
     }
@@ -388,7 +397,7 @@ export default class GameOverView extends GameObject {
             let texture = '';
             switch (element) {
                 case PrizeManager.PrizeType.Coin:
-                    texture = 'coin3l'
+                    texture = 'coin1'
                     break;
                 case PrizeManager.PrizeType.Companion:
                     entityData = EntityBuilder.instance.getCompanion(value.id)
@@ -417,12 +426,12 @@ export default class GameOverView extends GameObject {
                     texture = entityData.entityData.icon
                     break;
                 case PrizeManager.PrizeType.Wearable:
-                    texture = UIUtils.getIconUIIcon(element)
+                    let tex = CharacterCustomizationContainer.instance.getSlotImage(value.value.area, value.value.id)
+                    texture = tex
                     break;
             }
             drawPrizes.push({ texture, entityData, value })
         }
-
         console.log(data, drawPrizes)
         if (this.currentShowingPrizes) {
             this.currentShowingPrizes.forEach(element => {

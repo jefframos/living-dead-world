@@ -45,29 +45,29 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-getValues(0.1, 0.3, null, 'easeOutCubic', 0.8,5)
-getValues(0.025, 0.2, null, 'easeOutCubic', 0.8,5)
-getValues(0.12, 0.35, null, 'easeOutCubic', 0.8,5)
-getValues(0.20, 0.35, null, 'easeOutCubic', 0.8,5)
-getValues(4, 8, null, 'easeOutQuad', 1,5)
-getValues(55, 380, 'floor', 'easeOutQuad', 1,5)
+getValues(0.1, 0.3, null, 'easeOutCubic', 0.8, 5)
+getValues(0.025, 0.2, null, 'easeOutCubic', 0.8, 5)
+getValues(0.12, 0.35, null, 'easeOutCubic', 0.8, 5)
+getValues(0.20, 0.35, null, 'easeOutCubic', 0.8, 5)
+getValues(4, 8, null, 'easeOutQuad', 1, 5)
+getValues(55, 380, 'floor', 'easeOutQuad', 1, 5)
 
 
 //  getValues(10, 250, 'floor', 'easeOutQuad', 0.8,5)
-getValues(50, 120, 'floor', 'easeOutCubic', 1,5, 0.8)
+getValues(50, 120, 'floor', 'easeOutCubic', 1, 5, 0.8)
 
 
-getValues(26, 350, 'floor', 'easeOutQuad', 1,10)
-getValues(15, 300, 'floor', 'easeOutQuad', 1,10)
-getValues(40, 400, 'floor', 'easeOutQuad', 1,10)
-getValues(100, 500, 'floor', 'easeOutQuad', 1,10)
-getValues(35, 280, 'floor', 'easeOutQuad', 1,10)
-getValues(800, 2500, 'floor', 'easeOutQuad', 1,10)
-getValues(22, 280, 'floor', 'easeOutQuad', 1,10)
-getValues(1000, 3000, 'floor', 'easeOutQuad', 1,10)
-getValues(15, 280, 'floor', 'easeOutQuad', 1,10)
-getValues(50, 750, 'floor', 'easeOutQuad', 1,10)
-getValues(55, 900, 'floor', 'easeOutQuad', 1,10)
+getValues(26, 350, 'floor', 'easeOutQuad', 1, 10)
+getValues(15, 300, 'floor', 'easeOutQuad', 1, 10)
+getValues(40, 400, 'floor', 'easeOutQuad', 1, 10)
+getValues(100, 500, 'floor', 'easeOutQuad', 1, 10)
+getValues(35, 280, 'floor', 'easeOutQuad', 1, 10)
+getValues(800, 2500, 'floor', 'easeOutQuad', 1, 10)
+getValues(22, 280, 'floor', 'easeOutQuad', 1, 10)
+getValues(1000, 3000, 'floor', 'easeOutQuad', 1, 10)
+getValues(15, 280, 'floor', 'easeOutQuad', 1, 10)
+getValues(50, 750, 'floor', 'easeOutQuad', 1, 10)
+getValues(55, 900, 'floor', 'easeOutQuad', 1, 10)
 
 // getValues(0.3, 0.18, null, 'easeOutCubic', 1)
 function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0.8, total = 10) {
@@ -131,81 +131,6 @@ window.getCoinSound = function () {
 }
 
 
-// window.GAMEPLAY_STOP = function () {
-//     if (window.noPoki) return;
-//     if (window.GAMEPLAY_IS_STOP) {
-//         return
-//     }
-//     window.GAMEPLAY_IS_STOP = true;
-//     PokiSDK.gameplayStop();
-// }
-// window.GAMEPLAY_START = function (force = false) {
-//     if (window.noPoki) return;
-//     if (!window.GAMEPLAY_IS_STOP && !force) {
-//         return
-//     }
-//     window.GAMEPLAY_IS_STOP = false;
-//     PokiSDK.gameplayStart();
-// }
-// window.DO_COMMERCIAL = function (callback, params) {
-//     if (window.noPoki) return;
-//     window.GAMEPLAY_STOP()
-
-//     if (window.isDebug) {
-//         window.GAMEPLAY_START()
-
-//         if (callback) callback(params)
-//         return
-//     }
-//     window.onAdds.dispatch();
-//     PokiSDK.commercialBreak().then(
-//         () => {
-//             console.log("Commercial break finished, proceeding to game");
-//             window.GAMEPLAY_START()
-//             window.onStopAdds.dispatch();
-
-//             if (callback) callback(params)
-//         }
-//     ).catch(
-//         () => {
-//             console.log("Initialized, but the user likely has adblock");
-//             window.GAMEPLAY_START()
-//             window.onStopAdds.dispatch();
-
-//             if (callback) callback(params)
-//         }
-//     );
-// }
-
-// window.DO_REWARD = function (callback, params) {
-//     if (window.noPoki) return;
-//     window.GAMEPLAY_STOP()
-
-//     if (window.isDebug) {
-//         window.GAMEPLAY_START()
-
-//         if (callback) callback(params)
-//         return
-//     }
-
-//     window.onAdds.dispatch();
-//     PokiSDK.rewardedBreak().then(
-//         (success) => {
-//             if (success) {
-//                 window.onStopAdds.dispatch();
-//                 window.GAMEPLAY_START()
-//                 if (callback) callback(params)
-//             } else {
-//                 window.onStopAdds.dispatch();
-//                 window.GAMEPLAY_START()
-//                 if (callback) callback(params)
-//             }
-//         }
-
-//     )
-// }
-// console.log(spritesheetManifest['default'][0]);
-//startLoader();
 window.game = new Game(config);
 
 Game.MainLoader = new PIXI.Loader();
@@ -222,12 +147,13 @@ if (!window.noPoki) {
             loadManifests();
 
 
+            RewardsManager.instance.hasAdBlock = false;
         }
     ).catch(
         () => {
             loadManifests();
             console.log("Initialized, but the user likely has adblock");
-
+            RewardsManager.instance.hasAdBlock = true;
             // fire your function to continue to game
         }
     );
@@ -364,7 +290,7 @@ function configGame(evt) {
     setTimeout(() => {
         game.resize();
     }, 1);
-    RewardsManager.instance.gameplayStart(true)
+    //RewardsManager.instance.gameplayStart(true)
     window.addEventListener("focus", myFocusFunction, true);
     window.addEventListener("blur", myBlurFunction, true);
 

@@ -7,6 +7,7 @@ import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
+import CharacterCustomizationContainer from '../customization/CharacterCustomizationContainer';
 
 export default class PrizeCollectContainer extends MainScreenModal {
     constructor() {
@@ -15,7 +16,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.addScreenBlocker();
 
-       
+
 
         this.topBlocker = new PIXI.Sprite.from('base-gradient');
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
@@ -36,14 +37,14 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.blackout.alpha = 0.8
         this.addChildAt(this.blackout, 0);
 
-        
+
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.hide()
         }, 'collect')
         this.collectButton.updateBackTexture('square_button_0001')
         this.container.addChild(this.collectButton);
 
-        this.slotSize = 90
+        this.slotSize = 100
 
 
         this.shine = new PIXI.Sprite.from('shine')
@@ -72,8 +73,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
     }
     recenterContainer() {
         this.container.pivot.x = this.container.width / 2
-        this.container.x = Game.Borders.width/ 2
-        
+        this.container.x = Game.Borders.width / 2
+
         this.container.pivot.y = this.container.height / 2
         this.container.y = Game.Borders.height / 2 - 80
 
@@ -130,7 +131,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             switch (element) {
                 case PrizeManager.PrizeType.Coin:
-                    texture = 'coin3l'
+                    texture = 'coin1'
                     break;
                 case PrizeManager.PrizeType.Companion:
                     entityData = EntityBuilder.instance.getCompanion(value.id)
@@ -154,8 +155,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
                     entityData = EntityBuilder.instance.getWeapon(value.id)
                     texture = entityData.entityData.icon
                     break;
-                case PrizeManager.PrizeType.Wearable:                    
-                    texture = UIUtils.getIconUIIcon(element)
+                case PrizeManager.PrizeType.Wearable:
+                    let tex = CharacterCustomizationContainer.instance.getSlotImage(value.value.area, value.value.id)
+                    texture = tex
                     break;
             }
             drawPrizes.push({ texture, entityData, value })
@@ -166,7 +168,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         }
         let col = 0
         let ln = 0
-        const speed = Math.min(1.25, drawPrizes.length*0.2);
+        const speed = Math.min(1.25, drawPrizes.length * 0.2);
         for (var i = 0; i < drawPrizes.length; i++) {
             const element = drawPrizes[i];
 
@@ -178,26 +180,30 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize.hideLevelLabel()
 
             } else {
-
-                prize = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+                let texShape = UIUtils.baseButtonTexture + '_0006'
+                console.log(element.value,element.value == PrizeManager.PrizeType.Wearable)
+                if (element.value.type == PrizeManager.PrizeType.Wearable) {
+                    texShape = UIUtils.baseButtonTexture + '_0009'
+                }
+                prize = new LoadoutCardView(texShape, this.slotSize, this.slotSize);
                 prize.setIcon(element.texture, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
 
-                if ( typeof element.value == 'number' ){
+                if (typeof element.value == 'number') {
 
                     prize.valueLabel.text = element.value
-                }else{
-                    
+                } else {
+
                     //prize.valueLabel.text = element.value.value
                 }
 
-              //  prize = new PIXI.Sprite.from(element.texture)
-               // prize.scale.set(Utils.scaleToFit(prize, 70))
+                //  prize = new PIXI.Sprite.from(element.texture)
+                // prize.scale.set(Utils.scaleToFit(prize, 70))
             }
 
-            prize.x = 100 * col
-            prize.y = 100 * ln
+            prize.x = (this.slotSize + 10) * col
+            prize.y = (this.slotSize + 10) * ln
 
             if (col > 0 && col >= 4) {
                 col = 0

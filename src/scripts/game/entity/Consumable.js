@@ -28,9 +28,16 @@ export default class Consumable extends Collectable {
 
         this.glow = new PIXI.Sprite.from('shine')
         this.glow.anchor.set(0.5)
-        this.glow.alpha = 0.1
+        this.glow.scale.set(1.5)
+        this.glow.alpha = 1
+
         this.gameView.layer = RenderModule.RenderLayers.Gameplay;
+        this.gameView.view.texture = PIXI.Texture.EMPTY;
         this.gameView.view.addChild(this.glow)
+        this.gameView.view.scale.set(1)
+        this.consumableSprite = new PIXI.Sprite.from('shine') 
+        this.gameView.view.addChild(this.consumableSprite)
+        this.consumableSprite.anchor.set(0.5)
 
         console.log("ADD AN EXP PLANT")
     }
@@ -44,15 +51,15 @@ export default class Consumable extends Collectable {
         this.type = value;
         switch (value) {
             case Consumable.Type.Magnet:
-                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('magnet'))
+                this.consumableSprite.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('magnet'))
 
                 break;
             case Consumable.Type.Coin:
-                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('coin-bag'))
+                this.consumableSprite.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('coin-bag'))
 
                 break;
             case Consumable.Type.SingleCoin:
-                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('softCurrency'))
+                this.consumableSprite.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('softCurrency'))
                 size = 15;
 
                 break;
@@ -60,17 +67,17 @@ export default class Consumable extends Collectable {
 
                 break;
             case Consumable.Type.Heal:
-                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('heal'))
+                this.consumableSprite.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('heal'))
 
                 break;
             case Consumable.Type.Bomb:
-                this.gameView.view.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('bomb'))
+                this.consumableSprite.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('bomb'))
 
                 break;
         }
 
         this.glow.y = - size / 2
-        this.gameView.view.scale.set(Utils.scaleToFit(this.gameView.view, size))
+        this.gameView.view.scale.set(Utils.scaleToFit(this.consumableSprite, size))
 
         this.posSin = 0;
     }

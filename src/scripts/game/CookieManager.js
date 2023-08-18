@@ -86,7 +86,8 @@ export default class CookieManager {
 		}
 		this.defaultItemProgression = {
 			version: '0.0.1',
-			discoveredItems: []
+			discoveredItems: [],
+			timedChests: {}
 		}
 		this.defaultGifts = {
 			version: '0.0.1',
@@ -301,6 +302,25 @@ export default class CookieManager {
 	}
 	get loadout() {
 		return this.getChunck('loadout');
+	}
+	get items() {
+		return this.getChunck('items');
+	}
+	lastOpened(id) {
+		if (!this.items.timedChests[id]) {
+			return 999999999;
+		} else {
+			return this.items.timedChests[id];
+		}
+	}
+	openChest(id) {
+		const currentDate = new Date();
+		const timestamp = currentDate.getTime();
+
+		const data = this.getChunck('items')
+
+		data.timedChests[id] = timestamp;
+		this.saveChunk('items', data)
 	}
 	addSoftCurrency(value) {
 		const data = this.getChunck('resources')

@@ -41,7 +41,7 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Weapon,
         })
         this.prizeList.push({
-            icon: 'pet-dog-10001',
+            icon: 'pet-icon',
             type: PrizeManager.PrizeType.Companion
         })
         this.prizeList.push({
@@ -53,7 +53,7 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Trinket
         })
         this.prizeList.push({
-            icon: 'coin3l',
+            icon: 'money-bag',
             type: PrizeManager.PrizeType.Coin,
         })
         this.prizeList.push({
@@ -72,7 +72,7 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Weapon,
         })
         this.cassinoList.push({
-            icon: 'pet-dog-10001',
+            icon: 'pet-icon',
             type: PrizeManager.PrizeType.Companion
         })
         this.cassinoList.push({
@@ -84,7 +84,7 @@ export default class PrizeManager {
             type: PrizeManager.PrizeType.Trinket
         })
         this.cassinoList.push({
-            icon: 'coin3l',
+            icon: 'money-bag',
             type: PrizeManager.PrizeType.Coin,
         })
 

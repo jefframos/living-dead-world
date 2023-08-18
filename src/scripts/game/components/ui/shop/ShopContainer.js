@@ -10,6 +10,7 @@ import ShopCard from './ShopCard';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import ViewDatabase from '../../../data/ViewDatabase';
+import TimedAction from '../../../data/TimedAction';
 
 export default class ShopContainer extends MainScreenModal {
     constructor() {
@@ -85,13 +86,38 @@ export default class ShopContainer extends MainScreenModal {
         this.titleBox.height = 80
 
         this.titleBox.y = -60
-
         this.titleLabel = UIUtils.getSecondaryLabel('Shop', { fontSize: 48 })
         this.titleLabel.anchor.set(0.5)
         this.titleLabel.x = this.titleBox.width / 2
         this.titleLabel.y = this.titleBox.height / 2
         this.titleBox.addChild(this.titleLabel)
 
+
+        this.timedButtons = [];
+        this.topShop1Timed = new TimedAction("SHOP_1", 300, this.chest1.videoButton.priceLabel, 'FREE')
+        this.topShop2Timed = new TimedAction("SHOP_2", 300, this.chestMid1.videoButton.priceLabel, 'FREE')
+
+        this.timedButtons.push(this.topShop1Timed)
+        this.timedButtons.push(this.topShop2Timed)
+
+    }
+    update(delta){
+
+        this.date = new Date();
+        this.timedButtons.forEach(element => {
+            element.updateTime(this.date.getTime())
+        });
+    }
+    resetAllButtons(){
+        this.topButtons.forEach(element => {
+            element.restore()
+        });
+        this.midButtons.forEach(element => {
+            element.restore()
+        });
+        this.bottomButtons.forEach(element => {
+            element.restore()
+        });
     }
     getCurrency(value) {
         if (value == 1) {
@@ -140,7 +166,11 @@ export default class ShopContainer extends MainScreenModal {
         }
     }
     chest1VideoClick() {
+        if(!this.topShop1Timed.canUse){
+            return;
+        }
         RewardsManager.instance.doReward(() => {
+            GameData.instance.openChest(this.topShop1Timed.id)
             this.chest1Click(true);
         })
     }
@@ -174,8 +204,11 @@ export default class ShopContainer extends MainScreenModal {
         }
     }
     chestMid1VideoClick() {
-
+        if(!this.topShop2Timed.canUse){
+            return;
+        }
         RewardsManager.instance.doReward(() => {
+            GameData.instance.openChest(this.topShop2Timed.id)
             this.chestMid1Click(true);
         })
     }

@@ -7,8 +7,19 @@ import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import ViewDatabase from '../../../data/ViewDatabase';
+import RewardsManager from '../../../data/RewardsManager';
+import PrizeManager from '../../../data/PrizeManager';
+import GameData from '../../../data/GameData';
+import TimedAction from '../../../data/TimedAction';
 
 export default class CharacterCustomizationContainer extends PIXI.Container {
+    static _instance;
+    static get instance() {
+        if (!CharacterCustomizationContainer._instance) {
+            CharacterCustomizationContainer._instance = new CharacterCustomizationContainer();
+        }
+        return CharacterCustomizationContainer._instance;
+    }
     constructor(typeList = 'visuals') {
         super();
 
@@ -72,7 +83,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             { typeList: 'visuals', label: 'Eyes', param: 'eyes', colorParam: null, area: "eyes", anchor: { x: 0.57, y: 0.43 }, mainIconId: '01', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 19], src: ["eyes-00{frame}", 'head-0001'], animated: false },
             { typeList: 'visuals', label: 'Ears', param: 'ears', colorParam: null, area: "ears", anchor: { x: 0.30, y: 0.48 }, mainIconId: '03', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 5], src: ["ear-00{frame}", 'head-0001'], animated: false },
             { typeList: 'visuals', label: 'Mouth', param: 'mouth', colorParam: null, area: "mouth", anchor: { x: 0.57, y: 0.52 }, mainIconId: '11', pivot: { x: 65, y: 90 }, iconSize: 150, range: [1, 20], src: ["mouth-00{frame}", 'head-0001'], animated: false },
-            { typeList: 'visuals', label: 'Face', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: UIUtils.colorset.hair },
+            { typeList: 'visuals', label: 'Beard', param: 'frontFace', colorParam: 'faceHairColor', area: "frontFace", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 9], src: ["front-face-00{frame}", 'head-0001'], animated: false, colorset: UIUtils.colorset.hair },
             //{ typeList: 'equip', label: 'Mask', param: 'mask', colorParam: null, area: "mask", anchor: { x: 0.57, y: 0.5 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 4], src: ["mask-00{frame}", 'head-0001'], animated: false },
             { typeList: 'equip', label: 'Trinket', param: 'trinket', colorParam: null, area: "trinket", anchor: { x: 0.48, y: 0.55 }, pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 2], src: "trinket-00{frame}", animated: false },
             { typeList: 'visuals', label: 'Hair', param: 'topHead', colorParam: 'hairColor', area: "hair", subs: ["topHead", "backHead"], pivot: { x: 65, y: 90 }, mainIconId: '01', iconSize: 150, range: [0, 28], src: ["top-head-00{frame}", 'head-0001', "back-head-00{frame}"], animated: false, colorset: UIUtils.colorset.hair },
@@ -145,9 +156,31 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.sectionList.updateVerticalList();
         this.sectionListName.updateVerticalList();
 
+        this.randomCustomization = UIUtils.getPrimaryShapelessButton(() => {
+            if (this.openClothesChestTimed.canUse) {
+
+                RewardsManager.instance.doReward(() => {
+                    GameData.instance.openChest(this.openClothesChestTimed.id)
+                    PrizeManager.instance.getMetaPrize([6], 1, 1);
+                })
+            }
+
+        }, 'RANDOM', UIUtils.getIconUIIcon('shop'))
+
+        this.openClothesChestTimed = new TimedAction("FREE_CLOTHES", 300, this.randomCustomization.text, "FREE")
+
+        this.container.addChild(this.randomCustomization)
+
+
     }
     get isOpen() {
         return this.container.visible;
+    }
+    update(delta) {
+        this.date = new Date();
+        this.openClothesChestTimed.updateTime(this.date.getTime())
+
+        //console.log(Utils.floatToTime(Math.round((this.date.getTime() - GameData.instance.lastOpened(this.randomCustomization.openId)) / 1000)))
     }
     show() {
         this.container.visible = true;
@@ -155,16 +188,20 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         TweenLite.killTweensOf(this.container)
         TweenLite.to(this.container, 0.25, { alpha: 1 })
 
-      this.updateWarningButtons();
+        this.updateWarningButtons();
+
+        if (!ViewDatabase.instance.canGetPiece()) {
+            this.randomCustomization.visible = false;
+        }
     }
-    updateWarningButtons(){
+    updateWarningButtons() {
         const current = ViewDatabase.instance.getNewWearablesList()
 
         this.allButtons.forEach(element => {
-            if(current.filter(e => e.area === element.area).length > 0 ){
+            if (current.filter(e => e.area === element.area).length > 0) {
                 element.warningIcon.visible = true;
 
-            }else{
+            } else {
                 element.warningIcon.visible = false;
             }
         });
@@ -323,15 +360,15 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.currentShowingColors = []
 
         this.piecesScroller.setTitle(this.currentRegion.label)
-        if(ViewDatabase.instance.getAreaWardrobe(this.currentRegion.area)){
+        if (ViewDatabase.instance.getAreaWardrobe(this.currentRegion.area)) {
 
             console.log(ViewDatabase.instance.getAreaWardrobe(this.currentRegion.area).length)
         }
 
         const currentNewWearables = ViewDatabase.instance.getNewWearablesList()
         let newSectionWearablesList = currentNewWearables.filter(e => e.area === region.area)
-        
-        if(newSectionWearablesList && newSectionWearablesList.length){
+
+        if (newSectionWearablesList && newSectionWearablesList.length) {
             newSectionWearablesList = newSectionWearablesList[0].content
         }
 
@@ -365,7 +402,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 slot.warningIcon.visible = newSectionWearablesList.includes(index);
 
                 if (index <= 0) {
-                    slot.addIcon('icon_close', 50)
+                    slot.addIcon(PIXI.Texture.from(UIUtils.getIconUIIcon('close')), 50)
                     this.currentShowingItems.push(slot)
                     slot.warningIcon.visible = false;
 
@@ -399,6 +436,46 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
 
         this.findCurrentEquipped()
     }
+    getSlotImage(area, rawFrame) {
+        let region = null;
+        this.areas.forEach(element => {
+            if (element.area == area) {
+                region = element
+            }
+        });
+        //console.log(area,region)
+        if (!region) {
+            return UIUtils.getIconUIIcon('customization');
+        }
+
+        const frame = (region.animated ? rawFrame : Utils.formatNumber(rawFrame, 1))
+
+        let image = null;
+        if (!Array.isArray(region.src)) {
+            const src = region.src.replace('{frame}', frame)
+            image = new PIXI.Sprite.from(src)
+            if(region.anchor){
+                image.anchor = region.anchor
+            }
+            if(region.iconSize){
+                image.scale.set(Utils.scaleToFit(image, region.iconSize));
+            }
+        } else {
+            const iconContainer = new PIXI.Container();
+            region.src.forEach(srcSub => {
+                const src = srcSub.replace('{frame}', frame) + (region.animated ? "01" : "")
+
+                const sprite = new PIXI.Sprite.from(src);
+                iconContainer.addChildAt(sprite, 0)
+            });
+            image = iconContainer;
+            image.scale.set(Utils.scaleToFit(image, region.iconSize));
+        }
+        if(region.pivot){
+            image.pivot = region.pivot
+        }
+        return image
+    }
     resize(res, newRes) {
         this.sectionList.x = 20;
 
@@ -408,17 +485,21 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
             this.piecesScroller.x = Game.Borders.width / 2 - this.piecesScroller.rect.w / 2 + 80
             this.piecesScroller.y = Game.Borders.height - (this.piecesScroller.rect.h * this.piecesScroller.scale.y) - 20
             this.sectionList.y = Game.Borders.height - this.sectionList.h * this.sectionList.scale.y - 20
-
+            this.randomCustomization.x = this.piecesScroller.x - 10
+            this.randomCustomization.y = this.piecesScroller.y - this.randomCustomization.height - 50
 
         } else {
             this.rebuildLandscapeScroller()
-            this.colorContainerHairScroller.scale.set(Math.min(1,Game.Borders.width / this.colorContainerHairScroller.w / 2));
+            this.colorContainerHairScroller.scale.set(Math.min(1, Game.Borders.width / this.colorContainerHairScroller.w / 2));
             this.piecesScroller.x = Game.Borders.width - this.piecesScroller.rect.w - 20
             this.piecesScroller.y = Game.Borders.height - (this.piecesScroller.rect.h * this.piecesScroller.scale.y) - 20
             this.sectionList.y = Game.Borders.height - this.sectionList.h * this.sectionList.scale.y - 20
             this.colorContainerHairScroller.y = Game.Borders.height - (this.colorContainerHairScroller.h * this.colorContainerHairScroller.scale.y) - 20
             let middle = Game.Borders.width - this.piecesScroller.rect.w - (this.colorContainerHairScroller.w * this.colorContainerHairScroller.scale.x) - 40
             this.colorContainerHairScroller.x = Math.min(middle, Game.Borders.width / 2 - this.colorContainerHairScroller.w / 2)
+
+            this.randomCustomization.x = this.piecesScroller.x - this.randomCustomization.width
+            this.randomCustomization.y = this.piecesScroller.y - this.randomCustomization.height / 2 - 15
 
         }
 
@@ -430,6 +511,8 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         this.topBlocker.width = Game.Borders.width
         this.topBlocker.height = Game.Borders.height / 2
         this.topBlocker.y = Game.Borders.height / 2
+
+
 
     }
     rebuildPortraitScrollers() {

@@ -14,6 +14,7 @@ export default class RewardsManager {
         this.gameplayIsStopped = true;
         this.onAdds = new signals.Signal();
         this.onStopAdds = new signals.Signal();
+        this.onAddBlock = new signals.Signal();
     }
 
     gameplayStop() {
@@ -21,7 +22,7 @@ export default class RewardsManager {
         if (this.gameplayIsStopped) {
             return
         }
-        
+
         this.gameplayIsStopped = true;
         PokiSDK.gameplayStop();
     }
@@ -33,7 +34,7 @@ export default class RewardsManager {
         this.gameplayIsStopped = false;
         PokiSDK.gameplayStart();
     }
-    doComercial(callback, params) {
+    doComercial(callback, params, toGameplayStart) {
         if (this.noPoki) {
             if (callback) callback(params)
             return;
@@ -50,7 +51,9 @@ export default class RewardsManager {
         PokiSDK.commercialBreak().then(
             () => {
                 console.log("Commercial break finished, proceeding to game");
-                this.gameplayStart()
+                if (toGameplayStart) {
+                    this.gameplayStart()
+                }
                 this.onStopAdds.dispatch();
 
                 if (callback) callback(params)
@@ -58,7 +61,9 @@ export default class RewardsManager {
         ).catch(
             () => {
                 console.log("Initialized, but the user likely has adblock");
-                this.gameplayStart()
+                if (toGameplayStart) {
+                    this.gameplayStart()
+                }
                 this.onStopAdds.dispatch();
 
                 if (callback) callback(params)
@@ -66,7 +71,7 @@ export default class RewardsManager {
         );
     }
 
-    doReward(callback, params) {
+    doReward(callback, params, toGameplayStart) {
         if (this.noPoki) {
             if (callback) callback(params)
             return;
@@ -85,15 +90,29 @@ export default class RewardsManager {
             (success) => {
                 if (success) {
                     this.onStopAdds.dispatch();
-                    this.gameplayStart()
+                    if (toGameplayStart) {
+                        this.gameplayStart()
+                    }
                     if (callback) callback(params)
                 } else {
                     this.onStopAdds.dispatch();
-                    this.gameplayStart()
-                    if (callback) callback(params)
+                    if (toGameplayStart) {
+                        this.gameplayStart()
+                    }
+                    this.onAddBlock.dispatch();
                 }
             }
 
-        )
+        ).catch(
+            (error) => {
+                console.log("REWARD CATCH", error)
+                this.onStopAdds.dispatch();
+                if (toGameplayStart) {
+                    this.gameplayStart()
+                }
+                this.onAddBlock.dispatch();
+                //if (callback) callback(params)
+            }
+        );
     }
 }

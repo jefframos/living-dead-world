@@ -155,4 +155,11 @@ export default class GameData {
 
         return addAttributes;
     }
+    lastOpened(id) {
+		return CookieManager.instance.lastOpened(id)
+	}
+	openChest(id) {
+        console.log(id)
+		CookieManager.instance.openChest(id)
+	}
 }
