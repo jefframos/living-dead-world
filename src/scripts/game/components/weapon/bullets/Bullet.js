@@ -111,7 +111,7 @@ export default class Bullet extends PhysicsEntity {
         }
         this.piercing += this.weapon.weaponAttributes.piercing;
 
-        console.log(this.piercing)
+        //console.log(this.piercing)
 
         this.power = Math.round(this.power)
         this.usesTime = this.weapon.weaponAttributes.lifeRangeSpan <= 0;

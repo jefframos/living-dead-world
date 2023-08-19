@@ -27,9 +27,9 @@ export default class UIUtils {
         return new PIXI.Graphics().beginFill(color).drawRect(0, 0, width, height)
     }
     static getCloseButton(callback) {
-        const button = new BaseButton(UIUtils.baseBorderButtonTexture + '_0004', 100, 100);
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0011', 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
-        button.addIcon(UIUtils.getIconUIIcon('close'), 40)
+        button.addIcon(UIUtils.getIconUIIcon('close'), 70)
 
         button.scale.set(Utils.scaleToFit(button, 60))
         return button;
@@ -242,7 +242,7 @@ export default class UIUtils {
         button.labelButtonValue = UIUtils.getPrimaryLabel('free')
         button.currencyButtonIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
 
-        buttonList.addElement(button.labelButtonValue, { align: 1, listScl: 0.5, fitHeight: 0.7 })
+        buttonList.addElement(button.labelButtonValue, { align: 0.8, listScl: 0.5, fitHeight: 0.7 })
         buttonList.addElement(button.currencyButtonIcon, { align: 0.2, listScl: 0.5, fitHeight: 0.7 })
 
         button.addChild(buttonList)
@@ -269,8 +269,8 @@ export default class UIUtils {
 
         const priceLabel = UIUtils.getPrimaryLabel('free')
         button.priceLabel = priceLabel;
-        buttonList.addElement(priceLabel, { align: 0, scaleContentMax: true, fitWidth: 0.9 })
-        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 1, scaleContentMax: true, fitWidth: 0.8, listScl:0.4 })
+        buttonList.addElement(priceLabel, { align: 0.8, scaleContentMax: true, fitHeight: 0.8 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitHeight: 0.7, listScl:0.4 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;

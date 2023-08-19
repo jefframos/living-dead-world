@@ -161,6 +161,7 @@ export default class ListScroller extends PIXI.Container {
 
         if (axis == 'y') {
 
+            console.log("HERE 2", target , maxH , this.containerBackground.height)
             if (target > 0) {
                 TweenLite.to(this.listContainer, 0.75, {
                     y: 0,

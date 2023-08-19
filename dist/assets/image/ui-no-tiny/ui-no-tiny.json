@@ -58,7 +58,7 @@
 },
 "border-buttons/square_button_border_0008.png":
 {
-	"frame": {"x":1027,"y":218,"w":93,"h":92},
+	"frame": {"x":928,"y":357,"w":93,"h":92},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":3,"y":4,"w":93,"h":92},
@@ -130,7 +130,7 @@
 },
 "buttons/square_button_0008.png":
 {
-	"frame": {"x":1007,"y":857,"w":78,"h":77},
+	"frame": {"x":993,"y":904,"w":78,"h":77},
 	"rotated": false,
 	"trimmed": true,
 	"spriteSourceSize": {"x":1,"y":2,"w":78,"h":77},
@@ -138,7 +138,7 @@
 },
 "buttons/square_button_0009.png":
 {
-	"frame": {"x":1028,"y":316,"w":80,"h":80},
+	"frame": {"x":1022,"y":818,"w":80,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
@@ -146,7 +146,15 @@
 },
 "buttons/square_button_0010.png":
 {
-	"frame": {"x":921,"y":857,"w":80,"h":80},
+	"frame": {"x":821,"y":846,"w":80,"h":80},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
+	"sourceSize": {"w":80,"h":80}
+},
+"buttons/square_button_0011.png":
+{
+	"frame": {"x":907,"y":855,"w":80,"h":80},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":80,"h":80},
@@ -218,7 +226,7 @@
 },
 "modal/modal_container0001.png":
 {
-	"frame": {"x":928,"y":357,"w":94,"h":94},
+	"frame": {"x":926,"y":455,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -226,7 +234,7 @@
 },
 "modal/modal_container0002.png":
 {
-	"frame": {"x":926,"y":457,"w":94,"h":94},
+	"frame": {"x":926,"y":555,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -234,7 +242,7 @@
 },
 "modal/modal_container0003.png":
 {
-	"frame": {"x":1026,"y":457,"w":94,"h":94},
+	"frame": {"x":926,"y":655,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -242,7 +250,7 @@
 },
 "modal/modal_container0004.png":
 {
-	"frame": {"x":926,"y":557,"w":94,"h":94},
+	"frame": {"x":922,"y":755,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -250,7 +258,7 @@
 },
 "modal/modal_container0005.png":
 {
-	"frame": {"x":1026,"y":557,"w":94,"h":94},
+	"frame": {"x":1027,"y":218,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -258,7 +266,7 @@
 },
 "modal/modal_container0006.png":
 {
-	"frame": {"x":926,"y":657,"w":94,"h":94},
+	"frame": {"x":1027,"y":318,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -266,7 +274,7 @@
 },
 "modal/modal_container0007.png":
 {
-	"frame": {"x":1026,"y":657,"w":94,"h":94},
+	"frame": {"x":1027,"y":418,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -274,7 +282,7 @@
 },
 "modal/modal_container0008.png":
 {
-	"frame": {"x":922,"y":757,"w":94,"h":94},
+	"frame": {"x":1026,"y":518,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -282,7 +290,7 @@
 },
 "modal/modal_container0009.png":
 {
-	"frame": {"x":1022,"y":757,"w":94,"h":94},
+	"frame": {"x":1026,"y":618,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -290,7 +298,7 @@
 },
 "modal/modal_container0010.png":
 {
-	"frame": {"x":821,"y":846,"w":94,"h":94},
+	"frame": {"x":1026,"y":718,"w":94,"h":94},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":94},
@@ -338,7 +346,7 @@
 }},
 "animations": {
 	"border-buttons/square_button_border": ["border-buttons/square_button_border_0001.png","border-buttons/square_button_border_0002.png","border-buttons/square_button_border_0003.png","border-buttons/square_button_border_0004.png","border-buttons/square_button_border_0005.png","border-buttons/square_button_border_0006.png","border-buttons/square_button_border_0007.png","border-buttons/square_button_border_0008.png","border-buttons/square_button_border_0009.png"],
-	"buttons/square_button": ["buttons/square_button_0001.png","buttons/square_button_0002.png","buttons/square_button_0003.png","buttons/square_button_0004.png","buttons/square_button_0005.png","buttons/square_button_0006.png","buttons/square_button_0007.png","buttons/square_button_0008.png","buttons/square_button_0009.png","buttons/square_button_0010.png"],
+	"buttons/square_button": ["buttons/square_button_0001.png","buttons/square_button_0002.png","buttons/square_button_0003.png","buttons/square_button_0004.png","buttons/square_button_0005.png","buttons/square_button_0006.png","buttons/square_button_0007.png","buttons/square_button_0008.png","buttons/square_button_0009.png","buttons/square_button_0010.png","buttons/square_button_0011.png"],
 	"cards/ingame-card": ["cards/ingame-card0001.png","cards/ingame-card0002.png","cards/ingame-card0003.png","cards/ingame-card0004.png","cards/ingame-card0005.png","cards/ingame-card0006.png"],
 	"modal/modal_container": ["modal/modal_container0001.png","modal/modal_container0002.png","modal/modal_container0003.png","modal/modal_container0004.png","modal/modal_container0005.png","modal/modal_container0006.png","modal/modal_container0007.png","modal/modal_container0008.png","modal/modal_container0009.png","modal/modal_container0010.png"],
 	"tab/tab_button": ["tab/tab_button_0001.png","tab/tab_button_0002.png","tab/tab_button_0003.png","tab/tab_button_0004.png"]
@@ -348,8 +356,8 @@
 	"version": "1.1",
 	"image": "ui-no-tiny.png",
 	"format": "RGBA8888",
-	"size": {"w":1125,"h":1009},
+	"size": {"w":1126,"h":1009},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:db77fbd30c1715dd92c2859c1dfb339d:707b855c104c5399c52bd93f2fcf4bc1:283778344c759f5e2b0541873028f299$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d211ecb2217669bd675645777a92906e:f1b4b952035653cc42d3cc4865419451:283778344c759f5e2b0541873028f299$"
 }
 }

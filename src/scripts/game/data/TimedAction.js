@@ -10,6 +10,7 @@ export default class TimedAction {
         this.id = id;
         this.textField = textField;
         this.readyLabel = readyLabel;
+        this.textField.text = this.readyLabel
     }
     get canUse() {
         return this.currentTime <= 0;

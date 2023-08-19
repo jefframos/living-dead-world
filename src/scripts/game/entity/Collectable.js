@@ -60,7 +60,8 @@ export default class Collectable extends GameObject {
         this.gameView.view.texture = PIXI.Texture.from("pickup"+pickup+"000" + Math.ceil(Math.random() * 5))
     }
     collectCallback() {
-        this.player.sessionData.addXp(this.xp)
+        //console.log(this.player.attributes.xpMultiplier)
+        this.player.sessionData.addXp(this.xp * this.player.attributes.xpMultiplier)
 
     }
 }

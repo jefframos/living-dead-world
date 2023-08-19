@@ -69,10 +69,12 @@ export default class PlayerSessionData {
         this.xpData.xp = nextXp;
 
         let range = this.levelBreaks[this.xpData.currentLevel + 1] - this.levelBreaks[this.xpData.currentLevel]
-        let diffFrom = this.levelBreaks[this.xpData.currentLevel] ? nextXp % this.levelBreaks[this.xpData.currentLevel] : nextXp
+        let diffFrom = this.levelBreaks[this.xpData.currentLevel] ? nextXp % this.levelBreaks[this.xpData.currentLevel] - 1 : nextXp
         this.xpData.untilNext = range - diffFrom;
-        this.xpData.normalUntilNext = 1 - this.xpData.untilNext / range;
+        //this.xpData.normalUntilNext = 1 - this.xpData.untilNext / range;
 
+        this.xpData.normalUntilNext = (this.xpData.xp - this.xpData.currentLevelXP) / this.xpData.levelsXpDiff
+        
         if (willLevelUp) {
             this.onLevelUp.dispatch(this.xpData);
         }

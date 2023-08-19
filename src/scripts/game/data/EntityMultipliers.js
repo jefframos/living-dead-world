@@ -16,7 +16,8 @@ export default class EntityMultipliers {
         this.baseEvasion = 1;
         this.baseCritical = 1;
         this.baseTotalMain = 1;
-        this.baseItemHeal = 0.1;
+        this.baseItemHeal = 0.3;
+        this.baseXpMultiplier = 1;
         this.level = 0;
         this.writeDefaults();
     }
@@ -58,6 +59,9 @@ export default class EntityMultipliers {
             return attribute[level]
         }
         return attribute
+    }
+    get xpMultiplier() {
+        return this.findAttributeValue('baseXpMultiplier');
     }
     get itemHeal() {
         return this.findAttributeValue('baseItemHeal');

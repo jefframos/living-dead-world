@@ -101,9 +101,11 @@ export default class PrizeManager {
         amount++
         const coinValue = Math.round((30 + Math.random() * (30)) * (amount * amount * amount))
         GameData.instance.addSoftCurrency(coinValue)
-
-        
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [coinValue] })
+    }
+    customPrize(prizeData){
+        GameData.instance.addToInventory(prizeData.type, prizeData)
+        this.onGetMetaPrize.dispatch({ type: [prizeData.type], value: [prizeData] })
     }
     getWearable() {
         const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
@@ -219,6 +221,48 @@ export default class PrizeManager {
 
         const equipPrize = allEquip[Math.floor(Math.random() * allEquip.length)]
         const itemPrize = { id: equipPrize.id, level: Math.floor(maxLevel * Math.random()), type }
+        return itemPrize;
+    }
+
+    getItemPrizeShop(type, rando, maxLevel) {
+        let allEquip = [];
+
+        switch (type) {
+            case PrizeManager.PrizeType.Coin:
+                return { type: PrizeManager.PrizeType.Coin, value: Math.round((150 + Math.random() * 5) * ((maxLevel + 1) * maxLevel)) }
+
+            case PrizeManager.PrizeType.Key:
+                if (maxLevel == 2) {
+                    return { type: PrizeManager.PrizeType.Key, value: 1 }
+                } else {
+                    return { type: PrizeManager.PrizeType.MasterKey, value: 1 }
+                }
+                return;
+            case PrizeManager.PrizeType.Shoe:
+                allEquip = EntityBuilder.instance.getAllShoes();
+                break;
+
+            case PrizeManager.PrizeType.Companion:
+                allEquip = EntityBuilder.instance.getAllCompanion();
+                break;
+
+            case PrizeManager.PrizeType.Trinket:
+                allEquip = EntityBuilder.instance.getAllTrinket();
+                break;
+
+            case PrizeManager.PrizeType.Weapon:
+                allEquip = EntityBuilder.instance.getAllStarterWeapon();
+                break;
+            case PrizeManager.PrizeType.Wearable:
+                const wearable = ViewDatabase.instance.findAvailablePiece();
+                if (wearable.area) {
+                    return { type: PrizeManager.PrizeType.Wearable, value: wearable }
+                }
+                break;
+        }
+
+        const equipPrize = allEquip[Math.floor(rando * allEquip.length)]
+        const itemPrize = { id: equipPrize.id, level: Math.floor(maxLevel * rando), type }
         return itemPrize;
     }
 }

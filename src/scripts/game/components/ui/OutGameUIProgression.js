@@ -36,25 +36,25 @@ export default class OutGameUIProgression extends PIXI.Container {
         this.container.addChild(this.uiList)
 
         this.coinSprite = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
-        this.uiList.addElement(this.coinSprite, { listScl: 0.1, fitHeight: 1.2, align: 1 })
+        this.uiList.addElement(this.coinSprite, { listScl: 0.2, fitHeight: 1.2, align: 1 })
 
         this.moneyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
         this.moneyLabel.text = 9000
         this.uiList.addElement(this.moneyLabel, { listScl: 0.3, align: 0.2 })
 
         this.keySprite = new PIXI.Sprite.from(UIUtils.getIconUIIcon('hardCurrency'))
-        this.uiList.addElement(this.keySprite, { listScl: 0.1, fitHeight: 1.2, align: 1 })
+        this.uiList.addElement(this.keySprite, { listScl: 0.2, fitHeight: 1.2, align: 1 })
 
         this.hardCurrencyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
         this.hardCurrencyLabel.text = 2
-        this.uiList.addElement(this.hardCurrencyLabel, { listScl: 0.2, align: 0.2 })
+        this.uiList.addElement(this.hardCurrencyLabel, { listScl: 0.3, align: 0.2 })
 
         this.tokenSprite = new PIXI.Sprite.from(UIUtils.getIconUIIcon('specialCurrency'))
-        this.uiList.addElement(this.tokenSprite, { listScl: 0.1, fitHeight: 1.2, align: 1 })
+        //this.uiList.addElement(this.tokenSprite, { listScl: 0.1, fitHeight: 1.2, align: 1 })
 
         this.specialCurrencyLabel = UIUtils.getPrimaryLabel('0', { fill: 0xFFFFFF, strokeThickness: 1, fontSize: 20 });
         this.specialCurrencyLabel.text = 2
-        this.uiList.addElement(this.specialCurrencyLabel, { listScl: 0.2, align: 0.2 })
+        //this.uiList.addElement(this.specialCurrencyLabel, { listScl: 0.2, align: 0.2 })
 
 
         GameData.instance.onUpdateCurrency.add((res) => {

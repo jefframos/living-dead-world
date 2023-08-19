@@ -154,30 +154,60 @@ export default class LevelManager {
         const levelData = GameStaticData.instance.getWaves()[0]
         this.currentLevelWaves = levelData.waves;
 
-        console.log(levelData)
+        //console.log(levelData)
         this.timeLimit = levelData.lenght;
         //alert(this.timeLimit)
 
         this.levelStructure = { phases: [] }
+        this.textTriggers = { phases: [], currentTrigger: 0 }
         this.currentLevelWaves.forEach(element => {
-            this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
+            if (element.textTrigger) {
+                this.textTriggers.phases.push({
+                    startAt: element.startAt,
+                    text: element.textTrigger,
+                    time: element.time,
+                })
+            } else {
+                this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
+
+                if(element.alert){
+                    this.textTriggers.phases.push({
+                        startAt: element.startAt - 7,
+                        text: "Enemy Horde Incoming",
+                        time: 5,
+                    })
+                }
+            }
         });
+
+
+        this.textTriggers.phases.sort((a, b) => {
+            if (a.startAt < b.startAt) {
+              return -1;
+            }
+            if (a.startAt > b.startAt) {
+              return 1;
+            }
+            return 0;
+          });
+
+         // console.log(this.textTriggers)
 
         this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
         this.player.setPositionXZ(0, 0)
 
-        this.gameSessionController.setLabelInfo('')
-
+        
         this.gameOverOverlay = this.addEntity(GameOverView);
         this.gameOverOverlay.setActive(false)
         this.gameOverOverlay.onConfirmGameOver.add(() => {
             this.confirmGameOver();
         })
-
+        
         this.gameOverOverlay.onRevivePlayer.add(() => {
             this.revivePlayer();
         })
-
+        
+        this.gameSessionController.setLabelInfo('')
         this.gameSessionController.setLabelInfo('Survive for ' + Utils.floatToTime(this.timeLimit), 10)
 
 
@@ -391,8 +421,12 @@ export default class LevelManager {
         let collectable = this.addEntity(Collectable);
 
         if (health.gameObject && health.gameObject.staticData && health.gameObject.staticData.entityData) {
-            //console.log(health.gameObject.staticData.entityData.tier)
-            collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier);
+            
+            let added = 0;
+            if(health.gameObject.attributes){
+                added = Math.floor(health.gameObject.attributes.level / 3)
+            }
+            collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier + added);
             //////////MORE XP HERE console.log(collectable.xp)
             collectable.setCollectableTexture();
         }
@@ -493,7 +527,13 @@ export default class LevelManager {
             return;
         }
 
-
+        if (this.textTriggers.currentTrigger >= 0 && this.textTriggers.currentTrigger < this.textTriggers.phases.length) {
+            const textTriggerData = this.textTriggers.phases[this.textTriggers.currentTrigger]
+            if (textTriggerData.startAt <= this.gameplayTime) {
+                this.gameSessionController.setLabelInfo(textTriggerData.text, textTriggerData.time)
+                this.textTriggers.currentTrigger++
+            }
+        }
         this.itemPools.forEach(element => {
             element.currentSpawnTime += delta;
             if (element.currentSpawnTime >= element.spawnTime) {

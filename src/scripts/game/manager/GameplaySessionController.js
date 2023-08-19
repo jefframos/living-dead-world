@@ -80,26 +80,12 @@ export default class GameplaySessionController extends GameObject {
         }
 
 
-        this.levelInfoContainer = new PIXI.Container();
-        this.gameView.view.addChild(this.levelInfoContainer)
-
-        this.infoLevelLabel = UIUtils.getSpecialLabel2('labelHere', { fontSize: 36 });
-        this.infoLevelLabel.anchor.set(0.5)
-        this.infoLevelLabel.scale.set(0.5)
-        this.infoLevelLabel.y = 50
-        this.levelInfoContainer.addChild(this.infoLevelLabel)
-        //this.setBuildingMode();
-        //this.toggleDeck();
+       
     }
     setLabelInfo(label, toHide = 0) {
-        this.infoLevelLabel.alpha = 1;
-        this.infoLevelLabel.text = label;
 
-
-        TweenLite.killTweensOf(this.infoLevelLabel)
-        if (toHide) {
-            TweenLite.to(this.infoLevelLabel, 1, { delay: toHide, alpha: 0 })
-        }
+        this.playerInventoryHud.setLabelInfo(label, toHide)
+        
 
     }
     playerReady() {

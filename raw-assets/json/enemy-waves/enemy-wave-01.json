@@ -1,5 +1,10 @@
 [
     {
+        "ignore":{
+            "startAt": 350,
+            "textTrigger": "Enemy Horde Incoming",
+            "time":10
+        },
         "lenght": 480,
         "waves": [
             {
@@ -31,7 +36,7 @@
                         ]
                     }
                 ]
-            },
+            },            
             {
                 "startAt": 60,
                 "duration": 60,
@@ -92,9 +97,11 @@
                     }
                 ]
             },
+            
             {
                 "startAt": 180,
                 "duration": 60,
+                "alert":true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -141,10 +148,11 @@
                         ]
                     }
                 ]
-            },
+            },            
             {
                 "startAt": 300,
                 "duration": 30,
+                "alert":true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -167,14 +175,16 @@
                         "maxActive": 50,
                         "entity": "SPIDER_BRAIN_02",
                         "levels": [
-                            3,4
+                            3,
+                            4
                         ]
                     }
                 ]
-            },
+            },           
             {
                 "startAt": 360,
                 "duration": 600,
+                "alert":true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -219,6 +229,7 @@
             {
                 "startAt": 420,
                 "duration": 60,
+                "alert":true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -244,6 +255,17 @@
                         "total": 5,
                         "maxActive": 2,
                         "entity": "ZOMBIE_MOM",
+                        "levels": [
+                            4
+                        ]
+                    },
+                    {
+                        "areaType": "arc",
+                        "length": 300,
+                        "radius": 350,
+                        "total": 100,
+                        "maxActive": 25,
+                        "entity": "ZOMBIE_KAREN",
                         "levels": [
                             4
                         ]

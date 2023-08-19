@@ -86,7 +86,7 @@ export default class GameData {
         this.onUpdateCurrency.dispatch(this.resources)
         return result;
     }
-    showCantBuy(data){
+    showCantBuy(data) {
         this.notEnoughcurrency.dispatch(data)
     }
     getAttributesFromEquipabble(equip, level) {
@@ -156,10 +156,16 @@ export default class GameData {
         return addAttributes;
     }
     lastOpened(id) {
-		return CookieManager.instance.lastOpened(id)
-	}
-	openChest(id) {
-        console.log(id)
-		CookieManager.instance.openChest(id)
-	}
+        return CookieManager.instance.lastOpened(id)
+    }
+    openChest(id) {
+        CookieManager.instance.openChest(id)
+    }
+
+    dailyAvailable(id) {
+        return CookieManager.instance.dailyAvailable(id)
+    }
+    getDaily(id) {
+        CookieManager.instance.getDaily(id)
+    }
 }

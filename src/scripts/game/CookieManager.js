@@ -87,7 +87,8 @@ export default class CookieManager {
 		this.defaultItemProgression = {
 			version: '0.0.1',
 			discoveredItems: [],
-			timedChests: {}
+			timedChests: {},
+			dailies: {}
 		}
 		this.defaultGifts = {
 			version: '0.0.1',
@@ -316,10 +317,22 @@ export default class CookieManager {
 	openChest(id) {
 		const currentDate = new Date();
 		const timestamp = currentDate.getTime();
-
 		const data = this.getChunck('items')
-
 		data.timedChests[id] = timestamp;
+		this.saveChunk('items', data)
+	}
+	dailyAvailable(id) {
+		const currentDate = new Date();
+		if (!this.items.dailies['d_' + currentDate.getDay() + '-' + currentDate.getMonth() + '-' + id]) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	getDaily(id) {
+		const currentDate = new Date();
+		const data = this.getChunck('items')
+		data.dailies['d_' + currentDate.getDay() + '-' + currentDate.getMonth() + '-' + id] = true;
 		this.saveChunk('items', data)
 	}
 	addSoftCurrency(value) {

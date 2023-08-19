@@ -12,6 +12,7 @@ import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
 import Utils from '../../core/utils/Utils';
+import UIUtils from '../../utils/UIUtils';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -25,6 +26,14 @@ export default class PlayerInventoryHud extends GameObject {
         this.zero = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.gameView.view.addChild(this.zero)
         this.darkBlur = new PIXI.Sprite.from('bigblur')
+
+
+
+        this.statsVignette = new PIXI.NineSlicePlane(PIXI.Texture.from('border-blur'), 20, 20, 20, 20);
+        this.gameView.view.addChild(this.statsVignette)
+        this.statsVignette.tint = 0xFF0000
+        this.statsVignette.alpha = 0;
+
         this.gameView.view.addChild(this.darkBlur)
         this.darkBlur.anchor.set(0.5)
         this.darkBlur.width = 500
@@ -50,10 +59,15 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.style.fontSize = 24
         this.text.x = 50
         this.text.y = 15
+
+
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
         this.timer.style.fontSize = 24
-        this.timer.x = 200
+
+        this.kills = new PIXI.Text('9999', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.kills)
+        this.kills.style.fontSize = 24
 
         this.labelsInfoContainer = new PIXI.Container();
         if (Game.Debug.debug || Game.Debug.stats) {
@@ -108,6 +122,37 @@ export default class PlayerInventoryHud extends GameObject {
         this.attributesView.setSize(600, 60)
         //this.attributesView.updateAttributes(this.defaultAttributes, this.atributes)
 
+        this.levelInfoContainer = new PIXI.Container();
+        this.gameView.view.addChild(this.levelInfoContainer)
+
+        this.infoShade = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
+        this.levelInfoContainer.addChild(this.infoShade);
+        this.infoShade.alpha = 0.75;
+
+        this.infoLevelLabel = UIUtils.getPrimaryLabel('labelHere', { fontSize: 64, wordWrapWidth: 800 });
+        this.infoLevelLabel.anchor.set(0.5)
+        this.infoLevelLabel.scale.set(0.5)
+        this.levelInfoContainer.addChild(this.infoLevelLabel)
+
+
+
+        //this.setBuildingMode();
+        //this.toggleDeck();
+
+    }
+    setLabelInfo(label, toHide) {
+        this.levelInfoContainer.alpha = 1;
+        this.infoLevelLabel.text = label;
+
+        TweenLite.killTweensOf(this.levelInfoContainer)
+        TweenLite.killTweensOf(this.levelInfoContainer.scale)
+
+        this.levelInfoContainer.scale.set(0.75, 0)
+        TweenLite.to(this.levelInfoContainer.scale, 1, { delay: 0.5, x: 1, y: 1, ease: Elastic.easeOut })
+
+        if (toHide) {
+            TweenLite.to(this.levelInfoContainer, 1, { delay: toHide, alpha: 0 })
+        }
     }
     build() {
         super.build();
@@ -236,42 +281,57 @@ export default class PlayerInventoryHud extends GameObject {
             this.timer.text = '00:00'
         }
 
-        this.timer.x = Game.Borders.width / 2 - this.timer.width / 2
-        this.timer.y = 35
-
-        // this.timer.x = Game.Borders.topRight.x - this.timer.width - 20
-
-        // if(Game.IsPortrait){
-
-        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 50
-        // }else{
-
-        //     this.timer.y = Game.Borders.bottomRight.y - this.timer.height - 20
-        // }
-
-
-
+       
+        
+        this.levelInfoContainer.x = Game.Borders.width / 2
+        this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
+        
+        this.statsVignette.width = Game.Borders.width+4;
+        this.statsVignette.height = Game.Borders.height+4;
+        
+        this.infoShade.width = this.infoLevelLabel.width + 140
+        this.infoShade.height = this.infoLevelLabel.height + 40
+        this.infoShade.x = -this.infoShade.width / 2
+        this.infoShade.y = -this.infoShade.height / 2
+        
         this.attributesView.scale.set(0.75)
         this.attributesView.y = Game.Borders.bottomRight.y - this.attributesView.height - 5
         this.attributesView.x = 5
-
-
+        
+        
         if (this.baseBarView.maxWidth != Game.Borders.width - 100) {
-            this.baseBarView.rebuild(Game.Borders.width - 100)
-            this.baseBarView.x = 80
-            this.baseBarView.y = 20
+            this.baseBarView.rebuild(Game.Borders.width - 18)
+            this.baseBarView.x = 60
+            this.baseBarView.y = 5
+            this.baseBarView.scale.y = 0.7
         }
-
-        this.text.x = Game.Borders.width - 250
-        this.text.y = 35
+        
+        this.text.x = Game.Borders.width - this.text.width-10
+        this.text.y = 45
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
-
-
+        
+        if(this.player){
+            
+            
+            if(this.player.health.normal < 0.5){
+                let alphaTarget = 1 - this.player.health.normal / 0.7 
+                this.statsVignette.alpha = alphaTarget
+            }else{
+                this.statsVignette.alpha = 0
+                
+            }
+        }
+        
         //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var min = Math.min(Game.GlobalScale.min, 1)
         this.playerHud.scale.set(Math.max(0.85, min));
+        
+        this.timer.x = 20//Game.Borders.width / 2 - this.timer.width / 2
+        this.timer.y = 150 * this.playerHud.scale.y
 
+        this.kills.x = this.timer.x
+        this.kills.y = this.timer.y + this.timer.height + 5
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);

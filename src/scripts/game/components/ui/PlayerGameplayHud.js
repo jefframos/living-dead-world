@@ -23,7 +23,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.onOpenMenu = new signals.Signal();
 
         this.lifeContainer = new PIXI.Sprite.from('player-life-container')
-        this.container.addChild(this.lifeContainer);
+        //this.container.addChild(this.lifeContainer);
 
         this.equipmentContainer = new PIXI.Container();
 
@@ -46,12 +46,14 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentContainer.addChild(this.equipmentListLine2);
 
 
-        this.lifeContainer.addChild(this.equipmentContainer);
+        this.container.addChild(this.equipmentContainer);
         this.equipmentContainer.x = 81
         this.equipmentContainer.y = 8
         this.lifeContainer.x = 80
         this.lifeContainer.y = 80
 
+        this.equipmentContainer.x = 150
+        this.equipmentContainer.y = 80
 
         this.lifeCounter = new CircleCounter(77, 50)
         this.lifeContainer.addChild(this.lifeCounter)

@@ -4,12 +4,12 @@ const assets = [
 	"url":"assets/json\\achievments.json"
 	},
 	{
-	"id":"localization_DE",
-	"url":"assets/json\\localization_DE.json"
-	},
-	{
 	"id":"localization_EN",
 	"url":"assets/json\\localization_EN.json"
+	},
+	{
+	"id":"localization_DE",
+	"url":"assets/json\\localization_DE.json"
 	},
 	{
 	"id":"localization_ES",
@@ -24,12 +24,12 @@ const assets = [
 	"url":"assets/json\\localization_IT.json"
 	},
 	{
-	"id":"localization_JA",
-	"url":"assets/json\\localization_JA.json"
-	},
-	{
 	"id":"localization_KO",
 	"url":"assets/json\\localization_KO.json"
+	},
+	{
+	"id":"localization_JA",
+	"url":"assets/json\\localization_JA.json"
 	},
 	{
 	"id":"localization_PT",
@@ -56,20 +56,24 @@ const assets = [
 	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
-	"id":"companion-animation",
-	"url":"assets/json\\animation\\companion-animation.json"
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
-	"id":"entity-animation",
-	"url":"assets/json\\animation\\entity-animation.json"
+	"id":"companion-animation",
+	"url":"assets/json\\animation\\companion-animation.json"
 	},
 	{
 	"id":"player-animation",
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
+	"id":"entity-animation",
+	"url":"assets/json\\animation\\entity-animation.json"
+	},
+	{
+	"id":"game-shop",
+	"url":"assets/json\\economy\\game-shop.json"
 	},
 	{
 	"id":"body-parts",
@@ -80,40 +84,24 @@ const assets = [
 	"url":"assets/json\\database\\starter-inventory.json"
 	},
 	{
-	"id":"game-shop",
-	"url":"assets/json\\economy\\game-shop.json"
-	},
-	{
-	"id":"companions",
-	"url":"assets/json\\entity\\companions.json"
-	},
-	{
-	"id":"player",
-	"url":"assets/json\\entity\\player.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
-	},
-	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
-	},
-	{
-	"id":"waves2",
-	"url":"assets/json\\enemy-waves\\waves2.json"
-	},
-	{
-	"id":"wavesBkp",
-	"url":"assets/json\\enemy-waves\\wavesBkp.json"
-	},
-	{
 	"id":"level-1",
 	"url":"assets/json\\environment\\level-1.json"
 	},
 	{
 	"id":"level-2",
 	"url":"assets/json\\environment\\level-2.json"
+	},
+	{
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	},
+	{
+	"id":"wavesBkp",
+	"url":"assets/json\\enemy-waves\\wavesBkp.json"
+	},
+	{
+	"id":"waves2",
+	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
 	"id":"acessories",
@@ -130,6 +118,18 @@ const assets = [
 	{
 	"id":"attachments",
 	"url":"assets/json\\misc\\attachments.json"
+	},
+	{
+	"id":"companions",
+	"url":"assets/json\\entity\\companions.json"
+	},
+	{
+	"id":"player",
+	"url":"assets/json\\entity\\player.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
 	},
 	{
 	"id":"general-vfx",
@@ -152,12 +152,12 @@ const assets = [
 	"url":"assets/json\\vfx\\weapon-vfx.json"
 	},
 	{
-	"id":"main-weapons",
-	"url":"assets/json\\weapons\\main-weapons.json"
-	},
-	{
 	"id":"weapon-in-game-visuals",
 	"url":"assets/json\\weapons\\weapon-in-game-visuals.json"
+	},
+	{
+	"id":"main-weapons",
+	"url":"assets/json\\weapons\\main-weapons.json"
 	},
 	{
 	"id":"weapon-view-overriders",
