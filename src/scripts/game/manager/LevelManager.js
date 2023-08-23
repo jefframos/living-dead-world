@@ -111,9 +111,10 @@ export default class LevelManager {
         console.log('ADD XP AMOUNT ON ENTITY DATA');
         return this.player;
     }
-    confirmGameOver() {
+    confirmGameOver(fromWin = false) {
         this.confirmPlayerDeath();
-        this.onConfirmGameOver.dispatch();
+        console.log(fromWin)
+        this.onConfirmGameOver.dispatch(fromWin);
     }
     levelWin() {
         this.gameOverOverlay.setActive(true)
@@ -199,8 +200,8 @@ export default class LevelManager {
         
         this.gameOverOverlay = this.addEntity(GameOverView);
         this.gameOverOverlay.setActive(false)
-        this.gameOverOverlay.onConfirmGameOver.add(() => {
-            this.confirmGameOver();
+        this.gameOverOverlay.onConfirmGameOver.add((fromWin) => {
+            this.confirmGameOver(fromWin);
         })
         
         this.gameOverOverlay.onRevivePlayer.add(() => {

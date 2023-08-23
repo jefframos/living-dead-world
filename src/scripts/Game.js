@@ -12,6 +12,7 @@ export default class Game {
     static Screen = { width: 0, height: 0 }
     static IsPortrait = null;
     static MainLoader = new PIXI.Loader();
+    static GameplayUIOverlayContainer = new PIXI.Container();
     static UIOverlayContainer = new PIXI.Container();
     static ScreenManagerContainer = new PIXI.Container();
     static TransitionContainer = new PIXI.Container();
@@ -85,7 +86,7 @@ export default class Game {
         this.logo.y = 0
         this.logo.anchor.set(0.5)
 
-        this.loadingLabel = UIUtils.getPrimaryLabel('0%', {fontSize:20})
+        this.loadingLabel = UIUtils.getPrimaryLabel('0%', { fontSize: 20 })
         this.loadingLabel.anchor.set(0.5)
         this.loadingLabel.x = 150
         this.loadingLabel.y = 150
@@ -113,7 +114,7 @@ export default class Game {
         this.dt = deltaTime / 60;
         this.update();
 
-        
+
         if (this.latestWidth != window.innerWidth) {
             this.resize();
         }
@@ -203,25 +204,29 @@ export default class Game {
 
 
             this.loaderContainer.x = Game.Screen.width / 2//this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX) + 150 * newScaleX
-            this.loaderContainer.y = Game.Screen.height / 2 
+            this.loaderContainer.y = Game.Screen.height / 2
 
 
         }
 
         if (this.screenManager) {
 
+            if (!Game.ScreenManagerContainer.parent) {
+                this.stage.addChild(Game.ScreenManagerContainer)
+            }
+
+            if (!Game.GameplayUIOverlayContainer.parent) {
+                this.stage.addChild(Game.GameplayUIOverlayContainer)
+            }
+
             if (!Game.UIOverlayContainer.parent) {
                 this.stage.addChild(Game.UIOverlayContainer)
             }
 
-            if (!Game.ScreenManagerContainer.parent) {
-                this.stage.addChild(Game.ScreenManagerContainer)
-            }
-            
             if (!Game.TransitionContainer.parent) {
                 this.stage.addChild(Game.TransitionContainer)
             }
-            
+
             //  let sclX = (this.innerResolution.width)/(this.desktopResolution.width) ;
             //  let sclY = (this.innerResolution.height)/(this.desktopResolution.height) ;
             //  let min = Math.min(sclX, sclY);
@@ -234,14 +239,14 @@ export default class Game {
             this.screenManager.scale.y = newScaleY//this.ratio
 
 
-           
+
 
             this.screenManager.x = this.desktopResolution.width / 2 - (this.desktopResolution.width / 2 * newScaleX)///- (this.innerResolution.width / 2 *newScaleX) // this.screenManager.scale.y
             //this.screenManager.pivot.y = this.innerResolution.height / 2 - (this.innerResolution.height / 2 / newScaleY) // this.screenManager.scale.y
             this.screenManager.y = this.desktopResolution.height / 2 - (this.desktopResolution.height / 2 * newScaleY)
             // 	this.screenManager.x = 0//window.innerWidth/2 * sclX - this.desktopResolution.width/2* sclX//this.innerResolution.width / 2 // this.screenManager.scale.x
             // 	this.screenManager.y = 0// window.innerHeight/2 * sclY - this.desktopResolution.height/2* sclY // this.screenManager.scale.y
-   
+
             Game.TransitionContainer.scale.x = this.screenManager.scale.x
             Game.TransitionContainer.scale.y = this.screenManager.scale.y
 
@@ -249,7 +254,7 @@ export default class Game {
             Game.GlobalScale.y = config.height / this.innerResolution.height
             Game.GlobalScale.min = Math.min(Game.GlobalScale.x, Game.GlobalScale.y)
             Game.GlobalScale.max = Math.max(Game.GlobalScale.x, Game.GlobalScale.y)
-            
+
             Game.GlobalContainerPosition.x = this.screenManager.x
             Game.GlobalContainerPosition.y = this.screenManager.y
 
@@ -259,6 +264,9 @@ export default class Game {
             this.screenManager.resize(this.resolution, this.innerResolution);
             Game.UIOverlayContainer.scale.x = this.screenManager.scale.x
             Game.UIOverlayContainer.scale.y = this.screenManager.scale.y
+            
+            Game.GameplayUIOverlayContainer.scale.x = this.screenManager.scale.x
+            Game.GameplayUIOverlayContainer.scale.y = this.screenManager.scale.y
 
             Game.ScreenManagerContainer.scale.x = this.screenManager.scale.x
             Game.ScreenManagerContainer.scale.y = this.screenManager.scale.y
@@ -274,10 +282,10 @@ export default class Game {
             Game.Borders.height = Game.Borders.bottomLeft.y
 
 
-            Game.Screen.AspectRatio = Game.Borders.width /  Game.Borders.height;
+            Game.Screen.AspectRatio = Game.Borders.width / Game.Borders.height;
             window.isPortrait = Game.Borders.width < Game.Borders.height
 
-            if(Game.IsPortrait != window.isPortrait){
+            if (Game.IsPortrait != window.isPortrait) {
                 this.onAspectChanged.dispatch(window.isPortrait);
             }
             Game.IsPortrait = window.isPortrait;

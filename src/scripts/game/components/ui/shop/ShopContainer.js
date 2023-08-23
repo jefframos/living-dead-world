@@ -13,6 +13,7 @@ import ViewDatabase from '../../../data/ViewDatabase';
 import TimedAction from '../../../data/TimedAction';
 import ListScroller from '../../../ui/uiElements/ListScroller';
 import EntityBuilder from '../../../screen/EntityBuilder';
+import RandomGenerator from '../../../core/utils/RandomGenerator';
 
 export default class ShopContainer extends MainScreenModal {
     constructor() {
@@ -131,13 +132,12 @@ export default class ShopContainer extends MainScreenModal {
             PrizeManager.PrizeType.Weapon
         ]
 
+
+        this.rnd = new RandomGenerator(this.dayId)
         this.dailiesRando = [];
         this.dailiesPrize = [];
         for (let index = 1; index <= this.dailyButtonsData.length; index++) {
-            let rando = index * this.dayId;
-            rando %= 1
-            rando = Math.min(1, rando)
-            rando = Math.max(0, rando)
+            let rando = this.rnd.random();
 
             this.dailiesRando.push(rando)
 

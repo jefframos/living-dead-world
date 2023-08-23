@@ -71,7 +71,7 @@ export default class GameScreen extends Screen {
 
 
         this.physics = this.gameEngine.physics
-        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer, Game.UIOverlayContainer))
+        this.renderModule = this.gameEngine.addGameObject(new RenderModule(this.gameplayContainer, this.uiContainer, Game.GameplayUIOverlayContainer))
         this.inputModule = this.gameEngine.addGameObject(new InputModule(this))
         this.effectsManager = this.gameEngine.addGameObject(new EffectsManager(this.effectsContainer, this.gameplayContainer))
         this.camera = this.gameEngine.addCamera(new PerspectiveCamera())
@@ -225,8 +225,8 @@ export default class GameScreen extends Screen {
         //this.companion.destroy();
 
     }
-    confirmGameOver(){
-        this.screenManager.redirectToMenu();
+    confirmGameOver(fromWin) {
+        this.screenManager.redirectToMenu(fromWin);
     }
     playerDie() {
     }
@@ -259,14 +259,24 @@ export default class GameScreen extends Screen {
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
 
+        
 
         if (window.isMobile) {
 
-            this.inputModule.touchAxisDown = this.touchAxisInput.dragging
             if (this.touchAxisInput.angle) {
             }
-            this.inputModule.direction = this.touchAxisInput.angle
+            
             this.touchAxisInput.visible = Eugine.TimeScale > 0;
+
+            if (!this.touchAxisInput.visible) {
+                this.inputModule.direction = 0;
+                this.touchAxisInput.reset();
+                this.inputModule.touchAxisDown = false;
+                
+            } else {
+                this.inputModule.touchAxisDown = this.touchAxisInput.dragging
+                this.inputModule.direction = this.touchAxisInput.angle
+            }
         } else {
             this.touchAxisInput.visible = false;
         }
@@ -274,23 +284,23 @@ export default class GameScreen extends Screen {
         this.stats.text = 'FPS: ' + window.FPS + '\nPhys: ' + this.physics.physicsStats.totalPhysicsEntities
 
     }
-    transitionOut(nextScreen) {
+    transitionOut(nextScreen, params) {
         this.removeEvents();
         this.nextScreen = nextScreen;
 
         setTimeout(() => {
-            this.worldRender.destroy();            
+            this.worldRender.destroy();
             this.levelManager.destroy();
         }, MainScreenManager.Transition.timeOut);
 
-        super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
+        super.transitionOut(nextScreen, params, MainScreenManager.Transition.timeOut);
     }
     transitionIn() {
-       setTimeout(() => {
-         super.transitionIn();
-       }, MainScreenManager.Transition.timeIn);
+        setTimeout(() => {
+            super.transitionIn();
+        }, MainScreenManager.Transition.timeIn);
     }
- 
+
     destroy() {
 
     }

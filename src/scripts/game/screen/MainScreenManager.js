@@ -199,8 +199,8 @@ export default class MainScreenManager extends ScreenManager {
     redirectToDebugMenu() {
         this.change(MainScreenManager.Screens.MainMenu);
     }
-    redirectToMenu() {
-        this.change(MainScreenManager.Screens.CharacterBuild);
+    redirectToMenu(fromWin = null) {
+        this.change(MainScreenManager.Screens.CharacterBuild, {fromWin});
     }
     redirectToGame(harder) {
         window.HARDER = harder

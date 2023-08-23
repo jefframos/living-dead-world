@@ -63,11 +63,37 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
-        this.timer.style.fontSize = 24
-
+        this.timer.style.fontSize = 22
+        this.timer.anchor.set(0,0.5)
+        
+        this.timerIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('ingame-timer'))
+        this.timerIcon.scale.set(Utils.scaleToFit(this.timerIcon, 30))
+        this.timerIcon.x = -20
+        this.timerIcon.anchor.set(0.5)
+        this.timer.addChild(this.timerIcon)
+        
         this.kills = new PIXI.Text('9999', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.kills)
-        this.kills.style.fontSize = 24
+        this.kills.style.fontSize = 22
+        this.kills.anchor.set(0,0.5)
+
+        this.enemyIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'))
+        this.enemyIcon.scale.set(Utils.scaleToFit(this.enemyIcon, 30))
+        this.enemyIcon.x = -20
+        this.enemyIcon.anchor.set(0.5)
+        this.kills.addChild(this.enemyIcon)
+
+
+        this.coins = new PIXI.Text('9999', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.coins)
+        this.coins.style.fontSize = 22
+        this.coins.anchor.set(0,0.5)
+
+        this.coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
+        this.coinIcon.scale.set(Utils.scaleToFit(this.coinIcon, 30))
+        this.coinIcon.x = -20
+        this.coinIcon.anchor.set(0.5)
+        this.coins.addChild(this.coinIcon)
 
         this.labelsInfoContainer = new PIXI.Container();
         if (Game.Debug.debug || Game.Debug.stats) {
@@ -184,7 +210,7 @@ export default class PlayerInventoryHud extends GameObject {
         if (xpData.normalUntilNext < 1) {
             this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         }
-        this.text.text = 'Level ' + (xpData.currentLevel + 1) + "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+        this.text.text = 'Level ' + (xpData.currentLevel + 1) ;//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
     updatePlayerHealth() {
         this.updatePlayerAttributes();
@@ -281,7 +307,8 @@ export default class PlayerInventoryHud extends GameObject {
             this.timer.text = '00:00'
         }
 
-       
+        this.kills.text = LevelManager.instance.matchStats.enemiesKilled
+        this.coins.text = LevelManager.instance.matchStats.coins
         
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
@@ -310,7 +337,6 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.y = 45
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
-        
         if(this.player){
             
             
@@ -327,11 +353,14 @@ export default class PlayerInventoryHud extends GameObject {
         var min = Math.min(Game.GlobalScale.min, 1)
         this.playerHud.scale.set(Math.max(0.85, min));
         
-        this.timer.x = 20//Game.Borders.width / 2 - this.timer.width / 2
-        this.timer.y = 150 * this.playerHud.scale.y
+        this.timer.x = 50//Game.Borders.width / 2 - this.timer.width / 2
+        this.timer.y = 170 * this.playerHud.scale.y
 
         this.kills.x = this.timer.x
         this.kills.y = this.timer.y + this.timer.height + 5
+
+        this.coins.x = this.kills.x
+        this.coins.y = this.kills.y + this.kills.height + 5
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);

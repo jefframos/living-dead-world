@@ -41,7 +41,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.hide()
         }, 'collect')
-        this.collectButton.updateBackTexture('square_button_0001')
+        this.collectButton.updateBackTexture('square_button_0002')
         this.container.addChild(this.collectButton);
 
         this.slotSize = 100

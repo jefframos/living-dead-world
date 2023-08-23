@@ -132,7 +132,7 @@ export default class CharacterBuildScreen extends Screen {
         this.buttonsList.addElement(this.closeButton, { align: 0, fitWidth: 1 })
 
 
-        if(Game.Debug.debug){            
+        if (Game.Debug.debug) {
             this.giveMoneyButton = UIUtils.getPrimaryButton(() => { this.giveMoney(); })
             this.buttonsList.addElement(this.giveMoneyButton, { align: 0, fitWidth: 1 })
         }
@@ -150,7 +150,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.noMoneyContainer = new NoMoneycontainer()
         this.addPopUp(this.noMoneyContainer)
-        
+
         this.genericPopUp = new PopUpGenericModal();
         this.addPopUp(this.genericPopUp)
 
@@ -174,7 +174,7 @@ export default class CharacterBuildScreen extends Screen {
         PrizeManager.instance.onGetMetaPrize.add(this.showPrizeWindow.bind(this));
 
         RewardsManager.instance.onAddBlock.add(this.showAdBlockMessage.bind(this));
-        
+
         let currentCompanion = GameData.instance.currentEquippedCompanionData;
         if (currentCompanion) {
             this.updateCompanion(currentCompanion.id)
@@ -209,14 +209,14 @@ export default class CharacterBuildScreen extends Screen {
             this.showMainUI();
         }, 1);
 
-        window.onEscPressed.add(()=>{
-            if(this.screenManager.currentScreen.label == this.label){
+        window.onEscPressed.add(() => {
+            if (this.screenManager.currentScreen.label == this.label) {
                 this.backButtonAction();
             }
         })
 
-        window.onSpacePressed.add(()=>{
-            if(this.mainShow){
+        window.onSpacePressed.add(() => {
+            if (this.mainShow) {
                 this.screenManager.redirectToGame();
             }
         })
@@ -224,7 +224,7 @@ export default class CharacterBuildScreen extends Screen {
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
     }
-    showAdBlockMessage(){
+    showAdBlockMessage() {
         this.genericPopUp.showInfo("You need to disable the adblock to access this")
         this.openModal(this.genericPopUp, true)
     }
@@ -270,7 +270,8 @@ export default class CharacterBuildScreen extends Screen {
     }
     addPopUp(popUp) {
         this.popUpList.push(popUp);
-        this.container.addChild(popUp);
+        //this.container.addChild(popUp);
+        Game.UIOverlayContainer.addChild(popUp);
         popUp.onHide.add(this.onPopUpHide.bind(this))
         popUp.onShow.add(this.onPopUpShow.bind(this))
         popUp.hide()
@@ -283,7 +284,7 @@ export default class CharacterBuildScreen extends Screen {
         modal.hide()
     }
     onPopUpShow(popup) {
-        if(popup.hideCloseButton){
+        if (popup.hideCloseButton) {
             this.closeButton.visible = false;
         }
     }
@@ -301,12 +302,12 @@ export default class CharacterBuildScreen extends Screen {
             //this.closeCustomization();
             //this.unSelectPlayer();
         }
-        if(popup.hideCloseButton){
+        if (popup.hideCloseButton) {
             this.closeButton.visible = true;
         }
     }
     onModalShow(modal) {
-       
+
     }
     onModalHide(modal) {
     }
@@ -317,7 +318,7 @@ export default class CharacterBuildScreen extends Screen {
         this.previousPopUp = popUp;
     }
     openModal(modal, ignoreStates) {
-        if(!ignoreStates){
+        if (!ignoreStates) {
             this.hideMainUI();
             this.customizationZoom()
         }
@@ -350,9 +351,10 @@ export default class CharacterBuildScreen extends Screen {
 
         setTimeout(() => {
             this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
-            
+
             this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
-        }, 1);
+
+        }, 50);
 
         this.customPlayerSpriteMask = new PIXI.Sprite.from('tile');
         this.customPlayerSpriteMask.anchor.set(0.5, 1)
@@ -548,14 +550,14 @@ export default class CharacterBuildScreen extends Screen {
         this.outgameUIProgression.visible = true;
 
 
-        if(!Game.Debug.debug){
+        if (!Game.Debug.debug) {
             this.buttonsList.visible = false;
         }
 
         this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.generateNewTexture();
         this.customPlayerSprite.texture = this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture
         this.customPlayerSprite.anchor.set(0, 0.7)
-        this.customPlayerSprite.x = -this.customPlayerSprite.width / 2 - 10
+        this.customPlayerSprite.x = -this.customPlayerSprite.width / 2
 
         this.customPlayerSprite.y = 30
         this.customPlayerSpriteMask.y = 50
@@ -603,7 +605,7 @@ export default class CharacterBuildScreen extends Screen {
         this.campfireScene.y = Game.Borders.height / 2 - 80;
         this.campfireScene.scale.set(Math.min(1.5, Game.GlobalScale.max));
 
-        const listSize = Game.IsPortrait ? Game.Borders.width *0.9 : Game.Borders.height - 120
+        const listSize = Game.IsPortrait ? Game.Borders.width * 0.9 : Game.Borders.height - 120
         this.menuButtons.forEach(element => {
             element.resize(150, listSize / this.menuButtons.length)
         });
@@ -618,12 +620,12 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuList.h = listSize
         this.bottomMenuList.updateVerticalList();
 
-        if(Game.IsPortrait){
+        if (Game.IsPortrait) {
 
             this.bottomMenuRightList.h = 150
             this.bottomMenuRightList.w = listSize
             this.bottomMenuRightList.updateHorizontalList();
-        }else{
+        } else {
 
             this.bottomMenuRightList.w = 150
             this.bottomMenuRightList.h = listSize
@@ -683,9 +685,9 @@ export default class CharacterBuildScreen extends Screen {
         } else {
             this.bottomMenuRightList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
-            this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })            
+            this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.shopButton, { align: 0, vAlign: 0 })
-            
+
             this.menuButtonsRight.push(this.shopButton)
             this.menuButtonsRight.push(this.prizeButton)
             this.menuButtonsRight.push(this.loadoutButton)
@@ -742,7 +744,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
-        if(this.charCustomizationContainer.isOpen){
+        if (this.charCustomizationContainer.isOpen) {
             this.charCustomizationContainer.update(delta)
         }
 
@@ -794,11 +796,21 @@ export default class CharacterBuildScreen extends Screen {
     transitionOut(nextScreen) {
         super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
     }
-    transitionIn() {
+    transitionIn(params) {
 
-        if(this.screenManager.prevScreen == "GameScreen")
-        {
-            this.shopContainer.resetAllButtons();            
+        console.log(params)
+
+
+        if (this.screenManager.prevScreen == "GameScreen") {
+            setTimeout(() => {                
+                if (params && params.fromWin) {
+                    PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
+                } else {
+                    PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                }
+                this.unSelectPlayer();
+            }, 100);
+            this.shopContainer.resetAllButtons();
         }
         setTimeout(() => {
             super.transitionIn();

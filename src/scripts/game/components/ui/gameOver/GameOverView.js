@@ -203,7 +203,8 @@ export default class GameOverView extends GameObject {
             if (this.gameOverWin) {
                 this.onConfirmGameOver.dispatch();
             } else {
-                this.showGameOverPrizes();
+                //this.showGameOverPrizes();
+                this.redirect();
             }
         }, 'Continue')
         this.confirmButton.updateBackTexture('square_button_0005')
@@ -229,9 +230,10 @@ export default class GameOverView extends GameObject {
 
 
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            this.collectPrizes();
-        }, 'Collect')
-        this.collectButton.updateBackTexture('square_button_0001')
+            //this.collectPrizes();
+            this.redirect(true);
+        }, 'Continue')
+        this.collectButton.updateBackTexture('square_button_0002')
 
         this.prizesContainer.addChild(this.collectButton)
 
@@ -268,8 +270,8 @@ export default class GameOverView extends GameObject {
         const hardCurrency = Math.max(0, Math.floor(this.endGameData.time / 60))
 
         if (win) {
-            const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 3, false)
-            this.showPrize(prizes)
+            //const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 3, false)
+            //this.showPrize(prizes)
 
             this.confirmButton.visible = false;
             this.reviveButton.visible = false;
@@ -313,12 +315,15 @@ export default class GameOverView extends GameObject {
 
         });
 
+        this.redirect();
+    }
+    redirect(fromWin) {
 
         setTimeout(() => {
 
             RewardsManager.instance.doComercial(() => {
 
-                this.onConfirmGameOver.dispatch();
+                this.onConfirmGameOver.dispatch(fromWin);
             }, {}, false)
         }, 500);
 
@@ -374,7 +379,7 @@ export default class GameOverView extends GameObject {
         this.reviveButton.x = this.prizeBox.width / 2 - this.reviveButton.width / 2
         this.reviveButton.y = this.prizeBox.height / 2 - this.reviveButton.height / 2 - 50
         this.collectButton.x = this.prizeBox.width / 2 - this.collectButton.width / 2
-        this.collectButton.y = 120
+        this.collectButton.y = 50
 
 
         //this.prizesContainer.x = Utils.lerp(this.prizesContainer.x ,this.prizeBox.width / 2 - this.prizesContainer.width / 2, 0.5);

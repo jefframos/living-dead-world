@@ -125,10 +125,10 @@ export default class CookieManager {
 			}
 		}
 
-		this.version = '0.0.0.3'
+		this.version = '0.0.0.4'
 		this.cookieVersion = this.getCookie('cookieVersion')
 		//alert(this.cookieVersion != this.version)
-		if (!this.cookieVersion || this.cookieVersion != this.version) {
+		if (this.cookieVersion && this.cookieVersion != this.version) {
 			this.storeObject('cookieVersion', this.version)
 			this.wipeData2();
 		}
@@ -257,7 +257,7 @@ export default class CookieManager {
 			this.fullData[id] = {}
 		}
 		var version = this.getCookie('cookieVersion')
-		if (!version || version != this.version) {
+		if (version && version != this.version) {
 			this.wipeData2()
 		}
 
@@ -716,10 +716,10 @@ export default class CookieManager {
 		} catch (e) {
 		}
 	}
-
+	
 	wipeData2() {
 		this.resetCookie();
-
+		
 		try {
 			window.localStorage.clear();
 			this.storeObject('cookieVersion', this.version)
