@@ -40,16 +40,24 @@ const assets = [
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"localization_TR",
-	"url":"assets/json\\localization_TR.json"
-	},
-	{
 	"id":"localization_ZH",
 	"url":"assets/json\\localization_ZH.json"
 	},
 	{
+	"id":"localization_TR",
+	"url":"assets/json\\localization_TR.json"
+	},
+	{
 	"id":"modifyers",
 	"url":"assets/json\\modifyers.json"
+	},
+	{
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"companion-animation",
@@ -64,20 +72,16 @@ const assets = [
 	"url":"assets/json\\animation\\player-animation.json"
 	},
 	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
-	},
-	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
 	"id":"body-parts",
 	"url":"assets/json\\database\\body-parts.json"
 	},
 	{
 	"id":"starter-inventory",
 	"url":"assets/json\\database\\starter-inventory.json"
+	},
+	{
+	"id":"game-shop",
+	"url":"assets/json\\economy\\game-shop.json"
 	},
 	{
 	"id":"enemy-wave-01",
@@ -104,18 +108,6 @@ const assets = [
 	"url":"assets/json\\entity\\player.json"
 	},
 	{
-	"id":"game-shop",
-	"url":"assets/json\\economy\\game-shop.json"
-	},
-	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
-	},
-	{
 	"id":"acessories",
 	"url":"assets/json\\misc\\acessories.json"
 	},
@@ -124,12 +116,20 @@ const assets = [
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
+	},
+	{
 	"id":"buff-debuff",
 	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
 	"id":"main-weapons",

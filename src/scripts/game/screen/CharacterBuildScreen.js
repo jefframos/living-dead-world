@@ -31,6 +31,7 @@ import ViewDatabase from '../data/ViewDatabase';
 import signals from "signals";
 import RewardsManager from '../data/RewardsManager';
 import PopUpGenericModal from '../components/ui/PopUpGenericModal';
+import AudioControllerView from '../components/ui/AudioControllerView';
 
 export default class CharacterBuildScreen extends Screen {
     static makeAssetSetup(data) {
@@ -130,6 +131,9 @@ export default class CharacterBuildScreen extends Screen {
         this.container.addChild(this.buttonsList);
         this.closeButton = UIUtils.getCloseButton(() => { this.backButtonAction(); })
         this.buttonsList.addElement(this.closeButton, { align: 0, fitWidth: 1 })
+        
+        this.soundButton = new AudioControllerView();
+        this.container.addChild(this.soundButton)
 
 
         if (Game.Debug.debug) {
@@ -323,6 +327,7 @@ export default class CharacterBuildScreen extends Screen {
             this.customizationZoom()
         }
         modal.show();
+        SOUND_MANAGER.play('shoosh', 0.5)
         this.previousModal = modal;
     }
     buildBottomMenu() {
@@ -429,6 +434,7 @@ export default class CharacterBuildScreen extends Screen {
             this.screenManager.redirectToGame();
         }, 'PLAY', UIUtils.getIconUIIcon('battle'))
         this.bottomMenuRight.addChild(this.playGameButton)
+        this.playGameButton.buttonSound = 'Pop-Musical'
     }
     addCharacter(data) {
 
@@ -642,12 +648,15 @@ export default class CharacterBuildScreen extends Screen {
         if (Game.IsPortrait) {
 
             this.buttonsList.x = this.outgameUIProgression.x + this.outgameUIProgression.width + 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+            this.soundButton.x = Game.Borders.width - this.soundButton.width - 20
         } else {
 
             this.buttonsList.x = Game.Borders.width - this.buttonsList.w - 20//this.outgameUIProgression.x - this.buttonsList.width - 10;
+            this.soundButton.x = Game.Borders.width - this.soundButton.width - 80
         }
         this.buttonsList.y = 20;
 
+        this.soundButton.y =  40
 
         this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
@@ -727,6 +736,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.campfireScene.update(delta)
 
+        this.soundButton.visible = !this.buttonsList.visible;
 
         if (Game.IsPortrait) {
             this.bottomMenuRightList.y = Game.Borders.height - this.playGameButton.height - 150 - this.bottomMenuRightList.height;
@@ -800,7 +810,7 @@ export default class CharacterBuildScreen extends Screen {
 
         console.log(params)
 
-
+        SOUND_MANAGER.playLoop('dream2')
         if (this.screenManager.prevScreen == "GameScreen") {
             setTimeout(() => {                
                 if (params && params.fromWin) {

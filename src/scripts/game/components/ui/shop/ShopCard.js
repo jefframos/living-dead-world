@@ -36,9 +36,15 @@ export default class ShopCard extends PIXI.Container {
         // this.iconSprite.anchor.set(0.5)
         // this.addChild(this.iconSprite);
 
+        this.iconList = new UIList();
+        this.iconList.h = 50
+        this.iconList.w = 80
+
+
         this.descriptionList = new UIList();
         this.descriptionList.h = 50
-        this.descriptionList.w = 50
+        this.descriptionList.w = 80
+
 
         this.buttonsList = new UIList();
         this.buttonsList.h = 50
@@ -49,7 +55,7 @@ export default class ShopCard extends PIXI.Container {
         this.messageList.w = 50
 
 
-        this.centerOffset = { x: 0, y: 0 }
+        this.centerOffset = { x: 50, y: 0 }
 
 
         this.videoButton = UIUtils.getPrimaryVideoButton((button) => {
@@ -80,6 +86,7 @@ export default class ShopCard extends PIXI.Container {
 
 
         this.buttonsList.updateHorizontalList();
+        this.addChild(this.iconList);
         this.addChild(this.descriptionList);
         this.addChild(this.buttonsList);
         this.addChild(this.messageList);
@@ -91,15 +98,17 @@ export default class ShopCard extends PIXI.Container {
 
         this.currencyIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
         this.description = UIUtils.getPrimaryLabel('x50')
-        this.descriptionList.addElement(this.iconSprite, { align: 1, fitHeight: 1.2, listScl: 0.5 })
-        this.descriptionList.addElement(this.description, { align: 0, fitHeight: 1, listScl: 0.5, scaleContentMax: true })
+        this.iconList.addElement(this.iconSprite, { align: 0.5, fitHeight: 1.2,  })
+        this.descriptionList.addElement(this.description, { align: 0.5, fitHeight: 1, scaleContentMax: true })
         this.descriptionList.updateHorizontalList();
+        this.iconList.updateHorizontalList();
     }
     removeDescription() {
         this.descriptionList.removeElement(this.description)
-        this.descriptionList.removeElement(this.iconSprite)
-        this.descriptionList.addElement(this.iconSprite, { align: 0.5, fitHeight: 2, listScl: 1 })
+        this.iconList.removeElement(this.iconSprite)
+        this.iconList.addElement(this.iconSprite, { align: 0.5, fitHeight: 2, listScl: 1 })
         this.centerOffset.y = -20
+        this.centerOffset.x = 0
 
     }
     restore() {
@@ -112,6 +121,7 @@ export default class ShopCard extends PIXI.Container {
         this.confirmButton.currencyButtonIcon.texture = PIXI.Texture.from(UIUtils.getIconUIIcon(currencyType))
         this.confirmButton.labelButtonValue.text = value;
         this.descriptionList.updateHorizontalList();
+        this.iconList.updateHorizontalList();
         //this.price.text = value;
         //this.confirmButton.fitLabel(1)
     }
@@ -163,7 +173,7 @@ export default class ShopCard extends PIXI.Container {
         this.messageList.x = width / 2 - this.messageList.w / 2
         this.messageList.y = height - this.messageList.h - 15
 
-        if (width / height < 1.5) {
+        if (width / height < 1.25) {
             this.description.fitHeight = 1
             this.description.fitWidth = 1
             this.descriptionList.h = height * 0.15
@@ -179,9 +189,16 @@ export default class ShopCard extends PIXI.Container {
         }
         this.descriptionList.w = width * 0.9
 
+        this.iconList.w = this.descriptionList.w 
+        this.iconList.h = this.descriptionList.h 
+
         this.descriptionList.updateHorizontalList();
         this.descriptionList.x = width / 2 - this.descriptionList.w / 2 + this.centerOffset.x;
         this.descriptionList.y = height / 2 - this.descriptionList.h / 2 + this.centerOffset.y;
+
+        this.iconList.updateHorizontalList();
+        this.iconList.x = width / 2 - this.iconList.w / 2 - this.centerOffset.x;
+        this.iconList.y = height / 2 - this.iconList.h / 2 + this.centerOffset.y;
 
 
         this.buttonsList.w = width - 30

@@ -165,10 +165,10 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 })
             }
 
-        }, 'RANDOM', UIUtils.getIconUIIcon('shop'))
+        }, 'RANDOM', UIUtils.getIconUIIcon('wardrobe'))
 
-        this.openClothesChestTimed = new TimedAction("FREE_CLOTHES", 300, this.randomCustomization.text, "FREE")
-
+        this.openClothesChestTimed = new TimedAction("FREE_CLOTHES", 300, this.randomCustomization.text, "FREE\nClothes")
+        this.randomCustomization.text.y = 110
         this.container.addChild(this.randomCustomization)
 
 

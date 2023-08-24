@@ -61,6 +61,8 @@ export default class Collectable extends GameObject {
     }
     collectCallback() {
         //console.log(this.player.attributes.xpMultiplier)
+
+        SOUND_MANAGER.play('getstar', 0.15, Math.random() * 0.3 + 0.7)
         this.player.sessionData.addXp(this.xp * this.player.attributes.xpMultiplier)
 
     }

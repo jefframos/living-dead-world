@@ -58,7 +58,7 @@ export default class SurvivorDeckController extends GameObject {
         this.gameView.view.addChild(this.transitionContainer)
 
         this.uiButtons = new UIList();
-        this.uiButtons.w = 420
+        this.uiButtons.w = 480
         this.uiButtons.h = 80
 
         this.pickAll = UIUtils.getPrimaryVideoButton(() => {
@@ -74,7 +74,7 @@ export default class SurvivorDeckController extends GameObject {
         this.pickAll.buttonListContent.w = 220
         this.pickAll.buttonListContent.h = 60
         this.pickAll.buttonListContent.updateHorizontalList()
-        this.pickAll.buttonListContent.x = 240 / 2 - this.pickAll.buttonListContent.w / 2
+        this.pickAll.buttonListContent.x = 260 / 2 - this.pickAll.buttonListContent.w / 2
         this.pickAll.buttonListContent.y = 80 / 2 - this.pickAll.buttonListContent.h / 2
 
         this.reshuffle = UIUtils.getPrimaryVideoButton(() => {
@@ -89,7 +89,7 @@ export default class SurvivorDeckController extends GameObject {
         this.reshuffle.buttonListContent.w = 220
         this.reshuffle.buttonListContent.h = 60
         this.reshuffle.buttonListContent.updateHorizontalList()
-        this.reshuffle.buttonListContent.x = 240 / 2 - this.reshuffle.buttonListContent.w / 2
+        this.reshuffle.buttonListContent.x = 260 / 2 - this.reshuffle.buttonListContent.w / 2
         this.reshuffle.buttonListContent.y = 80 / 2 - this.reshuffle.buttonListContent.h / 2
 
 
@@ -139,6 +139,7 @@ export default class SurvivorDeckController extends GameObject {
     }
     buildCards(data, totalCards = 3, pickAll, reshffleUses, pickedCards) {
 
+        SOUND_MANAGER.play('getThemAll', 0.5)
         RewardsManager.instance.gameplayStop();
         for (let i = this.handCards.length - 1; i >= 0; i--) {
             if (this.handCards[i].parent) {

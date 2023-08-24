@@ -272,6 +272,7 @@ export default class GameScreen extends Screen {
                 this.inputModule.direction = 0;
                 this.touchAxisInput.reset();
                 this.inputModule.touchAxisDown = false;
+                this.inputModule.mouseDown = false;
                 
             } else {
                 this.inputModule.touchAxisDown = this.touchAxisInput.dragging
@@ -296,6 +297,9 @@ export default class GameScreen extends Screen {
         super.transitionOut(nextScreen, params, MainScreenManager.Transition.timeOut);
     }
     transitionIn() {
+
+        SOUND_MANAGER.playLoop('ancient', 0.5)
+
         setTimeout(() => {
             super.transitionIn();
         }, MainScreenManager.Transition.timeIn);

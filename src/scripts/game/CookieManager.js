@@ -147,6 +147,14 @@ export default class CookieManager {
 		}
 
 	}
+	get isMute(){
+		return this.getChunck('settings').isMute
+	}
+	updateMute(value){
+		const data = this.getChunck('settings')
+		data.isMute = value;
+		this.saveChunk('settings', data)
+	}
 	allNewWardrobeDiscover() {
 		const data = this.getChunck('player')
 		const newItemsSections = [];

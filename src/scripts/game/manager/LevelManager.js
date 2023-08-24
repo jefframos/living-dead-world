@@ -113,7 +113,6 @@ export default class LevelManager {
     }
     confirmGameOver(fromWin = false) {
         this.confirmPlayerDeath();
-        console.log(fromWin)
         this.onConfirmGameOver.dispatch(fromWin);
     }
     levelWin() {
@@ -403,6 +402,7 @@ export default class LevelManager {
     entityKilled(health, value) {
 
         this.matchStats.enemiesKilled++;
+        SOUND_MANAGER.play('squash1', 0.2, Math.random() * 0.3 + 0.7)
         const entity = health.gameObject
         if (entity && entity.staticData && entity.staticData.entityData) {
             if (entity.staticData.entityData.tier) {

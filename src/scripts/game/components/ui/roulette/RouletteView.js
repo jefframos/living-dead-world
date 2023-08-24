@@ -123,8 +123,10 @@ export default class RouletteView extends PIXI.Container {
             }
         }
         if (match <= 0) {
-            
+
             this.onPrizeFound.dispatch(0, 0, match)
+            SOUND_MANAGER.play('magic', 0.8)
+
 
         } else {
 
@@ -136,7 +138,8 @@ export default class RouletteView extends PIXI.Container {
                     maxId = element.id;
                 }
             });
-            this.onPrizeFound.dispatch(Math.max(1,match), maxId, max)
+            this.onPrizeFound.dispatch(Math.max(1, match), maxId, max)
+            SOUND_MANAGER.play('getThemAll', 0.8)
 
         }
     }
@@ -159,6 +162,7 @@ export default class RouletteView extends PIXI.Container {
             this.spinMoneyButton.visible = true;
             this.checkButtons()
         }, 2000);
+
 
     }
     spin(speed = 1, force = -1, avoid = []) {

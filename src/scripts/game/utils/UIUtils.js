@@ -270,7 +270,7 @@ export default class UIUtils {
         const priceLabel = UIUtils.getPrimaryLabel('free')
         button.priceLabel = priceLabel;
         buttonList.addElement(priceLabel, { align: 0.8, scaleContentMax: true, fitHeight: 0.8 })
-        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitHeight: 0.7, listScl:0.4 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitHeight: 0.7, listScl: 0.4 })
 
         button.addChild(buttonList)
         button.buttonListContent = buttonList;
@@ -457,6 +457,10 @@ export default class UIUtils {
                 return 'burguer'
             case 'coinsCard':
                 return 'money-bag'
+            case 'wardrobe':
+                return 'wardrobe-icon'
+            case 'ingame-timer':
+                return 'watch-icon'
         }
 
 

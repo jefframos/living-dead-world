@@ -199,6 +199,12 @@ export default class BaseWeapon extends PhysicsEntity {
             temp.onDestroyWeapon = weapon.onDestroyWeapon;
             weapon = temp;
         }
+
+        if(this.isPlayer){
+        SOUND_MANAGER.play('place', 0.3, Math.random() * 0.2 + 0.9)
+
+        }
+        //SOUND_MANAGER.play('gun ('+Math.ceil(Math.random() * 3)+')', 0.1, Math.random() * 0.2 + 0.9)
         weapon.weaponAttributes.isMain = isMain;
         if (!customWeapon) {
             if (this.brustFire.amount > 0) {

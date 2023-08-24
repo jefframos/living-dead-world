@@ -68,23 +68,23 @@ export default class PrizeManager {
 
         this.cassinoList = [];
         this.cassinoList.push({
-            icon: 'pistol1-icon',
+            icon: 'weapon-ticket',
             type: PrizeManager.PrizeType.Weapon,
         })
         this.cassinoList.push({
-            icon: 'pet-icon',
+            icon: 'pet-ticket',
             type: PrizeManager.PrizeType.Companion
         })
         this.cassinoList.push({
-            icon: 'dynamic-shoe-icon0001',
+            icon: 'shoe-ticket',
             type: PrizeManager.PrizeType.Shoe
         })
         this.cassinoList.push({
-            icon: 'trinket-icon0001',
+            icon: 'trinket-ticket',
             type: PrizeManager.PrizeType.Trinket
         })
         this.cassinoList.push({
-            icon: 'money-bag',
+            icon: 'money-ticket',
             type: PrizeManager.PrizeType.Coin,
         })
 

@@ -191,10 +191,10 @@ export default class GameOverView extends GameObject {
         this.uiEndStatsList.addElement(this.hardCount)
 
         const specialIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('specialCurrency'))
-        this.uiEndStatsList.addElement(specialIcon, { fitHeight: 0.8, align: 1 })
+        //this.uiEndStatsList.addElement(specialIcon, { fitHeight: 0.8, align: 1 })
 
         this.specialCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        this.uiEndStatsList.addElement(this.specialCount)
+        //this.uiEndStatsList.addElement(this.specialCount)
 
 
         this.uiEndStatsList.updateHorizontalList()
@@ -231,7 +231,7 @@ export default class GameOverView extends GameObject {
 
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             //this.collectPrizes();
-            this.redirect(true);
+            this.redirect(this.currentWinState);
         }, 'Continue')
         this.collectButton.updateBackTexture('square_button_0002')
 
@@ -242,6 +242,12 @@ export default class GameOverView extends GameObject {
     show(win = true, data = {}, hasGameOverToken = true) {
         //win = !win
 
+        this.currentWinState = win;
+        if(!win){
+            SOUND_MANAGER.play('Musical-Beep-Loop-02', 0.5)
+        }else{
+            SOUND_MANAGER.play('magic', 0.75)
+        }
         RewardsManager.instance.gameplayStop();
         this.endGameData = data;
 
@@ -342,8 +348,8 @@ export default class GameOverView extends GameObject {
             }
         })
 
-        const prizes = PrizeManager.instance.getMetaPrize([-1], 0, 1, false)
-        this.showPrize(prizes)
+        //const prizes = PrizeManager.instance.getMetaPrize([-1], 0, 1, false)
+        //this.showPrize(prizes)
 
 
         const hardCurrency = Math.max(0, Math.floor(this.endGameData.time / 60))

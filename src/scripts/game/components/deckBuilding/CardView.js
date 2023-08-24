@@ -66,7 +66,9 @@ export default class CardView extends PIXI.Container {
         this.onEndDrag = new signals.Signal();
         InteractableView.addMouseEnter(this.cardContentContnainer, () => { this.mouseOver = true; })
         InteractableView.addMouseOut(this.cardContentContnainer, () => { this.mouseOver = false; })
-        InteractableView.addMouseClick(this.cardContentContnainer, () => { this.onCardConfirmed.dispatch(this) })
+        InteractableView.addMouseClick(this.cardContentContnainer, () => { 
+            SOUND_MANAGER.play('dropTile', 0.5)
+            this.onCardConfirmed.dispatch(this) })
         InteractableView.addMouseDown(this.cardContentContnainer, () => {
             this.onStartDrag.dispatch(this)
         })

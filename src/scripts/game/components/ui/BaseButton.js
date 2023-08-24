@@ -17,6 +17,8 @@ export default class BaseButton extends PIXI.Container {
         this.swapTexture = null;
         this.isActive = false;
 
+        this.buttonSound = 'pop';
+
     }
     setActiveTexture(texture) {
         this.activeTexture = texture;
@@ -109,6 +111,7 @@ export default class BaseButton extends PIXI.Container {
         InteractableView.addMouseOut(this, () => { this.out(); })
         InteractableView.addMouseClick(this, () => {
             this.out();
+            SOUND_MANAGER.play(this.buttonSound, 0.2)
             this.onButtonClicked.dispatch(this)
         })
     }

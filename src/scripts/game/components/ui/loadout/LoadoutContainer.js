@@ -84,6 +84,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.slotsListInGame.addElement(this.currentWeaponSlot, { align: 0 });
 
         this.currentWeaponSlot.onCardClicked.add((card) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Weapon)
@@ -93,6 +94,7 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.currentShoeSlot.setIconType(true);
         this.slotsList.addElement(this.currentShoeSlot, { align: 0 });
         this.currentShoeSlot.onCardClicked.add((card) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Shoe)
@@ -102,6 +104,7 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.currentTrinketSlot.setIconType(true);
         this.slotsList.addElement(this.currentTrinketSlot, { align: 0 });
         this.currentTrinketSlot.onCardClicked.add((card) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Trinket)
@@ -111,6 +114,7 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.currentCompanionSlot.setIconType();
         this.slotsListInGame.addElement(this.currentCompanionSlot, { align: 0 });
         this.currentCompanionSlot.onCardClicked.add((card) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Caompanion)
@@ -307,6 +311,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableCards[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
+                 SOUND_MANAGER.play('Pop-Tone', 0.2)
                 GameData.instance.changeMainWeapon(card.cardData.id, card.level);
                 this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id), card.level)
                 this.onUpdateMainWeapon.dispatch(card.cardData);
@@ -340,6 +345,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableCompanions[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
+                 SOUND_MANAGER.play('Pop-Tone', 0.2)
                 GameData.instance.changeCompanion(card.cardData.id, card.level);
                 this.currentCompanionSlot.setData(EntityBuilder.instance.getCompanion(card.cardData.id), availableCompanions[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);
@@ -357,6 +363,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeCompanion.resetPivot()
         removeCompanion.remover()
         removeCompanion.onCardClicked.add((removeCompanion) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             GameData.instance.changeCompanion(null);
             this.currentCompanionSlot.setData(null)
             this.currentCompanionSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
@@ -377,6 +384,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableTrinkets[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
+                 SOUND_MANAGER.play('Pop-Tone', 0.2)
                 GameData.instance.changeTrinket(card.cardData.id, card.level);
                 this.currentTrinketSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableTrinkets[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);
@@ -395,6 +403,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeTrinket.resetPivot()
         removeTrinket.remover()
         removeTrinket.onCardClicked.add((removeTrinket) => {
+             SOUND_MANAGER.play('Pop-Tone', 0.2)
             GameData.instance.changeTrinket(null);
             this.currentTrinketSlot.setData(null)
             this.currentTrinketSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
@@ -414,6 +423,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableShoes[index].level, 100)
             card.resetPivot()
             card.onCardClicked.add((card) => {
+                 SOUND_MANAGER.play('Pop-Tone', 0.2)
                 GameData.instance.changeShoe(card.cardData.id, card.level);
                 this.currentShoeSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableShoes[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);

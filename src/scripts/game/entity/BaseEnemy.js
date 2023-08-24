@@ -96,6 +96,7 @@ export default class BaseEnemy extends GameAgent {
     getShot(value, isCritical) {
         super.getShot(value, isCritical)
 
+        SOUND_MANAGER.play('kill', 0.2, Math.random() * 0.5 + 0.5)
         // let stats = this.engine.poolGameObject(StatsModifier)
         // this.addChild(stats)
         // stats.build({

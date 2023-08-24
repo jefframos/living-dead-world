@@ -35,7 +35,7 @@ export default class Consumable extends Collectable {
         this.gameView.view.texture = PIXI.Texture.EMPTY;
         this.gameView.view.addChild(this.glow)
         this.gameView.view.scale.set(1)
-        this.consumableSprite = new PIXI.Sprite.from('shine') 
+        this.consumableSprite = new PIXI.Sprite.from('shine')
         this.gameView.view.addChild(this.consumableSprite)
         this.consumableSprite.anchor.set(0.5)
 
@@ -84,7 +84,7 @@ export default class Consumable extends Collectable {
     setCollectableTexture() {
     }
     collectCallback() {
-
+        SOUND_MANAGER.play('teleport', 0.2, Math.random() * 0.1 + 0.9)
         switch (this.type) {
             case Consumable.Type.Magnet:
                 LevelManager.instance.collectAllPickups();

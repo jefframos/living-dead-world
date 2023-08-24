@@ -43,6 +43,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         }, 'collect')
         this.collectButton.updateBackTexture('square_button_0002')
         this.container.addChild(this.collectButton);
+        this.collectButton.buttonSound = 'Synth-Appear-01'
 
         this.slotSize = 100
 
@@ -119,7 +120,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
     showPrize(data) {
         console.log(data)
-
+        SOUND_MANAGER.play('teleport', 0.8)
         let drawPrizes = [];
         for (let index = 0; index < data.type.length; index++) {
             const element = data.type[index];
@@ -181,7 +182,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             } else {
                 let texShape = UIUtils.baseButtonTexture + '_0006'
-                console.log(element.value,element.value == PrizeManager.PrizeType.Wearable)
+                console.log(element.value, element.value == PrizeManager.PrizeType.Wearable)
                 if (element.value.type == PrizeManager.PrizeType.Wearable) {
                     texShape = UIUtils.baseButtonTexture + '_0009'
                 }

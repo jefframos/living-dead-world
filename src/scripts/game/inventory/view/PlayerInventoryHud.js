@@ -13,6 +13,7 @@ import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
 import Utils from '../../core/utils/Utils';
 import UIUtils from '../../utils/UIUtils';
+import AudioControllerView from '../../components/ui/AudioControllerView';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -60,22 +61,25 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.x = 50
         this.text.y = 15
 
+        this.audioButton = new AudioControllerView();
+        this.gameView.view.addChild(this.audioButton)
+
 
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
         this.timer.style.fontSize = 22
-        this.timer.anchor.set(0,0.5)
-        
+        this.timer.anchor.set(0, 0.5)
+
         this.timerIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('ingame-timer'))
         this.timerIcon.scale.set(Utils.scaleToFit(this.timerIcon, 30))
         this.timerIcon.x = -20
         this.timerIcon.anchor.set(0.5)
         this.timer.addChild(this.timerIcon)
-        
+
         this.kills = new PIXI.Text('9999', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.kills)
         this.kills.style.fontSize = 22
-        this.kills.anchor.set(0,0.5)
+        this.kills.anchor.set(0, 0.5)
 
         this.enemyIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'))
         this.enemyIcon.scale.set(Utils.scaleToFit(this.enemyIcon, 30))
@@ -87,13 +91,59 @@ export default class PlayerInventoryHud extends GameObject {
         this.coins = new PIXI.Text('9999', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.coins)
         this.coins.style.fontSize = 22
-        this.coins.anchor.set(0,0.5)
+        this.coins.anchor.set(0, 0.5)
+
+
 
         this.coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
         this.coinIcon.scale.set(Utils.scaleToFit(this.coinIcon, 30))
         this.coinIcon.x = -20
         this.coinIcon.anchor.set(0.5)
         this.coins.addChild(this.coinIcon)
+
+
+        this.tubeContainer = new PIXI.Container();
+        this.gameView.view.addChild(this.tubeContainer)
+
+
+        this.gooIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('hardCurrency'))
+        this.gooIcon.scale.set(Utils.scaleToFit(this.gooIcon, 30))
+        this.gooIcon.x = -20
+        this.gooIcon.anchor.set(0.5)
+
+        this.tubeFillContainer = new PIXI.Container();
+        this.tubeFillContainer.y = 3
+        this.tubeContainer.addChild(this.tubeFillContainer)
+
+        this.tubeFill = new PIXI.Sprite.from('tube-fill')
+        this.tubeFillContainer.addChild(this.tubeFill)
+
+        this.tubeFillMask = new PIXI.Sprite.from('tube-fill-mask')
+        this.tubeFillContainer.addChild(this.tubeFillMask)
+        this.tubeFillContainer.mask = this.tubeFillMask;
+        this.tubeFill.x = -this.tubeFill.width * 0.5
+
+        this.tubeFillFront = new PIXI.Sprite.from('tube-fill-front')
+        this.tubeContainer.addChild(this.tubeFillFront)
+
+        this.tubeFillContainer.scale.set(0.75)
+        this.tubeFillFront.scale.set(0.75)
+
+        this.tubeFillContainer.y = -this.tubeFillContainer.height / 2
+        this.tubeFillFront.y = this.tubeFillContainer.y
+
+        this.tubeFillContainer.x = -10
+        this.tubeFillFront.x = this.tubeFillContainer.x
+
+        this.tubeContainer.addChild(this.gooIcon)
+
+        this.goos = new PIXI.Text('0', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.goos)
+        this.goos.style.fontSize = 22
+        this.goos.anchor.set(0, 0)
+        this.goos.scale.set(2)
+
+        this.gooIcon.addChild(this.goos)
 
         this.labelsInfoContainer = new PIXI.Container();
         if (Game.Debug.debug || Game.Debug.stats) {
@@ -111,7 +161,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.playerAttributesLabel.style.fontSize = 12
         this.playerAttributesLabel.style.align = 'left'
         this.playerAttributesLabel.x = 0
-        this.playerAttributesLabel.y = 40
+        this.playerAttributesLabel.y = 120
 
 
         this.playerAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
@@ -119,17 +169,17 @@ export default class PlayerInventoryHud extends GameObject {
         this.playerAcessoriesLabel.style.fontSize = 12
         this.playerAcessoriesLabel.style.align = 'left'
         this.playerAcessoriesLabel.x = 0
-        this.playerAcessoriesLabel.y = 40
+        this.playerAcessoriesLabel.y = 120
 
         this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
         this.attributesDebugList.addElement(this.weaponAcessoriesLabel, { align: 0 })
         this.weaponAcessoriesLabel.style.fontSize = 12
         this.weaponAcessoriesLabel.style.align = 'left'
         this.weaponAcessoriesLabel.x = 0
-        this.weaponAcessoriesLabel.y = 40
+        this.weaponAcessoriesLabel.y = 120
 
         this.labelsInfoContainer.x = 20
-        this.labelsInfoContainer.y = 170
+        this.labelsInfoContainer.y = 280
 
         this.attributesDebugList.updateVerticalList()
 
@@ -210,7 +260,7 @@ export default class PlayerInventoryHud extends GameObject {
         if (xpData.normalUntilNext < 1) {
             this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         }
-        this.text.text = 'Level ' + (xpData.currentLevel + 1) ;//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+        this.text.text = 'Level ' + (xpData.currentLevel + 1);//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
     updatePlayerHealth() {
         this.updatePlayerAttributes();
@@ -307,60 +357,70 @@ export default class PlayerInventoryHud extends GameObject {
             this.timer.text = '00:00'
         }
 
+        this.goos.text = Math.max(0,Math.floor(LevelManager.instance.gameplayTime / 60))
+        this.tubeFill.x = -this.tubeFill.width * (1 - (LevelManager.instance.gameplayTime % 60) / 60)
+
         this.kills.text = LevelManager.instance.matchStats.enemiesKilled
         this.coins.text = LevelManager.instance.matchStats.coins
-        
+
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
-        
-        this.statsVignette.width = Game.Borders.width+4;
-        this.statsVignette.height = Game.Borders.height+4;
-        
+
+        this.statsVignette.width = Game.Borders.width + 4;
+        this.statsVignette.height = Game.Borders.height + 4;
+
         this.infoShade.width = this.infoLevelLabel.width + 140
         this.infoShade.height = this.infoLevelLabel.height + 40
         this.infoShade.x = -this.infoShade.width / 2
         this.infoShade.y = -this.infoShade.height / 2
-        
+
         this.attributesView.scale.set(0.75)
         this.attributesView.y = Game.Borders.bottomRight.y - this.attributesView.height - 5
         this.attributesView.x = 5
-        
-        
+
+
         if (this.baseBarView.maxWidth != Game.Borders.width - 100) {
             this.baseBarView.rebuild(Game.Borders.width - 18)
             this.baseBarView.x = 60
             this.baseBarView.y = 5
             this.baseBarView.scale.y = 0.7
         }
-        
-        this.text.x = Game.Borders.width - this.text.width-10
+
+        this.text.x = Game.Borders.width - this.text.width - 10
         this.text.y = 45
+
+        this.audioButton.x = Game.Borders.width - this.audioButton.width - 10
+        this.audioButton.y = 80
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
-        if(this.player){
-            
-            
-            if(this.player.health.normal < 0.5){
-                let alphaTarget = 1 - this.player.health.normal / 0.7 
+        if (this.player) {
+
+
+            if (this.player.health.normal < 0.5) {
+                let alphaTarget = 1 - this.player.health.normal / 0.7
                 this.statsVignette.alpha = alphaTarget
-            }else{
+            } else {
                 this.statsVignette.alpha = 0
-                
+
             }
         }
-        
+
         //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var min = Math.min(Game.GlobalScale.min, 1)
         this.playerHud.scale.set(Math.max(0.85, min));
-        
+
         this.timer.x = 50//Game.Borders.width / 2 - this.timer.width / 2
         this.timer.y = 170 * this.playerHud.scale.y
 
-        this.kills.x = this.timer.x
-        this.kills.y = this.timer.y + this.timer.height + 5
+        this.tubeContainer.x = this.timer.x
+        this.tubeContainer.y = this.timer.y + this.timer.height + 5
+
+        this.kills.x = this.tubeContainer.x
+        this.kills.y = this.tubeContainer.y + this.tubeContainer.height + 5
 
         this.coins.x = this.kills.x
         this.coins.y = this.kills.y + this.kills.height + 5
+
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);

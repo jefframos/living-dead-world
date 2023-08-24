@@ -473,8 +473,9 @@ export default class Player extends GameAgent {
             this.physics.velocity.z = Math.sin(this.input.direction) * this.speed * delta
             this.transform.angle = this.input.direction
 
+            
         } else if (this.input.isMouseDown) {
-
+            
             //from the middle
             this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height / 2, this.input.mousePosition.x - config.width / 2)
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta
