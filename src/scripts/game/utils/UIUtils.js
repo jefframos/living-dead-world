@@ -54,7 +54,7 @@ export default class UIUtils {
         const warningIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
         warningIcon.scale.set(Utils.scaleToFit(warningIcon, 30))
         warningIcon.anchor.set(0.5)
-        warningIcon.x = 150 - 30
+        warningIcon.x = 10
         warningIcon.y = 30
         button.addChild(warningIcon)
         button.warningIcon = warningIcon;
@@ -66,7 +66,8 @@ export default class UIUtils {
         if (label) {
             UIUtils.addLabel(button, label, { fontSize: 24 })
 
-            warningIcon.y = button.text.y
+            warningIcon.x = button.text.x + button.text.width / 2 + 17
+            warningIcon.y = button.text.y+ button.text.height / 2
 
         }
         return button;
@@ -287,7 +288,7 @@ export default class UIUtils {
             button.addIcon(icon)
         }
         if (label) {
-            UIUtils.addLabel(button, label, { fontSize: 20, fill: 0xFFFFFF, strokeThickness: 3 }, { x: -5, y: -5 })
+            UIUtils.addLabel(button, label, { fontSize: 18, fill: 0xFFFFFF, strokeThickness: 3 }, { x: -5, y: -5 })
         }
         return button;
     }

@@ -63,6 +63,18 @@ export default class CookieManager {
 				hair: [],
 				hat: []
 			},
+			allEquips: {
+				companions: [],
+				shoes: [],
+				trinkets: [],
+				weapons: [],
+			},
+			allEquipsNew: {
+				companions: [],
+				shoes: [],
+				trinkets: [],
+				weapons: [],
+			},
 			playerStructures: [],
 		}
 		this.defaultInventory = {
@@ -147,10 +159,10 @@ export default class CookieManager {
 		}
 
 	}
-	get isMute(){
+	get isMute() {
 		return this.getChunck('settings').isMute
 	}
-	updateMute(value){
+	updateMute(value) {
 		const data = this.getChunck('settings')
 		data.isMute = value;
 		this.saveChunk('settings', data)
@@ -166,6 +178,41 @@ export default class CookieManager {
 		}
 		return newItemsSections;
 	}
+
+	allNewEquipsDiscover() {
+		const data = this.getChunck('player')
+		const newItemsSections = [];
+		for (const key in data.allEquipsNew) {
+			if (data.allEquipsNew[key] && data.allEquipsNew[key].length > 0) {
+				newItemsSections.push({ area: key, content: data.allEquipsNew[key] })
+			}
+
+		}
+		return newItemsSections;
+	}
+	getEquipsNewPerArea(area) {
+		const data = this.getChunck('player')
+		
+		return data.allEquipsNew[area];
+	}
+	saveEquipsPiece(area, id) {
+		const data = this.getChunck('player')
+		if (data.allEquips[area] && !data.allEquips[area].includes(id)) {
+			data.allEquips[area].push(id)
+		}
+		data.allEquipsNew[area].push(id)
+		this.saveChunk('player', data)
+	}
+
+	clearEquipsPieceNew(area) {
+		console.log('clearEquipsPieceNew',area)
+		const data = this.getChunck('player')
+		if (data.allEquipsNew[area]) {
+			data.allEquipsNew[area] = [];
+		}
+		this.saveChunk('player', data)
+	}
+
 	getWardrobeNewDiscover(area) {
 		const data = this.getChunck('player')
 		if (data.wardrobeNew[area]) {
@@ -199,6 +246,9 @@ export default class CookieManager {
 		}
 
 	}
+
+
+
 	saveWardrobePiece(area, id) {
 		const data = this.getChunck('player')
 		if (data.wardrobe[area] && !data.wardrobe[area].includes(id)) {
@@ -724,10 +774,10 @@ export default class CookieManager {
 		} catch (e) {
 		}
 	}
-	
+
 	wipeData2() {
 		this.resetCookie();
-		
+
 		try {
 			window.localStorage.clear();
 			this.storeObject('cookieVersion', this.version)

@@ -285,7 +285,7 @@
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 15,
-            "baseSpeed": [6,6,9,12,18]
+            "baseSpeed": [18,18,21,24,30]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {
@@ -314,7 +314,7 @@
             "baseMass": 1,
             "baseDefense": 10,
             "baseRadius": 15,
-            "baseSpeed": [20,21,25,31,40]
+            "baseSpeed": [30,30,30,32,33,36,38,42,45,50]
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

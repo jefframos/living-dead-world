@@ -100,6 +100,9 @@ export default class SoundManager extends AbstractSoundManager {
             });
     }
     stop(id) {
+        if(! this.audioList[id]){
+            return;
+        }
         this.audioList[id].stop();
         this.removeFromPlayList(id);
     }

@@ -8,6 +8,7 @@ import RouletteSlotView from './RouletteSlotView';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import signals from 'signals';
+import TimedAction from '../../../data/TimedAction';
 
 export default class RouletteView extends PIXI.Container {
     constructor(width = 800, height = 600) {
@@ -28,10 +29,17 @@ export default class RouletteView extends PIXI.Container {
 
 
         this.spinVideoButton = UIUtils.getPrimaryLargeLabelButton(() => {
-            RewardsManager.instance.doReward(() => {
-                this.spin(Math.random() + 0.65);
-            })
+            if (this.freeSpinTimed.canUse) {
+                GameData.instance.openChest(this.freeSpinTimed.id)
+                RewardsManager.instance.doReward(() => {
+                    this.spin(Math.random() + 0.65);
+                })
+            }
         }, 'Free', UIUtils.getIconUIIcon('video'))
+
+
+        this.freeSpinTimed = new TimedAction("FREE_SPIN", 300, this.spinVideoButton.text, "FREE")
+
         this.spinVideoButton.updateBackTexture('square_button_0003')
         this.container.addChild(this.spinVideoButton);
         this.rollPrice = 200
@@ -49,6 +57,7 @@ export default class RouletteView extends PIXI.Container {
         this.rouletteState = []
 
         //PrizeManager
+        
 
         this.prizeList = PrizeManager.instance.cassinoPrizeList;
 
@@ -122,10 +131,12 @@ export default class RouletteView extends PIXI.Container {
                 match++
             }
         }
+
+        SOUND_MANAGER.stop('slot-machine')
         if (match <= 0) {
 
             this.onPrizeFound.dispatch(0, 0, match)
-            SOUND_MANAGER.play('magic', 0.8)
+            SOUND_MANAGER.play('magic', 1)
 
 
         } else {
@@ -139,7 +150,7 @@ export default class RouletteView extends PIXI.Container {
                 }
             });
             this.onPrizeFound.dispatch(Math.max(1, match), maxId, max)
-            SOUND_MANAGER.play('getThemAll', 0.8)
+            SOUND_MANAGER.play('getThemAll', 1)
 
         }
     }
@@ -166,6 +177,9 @@ export default class RouletteView extends PIXI.Container {
 
     }
     spin(speed = 1, force = -1, avoid = []) {
+
+        SOUND_MANAGER.play('slot-machine', 0.8)
+
         this.rouletteState.forEach(element => {
             element.spinning = true;
         });
@@ -185,10 +199,12 @@ export default class RouletteView extends PIXI.Container {
         }
     }
     update(delta) {
+        this.date = new Date();
+        this.freeSpinTimed.updateTime(this.date.getTime())
+
         this.slots.forEach(element => {
             element.update(delta);
         });
-
 
     }
 }

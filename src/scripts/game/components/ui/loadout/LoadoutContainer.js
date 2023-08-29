@@ -17,6 +17,7 @@ import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import WeaponLevelContainer from './WeaponLevelContainer';
 import signals from 'signals';
+import CookieManager from '../../../CookieManager';
 
 export default class LoadoutContainer extends MainScreenModal {
     static Sections = {
@@ -37,20 +38,38 @@ export default class LoadoutContainer extends MainScreenModal {
 
 
         this.mergeSectionButton = UIUtils.getPrimaryLabelTabButton(() => {
-            this.findMerge();
-        }, "Merge")
+            if (!this.findMerge()) {
+                this.infoUpgradeLabel.alpha = 1
+                TweenLite.killTweensOf(this.infoUpgradeLabel)
+                TweenLite.to(this.infoUpgradeLabel, 0.5, { delay: 3, alpha: 0 })
+                TweenMax.fromTo(this.infoUpgradeLabel, 0.1, {
+                    x: 162,
+                }, {
+                    x: 168,
+                    repeat: 5,
+                    yoyo: true,
+                    ease: Quad.easeInOut
+                })
+            }
+        }, "UPGRADE")
+
+        this.infoUpgradeLabel = UIUtils.getTertiaryLabel('*Requires 3 of the same item to upgrade')
+        this.mergeSectionButton.addChild(this.infoUpgradeLabel)
+        this.infoUpgradeLabel.style.fontSize = 16
+        this.infoUpgradeLabel.x = 168
+        this.infoUpgradeLabel.alpha = 0;
         this.contentContainer.addChild(this.mergeSectionButton)
         this.warningIcon = new PIXI.Sprite.from('info');
         this.warningIcon.scale.set(Utils.scaleToFit(this.warningIcon, 30))
         this.warningIcon.anchor.set(0.5)
-        this.warningIcon.x = this.mergeSectionButton.width - 15
+        this.warningIcon.x = 0
         this.mergeSectionButton.addChild(this.warningIcon)
         this.mergeSectionButton.warningIcon = this.warningIcon;
         this.mergeSectionButton.setActiveTexture(UIUtils.baseTabTexture + '_0003')
 
         this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
             this.mergeSystem.findAllMerges(this.currentSlots);
-        }, "Auto Merge")
+        }, "Auto upgrade")
         this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
         this.autoMergeAll.setActive()
         this.contentContainer.addChild(this.autoMergeAll)
@@ -80,41 +99,45 @@ export default class LoadoutContainer extends MainScreenModal {
         this.contentContainer.addChild(this.slotsListInGame);
 
         this.currentWeaponSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        this.currentWeaponSlot.addWarning()
         //this.currentWeaponSlot.setIconType();
         this.slotsListInGame.addElement(this.currentWeaponSlot, { align: 0 });
 
         this.currentWeaponSlot.onCardClicked.add((card) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playSelectCategory()
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Weapon)
         })
 
         this.currentShoeSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        this.currentShoeSlot.addWarning()
         //this.currentShoeSlot.setIconType(true);
         this.slotsList.addElement(this.currentShoeSlot, { align: 0 });
         this.currentShoeSlot.onCardClicked.add((card) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playSelectCategory()
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Shoe)
         })
 
         this.currentTrinketSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        this.currentTrinketSlot.addWarning()
         //this.currentTrinketSlot.setIconType(true);
         this.slotsList.addElement(this.currentTrinketSlot, { align: 0 });
         this.currentTrinketSlot.onCardClicked.add((card) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playSelectCategory()
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Trinket)
         })
 
         this.currentCompanionSlot = new LoadoutCardView(UIUtils.baseButtonTexture + '_0006', this.slotSize, this.slotSize);
+        this.currentCompanionSlot.addWarning()
         //this.currentCompanionSlot.setIconType();
         this.slotsListInGame.addElement(this.currentCompanionSlot, { align: 0 });
         this.currentCompanionSlot.onCardClicked.add((card) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playSelectCategory()
             this.disableMainSlots();
             this.selectCard(card)
             this.showSection(LoadoutContainer.Sections.Caompanion)
@@ -146,6 +169,14 @@ export default class LoadoutContainer extends MainScreenModal {
         this.container.addChild(this.loadoutStatsView)
 
     }
+    playSelectCategory() {
+        SOUND_MANAGER.play('Pop-Tone', 0.2)
+        SOUND_MANAGER.play('shoosh', 0.2)
+    }
+    playChangeEquip() {
+        SOUND_MANAGER.play('Pop-Tone', 0.2)
+        SOUND_MANAGER.play('getstar', 0.2)
+    }
     disableMainSlots() {
         this.mainslots.forEach(element => {
             element.unselected();
@@ -160,7 +191,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
     }
     updateStatsView() {
-        if(!this.currentSelectedCard || !this.loadoutStatsView){
+        if (!this.currentSelectedCard || !this.loadoutStatsView) {
             return;
         }
         this.loadoutStatsView.x = this.currentSelectedCard.x + this.currentSelectedCard.parent.x + this.currentSelectedCard.parent.parent.x
@@ -220,6 +251,9 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.autoMergeAll.visible = false;
         if (!canMerge) {
+
+
+
             return false
         }
 
@@ -240,20 +274,26 @@ export default class LoadoutContainer extends MainScreenModal {
         console.log(GameData.instance.currentEquippedWeaponData)
     }
     showSection(id) {
+
+
         this.previousSection = id;
         this.weaponLevelView.visible = false;
         switch (id) {
             case LoadoutContainer.Sections.Weapon:
+                CookieManager.instance.clearEquipsPieceNew('weapons')
                 this.updateListView(this.equippableWeapons)
                 this.showWeaponLevels();
                 break;
             case LoadoutContainer.Sections.Shoe:
+                CookieManager.instance.clearEquipsPieceNew('shoes')
                 this.updateListView(this.equippableShoes)
                 break;
             case LoadoutContainer.Sections.Trinket:
+                CookieManager.instance.clearEquipsPieceNew('trinkets')
                 this.updateListView(this.equippableTrinkets)
                 break;
             case LoadoutContainer.Sections.Caompanion:
+                CookieManager.instance.clearEquipsPieceNew('companions')
                 this.updateListView(this.equippableCompanions)
                 break;
         }
@@ -267,28 +307,51 @@ export default class LoadoutContainer extends MainScreenModal {
             this.mergeSectionButton.updateBackTexture(UIUtils.baseTabTexture + '_0003')
             this.mergeSectionButton.warningIcon.visible = true;
         }
+
+        this.refreshAllNews();
+    }
+    refreshAllNews() {
+        let areaNew = null
+        areaNew = GameData.instance.getEquipsNewPerArea('weapons')
+        this.currentWeaponSlot.warning.visible = areaNew.length > 0
+        areaNew = GameData.instance.getEquipsNewPerArea('shoes')
+        this.currentShoeSlot.warning.visible = areaNew.length > 0
+        areaNew = GameData.instance.getEquipsNewPerArea('trinkets')
+        this.currentTrinketSlot.warning.visible = areaNew.length > 0
+        areaNew = GameData.instance.getEquipsNewPerArea('companions')
+        this.currentCompanionSlot.warning.visible = areaNew.length > 0
+
     }
     refreshSection(id, applySection = false) {
+        let areaNew = null
         switch (id) {
             case LoadoutContainer.Sections.Weapon:
+                areaNew = GameData.instance.getEquipsNewPerArea('weapons')
+                this.currentWeaponSlot.warning.visible = areaNew.length > 0
                 this.refreshWeapons();
                 if (applySection) {
                     this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Shoe:
+                areaNew = GameData.instance.getEquipsNewPerArea('shoes')
+                this.currentWeaponSlot.warning.visible = areaNew.length > 0
                 this.refreshShoes();
                 if (applySection) {
                     this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Trinket:
+                areaNew = GameData.instance.getEquipsNewPerArea('trinkets')
+                this.currentWeaponSlot.warning.visible = areaNew.length > 0
                 this.refreshTrinkets();
                 if (applySection) {
                     this.showSection(id)
                 }
                 break;
             case LoadoutContainer.Sections.Caompanion:
+                areaNew = GameData.instance.getEquipsNewPerArea('companions')
+                this.currentWeaponSlot.warning.visible = areaNew.length > 0
                 this.refreshCompanions();
                 if (applySection) {
                     this.showSection(id)
@@ -311,7 +374,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableCards[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                 SOUND_MANAGER.play('Pop-Tone', 0.2)
+                this.playChangeEquip();
                 GameData.instance.changeMainWeapon(card.cardData.id, card.level);
                 this.currentWeaponSlot.setData(EntityBuilder.instance.getWeapon(card.cardData.id), card.level)
                 this.onUpdateMainWeapon.dispatch(card.cardData);
@@ -345,7 +408,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableCompanions[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                 SOUND_MANAGER.play('Pop-Tone', 0.2)
+                this.playChangeEquip();
                 GameData.instance.changeCompanion(card.cardData.id, card.level);
                 this.currentCompanionSlot.setData(EntityBuilder.instance.getCompanion(card.cardData.id), availableCompanions[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);
@@ -363,7 +426,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeCompanion.resetPivot()
         removeCompanion.remover()
         removeCompanion.onCardClicked.add((removeCompanion) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playChangeEquip();
             GameData.instance.changeCompanion(null);
             this.currentCompanionSlot.setData(null)
             this.currentCompanionSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
@@ -384,7 +447,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableTrinkets[index].level)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                 SOUND_MANAGER.play('Pop-Tone', 0.2)
+                this.playChangeEquip();
                 GameData.instance.changeTrinket(card.cardData.id, card.level);
                 this.currentTrinketSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableTrinkets[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);
@@ -403,7 +466,7 @@ export default class LoadoutContainer extends MainScreenModal {
         removeTrinket.resetPivot()
         removeTrinket.remover()
         removeTrinket.onCardClicked.add((removeTrinket) => {
-             SOUND_MANAGER.play('Pop-Tone', 0.2)
+            this.playChangeEquip();
             GameData.instance.changeTrinket(null);
             this.currentTrinketSlot.setData(null)
             this.currentTrinketSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
@@ -423,7 +486,7 @@ export default class LoadoutContainer extends MainScreenModal {
             card.setData(dt, availableShoes[index].level, 100)
             card.resetPivot()
             card.onCardClicked.add((card) => {
-                 SOUND_MANAGER.play('Pop-Tone', 0.2)
+                this.playChangeEquip();
                 GameData.instance.changeShoe(card.cardData.id, card.level);
                 this.currentShoeSlot.setData(EntityBuilder.instance.getEquipable(card.cardData.id), availableShoes[index].level)
                 this.loadoutStatsView.updateData(card.cardData, card.level);
@@ -460,14 +523,14 @@ export default class LoadoutContainer extends MainScreenModal {
 
         const trinket = GameData.instance.currentEquippedTrinket
         this.currentTrinketSlot.setData(trinket ? EntityBuilder.instance.getTrinket(trinket.id) : null, trinket ? trinket.level : 0)
-        if(!trinket.id){
+        if (!trinket.id) {
             this.currentTrinketSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
         }
         this.currentTrinketSlot.resetPivot()
 
         const companion = GameData.instance.currentEquippedCompanion
         this.currentCompanionSlot.setData(companion ? EntityBuilder.instance.getCompanion(companion.id) : null, companion ? companion.level : 0)
-        if(!companion.id){
+        if (!companion.id) {
             this.currentCompanionSlot.setIcon(UIUtils.getIconUIIcon('--'), 80)
         }
         this.currentCompanionSlot.resetPivot();
@@ -486,6 +549,8 @@ export default class LoadoutContainer extends MainScreenModal {
         this.refreshAttributes();
         this.disableMainSlots();
         this.selectCard(this.currentWeaponSlot)
+
+        this.refreshAllNews();
 
     }
     refreshAttributes() {

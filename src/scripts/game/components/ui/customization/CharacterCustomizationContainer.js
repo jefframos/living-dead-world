@@ -168,6 +168,15 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         }, 'RANDOM', UIUtils.getIconUIIcon('wardrobe'))
 
         this.openClothesChestTimed = new TimedAction("FREE_CLOTHES", 300, this.randomCustomization.text, "FREE\nClothes")
+        
+
+        let videoClothesSprite = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
+        
+        videoClothesSprite.x = this.randomCustomization.width - 20
+        videoClothesSprite.y = 20
+        videoClothesSprite.scale.set(Utils.scaleToFit(videoClothesSprite, 40))
+        videoClothesSprite.anchor.set(1,0)
+        this.randomCustomization.addChild(videoClothesSprite)
         this.randomCustomization.text.y = 110
         this.container.addChild(this.randomCustomization)
 

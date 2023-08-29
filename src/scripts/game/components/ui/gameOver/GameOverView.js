@@ -327,11 +327,9 @@ export default class GameOverView extends GameObject {
 
         setTimeout(() => {
 
-            RewardsManager.instance.doComercial(() => {
-
-                this.onConfirmGameOver.dispatch(fromWin);
-            }, {}, false)
-        }, 500);
+            this.onConfirmGameOver.dispatch(fromWin);
+           
+        }, 10);
 
     }
     showGameOverPrizes() {

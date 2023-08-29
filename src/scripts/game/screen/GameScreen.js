@@ -24,6 +24,7 @@ import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
 import config from '../../config';
+import RewardsManager from '../data/RewardsManager';
 
 export default class GameScreen extends Screen {
     constructor(label, targetContainer) {
@@ -299,6 +300,8 @@ export default class GameScreen extends Screen {
     transitionIn() {
 
         SOUND_MANAGER.playLoop('ancient', 0.5)
+
+        RewardsManager.instance.gameplayStart(true);
 
         setTimeout(() => {
             super.transitionIn();

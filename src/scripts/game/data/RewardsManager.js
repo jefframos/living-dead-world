@@ -1,4 +1,5 @@
 import signals from "signals";
+import CookieManager from "../CookieManager";
 
 export default class RewardsManager {
     static _instance;
@@ -48,6 +49,8 @@ export default class RewardsManager {
             return
         }
         this.onAdds.dispatch();
+        SOUND_MANAGER.mute();
+
         PokiSDK.commercialBreak().then(
             () => {
                 console.log("Commercial break finished, proceeding to game");
@@ -55,6 +58,7 @@ export default class RewardsManager {
                     this.gameplayStart()
                 }
                 this.onStopAdds.dispatch();
+                this.sortOutSound();
 
                 if (callback) callback(params)
             }
@@ -65,6 +69,7 @@ export default class RewardsManager {
                     this.gameplayStart()
                 }
                 this.onStopAdds.dispatch();
+                this.sortOutSound();
 
                 if (callback) callback(params)
             }
@@ -86,20 +91,25 @@ export default class RewardsManager {
         }
 
         this.onAdds.dispatch();
+        SOUND_MANAGER.mute();
+        CookieManager.instance
         PokiSDK.rewardedBreak().then(
             (success) => {
                 if (success) {
                     this.onStopAdds.dispatch();
+                    this.sortOutSound();
                     if (toGameplayStart) {
                         this.gameplayStart()
                     }
                     if (callback) callback(params)
                 } else {
                     this.onStopAdds.dispatch();
+                    this.sortOutSound();
                     if (toGameplayStart) {
                         this.gameplayStart()
                     }
-                    this.onAddBlock.dispatch();
+                    //if (callback) callback(params)
+                    //this.onAddBlock.dispatch();
                 }
             }
 
@@ -110,9 +120,16 @@ export default class RewardsManager {
                 if (toGameplayStart) {
                     this.gameplayStart()
                 }
-                this.onAddBlock.dispatch();
+                //if (callback) callback(params)
+                //this.onAddBlock.dispatch();
                 //if (callback) callback(params)
             }
         );
+    }
+
+    sortOutSound() {
+        if (!CookieManager.instance.isMute) {
+            SOUND_MANAGER.unmute();
+        }
     }
 }

@@ -332,6 +332,7 @@ export default class ShopContainer extends MainScreenModal {
         })
     }
     chest2Click(force) {
+        console.log('chest2Click')
         const shopData = this.shopList[1];
         if (this.canBuy(shopData) || force) {
             PrizeManager.instance.getMetaPrize([1], 1, shopData.totalItems);
@@ -349,7 +350,7 @@ export default class ShopContainer extends MainScreenModal {
         }
         RewardsManager.instance.doReward(() => {
             GameData.instance.openChest(this.topShop2Timed.id)
-            this.chestMid1Click(true);
+            this.chest2Click(true);
         })
     }
     chestMid2Click(force) {

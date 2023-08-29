@@ -76,7 +76,7 @@
         "entityData": {
             "icon": "amount-icon",
             "name": "Arsenal Expansion",
-            "description": "Unlock more weapons",
+            "description": "Gain an extra weapon",
             "type": "Attribute",
             "tier": 1
         },
@@ -88,7 +88,7 @@
         "entityData": {
             "icon": "piercing-icon",
             "name": "Piercing Precision",
-            "description": "Pierece Enemies",
+            "description": "Pierce Enemies",
             "type": "Attribute",
             "tier": 1
         },
@@ -111,7 +111,7 @@
         "id": "ITEM_HEAL_MODIFIER",
         "entityData": {
             "icon": "burguer-plus",
-            "name": "Good Burguer",
+            "name": "Good Burger",
             "description": "Items Heal More",
             "type": "Attribute",
             "tier": 1

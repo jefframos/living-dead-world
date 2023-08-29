@@ -109,6 +109,15 @@ export default class LoadoutCardView extends PIXI.Container {
         this.valueLabel.y = height - 10
 
     }
+    addWarning(){
+        this.warning = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
+        this.warning.scale.set(Utils.scaleToFit(this.warning, 30))
+        this.warning.anchor.set(0.5)
+        this.warning.x = 20
+        this.warning.y = 20
+        this.addChild(this.warning)
+        this.warning.visible = false;
+    }
     remover() {
         this.levelLabel.text = '';
         this.cardImage.texture = PIXI.Texture.from(UIUtils.getIconUIIcon('close'));

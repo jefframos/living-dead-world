@@ -19,7 +19,7 @@
             "baseMass": 1,
             "baseDefense": 4,
             "baseRadius": 30,
-            "baseSpeed": 60
+            "baseSpeed": 65
         },
         "icon": "goblin_idle_anim_f0",
         "view": {

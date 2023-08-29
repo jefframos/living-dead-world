@@ -156,7 +156,7 @@ export default class ItemMergeSystem {
         this.onUpgradeItem.dispatch();
     }
 
-    buildMergeView(mergeData) {
+    buildMergeView(mergeData, all) {
         //POOLING DOESNT WORK PROPERLY
         //this.destroyCards();
 

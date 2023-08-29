@@ -28,24 +28,24 @@ const assets = [
 	"url":"assets/json\\localization_JA.json"
 	},
 	{
-	"id":"localization_KO",
-	"url":"assets/json\\localization_KO.json"
-	},
-	{
 	"id":"localization_PT",
 	"url":"assets/json\\localization_PT.json"
+	},
+	{
+	"id":"localization_KO",
+	"url":"assets/json\\localization_KO.json"
 	},
 	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
 	},
 	{
-	"id":"localization_ZH",
-	"url":"assets/json\\localization_ZH.json"
-	},
-	{
 	"id":"localization_TR",
 	"url":"assets/json\\localization_TR.json"
+	},
+	{
+	"id":"localization_ZH",
+	"url":"assets/json\\localization_ZH.json"
 	},
 	{
 	"id":"modifyers",
@@ -54,10 +54,6 @@ const assets = [
 	{
 	"id":"player-assets",
 	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
-	"id":"cards",
-	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"companion-animation",
@@ -70,6 +66,10 @@ const assets = [
 	{
 	"id":"player-animation",
 	"url":"assets/json\\animation\\player-animation.json"
+	},
+	{
+	"id":"cards",
+	"url":"assets/json\\cards\\cards.json"
 	},
 	{
 	"id":"body-parts",
@@ -108,6 +108,14 @@ const assets = [
 	"url":"assets/json\\entity\\player.json"
 	},
 	{
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
+	},
+	{
 	"id":"acessories",
 	"url":"assets/json\\misc\\acessories.json"
 	},
@@ -116,20 +124,12 @@ const assets = [
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
-	},
-	{
 	"id":"buff-debuff",
 	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
 	"id":"main-weapons",
@@ -152,12 +152,12 @@ const assets = [
 	"url":"assets/json\\vfx\\particle-behaviour.json"
 	},
 	{
-	"id":"weapon-vfx-pack",
-	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
-	},
-	{
 	"id":"particle-descriptors",
 	"url":"assets/json\\vfx\\particle-descriptors.json"
+	},
+	{
+	"id":"weapon-vfx-pack",
+	"url":"assets/json\\vfx\\weapon-vfx-pack.json"
 	},
 	{
 	"id":"weapon-vfx",

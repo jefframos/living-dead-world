@@ -131,7 +131,7 @@ export default class CharacterBuildScreen extends Screen {
         this.container.addChild(this.buttonsList);
         this.closeButton = UIUtils.getCloseButton(() => { this.backButtonAction(); })
         this.buttonsList.addElement(this.closeButton, { align: 0, fitWidth: 1 })
-        
+
         this.soundButton = new AudioControllerView();
         this.container.addChild(this.soundButton)
 
@@ -220,7 +220,7 @@ export default class CharacterBuildScreen extends Screen {
         })
 
         window.onSpacePressed.add(() => {
-            if (this.mainShow) {
+            if (this.mainShow && this.screenManager.currentScreen.label == 'CharacterBuild') {
                 this.screenManager.redirectToGame();
             }
         })
@@ -256,6 +256,8 @@ export default class CharacterBuildScreen extends Screen {
     showPrizeWindow(data) {
         this.prizeCollect.showPrize(data)
         this.openPopUp(this.prizeCollect)
+
+        this.updateLoadoutNewItems()
     }
 
     showNoMoney(data) {
@@ -643,7 +645,8 @@ export default class CharacterBuildScreen extends Screen {
         this.outgameUIProgression.y = 30;
 
 
-        this.customizeButton.warningIcon.y = this.customizeButton.text.y - 40
+        this.customizeButton.warningIcon.y = this.customizeButton.text.y //- 40
+        this.loadoutButton.warningIcon.y = this.loadoutButton.text.y //- 40
 
         if (Game.IsPortrait) {
 
@@ -656,7 +659,7 @@ export default class CharacterBuildScreen extends Screen {
         }
         this.buttonsList.y = 20;
 
-        this.soundButton.y =  40
+        this.soundButton.y = 40
 
         this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
@@ -800,8 +803,22 @@ export default class CharacterBuildScreen extends Screen {
         } else {
             this.closeCustomization();
             this.unSelectPlayer();
-            this.screenManager.redirectToDebugMenu()
+            if(Game.Debug.debug){
+                this.screenManager.redirectToDebugMenu()
+            }
         }
+
+        this.updateLoadoutNewItems()
+    }
+    updateLoadoutNewItems(){
+        // console.log(GameData.instance.getEquipsNewPerArea('weapons'))
+
+        // console.log(GameData.instance.anyNewEquip())
+        // console.log(GameData.instance.anyNewEquip())
+        // console.log(GameData.instance.anyNewEquip())
+        // console.log(GameData.instance.anyNewEquip())
+
+        this.loadoutButton.warningIcon.visible = GameData.instance.anyNewEquip()
     }
     transitionOut(nextScreen) {
         super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
@@ -810,9 +827,15 @@ export default class CharacterBuildScreen extends Screen {
 
         console.log(params)
 
-        SOUND_MANAGER.playLoop('dream2')
+        this.updateLoadoutNewItems();
+        SOUND_MANAGER.playLoop('FloatingCities',0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
-            setTimeout(() => {                
+
+            RewardsManager.instance.doComercial(() => {
+
+            }, {}, false)
+
+            setTimeout(() => {
                 if (params && params.fromWin) {
                     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
                 } else {

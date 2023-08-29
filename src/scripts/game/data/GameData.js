@@ -127,9 +127,17 @@ export default class GameData {
         this.onUpdateEquipment.dispatch('trinket', id, level)
     }
     addToInventory(type, item) {
-        console.log('addToInventory', type, item)
+        //console.log('addToInventory', type, item)
+
+        CookieManager.instance.saveEquipsPiece(type, item.id)
         CookieManager.instance.addToInventory(type, item)
 
+    }
+    anyNewEquip() {
+        return CookieManager.instance.allNewEquipsDiscover().length > 0;
+    }
+    getEquipsNewPerArea(area) {
+        return CookieManager.instance.getEquipsNewPerArea(area);
     }
     removeFromInventory(type, item, quant) {
         CookieManager.instance.removeFromInventory(type, item, quant)

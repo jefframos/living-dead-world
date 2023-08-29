@@ -45,7 +45,7 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
-// getValues(0.1, 0.3, null, 'easeOutCubic', 0.8, 5)
+ //getValues(0.4, 0.12, null, 'easeOutCubic', 0.8, 10)
 // getValues(0.025, 0.2, null, 'easeOutCubic', 0.8, 5)
 // getValues(0.12, 0.35, null, 'easeOutCubic', 0.8, 5)
 // getValues(0.20, 0.35, null, 'easeOutCubic', 0.8, 5)
@@ -57,7 +57,7 @@ window.PIXI = PIXI;
 // getValues(50, 120, 'floor', 'easeOutCubic', 1, 5, 0.8)
 
 
-// getValues(26, 350, 'floor', 'easeOutQuad', 1, 10)
+ //getValues(30, 50, 'floor', 'easeOutQuad', 1, 10)
 // getValues(15, 300, 'floor', 'easeOutQuad', 1, 10)
 // getValues(40, 400, 'floor', 'easeOutQuad', 1, 10)
 // getValues(100, 500, 'floor', 'easeOutQuad', 1, 10)
@@ -239,6 +239,7 @@ function startLoader() {
 }
 
 
+window.loadedOnce = false;
 
 function configGame(evt) {
 
@@ -274,9 +275,9 @@ function configGame(evt) {
         let tex = utils.generateTextureFromContainer('image-' + id, container, window.TILE_ASSSETS_POOL)
 
     }
-
-    if (!window.noPoki) {
+    if (!window.noPoki && !window.loadedOnce) {
         PokiSDK.gameLoadingFinished();
+        window.loadedOnce = true;
     }
     if (!window.screenManager) {
         window.screenManager = new MainScreenManager();
