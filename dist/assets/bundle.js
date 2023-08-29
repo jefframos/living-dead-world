@@ -79516,6 +79516,8 @@ function myFocusFunction() {
     // }
     if (!_CookieManager2.default.instance.getSettings().isMute) {
         SOUND_MANAGER.unmute();
+    } else {
+        SOUND_MANAGER.mute(false);
     }
 }
 
@@ -79525,7 +79527,9 @@ function myBlurFunction() {
     //     timeScale: 0
     // })
 
-    SOUND_MANAGER.mute(false);
+    if (_CookieManager2.default.instance.getSettings().isMute) {
+        SOUND_MANAGER.mute(false);
+    }
 }
 
 window.onEscPressed = new _signals2.default();
@@ -112930,11 +112934,11 @@ var assets = [{
 	"id": "FloatingCities",
 	"url": "assets/audio\\FloatingCities.mp3"
 }, {
-	"id": "getThemAll",
-	"url": "assets/audio\\getThemAll.mp3"
-}, {
 	"id": "getstar",
 	"url": "assets/audio\\getstar.mp3"
+}, {
+	"id": "getThemAll",
+	"url": "assets/audio\\getThemAll.mp3"
 }, {
 	"id": "item",
 	"url": "assets/audio\\item.mp3"
@@ -112951,14 +112955,14 @@ var assets = [{
 	"id": "Ping-Slide-Down",
 	"url": "assets/audio\\Ping-Slide-Down.mp3"
 }, {
+	"id": "Pop-Low-Pitch-Up-02",
+	"url": "assets/audio\\Pop-Low-Pitch-Up-02.mp3"
+}, {
 	"id": "place",
 	"url": "assets/audio\\place.mp3"
 }, {
 	"id": "Pop-Musical",
 	"url": "assets/audio\\Pop-Musical.mp3"
-}, {
-	"id": "Pop-Low-Pitch-Up-02",
-	"url": "assets/audio\\Pop-Low-Pitch-Up-02.mp3"
 }, {
 	"id": "Pop-Tone",
 	"url": "assets/audio\\Pop-Tone.mp3"
@@ -112981,11 +112985,11 @@ var assets = [{
 	"id": "Synth-Appear-01",
 	"url": "assets/audio\\Synth-Appear-01.mp3"
 }, {
-	"id": "Tap-01",
-	"url": "assets/audio\\Tap-01.mp3"
-}, {
 	"id": "teleport",
 	"url": "assets/audio\\teleport.mp3"
+}, {
+	"id": "Tap-01",
+	"url": "assets/audio\\Tap-01.mp3"
 }];
 
 exports.default = assets;
@@ -113183,11 +113187,11 @@ var assets = [{
 	"id": "localization_JA",
 	"url": "assets/json\\localization_JA.json"
 }, {
-	"id": "localization_PT",
-	"url": "assets/json\\localization_PT.json"
-}, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_PT",
+	"url": "assets/json\\localization_PT.json"
 }, {
 	"id": "localization_RU",
 	"url": "assets/json\\localization_RU.json"
@@ -113222,26 +113226,17 @@ var assets = [{
 	"id": "starter-inventory",
 	"url": "assets/json\\database\\starter-inventory.json"
 }, {
-	"id": "game-shop",
-	"url": "assets/json\\economy\\game-shop.json"
-}, {
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
-}, {
-	"id": "waves2",
-	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
 	"id": "wavesBkp",
 	"url": "assets/json\\enemy-waves\\wavesBkp.json"
 }, {
-	"id": "companions",
-	"url": "assets/json\\entity\\companions.json"
+	"id": "waves2",
+	"url": "assets/json\\enemy-waves\\waves2.json"
 }, {
-	"id": "enemies",
-	"url": "assets/json\\entity\\enemies.json"
-}, {
-	"id": "player",
-	"url": "assets/json\\entity\\player.json"
+	"id": "game-shop",
+	"url": "assets/json\\economy\\game-shop.json"
 }, {
 	"id": "level-1",
 	"url": "assets/json\\environment\\level-1.json"
@@ -113249,17 +113244,26 @@ var assets = [{
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
+	"id": "enemies",
+	"url": "assets/json\\entity\\enemies.json"
+}, {
+	"id": "companions",
+	"url": "assets/json\\entity\\companions.json"
+}, {
+	"id": "player",
+	"url": "assets/json\\entity\\player.json"
+}, {
 	"id": "acessories",
 	"url": "assets/json\\misc\\acessories.json"
 }, {
 	"id": "attachments",
 	"url": "assets/json\\misc\\attachments.json"
 }, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
 	"id": "attribute-modifiers",
 	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -113316,7 +113320,7 @@ module.exports = exports['default'];
 /* 359 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/body-parts/body-parts.json","image/particles/particles.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/guns/guns.json","image/environment/environment.json","image/ui/ui.json","image/characters/characters.json","image/particles/particles.json","image/body-parts/body-parts.json","image/vfx/vfx.json"]}
 
 /***/ })
 /******/ ]);

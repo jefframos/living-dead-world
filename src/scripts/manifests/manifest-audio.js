@@ -16,12 +16,12 @@ const assets = [
 	"url":"assets/audio\\FloatingCities.mp3"
 	},
 	{
-	"id":"getThemAll",
-	"url":"assets/audio\\getThemAll.mp3"
-	},
-	{
 	"id":"getstar",
 	"url":"assets/audio\\getstar.mp3"
+	},
+	{
+	"id":"getThemAll",
+	"url":"assets/audio\\getThemAll.mp3"
 	},
 	{
 	"id":"item",
@@ -44,16 +44,16 @@ const assets = [
 	"url":"assets/audio\\Ping-Slide-Down.mp3"
 	},
 	{
+	"id":"Pop-Low-Pitch-Up-02",
+	"url":"assets/audio\\Pop-Low-Pitch-Up-02.mp3"
+	},
+	{
 	"id":"place",
 	"url":"assets/audio\\place.mp3"
 	},
 	{
 	"id":"Pop-Musical",
 	"url":"assets/audio\\Pop-Musical.mp3"
-	},
-	{
-	"id":"Pop-Low-Pitch-Up-02",
-	"url":"assets/audio\\Pop-Low-Pitch-Up-02.mp3"
 	},
 	{
 	"id":"Pop-Tone",
@@ -84,12 +84,12 @@ const assets = [
 	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
-	"id":"Tap-01",
-	"url":"assets/audio\\Tap-01.mp3"
-	},
-	{
 	"id":"teleport",
 	"url":"assets/audio\\teleport.mp3"
+	},
+	{
+	"id":"Tap-01",
+	"url":"assets/audio\\Tap-01.mp3"
 	}
 ];
 

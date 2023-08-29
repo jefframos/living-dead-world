@@ -319,6 +319,8 @@ function myFocusFunction() {
     // }
     if (!CookieManager.instance.getSettings().isMute) {
         SOUND_MANAGER.unmute();
+    }else{
+        SOUND_MANAGER.mute(false);
     }
 }
 
@@ -327,8 +329,10 @@ function myBlurFunction() {
     // TweenLite.to(screenManager, 0.5, {
     //     timeScale: 0
     // })
-
-    SOUND_MANAGER.mute(false);
+   
+    if (CookieManager.instance.getSettings().isMute) {
+        SOUND_MANAGER.mute(false);
+    }
 }
 
 
