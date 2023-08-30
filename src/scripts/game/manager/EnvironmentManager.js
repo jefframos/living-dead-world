@@ -60,7 +60,8 @@ export default class EnvironmentManager extends GameObject {
     }
     start() {
         this.levelManager = LevelManager.instance;
-        this.environmentData = GameStaticData.instance.getDataByIndex('environment', 'levels', 0)// Math.floor(Math.random() * 2))
+
+        this.environmentData = GameStaticData.instance.getDataById('environment', 'levels', this.levelManager.currentLevelData.environmentData)// Math.floor(Math.random() * 2))
         this.patches = this.environmentData.assets
 
 

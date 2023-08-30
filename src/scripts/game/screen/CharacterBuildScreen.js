@@ -403,18 +403,20 @@ export default class CharacterBuildScreen extends Screen {
             this.openModal(this.rouletteContainer);
         }, 'Rewards', UIUtils.getIconUIIcon('prize'))
 
-        // const bt4 = UIUtils.getPrimaryShapelessButton(() => {
-        //     this.openModal(this.achievmentsContainer)
+        this.achievmentsButton = UIUtils.getPrimaryShapelessButton(() => {
+            this.openModal(this.achievmentsContainer)
 
-        // }, 'Achievments', 'achievment')
+        }, 'Achievments', 'achievment')
 
         this.bottomMenuRightList.removeAllElements();
         this.bottomMenuRightList.addElement(this.shopButton, { align: 0 })
         this.bottomMenuRightList.addElement(this.prizeButton, { align: 0 })
+        this.bottomMenuRightList.addElement(this.achievmentsButton, { align: 0 })
 
         this.menuButtonsRight = [];
         this.menuButtonsRight.push(this.shopButton)
         this.menuButtonsRight.push(this.prizeButton)
+        this.menuButtonsRight.push(this.achievmentsButton)
 
         this.bottomMenuRightList.updateVerticalList()
 
@@ -433,7 +435,10 @@ export default class CharacterBuildScreen extends Screen {
 
 
         this.playGameButton = UIUtils.getMainPlayButton(() => {
-            this.screenManager.redirectToGame();
+
+            RewardsManager.instance.doComercial(() => {
+                this.screenManager.redirectToGame({level:0});
+            }, {}, false)
         }, 'PLAY', UIUtils.getIconUIIcon('battle'))
         this.bottomMenuRight.addChild(this.playGameButton)
         this.playGameButton.buttonSound = 'Pop-Musical'
@@ -695,11 +700,13 @@ export default class CharacterBuildScreen extends Screen {
             this.menuButtons.push(this.customizeButton)
 
         } else {
+            //this.bottomMenuRightList.addElement(this.achievmentsButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.shopButton, { align: 0, vAlign: 0 })
 
+            //this.menuButtonsRight.push(this.achievmentsButton)
             this.menuButtonsRight.push(this.shopButton)
             this.menuButtonsRight.push(this.prizeButton)
             this.menuButtonsRight.push(this.loadoutButton)
@@ -821,20 +828,14 @@ export default class CharacterBuildScreen extends Screen {
         this.loadoutButton.warningIcon.visible = GameData.instance.anyNewEquip()
     }
     transitionOut(nextScreen) {
-        super.transitionOut(nextScreen, {}, MainScreenManager.Transition.timeOut);
+        super.transitionOut(nextScreen, {level:0}, MainScreenManager.Transition.timeOut);
     }
     transitionIn(params) {
 
-        console.log(params)
 
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities',0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
-
-            RewardsManager.instance.doComercial(() => {
-
-            }, {}, false)
-
             setTimeout(() => {
                 if (params && params.fromWin) {
                     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)

@@ -12,6 +12,8 @@ export default class StaticPhysicObject extends PhysicsEntity {
         this.gameView = new GameView(this);
         this.gameView.view = new PIXI.Sprite()
         this.gameView.tag = TagManager.Tags.Occlusion;
+        this.gameView.layer = RenderModule.RenderLayers.Gameplay
+
     }
     build(params) {
         super.build()

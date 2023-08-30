@@ -25,7 +25,7 @@ export default class GameStaticData {
             { type: 'database', list: 'economy', path: ['game-shop'] },
             { type: 'database', list: 'starter-inventory', path: ['starter-inventory'], shared: true },
 
-            { type: 'environment', list: 'levels', path: ['level-1', 'level-2'] },
+            { type: 'environment', list: 'levels', path: ['level-1', 'level-2', 'level-3'] },
 
 
             { type: 'misc', list: 'attachments', path: ['attachments'] },

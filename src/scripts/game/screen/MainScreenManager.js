@@ -61,7 +61,7 @@ export default class MainScreenManager extends ScreenManager {
         this.addScreen(this.mainMenuScreen);
 
         this.mainMenuScreen.onStartGame.add(() => {
-            this.redirectToGame();
+            this.redirectToGame({level:0});
         })
 
         this.characterBuilding = new CharacterBuildScreen(MainScreenManager.Screens.CharacterBuild, MainScreenManager.ScreensTarget.ScreenContainer)
@@ -202,9 +202,9 @@ export default class MainScreenManager extends ScreenManager {
     redirectToMenu(fromWin = null) {
         this.change(MainScreenManager.Screens.CharacterBuild, {fromWin});
     }
-    redirectToGame(harder) {
+    redirectToGame(params,harder) {
         window.HARDER = harder
-        this.change(MainScreenManager.Screens.GameScreen);
+        this.change(MainScreenManager.Screens.GameScreen, params);
     }
     update(delta) {
         this.settings.fps = window.FPS

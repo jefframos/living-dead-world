@@ -80,40 +80,20 @@ const assets = [
 	"url":"assets/json\\database\\starter-inventory.json"
 	},
 	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id":"game-shop",
+	"url":"assets/json\\economy\\game-shop.json"
 	},
 	{
-	"id":"wavesBkp",
-	"url":"assets/json\\enemy-waves\\wavesBkp.json"
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
 	"id":"waves2",
 	"url":"assets/json\\enemy-waves\\waves2.json"
 	},
 	{
-	"id":"game-shop",
-	"url":"assets/json\\economy\\game-shop.json"
-	},
-	{
-	"id":"level-1",
-	"url":"assets/json\\environment\\level-1.json"
-	},
-	{
-	"id":"level-2",
-	"url":"assets/json\\environment\\level-2.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
-	},
-	{
-	"id":"companions",
-	"url":"assets/json\\entity\\companions.json"
-	},
-	{
-	"id":"player",
-	"url":"assets/json\\entity\\player.json"
+	"id":"wavesBkp",
+	"url":"assets/json\\enemy-waves\\wavesBkp.json"
 	},
 	{
 	"id":"acessories",
@@ -124,12 +104,36 @@ const assets = [
 	"url":"assets/json\\misc\\attachments.json"
 	},
 	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
+	},
+	{
 	"id":"attribute-modifiers",
 	"url":"assets/json\\misc\\attribute-modifiers.json"
 	},
 	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
+	"id":"companions",
+	"url":"assets/json\\entity\\companions.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
+	},
+	{
+	"id":"player",
+	"url":"assets/json\\entity\\player.json"
+	},
+	{
+	"id":"level-1",
+	"url":"assets/json\\environment\\level-1.json"
+	},
+	{
+	"id":"level-3",
+	"url":"assets/json\\environment\\level-3.json"
+	},
+	{
+	"id":"level-2",
+	"url":"assets/json\\environment\\level-2.json"
 	},
 	{
 	"id":"main-weapons",

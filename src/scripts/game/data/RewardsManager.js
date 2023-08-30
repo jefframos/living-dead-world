@@ -40,10 +40,12 @@ export default class RewardsManager {
             if (callback) callback(params)
             return;
         }
-        this.gameplayStop()
+        if (toGameplayStart) {
+            this.gameplayStop()
+        }
 
         if (this.isDebug) {
-            this.gameplayStart()
+            //this.gameplayStart()
 
             if (callback) callback(params)
             return

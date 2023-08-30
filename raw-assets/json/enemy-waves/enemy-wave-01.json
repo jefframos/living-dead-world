@@ -6,9 +6,10 @@
             "time":10
         },
         "lenght": 480,
+        "environmentData": "level-1",
         "waves": [
             {
-                "startAt": 0.5,
+                "startAt": 2,
                 "duration": 100,
                 "waves": [
                     {
@@ -66,7 +67,7 @@
                 ]
             },
             {
-                "startAt": 120,
+                "startAt": 100,
                 "duration": 60,
                 "waves": [
                     {

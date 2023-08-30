@@ -4,6 +4,7 @@ import Layer from "../core/Layer";
 import StaticPhysicObject from "./StaticPhysicObject";
 import TagManager from "../core/TagManager";
 import Utils from "../core/utils/Utils";
+import RenderModule from "../core/modules/RenderModule";
 
 export default class Trees extends StaticPhysicObject {
     constructor() {
@@ -22,6 +23,8 @@ export default class Trees extends StaticPhysicObject {
         this.gameView.view.anchor.set(0.5, 1)
 
         this.gameView.view.texture = PIXI.Texture.from(Utils.findValueOrRandom(params.texture));
+        this.gameView.layer = RenderModule.RenderLayers.Gameplay
+
         this.layerCategory = Layer.Environment
         this.layerMask = Layer.EnvironmentCollision
 

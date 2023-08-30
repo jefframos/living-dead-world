@@ -171,7 +171,7 @@
     },
     {
         "id": "WATER_SINOID_CARD",
-        "starter": false,
+        "starter": true,
         "entityData": {
             "type": "Weapon"
         },

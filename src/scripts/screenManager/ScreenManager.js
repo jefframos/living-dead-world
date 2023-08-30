@@ -35,6 +35,8 @@ export default class ScreenManager extends PIXI.Container{
 	}
 	change(screenLabel, param){
 		let tempScreen;
+        console.log('--',param)
+
 		for(let i = 0; i < this.screenList.length; i++){
 			if(this.screenList[i].label == screenLabel){
 				tempScreen = this.screenList[i];

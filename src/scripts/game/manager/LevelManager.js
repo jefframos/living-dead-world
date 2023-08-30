@@ -145,16 +145,17 @@ export default class LevelManager {
 
         EffectsManager.instance.bombExplode();
     }
-    start() {
+    start(wavesData) {
 
         this.revives = 1;
         this.dyingTimer = 0;
         this.player.enabled = false
 
-        const levelData = GameStaticData.instance.getWaves()[0]
+        const levelData = GameStaticData.instance.getWaves()[wavesData.level]
         this.currentLevelWaves = levelData.waves;
+        this.currentLevelData = levelData;
 
-        //console.log(levelData)
+        console.log(wavesData)
         this.timeLimit = levelData.lenght;
         //alert(this.timeLimit)
 

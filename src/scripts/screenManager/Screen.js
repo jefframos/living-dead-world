@@ -73,6 +73,7 @@ export default class Screen extends PIXI.Container {
 		this.onStartTransitionOut.dispatch(this, nextScreen);
 		this.nextScreen = nextScreen;
 		this.visible = true;
+
 		this.endTransitionOut(param, delay);
 
 	}
@@ -84,7 +85,7 @@ export default class Screen extends PIXI.Container {
 			this.screenManager.forceChange(this.nextScreen.label, param);
 			this.destroy();
 		} else {
-			console.log("onEndTransitionOut with delay", this.visible)
+			console.log("onEndTransitionOut with delay", this.visible, param)
 			setTimeout(() => {
 				this.screenManager.forceChange(this.nextScreen.label, param);
 				this.destroy();

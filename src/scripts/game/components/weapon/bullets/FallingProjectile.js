@@ -14,7 +14,7 @@ export default class FallingProjectile extends Bullet {
         //this.gameView.layer = RenderModule.RenderLayers.Default
         this.target = weapon;
 
-        this.timeToFall = 3;
+        this.timeToFall = 1.5;
         this.currentTime = 0;
 
         let target = this.engine.poolGameObject(FloorTarget)

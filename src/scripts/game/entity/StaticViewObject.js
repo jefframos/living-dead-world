@@ -12,6 +12,7 @@ export default class StaticViewObject extends GameObject {
 
         this.gameView = new GameView(this);
         this.gameView.view = new PIXI.Sprite()
+        this.gameView.layer = RenderModule.RenderLayers.Gameplay
         //this.gameView.tag = TagManager.Tags.Occlusion;
         this.viewOffset = {x:0, y:0}
     }
@@ -21,11 +22,12 @@ export default class StaticViewObject extends GameObject {
 
         const render = this.engine.findByType(RenderModule);
 
-        if( params.layer && this.gameView.view.layer != RenderModule.RenderLayers[params.layer]){
-            render.swapLayer(this.gameView, RenderModule.RenderLayers[params.layer])
-        }else if(this.gameView.view.layer != RenderModule.RenderLayers.Base){
-            render.swapLayer(this.gameView, RenderModule.RenderLayers.Base)
-        }
+
+        // if( params.layer && this.gameView.view.layer != RenderModule.RenderLayers[params.layer]){
+        //     render.swapLayer(this.gameView, RenderModule.RenderLayers[params.layer])
+        // }else if(this.gameView.view.layer != RenderModule.RenderLayers.Base){
+        //     render.swapLayer(this.gameView, RenderModule.RenderLayers.Base)
+        // }
 
 
         if(params.width){

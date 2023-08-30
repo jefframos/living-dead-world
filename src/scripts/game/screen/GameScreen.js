@@ -237,19 +237,19 @@ export default class GameScreen extends Screen {
         //this.player = this.levelManager.addEntity(Player, GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7)))
 
         this.levelManager.setup();
-        this.levelManager.start();
+        this.levelManager.start(this.currentLevelParams);
         this.levelManager.initGame();
 
         //console.log(Eugine.PhysicsTimeScale, "<--- implement timeScale")
     }
 
     build(param) {
+        this.currentLevelParams = param;
         super.build();
         this.addEvents();
         this.gameEngine.start();
         this.spawnPlayer(); //SEND PLAYER PARAMETERS HERE
-        this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager())
-        console.log("BUILD")
+        this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager());
     }
     update(delta) {
         delta *= this.debug.timeScale;
@@ -297,14 +297,14 @@ export default class GameScreen extends Screen {
 
         super.transitionOut(nextScreen, params, MainScreenManager.Transition.timeOut);
     }
-    transitionIn() {
+    transitionIn(param) {
 
         SOUND_MANAGER.playLoop('ancient', 0.5)
 
         RewardsManager.instance.gameplayStart(true);
 
         setTimeout(() => {
-            super.transitionIn();
+            super.transitionIn(param);
         }, MainScreenManager.Transition.timeIn);
     }
 
