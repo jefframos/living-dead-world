@@ -132,7 +132,7 @@
                         "total": 1,
                         "entity": "ZOMBIE_MOM",
                         "levels": [
-                            1
+                            3
                         ]
                     },
                     {
@@ -145,7 +145,7 @@
                         "maxActive": 50,
                         "entity": "BUTTFLY",
                         "levels": [
-                            0
+                            2
                         ]
                     }
                 ]
@@ -194,9 +194,9 @@
                         "height": 400,
                         "radius": 350,
                         "total": 1,
-                        "entity": "ZOMBIE_MOM",
+                        "entity": "MANJUICE",
                         "levels": [
-                            4
+                            7
                         ]
                     },
                     {
@@ -222,7 +222,7 @@
                         "maxActive": 5,
                         "entity": "ZOMBIE_KAREN",
                         "levels": [
-                            4
+                            6
                         ]
                     }
                 ]
@@ -244,22 +244,24 @@
                             "BUTTFLY_02"
                         ],
                         "levels": [
-                            4
+                            6
                         ]
                     },
+                   
                     {
                         "areaType": "arc",
                         "length": 250,
                         "width": 400,
                         "height": 400,
                         "radius": 350,
-                        "total": 5,
+                        "total": 2,
                         "maxActive": 2,
-                        "entity": "ZOMBIE_MOM",
+                        "entity": "TWINS",
                         "levels": [
-                            4
+                            8
                         ]
                     },
+                    
                     {
                         "areaType": "arc",
                         "length": 300,

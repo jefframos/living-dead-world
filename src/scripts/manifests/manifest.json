@@ -8,8 +8,8 @@
         "image/ui-no-tiny/ui-no-tiny.json",
         "image/environment/environment.json",
         "image/ui/ui.json",
-        "image/characters/characters.json",
         "image/body-parts/body-parts.json",
+        "image/characters/characters.json",
         "image/particles/particles.json",
         "image/vfx/vfx.json"
     ]

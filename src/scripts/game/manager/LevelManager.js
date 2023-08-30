@@ -145,7 +145,7 @@ export default class LevelManager {
 
         EffectsManager.instance.bombExplode();
     }
-    start(wavesData) {
+    start(wavesData = {level:0}) {
 
         this.revives = 1;
         this.dyingTimer = 0;
@@ -306,6 +306,7 @@ export default class LevelManager {
             console.log('cant spawn without data');
             return
         }
+        if(Math.random() > 0.7)
         this.enemyGlobalSpawner.spawnEnemy(spawnData)
     }
     collectAllPickups() {

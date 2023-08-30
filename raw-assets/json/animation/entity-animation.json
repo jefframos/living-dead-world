@@ -264,5 +264,43 @@
                 "addZero": false
             }
         }
+    },
+    {
+        "id": "MANJUICE",
+        "animationData": {
+            "spriteName": "manjuice00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 12
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 0.8
+                },
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "TWINS",
+        "animationData": {
+            "spriteName": "zombie-mom-angry000",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 0.95
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": false
+            }
+        }
     }
 ]

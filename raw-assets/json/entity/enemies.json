@@ -395,5 +395,65 @@
             "onHit": "BLOOD_SPLAT_RED",
             "onDie": "BLOOD_SPLAT_RED"
         }
+    },
+    {
+        "id": "MANJUICE",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 4
+        },
+        "attributes": {
+            "basePower": [0.30,0.31,0.34,0.39,0.48],
+            "baseHealth": [800,820,883,988,1135,1324,1555,1828,2143,2500],
+            "baseMagicDefense": 2,
+            "baseMass": 10,
+            "baseDefense": 10,
+            "baseRadius": 50,
+            "baseSpeed": [20,21,25,31,40]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "scale": 1,
+            "zombieWalk": 2
+        },
+        "animationData": {
+            "idle": "MANJUICE",
+            "run": "MANJUICE"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
+        }
+    },
+    {
+        "id": "TWINS",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 4
+        },
+        "attributes": {
+            "basePower": [0.20,0.21,0.23,0.28,0.35],
+            "baseHealth": [1000,1024,1098,1222,1395,1617,1888,2209,2580,3000],
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 10,
+            "baseRadius": 32,
+            "baseSpeed": [50,53,62,78,100]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "scale": 1,
+            "zombieWalk": 2
+        },
+        "animationData": {
+            "idle": "TWINS",
+            "run": "TWINS"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
+        }
     }
 ]
