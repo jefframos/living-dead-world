@@ -150,7 +150,12 @@ export default class SurvivorDeckController extends GameObject {
         this.cardHolding = null;
         this.holdingData = null;
 
-        //this.gridView.slotOver = null;
+        if (Game.Debug.debug){
+            totalCards = 5
+        }
+
+        totalCards = Math.min(data.length, totalCards)
+        
         this.handCards = [];
         for (let i = 0; i < totalCards; i++) {
             let dt = null
@@ -236,8 +241,8 @@ export default class SurvivorDeckController extends GameObject {
 
 
         this.uiButtons.removeAllElements();
-        this.pickAll.visible = pickAll < 0.2
-        this.reshuffle.visible = reshffleUses > 0
+        this.pickAll.visible = pickAll < 0.2 || Game.Debug.debug
+        this.reshuffle.visible = reshffleUses > 0 || Game.Debug.debug
         if (this.pickAll.visible) {
             this.uiButtons.addElement(this.pickAll)
         }

@@ -1,5 +1,6 @@
 import signals from "signals";
 import CookieManager from "../CookieManager";
+import Game from "../../Game";
 
 export default class RewardsManager {
     static _instance;
@@ -110,7 +111,9 @@ export default class RewardsManager {
                     if (toGameplayStart) {
                         this.gameplayStart()
                     }
-                    //if (callback) callback(params)
+                    if(Game.Debug.debug){
+                        if (callback) callback(params)
+                    }
                     //this.onAddBlock.dispatch();
                 }
             }
@@ -121,6 +124,9 @@ export default class RewardsManager {
                 this.onStopAdds.dispatch();
                 if (toGameplayStart) {
                     this.gameplayStart()
+                }
+                if(Game.Debug.debug){
+                    if (callback) callback(params)
                 }
                 //if (callback) callback(params)
                 //this.onAddBlock.dispatch();

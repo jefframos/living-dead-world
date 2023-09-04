@@ -163,11 +163,11 @@ export default class CardPlacementSystem {
             }
         }
 
-
         let cards = Math.random() < 0.1 ? 4 : 3;
         if(fromChest){
             cards = 4;
         }
+        console.log(starters)
         this.deckView.buildCards(starters, cards , Math.random(), this.reshufleUses, this.pickedCardsList)
         
         this.deckView.setActive(true)
