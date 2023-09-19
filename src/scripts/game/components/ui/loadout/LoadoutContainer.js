@@ -18,6 +18,7 @@ import Utils from '../../../core/utils/Utils';
 import WeaponLevelContainer from './WeaponLevelContainer';
 import signals from 'signals';
 import CookieManager from '../../../CookieManager';
+import LocalizationManager from '../../../LocalizationManager';
 
 export default class LoadoutContainer extends MainScreenModal {
     static Sections = {
@@ -51,9 +52,9 @@ export default class LoadoutContainer extends MainScreenModal {
                     ease: Quad.easeInOut
                 })
             }
-        }, "UPGRADE")
+        }, LocalizationManager.instance.getLabel('UPGRADE_LABEL'))
 
-        this.infoUpgradeLabel = UIUtils.getTertiaryLabel('*Requires 3 of the same item to upgrade')
+        this.infoUpgradeLabel = UIUtils.getTertiaryLabel( LocalizationManager.instance.getLabel('UPGRADE_INFO'))
         this.mergeSectionButton.addChild(this.infoUpgradeLabel)
         this.infoUpgradeLabel.style.fontSize = 16
         this.infoUpgradeLabel.x = 168
@@ -69,7 +70,7 @@ export default class LoadoutContainer extends MainScreenModal {
 
         this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
             this.mergeSystem.findAllMerges(this.currentSlots);
-        }, "Auto upgrade")
+        }, LocalizationManager.instance.getLabel('AUTO_UPGRADE'))
         this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
         this.autoMergeAll.setActive()
         this.contentContainer.addChild(this.autoMergeAll)

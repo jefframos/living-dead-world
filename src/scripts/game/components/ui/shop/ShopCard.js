@@ -4,6 +4,7 @@ import MainMenu from '../../../screen/MainMenu';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
+import LocalizationManager from '../../../LocalizationManager';
 
 export default class ShopCard extends PIXI.Container {
     constructor(callback, videoCallback, texture = UIUtils.baseButtonTexture + '_0006', width = 100, height = 150, title = '-', hasVideo = true) {
@@ -61,7 +62,7 @@ export default class ShopCard extends PIXI.Container {
         this.videoButton = UIUtils.getPrimaryVideoButton((button) => {
             videoCallback();
             // this.videoButton.visible = false;
-        }, 'Free')
+        }, LocalizationManager.instance.getLabel("FREE"))
 
         this.videoButton.updateBackTexture(UIUtils.baseButtonTexture + '_0002')
 

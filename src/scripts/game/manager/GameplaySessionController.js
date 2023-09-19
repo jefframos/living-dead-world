@@ -82,6 +82,9 @@ export default class GameplaySessionController extends GameObject {
 
        
     }
+    showFtue(){
+        this.playerInventoryHud.showFtue();
+    }
     setLabelInfo(label, toHide = 0) {
 
         this.playerInventoryHud.setLabelInfo(label, toHide)

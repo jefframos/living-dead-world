@@ -298,10 +298,12 @@ export default class GameScreen extends Screen {
         super.transitionOut(nextScreen, params, MainScreenManager.Transition.timeOut);
     }
     transitionIn(param) {
-
+        
+        console.log('transitionIn',param)
         SOUND_MANAGER.playLoop('ancient', 0.5)
 
         RewardsManager.instance.gameplayStart(true);
+
 
         setTimeout(() => {
             super.transitionIn(param);

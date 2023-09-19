@@ -68,6 +68,7 @@ export default class BaseFillBar extends GameObject {
         this.bar.updateNormal(this.barNormal)
         this.bar.update(delta)
         this.transform.position.copy(this.parent.transform.position)
+        this.transform.position.y = 0
 
         if(this.icon){
             this.icon.x = this.bar.x - this.icon.width

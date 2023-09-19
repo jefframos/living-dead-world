@@ -1,3 +1,4 @@
+import Game from '../Game';
 import PlayerViewStructure from './entity/PlayerViewStructure';
 import Signals from 'signals';
 
@@ -34,6 +35,7 @@ export default class CookieManager {
 			version: '0.0.1',
 			latestClaim: -1,
 			latestClaimFreeMoney: -1,
+			ftue:true,
 			isInitialized: false
 		}
 		this.defaultPlayer = {
@@ -161,6 +163,14 @@ export default class CookieManager {
 	}
 	get isMute() {
 		return this.getChunck('settings').isMute
+	}
+	get isFtue(){
+		return this.getChunck('progression').ftue || Game.Debug.ftue
+	}
+	ftueDone(){
+		const data = this.getChunck('progression')
+		data.ftue = false;
+		this.saveChunk('progression', data)
 	}
 	updateMute(value) {
 		const data = this.getChunck('settings')

@@ -205,16 +205,59 @@ export default class PlayerInventoryHud extends GameObject {
         this.levelInfoContainer.addChild(this.infoShade);
         this.infoShade.alpha = 0.75;
 
-        this.infoLevelLabel = UIUtils.getPrimaryLabel('labelHere', { fontSize: 64, wordWrapWidth: 800 });
+        this.infoLevelLabel = UIUtils.getPrimaryLabel('', { fontSize: 64, wordWrapWidth: 800 });
         this.infoLevelLabel.anchor.set(0.5)
         this.infoLevelLabel.scale.set(0.5)
         this.levelInfoContainer.addChild(this.infoLevelLabel)
-
+        this.levelInfoContainer.alpha = 0;
 
 
         //this.setBuildingMode();
         //this.toggleDeck();
 
+        this.ftuePrompt = new PIXI.Container()
+        this.gameView.view.addChild(this.ftuePrompt)
+
+        this.ftuePrompt.alpha = 0;
+
+        
+        this.wireBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
+        this.ftuePrompt.addChild(this.wireBox);
+        this.wireBox.width = 520
+        this.wireBox.height = 230
+        this.wireBox.x = -260
+        this.wireBox.y = -80
+        this.wireBox.alpha = 0.5
+
+        this.movementControlContainer = new PIXI.Container();
+        this.ftuePrompt.addChild(this.movementControlContainer)
+
+        this.mousePrompt = new PIXI.Sprite.from('mouse')
+        this.movementControlContainer.addChild(this.mousePrompt)
+        this.mousePrompt.anchor.set(0,0)
+        this.mousePrompt.x = 70
+        
+        this.orLabel = UIUtils.getPrimaryLabel('or', { fontSize: 32, wordWrapWidth: 800, strokeThickness:0 });
+        this.orLabel.anchor.set(0.5)
+        this.orLabel.y = 50
+        this.movementControlContainer.addChild(this.orLabel)
+
+        
+        
+        this.keyboardPrompt = new PIXI.Sprite.from('keyboard-input')
+        this.movementControlContainer.addChild(this.keyboardPrompt)
+        this.keyboardPrompt.anchor.set(1,0)
+        this.keyboardPrompt.x = -50
+        
+        this.movementLabel = UIUtils.getPrimaryLabel('run', { fontSize: 32, wordWrapWidth: 800 });
+        this.movementLabel.anchor.set(0,1)
+        this.movementLabel.x = -250
+        this.movementLabel.y = -35
+        this.movementControlContainer.addChild(this.movementLabel)
+    }
+    showFtue(){
+        this.ftuePrompt.alpha = 1;
+        TweenLite.to(this.ftuePrompt, 0.5, {delay:5, alpha:0})
     }
     setLabelInfo(label, toHide) {
         this.levelInfoContainer.alpha = 1;
@@ -429,6 +472,9 @@ export default class PlayerInventoryHud extends GameObject {
         } else {
             this.attributesView.setSize(Math.min(Game.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10, 40)
         }
+
+        this.ftuePrompt.x = Game.Borders.width / 2
+        this.ftuePrompt.y = Game.Borders.height /2 + 120
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
 
     }

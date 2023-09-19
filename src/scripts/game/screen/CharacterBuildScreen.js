@@ -32,6 +32,8 @@ import signals from "signals";
 import RewardsManager from '../data/RewardsManager';
 import PopUpGenericModal from '../components/ui/PopUpGenericModal';
 import AudioControllerView from '../components/ui/AudioControllerView';
+import CookieManager from '../CookieManager';
+import LocalizationManager from '../LocalizationManager';
 
 export default class CharacterBuildScreen extends Screen {
     static makeAssetSetup(data) {
@@ -221,7 +223,7 @@ export default class CharacterBuildScreen extends Screen {
 
         window.onSpacePressed.add(() => {
             if (this.mainShow && this.screenManager.currentScreen.label == 'CharacterBuild') {
-                this.screenManager.redirectToGame();
+                this.screenManager.redirectToGame({level:1});
             }
         })
     }
@@ -343,12 +345,12 @@ export default class CharacterBuildScreen extends Screen {
 
         this.loadoutButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.loadoutContainer);
-        }, 'Loadout', GameData.instance.currentEquippedWeaponData.entityData.icon)
+        }, LocalizationManager.instance.getLabel('MAIN_LOADOUT'), GameData.instance.currentEquippedWeaponData.entityData.icon)
 
         this.customizeButton = UIUtils.getPrimaryShapelessButton(() => {
             this.showCustomization(true);
 
-        }, 'Outfit', 'transparent')
+        }, LocalizationManager.instance.getLabel('MAIN_OUTFIT'), 'transparent')
 
         //this.customizeButton.icon.texture = PIXI.Texture.EMPTY;
 
@@ -392,16 +394,16 @@ export default class CharacterBuildScreen extends Screen {
 
         this.shopButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.shopContainer)
-        }, 'Shop', UIUtils.getIconUIIcon('shop'))
+        },LocalizationManager.instance.getLabel('MAIN_SHOP'), UIUtils.getIconUIIcon('shop'))
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
-        }, 'Location', UIUtils.getIconUIIcon('map'))
+        }, LocalizationManager.instance.getLabel('MAIN_LOCATION'), UIUtils.getIconUIIcon('map'))
 
 
         this.prizeButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.rouletteContainer);
-        }, 'Rewards', UIUtils.getIconUIIcon('prize'))
+        }, LocalizationManager.instance.getLabel('MAIN_REWARDS'), UIUtils.getIconUIIcon('prize'))
 
         this.achievmentsButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.achievmentsContainer)
@@ -437,9 +439,9 @@ export default class CharacterBuildScreen extends Screen {
         this.playGameButton = UIUtils.getMainPlayButton(() => {
 
             RewardsManager.instance.doComercial(() => {
-                this.screenManager.redirectToGame({level:0});
+                this.screenManager.redirectToGame({level:1});
             }, {}, false)
-        }, 'PLAY', UIUtils.getIconUIIcon('battle'))
+        }, LocalizationManager.instance.getLabel('MAIN_PLAY'), UIUtils.getIconUIIcon('battle'))
         this.bottomMenuRight.addChild(this.playGameButton)
         this.playGameButton.buttonSound = 'Pop-Musical'
     }
@@ -818,29 +820,30 @@ export default class CharacterBuildScreen extends Screen {
         this.updateLoadoutNewItems()
     }
     updateLoadoutNewItems(){
-        // console.log(GameData.instance.getEquipsNewPerArea('weapons'))
-
-        // console.log(GameData.instance.anyNewEquip())
-        // console.log(GameData.instance.anyNewEquip())
-        // console.log(GameData.instance.anyNewEquip())
-        // console.log(GameData.instance.anyNewEquip())
-
+     
         this.loadoutButton.warningIcon.visible = GameData.instance.anyNewEquip()
     }
     transitionOut(nextScreen) {
-        super.transitionOut(nextScreen, {level:0}, MainScreenManager.Transition.timeOut);
+        super.transitionOut(nextScreen, {level:1}, MainScreenManager.Transition.timeOut);
     }
     transitionIn(params) {
 
+        //LocalizationManager.instance.getLabel();
 
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities',0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
             setTimeout(() => {
-                if (params && params.fromWin) {
-                    PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
-                } else {
-                    PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                if(CookieManager.instance.isFtue){
+                    PrizeManager.instance.getFtuePrize()
+                    CookieManager.instance.ftueDone();
+                }else{
+
+                    if (params && params.fromWin) {
+                        PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
+                    } else {
+                        PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                    }
                 }
                 this.unSelectPlayer();
             }, 100);

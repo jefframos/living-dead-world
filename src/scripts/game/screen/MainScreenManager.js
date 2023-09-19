@@ -11,6 +11,7 @@ import ScreenManager from '../../screenManager/ScreenManager';
 import ScreenTransition from './ScreenTransition';
 import ViewDatabase from '../data/ViewDatabase';
 import config from '../../config';
+import CookieManager from '../CookieManager';
 
 export default class MainScreenManager extends ScreenManager {
     static Screens = {
@@ -103,8 +104,8 @@ export default class MainScreenManager extends ScreenManager {
         }
         if (Game.Debug.builder) {
             this.forceChange(MainScreenManager.Screens.CharacterBuild);
-        } else if (Game.Debug.game) {
-            this.forceChange(MainScreenManager.Screens.GameScreen);
+        } else if (Game.Debug.game || CookieManager.instance.isFtue) {
+            this.forceChange(MainScreenManager.Screens.GameScreen, {level:0});
         } else if (Game.Debug.debugMenu) {
             this.forceChange(MainScreenManager.Screens.MainMenu);
         }

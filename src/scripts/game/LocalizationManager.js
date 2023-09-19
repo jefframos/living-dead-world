@@ -1,7 +1,14 @@
 import * as PIXI from 'pixi.js';
 
 export default class LocalizationManager {
+
+    static _instance;
+
+    static get instance() {
+        return LocalizationManager._instance;
+    }
     constructor(forceLanguage) {
+        LocalizationManager._instance = this;
         this.defaultLanguage = window.RESOURCES['localization_EN'].data.labels
         this.currentLanguage = window.RESOURCES['localization_EN'].data.labels
 

@@ -1,0 +1,14 @@
+[
+    {
+        "id": "level-tutorial",
+        "Less": "less",
+        "More": "more",
+        "Nor": "nor",
+        "Between": "between",
+        "Always": "always",
+        "groundTexture":"floor_5",
+        "groundWidth":256,
+        "assets": [       
+        ]
+    }
+]

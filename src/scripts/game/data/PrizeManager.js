@@ -103,13 +103,29 @@ export default class PrizeManager {
         GameData.instance.addSoftCurrency(coinValue)
         this.onGetMetaPrize.dispatch({ type: [PrizeManager.PrizeType.Coin], value: [coinValue] })
     }
-    customPrize(prizeData){
+    customPrize(prizeData) {
         GameData.instance.addToInventory(prizeData.type, prizeData)
         this.onGetMetaPrize.dispatch({ type: [prizeData.type], value: [prizeData] })
     }
-    getWearable() {
-        const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
-        this.onGetMetaPrize.dispatch(prize)
+    // getWearable() {
+    //     const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
+    //     this.onGetMetaPrize.dispatch(prize)
+    // }
+    getFtuePrize() {
+        let itemPrizeList = []
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,1))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,1))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0,0))
+        const types = [];
+        itemPrizeList.forEach(element => {
+            GameData.instance.addToInventory(element.type, element)
+            types.push(element.type)
+        });
+
+
+        const prizeData = { type: types, value: itemPrizeList }
+
+        this.onGetMetaPrize.dispatch(prizeData)
     }
     getMetaPrize(prizeId, maxLevel, total = 1, dispatch = true) {
 
@@ -149,13 +165,13 @@ export default class PrizeManager {
                 ViewDatabase.instance.saveWardrobePiece(element.value.area, element.value.id)
             }
             else {
-                
+
                 GameData.instance.addToInventory(element.type, element)
             }
             types.push(element.type)
         });
 
-        
+
         const prizeData = { type: types, value: itemPrizeList }
         if (dispatch) {
             this.onGetMetaPrize.dispatch(prizeData)
@@ -182,7 +198,7 @@ export default class PrizeManager {
     }
 
 
-    getItemPrize(type, maxLevel) {
+    getItemPrize(type, maxLevel, customId) {
         let allEquip = [];
 
         switch (type) {
@@ -219,7 +235,7 @@ export default class PrizeManager {
                 break;
         }
 
-        const equipPrize = allEquip[Math.floor(Math.random() * allEquip.length)]
+        const equipPrize = allEquip[customId != undefined ? customId : Math.floor(Math.random() * allEquip.length)]
         const itemPrize = { id: equipPrize.id, level: Math.floor(maxLevel * Math.random()), type }
         return itemPrize;
     }

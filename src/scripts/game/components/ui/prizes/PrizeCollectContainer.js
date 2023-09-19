@@ -164,6 +164,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
             drawPrizes.push({ texture, entityData, value })
         }
 
+        console.log(drawPrizes)
+
         while (this.prizesContainer.children.length > 0) {
             this.prizesContainer.removeChildAt(0)
         }

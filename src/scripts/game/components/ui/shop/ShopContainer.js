@@ -14,6 +14,7 @@ import TimedAction from '../../../data/TimedAction';
 import ListScroller from '../../../ui/uiElements/ListScroller';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import RandomGenerator from '../../../core/utils/RandomGenerator';
+import LocalizationManager from '../../../LocalizationManager';
 
 export default class ShopContainer extends MainScreenModal {
     constructor() {
@@ -33,13 +34,13 @@ export default class ShopContainer extends MainScreenModal {
         this.container.addChild(this.scroller)
 
 
-        this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, this.shopList[0].title, this.shopList[0].video)
-        this.chest1.updateButtonTitle(this.shopList[0].totalItems + 'x\n' + this.shopList[0].description)
+        this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, LocalizationManager.instance.getLabel(this.shopList[0].title), this.shopList[0].video)
+        this.chest1.updateButtonTitle(this.shopList[0].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[0].description))
         this.chest1.setIcon('item-chest-0001')
         this.chest1.setValue(this.getCurrency(this.shopList[0].currency), 'x' + this.shopList[0].price)
 
-        this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, this.shopList[1].title, this.shopList[1].video)
-        this.chest2.updateButtonTitle(this.shopList[1].totalItems + 'x\n' + this.shopList[1].description)
+        this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, LocalizationManager.instance.getLabel(this.shopList[1].title), this.shopList[1].video)
+        this.chest2.updateButtonTitle(this.shopList[1].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[1].description))
         this.chest2.setIcon('item-chest-0002')
         this.chest2.setValue(this.getCurrency(this.shopList[1].currency), 'x' + this.shopList[1].price)
 
@@ -57,12 +58,12 @@ export default class ShopContainer extends MainScreenModal {
         // this.topButtons.push(this.chest3);
 
 
-        this.chestMid1 = new ShopCard(this.chestMid1Click.bind(this), this.chestMid1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0002', 250, 250, this.shopList[2].title, this.shopList[2].video)
-        this.chestMid1.updateButtonTitle(this.shopList[2].totalItems + 'x\n' + this.shopList[2].description)
+        this.chestMid1 = new ShopCard(this.chestMid1Click.bind(this), this.chestMid1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0002', 250, 250, LocalizationManager.instance.getLabel(this.shopList[2].title), this.shopList[2].video)
+        this.chestMid1.updateButtonTitle(this.shopList[2].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[2].description))
         this.chestMid1.setIcon('item-chest-0001')
         this.chestMid1.setValue(this.getCurrency(this.shopList[2].currency), 'x' + this.shopList[2].price)
-        this.chestMid2 = new ShopCard(this.chestMid2Click.bind(this), this.chestMid2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, this.shopList[3].title, this.shopList[3].video)
-        this.chestMid2.updateButtonTitle(this.shopList[3].totalItems + 'x\n' + this.shopList[3].description)
+        this.chestMid2 = new ShopCard(this.chestMid2Click.bind(this), this.chestMid2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, LocalizationManager.instance.getLabel(this.shopList[3].title), this.shopList[3].video)
+        this.chestMid2.updateButtonTitle(this.shopList[3].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[3].description))
         this.chestMid2.setIcon('item-chest-0002')
         this.chestMid2.setValue(this.getCurrency(this.shopList[3].currency), 'x' + this.shopList[3].price)
         this.midLine = new UIList();
@@ -152,14 +153,14 @@ export default class ShopContainer extends MainScreenModal {
             this.dailyButtonsData[index - 1].updateButtonTitle('-')
         }
 
-        this.chestBottom1 = new ShopCard(this.bundleClick.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, this.shopList[4].title, this.shopList[4].video)
+        this.chestBottom1 = new ShopCard(this.bundleClick.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, LocalizationManager.instance.getLabel(this.shopList[4].title), this.shopList[4].video)
         this.chestBottom1.setIcon('bundle-icon', 0.5)
-        this.chestBottom1.updateButtonTitle(this.shopList[4].totalItems + 'x\n' + this.shopList[4].description)
+        this.chestBottom1.updateButtonTitle(this.shopList[4].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[4].description))
         this.chestBottom1.setValue(this.getCurrency(this.shopList[4].currency), 'x' + this.shopList[4].price)
 
-        this.chestBottom2 = new ShopCard(this.bundle2Click.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, this.shopList[5].title, this.shopList[5].video)
+        this.chestBottom2 = new ShopCard(this.bundle2Click.bind(this), this.bundleVideoClick.bind(this), UIUtils.baseButtonTexture + '_0004', 250, 250, LocalizationManager.instance.getLabel(this.shopList[5].title), this.shopList[5].video)
         this.chestBottom2.setIcon('bundle-icon', 0.5)
-        this.chestBottom2.updateButtonTitle(this.shopList[5].totalItems + 'x\n' + this.shopList[5].description)
+        this.chestBottom2.updateButtonTitle(this.shopList[5].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[5].description))
         this.chestBottom2.setValue(this.getCurrency(this.shopList[5].currency), 'x' + this.shopList[5].price)
 
         this.bottomLine = new UIList();
@@ -178,7 +179,7 @@ export default class ShopContainer extends MainScreenModal {
         this.titleBox.height = 80
 
         this.titleBox.y = -60
-        this.titleLabel = UIUtils.getSecondaryLabel('Shop', { fontSize: 48 })
+        this.titleLabel = UIUtils.getSecondaryLabel(LocalizationManager.instance.getLabel("SHOP"), { fontSize: 48 })
         this.titleLabel.anchor.set(0.5)
         this.titleLabel.x = this.titleBox.width / 2
         this.titleLabel.y = this.titleBox.height / 2
@@ -186,19 +187,19 @@ export default class ShopContainer extends MainScreenModal {
 
 
         this.timedButtons = [];
-        this.topShop1Timed = new TimedAction("SHOP_1", 300, this.chest1.videoButton.priceLabel, 'OPEN')
-        this.topShop2Timed = new TimedAction("SHOP_2", 300, this.chest2.videoButton.priceLabel, 'OPEN')
+        this.topShop1Timed = new TimedAction("SHOP_1", 300, this.chest1.videoButton.priceLabel, LocalizationManager.instance.getLabel("OPEN"))
+        this.topShop2Timed = new TimedAction("SHOP_2", 300, this.chest2.videoButton.priceLabel, LocalizationManager.instance.getLabel("OPEN"))
 
         this.timedButtons.push(this.topShop1Timed)
         this.timedButtons.push(this.topShop2Timed)
 
-        this.newItemEveryday = UIUtils.getSpecialLabel2('New Items Everyday!', { strokeThickness: 1, fontSize: 32, wordWrapWidth: 500 });
+        this.newItemEveryday = UIUtils.getSpecialLabel2(LocalizationManager.instance.getLabel("NEW_ITEMS_EVERYDAY"), { strokeThickness: 1, fontSize: 32, wordWrapWidth: 500 });
         this.shopButtonsContainer.addChild(this.newItemEveryday)
 
 
         this.scroller.addItens([this.shopButtonsContainer])
 
-        this.collectedMessage = "Collected!\n";
+        this.collectedMessage = LocalizationManager.instance.getLabel("COLLECTED")+"\n";
 
 
     }
@@ -421,7 +422,7 @@ export default class ShopContainer extends MainScreenModal {
         }
 
         if (!ViewDatabase.instance.canGetPiece()) {
-            this.chestMid1.disableWithMessage('You Collected All Cosmestics')
+            this.chestMid1.disableWithMessage(LocalizationManager.instance.getLabel("ALL_COSMETICS_COLLECTED"))
         } else {
             this.chestMid1.enable()
         }

@@ -25,6 +25,8 @@ import WeaponBuilder from "../screen/EntityBuilder";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
+import Game from "../../Game";
+import CookieManager from "../CookieManager";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -102,7 +104,7 @@ export default class Player extends GameAgent {
         this.health.setNewHealth(this.attributes.health)
 
         this.currentEnemiesColliding = []
-        //this.weaponLoadingBars = [];
+        this.weaponLoadingBars = [];
 
         this.sensor = this.engine.poolGameObject(Sensor)
         this.sensor.build(250)
@@ -119,11 +121,11 @@ export default class Player extends GameAgent {
 
 
 
-        //this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
-        //this.addChild(this.weaponShootBar)
+        this.weaponShootBar = this.engine.poolGameObject(WeaponLoadingBar)
+        this.addChild(this.weaponShootBar)
 
-        //this.weaponShootBar.build(20, 3, 1);
-        //this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
+        this.weaponShootBar.build(20, 3, 1);
+        this.weaponShootBar.updateView({ x: 0, y: -68 }, 0xFF0000, 0xFF00ff);
 
         //this.weaponLoadingBars.push(this.weaponShootBar);
 
@@ -179,6 +181,11 @@ export default class Player extends GameAgent {
         });
 
         this.physics.velocity.x = 1
+
+        if (CookieManager.instance.isFtue) {
+            this.lifeBar.showFtue(7);
+            this.weaponShootBar.showFtue(8);
+        }
     }
     gameReady() {
 
@@ -267,15 +274,15 @@ export default class Player extends GameAgent {
                 this.activeCompanions[index].destroy();
             }
         }
-        // for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
-        //     if (!this.weaponLoadingBars[index].destroyed) {
+        for (let index = this.weaponLoadingBars.length - 1; index >= 0; index--) {
+            if (!this.weaponLoadingBars[index].destroyed) {
 
-        //         this.weaponLoadingBars[index].destroy();
-        //     }
-        // }
+                this.weaponLoadingBars[index].destroy();
+            }
+        }
 
         this.activeAttachments = [];
-        // this.weaponLoadingBars = [];
+        this.weaponLoadingBars = [];
         this.weaponsGameObject = [];
         this.activeCompanions = [];
         this.activeWeapons = [];
@@ -307,7 +314,7 @@ export default class Player extends GameAgent {
         for (let index = 0; index < t; index++) {
 
             let weapon = this.engine.poolGameObject(weaponData.customConstructor)
-            if (!first) {
+            if (!first && weaponData.entityData.starter) {
                 first = weapon;
             }
             this.addChild(weapon)
@@ -333,8 +340,9 @@ export default class Player extends GameAgent {
         }
 
 
-
-        //this.weaponShootBar.setWeapon(first)
+        if (first) {
+            this.weaponShootBar.setWeapon(first)
+        }
         inGameWeapon.onUpdateWeapon.add(() => {
             this.refreshEquipment();
         })
@@ -458,7 +466,7 @@ export default class Player extends GameAgent {
             }
         }
 
-        if(this.invencibleTimer > 0){
+        if (this.invencibleTimer > 0) {
             this.invencibleTimer -= delta;
         }
         this.playerStats.health = this.health.currentHealth
@@ -473,9 +481,9 @@ export default class Player extends GameAgent {
             this.physics.velocity.z = Math.sin(this.input.direction) * this.speed * delta
             this.transform.angle = this.input.direction
 
-            
+
         } else if (this.input.isMouseDown) {
-            
+
             //from the middle
             this.transform.angle = Math.atan2(this.input.mousePosition.y - config.height / 2, this.input.mousePosition.x - config.width / 2)
             this.physics.velocity.x = Math.cos(this.transform.angle) * this.speed * delta

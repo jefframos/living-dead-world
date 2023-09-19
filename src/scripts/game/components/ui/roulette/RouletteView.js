@@ -9,6 +9,7 @@ import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import signals from 'signals';
 import TimedAction from '../../../data/TimedAction';
+import LocalizationManager from '../../../LocalizationManager';
 
 export default class RouletteView extends PIXI.Container {
     constructor(width = 800, height = 600) {
@@ -38,7 +39,7 @@ export default class RouletteView extends PIXI.Container {
         }, 'Free', UIUtils.getIconUIIcon('video'))
 
 
-        this.freeSpinTimed = new TimedAction("FREE_SPIN", 300, this.spinVideoButton.text, "FREE")
+        this.freeSpinTimed = new TimedAction("FREE_SPIN", 300, this.spinVideoButton.text, LocalizationManager.instance.getLabel("FREE"))
 
         this.spinVideoButton.updateBackTexture('square_button_0003')
         this.container.addChild(this.spinVideoButton);

@@ -20,6 +20,7 @@ import SessionSpawner from "./spawn/SessionSpawner";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import signals from "signals";
+import CookieManager from "../CookieManager";
 
 export default class LevelManager {
     static _instance;
@@ -145,7 +146,7 @@ export default class LevelManager {
 
         EffectsManager.instance.bombExplode();
     }
-    start(wavesData = {level:0}) {
+    start(wavesData = { level: 0 }) {
 
         this.revives = 1;
         this.dyingTimer = 0;
@@ -155,7 +156,7 @@ export default class LevelManager {
         this.currentLevelWaves = levelData.waves;
         this.currentLevelData = levelData;
 
-        console.log(wavesData)
+        console.log('GameStaticData.instance.getWaves()',GameStaticData.instance.getWaves())
         this.timeLimit = levelData.lenght;
         //alert(this.timeLimit)
 
@@ -171,7 +172,7 @@ export default class LevelManager {
             } else {
                 this.levelStructure.phases.push(Pool.instance.getElement(SessionSpawner).build(element.startAt || 0, element.duration, element.waves));
 
-                if(element.alert){
+                if (element.alert) {
                     this.textTriggers.phases.push({
                         startAt: element.startAt - 7,
                         text: "Enemy Horde Incoming",
@@ -184,34 +185,40 @@ export default class LevelManager {
 
         this.textTriggers.phases.sort((a, b) => {
             if (a.startAt < b.startAt) {
-              return -1;
+                return -1;
             }
             if (a.startAt > b.startAt) {
-              return 1;
+                return 1;
             }
             return 0;
-          });
+        });
 
-         // console.log(this.textTriggers)
+        // console.log(this.textTriggers)
 
-        this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
         this.player.setPositionXZ(0, 0)
 
-        
+        this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
+
         this.gameOverOverlay = this.addEntity(GameOverView);
         this.gameOverOverlay.setActive(false)
         this.gameOverOverlay.onConfirmGameOver.add((fromWin) => {
             this.confirmGameOver(fromWin);
         })
-        
+
         this.gameOverOverlay.onRevivePlayer.add(() => {
             this.revivePlayer();
         })
-        
-        this.gameSessionController.setLabelInfo('')
+
+
+        if (CookieManager.instance.isFtue) {
+            this.gameSessionController.showFtue();
+        } else {
+            this.showSessionInfo();
+        }
+
+    }
+    showSessionInfo() {
         this.gameSessionController.setLabelInfo('Survive for ' + Utils.floatToTime(this.timeLimit), 10)
-
-
     }
     destroy() {
         this.gameSessionController.destroy();
@@ -237,6 +244,9 @@ export default class LevelManager {
     }
     onPlayerLevelUp(xpData) {
 
+    }
+    afterFtue() {
+        this.init = true;
     }
     initGame() {
         this.init = true;
@@ -306,8 +316,8 @@ export default class LevelManager {
             console.log('cant spawn without data');
             return
         }
-        if(Math.random() > 0.7)
-        this.enemyGlobalSpawner.spawnEnemy(spawnData)
+        if (Math.random() > 0.7)
+            this.enemyGlobalSpawner.spawnEnemy(spawnData)
     }
     collectAllPickups() {
         this.collectables.forEach(element => {
@@ -424,9 +434,9 @@ export default class LevelManager {
         let collectable = this.addEntity(Collectable);
 
         if (health.gameObject && health.gameObject.staticData && health.gameObject.staticData.entityData) {
-            
+
             let added = 0;
-            if(health.gameObject.attributes){
+            if (health.gameObject.attributes) {
                 added = Math.floor(health.gameObject.attributes.level / 3)
             }
             collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier + added);
@@ -487,6 +497,9 @@ export default class LevelManager {
             }
         }
 
+        if(tierId == 0){
+            return null
+        }
         return this.entitiesByTier[tierId][closest];
     }
     angleFromPlayer(point) {
@@ -496,6 +509,12 @@ export default class LevelManager {
         return Vector3.distance(point, this.player.transform.position);
     }
     update(delta) {
+        if (Game.IsPortrait) {
+            this.gameEngine.camera.targetZoom = 1.5;
+        } else {
+            this.gameEngine.camera.targetZoom = 1.2;
+
+        }
         if (!this.init) {
             return;
         }
@@ -507,12 +526,6 @@ export default class LevelManager {
                 this.completeDieTimer();
             }
             return;
-        }
-        if (Game.IsPortrait) {
-            this.gameEngine.camera.targetZoom = 1.5;
-        } else {
-            this.gameEngine.camera.targetZoom = 1;
-
         }
 
         //using a fixed value
@@ -579,6 +592,9 @@ export default class LevelManager {
     }
 
     lateUpdate(delta) {
+        if (!this.init) {
+            return;
+        }
         this.gameplayTime += delta;
         this.gameManagerStats.Time = this.gameplayTime
     }

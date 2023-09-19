@@ -14,6 +14,7 @@ import jsonManifest from './manifests/manifest-json'
 import plugins from './plugins';
 import signals from 'signals';
 import spritesheetManifest from './manifests/manifest'
+import LocalizationManager from './game/LocalizationManager';
 
 window.PIXI = PIXI;
 
@@ -254,27 +255,13 @@ function configGame(evt) {
     if (!firstPlayer) {
         CookieManager.instance.savePlayer(0)
     }
+    window.RESOURCES = evt.resources;
     CookieManager.instance.sortPlayers()
     ViewDatabase.instance.initialize();
-    //window.localizationManager = new LocalizationManager('');
+    window.localizationManager = new LocalizationManager('');
     SOUND_MANAGER.load(audioManifest);
-    window.RESOURCES = evt.resources;
     window.TILE_ASSSETS_POOL = []
 
-    let toGenerate = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '?', '!', 'X', 'v', '+', '<', '>', 't', 'MAX', 'Fight BOSS', '100']
-    for (let index = 0; index < toGenerate.length; index++) {
-
-        let container = new PIXI.Container()
-        let text = new PIXI.Text(toGenerate[index], LABELS.LABEL2);
-        text.style.fontSize = 64
-        text.style.fill = 0xFFFFFF
-        text.style.strokeThickness = 0
-        container.addChild(text)
-
-        let id = toGenerate[index].substring(0, 4)
-        let tex = utils.generateTextureFromContainer('image-' + id, container, window.TILE_ASSSETS_POOL)
-
-    }
     if (!window.noPoki && !window.loadedOnce) {
         PokiSDK.gameLoadingFinished();
         window.loadedOnce = true;

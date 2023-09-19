@@ -44,10 +44,15 @@ export default class Game {
         Game.Screen.height = config.height
         Game.Time = 0;
         this.ratio = config.width / config.height;
+
+        let maxRes = 2
+        if(window.isMobile !== null){
+            maxRes = 1.5
+        }
         window.renderer = new PIXI.Application({
             width: config.width,
             height: config.height,
-            resolution: Math.max(window.devicePixelRatio, 1.5),
+            resolution: Math.max(window.devicePixelRatio, maxRes),
             antialias: false,
             backgroundColor: 0x272822
         });
