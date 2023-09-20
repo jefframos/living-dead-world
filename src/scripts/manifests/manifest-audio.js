@@ -8,12 +8,12 @@ const assets = [
 	"url":"assets/audio\\Cartoon-Mouth-Sound-20.mp3"
 	},
 	{
-	"id":"dropTile",
-	"url":"assets/audio\\dropTile.mp3"
-	},
-	{
 	"id":"FloatingCities",
 	"url":"assets/audio\\FloatingCities.mp3"
+	},
+	{
+	"id":"dropTile",
+	"url":"assets/audio\\dropTile.mp3"
 	},
 	{
 	"id":"getstar",
@@ -76,12 +76,12 @@ const assets = [
 	"url":"assets/audio\\slot-machine.mp3"
 	},
 	{
-	"id":"Synth-Appear-01",
-	"url":"assets/audio\\Synth-Appear-01.mp3"
-	},
-	{
 	"id":"squash1",
 	"url":"assets/audio\\squash1.mp3"
+	},
+	{
+	"id":"Synth-Appear-01",
+	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
 	"id":"Tap-01",

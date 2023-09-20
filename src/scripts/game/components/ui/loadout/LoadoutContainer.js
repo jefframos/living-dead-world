@@ -74,6 +74,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
         this.autoMergeAll.setActive()
         this.contentContainer.addChild(this.autoMergeAll)
+        this.autoMergeAll.text.style.wordWrap = 100
         this.autoMergeAll.scale.x = -1;
         this.autoMergeAll.text.scale.x = -1;
 

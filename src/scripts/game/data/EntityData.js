@@ -19,6 +19,7 @@ export default class EntityData {
         this.tier = 1;
         this.name = "";
         this.description = "";
+        this.descriptionId = "";
         this.type = EntityData.EntityDataType.Weapon;
     }
     copyOver(obj){

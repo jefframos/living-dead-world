@@ -23,6 +23,7 @@ import UIUtils from "../../utils/UIUtils";
 import Utils from "../../core/utils/Utils";
 import conversionUtils from "../../../conversionUtils";
 import signals from "signals";
+import LocalizationManager from "../../LocalizationManager";
 
 export default class SurvivorDeckController extends GameObject {
     constructor() {
@@ -70,7 +71,8 @@ export default class SurvivorDeckController extends GameObject {
 
         this.pickAll.resize(220, 80)
         this.pickAll.updateBackTexture(UIUtils.baseButtonTexture + '_0005')
-        this.pickAll.priceLabel.text = "Pick\nAll"
+        this.pickAll.priceLabel.text = LocalizationManager.instance.getLabel('PICK_ALL')
+        this.pickAll.priceLabel.style.wordWrap = 100
         this.pickAll.buttonListContent.w = 220
         this.pickAll.buttonListContent.h = 60
         this.pickAll.buttonListContent.updateHorizontalList()
@@ -150,12 +152,12 @@ export default class SurvivorDeckController extends GameObject {
         this.cardHolding = null;
         this.holdingData = null;
 
-        if (Game.Debug.debug){
+        if (Game.Debug.debug) {
             totalCards = 5
         }
 
         totalCards = Math.min(data.length, totalCards)
-        
+
         this.handCards = [];
         for (let i = 0; i < totalCards; i++) {
             let dt = null
@@ -221,16 +223,16 @@ export default class SurvivorDeckController extends GameObject {
             })
             this.handCards.push(cardView)
 
-           // pickedCards.find(element => element > 10)
-        
-        let level = 0;
-        
-        if(dt && dt.entityData && pickedCards[dt.entityData.type]){
-            if(pickedCards[dt.entityData.type][dt.id]){
-                level = pickedCards[dt.entityData.type][dt.id]
-            }
-        }
+            // pickedCards.find(element => element > 10)
 
+            let level = 0;
+
+            if (dt && dt.entityData && pickedCards[dt.entityData.type]) {
+                if (pickedCards[dt.entityData.type][dt.id]) {
+                    level = pickedCards[dt.entityData.type][dt.id]
+                }
+            }
+console.log(dt.entityData)
             cardView.setData(dt, data[i], this.player, level);
             cardView.show(i)
         }
@@ -249,7 +251,7 @@ export default class SurvivorDeckController extends GameObject {
         if (this.reshuffle.visible) {
             this.uiButtons.addElement(this.reshuffle)
         }
-        this.reshuffle.priceLabel.text = "Reshuffle\n(" + reshffleUses + ")"
+        this.reshuffle.priceLabel.text = LocalizationManager.instance.getLabel('RESHUFFLE') + "\n(" + reshffleUses + ")"
         this.reshuffle.buttonListContent.updateHorizontalList()
         this.uiButtons.updateHorizontalList()
 
@@ -261,7 +263,7 @@ export default class SurvivorDeckController extends GameObject {
     }
     pickCard(card) {
         //this.player.sessionData.addEquipment
-        
+
         if (CardPlacementSystem.isSpecialType(card.cardData.entityData.type)) {
             this.destroyHighlighted();
             this.onConfirmLoudout.dispatch(card.cardData)

@@ -8,6 +8,7 @@ import PrizeManager from '../../../data/PrizeManager';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import CharacterCustomizationContainer from '../customization/CharacterCustomizationContainer';
+import LocalizationManager from '../../../LocalizationManager';
 
 export default class PrizeCollectContainer extends MainScreenModal {
     constructor() {
@@ -40,7 +41,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             this.hide()
-        }, 'collect')
+        }, LocalizationManager.instance.getLabel('COLLECT'))
         this.collectButton.updateBackTexture('square_button_0002')
         this.container.addChild(this.collectButton);
         this.collectButton.buttonSound = 'Synth-Appear-01'
@@ -60,7 +61,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.prizeBox = new PIXI.Sprite()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.infoBackContainer.addChild(this.prizeBox);
 
-        this.congratulationsLabel = UIUtils.getSpecialLabel2('Collect your prize!', { fontSize: 32 })
+        this.congratulationsLabel = UIUtils.getSpecialLabel2(LocalizationManager.instance.getLabel('COLLECT_PRIZE'), { fontSize: 32 })
         this.congratulationsLabel.anchor.set(0.5)
 
         this.infoBackContainer.addChild(this.congratulationsLabel)

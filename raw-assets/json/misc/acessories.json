@@ -4,6 +4,7 @@
         "entityData": {
             "icon": "divine-donut",
             "name": "Divine Donuts",
+            "descriptionId": "DESCRIPTION_HEALING_RING",
             "description": "Heal over time",
             "type": "Acessory",
             "tier": 1
@@ -15,6 +16,7 @@
         "entityData": {
             "icon": "toxic-tart",
             "name": "Toxic Tarts",
+            "descriptionId": "DESCRIPTION_POISON_SHOOT",
             "description": "Food poison",
             "type": "Acessory",
             "tier": 1
@@ -26,6 +28,7 @@
         "entityData": {
             "icon": "sizzling-sausage",
             "name": "Sizzling Sausages",
+            "descriptionId": "DESCRIPTION_BURN_SHOOT",
             "description": "Deep fry enemies",
             "type": "Acessory",
             "tier": 1

@@ -9,8 +9,8 @@ export default class LocalizationManager {
     }
     constructor(forceLanguage) {
         LocalizationManager._instance = this;
-        this.defaultLanguage = window.RESOURCES['localization_EN'].data.labels
-        this.currentLanguage = window.RESOURCES['localization_EN'].data.labels
+        this.defaultLanguage = window.RESOURCES['localization_EN'].data.LABELS
+        this.currentLanguage = window.RESOURCES['localization_EN'].data.LABELS
 
         let lang = navigator.language
         if (lang) {
@@ -21,8 +21,8 @@ export default class LocalizationManager {
             }
             if (window.RESOURCES['localization_' + lang2]) {
                 let newLang = window.RESOURCES['localization_' + lang2];
-                if (newLang.data && newLang.data.labels) {
-                    this.currentLanguage = newLang.data.labels;
+                if (newLang.data && newLang.data.LABELS) {
+                    this.currentLanguage = newLang.data.LABELS;
                 }
             }
 

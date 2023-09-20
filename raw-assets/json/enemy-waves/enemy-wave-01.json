@@ -2,7 +2,7 @@
     {
         "ignore":{
             "startAt": 350,
-            "textTrigger": "Enemy Horde Incoming",
+            "textTrigger": "INCOMING_HORDE",
             "time":10
         },
         "lenght": 480,

@@ -10,6 +10,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "multishot-gun-1-icon",
+            "descriptionId": "DESCRIPTION_PLAYER_MULTISHOT",
             "description": "Shoot Multiple Bullets",
             "name": "Jolly Jaunter"
         },
@@ -61,6 +62,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1-icon",
+            "descriptionId": "DESCRIPTION_PISTOL_01",
             "description": "Fire a deadly barrage of bullets in the player's direction",
             "name": "Teeny-Tiny Terror"
         },
@@ -112,6 +114,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "unicornLeg-icon",
+            "descriptionId": "DESCRIPTION_SUB_MACHINE_GUN_01",
             "description": "Quick shoot towards player direction",
             "name": "Fidgety Firehose"
         },
@@ -163,6 +166,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "shotgun-1-icon",
+            "descriptionId": "DESCRIPTION_SHOTGUN_01",
             "description": "Shoot a strong blast of bullets",
             "name": "Boomstick"
         },
@@ -214,6 +218,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun-icon",
+            "descriptionId": "DESCRIPTION_MINIGUN_01",
             "description": "Shoot bullets around the player",
             "name": "Micro-Maniac"
         },
@@ -266,6 +271,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper-1-icon",
+            "descriptionId": "DESCRIPTION_SNIPER_01",
             "description": "Shoot the closest enemy",
             "name": "Scope-a-Dope"
         },
@@ -318,6 +324,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "knife-icon",
+            "descriptionId": "DESCRIPTION_BASEBAL_BAT",
             "description": "Slice close enemies",
             "name": "Dicing Dagger"
         },
@@ -369,6 +376,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "pistol1",
+            "descriptionId": "DESCRIPTION_REVOLVER_01",
             "description": "test",
             "name": "Spinning Spree"
         },
@@ -420,6 +428,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hoaming-icon",
+            "descriptionId": "DESCRIPTION_FIREBALL_HOAMING",
             "description": "Release hoaming little explosive creatures",
             "name": "Seeking Trinket"
         },
@@ -471,6 +480,7 @@
             "type": "Weapon",
             "tier": 5,
             "icon": "laser-icon",
+            "descriptionId": "DESCRIPTION_LASER",
             "description": "Fry enemies close to you",
             "name": "Optic Obliterator"
         },
@@ -526,6 +536,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "whigglegun-icon",
+            "descriptionId": "DESCRIPTION_WORM_GUN",
             "description": "Shoot worms",
             "name": "Worm Waster"
         },
@@ -577,6 +588,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "bomb-trhower-icon",
+            "descriptionId": "DESCRIPTION_BOMB_THROWER",
             "description": "Throw bombs around the player",
             "name": "Compact Catastrophe"
         },
@@ -626,6 +638,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
+            "descriptionId": "DESCRIPTION_SMALL_BOMB",
             "description": "test",
             "name": "Itsy-Bitsy Bomb"
         },
@@ -676,6 +689,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "purple-orbit-icon",
+            "descriptionId": "DESCRIPTION_ORBIT_OVERRIDER",
             "description": "Summon projectiles that circles the player",
             "name": "Orbit"
         },
@@ -725,6 +739,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "shuriken-icon",
+            "descriptionId": "DESCRIPTION_ICE_SHARD_THROWER",
             "description": "Summon a giant shuriken",
             "name": "Disk"
         },
@@ -775,6 +790,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "boomerang-icon",
+            "descriptionId": "DESCRIPTION_BOOMERANG_AXE",
             "description": "Throw a boomerang",
             "name": "Bouncing Basher"
         },
@@ -827,6 +843,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "vfx-b1",
+            "descriptionId": "DESCRIPTION_PLAYER_AURA",
             "description": "test",
             "name": "Aura"
         },
@@ -879,6 +896,7 @@
             "type": "Weapon",
             "tier": 4,
             "icon": "bouncer-icon",
+            "descriptionId": "DESCRIPTION_BOUNCE",
             "description": "Throw damage balls that bounce on the enemies",
             "name": "Bounce"
         },
@@ -930,6 +948,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "bomb-icon",
+            "descriptionId": "DESCRIPTION_FALL_NUKE",
             "description": "Summon a giant bomb nearby",
             "name": "Bomb"
         },
@@ -979,6 +998,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
+            "descriptionId": "DESCRIPTION_FALL_NUKE_EXPLOSION",
             "description": "test",
             "name": "Bomb"
         },
@@ -1028,6 +1048,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "stabby-knife",
+            "descriptionId": "DESCRIPTION_BITE",
             "description": "test",
             "name": "Bite"
         },
@@ -1078,6 +1099,7 @@
             "type": "Weapon",
             "tier": 4,
             "icon": "bouncer-icon",
+            "descriptionId": "DESCRIPTION_DOG_BALL",
             "description": "test",
             "name": "Bounce"
         },
@@ -1129,6 +1151,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "cat-pawn",
+            "descriptionId": "DESCRIPTION_CAT_PAWN",
             "description": "test",
             "name": "Pawn"
         },
@@ -1181,6 +1204,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "electric-slash6",
+            "descriptionId": "DESCRIPTION_LIGHTNING_IN_PLACE",
             "description": "test",
             "name": "Thunder"
         },
@@ -1232,6 +1256,7 @@
             "type": "Weapon",
             "tier": 3,
             "icon": "electric-slash6",
+            "descriptionId": "DESCRIPTION_LIGHTNING",
             "name": "Thunder"
         },
         "isMain": true,
@@ -1283,6 +1308,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "blaster-minugun",
+            "descriptionId": "DESCRIPTION_ENEMY_MINIGUN_01",
             "name": "Minigun"
         },
         "isMain": true,
@@ -1334,6 +1360,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "stabby-knife",
+            "descriptionId": "DESCRIPTION_MELEE_SWORD",
             "name": "Dicing Dagger"
         },
         "isMain": true,
@@ -1382,7 +1409,8 @@
             "enemyWeapon": false,
             "extra": false,
             "type": "Weapon",
-            "tier": 2
+            "tier": 2,
+            "descriptionId": "PLAYER_AURA_OVERRIDER"
         },
         "isMain": false,
         "ingameViewData": "PLAYER_AURA_OVERRIDER",
@@ -1406,6 +1434,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "cross",
+            "descriptionId": "PLAYER_CROSS_SHOT",
             "name": "CrossShot"
         },
         "isMain": true,
@@ -1454,7 +1483,8 @@
             "enemyWeapon": false,
             "extra": false,
             "type": "Weapon",
-            "tier": 2
+            "tier": 2,
+            "descriptionId": "PLAYER_MULTISHOT_OVERRIDER"
         },
         "isMain": false,
         "ingameViewData": "PLAYER_MULTISHOT_OVERRIDER",
@@ -1477,6 +1507,7 @@
             "type": "Weapon",
             "tier": 1,
             "icon": "flameThrower",
+            "descriptionId": "LAND_MINE",
             "name": "Bomb"
         },
         "isMain": true,
@@ -1521,7 +1552,8 @@
             "enemyWeapon": false,
             "extra": false,
             "type": "Weapon",
-            "tier": 2
+            "tier": 2,
+            "descriptionId": "SMALL_BOMB_OVERRIDER"
         },
         "isMain": false,
         "ingameViewData": "SMALL_BOMB_OVERRIDER",
@@ -1543,6 +1575,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "flameThrower",
+            "descriptionId": "BOMB_THROWER_COMPANION",
             "name": "Bomb"
         },
         "isMain": true,
@@ -1588,7 +1621,8 @@
             "enemyWeapon": false,
             "extra": false,
             "type": "Weapon",
-            "tier": 2
+            "tier": 2,
+            "descriptionId": "BOMB_THROWER_OVERRIDER"
         },
         "isMain": false,
         "ingameViewData": "BOMB_THROWER_OVERRIDER",
@@ -1611,6 +1645,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "pistol6",
+            "descriptionId": "SEMI_AUTO_PISTOL_01",
             "name": "Semi Auto Pistol"
         },
         "isMain": true,
@@ -1661,6 +1696,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "sniper2",
+            "descriptionId": "SNIPER_01_COMPANION",
             "name": "Sniper"
         },
         "isMain": true,
@@ -1711,6 +1747,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "tile_0106",
+            "descriptionId": "DAGGER_ROTATOR_OVERRIDER",
             "name": "Dagger Rotator Overrider"
         },
         "isMain": false,
@@ -1761,6 +1798,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
+            "descriptionId": "ICE_SHARD_ROTATOR",
             "name": "Disk"
         },
         "isMain": false,
@@ -1808,6 +1846,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "small-spark4",
+            "descriptionId": "ORBIT_OVERRIDER",
             "name": "Orbit Over"
         },
         "isMain": false,
@@ -1854,6 +1893,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "hit-d3",
+            "descriptionId": "ELECTRIC_SLASH_OVERRIDER",
             "name": "Bomb"
         },
         "isMain": false,
@@ -1902,6 +1942,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "flash7",
+            "descriptionId": "FLASH_CIRCLE",
             "name": "Flash Circle"
         },
         "isMain": true,
@@ -1950,6 +1991,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "laserGun1",
+            "descriptionId": "LASER_DRONE_WEAPON",
             "name": "Laser"
         },
         "isMain": true,
@@ -2003,6 +2045,7 @@
             "type": "Weapon",
             "tier": 2,
             "icon": "vfx-c1",
+            "descriptionId": "LASER_OVERRIDER",
             "name": "Disk"
         },
         "isMain": false,
@@ -2050,7 +2093,8 @@
             "extra": true,
             "type": "Weapon",
             "tier": 1,
-            "icon": "pistol1-icon"
+            "icon": "pistol1-icon",
+            "descriptionId": "DESCRIPTION_MULTISHOT_SINGLE_SPREAD"
         },
         "isMain": true,
         "weaponType": "Physical",
@@ -2098,7 +2142,8 @@
             "extra": true,
             "type": "Weapon",
             "tier": 1,
-            "icon": "pistol1-icon"
+            "icon": "pistol1-icon",
+            "descriptionId": "DESCRIPTION_MULTISHOT_ROUND_SPREAD"
         },
         "isMain": true,
         "weaponType": "Physical",
@@ -2139,6 +2184,9 @@
     },
     {
         "id": "SHOOT_ORBIT2",
+        "entityData": {
+            "descriptionId": "SHOOT_ORBIT2"
+        },
         "attributes": {
             "useRelativePower": false,
             "baseCritical": 0
@@ -2146,6 +2194,9 @@
     },
     {
         "id": "SHOOT_ORBIT",
+        "entityData": {
+            "descriptionId": "SHOOT_ORBIT"
+        },
         "attributes": {
             "useRelativePower": false,
             "baseCritical": 0
@@ -2153,6 +2204,9 @@
     },
     {
         "id": "SHOT_SMALL_EXPLOSION",
+        "entityData": {
+            "descriptionId": "SHOT_SMALL_EXPLOSION"
+        },
         "attributes": {
             "useRelativePower": false,
             "baseCritical": 0

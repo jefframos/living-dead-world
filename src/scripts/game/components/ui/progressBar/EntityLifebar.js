@@ -35,6 +35,7 @@ export default class EntityLifebar extends BaseFillBar {
         this.infoLabel.style.fontSize = 14
         this.infoLabel.style.strokeThickness = 1
         this.infoLabel.style.dropShadowDistance = 1
+        this.infoLabel.style.wordWrap=150
         this.infoLabel.y = -20
         this.infoLabel.x = 0
         this.infoLabel.alpha = 0;

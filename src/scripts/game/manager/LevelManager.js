@@ -21,6 +21,7 @@ import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import signals from "signals";
 import CookieManager from "../CookieManager";
+import LocalizationManager from "../LocalizationManager";
 
 export default class LevelManager {
     static _instance;
@@ -55,6 +56,7 @@ export default class LevelManager {
 
         this.enemyGlobalSpawner = new EnemyGlobalSpawner(this);
         this.gameplayTime = 0;
+        this.inverseGameplayTime = 0;
 
         this.onPlayerDie = new signals.Signal();
         this.onConfirmGameOver = new signals.Signal();
@@ -175,7 +177,7 @@ export default class LevelManager {
                 if (element.alert) {
                     this.textTriggers.phases.push({
                         startAt: element.startAt - 7,
-                        text: "Enemy Horde Incoming",
+                        text: LocalizationManager.instance.getLabel('INCOMING_HORDE'),
                         time: 5,
                     })
                 }
@@ -218,7 +220,7 @@ export default class LevelManager {
 
     }
     showSessionInfo() {
-        this.gameSessionController.setLabelInfo('Survive for ' + Utils.floatToTime(this.timeLimit), 10)
+        this.gameSessionController.setLabelInfo(LocalizationManager.instance.getLabel('SURVIVE_FOR') +' '+ Utils.floatToTime(this.timeLimit), 10)
     }
     destroy() {
         this.gameSessionController.destroy();
@@ -259,6 +261,7 @@ export default class LevelManager {
         this.player.refreshEquipment()
         this.player.gameReady();
         this.gameplayTime = -1;
+        this.inverseGameplayTime = this.timeLimit;
         this.currentPhase = 0;
         for (var i = this.activeEnemies.length - 1; i >= 0; i--) {
             this.activeEnemies[i].destroy();
@@ -543,6 +546,8 @@ export default class LevelManager {
             return;
         }
 
+        this.inverseGameplayTime = this.timeLimit - this.gameplayTime;
+        
         if (this.textTriggers.currentTrigger >= 0 && this.textTriggers.currentTrigger < this.textTriggers.phases.length) {
             const textTriggerData = this.textTriggers.phases[this.textTriggers.currentTrigger]
             if (textTriggerData.startAt <= this.gameplayTime) {

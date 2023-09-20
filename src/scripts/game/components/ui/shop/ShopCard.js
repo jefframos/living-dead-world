@@ -30,7 +30,7 @@ export default class ShopCard extends PIXI.Container {
         this.addChild(this.labelTitle);
         this.labelTitle.style.fill = 0xFFFFFF
         this.labelTitle.style.wordWrap = true
-        this.labelTitle.style.fontSize = 22
+        this.labelTitle.style.fontSize = 16
         this.labelTitle.anchor.set(0.5)
 
         this.iconSprite = new PIXI.Sprite();
@@ -98,7 +98,7 @@ export default class ShopCard extends PIXI.Container {
 
 
         this.currencyIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
-        this.description = UIUtils.getPrimaryLabel('x50')
+        this.description = UIUtils.getPrimaryLabel('x50', {fontSize:18})
         this.iconList.addElement(this.iconSprite, { align: 0.5, fitHeight: 1.2,  })
         this.descriptionList.addElement(this.description, { align: 0.5, fitHeight: 1, scaleContentMax: true })
         this.descriptionList.updateHorizontalList();
@@ -194,7 +194,7 @@ export default class ShopCard extends PIXI.Container {
         this.iconList.h = this.descriptionList.h 
 
         this.descriptionList.updateHorizontalList();
-        this.descriptionList.x = width / 2 - this.descriptionList.w / 2 + this.centerOffset.x;
+        this.descriptionList.x = width / 2 - this.descriptionList.w / 2 //+ this.centerOffset.x;
         this.descriptionList.y = height / 2 - this.descriptionList.h / 2 + this.centerOffset.y;
 
         this.iconList.updateHorizontalList();

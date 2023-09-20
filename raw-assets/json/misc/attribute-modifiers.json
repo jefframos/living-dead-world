@@ -4,6 +4,7 @@
         "entityData": {
             "icon": "attack-icon",
             "name": "Unleash the Fury",
+            "descriptionId": "DESCRIPTION_ATTACK_UP_MODIFIER",
             "description": "Ignite your attack power",
             "type": "Attribute",
             "tier": 1
@@ -16,6 +17,7 @@
         "entityData": {
             "icon": "speed-icon",
             "name": "Swift as the Wind",
+            "descriptionId": "DESCRIPTION_SPEED_UP_MODIFIER",
             "description": "Move Faster",
             "type": "Attribute",
             "tier": 1
@@ -28,6 +30,7 @@
         "entityData": {
             "icon": "defense-icon",
             "name": "Indestructible Defense",
+            "descriptionId": "DESCRIPTION_DEFENSE_UP_MODIFIER",
             "description": "Fortify your defenses",
             "type": "Attribute",
             "tier": 1
@@ -40,6 +43,7 @@
         "entityData": {
             "icon": "heart-icon",
             "name": "Enhanced Vitality",
+            "descriptionId": "DESCRIPTION_HP_UP_MODIFIER",
             "description": "Boost your MAX HP",
             "type": "Attribute",
             "tier": 1
@@ -52,6 +56,7 @@
         "entityData": {
             "icon": "bullet-icon",
             "name": "Rapid Fire",
+            "descriptionId": "DESCRIPTION_FREQUENCY_MODIFIER",
             "description": "Unleash a torrent of projectiles",
             "type": "Attribute",
             "tier": 1
@@ -64,6 +69,7 @@
         "entityData": {
             "icon": "radius-modifier",
             "name": "-",
+            "descriptionId": "DESCRIPTION_RADIUS_MODIFIER",
             "description": "-",
             "type": "Attribute",
             "tier": 1
@@ -76,6 +82,7 @@
         "entityData": {
             "icon": "amount-icon",
             "name": "Arsenal Expansion",
+            "descriptionId": "DESCRIPTION_AMOUNT_MODIFIER",
             "description": "Gain an extra weapon",
             "type": "Attribute",
             "tier": 1
@@ -88,6 +95,7 @@
         "entityData": {
             "icon": "piercing-icon",
             "name": "Piercing Precision",
+            "descriptionId": "DESCRIPTION_PIERCE_MODIFIER",
             "description": "Pierce Enemies",
             "type": "Attribute",
             "tier": 1
@@ -100,6 +108,7 @@
         "entityData": {
             "icon": "magnet-icon",
             "name": "Magnetic Attraction",
+            "descriptionId": "DESCRIPTION_COLLECTION_MODIFIER",
             "description": "Expand your collection radius",
             "type": "Attribute",
             "tier": 1
@@ -112,6 +121,7 @@
         "entityData": {
             "icon": "burguer-plus",
             "name": "Good Burger",
+            "descriptionId": "DESCRIPTION_ITEM_HEAL_MODIFIER",
             "description": "Items Heal More",
             "type": "Attribute",
             "tier": 1

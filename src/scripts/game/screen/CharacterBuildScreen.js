@@ -757,7 +757,7 @@ export default class CharacterBuildScreen extends Screen {
         } else {
 
             this.bottomMenuRightList.y = 80//Game.Borders.height - this.bottomMenuList.h - 30;
-            this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 30;
+            this.bottomMenuRightList.x = Game.Borders.width - this.bottomMenuList.w - 50;
         }
         this.bottomMenuList.x = 30;
         this.bottomMenuList.y = Game.Borders.height - this.bottomMenuList.h - 30;

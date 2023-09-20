@@ -14,6 +14,7 @@ import Utils from "../../../core/utils/Utils";
 import signals from "signals";
 import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
 import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
+import LocalizationManager from "../../../LocalizationManager";
 
 export default class GameOverView extends GameObject {
     constructor() {
@@ -84,7 +85,40 @@ export default class GameOverView extends GameObject {
         this.defeatTitleBox.x = this.infoBackContainer.width / 2 - this.defeatTitleBox.width / 2
         this.defeatTitleBox.y = -40
 
-        this.defeatLabel = new PIXI.Sprite.from("defeat");//UIUtils.getSecondaryLabel('Defeated', { fontSize: 48 })
+
+        const defeatStyle = new PIXI.TextStyle({
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowBlur: 5,
+            fill: [
+                "#ff0000",
+                "#ff7b00"
+            ],
+            fontFamily: window.MAIN_FONT ,
+            fontSize: 96,
+            fontVariant: "small-caps",
+            fontWeight: "bolder",
+            strokeThickness: 5
+        });
+        
+        
+        const victoryStyle = new PIXI.TextStyle({
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowBlur: 5,
+            fill: [
+                "#8cff00",
+                "#00ffbf"
+            ],
+            fontFamily: window.MAIN_FONT ,
+            fontSize: 96,
+            fontVariant: "small-caps",
+            fontWeight: "bolder",
+            strokeThickness: 5
+        });
+
+
+        this.defeatLabel = new PIXI.Text(LocalizationManager.instance.getLabel('DEFEAT'), defeatStyle);
         this.defeatLabel.anchor.set(0.5)
         this.defeatLabel.x = this.defeatTitleBox.width / 2
         this.defeatLabel.y = this.defeatTitleBox.height / 2
@@ -100,7 +134,7 @@ export default class GameOverView extends GameObject {
         this.blurDefeated.tint = 0xfc0000
         this.blurDefeated.alpha = 0.5
 
-        this.tryAgainLabel = UIUtils.getSpecialLabel1('Game Over!', { fontSize: 48 })
+        this.tryAgainLabel = UIUtils.getSpecialLabel1(LocalizationManager.instance.getLabel('GAME_OVER'), { fontSize: 48 })
         this.tryAgainLabel.anchor.set(0.5)
         this.tryAgainLabel.x = this.infoBackContainer.width / 2
         this.tryAgainLabel.y = this.infoBackContainer.height / 4 - 50
@@ -120,8 +154,9 @@ export default class GameOverView extends GameObject {
         this.titleBox.height = 80
         this.titleBox.x = this.infoBackContainer.width / 2 - this.titleBox.width / 2
         this.titleBox.y = -40
-
-        this.victoryLabel = new PIXI.Sprite.from("victory");//UIUtils.getSecondaryLabel('Victory', { fontSize: 48 })
+        
+        
+        this.victoryLabel  = new PIXI.Text(LocalizationManager.instance.getLabel('VICTORY'), victoryStyle);
         this.victoryLabel.anchor.set(0.5)
         this.victoryLabel.x = this.titleBox.width / 2
         this.victoryLabel.y = this.titleBox.height / 2
@@ -146,8 +181,14 @@ export default class GameOverView extends GameObject {
         this.shine.alpha = 0.1
 
 
-        this.congratulationsLabel = UIUtils.getSpecialLabel1('Congratulations!', { fontSize: 48 })
+        this.congratulationsLabel = UIUtils.getSpecialLabel1(LocalizationManager.instance.getLabel('CONGRATULATIONS'), victoryStyle)
         this.congratulationsLabel.anchor.set(0.5)
+        this.congratulationsLabel.style.fontSize = 48
+        this.congratulationsLabel.style.fontWeight = 100
+        this.congratulationsLabel.style.fill = [
+            "#00ccff",
+            "#00ffbf"
+        ],
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
         this.congratulationsLabel.y = this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.congratulationsLabel)
@@ -206,7 +247,7 @@ export default class GameOverView extends GameObject {
                 //this.showGameOverPrizes();
                 this.redirect();
             }
-        }, 'Continue')
+        }, LocalizationManager.instance.getLabel('CONTINUE'))
         this.confirmButton.updateBackTexture('square_button_0005')
 
         this.contentContainer.addChild(this.confirmButton)
@@ -223,7 +264,7 @@ export default class GameOverView extends GameObject {
                 this.onRevivePlayer.dispatch();
             }, {}, true)
 
-        }, 'Revive', UIUtils.getIconUIIcon('video'))
+        }, LocalizationManager.instance.getLabel('REVIVE'), UIUtils.getIconUIIcon('video'))
         this.reviveButton.updateBackTexture('square_button_0004')
 
         this.prizesContainer.addChild(this.reviveButton)
@@ -232,7 +273,8 @@ export default class GameOverView extends GameObject {
         this.collectButton = UIUtils.getPrimaryLargeLabelButton(() => {
             //this.collectPrizes();
             this.redirect(this.currentWinState);
-        }, 'Continue')
+        }, LocalizationManager.instance.getLabel('CONTINUE'))
+        
         this.collectButton.updateBackTexture('square_button_0002')
 
         this.prizesContainer.addChild(this.collectButton)
@@ -313,7 +355,6 @@ export default class GameOverView extends GameObject {
         if (this.gameOverStarted) {
             return;
         }
-        console.log("ADD PARTICLES HERE")
 
         this.gameOverStarted = true;
         this.currentShowingPrizes.forEach(element => {

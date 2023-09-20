@@ -14,6 +14,7 @@ import UIList from '../../ui/uiElements/UIList';
 import Utils from '../../core/utils/Utils';
 import UIUtils from '../../utils/UIUtils';
 import AudioControllerView from '../../components/ui/AudioControllerView';
+import LocalizationManager from '../../LocalizationManager';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -220,7 +221,7 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.ftuePrompt.alpha = 0;
 
-        
+
         this.wireBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
         this.ftuePrompt.addChild(this.wireBox);
         this.wireBox.width = 520
@@ -234,30 +235,49 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.mousePrompt = new PIXI.Sprite.from('mouse')
         this.movementControlContainer.addChild(this.mousePrompt)
-        this.mousePrompt.anchor.set(0,0)
+        this.mousePrompt.anchor.set(0, 0)
         this.mousePrompt.x = 70
-        
-        this.orLabel = UIUtils.getPrimaryLabel('or', { fontSize: 32, wordWrapWidth: 800, strokeThickness:0 });
+
+        this.orLabel = UIUtils.getPrimaryLabel('or', { fontSize: 32, wordWrapWidth: 800, strokeThickness: 0 });
         this.orLabel.anchor.set(0.5)
         this.orLabel.y = 50
         this.movementControlContainer.addChild(this.orLabel)
 
-        
-        
+
+
         this.keyboardPrompt = new PIXI.Sprite.from('keyboard-input')
         this.movementControlContainer.addChild(this.keyboardPrompt)
-        this.keyboardPrompt.anchor.set(1,0)
+        this.keyboardPrompt.anchor.set(1, 0)
         this.keyboardPrompt.x = -50
-        
+
+
+        this.fingerPrompt = new PIXI.Sprite.from('finger')
+        this.movementControlContainer.addChild(this.fingerPrompt)
+        this.fingerPrompt.anchor.set(0.5, 0)
+        this.fingerPrompt.rotation = Math.PI
+        this.fingerPrompt.y = 100
+
         this.movementLabel = UIUtils.getPrimaryLabel('run', { fontSize: 32, wordWrapWidth: 800 });
-        this.movementLabel.anchor.set(0,1)
+        this.movementLabel.anchor.set(0, 1)
         this.movementLabel.x = -250
         this.movementLabel.y = -35
         this.movementControlContainer.addChild(this.movementLabel)
+
+        if (window.isMobile) {
+            this.wireBox.alpha = 0
+            this.keyboardPrompt.alpha = 0
+            this.orLabel.alpha = 0
+            this.mousePrompt.alpha = 0
+            this.movementLabel.alpha = 0
+            this.fingerPrompt.visible = true
+        } else {
+
+            this.fingerPrompt.visible = false
+        }
     }
-    showFtue(){
+    showFtue() {
         this.ftuePrompt.alpha = 1;
-        TweenLite.to(this.ftuePrompt, 0.5, {delay:5, alpha:0})
+        TweenLite.to(this.ftuePrompt, 0.5, { delay: 5, alpha: 0 })
     }
     setLabelInfo(label, toHide) {
         this.levelInfoContainer.alpha = 1;
@@ -280,7 +300,7 @@ export default class PlayerInventoryHud extends GameObject {
     }
     registerPlayer(player) {
         this.player = player;
-        this.text.text = 'Level 1';
+        this.text.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + 1;
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
         this.player.sessionData.xpUpdated.add(this.updateXp.bind(this))
         this.player.sessionData.addXp(0)
@@ -303,7 +323,7 @@ export default class PlayerInventoryHud extends GameObject {
         if (xpData.normalUntilNext < 1) {
             this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         }
-        this.text.text = 'Level ' + (xpData.currentLevel + 1);//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+        this.text.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + (xpData.currentLevel + 1);//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
     updatePlayerHealth() {
         this.updatePlayerAttributes();
@@ -395,12 +415,12 @@ export default class PlayerInventoryHud extends GameObject {
 
     update(delta) {
         if (LevelManager.instance.gameplayTime > 0) {
-            this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.gameplayTime));
+            this.timer.text = Utils.floatToTime(Math.floor(LevelManager.instance.inverseGameplayTime));
         } else {
             this.timer.text = '00:00'
         }
 
-        this.goos.text = Math.max(0,Math.floor(LevelManager.instance.gameplayTime / 60))
+        this.goos.text = Math.max(0, Math.floor(LevelManager.instance.gameplayTime / 60))
         this.tubeFill.x = -this.tubeFill.width * (1 - (LevelManager.instance.gameplayTime % 60) / 60)
 
         this.kills.text = LevelManager.instance.matchStats.enemiesKilled
@@ -464,17 +484,22 @@ export default class PlayerInventoryHud extends GameObject {
         this.coins.x = this.kills.x
         this.coins.y = this.kills.y + this.kills.height + 5
 
+        if (this.fingerPrompt.visible) {
+            this.fingerPrompt.y = 100 + Math.sin(Game.Time * 10) * 10
+        }
+
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);
         if (Game.IsPortrait) {
+            this.ftuePrompt.y = Game.Borders.height - this.ftuePrompt.height - 100
             this.attributesView.setSize((Game.Borders.bottomRight.x / this.attributesView.scale.x) - 10, 40)
         } else {
             this.attributesView.setSize(Math.min(Game.Borders.bottomRight.x / this.attributesView.scale.x - 150, 850) - 10, 40)
+            this.ftuePrompt.y = Game.Borders.height / 2 + 120
         }
 
         this.ftuePrompt.x = Game.Borders.width / 2
-        this.ftuePrompt.y = Game.Borders.height /2 + 120
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
 
     }

@@ -14,6 +14,7 @@ import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
+import LocalizationManager from '../../LocalizationManager';
 
 export default class CardView extends PIXI.Container {
     constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 125, height = 150) {
@@ -66,9 +67,10 @@ export default class CardView extends PIXI.Container {
         this.onEndDrag = new signals.Signal();
         InteractableView.addMouseEnter(this.cardContentContnainer, () => { this.mouseOver = true; })
         InteractableView.addMouseOut(this.cardContentContnainer, () => { this.mouseOver = false; })
-        InteractableView.addMouseClick(this.cardContentContnainer, () => { 
+        InteractableView.addMouseClick(this.cardContentContnainer, () => {
             SOUND_MANAGER.play('dropTile', 0.5)
-            this.onCardConfirmed.dispatch(this) })
+            this.onCardConfirmed.dispatch(this)
+        })
         InteractableView.addMouseDown(this.cardContentContnainer, () => {
             this.onStartDrag.dispatch(this)
         })
@@ -201,12 +203,12 @@ export default class CardView extends PIXI.Container {
                 this.updateTexture(UIUtils.getIconUIIcon('coinsCard'));
                 this.labelTitle.text = 'Coin Stash'
 
-                this.addAttributeDrawer('coin', '+' + baseData.value)
+                this.addAttributeDrawer(LocalizationManager.instance.getLabel('COIN'), '+' + baseData.value)
             } else if (baseData.entityData.type === EntityData.EntityDataType.Heal) {
                 this.updateTexture(UIUtils.getIconUIIcon('healCard'));
                 this.labelTitle.text = 'Instant Heal'
 
-                this.addAttributeDrawer('heal', '+' + Math.round(baseData.value * 100), '%', true)
+                this.addAttributeDrawer(LocalizationManager.instance.getLabel('HEAL'), '+' + Math.round(baseData.value * 100), '%', true)
             }
 
             //this.setDescription('Teste')
@@ -229,7 +231,12 @@ export default class CardView extends PIXI.Container {
         this.labelTitle.text = cardData.entityData.name
 
         if (this.cardData.entityData.description) {
-            this.setDescription(this.cardData.entityData.description);
+
+            if (this.cardData.entityData.descriptionId == '') {
+                this.setDescription(this.cardData.entityData.description);
+            } else {
+                this.setDescription(LocalizationManager.instance.getLabel(this.cardData.entityData.descriptionId));
+            }
         }
 
         if (this.cardData.entityData.type == EntityData.EntityDataType.Acessory) {
@@ -262,7 +269,7 @@ export default class CardView extends PIXI.Container {
 
             if (Array.isArray(this.cardData.weaponAttributes.basePower)) {
                 let power = Math.round(this.cardData.weaponAttributes.power * player.attributes.basePower)
-                this.addAttributeDrawer('basePower',  '+' +this.cardData.weaponAttributes.power)
+                this.addAttributeDrawer('basePower', '+' + this.cardData.weaponAttributes.power)
             }
 
             if (Array.isArray(this.cardData.weaponAttributes.baseAmount)) {
