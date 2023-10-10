@@ -18,13 +18,13 @@ import PerspectiveCamera from '../core/PerspectiveCamera';
 import Player from '../entity/Player';
 import Pool from '../core/utils/Pool';
 import RenderModule from '../core/modules/RenderModule';
+import RewardsManager from '../data/RewardsManager';
 import Screen from '../../screenManager/Screen'
 import TouchAxisInput from '../core/modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
 import Vector3 from '../core/gameObject/Vector3';
 import config from '../../config';
-import RewardsManager from '../data/RewardsManager';
 
 export default class GameScreen extends Screen {
     constructor(label, targetContainer) {
@@ -252,10 +252,12 @@ export default class GameScreen extends Screen {
         this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager());
     }
     update(delta) {
+        const timeScale = 1.25
+        const scaledTime =  delta * this.debug.timeScale * timeScale;
         delta *= this.debug.timeScale;
-        this.levelManager.update(delta * Eugine.TimeScale)
-        this.gameEngine.update(delta)
-        this.levelManager.lateUpdate(delta * Eugine.TimeScale)
+        this.levelManager.update(scaledTime * Eugine.TimeScale, delta* this.debug.timeScale)
+        this.gameEngine.update(scaledTime, delta* this.debug.timeScale)
+        this.levelManager.lateUpdate(scaledTime * Eugine.TimeScale, delta* this.debug.timeScale)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length

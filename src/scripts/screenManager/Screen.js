@@ -63,6 +63,7 @@ export default class Screen extends PIXI.Container {
 		this.updateable = true;
 		this.visible = true;
 		this.endTransitionIn(param);
+		
 	}
 	endTransitionIn(param) {
 		this.onEndTransitionIn.dispatch(this);
@@ -73,7 +74,7 @@ export default class Screen extends PIXI.Container {
 		this.onStartTransitionOut.dispatch(this, nextScreen);
 		this.nextScreen = nextScreen;
 		this.visible = true;
-
+		
 		this.endTransitionOut(param, delay);
 
 	}

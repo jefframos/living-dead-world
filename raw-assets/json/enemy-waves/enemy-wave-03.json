@@ -5,8 +5,8 @@
             "textTrigger": "INCOMING_HORDE",
             "time":10
         },
-        "lenght": 300,
-        "environmentData": "level-1",
+        "lenght": 480,
+        "environmentData": "level-3",
         "waves": [
             {
                 "startAt": 2,

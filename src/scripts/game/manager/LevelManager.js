@@ -2,6 +2,7 @@ import BaseEnemy from "../entity/BaseEnemy";
 import Camera from "../core/Camera";
 import Collectable from "../entity/Collectable";
 import Consumable from "../entity/Consumable";
+import CookieManager from "../CookieManager";
 import DirectionPin from "../entity/DirectionPin";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
@@ -13,6 +14,7 @@ import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
 import InGameChest from "../entity/InGameChest";
 import Layer from "../core/Layer";
+import LocalizationManager from "../LocalizationManager";
 import Player from "../entity/Player";
 import PlayerSessionData from "../data/PlayerSessionData";
 import Pool from "../core/utils/Pool";
@@ -20,8 +22,6 @@ import SessionSpawner from "./spawn/SessionSpawner";
 import Utils from "../core/utils/Utils";
 import Vector3 from "../core/gameObject/Vector3";
 import signals from "signals";
-import CookieManager from "../CookieManager";
-import LocalizationManager from "../LocalizationManager";
 
 export default class LevelManager {
     static _instance;
@@ -511,7 +511,7 @@ export default class LevelManager {
     distanceFromPlayer(point) {
         return Vector3.distance(point, this.player.transform.position);
     }
-    update(delta) {
+    update(delta, unscaledDelta) {
         if (Game.IsPortrait) {
             this.gameEngine.camera.targetZoom = 1.5;
         } else {
@@ -596,11 +596,12 @@ export default class LevelManager {
         this.matchStats.time = this.gameplayTime;
     }
 
-    lateUpdate(delta) {
+    lateUpdate(delta, unscaledDelta) {
         if (!this.init) {
             return;
         }
-        this.gameplayTime += delta;
+        if(!delta) return;
+        this.gameplayTime += unscaledDelta;
         this.gameManagerStats.Time = this.gameplayTime
     }
 

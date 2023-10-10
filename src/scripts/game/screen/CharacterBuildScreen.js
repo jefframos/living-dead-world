@@ -1,17 +1,20 @@
 import * as PIXI from 'pixi.js';
 
 import AchievmentsContainer from '../components/ui/achievments/AchievmentsContainer';
+import AudioControllerView from '../components/ui/AudioControllerView';
 import BaseButton from '../components/ui/BaseButton';
 import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
 import CampfireScene from './scenes/CampfireScene';
 import CharacterBuildScreenCustomizationView from '../components/ui/customization/CharacterBuildScreenCustomizationView';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
+import CookieManager from '../CookieManager';
 import EntityBuilder from './EntityBuilder';
 import Game from '../../Game';
 import GameData from '../data/GameData';
 import GameStaticData from '../data/GameStaticData';
 import InteractableView from '../view/card/InteractableView';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
+import LocalizationManager from '../LocalizationManager';
 import LocationContainer from '../components/ui/location/LocationContainer';
 import MainScreenManager from './MainScreenManager';
 import NoMoneycontainer from '../components/ui/prizes/NoMoneycontainer';
@@ -19,8 +22,10 @@ import OutGameUIProgression from '../components/ui/OutGameUIProgression';
 import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
 import Pool from '../core/utils/Pool';
+import PopUpGenericModal from '../components/ui/PopUpGenericModal';
 import PrizeCollectContainer from '../components/ui/prizes/PrizeCollectContainer';
 import PrizeManager from '../data/PrizeManager';
+import RewardsManager from '../data/RewardsManager';
 import RouletteContainer from '../components/ui/roulette/RouletteContainer';
 import Screen from '../../screenManager/Screen';
 import ShopContainer from '../components/ui/shop/ShopContainer';
@@ -29,11 +34,6 @@ import UIUtils from '../utils/UIUtils';
 import Utils from '../core/utils/Utils';
 import ViewDatabase from '../data/ViewDatabase';
 import signals from "signals";
-import RewardsManager from '../data/RewardsManager';
-import PopUpGenericModal from '../components/ui/PopUpGenericModal';
-import AudioControllerView from '../components/ui/AudioControllerView';
-import CookieManager from '../CookieManager';
-import LocalizationManager from '../LocalizationManager';
 
 export default class CharacterBuildScreen extends Screen {
     static makeAssetSetup(data) {
@@ -122,6 +122,9 @@ export default class CharacterBuildScreen extends Screen {
         this.rouletteContainer = new RouletteContainer()
         this.addModal(this.rouletteContainer)
 
+        this.locationContainer.onRedirectToGame.add((level)=>{
+            this.levelRedirector(level);
+        })
         this.popUpList = [];
 
         this.outgameUIProgression = new OutGameUIProgression();
@@ -438,12 +441,20 @@ export default class CharacterBuildScreen extends Screen {
 
         this.playGameButton = UIUtils.getMainPlayButton(() => {
 
-            RewardsManager.instance.doComercial(() => {
-                this.screenManager.redirectToGame({level:1});
-            }, {}, false)
+
+            this.openModal(this.locationContainer);
+            //this.levelRedirector();
         }, LocalizationManager.instance.getLabel('MAIN_PLAY'), UIUtils.getIconUIIcon('battle'))
         this.bottomMenuRight.addChild(this.playGameButton)
         this.playGameButton.buttonSound = 'Pop-Musical'
+    }
+    levelRedirector(level){
+        //return
+        console.log('llllllllllllllllll',level.id)
+        RewardsManager.instance.doComercial(() => {
+            this.screenManager.redirectToGame({level:level.id});
+        }, {}, false)
+
     }
     addCharacter(data) {
 
@@ -823,8 +834,8 @@ export default class CharacterBuildScreen extends Screen {
      
         this.loadoutButton.warningIcon.visible = GameData.instance.anyNewEquip()
     }
-    transitionOut(nextScreen) {
-        super.transitionOut(nextScreen, {level:1}, MainScreenManager.Transition.timeOut);
+    transitionOut(nextScreen, params) {
+        super.transitionOut(nextScreen, params?params:{level:1}, MainScreenManager.Transition.timeOut);
     }
     transitionIn(params) {
 

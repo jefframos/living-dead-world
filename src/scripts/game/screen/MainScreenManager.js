@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 import * as dat from 'dat.gui';
 
 import CharacterBuildScreen from './CharacterBuildScreen';
+import CookieManager from '../CookieManager';
 import Game from '../../Game';
 import GameScreen from './GameScreen';
 import GameStaticData from '../data/GameStaticData';
@@ -11,7 +12,6 @@ import ScreenManager from '../../screenManager/ScreenManager';
 import ScreenTransition from './ScreenTransition';
 import ViewDatabase from '../data/ViewDatabase';
 import config from '../../config';
-import CookieManager from '../CookieManager';
 
 export default class MainScreenManager extends ScreenManager {
     static Screens = {

@@ -19,10 +19,23 @@ export default class GameStaticData {
     }
 
     initialize() {
+        const config = Game.MainLoader.resources['config'].data;
+
+        this.allLeveles = config.levels;
+
+        const loadLevelsData = { type: 'environment', list: 'levels', path: [] }
+        config.levels.forEach(element => {
+            loadLevelsData.path.push(element.id)
+        });
+
+        const loadWavesData = { type: 'level', list: 'waves-level-1', path: [] }
+        config.levels.forEach(element => {
+            loadWavesData.path.push(element.wave)
+        });
+
         let loadList = [
-            { type: 'environment', list: 'levels', path: ['level-1', 'level-2', 'level-3', 'level-tutorial'] },
-            { type: 'level', list: 'waves-level-1', path: ['enemy-wave-tutorial'] },
-            { type: 'level', list: 'waves-level-1', path: ['enemy-wave-01'] },
+            loadLevelsData,
+            loadWavesData,
             { type: 'database', list: 'body-parts', path: ['body-parts'] },
             { type: 'database', list: 'economy', path: ['game-shop'] },
             { type: 'database', list: 'starter-inventory', path: ['starter-inventory'], shared: true },
