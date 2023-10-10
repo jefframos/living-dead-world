@@ -74,7 +74,7 @@
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
-                        "total": 100,
+                        "total": 1000,
                         "maxActive": 50,
                         "entity": [
                             "ZOMBIE_02"
@@ -87,7 +87,7 @@
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
-                        "total": 100,
+                        "total": 1000,
                         "maxActive": 10,
                         "entity": [
                             "RAT_01"
