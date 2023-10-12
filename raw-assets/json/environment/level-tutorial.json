@@ -1,5 +1,6 @@
 [
     {
+        "levelName": "Tutorial",
         "id": "level-tutorial",
         "Less": "less",
         "More": "more",

@@ -111,6 +111,14 @@ export default class GameStaticData {
             this.staticAssets['vfxDescriptors'][spriteSheetParams.id] = (desc)
         });
     }
+    get totalLevels() { return this.getAllDataFrom('level', 'waves-level-1').length }
+    getLevels(index) {
+        const level = {
+            waves: this.getAllDataFrom('level', 'waves-level-1')[index],
+            views: this.getAllDataFrom('environment', 'levels')[index],
+        }
+        return level;
+    }
     getDescriptor(id) {
         let data = this.staticAssets['vfxDescriptors'][id];
         if (!data) {

@@ -1,8 +1,10 @@
 import * as PIXI from 'pixi.js';
 
 import Game from '../../../../Game';
+import GameStaticData from '../../../data/GameStaticData';
 import InteractableView from '../../../view/card/InteractableView';
 import ListScroller from '../../../ui/uiElements/ListScroller';
+import LocationButton from './LocationButton';
 import MainScreenModal from '../MainScreenModal';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
@@ -25,19 +27,25 @@ export default class LocationContainer extends MainScreenModal {
         this.mapList.h = 800
 
         this.levelDataList = [];
-        for (let index = 0; index < 5; index++) {
-            const element = new PIXI.Graphics().beginFill(0xFFFFFF * Math.random()).drawRect(0,0,280,180)
+        for (let index = 0; index < GameStaticData.instance.totalLevels; index++) {
+            const element = new LocationButton();
             this.mapList.addElement(element)
-            InteractableView.addMouseClick(element, ()=>{
+            InteractableView.addMouseClick(element, () => {
                 this.onRedirectToGame.dispatch(this.levelDataList[index])
             })
-            this.levelDataList.push({id:index})
-            
+            this.levelDataList.push({ view: element, id: index })
+
         }
         this.mapList.updateVerticalList();
         this.scroller.addItens([this.mapList])
-    
 
+        this.updateButtonsData();
+    }
+    updateButtonsData() {
+        for (let index = 0; index < this.levelDataList.length; index++) {
+            const element = this.levelDataList[index].view;
+            element.setData(GameStaticData.instance.getLevels(index))
+        }
     }
     addBackgroundShape() {
         this.modalTexture = 'modal_blur';
@@ -64,13 +72,19 @@ export default class LocationContainer extends MainScreenModal {
         this.infoBackContainer.height = Game.Borders.height - this.container.y + 20//- 40
 
         this.mapList.w = this.infoBackContainer.width
-        this.mapList.h =  this.levelDataList.length * 180
+        this.mapList.h = this.levelDataList.length * 180
         this.mapList.updateVerticalList();
 
         this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height })
         this.scroller.itemHeight = this.mapList.height + 80
 
+
+        this.levelDataList.forEach(element => {
+            element.view.updateSize(this.mapList.w, 180)
+        });
         this.recenterContainer()
+
+        this.mapList.x = -this.infoBackContainer.width / 2
     }
     recenterContainer() {
         this.container.pivot.x = this.container.width / 2
