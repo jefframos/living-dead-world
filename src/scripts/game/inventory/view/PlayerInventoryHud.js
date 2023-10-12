@@ -71,16 +71,18 @@ export default class PlayerInventoryHud extends GameObject {
         this.uiButtonsList.h = 130;
         this.gameView.view.addChild(this.uiButtonsList)
         this.audioButton = new AudioControllerView();
-        this.uiButtonsList.addElement(this.audioButton, {fitWidth:0.8})
 
-        this.pauseButton = new PIXI.Sprite.from(UIUtils.getIconUIIcon('close'));
-        this.uiButtonsList.addElement(this.pauseButton, {fitWidth:0.8})
+        this.pauseButton = new PIXI.Sprite.from(UIUtils.getIconUIIcon('pause'));
         this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 80))
         InteractableView.addMouseUp(this.pauseButton, ()=>{
                 Eugine.TimeScale = 0;
                 this.inGamePopupMenu.show()
         
         })
+
+        this.uiButtonsList.addElement(this.pauseButton, {fitWidth:0.8})
+
+        this.uiButtonsList.addElement(this.audioButton, {fitWidth:0.8})
 
         this.uiButtonsList.updateVerticalList();
         

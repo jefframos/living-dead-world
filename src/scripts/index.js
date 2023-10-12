@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import CookieManager from './game/CookieManager';
 import Game from './Game';
 import GameStaticData from './game/data/GameStaticData';
+import LocalizationManager from './game/LocalizationManager';
 import MainScreenManager from './game/screen/MainScreenManager';
 import RewardsManager from './game/data/RewardsManager';
 import SoundManager from './soundManager/SoundManager'
@@ -14,7 +15,6 @@ import jsonManifest from './manifests/manifest-json'
 import plugins from './plugins';
 import signals from 'signals';
 import spritesheetManifest from './manifests/manifest'
-import LocalizationManager from './game/LocalizationManager';
 
 window.PIXI = PIXI;
 
@@ -99,7 +99,7 @@ function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
-
+window.STAND_ALONE = false
 
 if (!window.isMobile) {
     config.width = config.desktopRes.width
@@ -115,12 +115,13 @@ if (!window.isMobile) {
 
 window.noPoki = false;
 
+if(window.STAND_ALONE){
+    window.noPoki = true
+}
+
 
 window.onAdds = new signals.Signal();
 window.onStopAdds = new signals.Signal();
-
-
-window.GAME_ID = 572860816402905
 
 let audioToLoad = [] //['assets/audio/dream1.mp3', 'assets/audio/dream2.mp3']
 window.SOUND_MANAGER = new SoundManager();
@@ -166,11 +167,13 @@ if (!window.noPoki) {
 //loadManifests();
 
 function loadManifests() {
+
+    RewardsManager.instance.initialize(window.noPoki);
+
     if (!window.noPoki) {
 
 
 
-        RewardsManager.instance.initialize(window.noPoki);
         PokiSDK.gameLoadingStart();
 
 

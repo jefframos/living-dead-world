@@ -57,9 +57,9 @@ export default class LocationButton extends PIXI.Container {
         this.uiList.addElement(this.starsList)
 
         this.onStageSelected = new signals.Signal();
-        this.baseButton = new BaseButton('tile');
+        this.baseButton = new BaseButton('powerbar_border');
         this.addChild(this.baseButton)
-        this.baseButton.alpha = 0;
+        this.baseButton.alpha = 0.4;
         this.baseButton.onButtonClicked.add(() => {
             this.onStageSelected.dispatch(this);
         })

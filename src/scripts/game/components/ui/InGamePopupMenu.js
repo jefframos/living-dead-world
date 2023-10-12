@@ -51,7 +51,7 @@ this.onQuitGame = new signals.Signal();
             },
             {
                 label:LocalizationManager.instance.getLabel('QUIT'),
-                texture:'square_button_0002',
+                texture:'square_button_0011',
                 callback:() => {
                     this.onQuitGame.dispatch();
                 },
@@ -111,7 +111,7 @@ this.onQuitGame = new signals.Signal();
 
 
         this.buttonList.x = -this.buttonList.w/2
-        this.buttonList.y = -this.buttonList.h/2
+        this.buttonList.y = -this.buttonList.h/2+200
 
 
         this.recenterContainer();

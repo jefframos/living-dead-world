@@ -122,8 +122,10 @@ export default class CharacterBuildScreen extends Screen {
         this.rouletteContainer = new RouletteContainer()
         this.addModal(this.rouletteContainer)
 
-        this.locationContainer.onRedirectToGame.add((level)=>{
+        this.locationContainer.onRedirectToGame.add((level) => {
             this.levelRedirector(level);
+            this.locationContainer.hide()
+
         })
         this.popUpList = [];
 
@@ -182,7 +184,7 @@ export default class CharacterBuildScreen extends Screen {
 
         PrizeManager.instance.onGetMetaPrize.add(this.showPrizeWindow.bind(this));
 
-        RewardsManager.instance.onAddBlock.add(this.showAdBlockMessage.bind(this));
+        //RewardsManager.instance.onAddBlock.add(this.showAdBlockMessage.bind(this));
 
         let currentCompanion = GameData.instance.currentEquippedCompanionData;
         if (currentCompanion) {
@@ -226,7 +228,7 @@ export default class CharacterBuildScreen extends Screen {
 
         window.onSpacePressed.add(() => {
             if (this.mainShow && this.screenManager.currentScreen.label == 'CharacterBuild') {
-                this.screenManager.redirectToGame({level:1});
+                this.screenManager.redirectToGame({ level: 1 });
             }
         })
     }
@@ -298,6 +300,7 @@ export default class CharacterBuildScreen extends Screen {
         if (popup.hideCloseButton) {
             this.closeButton.visible = false;
         }
+        this.hideMainUI()
     }
     onPopUpHide(popup) {
 
@@ -397,7 +400,7 @@ export default class CharacterBuildScreen extends Screen {
 
         this.shopButton = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.shopContainer)
-        },LocalizationManager.instance.getLabel('MAIN_SHOP'), UIUtils.getIconUIIcon('shop'))
+        }, LocalizationManager.instance.getLabel('MAIN_SHOP'), UIUtils.getIconUIIcon('shop'))
 
         const bt4 = UIUtils.getPrimaryShapelessButton(() => {
             this.openModal(this.locationContainer);
@@ -414,8 +417,8 @@ export default class CharacterBuildScreen extends Screen {
         }, 'Achievments', 'achievment')
 
         this.bottomMenuRightList.removeAllElements();
-        this.bottomMenuRightList.addElement(this.shopButton, { align: 0 })
-        this.bottomMenuRightList.addElement(this.prizeButton, { align: 0 })
+        if (!window.STAND_ALONE) this.bottomMenuRightList.addElement(this.shopButton, { align: 0 })
+        if (!window.STAND_ALONE) this.bottomMenuRightList.addElement(this.prizeButton, { align: 0 })
         this.bottomMenuRightList.addElement(this.achievmentsButton, { align: 0 })
 
         this.menuButtonsRight = [];
@@ -448,11 +451,11 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRight.addChild(this.playGameButton)
         this.playGameButton.buttonSound = 'Pop-Musical'
     }
-    levelRedirector(level){
+    levelRedirector(level) {
         //return
-        console.log('llllllllllllllllll',level.id)
+        console.log('llllllllllllllllll', level.id)
         RewardsManager.instance.doComercial(() => {
-            this.screenManager.redirectToGame({level:level.id});
+            this.screenManager.redirectToGame({ level: level.id });
         }, {}, false)
 
     }
@@ -716,12 +719,12 @@ export default class CharacterBuildScreen extends Screen {
             //this.bottomMenuRightList.addElement(this.achievmentsButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.loadoutButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.customizeButton, { align: 0, vAlign: 0 })
-            this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })
+            if (!window.STAND_ALONE) this.bottomMenuRightList.addElement(this.prizeButton, { align: 0, vAlign: 0 })
             this.bottomMenuRightList.addElement(this.shopButton, { align: 0, vAlign: 0 })
 
             //this.menuButtonsRight.push(this.achievmentsButton)
             this.menuButtonsRight.push(this.shopButton)
-            this.menuButtonsRight.push(this.prizeButton)
+            if (!window.STAND_ALONE) this.menuButtonsRight.push(this.prizeButton)
             this.menuButtonsRight.push(this.loadoutButton)
             this.menuButtonsRight.push(this.customizeButton)
         }
@@ -823,32 +826,32 @@ export default class CharacterBuildScreen extends Screen {
         } else {
             this.closeCustomization();
             this.unSelectPlayer();
-            if(Game.Debug.debug){
+            if (Game.Debug.debug) {
                 this.screenManager.redirectToDebugMenu()
             }
         }
 
         this.updateLoadoutNewItems()
     }
-    updateLoadoutNewItems(){
-     
+    updateLoadoutNewItems() {
+
         this.loadoutButton.warningIcon.visible = GameData.instance.anyNewEquip()
     }
     transitionOut(nextScreen, params) {
-        super.transitionOut(nextScreen, params?params:{level:1}, MainScreenManager.Transition.timeOut);
+        super.transitionOut(nextScreen, params ? params : { level: 1 }, MainScreenManager.Transition.timeOut);
     }
     transitionIn(params) {
 
         //LocalizationManager.instance.getLabel();
 
         this.updateLoadoutNewItems();
-        SOUND_MANAGER.playLoop('FloatingCities',0.5)
+        SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
             setTimeout(() => {
-                if(CookieManager.instance.isFtue){
+                if (CookieManager.instance.isFtue) {
                     PrizeManager.instance.getFtuePrize()
                     CookieManager.instance.ftueDone();
-                }else{
+                } else {
 
 
                     if (params && !params.fromQuit) {

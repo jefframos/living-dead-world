@@ -3,10 +3,10 @@ import BodyPartySlot from "../components/ui/BodyPartySlot";
 import ColorButton from "../components/ui/ColorButton";
 import ColorSlot from "../components/ui/ColorSlot";
 import InteractableView from "../view/card/InteractableView";
+import LocalizationManager from "../LocalizationManager";
 import Pool from "../core/utils/Pool";
 import UIList from "../ui/uiElements/UIList";
 import Utils from "../core/utils/Utils";
-import LocalizationManager from "../LocalizationManager";
 
 export default class UIUtils {
     constructor() {
@@ -68,7 +68,7 @@ export default class UIUtils {
             UIUtils.addLabel(button, label, { fontSize: 24 })
 
             warningIcon.x = button.text.x + button.text.width / 2 + 17
-            warningIcon.y = button.text.y+ button.text.height / 2
+            warningIcon.y = button.text.y + button.text.height / 2
 
         }
         return button;
@@ -241,9 +241,9 @@ export default class UIUtils {
         buttonList.w = 120
         buttonList.h = 65
 
-       
 
-        button.labelButtonValue = UIUtils.getPrimaryLabel( LocalizationManager.instance.getLabel('FREE'))
+
+        button.labelButtonValue = UIUtils.getPrimaryLabel(LocalizationManager.instance.getLabel('FREE'))
         button.currencyButtonIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('video'))
 
         buttonList.addElement(button.labelButtonValue, { align: 0.8, listScl: 0.5, fitHeight: 0.7 })
@@ -271,7 +271,7 @@ export default class UIUtils {
         buttonList.h = 65
 
 
-        const priceLabel = UIUtils.getPrimaryLabel( LocalizationManager.instance.getLabel('FREE'))
+        const priceLabel = UIUtils.getPrimaryLabel(LocalizationManager.instance.getLabel('FREE'))
         button.priceLabel = priceLabel;
         buttonList.addElement(priceLabel, { align: 0.8, scaleContentMax: true, fitHeight: 0.8 })
         buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('video')), { align: 0.2, scaleContentMax: true, fitHeight: 0.7, listScl: 0.4 })
@@ -417,6 +417,8 @@ export default class UIUtils {
         switch (type) {
             case 'companion':
                 return 'pet-icon'
+            case 'pause':
+                return 'pause-button'
             case 'map':
                 return 'ico_map'
             case 'coin-bag':

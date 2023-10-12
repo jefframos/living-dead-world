@@ -7,7 +7,7 @@
         "Nor": "nor",
         "Between": "between",
         "Always": "always",
-        "groundTexture":"IndustrialTile_11",
+        "groundTexture":"grass-patch-3",
         "groundWidth":256,
         "assets": [       
         ]

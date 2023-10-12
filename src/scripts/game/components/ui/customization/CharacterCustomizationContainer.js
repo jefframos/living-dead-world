@@ -2,16 +2,16 @@ import * as PIXI from 'pixi.js';
 
 import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
 import Game from '../../../../Game';
+import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
+import LocalizationManager from '../../../LocalizationManager';
+import PrizeManager from '../../../data/PrizeManager';
+import RewardsManager from '../../../data/RewardsManager';
+import TimedAction from '../../../data/TimedAction';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import ViewDatabase from '../../../data/ViewDatabase';
-import RewardsManager from '../../../data/RewardsManager';
-import PrizeManager from '../../../data/PrizeManager';
-import GameData from '../../../data/GameData';
-import TimedAction from '../../../data/TimedAction';
-import LocalizationManager from '../../../LocalizationManager';
 
 export default class CharacterCustomizationContainer extends PIXI.Container {
     static _instance;
@@ -179,7 +179,7 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
         videoClothesSprite.anchor.set(1,0)
         this.randomCustomization.addChild(videoClothesSprite)
         this.randomCustomization.text.y = 110
-        this.container.addChild(this.randomCustomization)
+        if(!window.STAND_ALONE) this.container.addChild(this.randomCustomization)
 
 
     }
@@ -404,7 +404,11 @@ export default class CharacterCustomizationContainer extends PIXI.Container {
                 const frame = (this.currentRegion.animated ? index : Utils.formatNumber(index, 1))
                 const slot = UIUtils.getBodyPartySlot(this.selectNewPiece.bind(this))
 
-                const isAvailable = index <= 0 || ViewDatabase.instance.containsPiece(region.area, index) || Game.Debug.allItems
+                let isAvailable = index <= 0 || ViewDatabase.instance.containsPiece(region.area, index) || Game.Debug.allItems
+                
+                if(window.STAND_ALONE){
+                    isAvailable=true
+                }
                 slot.itemId = index;
                 slot.itemParam = this.currentRegion.param;
                 slot.region = region;

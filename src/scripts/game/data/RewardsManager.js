@@ -1,6 +1,6 @@
-import signals from "signals";
 import CookieManager from "../CookieManager";
 import Game from "../../Game";
+import signals from "signals";
 
 export default class RewardsManager {
     static _instance;
@@ -12,7 +12,8 @@ export default class RewardsManager {
     }
     constructor() { }
     initialize(usePoki = false) {
-        this.usePoki = usePoki;
+        this.usePoki =! usePoki;
+        this.noPoki = usePoki;
         this.gameplayIsStopped = true;
         this.onAdds = new signals.Signal();
         this.onStopAdds = new signals.Signal();
@@ -39,6 +40,8 @@ export default class RewardsManager {
     doComercial(callback, params, toGameplayStart) {
         if (this.noPoki) {
             if (callback) callback(params)
+            SOUND_MANAGER.mute();
+
             return;
         }
         if (toGameplayStart) {

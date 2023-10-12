@@ -1,8 +1,8 @@
 import BaseFillBar from "./BaseFillBar";
-import UIUtils from "../../../utils/UIUtils";
-import Utils from "../../../core/utils/Utils";
 import CircleCounter from "../../../ui/hudElements/CircleCounter";
 import LocalizationManager from "../../../LocalizationManager";
+import UIUtils from "../../../utils/UIUtils";
+import Utils from "../../../core/utils/Utils";
 
 export default class EntityLifebar extends BaseFillBar {
     constructor() {
@@ -17,6 +17,7 @@ export default class EntityLifebar extends BaseFillBar {
 
         this.mainIcon = new PIXI.Sprite.from('white-circle')
         this.mainIcon.anchor.set(0.5)
+        this.mainIcon.visible = false;
 
         this.timerContainer = new PIXI.Container();
         this.gameView.view.addChild(this.timerContainer);
@@ -35,7 +36,7 @@ export default class EntityLifebar extends BaseFillBar {
         this.infoLabel.style.fontSize = 14
         this.infoLabel.style.strokeThickness = 1
         this.infoLabel.style.dropShadowDistance = 1
-        this.infoLabel.style.wordWrap=150
+        this.infoLabel.style.wordWrap = 150
         this.infoLabel.y = -20
         this.infoLabel.x = 0
         this.infoLabel.alpha = 0;
@@ -44,9 +45,9 @@ export default class EntityLifebar extends BaseFillBar {
 
 
     }
-    showFtue(delay = 5){
+    showFtue(delay = 5) {
         this.infoLabel.alpha = 1;
-        TweenLite.to(this.infoLabel, 0.5, {delay:delay, alpha:0})
+        TweenLite.to(this.infoLabel, 0.5, { delay: delay, alpha: 0 })
     }
     build(width = 50, height = 10, border = 1) {
         super.build(width, height, border);
@@ -54,6 +55,8 @@ export default class EntityLifebar extends BaseFillBar {
 
         this.mainIcon.texture = PIXI.Texture.from(UIUtils.getIconByAttribute('baseHealth'))
         this.mainIcon.scale.set(Utils.scaleToFit(this.mainIcon, this.size * 1.5))
+        this.mainIcon.visible = true;
+
         //this.circleCounter.build()
         // this.addIcon(UIUtils.getIconByAttribute("baseHealth"))
     }
