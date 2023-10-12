@@ -7,7 +7,7 @@
         "Nor": "nor",
         "Between": "between",
         "Always": "always",
-        "groundTexture":"floor_5",
+        "groundTexture":"IndustrialTile_11",
         "groundWidth":256,
         "assets": [       
         ]

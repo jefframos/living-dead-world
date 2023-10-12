@@ -850,11 +850,21 @@ export default class CharacterBuildScreen extends Screen {
                     CookieManager.instance.ftueDone();
                 }else{
 
-                    if (params && params.fromWin) {
-                        PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
-                    } else {
-                        PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+
+                    if (params && !params.fromQuit) {
+
+                        if (params.fromWin) {
+                            PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
+                        } else {
+                            PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                        }
                     }
+
+                    // if (params && params.fromWin) {
+                    //     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
+                    // } else {
+                    //     PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                    // }
                 }
                 this.unSelectPlayer();
             }, 100);

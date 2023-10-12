@@ -30,7 +30,7 @@ export default class LocationContainer extends MainScreenModal {
         for (let index = 0; index < GameStaticData.instance.totalLevels; index++) {
             const element = new LocationButton();
             this.mapList.addElement(element)
-            InteractableView.addMouseClick(element, () => {
+            element.onStageSelected.add(()=>{
                 this.onRedirectToGame.dispatch(this.levelDataList[index])
             })
             this.levelDataList.push({ view: element, id: index })

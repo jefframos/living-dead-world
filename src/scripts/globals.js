@@ -65,7 +65,14 @@ window.console.groupCollapsed = function (teste) {
 
 window.MAX_NUMBER = 1000000;
 
-window.MAIN_FONT = 'ourland'
+let lang = navigator.language
+let lang2 = 'EN'
+if (lang) {
+    lang2 = lang[0] + lang[1]
+    lang2 = lang2.toUpperCase();
+}
+
+window.MAIN_FONT = lang2=='EN'?'ourland':'poppinsbold'
 window.SEC_FONT = 'poppinsbold'
 
 
@@ -77,7 +84,7 @@ window.LABELS.LABEL1 = {
     fill: 0xFFFFFF,
     align: 'center',
     stroke: 0,
-    letterSpacing:1,
+    letterSpacing: 1,
     dropShadow: true,
     dropShadowAngle: 1.5,
     dropShadowDistance: 2,
@@ -91,7 +98,7 @@ window.LABELS.LABEL3 = {
     fill: 0xFFFFFF,
     align: 'center',
     //stroke: 0,
-    letterSpacing:1,
+    letterSpacing: 1,
     //dropShadow: true,
     dropShadowAngle: 1.5,
     dropShadowDistance: 2,

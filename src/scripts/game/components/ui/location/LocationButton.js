@@ -1,5 +1,6 @@
 import * as PIXI from 'pixi.js';
 
+import BaseButton from '../BaseButton';
 import CompanionData from '../../../data/CompanionData';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
@@ -10,6 +11,7 @@ import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import WeaponData from '../../../data/WeaponData';
+import signals from 'signals';
 
 export default class LocationButton extends PIXI.Container {
     constructor() {
@@ -27,6 +29,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.levelName = UIUtils.getPrimaryLabel("Name")
         this.uiList.addElement(this.levelName)
+        this.levelName.style.wordWrap = 120
 
         this.levelTime = UIUtils.getPrimaryLabel("Name")
         this.uiList.addElement(this.levelTime)
@@ -44,14 +47,22 @@ export default class LocationButton extends PIXI.Container {
         this.starsList.w = this.containerBackground.width - 20
         this.starsList.h = 30
         for (var i = 0; i < 5; i++) {
-            const star = new PIXI.Sprite.from('icon_close');
+            const star = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'));
             this.starsList.addElement(star, { fitHeight: 0.8 })
             this.starsSprites.push(star)
+            star.tint = 0;
         }
         this.starsList.updateHorizontalList();
 
         this.uiList.addElement(this.starsList)
 
+        this.onStageSelected = new signals.Signal();
+        this.baseButton = new BaseButton('tile');
+        this.addChild(this.baseButton)
+        this.baseButton.alpha = 0;
+        this.baseButton.onButtonClicked.add(() => {
+            this.onStageSelected.dispatch(this);
+        })
 
         this.lockContainer = new PIXI.Container()
         this.lockSprite = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 20, 20, 20, 20);
@@ -78,13 +89,23 @@ export default class LocationButton extends PIXI.Container {
 
         this.lockContainer.visible = isLock
 
+        for (let index = 0; index < data.waves.difficulty; index++) {
+            const element = this.starsSprites[index];
+            element.tint = 0xFFFFFF;
+        }
+
     }
     updateSize(width, height) {
+
+        this.baseButton.resize(width - this.margin * 2, height - this.margin * 2)
         this.containerBackground.width = width - this.margin * 2
         this.containerBackground.height = height - this.margin * 2
 
         this.containerBackground.x = this.margin * 2
         this.containerBackground.y = this.margin
+
+        this.baseButton.x = this.containerBackground.x
+        this.baseButton.y = this.containerBackground.y
 
         this.uiList.w = this.containerBackground.width
         this.uiList.h = this.containerBackground.height
@@ -93,8 +114,8 @@ export default class LocationButton extends PIXI.Container {
         this.lockSprite.width = this.containerBackground.width
         this.lockSprite.height = this.containerBackground.height
 
-        this.lockIcon.x = this.lockSprite.width/2
-        this.lockIcon.y = this.lockSprite.height/2
+        this.lockIcon.x = this.lockSprite.width / 2
+        this.lockIcon.y = this.lockSprite.height / 2
         this.lockContainer.x = this.containerBackground.x
         this.lockContainer.y = this.containerBackground.y
 

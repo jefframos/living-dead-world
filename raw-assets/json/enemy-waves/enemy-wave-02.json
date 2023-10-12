@@ -7,6 +7,7 @@
         },
         "lenght": 480,
         "environmentData": "level-2",
+        "difficulty":3,
         "waves": [
             {
                 "startAt": 2,

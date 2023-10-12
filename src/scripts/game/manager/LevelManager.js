@@ -118,6 +118,9 @@ export default class LevelManager {
         this.confirmPlayerDeath();
         this.onConfirmGameOver.dispatch(fromWin);
     }
+    quitGame(fromWin = false) {
+        this.onConfirmGameOver.dispatch(false, true);
+    }
     levelWin() {
         this.gameOverOverlay.setActive(true)
         this.gameOverOverlay.show(true, this.matchStats)

@@ -1,20 +1,23 @@
 import * as PIXI from 'pixi.js';
 
 import AttributesContainer from '../../components/ui/loadout/AttributesContainer';
+import AudioControllerView from '../../components/ui/AudioControllerView';
+import Eugine from '../../core/Eugine';
 import Game from '../../../Game';
 import GameObject from '../../core/gameObject/GameObject';
 import GameStaticData from "../../data/GameStaticData";
 import GameView from '../../core/view/GameView';
+import InGamePopupMenu from '../../components/ui/InGamePopupMenu';
+import InteractableView from '../../view/card/InteractableView';
 import LevelManager from '../../manager/LevelManager';
 import LevelUpBar from '../../components/ui/progressBar/LevelUpBar';
+import LocalizationManager from '../../LocalizationManager';
 import PlayerGameplayHud from '../../components/ui/PlayerGameplayHud';
 import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 import RenderModule from '../../core/modules/RenderModule';
 import UIList from '../../ui/uiElements/UIList';
-import Utils from '../../core/utils/Utils';
 import UIUtils from '../../utils/UIUtils';
-import AudioControllerView from '../../components/ui/AudioControllerView';
-import LocalizationManager from '../../LocalizationManager';
+import Utils from '../../core/utils/Utils';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -62,9 +65,25 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.x = 50
         this.text.y = 15
 
-        this.audioButton = new AudioControllerView();
-        this.gameView.view.addChild(this.audioButton)
 
+        this.uiButtonsList = new UIList();
+        this.uiButtonsList.w = 60;
+        this.uiButtonsList.h = 130;
+        this.gameView.view.addChild(this.uiButtonsList)
+        this.audioButton = new AudioControllerView();
+        this.uiButtonsList.addElement(this.audioButton, {fitWidth:0.8})
+
+        this.pauseButton = new PIXI.Sprite.from(UIUtils.getIconUIIcon('close'));
+        this.uiButtonsList.addElement(this.pauseButton, {fitWidth:0.8})
+        this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 80))
+        InteractableView.addMouseUp(this.pauseButton, ()=>{
+                Eugine.TimeScale = 0;
+                this.inGamePopupMenu.show()
+        
+        })
+
+        this.uiButtonsList.updateVerticalList();
+        
 
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
@@ -274,6 +293,19 @@ export default class PlayerInventoryHud extends GameObject {
 
             this.fingerPrompt.visible = false
         }
+
+        this.inGamePopupContainer = new PIXI.Container();
+        this.gameView.view.addChild(this.inGamePopupContainer)
+
+        this.inGamePopupMenu = new InGamePopupMenu();
+        this.inGamePopupContainer.addChild(this.inGamePopupMenu)
+        this.inGamePopupMenu.onQuitGame.add(()=>{
+            LevelManager.instance.quitGame();
+        })
+        this.inGamePopupMenu.onHide.add(()=>{
+            Eugine.TimeScale = 1;
+        })
+
     }
     showFtue() {
         this.ftuePrompt.alpha = 1;
@@ -451,9 +483,9 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.text.x = Game.Borders.width - this.text.width - 10
         this.text.y = 45
-
-        this.audioButton.x = Game.Borders.width - this.audioButton.width - 10
-        this.audioButton.y = 80
+        
+        this.uiButtonsList.x = Game.Borders.width - this.uiButtonsList.w - 20
+        this.uiButtonsList.y = 80
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
         if (this.player) {
@@ -500,6 +532,8 @@ export default class PlayerInventoryHud extends GameObject {
         }
 
         this.ftuePrompt.x = Game.Borders.width / 2
+
+        this.inGamePopupMenu.resize(res,newRes)
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
 
     }
