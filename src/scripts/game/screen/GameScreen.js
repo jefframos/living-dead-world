@@ -253,11 +253,12 @@ export default class GameScreen extends Screen {
     }
     update(delta) {
         const timeScale = 1.25
-        const scaledTime =  delta * Game.Debug.timeScale * timeScale;
-        delta *= Game.Debug.timeScale;
-        this.levelManager.update(scaledTime * Eugine.TimeScale, delta* Game.Debug.timeScale)
-        this.gameEngine.update(scaledTime, delta* Game.Debug.timeScale)
-        this.levelManager.lateUpdate(scaledTime * Eugine.TimeScale, delta* Game.Debug.timeScale)
+        const debugTimeScale = Game.Debug.timeScale | 1
+        const scaledTime =  delta * debugTimeScale * timeScale;
+        delta *= debugTimeScale;
+        this.levelManager.update(scaledTime * Eugine.TimeScale, delta* debugTimeScale)
+        this.gameEngine.update(scaledTime, delta* debugTimeScale)
+        this.levelManager.lateUpdate(scaledTime * Eugine.TimeScale, delta* debugTimeScale)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
