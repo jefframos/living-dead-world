@@ -35,7 +35,7 @@ export default class CookieManager {
 			version: '0.0.1',
 			latestClaim: -1,
 			latestClaimFreeMoney: -1,
-			ftue:true,
+			ftue: true,
 			isInitialized: false
 		}
 		this.defaultPlayer = {
@@ -87,6 +87,10 @@ export default class CookieManager {
 			masks: [],
 			trinkets: [],
 			shoes: [],
+		}
+		this.defaultLevelProgression = {
+			version: '0.0.1',
+			levelComplete: [],
 		}
 		this.defaultLoadout = {
 			version: '0.0.1',
@@ -164,10 +168,10 @@ export default class CookieManager {
 	get isMute() {
 		return this.getChunck('settings').isMute
 	}
-	get isFtue(){
+	get isFtue() {
 		return this.getChunck('progression').ftue || Game.Debug.ftue
 	}
-	ftueDone(){
+	ftueDone() {
 		const data = this.getChunck('progression')
 		data.ftue = false;
 		this.saveChunk('progression', data)
@@ -202,7 +206,7 @@ export default class CookieManager {
 	}
 	getEquipsNewPerArea(area) {
 		const data = this.getChunck('player')
-		
+
 		return data.allEquipsNew[area];
 	}
 	saveEquipsPiece(area, id) {
@@ -215,7 +219,7 @@ export default class CookieManager {
 	}
 
 	clearEquipsPieceNew(area) {
-		console.log('clearEquipsPieceNew',area)
+		console.log('clearEquipsPieceNew', area)
 		const data = this.getChunck('player')
 		if (data.allEquipsNew[area]) {
 			data.allEquipsNew[area] = [];
@@ -350,6 +354,7 @@ export default class CookieManager {
 		this.fullData[id]['items'] = this.sortCookieData('items', this.defaultItemProgression);
 		this.fullData[id]['inventory'] = this.sortCookieData('inventory', this.defaultInventory);
 		this.fullData[id]['resources'] = this.sortCookieData('resources', this.defaultResources);
+		this.fullData[id]['levelProgression'] = this.sortCookieData('levelProgression', this.defaultLevelProgression);
 
 		this.storeObject('fullData', this.fullData)
 
@@ -374,6 +379,24 @@ export default class CookieManager {
 	}
 	get items() {
 		return this.getChunck('items');
+	}
+	saveLevelComplete(levelId, score) {
+		const data = this.getChunck('levelProgression')
+
+		let found = false;
+		data.levelComplete.forEach(element => {
+			if (element.levelId == levelId) {
+				found = true;
+				if (element.score < score) {
+					element.score = score;
+				}
+			}
+		});
+		if (!element) {
+			data.levelComplete.push({levelId,score})
+		}
+		this.saveChunk('levelProgression', data)
+
 	}
 	lastOpened(id) {
 		if (!this.items.timedChests[id]) {

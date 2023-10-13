@@ -14,6 +14,7 @@ import GridSlotView from "./grid/GridSlotView";
 import GridView from "./grid/GridView";
 import InputModule from "../../core/modules/InputModule";
 import InteractableView from "../../view/card/InteractableView";
+import LocalizationManager from "../../LocalizationManager";
 import Player from "../../entity/Player";
 import RenderModule from "../../core/modules/RenderModule";
 import RewardsManager from "../../data/RewardsManager";
@@ -23,7 +24,6 @@ import UIUtils from "../../utils/UIUtils";
 import Utils from "../../core/utils/Utils";
 import conversionUtils from "../../../conversionUtils";
 import signals from "signals";
-import LocalizationManager from "../../LocalizationManager";
 
 export default class SurvivorDeckController extends GameObject {
     constructor() {
@@ -232,7 +232,6 @@ export default class SurvivorDeckController extends GameObject {
                     level = pickedCards[dt.entityData.type][dt.id]
                 }
             }
-console.log(dt.entityData)
             cardView.setData(dt, data[i], this.player, level);
             cardView.show(i)
         }

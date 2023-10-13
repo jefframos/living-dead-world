@@ -130,7 +130,7 @@ export default class CardPlacementSystem {
 
 
 
-        let maxOf = 5
+        let maxOf = 6
         for (let index = this.currentData.length - 1; index >= 0; index--) {
             if (this.currentData[index].starter && this.currentData[index].entityData.type != EntityData.EntityDataType.Equipable) {
                 const cardType = this.currentData[index].entityData.type

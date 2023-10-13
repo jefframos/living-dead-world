@@ -66,7 +66,8 @@ export default class LevelManager {
 
         this.matchStats = {
             enemiesKilled: 0,
-            time: 0
+            time: 0,
+            points:0
         }
 
         this.timeLimit = 8 * 60;
@@ -295,7 +296,8 @@ export default class LevelManager {
             enemiesKilled: 0,
             time: 0,
             coins: 0,
-            special: 0
+            special: 0,
+            points:0
         }
         this.destroyDistanceV2 = {
             x: 0, y: 0
@@ -422,9 +424,10 @@ export default class LevelManager {
         this.matchStats.enemiesKilled++;
         SOUND_MANAGER.play('squash1', 0.2, Math.random() * 0.3 + 0.7)
         const entity = health.gameObject
+        //console.log(entity)
         if (entity && entity.staticData && entity.staticData.entityData) {
             if (entity.staticData.entityData.tier) {
-
+                this.matchStats.points += entity.attributes.level + 1;
                 if (entity.staticData.entityData.tier >= 4) {
                     this.killSpecialMonster(entity.staticData.entityData.tier - 2);
                     this.dropEnemyChest(entity);

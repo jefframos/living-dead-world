@@ -116,6 +116,16 @@ export default class PlayerInventoryHud extends GameObject {
         this.coins.anchor.set(0, 0.5)
 
 
+        this.gamePoints = new PIXI.Text('9999', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.gamePoints)
+        this.gamePoints.style.fontSize = 22
+        this.gamePoints.anchor.set(0, 0.5)
+
+        this.gamePointsIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('highscore'))
+        this.gamePointsIcon.scale.set(Utils.scaleToFit(this.gamePointsIcon, 30))
+        this.gamePointsIcon.x = -20
+        this.gamePointsIcon.anchor.set(0.5)
+        this.gamePoints.addChild(this.gamePointsIcon)
 
         this.coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
         this.coinIcon.scale.set(Utils.scaleToFit(this.coinIcon, 30))
@@ -459,6 +469,7 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.kills.text = LevelManager.instance.matchStats.enemiesKilled
         this.coins.text = LevelManager.instance.matchStats.coins
+        this.gamePoints.text = LevelManager.instance.matchStats.points
 
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
@@ -512,11 +523,15 @@ export default class PlayerInventoryHud extends GameObject {
         this.tubeContainer.x = this.timer.x
         this.tubeContainer.y = this.timer.y + this.timer.height + 5
 
-        this.kills.x = this.tubeContainer.x
-        this.kills.y = this.tubeContainer.y + this.tubeContainer.height + 5
+        this.gamePoints.x = this.tubeContainer.x
+        this.gamePoints.y = this.tubeContainer.y + this.tubeContainer.height + 5
+
+        this.kills.x = this.gamePoints.x
+        this.kills.y = this.gamePoints.y + this.gamePoints.height + 5
 
         this.coins.x = this.kills.x
         this.coins.y = this.kills.y + this.kills.height + 5
+
 
         if (this.fingerPrompt.visible) {
             this.fingerPrompt.y = 100 + Math.sin(Game.Time * 10) * 10

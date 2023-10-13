@@ -27,18 +27,51 @@ export default class LocationButton extends PIXI.Container {
         this.uiList = new UIList();
         this.addChild(this.uiList)
 
+        this.descriptionList = new UIList();
+        this.addChild(this.descriptionList)
+
+        this.bottomList = new UIList();
+        this.addChild(this.bottomList)
+
         this.levelName = UIUtils.getPrimaryLabel("Name")
         this.uiList.addElement(this.levelName)
         this.levelName.style.wordWrap = 120
+        this.levelName.style.fontSize = 22
 
         this.levelTime = UIUtils.getPrimaryLabel("Name")
         this.uiList.addElement(this.levelTime)
 
+        this.levelNameDescription = UIUtils.getPrimaryLabel("")
+        this.descriptionList.addElement(this.levelNameDescription)
+        this.levelNameDescription.style.wordWrap = 120
+        this.levelNameDescription.style.fontSize = 18
+        
+        this.levelTimeDescription = UIUtils.getPrimaryLabel("Time")
+        this.descriptionList.addElement(this.levelTimeDescription)
+        this.levelTimeDescription.style.fontSize = 18
+        
+        this.dificultyDescription = UIUtils.getPrimaryLabel("Difficulty")
+        this.descriptionList.addElement(this.dificultyDescription)
+        this.dificultyDescription.style.fontSize = 18
+
+        
+        this.bottomList.addElement(new PIXI.Container())
+        this.bottomList.addElement(new PIXI.Container())
+
+        this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
+        this.bottomList.addElement(this.currentHighscore)
+        this.currentHighscore.style.fontSize = 18
+
         this.uiList.w = 10
         this.uiList.h = 10
 
+        this.bottomList.x = this.margin;
+
         this.uiList.x = this.margin;
         this.uiList.y = this.margin;
+
+        this.descriptionList.x = this.margin
+        this.descriptionList.y = this.margin
         this.rows = 0;
 
         this.starsSprites = [];
@@ -110,6 +143,16 @@ export default class LocationButton extends PIXI.Container {
         this.uiList.w = this.containerBackground.width
         this.uiList.h = this.containerBackground.height
         this.uiList.updateHorizontalList()
+
+        this.descriptionList.w = this.containerBackground.width
+        this.descriptionList.h = this.containerBackground.height/2
+        this.descriptionList.updateHorizontalList()
+
+        this.bottomList.w = this.containerBackground.width
+        this.bottomList.h = this.containerBackground.height/2
+        this.bottomList.y = this.containerBackground.height/2 + 25
+        this.bottomList.updateHorizontalList()
+        
 
         this.lockSprite.width = this.containerBackground.width
         this.lockSprite.height = this.containerBackground.height

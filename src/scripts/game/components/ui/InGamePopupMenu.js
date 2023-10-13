@@ -38,29 +38,30 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.buttonList = new UIList();
         this.buttonList.w = 250
         this.container.addChild(this.buttonList);
-    
-this.onQuitGame = new signals.Signal();
+
+        this.onQuitGame = new signals.Signal();
         const buttonsData = [
             {
-                label:LocalizationManager.instance.getLabel('CONTINUE'),
-                texture:'square_button_0002',
-                callback:() => {
+                label: LocalizationManager.instance.getLabel('CONTINUE'),
+                texture: 'square_button_0002',
+                callback: () => {
                     this.hide()
                 },
-                sound:'Synth-Appear-01'
+                sound: 'Synth-Appear-01'
             },
             {
-                label:LocalizationManager.instance.getLabel('QUIT'),
-                texture:'square_button_0011',
-                callback:() => {
+                label: LocalizationManager.instance.getLabel('QUIT'),
+                texture: 'square_button_0011',
+                callback: () => {
+                    this.hide()
                     this.onQuitGame.dispatch();
                 },
-                sound:'Synth-Appear-01'
+                sound: 'Synth-Appear-01'
             }
         ]
 
         buttonsData.forEach(element => {
-            
+
             const button = UIUtils.getPrimaryButton(element.callback, element.label)
             button.updateBackTexture(element.texture)
             this.buttonList.addElement(button);
@@ -68,7 +69,7 @@ this.onQuitGame = new signals.Signal();
             button.resize(this.buttonList.w, 80)
 
         });
-        
+
         this.visible = false;
 
         this.buttonList.h = this.buttonList.elementsList.length * 85
@@ -110,8 +111,8 @@ this.onQuitGame = new signals.Signal();
         this.topBlocker.y = this.topBlocker.height
 
 
-        this.buttonList.x = -this.buttonList.w/2
-        this.buttonList.y = -this.buttonList.h/2+200
+        this.buttonList.x = -this.buttonList.w / 2
+        this.buttonList.y = -this.buttonList.h / 2 + 200
 
 
         this.recenterContainer();
