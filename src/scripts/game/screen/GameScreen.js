@@ -226,8 +226,8 @@ export default class GameScreen extends Screen {
         //this.companion.destroy();
 
     }
-    confirmGameOver(fromWin, fromQuit) {
-        this.screenManager.redirectToMenu(fromWin, fromQuit);
+    confirmGameOver(fromWin, fromQuit, levelData) {
+        this.screenManager.redirectToMenu(fromWin, fromQuit, levelData);
     }
     playerDie() {
     }

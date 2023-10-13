@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import BaseButton from '../BaseButton';
 import CompanionData from '../../../data/CompanionData';
+import CookieManager from '../../../CookieManager';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
@@ -45,16 +46,16 @@ export default class LocationButton extends PIXI.Container {
         this.descriptionList.addElement(this.levelNameDescription)
         this.levelNameDescription.style.wordWrap = 120
         this.levelNameDescription.style.fontSize = 18
-        
+
         this.levelTimeDescription = UIUtils.getPrimaryLabel("Time")
         this.descriptionList.addElement(this.levelTimeDescription)
         this.levelTimeDescription.style.fontSize = 18
-        
+
         this.dificultyDescription = UIUtils.getPrimaryLabel("Difficulty")
         this.descriptionList.addElement(this.dificultyDescription)
         this.dificultyDescription.style.fontSize = 18
 
-        
+
         this.bottomList.addElement(new PIXI.Container())
         this.bottomList.addElement(new PIXI.Container())
 
@@ -117,6 +118,7 @@ export default class LocationButton extends PIXI.Container {
     setData(data, isLock) {
         this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture, data.views.groundWidth, data.views.groundWidth)
         this.levelName.text = data.views.levelName
+        this.fullData = data;
         this.levelTime.text = Utils.floatToTime(data.waves.lenght)
         this.uiList.updateHorizontalList()
 
@@ -127,6 +129,18 @@ export default class LocationButton extends PIXI.Container {
             element.tint = 0xFFFFFF;
         }
 
+    }
+    updateData() {
+        const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id)
+        console.log(this.fullData.views.id)
+        console.log(highScore)
+
+        if(highScore > 0){
+            this.currentHighscore.text = 'Highscore: '+highScore
+            this.currentHighscore.visible = true;
+        }else{
+            this.currentHighscore.visible = false;
+        }
     }
     updateSize(width, height) {
 
@@ -145,14 +159,14 @@ export default class LocationButton extends PIXI.Container {
         this.uiList.updateHorizontalList()
 
         this.descriptionList.w = this.containerBackground.width
-        this.descriptionList.h = this.containerBackground.height/2
+        this.descriptionList.h = this.containerBackground.height / 2
         this.descriptionList.updateHorizontalList()
 
         this.bottomList.w = this.containerBackground.width
-        this.bottomList.h = this.containerBackground.height/2
-        this.bottomList.y = this.containerBackground.height/2 + 25
+        this.bottomList.h = this.containerBackground.height / 2
+        this.bottomList.y = this.containerBackground.height / 2 + 25
         this.bottomList.updateHorizontalList()
-        
+
 
         this.lockSprite.width = this.containerBackground.width
         this.lockSprite.height = this.containerBackground.height

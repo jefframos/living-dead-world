@@ -100,7 +100,7 @@ export default class GameStaticData {
         this.staticAssets['vfxDescriptors'] = {};
         this.convertSpriteSheet('vfx', 'weaponVFX')
         this.convertSpriteSheet('vfx', 'entityVFXPack')
-        console.log(this.staticAssets)
+        //console.log(this.staticAssets)
     }
     convertSpriteSheet(type, subtype) {
         let data = this.getAllDataFrom(type, subtype)

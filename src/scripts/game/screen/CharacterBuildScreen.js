@@ -844,6 +844,8 @@ export default class CharacterBuildScreen extends Screen {
 
         //LocalizationManager.instance.getLabel();
 
+        console.log(params)
+
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
@@ -856,6 +858,10 @@ export default class CharacterBuildScreen extends Screen {
 
                     if (params && !params.fromQuit) {
 
+                        if(params.levelEndStats){
+
+                            CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore)
+                        }
                         if (params.fromWin) {
                             PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
                         } else {

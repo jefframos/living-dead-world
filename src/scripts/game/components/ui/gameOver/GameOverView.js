@@ -1,9 +1,12 @@
+import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
+import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
 import EntityBuilder from "../../../screen/EntityBuilder";
 import Game from "../../../../Game";
 import GameData from "../../../data/GameData";
 import GameObject from "../../../core/gameObject/GameObject";
 import GameView from "../../../core/view/GameView";
 import LoadoutCardView from "../../deckBuilding/LoadoutCardView";
+import LocalizationManager from "../../../LocalizationManager";
 import PrizeCollectContainer from "../prizes/PrizeCollectContainer";
 import PrizeManager from "../../../data/PrizeManager";
 import RenderModule from "../../../core/modules/RenderModule";
@@ -12,9 +15,6 @@ import UIList from "../../../ui/uiElements/UIList";
 import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
 import signals from "signals";
-import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
-import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
-import LocalizationManager from "../../../LocalizationManager";
 
 export default class GameOverView extends GameObject {
     constructor() {
@@ -94,14 +94,14 @@ export default class GameOverView extends GameObject {
                 "#ff0000",
                 "#ff7b00"
             ],
-            fontFamily: window.MAIN_FONT ,
+            fontFamily: window.MAIN_FONT,
             fontSize: 96,
             fontVariant: "small-caps",
             fontWeight: "bolder",
             strokeThickness: 5
         });
-        
-        
+
+
         const victoryStyle = new PIXI.TextStyle({
             dropShadow: true,
             dropShadowAngle: 1.5,
@@ -110,7 +110,7 @@ export default class GameOverView extends GameObject {
                 "#8cff00",
                 "#00ffbf"
             ],
-            fontFamily: window.MAIN_FONT ,
+            fontFamily: window.MAIN_FONT,
             fontSize: 96,
             fontVariant: "small-caps",
             fontWeight: "bolder",
@@ -142,11 +142,10 @@ export default class GameOverView extends GameObject {
 
         this.blurDefeated.y = this.tryAgainLabel.y
 
-        this.finalTimeLabel = UIUtils.getSecondaryLabel('00:25', { fontSize: 32 })
-        this.finalTimeLabel.anchor.set(0.5)
-        this.finalTimeLabel.x = this.infoBackContainer.width / 2
-        this.finalTimeLabel.y = this.infoBackContainer.height / 4 + 140
-        this.infoBackContainer.addChild(this.finalTimeLabel)
+        // this.finalTimeLabel.anchor.set(0.5)
+        //this.finalTimeLabel.x = this.infoBackContainer.width / 2
+        //this.finalTimeLabel.y = this.infoBackContainer.height / 4 + 140
+        //this.infoBackContainer.addChild(this.finalTimeLabel)
 
         this.titleBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0004'), 20, 20, 20, 20);
         this.victoryContainer.addChild(this.titleBox);
@@ -154,9 +153,9 @@ export default class GameOverView extends GameObject {
         this.titleBox.height = 80
         this.titleBox.x = this.infoBackContainer.width / 2 - this.titleBox.width / 2
         this.titleBox.y = -40
-        
-        
-        this.victoryLabel  = new PIXI.Text(LocalizationManager.instance.getLabel('VICTORY'), victoryStyle);
+
+
+        this.victoryLabel = new PIXI.Text(LocalizationManager.instance.getLabel('VICTORY'), victoryStyle);
         this.victoryLabel.anchor.set(0.5)
         this.victoryLabel.x = this.titleBox.width / 2
         this.victoryLabel.y = this.titleBox.height / 2
@@ -174,11 +173,11 @@ export default class GameOverView extends GameObject {
 
         this.shine = new PIXI.Sprite.from('shine')
         this.shine.anchor.set(0.5)
-        this.shine.scale.set(Utils.scaleToFit(this.shine, 350))
+        this.shine.scale.set(Utils.scaleToFit(this.shine, 220))
         this.shine.x = this.infoBackContainer.width / 2
         this.victoryContainer.addChild(this.shine)
         this.shine.tint = 0xfff700
-        this.shine.alpha = 0.1
+        this.shine.alpha = 0.3
 
 
         this.congratulationsLabel = UIUtils.getSpecialLabel1(LocalizationManager.instance.getLabel('CONGRATULATIONS'), victoryStyle)
@@ -189,8 +188,8 @@ export default class GameOverView extends GameObject {
             "#00ccff",
             "#00ffbf"
         ],
-        this.congratulationsLabel.x = this.infoBackContainer.width / 2
-        this.congratulationsLabel.y = this.infoBackContainer.height / 4
+            this.congratulationsLabel.x = this.infoBackContainer.width / 2
+        this.congratulationsLabel.y = 100//this.infoBackContainer.height / 4
         this.victoryContainer.addChild(this.congratulationsLabel)
 
         this.shine.y = this.congratulationsLabel.y
@@ -198,47 +197,70 @@ export default class GameOverView extends GameObject {
 
         this.enemyCountBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
         this.enemyCountBox.width = this.infoBackContainer.width
-        this.enemyCountBox.height = 50
-        this.enemyCountBox.y = 200
+        this.enemyCountBox.height = 350
+        this.enemyCountBox.y = 150
         this.infoBackContainer.addChild(this.enemyCountBox);
 
 
 
         this.uiEndStatsList = new UIList();
-        this.uiEndStatsList.h = 50;
-        this.uiEndStatsList.w = this.infoBackContainer.width;
+        this.uiEndStatsList.h = 300;
+        this.uiEndStatsList.w = 10;
+        this.uiEndStatsList.x = this.infoBackContainer.width/2;
         this.enemyCountBox.addChild(this.uiEndStatsList)
 
 
+        const sizeIcons = 40
         const deathIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'))
-        this.uiEndStatsList.addElement(deathIcon, { fitHeight: 0.8, align: 1 })
+        deathIcon.scale.set(Utils.scaleToFit(deathIcon, sizeIcons))
+        deathIcon.anchor.set(1.1, 0)
+        //this.uiEndStatsList.addElement(deathIcon,,{align:0} { fitHeight: 0.8, align: 1 })
 
         this.enemyCounnt = UIUtils.getSecondaryLabel('32659', { fontSize: 32 })
-        this.uiEndStatsList.addElement(this.enemyCounnt)
-
+        
+        this.enemyCounnt.addChild(deathIcon)
 
         const coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
-        this.uiEndStatsList.addElement(coinIcon, { fitHeight: 0.8, align: 1 })
-
+        coinIcon.scale.set(Utils.scaleToFit(coinIcon, sizeIcons))
+        coinIcon.anchor.set(1.1, 0)
+        //this.uiEndStatsList.addElement(coinIcon,,{align:0} { fitHeight: 0.8, align: 1 })
+        
         this.coinsCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        this.uiEndStatsList.addElement(this.coinsCount)
-
-
-
+        
+        this.coinsCount.addChild(coinIcon)
+        
+        
         const hardIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('hardCurrency'))
-        this.uiEndStatsList.addElement(hardIcon, { fitHeight: 0.8, align: 1 })
-
+        hardIcon.scale.set(Utils.scaleToFit(hardIcon, sizeIcons))
+        hardIcon.anchor.set(1.1, 0)
+        //this.uiEndStatsList.addElement(hardIcon,,{align:0} { fitHeight: 0.8, align: 1 })
+        
         this.hardCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        this.uiEndStatsList.addElement(this.hardCount)
-
-        const specialIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('specialCurrency'))
-        //this.uiEndStatsList.addElement(specialIcon, { fitHeight: 0.8, align: 1 })
-
+        
+        this.hardCount.addChild(hardIcon)
+        
+        const specialIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('highscore'))
+        specialIcon.scale.set(Utils.scaleToFit(specialIcon, sizeIcons))
+        specialIcon.anchor.set(1.1, 0)
+        //this.uiEndStatsList.addElement(specialIcon,,{align:0} { fitHeight: 0.8, align: 1 })
+        
         this.specialCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        //this.uiEndStatsList.addElement(this.specialCount)
+        this.specialCount.addChild(specialIcon)
+        
+        const timeIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('ingame-timer'))
+        timeIcon.scale.set(Utils.scaleToFit(timeIcon, sizeIcons))
+        timeIcon.anchor.set(1.1, 0)
+        this.finalTimeLabel = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
+        
+        this.uiEndStatsList.addElement(this.finalTimeLabel,{align:0})
+        this.uiEndStatsList.addElement(this.hardCount,{align:0})
+        this.uiEndStatsList.addElement(this.specialCount,{align:0})
+        this.uiEndStatsList.addElement(this.enemyCounnt,{align:0})
+        this.uiEndStatsList.addElement(this.coinsCount,{align:0})
+        this.finalTimeLabel.addChild(timeIcon)
 
 
-        this.uiEndStatsList.updateHorizontalList()
+        this.uiEndStatsList.updateVerticalList()
 
         this.confirmButton = UIUtils.getPrimaryLargeLabelButton(() => {
             if (this.gameOverWin) {
@@ -274,7 +296,7 @@ export default class GameOverView extends GameObject {
             //this.collectPrizes();
             this.redirect(this.currentWinState);
         }, LocalizationManager.instance.getLabel('CONTINUE'))
-        
+
         this.collectButton.updateBackTexture('square_button_0002')
 
         this.prizesContainer.addChild(this.collectButton)
@@ -285,9 +307,9 @@ export default class GameOverView extends GameObject {
         //win = !win
 
         this.currentWinState = win;
-        if(!win){
+        if (!win) {
             SOUND_MANAGER.play('Musical-Beep-Loop-02', 0.5)
-        }else{
+        } else {
             SOUND_MANAGER.play('magic', 0.75)
         }
         RewardsManager.instance.gameplayStop();
@@ -305,9 +327,9 @@ export default class GameOverView extends GameObject {
         this.enemyCounnt.text = this.endGameData.enemiesKilled
         this.finalTimeLabel.text = Utils.floatToTime(Math.floor(Math.max(0, this.endGameData.time)));
         this.coinsCount.text = this.endGameData.coins;
-        this.specialCount.text = this.endGameData.special
+        this.specialCount.text = this.endGameData.points
 
-        this.uiEndStatsList.updateHorizontalList()
+        this.uiEndStatsList.updateVerticalList()
 
         if (this.currentShowingPrizes) {
             this.currentShowingPrizes.forEach(element => {
@@ -369,7 +391,7 @@ export default class GameOverView extends GameObject {
         setTimeout(() => {
 
             this.onConfirmGameOver.dispatch(fromWin);
-           
+
         }, 10);
 
     }
@@ -418,13 +440,13 @@ export default class GameOverView extends GameObject {
         this.contentContainer.y = Utils.lerp(this.contentContainer.y, Game.Borders.height / 2 - this.contentContainer.height / 2 + 20, 0.5);
         this.infoBackContainer.y = 50
         this.confirmButton.x = this.infoBackContainer.width / 2 - this.confirmButton.width / 2
-        this.confirmButton.y = 500
+        this.confirmButton.y = 650
 
         this.reviveButton.scale.set(Math.cos(Game.Time * 15) * 0.05 + 0.95 + 0.2)
         this.reviveButton.x = this.prizeBox.width / 2 - this.reviveButton.width / 2
-        this.reviveButton.y = this.prizeBox.height / 2 - this.reviveButton.height / 2 - 50
+        this.reviveButton.y = 130
         this.collectButton.x = this.prizeBox.width / 2 - this.collectButton.width / 2
-        this.collectButton.y = 50
+        this.collectButton.y = 150
 
 
         //this.prizesContainer.x = Utils.lerp(this.prizesContainer.x ,this.prizeBox.width / 2 - this.prizesContainer.width / 2, 0.5);

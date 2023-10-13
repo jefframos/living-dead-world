@@ -99,5 +99,10 @@ export default class LocationContainer extends MainScreenModal {
     show() {
         this.resize()
         super.show();
+
+        for (let index = 0; index < this.levelDataList.length; index++) {
+            const element = this.levelDataList[index].view;
+            element.updateData()
+        }
     }
 }

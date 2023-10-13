@@ -117,10 +117,11 @@ export default class LevelManager {
     }
     confirmGameOver(fromWin = false) {
         this.confirmPlayerDeath();
-        this.onConfirmGameOver.dispatch(fromWin);
+        this.currentLevelStruct.finalScore = this.matchStats.points;
+        this.onConfirmGameOver.dispatch(fromWin, false, {levelStruct:this.currentLevelStruct});
     }
     quitGame(fromWin = false) {
-        this.onConfirmGameOver.dispatch(false, true);
+        this.onConfirmGameOver.dispatch(false, true, {levelStruct:this.currentLevelStruct});
     }
     levelWin() {
         this.gameOverOverlay.setActive(true)
@@ -159,11 +160,14 @@ export default class LevelManager {
         this.player.enabled = false
 
         const levelData = GameStaticData.instance.getWaves()[wavesData.level]
-        this.currentLevelWaves = levelData.waves;
-        this.currentLevelData = levelData;
 
-        console.log('GameStaticData.instance.getWaves()',GameStaticData.instance.getWaves())
-        this.timeLimit = levelData.lenght;
+        this.currentLevelStruct = GameStaticData.instance.getLevels(wavesData.level)
+        this.currentLevelWaves = this.currentLevelStruct.waves.waves;
+        this.currentLevelData = this.currentLevelStruct.waves;
+
+        //console.log('this.currentLevelData',levelData,this.currentLevelStruct)
+
+        this.timeLimit = this.currentLevelData.lenght;
         //alert(this.timeLimit)
 
         this.levelStructure = { phases: [] }
