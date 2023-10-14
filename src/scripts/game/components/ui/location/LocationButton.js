@@ -74,7 +74,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
         this.bottomList.addElement(this.currentHighscore)
-        this.currentHighscore.style.fontSize = 18
+        this.currentHighscore.style.fontSize = 22
 
         this.uiList.w = 10
         this.uiList.h = 10
@@ -194,13 +194,18 @@ export default class LocationButton extends PIXI.Container {
             this.enemiesContainer.addChildAt(sprite, 0)
             //sprite.anchor.x = 0.5//animData.animationData.params.anchor.x
             sprite.anchor.y = 1//animData.animationData.params.anchor.y
-            sprite.scale.set(0.35)
         });
-        this.enemiesContainer.children.sort((a, b) => { return a.width - b.width })
+        this.enemiesContainer.children.sort((a, b) => { return a.height - b.height })
         for (let index = 0; index < this.enemiesContainer.children.length; index++) {
             const element = this.enemiesContainer.children[index];
-            element.x = index * 50 * element.scale.x
+            if (index > 0) {
+                element.x =  this.enemiesContainer.children[index-1].x + this.enemiesContainer.children[index-1].width*0.6 
+
+            } else {
+                element.x = 0
+            }
         }
+        this.enemiesContainer.scale.set(0.32)
 
         this.lockContainer.visible = isLock
 
@@ -216,28 +221,30 @@ export default class LocationButton extends PIXI.Container {
             this.currentHighscore.text = 'Highscore: ' + highScore
             this.currentHighscore.visible = true;
         } else {
-            this.currentHighscore.visible = false;
+            this.currentHighscore.text = 'Highscore: -'
+
+            //this.currentHighscore.visible = false;
         }
     }
     updateSize(width, height) {
 
-        this.maskShape.width = width- this.margin * 2
-        this.maskShape.height = height- this.margin * 2
+        this.maskShape.width = width - this.margin * 2
+        this.maskShape.height = height - this.margin * 2
 
         this.maskShape.x = this.margin * 2;
         this.maskShape.y = this.margin
 
-        this.enemiesContainer.x = width - this.enemiesContainer.width
+        this.enemiesContainer.x = this.margin * 2// width - this.enemiesContainer.width
         this.enemiesContainer.y = height - this.margin
 
-        this.shade.width = width - this.margin * 2
-        this.shade.height = 70
+        this.shade.width = width - this.margin
+        this.shade.height = height// 70
 
-        this.shade.x = this.margin * 2
+        this.shade.x = this.margin
         this.shade.y = height / 2 - this.shade.height / 2;
 
         this.baseButton.resize(width - this.margin * 2, height - this.margin * 2)
-        this.containerBackground.width = width - this.margin * 2
+        this.containerBackground.width = width - this.margin * 2 - this.margin
         this.containerBackground.height = height - this.margin * 2
 
         this.containerBackground.x = this.margin * 2
@@ -247,16 +254,16 @@ export default class LocationButton extends PIXI.Container {
         this.baseButton.y = this.containerBackground.y
 
         this.uiList.w = this.containerBackground.width
-        this.uiList.h = this.containerBackground.height
+        this.uiList.h = this.containerBackground.height-20
         this.uiList.updateHorizontalList()
 
-        this.descriptionList.w = this.containerBackground.width
-        this.descriptionList.h = this.containerBackground.height / 2
+        this.descriptionList.w = this.uiList.w
+        this.descriptionList.h = this.uiList.h / 2
         this.descriptionList.updateHorizontalList()
 
-        this.bottomList.w = this.containerBackground.width
-        this.bottomList.h = this.containerBackground.height / 2
-        this.bottomList.y = this.containerBackground.height / 2 + 25
+        this.bottomList.w = this.uiList.w
+        this.bottomList.h = this.uiList.h / 2
+        this.bottomList.y = this.uiList.h / 2 + 35
         this.bottomList.updateHorizontalList()
 
 

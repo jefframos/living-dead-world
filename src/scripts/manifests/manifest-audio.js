@@ -16,12 +16,12 @@ const assets = [
 	"url":"assets/audio\\FloatingCities.mp3"
 	},
 	{
-	"id":"getThemAll",
-	"url":"assets/audio\\getThemAll.mp3"
-	},
-	{
 	"id":"getstar",
 	"url":"assets/audio\\getstar.mp3"
+	},
+	{
+	"id":"getThemAll",
+	"url":"assets/audio\\getThemAll.mp3"
 	},
 	{
 	"id":"item",
@@ -32,12 +32,12 @@ const assets = [
 	"url":"assets/audio\\kill.mp3"
 	},
 	{
-	"id":"Musical-Beep-Loop-02",
-	"url":"assets/audio\\Musical-Beep-Loop-02.mp3"
-	},
-	{
 	"id":"magic",
 	"url":"assets/audio\\magic.mp3"
+	},
+	{
+	"id":"Musical-Beep-Loop-02",
+	"url":"assets/audio\\Musical-Beep-Loop-02.mp3"
 	},
 	{
 	"id":"Ping-Slide-Down",
@@ -68,20 +68,20 @@ const assets = [
 	"url":"assets/audio\\pop2.mp3"
 	},
 	{
-	"id":"slot-machine",
-	"url":"assets/audio\\slot-machine.mp3"
-	},
-	{
 	"id":"shoosh",
 	"url":"assets/audio\\shoosh.mp3"
 	},
 	{
-	"id":"Synth-Appear-01",
-	"url":"assets/audio\\Synth-Appear-01.mp3"
+	"id":"slot-machine",
+	"url":"assets/audio\\slot-machine.mp3"
 	},
 	{
 	"id":"squash1",
 	"url":"assets/audio\\squash1.mp3"
+	},
+	{
+	"id":"Synth-Appear-01",
+	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
 	"id":"Tap-01",

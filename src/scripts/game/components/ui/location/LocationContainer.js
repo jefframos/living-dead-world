@@ -16,7 +16,8 @@ export default class LocationContainer extends MainScreenModal {
 
         this.scroller = new ListScroller({ w: 500, h: 600 }, { width: 75, height: 75 }, { x: 0, y: 0 })
         this.scroller.itemHeight = 500
-
+        this.scroller.y = 20;
+        
         this.onRedirectToGame = new signals.Signal();
 
         this.container.addChild(this.scroller)
@@ -77,12 +78,13 @@ export default class LocationContainer extends MainScreenModal {
         this.mapList.h = (this.levelDataList.length - 1) * 180
         this.mapList.updateVerticalList();
 
-        this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height })
+        this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height -20})
         this.scroller.itemHeight = this.mapList.height + 80
+        this.scroller.containerBackground.alpha = 0;
 
 
         this.levelDataList.forEach(element => {
-            element.view.updateSize(this.mapList.w, 180)
+            element.view.updateSize(this.mapList.w, 200)
         });
         this.recenterContainer()
 
