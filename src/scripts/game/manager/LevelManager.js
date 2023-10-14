@@ -252,6 +252,9 @@ export default class LevelManager {
         this.consumables = [];
         this.activeEnemies = [];
     }
+    onCollectXp(amount){
+        this.matchStats.points += amount;
+    }
     onPlayerLevelUp(xpData) {
 
     }
@@ -431,7 +434,7 @@ export default class LevelManager {
         //console.log(entity)
         if (entity && entity.staticData && entity.staticData.entityData) {
             if (entity.staticData.entityData.tier) {
-                this.matchStats.points += entity.attributes.level + 1;
+                //this.matchStats.points += entity.attributes.level + 1;
                 if (entity.staticData.entityData.tier >= 4) {
                     this.killSpecialMonster(entity.staticData.entityData.tier - 2);
                     this.dropEnemyChest(entity);
@@ -453,6 +456,7 @@ export default class LevelManager {
                 added = Math.floor(health.gameObject.attributes.level / 3)
             }
             collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier + added);
+
             //////////MORE XP HERE console.log(collectable.xp)
             collectable.setCollectableTexture();
         }

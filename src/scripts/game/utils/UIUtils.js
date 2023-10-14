@@ -416,7 +416,7 @@ export default class UIUtils {
     static getIconUIIcon(type) {
         switch (type) {
             case 'highscore':
-                return 'achievment'
+                return 'pickup0001'
             case 'companion':
                 return 'pet-icon'
             case 'pause':

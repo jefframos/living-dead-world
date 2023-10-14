@@ -5,6 +5,7 @@ import CompanionData from '../../../data/CompanionData';
 import CookieManager from '../../../CookieManager';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
+import GameStaticData from '../../../data/GameStaticData';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
 import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
@@ -24,6 +25,18 @@ export default class LocationButton extends PIXI.Container {
         this.containerBackground.height = 200
 
         this.addChild(this.containerBackground)
+
+        this.enemiesContainer = new PIXI.Container();
+        this.addChild(this.enemiesContainer)
+
+
+        this.shade = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
+        this.shade.width = 20
+        this.shade.height = 20
+        this.shade.tint = 0
+        this.shade.alpha = 0.3
+        this.addChild(this.shade)
+
 
         this.uiList = new UIList();
         this.addChild(this.uiList)
@@ -91,12 +104,14 @@ export default class LocationButton extends PIXI.Container {
         this.uiList.addElement(this.starsList)
 
         this.onStageSelected = new signals.Signal();
-        this.baseButton = new BaseButton('powerbar_border');
+        this.baseButton = new BaseButton('square_button_0008');
         this.addChild(this.baseButton)
-        this.baseButton.alpha = 0.4;
+        this.baseButton.alpha = 0;
         this.baseButton.onButtonClicked.add(() => {
             this.onStageSelected.dispatch(this);
         })
+
+
 
         this.lockContainer = new PIXI.Container()
         this.lockSprite = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 20, 20, 20, 20);
@@ -114,6 +129,14 @@ export default class LocationButton extends PIXI.Container {
         this.addChild(this.lockContainer)
 
 
+
+        this.maskShape = new PIXI.NineSlicePlane(PIXI.Texture.from('tile'), 20, 20, 20, 20);
+        this.addChild(this.maskShape)
+
+        // this.maskShape = new PIXI.NineSlicePlane(PIXI.Texture.from('square_button_0011'), 20, 20, 20, 20);
+        // this.addChild(this.maskShape)
+
+        this.enemiesContainer.mask = this.maskShape;
     }
     setData(data, isLock) {
         this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture, data.views.groundWidth, data.views.groundWidth)
@@ -121,6 +144,63 @@ export default class LocationButton extends PIXI.Container {
         this.fullData = data;
         this.levelTime.text = Utils.floatToTime(data.waves.lenght)
         this.uiList.updateHorizontalList()
+
+        const allEnemiesOnLevel = {};
+        const allEnemiesOnLevelArray = [];
+        data.waves.waves.forEach(element => {
+
+            element.waves.forEach(wave => {
+                if (Array.isArray(wave.entity)) {
+                    wave.entity.forEach(element => {
+                        if (!allEnemiesOnLevel[element]) {
+                            allEnemiesOnLevel[element] = 1
+                            allEnemiesOnLevelArray.push(GameStaticData.instance.getEntityById('enemy', element))
+                        }
+                    });
+                } else {
+                    if (!allEnemiesOnLevel[wave.entity]) {
+                        allEnemiesOnLevel[wave.entity] = 1
+                        allEnemiesOnLevelArray.push(GameStaticData.instance.getEntityById('enemy', wave.entity))
+                    }
+                }
+
+            });
+
+        });
+
+        allEnemiesOnLevelArray.sort((a, b) => {
+            const nameA = a.id.toUpperCase(); // ignore upper and lowercase
+            const nameB = b.id.toUpperCase(); // ignore upper and lowercase
+            if (nameA < nameB) {
+                return -1;
+            }
+            if (nameA > nameB) {
+                return 1;
+            }
+
+            // names must be equal
+            return 0;
+        });
+        //allEnemiesOnLevelArray.sort((a, b) => { return a.entityData.tier - b.entityData.tier })
+
+        console.log(allEnemiesOnLevelArray)
+        const allSprites = [];
+
+        allEnemiesOnLevelArray.forEach(element => {
+
+            const animData = GameStaticData.instance.getDataById('animation', 'entity', element.animationData.idle)
+            const frameId = animData.animationData.params.addZero ? '01' : '1';
+            const sprite = new PIXI.Sprite.from(animData.animationData.spriteName + frameId)
+            this.enemiesContainer.addChildAt(sprite, 0)
+            //sprite.anchor.x = 0.5//animData.animationData.params.anchor.x
+            sprite.anchor.y = 1//animData.animationData.params.anchor.y
+            sprite.scale.set(0.35)
+        });
+        this.enemiesContainer.children.sort((a, b) => { return a.width - b.width })
+        for (let index = 0; index < this.enemiesContainer.children.length; index++) {
+            const element = this.enemiesContainer.children[index];
+            element.x = index * 50 * element.scale.x
+        }
 
         this.lockContainer.visible = isLock
 
@@ -132,17 +212,29 @@ export default class LocationButton extends PIXI.Container {
     }
     updateData() {
         const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id)
-        console.log(this.fullData.views.id)
-        console.log(highScore)
-
-        if(highScore > 0){
-            this.currentHighscore.text = 'Highscore: '+highScore
+        if (highScore > 0) {
+            this.currentHighscore.text = 'Highscore: ' + highScore
             this.currentHighscore.visible = true;
-        }else{
+        } else {
             this.currentHighscore.visible = false;
         }
     }
     updateSize(width, height) {
+
+        this.maskShape.width = width- this.margin * 2
+        this.maskShape.height = height- this.margin * 2
+
+        this.maskShape.x = this.margin * 2;
+        this.maskShape.y = this.margin
+
+        this.enemiesContainer.x = width - this.enemiesContainer.width
+        this.enemiesContainer.y = height - this.margin
+
+        this.shade.width = width - this.margin * 2
+        this.shade.height = 70
+
+        this.shade.x = this.margin * 2
+        this.shade.y = height / 2 - this.shade.height / 2;
 
         this.baseButton.resize(width - this.margin * 2, height - this.margin * 2)
         this.containerBackground.width = width - this.margin * 2
@@ -175,6 +267,8 @@ export default class LocationButton extends PIXI.Container {
         this.lockIcon.y = this.lockSprite.height / 2
         this.lockContainer.x = this.containerBackground.x
         this.lockContainer.y = this.containerBackground.y
+
+
 
     }
 

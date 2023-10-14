@@ -39,7 +39,7 @@ export default class Companion extends GameAgent {
         this.buildCircle(0, 0, this.attributes.radius);
 
         this.speed = this.attributes.speed
-        this.distance = this.attributes.distance
+        this.distance = this.attributes.distance + 20
 
         this.shootBaseTime = 2
         this.shootTimer = 0.5
@@ -134,7 +134,7 @@ export default class Companion extends GameAgent {
         //console.log(this.sensor.collisionList.length)
         this.targetPosition.copy(this.parent.transform.position)
 
-        this.targetAngle += delta;
+        this.targetAngle += delta*0.75;
         this.targetAngle %= Math.PI * 2;
 
         this.targetPosition.x += Math.cos(this.targetAngle) * this.distance

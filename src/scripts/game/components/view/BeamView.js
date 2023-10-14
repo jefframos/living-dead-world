@@ -10,7 +10,7 @@ export default class BeamView extends PIXI.Sprite {
         this.startShape = new PIXI.Sprite.from('beamBase')
         this.endShape = new PIXI.Sprite.from('endBeam')
         this.base = new PIXI.Sprite.from('shadow')
-        this.weaponView = new PIXI.Sprite.from('laserGun1')
+        this.weaponView = new PIXI.Sprite.from()
         this.weaponView.rotation = Math.PI / 2
         this.weaponView.anchor.set(0.6,0.5)
         this.weaponView.scale.set(0.5)

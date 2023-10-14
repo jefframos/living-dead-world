@@ -40,7 +40,7 @@ export default class PlayerSessionData {
         }
         this.levelBreaks = [0];
         for (var i = 0; i < 100; i++) {
-            this.levelBreaks.push(10 + (i * (10 + i)) + i);
+            this.levelBreaks.push(10 + (i * (10 + i)) + Math.round(i*0.2));
         }
     }
     get equipaments() {

@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import GameObject from "../core/gameObject/GameObject";
 import GameView from "../core/view/GameView";
+import LevelManager from '../manager/LevelManager';
 import Player from './Player';
 import RenderModule from "../core/modules/RenderModule";
 import Shadow from '../components/view/Shadow';
@@ -63,6 +64,7 @@ export default class Collectable extends GameObject {
         //console.log(this.player.attributes.xpMultiplier)
 
         SOUND_MANAGER.play('getstar', 0.15, Math.random() * 0.3 + 0.7)
+        LevelManager.instance.onCollectXp(this.xp);
         this.player.sessionData.addXp(this.xp * this.player.attributes.xpMultiplier)
 
     }
