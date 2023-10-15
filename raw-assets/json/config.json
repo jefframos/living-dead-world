@@ -4,6 +4,7 @@
         {"id":"level-tutorial", "wave":"enemy-wave-tutorial"},
         {"id":"level-1", "wave":"enemy-wave-01"},
         {"id":"level-2", "wave":"enemy-wave-02"},
-        {"id":"level-3", "wave":"enemy-wave-03"}
+        {"id":"level-3", "wave":"enemy-wave-03"},
+        {"id":"level-4", "wave":"enemy-wave-04"}
     ]
 }

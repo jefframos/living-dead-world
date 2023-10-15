@@ -91,7 +91,7 @@ export default class Game {
         this.logo.y = 0
         this.logo.anchor.set(0.5)
 
-        this.loadingLabel = UIUtils.getPrimaryLabel('0%', { fontSize: 20 })
+        this.loadingLabel = UIUtils.getPrimaryLabel('', { fontSize: 20 })
         this.loadingLabel.anchor.set(0.5)
         this.loadingLabel.x = 150
         this.loadingLabel.y = 150

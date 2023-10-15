@@ -455,5 +455,109 @@
             "onHit": "BLOOD_SPLAT_RED",
             "onDie": "BLOOD_SPLAT_RED"
         }
+    },
+    {
+        "id": "ROBUTT",
+        "entityData": {
+            "type": "Enemy",
+            "tier": 3
+        },
+        "weapon": {
+            "id": "ENEMY_PISTOL_01"
+        },
+        "attributes": {
+            "basePower": [0.30,0.31,0.34,0.39,0.48],
+            "baseHealth": [100,104,119,144,179,223,277,341,416,500],
+            "baseMagicDefense": 2,
+            "baseMass": 10,
+            "baseDefense": 10,
+            "baseRadius": 30,
+            "baseSpeed": [30,30,30,32,33,36,38,42,45,50]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "scale": 1,
+            "zombieWalk": 2
+        },
+        "animationData": {
+            "idle": "ROBUTT",
+            "run": "ROBUTT"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
+        }
+    },
+    {
+        "id": "ZOMBIE_PUMP",
+        "entityData": {
+            "name": "Slime",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 3,
+            "title": "Jhonatan Goblin"
+        },
+        "ranking": 1,
+        "attributes": {
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
+            "baseHealth": [15,18,29,46,71,102,141,187,240,300],
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 25,
+            "baseSpeed": [30,30,30,32,33,36,38,42,45,50]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "jumpHight": 0,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "ZOMBIE_PUMPKIN",
+            "run": "ZOMBIE_PUMPKIN"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
+        }
+    },
+    {
+        "id": "PUMP",
+        "entityData": {
+            "name": "Bat",
+            "description": "Green, greedy, groovy",
+            "type": "Enemy",
+            "tier": 2,
+            "title": "Jhonatan Goblin"
+        },
+        "ranking": 1,
+        "attributes": {
+            "basePower": [0.10,0.11,0.14,0.20,0.30],
+            "baseHealth": [22,25,34,50,72,101,136,178,225,280],
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 15,
+            "baseSpeed": [10, 12,14,16,18]
+        },
+        "icon": "goblin_idle_anim_f0",
+        "view": {
+            "hasView": true,
+            "jumpHight": 30,
+            "offset": {
+                "y": 10
+            },
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "PUMP",
+            "run": "PUMP"
+        },
+        "vfx": {
+            "onHit": "BLOOD_SPLAT_RED",
+            "onDie": "BLOOD_SPLAT_RED"
+        }
     }
 ]

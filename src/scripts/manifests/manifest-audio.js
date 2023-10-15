@@ -24,12 +24,12 @@ const assets = [
 	"url":"assets/audio\\getThemAll.mp3"
 	},
 	{
-	"id":"item",
-	"url":"assets/audio\\item.mp3"
-	},
-	{
 	"id":"kill",
 	"url":"assets/audio\\kill.mp3"
+	},
+	{
+	"id":"item",
+	"url":"assets/audio\\item.mp3"
 	},
 	{
 	"id":"magic",
@@ -48,12 +48,12 @@ const assets = [
 	"url":"assets/audio\\place.mp3"
 	},
 	{
-	"id":"Pop-Low-Pitch-Up-02",
-	"url":"assets/audio\\Pop-Low-Pitch-Up-02.mp3"
-	},
-	{
 	"id":"Pop-Musical",
 	"url":"assets/audio\\Pop-Musical.mp3"
+	},
+	{
+	"id":"Pop-Low-Pitch-Up-02",
+	"url":"assets/audio\\Pop-Low-Pitch-Up-02.mp3"
 	},
 	{
 	"id":"Pop-Tone",
@@ -80,16 +80,16 @@ const assets = [
 	"url":"assets/audio\\squash1.mp3"
 	},
 	{
+	"id":"teleport",
+	"url":"assets/audio\\teleport.mp3"
+	},
+	{
 	"id":"Synth-Appear-01",
 	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
 	"id":"Tap-01",
 	"url":"assets/audio\\Tap-01.mp3"
-	},
-	{
-	"id":"teleport",
-	"url":"assets/audio\\teleport.mp3"
 	}
 ];
 

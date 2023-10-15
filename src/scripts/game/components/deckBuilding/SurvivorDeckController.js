@@ -258,6 +258,12 @@ export default class SurvivorDeckController extends GameObject {
         this.uiButtons.alpha = 0
         this.uiButtons.visible = false;
         TweenLite.to(this.uiButtons, 0.3, { delay: 0.8, alpha: 1, onStart: () => { this.uiButtons.visible = true; } })
+        setTimeout(() => {
+
+            if (Game.Debug.autoplay) {
+                this.pickAllCards();
+            }
+        }, 10);
 
     }
     pickCard(card) {

@@ -74,7 +74,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
         this.bottomList.addElement(this.currentHighscore)
-        this.currentHighscore.style.fontSize = 22
+        this.currentHighscore.style.fontSize = 18
 
         this.uiList.w = 10
         this.uiList.h = 10
@@ -195,7 +195,7 @@ export default class LocationButton extends PIXI.Container {
             const frameId = animData.animationData.params.addZero ? '01' : '1';
             const sprite = new PIXI.Sprite.from(animData.animationData.spriteName + frameId)
             this.enemiesContainer.addChildAt(sprite, 0)
-            //sprite.anchor.x = 0.5//animData.animationData.params.anchor.x
+            sprite.anchor.x = 0.2//animData.animationData.params.anchor.x
             sprite.anchor.y = 1//animData.animationData.params.anchor.y
         });
         this.enemiesContainer.children.sort((a, b) => { return a.height - b.height })
@@ -237,7 +237,7 @@ export default class LocationButton extends PIXI.Container {
         this.maskShape.x = this.margin * 2;
         this.maskShape.y = this.margin
 
-        this.enemiesContainer.x = this.margin * 2// width - this.enemiesContainer.width
+        this.enemiesContainer.x = this.margin * 2 + 10// width - this.enemiesContainer.width
         this.enemiesContainer.y = height - this.margin - 5
 
         this.shade.width = width - this.margin

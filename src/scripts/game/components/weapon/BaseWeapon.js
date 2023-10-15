@@ -17,6 +17,7 @@ import Vector3 from "../../core/gameObject/Vector3";
 import WeaponAttributes from "../../data/WeaponAttributes";
 import WeaponData from "../../data/WeaponData";
 import WeaponInGameView from "./WeaponInGameView";
+import Game from "../../../Game";
 
 export default class BaseWeapon extends PhysicsEntity {
     constructor() {
@@ -128,6 +129,10 @@ export default class BaseWeapon extends PhysicsEntity {
             
             this.shootFrequency = this.weaponData.weaponAttributes.frequency + this.parent.loadoutAttributes.frequency
             this.shootFrequency = Math.max(0.05, this.shootFrequency)
+
+            if(Game.Debug.autoplay){
+                this.shootFrequency = 0.1
+            }
 
         } else {
             this.isPlayer = false;

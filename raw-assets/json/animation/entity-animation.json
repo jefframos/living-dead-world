@@ -302,5 +302,62 @@
                 "addZero": false
             }
         }
+    },
+    {
+        "id": "ZOMBIE_PUMPKIN",
+        "animationData": {
+            "spriteName": "zombie-pumpkin00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 11
+                },
+                "anchor": {
+                    "x": 0.3,
+                    "y": 1
+                },
+                "time": 0.2,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "PUMP",
+        "animationData": {
+            "spriteName": "pump00",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 10
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 0.9
+                },
+                "time": 0.1,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "ROBUTT",
+        "animationData": {
+            "spriteName": "robutt-100",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 12
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 0.9
+                },
+                "time": 0.15,
+                "loop": true,
+                "addZero": true
+            }
+        }
     }
 ]

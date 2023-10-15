@@ -73,16 +73,16 @@ export default class PlayerInventoryHud extends GameObject {
         this.audioButton = new AudioControllerView();
 
         this.pauseButton = new PIXI.Sprite.from(UIUtils.getIconUIIcon('pause'));
-        this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 80))
+        this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 70))
         InteractableView.addMouseUp(this.pauseButton, () => {
             Eugine.TimeScale = 0;
             this.inGamePopupMenu.show()
 
         })
 
-        this.uiButtonsList.addElement(this.pauseButton, { fitWidth: 0.8 })
+        this.uiButtonsList.addElement(this.pauseButton, { align:0, fitWidth: 0.7 })
 
-        this.uiButtonsList.addElement(this.audioButton, { fitWidth: 0.8 })
+        this.uiButtonsList.addElement(this.audioButton, { align:0, fitWidth: 0.8 })
 
         this.uiButtonsList.updateVerticalList();
 
@@ -439,12 +439,32 @@ export default class PlayerInventoryHud extends GameObject {
 
             attributesWeapon += "PIERCING: +" + this.player.attributes.piercing + "\n";
         }
+
+
+        this.player.activeAcessories.forEach(element => {
+            if (element.item && element.item.effectId) {
+                attributesWeapon += element.item.entityData.name;
+                let stat = GameStaticData.instance.getDataById('misc', 'buffs', element.item.effectId);
+                let chance = Utils.findValueByLevel(stat.chance, element.level)
+                if (chance < 1) {
+                    attributesWeapon += "  " + (chance * 100).toFixed(1) + "% chance";
+                } else {
+                    attributesWeapon += "  " + Math.abs(Utils.findValueByLevel(stat.value, element.level) * 100) + "% - ";
+                    attributesWeapon += Utils.findValueByLevel(stat.interval, element.level) + "s";
+                }
+                attributesWeapon += "\n";
+            }
+        });
+
+
         //this.playerAttributesLabel.text = attributes;
         this.weaponAcessoriesLabel.text = attributesWeapon;
 
 
 
         this.attributesView.healthDrawer.updateAttributes(this.player.attributes.health, this.player.health.currentHealth)
+
+        this.inGamePopupMenu.updateAttributesLabel(attributesWeapon)
     }
     updatePlayerEquip(player) {
 
@@ -520,7 +540,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.text.x = Game.Borders.width - this.text.width - 10
         this.text.y = 45
 
-        this.uiButtonsList.x = Game.Borders.width - this.uiButtonsList.w - 20
+        this.uiButtonsList.x = Game.Borders.width - 70
         this.uiButtonsList.y = 80
         this.baseBarView.update(delta)
         this.playerHud.update(delta)

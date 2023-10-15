@@ -18,7 +18,7 @@
                     "layer":"Gameplay",
                     "layerName": "trees",
                     "constructor": "Trees",
-                    "list": ["pine-1","pine-2"],
+                    "list": ["tree-2","tree-2"],
                     "width": 25,
                     "height": 25,
                     "weight": 0.5,

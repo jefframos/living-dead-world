@@ -1350,6 +1350,56 @@
         }
     },
     {
+        "id": "ENEMY_PISTOL_01",
+        "entityData": {
+            "starter": false,
+            "companionWeapon": false,
+            "equippableWeapon": false,
+            "enemyWeapon": true,
+            "extra": false,
+            "type": "Weapon",
+            "tier": 2,
+            "icon": "blaster-minugun",
+            "descriptionId": "DESCRIPTION_ENEMY_MINIGUN_01",
+            "name": "Minigun"
+        },
+        "isMain": true,
+        "weaponType": "Physical",
+        "customConstructor": "BaseWeapon",
+        "attributes": {
+            "baseRadius": 15,
+            "baseSpawnDistance": 50,
+            "baseLifeSpan": -1,
+            "baseLifeRangeSpan": 200,
+            "useRelativePower": false,
+            "basePower": 10,
+            "baseBulletSpeed": 50,
+            "baseFrequency": 9,
+            "baseCritical": 0,
+            "basePiercing": 1,
+            "baseAmount": 1,
+            "baseDirectionType": "ParentAngle",
+            "baseBlockType": "IgnoreEnemyBullets",
+            "baseBrustFireAmount": 0,
+            "baseBrustFireInterval": 0,
+            "baseBaseShootArc": 0,
+            "baseGeneralOffset": 0,
+            "baseForceField": true,
+            "baseForceFeedback": 5,
+            "baseAngleOffset": 0.6,
+            "baseAngleNoise": 0
+        },
+        "bulletComponent": "Bullet",
+        "view": {
+            "rotationSpeed": 0,
+            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "destroyVfxPack": "RED_HIT",
+            "overrider": {
+                "baseViewData": "SPERM_ENEMY"
+            }
+        }
+    },
+    {
         "id": "MELEE_SWORD",
         "entityData": {
             "starter": false,

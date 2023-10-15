@@ -198,11 +198,11 @@
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
+	"version": "1.1",
 	"image": "hud.png",
 	"format": "RGBA8888",
 	"size": {"w":239,"h":1173},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:75a12798c0a23144071c3742a8066583:40916fb6401ce579203762312dfbc3bb:1f12e3a3d447c2b9be1f7d9b1846589c$"
+	"smartupdate": "$TexturePacker:SmartUpdate:d4f16032b7c0b6c872631e0ed1f32e43:40916fb6401ce579203762312dfbc3bb:1f12e3a3d447c2b9be1f7d9b1846589c$"
 }
 }

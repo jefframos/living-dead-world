@@ -19,7 +19,7 @@
                         "radius": 350,
                         "total": 1000,
                         "maxActive": 15,
-                        "entity": "RAT_01",
+                        "entity": ["RAT_01"],
                         "levels": [
                             0
                         ]

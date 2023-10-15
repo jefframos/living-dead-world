@@ -24,7 +24,7 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.addChildAt(this.topBlocker, 0);
 
 
-        this.blocker.alpha = 0.3;
+        this.blocker.alpha = 0.5;
         this.blocker.tint = 0;
         //this.blocker.tint = 0x00ffbf;
         this.prizesContainer = new PIXI.Container();
@@ -32,7 +32,7 @@ export default class InGamePopupMenu extends MainScreenModal {
 
 
         this.blackout = UIUtils.getRect(0, 100, 100)
-        this.blackout.alpha = 0
+        this.blackout.alpha = 0.75
         this.addChildAt(this.blackout, 0);
 
         this.buttonList = new UIList();
@@ -66,20 +66,29 @@ export default class InGamePopupMenu extends MainScreenModal {
             button.updateBackTexture(element.texture)
             this.buttonList.addElement(button);
             button.buttonSound = element.sound
-            button.resize(this.buttonList.w, 80)
+            button.resize(this.buttonList.w, 70)
 
         });
 
         this.visible = false;
 
-        this.buttonList.h = this.buttonList.elementsList.length * 85
+        this.buttonList.h = this.buttonList.elementsList.length * 90
         this.buttonList.updateVerticalList();
+
+        this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
+        this.addChild(this.weaponAcessoriesLabel)
+        this.weaponAcessoriesLabel.style.fontSize = 14
+        this.weaponAcessoriesLabel.style.align = 'center'
+        this.weaponAcessoriesLabel.anchor.set(0.5)
 
     }
     addBackgroundShape() {
         this.modalTexture = null;
         super.addBackgroundShape();
 
+    }
+    updateAttributesLabel(label){
+        this.weaponAcessoriesLabel.text = 'STATS\n\n'+label
     }
     recenterContainer() {
         this.container.pivot.x = this.container.width / 2
@@ -114,6 +123,8 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.buttonList.x = -this.buttonList.w / 2
         this.buttonList.y = -this.buttonList.h / 2 + 200
 
+        this.weaponAcessoriesLabel.x = Game.Borders.width / 2
+        this.weaponAcessoriesLabel.y = Game.Borders.height / 2 - 120
 
         this.recenterContainer();
     }

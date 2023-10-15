@@ -23,7 +23,7 @@
                             "ZOMBIE_04"
                         ],
                         "levels": [
-                            0
+                            2
                         ]
                     },
                     {
@@ -34,7 +34,7 @@
                         "maxActive": 10,
                         "entity": "SPIDER_BRAIN",
                         "levels": [
-                            0
+                            3
                         ]
                     }
                 ]
@@ -49,9 +49,9 @@
                         "radius": 450,
                         "total": 5000,
                         "maxActive": 20,
-                        "entity": "RAT_01",
+                        "entity": "BUTTFLY",
                         "levels": [
-                            0
+                            3
                         ]
                     },
                     {
@@ -75,26 +75,26 @@
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
-                        "total": 100,
+                        "total": 1000,
                         "maxActive": 50,
                         "entity": [
                             "ZOMBIE_02"
                         ],
                         "levels": [
-                            0
+                            3
                         ]
                     },
                     {
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
-                        "total": 100,
+                        "total": 1000,
                         "maxActive": 10,
                         "entity": [
                             "RAT_01"
                         ],
                         "levels": [
-                            0
+                            2
                         ]
                     }
                 ]
@@ -115,7 +115,7 @@
                         "maxActive": 40,
                         "entity": "ZOMBIE_KAREN",
                         "levels": [
-                            0
+                            3
                         ]
                     }
                 ]
@@ -242,7 +242,7 @@
                         "total": 5000,
                         "maxActive": 30,
                         "entity": [
-                            "BUTTFLY_02"
+                            "BUTTFLY"
                         ],
                         "levels": [
                             6

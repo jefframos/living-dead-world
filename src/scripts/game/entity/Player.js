@@ -200,6 +200,8 @@ export default class Player extends GameAgent {
             });
         }, 2000);
 
+     
+
     }
     sessionStarted() {
 
@@ -405,8 +407,12 @@ export default class Player extends GameAgent {
             EffectsManager.instance.popEvasion(this)
             return
         }
+
         let def = value - this.attributes.defense;
         def = Math.floor(Math.max(def, 1));
+        if(Game.Debug.autoplay){
+            def = 0
+        }
         super.damage(def);
     }
     start() {

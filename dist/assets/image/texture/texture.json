@@ -2,7 +2,7 @@
 
 "floor.png":
 {
-	"frame": {"x":139,"y":529,"w":64,"h":64},
+	"frame": {"x":529,"y":663,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -10,7 +10,7 @@
 },
 "floor_5.png":
 {
-	"frame": {"x":209,"y":529,"w":64,"h":64},
+	"frame": {"x":599,"y":663,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -18,7 +18,7 @@
 },
 "floor_6.png":
 {
-	"frame": {"x":279,"y":529,"w":64,"h":64},
+	"frame": {"x":663,"y":529,"w":64,"h":64},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
@@ -34,7 +34,7 @@
 },
 "grass-patch-2.png":
 {
-	"frame": {"x":267,"y":5,"w":256,"h":256},
+	"frame": {"x":5,"y":267,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
@@ -42,7 +42,7 @@
 },
 "grass-patch-3.png":
 {
-	"frame": {"x":5,"y":267,"w":256,"h":256},
+	"frame": {"x":5,"y":529,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
@@ -50,7 +50,39 @@
 },
 "grass-patch-4.png":
 {
+	"frame": {"x":267,"y":5,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"grass-patch-5.png":
+{
 	"frame": {"x":267,"y":267,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"grass-patch-6.png":
+{
+	"frame": {"x":267,"y":529,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"grass-patch-7.png":
+{
+	"frame": {"x":529,"y":5,"w":256,"h":256},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
+	"sourceSize": {"w":256,"h":256}
+},
+"grass-patch-8.png":
+{
+	"frame": {"x":529,"y":267,"w":256,"h":256},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":256,"h":256},
@@ -58,7 +90,7 @@
 },
 "grass.png":
 {
-	"frame": {"x":5,"y":529,"w":128,"h":128},
+	"frame": {"x":529,"y":529,"w":128,"h":128},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":128,"h":128},
@@ -66,7 +98,7 @@
 },
 "IndustrialTile_11.png":
 {
-	"frame": {"x":139,"y":599,"w":32,"h":32},
+	"frame": {"x":663,"y":599,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -74,7 +106,7 @@
 },
 "IndustrialTile_26.png":
 {
-	"frame": {"x":177,"y":599,"w":32,"h":32},
+	"frame": {"x":669,"y":637,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -82,7 +114,7 @@
 },
 "IndustrialTile_41.png":
 {
-	"frame": {"x":215,"y":599,"w":32,"h":32},
+	"frame": {"x":701,"y":599,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -90,7 +122,7 @@
 },
 "IndustrialTile_65.png":
 {
-	"frame": {"x":253,"y":599,"w":32,"h":32},
+	"frame": {"x":733,"y":529,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -98,7 +130,7 @@
 },
 "IndustrialTile_73.png":
 {
-	"frame": {"x":291,"y":599,"w":32,"h":32},
+	"frame": {"x":669,"y":675,"w":32,"h":32},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":32,"h":32},
@@ -107,15 +139,15 @@
 "animations": {
 	"IndustrialTile": ["IndustrialTile_11.png","IndustrialTile_26.png","IndustrialTile_41.png","IndustrialTile_65.png","IndustrialTile_73.png"],
 	"floor": ["floor_5.png","floor_6.png"],
-	"grass-patch": ["grass-patch-1.png","grass-patch-2.png","grass-patch-3.png","grass-patch-4.png"]
+	"grass-patch": ["grass-patch-1.png","grass-patch-2.png","grass-patch-3.png","grass-patch-4.png","grass-patch-5.png","grass-patch-6.png","grass-patch-7.png","grass-patch-8.png"]
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
+	"version": "1.1",
 	"image": "texture.png",
 	"format": "RGBA8888",
-	"size": {"w":528,"h":662},
+	"size": {"w":790,"h":790},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:2ce2020120e7ec2e238bf446ba17404e:b084a4eae6d96f29976bba8c1348f207:88db1022cd6b660616541d2788fcd4f7$"
+	"smartupdate": "$TexturePacker:SmartUpdate:95a5d0238f6e4857112a52f14fd1a529:50123e507685ab56d751f7143db39490:88db1022cd6b660616541d2788fcd4f7$"
 }
 }

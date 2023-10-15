@@ -17,6 +17,7 @@ import Vector3 from "../../../core/gameObject/Vector3";
 import WeaponAttributes from "../../../data/WeaponAttributes";
 import config from "../../../../config";
 import signals from "signals";
+import Game from "../../../../Game";
 
 export default class Bullet extends PhysicsEntity {
     constructor() {
@@ -107,8 +108,13 @@ export default class Bullet extends PhysicsEntity {
         }
 
         if (fromPlayer) {
+            if(Game.Debug.autoplay){
+                this.power = 10000;
+            }
             this.piercing = player.attributes.piercing;
         }
+
+     
         this.piercing += this.weapon.weaponAttributes.piercing;
 
         //console.log(this.piercing)
