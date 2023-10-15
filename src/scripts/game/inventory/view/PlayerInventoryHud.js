@@ -74,18 +74,18 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.pauseButton = new PIXI.Sprite.from(UIUtils.getIconUIIcon('pause'));
         this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 80))
-        InteractableView.addMouseUp(this.pauseButton, ()=>{
-                Eugine.TimeScale = 0;
-                this.inGamePopupMenu.show()
-        
+        InteractableView.addMouseUp(this.pauseButton, () => {
+            Eugine.TimeScale = 0;
+            this.inGamePopupMenu.show()
+
         })
 
-        this.uiButtonsList.addElement(this.pauseButton, {fitWidth:0.8})
+        this.uiButtonsList.addElement(this.pauseButton, { fitWidth: 0.8 })
 
-        this.uiButtonsList.addElement(this.audioButton, {fitWidth:0.8})
+        this.uiButtonsList.addElement(this.audioButton, { fitWidth: 0.8 })
 
         this.uiButtonsList.updateVerticalList();
-        
+
 
         this.timer = new PIXI.Text('', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.timer)
@@ -243,6 +243,15 @@ export default class PlayerInventoryHud extends GameObject {
         this.levelInfoContainer.addChild(this.infoLevelLabel)
         this.levelInfoContainer.alpha = 0;
 
+        this.finalCountdown = UIUtils.getPrimaryLabel('10', { fontSize: 48, wordWrapWidth: 800 });
+        this.finalCountdown.anchor.set(0, 0.5)
+        this.gameView.view.addChild(this.finalCountdown)
+
+        this.finishLineIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('finish'))
+        this.finalCountdown.addChild(this.finishLineIcon)
+        this.finishLineIcon.anchor.set(1.1, 0.5)
+        this.finishLineIcon.scale.set(Utils.scaleToFit(this.finishLineIcon, 40))
+
 
         //this.setBuildingMode();
         //this.toggleDeck();
@@ -311,10 +320,10 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.inGamePopupMenu = new InGamePopupMenu();
         this.inGamePopupContainer.addChild(this.inGamePopupMenu)
-        this.inGamePopupMenu.onQuitGame.add(()=>{
+        this.inGamePopupMenu.onQuitGame.add(() => {
             LevelManager.instance.quitGame();
         })
-        this.inGamePopupMenu.onHide.add(()=>{
+        this.inGamePopupMenu.onHide.add(() => {
             Eugine.TimeScale = 1;
         })
 
@@ -323,9 +332,11 @@ export default class PlayerInventoryHud extends GameObject {
         this.ftuePrompt.alpha = 1;
         TweenLite.to(this.ftuePrompt, 0.5, { delay: 5, alpha: 0 })
     }
-    setLabelInfo(label, toHide) {
+    setLabelInfo(label, toHide, type = 0) {
+        const colors = [0xFFFFFF, 0xFF9900]
         this.levelInfoContainer.alpha = 1;
         this.infoLevelLabel.text = label;
+        this.infoLevelLabel.style.fillColor = colors[type]
 
         TweenLite.killTweensOf(this.levelInfoContainer)
         TweenLite.killTweensOf(this.levelInfoContainer.scale)
@@ -474,6 +485,18 @@ export default class PlayerInventoryHud extends GameObject {
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
 
+        this.finalCountdown.x = Game.Borders.width / 2 - 40
+        this.finalCountdown.text = LevelManager.instance.inverseGameplayTime.toFixed(1)//Utils.floatToTime(Math.floor(LevelManager.instance.inverseGameplayTime));
+        let targetCountdownPosition = Game.Borders.height / 2 + 150;
+        if (LevelManager.instance.inverseGameplayTime < 10) {
+            this.finalCountdown.visible = true
+            this.finalCountdown.y = Utils.lerp(this.finalCountdown.y, targetCountdownPosition, 0.1)
+        } else {
+            targetCountdownPosition = Game.Borders.height + 200;
+            this.finalCountdown.y = targetCountdownPosition;
+            this.finalCountdown.visible = false
+        }
+
         this.statsVignette.width = Game.Borders.width + 4;
         this.statsVignette.height = Game.Borders.height + 4;
 
@@ -496,7 +519,7 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.text.x = Game.Borders.width - this.text.width - 10
         this.text.y = 45
-        
+
         this.uiButtonsList.x = Game.Borders.width - this.uiButtonsList.w - 20
         this.uiButtonsList.y = 80
         this.baseBarView.update(delta)
@@ -550,7 +573,7 @@ export default class PlayerInventoryHud extends GameObject {
 
         this.ftuePrompt.x = Game.Borders.width / 2
 
-        this.inGamePopupMenu.resize(res,newRes)
+        this.inGamePopupMenu.resize(res, newRes)
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)
 
     }

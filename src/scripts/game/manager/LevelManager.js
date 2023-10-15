@@ -565,7 +565,7 @@ export default class LevelManager {
         if (this.textTriggers.currentTrigger >= 0 && this.textTriggers.currentTrigger < this.textTriggers.phases.length) {
             const textTriggerData = this.textTriggers.phases[this.textTriggers.currentTrigger]
             if (textTriggerData.startAt <= this.gameplayTime) {
-                this.gameSessionController.setLabelInfo(textTriggerData.text, textTriggerData.time)
+                this.gameSessionController.setLabelInfo(textTriggerData.text, textTriggerData.time, 1)
                 this.textTriggers.currentTrigger++
             }
         }

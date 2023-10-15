@@ -25,6 +25,23 @@
                         ]
                     }
                 ]
+            },
+            {
+                "startAt": 40,
+                "duration": 100,
+                "waves": [                    
+                    {
+                        "areaType": "arc",
+                        "length": 250,
+                        "radius": 350,
+                        "total": 1000,
+                        "maxActive": 15,
+                        "entity": "ZOMBIE_01",
+                        "levels": [
+                            0
+                        ]
+                    }
+                ]
             }            
         ]
     }

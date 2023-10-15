@@ -8,6 +8,10 @@ const assets = [
 	"url":"assets/json\\config.json"
 	},
 	{
+	"id":"localization_DE",
+	"url":"assets/json\\localization_DE.json"
+	},
+	{
 	"id":"localization_EN",
 	"url":"assets/json\\localization_EN.json"
 	},
@@ -36,10 +40,6 @@ const assets = [
 	"url":"assets/json\\localization_PT.json"
 	},
 	{
-	"id":"localization_DE",
-	"url":"assets/json\\localization_DE.json"
-	},
-	{
 	"id":"localization_RU",
 	"url":"assets/json\\localization_RU.json"
 	},
@@ -56,10 +56,6 @@ const assets = [
 	"url":"assets/json\\modifyers.json"
 	},
 	{
-	"id":"player-assets",
-	"url":"assets/json\\assets\\player-assets.json"
-	},
-	{
 	"id":"companion-animation",
 	"url":"assets/json\\animation\\companion-animation.json"
 	},
@@ -70,6 +66,10 @@ const assets = [
 	{
 	"id":"player-animation",
 	"url":"assets/json\\animation\\player-animation.json"
+	},
+	{
+	"id":"player-assets",
+	"url":"assets/json\\assets\\player-assets.json"
 	},
 	{
 	"id":"cards",
@@ -88,16 +88,8 @@ const assets = [
 	"url":"assets/json\\economy\\game-shop.json"
 	},
 	{
-	"id":"companions",
-	"url":"assets/json\\entity\\companions.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
-	},
-	{
-	"id":"player",
-	"url":"assets/json\\entity\\player.json"
+	"id":"enemy-wave-01",
+	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
 	},
 	{
 	"id":"enemy-wave-02",
@@ -120,8 +112,16 @@ const assets = [
 	"url":"assets/json\\enemy-waves\\wavesBkp.json"
 	},
 	{
-	"id":"enemy-wave-01",
-	"url":"assets/json\\enemy-waves\\enemy-wave-01.json"
+	"id":"companions",
+	"url":"assets/json\\entity\\companions.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
+	},
+	{
+	"id":"player",
+	"url":"assets/json\\entity\\player.json"
 	},
 	{
 	"id":"level-1",

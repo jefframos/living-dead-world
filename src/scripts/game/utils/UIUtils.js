@@ -414,7 +414,9 @@ export default class UIUtils {
         return 'icon-help'
     }
     static getIconUIIcon(type) {
-        switch (type) {
+        switch (type) {            
+            case 'finish':
+                return 'finishFlag'
             case 'highscore':
                 return 'pickup0001'
             case 'companion':

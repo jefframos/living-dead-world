@@ -30,7 +30,7 @@ export default class LocationContainer extends MainScreenModal {
         this.levelDataList = [];
         for (let index = 0; index < GameStaticData.instance.totalLevels; index++) {
             const element = new LocationButton();
-            if(index > 0){
+            if(index >= 0){
                 this.mapList.addElement(element)
             }
             element.onStageSelected.add(()=>{
@@ -75,7 +75,7 @@ export default class LocationContainer extends MainScreenModal {
         this.infoBackContainer.height = Game.Borders.height - this.container.y + 20//- 40
 
         this.mapList.w = this.infoBackContainer.width
-        this.mapList.h = (this.levelDataList.length - 1) * 180
+        this.mapList.h = (this.levelDataList.length - 0) * 180
         this.mapList.updateVerticalList();
 
         this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height -20})
