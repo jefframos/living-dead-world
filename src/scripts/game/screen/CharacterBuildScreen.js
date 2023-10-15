@@ -849,6 +849,7 @@ export default class CharacterBuildScreen extends Screen {
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
+            console.log(params.levelEndStats.levelStruct.waves.difficulty)
             setTimeout(() => {
                 if (CookieManager.instance.isFtue) {
                     PrizeManager.instance.getFtuePrize()
@@ -862,11 +863,12 @@ export default class CharacterBuildScreen extends Screen {
 
                             CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore)
                         }
-                        if (params.fromWin) {
-                            PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
-                        } else {
-                            PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
-                        }
+                        PrizeManager.instance.getEndOfLevelPrizes(params.levelEndStats.levelStruct.waves.difficulty, params.fromWin)
+                        // if (params.fromWin) {
+                        //     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
+                        // } else {
+                        //     PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
+                        // }
                     }
 
                     // if (params && params.fromWin) {

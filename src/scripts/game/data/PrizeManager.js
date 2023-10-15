@@ -90,12 +90,55 @@ export default class PrizeManager {
 
         this.mainPrizePool = [0, 1, 2, 3, 4, 6]
         this.mainPrizePoolNoWearable = [0, 1, 2, 3, 4]
+        this.endLevelPrizePool =[
+            {
+                types:[0,2,3],
+                level:1,
+                total:3
+            },
+            {
+                types:[0,1,2,3],
+                level:1,
+                total:3
+            },
+            {
+                types:[0,1,2,3],
+                level:2,
+                total:3
+            },
+            {
+                types:[0,1,2,3],
+                level:2,
+                total:5
+            },
+            {
+                types:[0,1,2,3],
+                level:3,
+                total:5
+            },
+            {
+                types:[0,1,2,3],
+                level:3,
+                total:7
+            }
+        ]
     }
     get metaPrizeList() {
         return this.prizeList;
     }
     get cassinoPrizeList() {
         return this.cassinoList;
+    }
+    getEndOfLevelPrizes(diff, fromWin){
+
+        const prizePool = this.endLevelPrizePool[Math.min(diff, this.endLevelPrizePool.length - 1)]
+        
+        if(fromWin){
+            this.getMetaPrize(prizePool.types, prizePool.level, prizePool.total)
+        }else{
+            this.getMetaPrize([0, 2, 3], 1, 2)
+
+        }
     }
     getMetaLowerPrize(amount) {
         amount++
