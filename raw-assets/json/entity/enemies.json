@@ -529,7 +529,7 @@
             "name": "Bat",
             "description": "Green, greedy, groovy",
             "type": "Enemy",
-            "tier": 2,
+            "tier": 1,
             "title": "Jhonatan Goblin"
         },
         "ranking": 1,
@@ -545,10 +545,7 @@
         "icon": "goblin_idle_anim_f0",
         "view": {
             "hasView": true,
-            "jumpHight": 30,
-            "offset": {
-                "y": 10
-            },
+            "jumpHight": 0,
             "scale": 1
         },
         "animationData": {

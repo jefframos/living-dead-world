@@ -346,5 +346,17 @@
             "y": -20
         },
         "maxWidth": 10
+    },
+    {
+        "id": "RED-ROUND-ROBUTT",
+        "viewData": "red-round",
+        "hasShadow": true,
+        "rotationFacing": true,
+        "hasAnimation": false,
+        "viewOffset": {
+            "y": -40
+        },
+        "maxWidth": 20,
+        "scale": 2
     }
 ]

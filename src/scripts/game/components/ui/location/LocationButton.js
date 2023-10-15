@@ -75,6 +75,7 @@ export default class LocationButton extends PIXI.Container {
         this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
         this.bottomList.addElement(this.currentHighscore)
         this.currentHighscore.style.fontSize = 18
+        this.currentHighscore.style.fill = 0x22ff00
 
         this.uiList.w = 10
         this.uiList.h = 10
@@ -221,12 +222,12 @@ export default class LocationButton extends PIXI.Container {
     updateData() {
         const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id)
         if (highScore > 0) {
-            this.currentHighscore.text = 'Highscore: ' + highScore
+            this.currentHighscore.text = 'COMPLETED\nHighscore: ' + highScore
             this.currentHighscore.visible = true;
         } else {
             this.currentHighscore.text = 'Highscore: -'
 
-            //this.currentHighscore.visible = false;
+            this.currentHighscore.visible = false;
         }
     }
     updateSize(width, height) {
@@ -271,7 +272,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.bottomList.w = this.uiList.w
         this.bottomList.h = this.uiList.h / 2
-        this.bottomList.y = this.uiList.h / 2 + 35
+        this.bottomList.y = this.uiList.h / 2 + 25
         this.bottomList.updateHorizontalList()
 
 

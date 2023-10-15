@@ -12,7 +12,7 @@
         "velocityY": [-80,-180],
         "rotationSpeed": [-3,-5],
         "gravity": 300,
-        "scale": 0.2,
+        "scale": 0.4,
         "texture": ["goo0001","goo0002","goo0003","goo0004","goo0005","goo0006","goo0007"],
         "tint": "0xEA2939",
         "baseAmount": 3
@@ -25,7 +25,7 @@
         "velocityY": [-80,-180],
         "rotationSpeed": [-3,-5],
         "gravity": 300,
-        "scale": 0.2,
+        "scale": 0.4,
         "texture": ["goo0001","goo0002","goo0003","goo0004","goo0005","goo0006","goo0007"],
         "tint": "0x4DD99E",
         "baseAmount": 3
@@ -77,13 +77,13 @@
     },
     {
         "id": "SPARKS_01",
-        "lifeSpan": [0.55, 0.25],
+        "lifeSpan": [0.15, 0.25],
         "baseBehaviours": "SIMPLE_ALPHA",
         "velocityX": [-50,50],
         "velocityY": [-20,-50],
         "rotationSpeed": [-3,-5],
         "gravity": 10,
-        "scale": 0.35,
+        "scale": 0.5,
         "texture": "star1",
         "baseAmount": 1
     }

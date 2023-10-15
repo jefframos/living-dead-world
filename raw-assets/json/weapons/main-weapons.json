@@ -1370,11 +1370,11 @@
             "baseRadius": 15,
             "baseSpawnDistance": 50,
             "baseLifeSpan": -1,
-            "baseLifeRangeSpan": 200,
+            "baseLifeRangeSpan": 120,
             "useRelativePower": false,
-            "basePower": 10,
-            "baseBulletSpeed": 50,
-            "baseFrequency": 9,
+            "basePower": 8,
+            "baseBulletSpeed": 35,
+            "baseFrequency": 10,
             "baseCritical": 0,
             "basePiercing": 1,
             "baseAmount": 1,
@@ -1392,10 +1392,10 @@
         "bulletComponent": "Bullet",
         "view": {
             "rotationSpeed": 0,
-            "spawnVfxPack": "SPERM_SHOT_PACK",
+            "spawnVfxPack": "RED_IMPACT",
             "destroyVfxPack": "RED_HIT",
             "overrider": {
-                "baseViewData": "SPERM_ENEMY"
+                "baseViewData": "RED-ROUND-ROBUTT"
             }
         }
     },

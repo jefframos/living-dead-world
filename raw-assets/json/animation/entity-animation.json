@@ -354,7 +354,7 @@
                     "x": 0.5,
                     "y": 0.9
                 },
-                "time": 0.15,
+                "time": 0.1,
                 "loop": true,
                 "addZero": true
             }

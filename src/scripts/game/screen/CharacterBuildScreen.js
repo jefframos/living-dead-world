@@ -844,12 +844,12 @@ export default class CharacterBuildScreen extends Screen {
 
         //LocalizationManager.instance.getLabel();
 
-        console.log(params)
+        //console.log(params)
 
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
-            console.log(params.levelEndStats.levelStruct.waves.difficulty)
+            //console.log(params.levelEndStats.levelStruct.waves.difficulty)
             setTimeout(() => {
                 if (CookieManager.instance.isFtue) {
                     PrizeManager.instance.getFtuePrize()
@@ -859,7 +859,7 @@ export default class CharacterBuildScreen extends Screen {
 
                     if (params && !params.fromQuit) {
 
-                        if(params.levelEndStats){
+                        if(params.levelEndStats && params.fromWin){
 
                             CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore)
                         }
