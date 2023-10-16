@@ -53,7 +53,7 @@ export default class Collectable extends GameObject {
     }
     setCollectableTexture() {
         let pickup = ''
-        if(this.xp >3){
+        if(this.xp >=3){
             pickup = '3'
         }else if(this.xp >=2){
             pickup = '2'

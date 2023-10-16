@@ -39,8 +39,8 @@ export default class PlayerSessionData {
             levelsXpDiff: 0
         }
         this.levelBreaks = [0];
-        for (var i = 0; i < 100; i++) {
-            this.levelBreaks.push(10 + (i * (10 + i)) + Math.round(i*0.2));
+        for (var i = 0; i < 1000; i++) {
+            this.levelBreaks.push(10 + (i * (10 + i)) + Math.round(i*0.25));
         }
     }
     get equipaments() {

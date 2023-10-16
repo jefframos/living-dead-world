@@ -455,7 +455,8 @@ export default class LevelManager {
             if (health.gameObject.attributes) {
                 added = Math.floor(health.gameObject.attributes.level / 3)
             }
-            collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier + added);
+            //collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier + added);
+            collectable.xp = Math.max(1, health.gameObject.staticData.entityData.tier);
 
             //////////MORE XP HERE console.log(collectable.xp)
             collectable.setCollectableTexture();
