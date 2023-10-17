@@ -34,12 +34,12 @@ export default class ShopContainer extends MainScreenModal {
         this.container.addChild(this.scroller)
 
 
-        this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, LocalizationManager.instance.getLabel(this.shopList[0].title), this.shopList[0].video)
+        this.chest1 = new ShopCard(this.chest1Click.bind(this), this.chest1VideoClick.bind(this), UIUtils.baseButtonTexture + '_0001', 250, 250, LocalizationManager.instance.getLabel(this.shopList[0].title),window.STAND_ALONE?false: this.shopList[0].video)
         this.chest1.updateButtonTitle(this.shopList[0].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[0].description))
         this.chest1.setIcon('item-chest-0001')
         this.chest1.setValue(this.getCurrency(this.shopList[0].currency), 'x' + this.shopList[0].price)
 
-        this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, LocalizationManager.instance.getLabel(this.shopList[1].title), this.shopList[1].video)
+        this.chest2 = new ShopCard(this.chest2Click.bind(this), this.chest2VideoClick.bind(this), UIUtils.baseButtonTexture + '_0003', 250, 250, LocalizationManager.instance.getLabel(this.shopList[1].title),window.STAND_ALONE?false: this.shopList[1].video)
         this.chest2.updateButtonTitle(this.shopList[1].totalItems + 'x\n' + LocalizationManager.instance.getLabel(this.shopList[1].description))
         this.chest2.setIcon('item-chest-0002')
         this.chest2.setValue(this.getCurrency(this.shopList[1].currency), 'x' + this.shopList[1].price)
@@ -90,14 +90,14 @@ export default class ShopContainer extends MainScreenModal {
 
 
         this.midDailyLine = new UIList();
-        this.shopButtonsContainer.addChild(this.midDailyLine)
+        if(!window.STAND_ALONE)this.shopButtonsContainer.addChild(this.midDailyLine)
 
         this.midDailyLine.addElement(this.dailyItem1);
         this.midDailyLine.addElement(this.dailyItem2);
         this.midDailyLine.addElement(this.dailyItem3);
 
         this.midDailyLine2 = new UIList();
-        this.shopButtonsContainer.addChild(this.midDailyLine2)
+        if(!window.STAND_ALONE)this.shopButtonsContainer.addChild(this.midDailyLine2)
 
         this.midDailyLine2.addElement(this.dailyItem4);
         this.midDailyLine2.addElement(this.dailyItem5);
@@ -474,6 +474,17 @@ export default class ShopContainer extends MainScreenModal {
         this.bottomLine.y = this.midDailyLine2.y + this.midDailyLine2.h + 10
 
 
+        if(window.STAND_ALONE){
+            this.bottomLine.x = this.midLine.x
+            this.bottomLine.y = this.midLine.y + this.midLine.h + 10 //+ this.newItemEveryday.h + 10
+
+            this.newItemEveryday.visible = false;
+            
+        }else{
+            this.bottomLine.x = this.midDailyLine2.x
+            this.bottomLine.y = this.midDailyLine2.y + this.midDailyLine2.h + 10
+            this.newItemEveryday.visible = true;
+        }
         this.titleBox.x = this.infoBackContainer.width / 2 - this.titleBox.width / 2
 
         this.topBlocker.width = Game.Borders.width

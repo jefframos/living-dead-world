@@ -244,6 +244,10 @@ export default class SurvivorDeckController extends GameObject {
         this.uiButtons.removeAllElements();
         this.pickAll.visible = pickAll < 0.2 || Game.Debug.debug
         this.reshuffle.visible = reshffleUses > 0 || Game.Debug.debug
+
+        if(window.STAND_ALONE){
+            this.pickAll.visible = false;
+        }
         if (this.pickAll.visible) {
             this.uiButtons.addElement(this.pickAll)
         }

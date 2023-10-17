@@ -60,7 +60,7 @@ export default class NoMoneycontainer extends MainScreenModal {
         this.videoButton.buttonListContent.h = 80
         this.videoButton.buttonListContent.updateHorizontalList()
         this.videoButton.buttonListContent.x = 180 / 2 - this.videoButton.buttonListContent.w / 2
-        this.buttons.addElement(this.videoButton);
+        if(!window.STAND_ALONE) this.buttons.addElement(this.videoButton);
 
 
         this.congratulationsLabel = UIUtils.getSpecialLabel1('Collect your prize!', { fontSize: 32 })
