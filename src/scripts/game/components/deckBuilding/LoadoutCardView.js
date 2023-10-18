@@ -2,10 +2,10 @@ import * as PIXI from 'pixi.js';
 
 import BaseButton from '../ui/BaseButton';
 import InteractableView from '../../view/card/InteractableView';
+import LevelStars from '../ui/loadout/LevelStars';
 import UIUtils from '../../utils/UIUtils';
 import Utils from '../../core/utils/Utils';
 import signals from 'signals';
-import LevelStars from '../ui/loadout/LevelStars';
 
 export default class LoadoutCardView extends PIXI.Container {
     constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
@@ -67,6 +67,7 @@ export default class LoadoutCardView extends PIXI.Container {
         this.onCardConfirmed = new signals.Signal();
         this.onStartDrag = new signals.Signal();
         this.onEndDrag = new signals.Signal();
+        this.onEquip = new signals.Signal();
         InteractableView.addMouseEnter(this.cardContainer, () => { this.mouseOver = true; })
         InteractableView.addMouseOut(this.cardContainer, () => { this.mouseOver = false; })
         InteractableView.addMouseClick(this.cardContainer, () => { this.onCardClicked.dispatch(this) })
@@ -109,7 +110,33 @@ export default class LoadoutCardView extends PIXI.Container {
         this.valueLabel.y = height - 10
 
     }
-    addWarning(){
+    addWaredrobeButton() {
+        this.equipButton = UIUtils.getPrimaryLabelButton(() => {
+            this.onEquip.dispatch()
+            TweenLite.killTweensOf(this.equipButton.scale)
+            this.equipButton.scale.set(1.2,0.8)
+            TweenLite.to(this.equipButton.scale, 0.5, {x:1, y:1, ease:Elastic.easeOut})
+        }, 'View')
+        this.equipButton.text.style.fontSize = 18
+        this.equipButton.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        this.equipButton.setActive()
+        this.equipButton.resize(this.baseWidth, 40)
+        this.equipButton.y = this.baseHeight + 5
+        this.cardContainer.addChild(this.equipButton)
+    }
+    addEquipButton() {
+        this.equipButton = UIUtils.getPrimaryLabelButton(() => {
+            this.onEquip.dispatch()
+            TweenLite.killTweensOf(this.equipButton.scale)
+            this.equipButton.scale.set(1.2,0.8)
+            TweenLite.to(this.equipButton.scale, 0.5, {x:1, y:1, ease:Elastic.easeOut})
+        }, 'Equip')
+        this.equipButton.text.style.fontSize = 18
+        this.equipButton.resize(this.baseWidth, 40)
+        this.equipButton.y = this.baseHeight + 5
+        this.cardContainer.addChild(this.equipButton)
+    }
+    addWarning() {
         this.warning = new PIXI.Sprite.from(UIUtils.getIconUIIcon('warning'));
         this.warning.scale.set(Utils.scaleToFit(this.warning, 30))
         this.warning.anchor.set(0.5)
@@ -186,9 +213,9 @@ export default class LoadoutCardView extends PIXI.Container {
         this.levelLabel.visible = true;
     }
     setIcon(texture, customIconSize) {
-        if (typeof texture === 'string'){
+        if (typeof texture === 'string') {
             this.cardImage.texture = PIXI.Texture.from(texture);
-        }else{
+        } else {
             this.cardImage.texture = PIXI.Texture.EMPTY;
             this.cardImage.addChild(texture)
         }

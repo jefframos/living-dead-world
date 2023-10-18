@@ -380,32 +380,34 @@ export default class CookieManager {
 	get items() {
 		return this.getChunck('items');
 	}
-	getLevelComplete(levelId){
+	getLevelComplete(levelId, difficulty = 0){
 		const data = this.getChunck('levelProgression')
 
 		let found = -1;
 		data.levelComplete.forEach(element => {
 			if (element.levelId == levelId) {
-				found = element.score
+				found = element.score[difficulty]
 			}
 		});
 		console.log("GET LEVEL HERE AND LOCK LEVELS")
 		return found;
 	}
-	saveLevelComplete(levelId, score) {
+	saveLevelComplete(levelId, score, difficulty) {
 		const data = this.getChunck('levelProgression')
 
 		let found = false;
 		data.levelComplete.forEach(element => {
 			if (element.levelId == levelId) {
 				found = true;
-				if (element.score < score) {
-					element.score = score;
+				if (element.score[difficulty] < score) {
+					element.score[difficulty] = score;
 				}
 			}
 		});
 		if (!found) {
-			data.levelComplete.push({levelId,score})
+			let scores = [-1,-1,-1,-1,-1]
+			scores[difficulty] = score
+			data.levelComplete.push({levelId,score:scores})
 		}
 		this.saveChunk('levelProgression', data)
 

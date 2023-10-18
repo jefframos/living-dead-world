@@ -1,10 +1,12 @@
 import AgentBlur from "./AgentBlur";
 import Clouds from "../components/Clouds";
 import Companion from "./Companion";
+import CookieManager from "../CookieManager";
 import EffectsManager from "../manager/EffectsManager";
 import EntityBuilder from "../screen/EntityBuilder";
 import EntityData from "../data/EntityData";
 import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
+import Game from "../../Game";
 import GameAgent from "./GameAgent";
 import GameData from "../data/GameData";
 import GameStaticData from "../data/GameStaticData";
@@ -25,8 +27,6 @@ import WeaponBuilder from "../screen/EntityBuilder";
 import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
 import config from "../../config";
 import signals from "signals";
-import Game from "../../Game";
-import CookieManager from "../CookieManager";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -116,7 +116,7 @@ export default class Player extends GameAgent {
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
         this.addChild(this.lifeBar)
 
-        this.lifeBar.build(40, 5, 2);
+        this.lifeBar.build(30, 5, 2);
         this.lifeBar.updateView({ x: 0, y: -75 }, 0xFF33E4, 0xFF0000);
 
 

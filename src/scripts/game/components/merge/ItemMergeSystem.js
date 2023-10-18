@@ -19,7 +19,7 @@ export default class ItemMergeSystem {
     constructor(container, slotSize = 100) {
         this.container = container;
         this.slotSize = slotSize;
-        
+
         this.tempMergeDraw = [];
 
         this.mergeContainer = new PIXI.Container();
@@ -45,9 +45,9 @@ export default class ItemMergeSystem {
 
         this.previews = [];
         const cardSize = 100
-        const margin = 20
-
-        for (let index = 0; index < 3; index++) {
+        const margin = 50
+        this.mergePieces = 2
+        for (let index = 0; index < this.mergePieces; index++) {
             const card = Pool.instance.getElement(MergeCardView)
 
             card.resize(cardSize, cardSize)
@@ -71,6 +71,17 @@ export default class ItemMergeSystem {
             card.x = (cardSize + margin) * index;
 
             this.previews.push(card);
+
+            let text = UIUtils.getPrimaryLabel('+', {fontSize : 40});
+
+            text.x = cardSize + 10
+            text.y = cardSize / 2
+            text.anchor.y = 0.5
+            card.addChild(text)
+            if(index <this.mergePieces - 1){
+            }else{
+                text.text = '='
+            }
         }
 
         this.previewMerge = Pool.instance.getElement(MergeCardView)
@@ -79,7 +90,7 @@ export default class ItemMergeSystem {
         this.previewMerge.resize(cardSize, cardSize)
         this.previewMerge.resetPivot()
 
-        this.previewMerge.x = (cardSize + margin) * 3 + 20;
+        this.previewMerge.x = (cardSize + margin) * this.mergePieces + 20;
 
         this.onUpgradeItem = new signals.Signal();
     }
@@ -107,9 +118,9 @@ export default class ItemMergeSystem {
         const types = [];
         for (const key in entityCount) {
             const element = entityCount[key];
-            if (element.total >= 3) {
-                const totalUpgrades = Math.floor(element.total / 3)
-                for (let index = 0; index < totalUpgrades; index ++) {
+            if (element.total >= this.mergePieces) {
+                const totalUpgrades = Math.floor(element.total / this.mergePieces)
+                for (let index = 0; index < totalUpgrades; index++) {
 
                     let data = { data: element.data, level: element.level + 1, toRemove: element.level }
                     allMergeData.push(data);
@@ -120,7 +131,7 @@ export default class ItemMergeSystem {
                     items.push(element.data)
 
 
-                    GameData.instance.removeFromInventory(dataType, { id: element.data.id, level: element.level }, 3)
+                    GameData.instance.removeFromInventory(dataType, { id: element.data.id, level: element.level }, this.mergePieces)
                 }
             }
         }
@@ -167,7 +178,7 @@ export default class ItemMergeSystem {
         this.tempMergeDraw = [];
         for (const key in mergeData) {
             const element = mergeData[key];
-            if (element.total >= 3) {
+            if (element.total >= this.mergePieces) {
 
                 for (let index = 0; index < element.total; index++) {
 
@@ -297,12 +308,12 @@ export default class ItemMergeSystem {
         //this.containerBackground.width = Game.Borders.width / 2 - 10
         //this.containerBackground.height = Game.Borders.height / 2 -50
         this.mergeContainer.x = - this.containerBackground.width / 2
-        this.mergeContainer.y = - this.containerBackground.height - 20
+        this.mergeContainer.y = - this.containerBackground.height - 10
 
         this.mergeSectionButton.x = -this.mergeSectionButton.width / 2;
-        this.mergeSectionButton.y = - this.containerBackground.height - this.mergeSectionButton.height - 40
+        this.mergeSectionButton.y = - this.containerBackground.height - this.mergeSectionButton.height - 20
 
-        this.container.scale.set(Math.min(1, Utils.scaleToFit(this.container, Game.Borders.width / 2)))
+        this.container.scale.set(Math.min(1, Utils.scaleToFit(this.container, Game.Borders.width / 2.4)))
         Utils.centerObject(this.cardsContainer, this.mergeContainer)
     }
 

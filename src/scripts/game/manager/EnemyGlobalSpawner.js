@@ -8,18 +8,22 @@ export default class EnemyGlobalSpawner {
     constructor(gameManager) {
         this.gameManager = gameManager;
         this.distanceToSpawn = 600;
+
+        this.difficultyAdd = [
+            -2, 0, 1, 2, 3
+        ]
     }
     spawnRandom() {
         this.spawnSingleEntity(GameStaticData.instance.getEntityByIndex('enemy', 0));
     }
-    spawnEnemy(spawnData) {
+    spawnEnemy(spawnData, difficulty) {
         spawnData.updateDistanceToSpawn(this.distanceToSpawn);
 
         const toSpawn = spawnData.entityToSpawn;
         let enemyData = GameStaticData.instance.getEntityById('enemy', Utils.findValueOrRandom(toSpawn.entity));
 
         spawnData.totalSpawned++;
-        let enemy = this.gameManager.addEntity(BaseEnemy, enemyData, {level:spawnData.level})
+        let enemy = this.gameManager.addEntity(BaseEnemy, enemyData, { level: Math.max(0, spawnData.level + this.difficultyAdd[difficulty]) })
         enemy.currentSpawnPool = spawnData;
         enemy.setPositionXZ(
             this.gameManager.player.transform.position.x + toSpawn.x

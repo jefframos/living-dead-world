@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import BaseButton from '../BaseButton';
 import CompanionData from '../../../data/CompanionData';
 import CookieManager from '../../../CookieManager';
+import DifficultyButton from './DifficultyButton';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import GameStaticData from '../../../data/GameStaticData';
@@ -27,7 +28,7 @@ export default class LocationButton extends PIXI.Container {
         this.addChild(this.containerBackground)
 
         this.enemiesContainer = new PIXI.Container();
-        this.addChild(this.enemiesContainer)
+        //this.addChild(this.enemiesContainer)
 
 
         this.shade = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
@@ -53,7 +54,7 @@ export default class LocationButton extends PIXI.Container {
         this.levelName.style.fontSize = 22
 
         this.levelTime = UIUtils.getPrimaryLabel("Name")
-        this.uiList.addElement(this.levelTime)
+        this.uiList.addElement(new PIXI.Container())
 
         this.levelNameDescription = UIUtils.getPrimaryLabel("")
         this.descriptionList.addElement(this.levelNameDescription)
@@ -69,11 +70,33 @@ export default class LocationButton extends PIXI.Container {
         this.dificultyDescription.style.fontSize = 18
 
 
-        this.bottomList.addElement(new PIXI.Container())
-        this.bottomList.addElement(new PIXI.Container())
+
+        this.easy = new DifficultyButton(1)
+        this.medium = new DifficultyButton(2)
+        this.hard = new DifficultyButton(3)
+        this.bottomList.addElement(this.easy)
+        this.bottomList.addElement(this.medium)
+        this.bottomList.addElement(this.hard)
+
+        this.levelsButton = [this.easy, this.medium, this.hard]
+
+        this.easy.onClick.add(() => {
+            this.onStageSelected.dispatch(this, 0);
+        })
+
+        this.medium.onClick.add(() => {
+            this.onStageSelected.dispatch(this, 1);
+        })
+
+
+        this.hard.onClick.add(() => {
+            this.onStageSelected.dispatch(this, 2);
+        })
+
 
         this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
-        this.bottomList.addElement(this.currentHighscore)
+        //this.bottomList.addElement(new PIXI.Container())
+        // this.bottomList.addElement(this.currentHighscore)
         this.currentHighscore.style.fontSize = 18
         this.currentHighscore.style.fill = 0x22ff00
 
@@ -82,7 +105,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.bottomList.x = this.margin;
 
-        this.uiList.x = this.margin;
+        this.uiList.x = 0//this.margin;
         this.uiList.y = this.margin;
 
         this.descriptionList.x = this.margin
@@ -91,22 +114,22 @@ export default class LocationButton extends PIXI.Container {
 
         this.starsSprites = [];
 
-        this.starsList = new UIList();
-        this.starsList.w = this.containerBackground.width - 20
-        this.starsList.h = 30
-        for (var i = 0; i < 5; i++) {
-            const star = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'));
-            this.starsList.addElement(star, { fitHeight: 0.8 })
-            this.starsSprites.push(star)
-            star.tint = 0;
-        }
-        this.starsList.updateHorizontalList();
+        // this.starsList = new UIList();
+        // this.starsList.w = this.containerBackground.width - 20
+        // this.starsList.h = 30
+        // for (var i = 0; i < 5; i++) {
+        //     const star = new PIXI.Sprite.from(UIUtils.getIconUIIcon('enemy-kill'));
+        //     this.starsList.addElement(star, { fitHeight: 0.8 })
+        //     this.starsSprites.push(star)
+        //     star.tint = 0;
+        // }
+        // this.starsList.updateHorizontalList();
 
-        this.uiList.addElement(this.starsList)
+        // this.uiList.addElement(this.starsList)
 
         this.onStageSelected = new signals.Signal();
         this.baseButton = new BaseButton('square_button_0008');
-        this.addChild(this.baseButton)
+        //this.addChild(this.baseButton)
         this.baseButton.alpha = 0;
         this.baseButton.onButtonClicked.add(() => {
             this.onStageSelected.dispatch(this);
@@ -144,9 +167,9 @@ export default class LocationButton extends PIXI.Container {
     }
     setData(data, isLock) {
         this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture, data.views.groundWidth, data.views.groundWidth)
-        this.levelName.text = data.views.levelName
+        this.levelName.text = data.views.levelName + '\n' + Utils.floatToTime(data.waves.lenght)
         this.fullData = data;
-        this.levelTime.text = Utils.floatToTime(data.waves.lenght)
+        //this.levelTime.text = Utils.floatToTime(data.waves.lenght)
         this.uiList.updateHorizontalList()
 
         const allEnemiesOnLevel = {};
@@ -203,7 +226,7 @@ export default class LocationButton extends PIXI.Container {
         for (let index = 0; index < this.enemiesContainer.children.length; index++) {
             const element = this.enemiesContainer.children[index];
             if (index > 0) {
-                element.x =  this.enemiesContainer.children[index-1].x + this.enemiesContainer.children[index-1].width*0.6 
+                element.x = this.enemiesContainer.children[index - 1].x + this.enemiesContainer.children[index - 1].width * 0.6
 
             } else {
                 element.x = 0
@@ -213,22 +236,27 @@ export default class LocationButton extends PIXI.Container {
 
         this.lockContainer.visible = isLock
 
-        for (let index = 0; index < data.waves.difficulty; index++) {
-            const element = this.starsSprites[index];
-            element.tint = 0xFFFFFF;
-        }
+        // for (let index = 0; index < data.waves.difficulty; index++) {
+        //     const element = this.starsSprites[index];
+        //     element.tint = 0xFFFFFF;
+        // }
 
     }
     updateData() {
-        const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id)
-        if (highScore > 0) {
-            this.currentHighscore.text = 'COMPLETED\nHighscore: ' + highScore
-            this.currentHighscore.visible = true;
-        } else {
-            this.currentHighscore.text = 'Highscore: -'
+        for (let index = 0; index < this.levelsButton.length; index++) {
+            const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id, index)
+            const element = this.levelsButton[index];
+            element.setStatus(highScore)
 
-            this.currentHighscore.visible = false;
         }
+        // if (highScore > 0) {
+        //     this.currentHighscore.text = 'COMPLETED\nHighscore: ' + highScore
+        //     this.currentHighscore.visible = true;
+        // } else {
+        //     this.currentHighscore.text = 'Highscore: -'
+
+        //     this.currentHighscore.visible = false;
+        // }
     }
     updateSize(width, height) {
 
@@ -263,16 +291,18 @@ export default class LocationButton extends PIXI.Container {
         this.baseButton.y = this.containerBackground.y
 
         this.uiList.w = this.containerBackground.width
-        this.uiList.h = this.containerBackground.height-20
+        this.uiList.h = this.containerBackground.height - 20
         this.uiList.updateHorizontalList()
 
         this.descriptionList.w = this.uiList.w
         this.descriptionList.h = this.uiList.h / 2
         this.descriptionList.updateHorizontalList()
+        this.descriptionList.visible = false;
 
-        this.bottomList.w = this.uiList.w
+        this.bottomList.w = this.uiList.w * 0.66
+        this.bottomList.x = this.uiList.w * 0.4
         this.bottomList.h = this.uiList.h / 2
-        this.bottomList.y = this.uiList.h / 2 + 25
+        this.bottomList.y = this.uiList.h / 2
         this.bottomList.updateHorizontalList()
 
 

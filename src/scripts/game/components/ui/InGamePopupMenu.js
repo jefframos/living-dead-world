@@ -24,7 +24,7 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.addChildAt(this.topBlocker, 0);
 
 
-        this.blocker.alpha = 0.5;
+        this.blocker.alpha = 0.25;
         this.blocker.tint = 0;
         //this.blocker.tint = 0x00ffbf;
         this.prizesContainer = new PIXI.Container();
@@ -33,7 +33,12 @@ export default class InGamePopupMenu extends MainScreenModal {
 
         this.blackout = UIUtils.getRect(0, 100, 100)
         this.blackout.alpha = 0.75
-        this.addChildAt(this.blackout, 0);
+        //this.addChildAt(this.blackout, 0);
+
+        this.backContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20,20,20,20)
+        this.container.addChild(this.backContainer);
+        this.backContainer.width = 400
+        this.backContainer.height = 560
 
         this.buttonList = new UIList();
         this.buttonList.w = 250
@@ -77,7 +82,8 @@ export default class InGamePopupMenu extends MainScreenModal {
 
         this.weaponAcessoriesLabel = new PIXI.Text('', window.LABELS.LABEL1)
         this.addChild(this.weaponAcessoriesLabel)
-        this.weaponAcessoriesLabel.style.fontSize = 14
+        this.weaponAcessoriesLabel.scale.set(0.7)
+        this.weaponAcessoriesLabel.style.fontSize = 24
         this.weaponAcessoriesLabel.style.align = 'center'
         this.weaponAcessoriesLabel.anchor.set(0.5)
 
@@ -120,13 +126,13 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.topBlocker.y = this.topBlocker.height
 
 
-        this.buttonList.x = -this.buttonList.w / 2
-        this.buttonList.y = -this.buttonList.h / 2 + 200
+        this.buttonList.x = -this.buttonList.w / 2 - this.buttonList.width / 2 + this.backContainer.width / 2
+        this.buttonList.y = this.backContainer.height - 200
 
         this.weaponAcessoriesLabel.x = Game.Borders.width / 2
-        this.weaponAcessoriesLabel.y = Game.Borders.height / 2 - 120
+        this.weaponAcessoriesLabel.y = Game.Borders.height / 2 - 110
 
-        this.recenterContainer();
+        //this.recenterContainer();
     }
 
     update(delta) {

@@ -34,7 +34,7 @@
                 "structure": {
                     "layerName": "grass",
                     "constructor": "StaticViewObject",
-                    "list": ["grass-grass"],
+                    "list": ["grass-patches0001","grass-patches0003","grass-patches0004"],
                     "weight": 0.2,
                     "noise": 250,
                     "density": 5,

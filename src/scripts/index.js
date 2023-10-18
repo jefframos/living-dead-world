@@ -99,7 +99,7 @@ function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
-window.STAND_ALONE = true
+window.STAND_ALONE = false
 
 if (!window.isMobile) {
     config.width = config.desktopRes.width

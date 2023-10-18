@@ -48,7 +48,7 @@
                         "length": 250,
                         "radius": 450,
                         "total": 5000,
-                        "maxActive": 10,
+                        "maxActive": 5,
                         "entity": "ROBUTT",
                         "levels": [
                             0

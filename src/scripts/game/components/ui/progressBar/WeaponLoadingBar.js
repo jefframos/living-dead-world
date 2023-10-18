@@ -1,12 +1,16 @@
 import BaseFillBar from "./BaseFillBar";
 import CircleCounter from "../../../ui/hudElements/CircleCounter";
 import LocalizationManager from "../../../LocalizationManager";
+import RenderModule from "../../../core/modules/RenderModule";
 import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
 
 export default class WeaponLoadingBar extends BaseFillBar {
     constructor() {
         super();
+
+        this.gameView.layer = RenderModule.UILayerOverlay
+
 
         this.size = 14
         this.circleCounter = new CircleCounter(this.size,40)
@@ -41,7 +45,7 @@ export default class WeaponLoadingBar extends BaseFillBar {
         this.infoLabel.style.strokeThickness = 1
         this.infoLabel.style.dropShadowDistance=1
         this.infoLabel.style.wordWrap=150
-        this.infoLabel.y = -20
+        this.infoLabel.y = 60
         this.infoLabel.x = 0
         this.infoLabel.alpha = 0;
         this.timerContainer.addChild(this.infoLabel);
@@ -65,6 +69,14 @@ export default class WeaponLoadingBar extends BaseFillBar {
 
         if(!this.weapon) return
         this.normal = this.weapon.shootNormal;
+
+         
+        this.gameView.view.x = 35
+        this.gameView.view.y = 240
+        this.gameView.view.scale.set(1.25)
+        
+        this.timerContainer.x = 0
+        this.timerContainer.y = 0
 
         this.circleCounter.update(this.weapon.shootNormal)
     }

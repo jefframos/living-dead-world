@@ -59,11 +59,11 @@ export default class PlayerInventoryHud extends GameObject {
         this.baseBarView.build(0)
         this.baseBarView.forceUpdateNormal(0);
 
-        this.text = new PIXI.Text('Level 1', window.LABELS.LABEL1)
-        this.gameView.view.addChild(this.text)
-        this.text.style.fontSize = 24
-        this.text.x = 50
-        this.text.y = 15
+        this.textLevel = new PIXI.Text('Level 1', window.LABELS.LABEL1)
+        this.gameView.view.addChild(this.textLevel)
+        this.textLevel.style.fontSize = 18
+        this.textLevel.x = 50
+        this.textLevel.y = 15
 
 
         this.uiButtonsList = new UIList();
@@ -80,9 +80,9 @@ export default class PlayerInventoryHud extends GameObject {
 
         })
 
-        this.uiButtonsList.addElement(this.pauseButton, { align:0, fitWidth: 0.7 })
+        this.uiButtonsList.addElement(this.pauseButton, { align: 0, fitWidth: 0.7 })
 
-        this.uiButtonsList.addElement(this.audioButton, { align:0, fitWidth: 0.8 })
+        this.uiButtonsList.addElement(this.audioButton, { align: 0, fitWidth: 0.8 })
 
         this.uiButtonsList.updateVerticalList();
 
@@ -355,7 +355,7 @@ export default class PlayerInventoryHud extends GameObject {
     }
     registerPlayer(player) {
         this.player = player;
-        this.text.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + 1;
+        this.textLevel.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + 1;
         this.player.onUpdateEquipment.add(this.updatePlayerEquip.bind(this));
         this.player.sessionData.xpUpdated.add(this.updateXp.bind(this))
         this.player.sessionData.addXp(0)
@@ -378,7 +378,7 @@ export default class PlayerInventoryHud extends GameObject {
         if (xpData.normalUntilNext < 1) {
             this.baseBarView.forceUpdateNormal(xpData.normalUntilNext);
         }
-        this.text.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + (xpData.currentLevel + 1);//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
+        this.textLevel.text = LocalizationManager.instance.getLabel('LEVEL_LABEL') + ' ' + (xpData.currentLevel + 1);//+ "     " + (xpData.xp - xpData.currentLevelXP) + "/" + xpData.levelsXpDiff;
     }
     updatePlayerHealth() {
         this.updatePlayerAttributes();
@@ -502,6 +502,10 @@ export default class PlayerInventoryHud extends GameObject {
         this.coins.text = LevelManager.instance.matchStats.coins
         this.gamePoints.text = LevelManager.instance.matchStats.points
 
+        this.kills.visible = false
+        this.coins.visible = false
+        this.gamePoints.visible = false
+
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
 
@@ -537,13 +541,14 @@ export default class PlayerInventoryHud extends GameObject {
             this.baseBarView.scale.y = 0.7
         }
 
-        this.text.x = Game.Borders.width - this.text.width - 10
-        this.text.y = 45
+        this.textLevel.x = Game.Borders.width - this.textLevel.width - 10
+        this.textLevel.y = 12
 
-        this.uiButtonsList.x = Game.Borders.width - 70
-        this.uiButtonsList.y = 80
+        this.uiButtonsList.x = Game.Borders.width - 60
+        this.uiButtonsList.y = 60
         this.baseBarView.update(delta)
         this.playerHud.update(delta)
+        this.uiButtonsList.scale.set(0.7)
         if (this.player) {
 
 
@@ -583,6 +588,7 @@ export default class PlayerInventoryHud extends GameObject {
     }
     resize(res, newRes) {
         this.playerHud.resize(res, newRes);
+        this.attributesView.visible = false;
         if (Game.IsPortrait) {
             this.ftuePrompt.y = Game.Borders.height - this.ftuePrompt.height - 100
             this.attributesView.setSize((Game.Borders.bottomRight.x / this.attributesView.scale.x) - 10, 40)

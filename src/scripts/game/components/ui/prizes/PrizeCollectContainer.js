@@ -1,14 +1,18 @@
 import * as PIXI from 'pixi.js';
 
+import AcessoryData from '../../../data/AcessoryData';
+import CharacterCustomizationContainer from '../customization/CharacterCustomizationContainer';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
+import GameData from '../../../data/GameData';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
+import LocalizationManager from '../../../LocalizationManager';
 import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
 import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
-import CharacterCustomizationContainer from '../customization/CharacterCustomizationContainer';
-import LocalizationManager from '../../../LocalizationManager';
+import WeaponData from '../../../data/WeaponData';
+import signals from 'signals';
 
 export default class PrizeCollectContainer extends MainScreenModal {
     constructor() {
@@ -66,6 +70,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.infoBackContainer.addChild(this.congratulationsLabel)
 
+        this.onLoadoutRedirect = new signals.Signal()
+        this.onClothesRedirect = new signals.Signal()
+
 
     }
     addBackgroundShape() {
@@ -86,7 +93,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         if (this.infoBackContainer) {
 
             this.infoBackContainer.width = 550
-            this.infoBackContainer.height = 500
+            this.infoBackContainer.height = 580
         }
         this.contentContainer.x = 0
         this.contentContainer.y = 0
@@ -103,7 +110,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.topBlocker.y = this.topBlocker.height
 
         this.collectButton.x = this.infoBackContainer.width / 2 - this.collectButton.width / 2;
-        this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2;
+        this.collectButton.y = this.infoBackContainer.height - this.collectButton.height / 2 + 80;
 
         this.prizeBox.width = this.infoBackContainer.width - 20
         this.prizeBox.height = 330
@@ -111,7 +118,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
         this.prizeBox.y = this.infoBackContainer.height - this.prizeBox.height - 10
 
         this.congratulationsLabel.x = this.infoBackContainer.width / 2
-        this.congratulationsLabel.y = this.infoBackContainer.height / 2 - 100
+        this.congratulationsLabel.y = this.infoBackContainer.height / 2 - 150
 
         this.shine.x = this.infoBackContainer.width / 2
         this.shine.y = this.congratulationsLabel.y
@@ -182,6 +189,11 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize.setData(element.entityData, element.value.level, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
+                prize.addEquipButton()
+                prize.onEquip.add(() => {
+                    // console.log('equip', element.entityData)
+                    this.equip(element.entityData, element.value.level)
+                });
 
             } else {
                 let texShape = UIUtils.baseButtonTexture + '_0006'
@@ -193,6 +205,11 @@ export default class PrizeCollectContainer extends MainScreenModal {
                 prize.setIcon(element.texture, 70)
                 prize.resetPivot()
                 prize.hideLevelLabel()
+                prize.addWaredrobeButton()
+                prize.onEquip.add(() => {
+                    this.onClothesRedirect.dispatch();
+                    this.hide()
+                });
 
                 if (typeof element.value == 'number') {
 
@@ -207,7 +224,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
             }
 
             prize.x = (this.slotSize + 10) * col
-            prize.y = (this.slotSize + 10) * ln
+            prize.y = (this.slotSize + 60) * ln
 
             if (col > 0 && col >= 4) {
                 col = 0
@@ -234,6 +251,31 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
             TweenLite.to(this.collectButton, 0.5, { alpha: 1, ease: Back.easeOut })
         }, speed * 500 + 250);
+
+    }
+    equip(data, level) {
+        setTimeout(() => {
+            this.hide()
+            this.onLoadoutRedirect.dispatch();
+        }, 300);
+        if (data instanceof AcessoryData) {
+            if (data.bodyPart == 'trinket') {
+                GameData.instance.changeTrinket(data.id, data.level);
+                return
+
+            } else {
+                GameData.instance.changeShoe(data.id, data.level);
+                return
+
+            }
+        }
+
+        if (data instanceof WeaponData) {
+
+            GameData.instance.changeMainWeapon(data.id, level);
+            return
+        }
+        GameData.instance.changeCompanion(data.id, level);
     }
     update(delta) {
         if (!this.isOpen) {

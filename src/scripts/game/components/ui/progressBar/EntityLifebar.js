@@ -1,12 +1,15 @@
 import BaseFillBar from "./BaseFillBar";
 import CircleCounter from "../../../ui/hudElements/CircleCounter";
 import LocalizationManager from "../../../LocalizationManager";
+import RenderModule from "../../../core/modules/RenderModule";
 import UIUtils from "../../../utils/UIUtils";
 import Utils from "../../../core/utils/Utils";
 
 export default class EntityLifebar extends BaseFillBar {
     constructor() {
         super();
+
+
         this.size = 14
         this.circleCounter = new CircleCounter(this.size, 40)
 
@@ -27,7 +30,8 @@ export default class EntityLifebar extends BaseFillBar {
         this.timerContainer.addChild(this.iconContainer);
         this.timerContainer.addChild(this.mainIcon);
         this.timerContainer.y = -100
-        this.timerContainer.x = -30
+        this.timerContainer.x = 0//-30
+        this.timerContainer.scale.set(0.9)
 
         this.bar.visible = false;
 
@@ -65,7 +69,7 @@ export default class EntityLifebar extends BaseFillBar {
     update(delta, unscaled) {
         super.update(delta, unscaled);
         this.normal = this.health.normal;
-
+       
         this.circleCounter.maskedShape.tint = this.bar.fillBar.tint
         this.circleCounter.update(1 - this.health.normal)
     }

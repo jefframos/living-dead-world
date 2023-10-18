@@ -122,8 +122,8 @@ export default class CharacterBuildScreen extends Screen {
         this.rouletteContainer = new RouletteContainer()
         this.addModal(this.rouletteContainer)
 
-        this.locationContainer.onRedirectToGame.add((level) => {
-            this.levelRedirector(level);
+        this.locationContainer.onRedirectToGame.add((level, difficulty) => {
+            this.levelRedirector(level, difficulty);
             this.locationContainer.hide()
 
         })
@@ -157,6 +157,13 @@ export default class CharacterBuildScreen extends Screen {
 
         this.prizeCollect = new PrizeCollectContainer()
         this.addPopUp(this.prizeCollect)
+
+        this.prizeCollect.onClothesRedirect.add(() => {
+            this.openModal(this.charCustomizationContainer)
+        })
+        this.prizeCollect.onLoadoutRedirect.add(() => {
+            this.openModal(this.loadoutContainer)
+        })
 
 
         this.noMoneyContainer = new NoMoneycontainer()
@@ -313,6 +320,8 @@ export default class CharacterBuildScreen extends Screen {
 
         if (!modalOpen) {
             console.log("THIS?")
+            this.loadoutButton.addIcon(GameData.instance.currentEquippedWeaponData.entityData.icon, 80)
+
             //this.closeCustomization();
             //this.unSelectPlayer();
         }
@@ -451,11 +460,10 @@ export default class CharacterBuildScreen extends Screen {
         this.bottomMenuRight.addChild(this.playGameButton)
         this.playGameButton.buttonSound = 'Pop-Musical'
     }
-    levelRedirector(level) {
+    levelRedirector(level, diff) {
         //return
-        console.log('llllllllllllllllll', level.id)
         RewardsManager.instance.doComercial(() => {
-            this.screenManager.redirectToGame({ level: level.id });
+            this.screenManager.redirectToGame({ level: level.id, difficulty: diff });
         }, {}, false)
 
     }
@@ -846,6 +854,8 @@ export default class CharacterBuildScreen extends Screen {
 
         //console.log(params)
 
+
+
         this.updateLoadoutNewItems();
         SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
@@ -856,26 +866,17 @@ export default class CharacterBuildScreen extends Screen {
                     CookieManager.instance.ftueDone();
                 } else {
 
-
+console.log(params)
                     if (params && !params.fromQuit) {
 
-                        if(params.levelEndStats && params.fromWin){
+                        if (params.levelEndStats && params.fromWin) {
 
-                            CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore)
+                            CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore, params.levelEndStats.levelStruct.difficulty)
                         }
                         PrizeManager.instance.getEndOfLevelPrizes(params.levelEndStats.levelStruct.waves.difficulty, params.fromWin)
-                        // if (params.fromWin) {
-                        //     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
-                        // } else {
-                        //     PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
-                        // }
+                 
                     }
 
-                    // if (params && params.fromWin) {
-                    //     PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 5)
-                    // } else {
-                    //     PrizeManager.instance.getMetaPrize([0, 2, 3], 1, 2)
-                    // }
                 }
                 this.unSelectPlayer();
             }, 100);
@@ -883,6 +884,15 @@ export default class CharacterBuildScreen extends Screen {
         }
         setTimeout(() => {
             super.transitionIn();
+            if (Game.Debug.test) {
+                setTimeout(() => {
+                    this.unSelectPlayer();
+
+                    PrizeManager.instance.getMetaPrize([0, 1, 2, 3, 6], 1, 8)
+                }, 10);
+            }
+
+
         }, MainScreenManager.Transition.timeIn);
     }
 }

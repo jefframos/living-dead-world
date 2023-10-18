@@ -164,7 +164,8 @@ export default class LevelManager {
         this.currentLevelStruct = GameStaticData.instance.getLevels(wavesData.level)
         this.currentLevelWaves = this.currentLevelStruct.waves.waves;
         this.currentLevelData = this.currentLevelStruct.waves;
-
+        this.currentDifficulty = wavesData.difficulty;
+        this.currentLevelStruct.difficulty = this.currentDifficulty;
         //console.log('this.currentLevelData',levelData,this.currentLevelStruct)
 
         this.timeLimit = this.currentLevelData.lenght;
@@ -332,7 +333,7 @@ export default class LevelManager {
             return
         }
         if (Math.random() > 0.7)
-            this.enemyGlobalSpawner.spawnEnemy(spawnData)
+            this.enemyGlobalSpawner.spawnEnemy(spawnData, this.currentDifficulty)
     }
     collectAllPickups() {
         this.collectables.forEach(element => {

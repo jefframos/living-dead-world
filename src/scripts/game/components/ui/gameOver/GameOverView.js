@@ -58,6 +58,26 @@ export default class GameOverView extends GameObject {
         this.sizeShape.width = 600;
         this.sizeShape.height = 500;
 
+        this.confettis = [];
+        this.confettiContainer = new PIXI.ParticleContainer();
+        this.contentContainer.addChild(this.confettiContainer);
+
+        for (let index = 0; index < 120; index++) {
+            const element = new PIXI.Sprite.from('tile');
+            element.width = 10
+            element.height = 20
+            element.anchor.set(0.5)
+            element.rotSpeed = Math.random() * 0.3
+            element.rotation = Math.random() * Math.PI * 2
+            element.scaleSpeed = Math.random() * 0.3
+            element.tint = UIUtils.colorset.rarity[Math.floor(Math.random() * UIUtils.colorset.rarity.length)]
+            const ang = Math.random() * Math.PI * 2
+            const dist = Math.random() * 1200;
+            element.x = Math.cos(ang) * dist
+            element.y = Math.sin(ang) * dist
+            this.confettiContainer.addChild(element)
+        }
+
 
         this.prizeBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
         this.infoBackContainer.addChild(this.prizeBox);

@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import AttributesContainer from './AttributesContainer';
 import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
+import CookieManager from '../../../CookieManager';
 import EntityAttributes from '../../../data/EntityAttributes';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
@@ -10,6 +11,7 @@ import GameStaticData from '../../../data/GameStaticData';
 import ItemMergeSystem from '../../merge/ItemMergeSystem';
 import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
 import LoadoutStatsView from './LoadoutStatsView';
+import LocalizationManager from '../../../LocalizationManager';
 import MainScreenModal from '../MainScreenModal';
 import MergeCardView from '../../merge/MergeCardView';
 import UIList from '../../../ui/uiElements/UIList';
@@ -17,8 +19,6 @@ import UIUtils from '../../../utils/UIUtils';
 import Utils from '../../../core/utils/Utils';
 import WeaponLevelContainer from './WeaponLevelContainer';
 import signals from 'signals';
-import CookieManager from '../../../CookieManager';
-import LocalizationManager from '../../../LocalizationManager';
 
 export default class LoadoutContainer extends MainScreenModal {
     static Sections = {
@@ -38,7 +38,8 @@ export default class LoadoutContainer extends MainScreenModal {
         this.contentContainer.addChild(this.attributesView)
 
 
-        this.mergeSectionButton = UIUtils.getPrimaryLabelTabButton(() => {
+        // this.mergeSectionButton = UIUtils.getPrimaryLabelTabButton(() => {
+        this.mergeSectionButton = UIUtils.getPrimaryLabelButton(() => {
             if (!this.findMerge()) {
                 this.infoUpgradeLabel.alpha = 1
                 TweenLite.killTweensOf(this.infoUpgradeLabel)
@@ -54,8 +55,11 @@ export default class LoadoutContainer extends MainScreenModal {
             }
         }, LocalizationManager.instance.getLabel('UPGRADE_LABEL'))
 
-        this.infoUpgradeLabel = UIUtils.getTertiaryLabel( LocalizationManager.instance.getLabel('UPGRADE_INFO'))
+        this.infoUpgradeLabel = UIUtils.getTertiaryLabel(LocalizationManager.instance.getLabel('UPGRADE_INFO'))
         this.mergeSectionButton.addChild(this.infoUpgradeLabel)
+        this.mergeSectionButton.text.scale.set(0.8)
+        this.mergeSectionButton.text.scale.set(Utils.scaleToFit(this.mergeSectionButton.text, 100))
+
         this.infoUpgradeLabel.style.fontSize = 16
         this.infoUpgradeLabel.x = 168
         this.infoUpgradeLabel.alpha = 0;
@@ -65,18 +69,21 @@ export default class LoadoutContainer extends MainScreenModal {
         this.warningIcon.anchor.set(0.5)
         this.warningIcon.x = 0
         this.mergeSectionButton.addChild(this.warningIcon)
+        this.mergeSectionButton.resize(140, 60)
         this.mergeSectionButton.warningIcon = this.warningIcon;
-        this.mergeSectionButton.setActiveTexture(UIUtils.baseTabTexture + '_0003')
+        this.mergeSectionButton.setActiveTexture(UIUtils.baseButtonTexture + '_0003')
 
-        this.autoMergeAll = UIUtils.getPrimaryLabelTabButton(() => {
+        this.autoMergeAll = UIUtils.getPrimaryLabelButton(() => {
             this.mergeSystem.findAllMerges(this.currentSlots);
         }, LocalizationManager.instance.getLabel('AUTO_UPGRADE'))
+        this.autoMergeAll.text.scale.set(Utils.scaleToFit(this.autoMergeAll.text, 140))
         this.autoMergeAll.setActiveTexture(UIUtils.baseTabTexture + '_0003')
         this.autoMergeAll.setActive()
         this.contentContainer.addChild(this.autoMergeAll)
-        this.autoMergeAll.text.style.wordWrap = 100
+        this.autoMergeAll.text.style.wordWrap = 120
         this.autoMergeAll.scale.x = -1;
-        this.autoMergeAll.text.scale.x = -1;
+        this.autoMergeAll.text.scale.x *= -1;
+        this.autoMergeAll.resize(140, 60)
 
         this.autoMergeAll.visible = false;
 
@@ -225,6 +232,7 @@ export default class LoadoutContainer extends MainScreenModal {
         let canMerge = this.findMerge()
     }
     findMerge(show = true) {
+        const totalMerge = 2
         const entityCount = {}
         this.currentSlots.forEach(element => {
             if (element.cardData && element.level < 5) {
@@ -244,7 +252,7 @@ export default class LoadoutContainer extends MainScreenModal {
         var canMerge = false;
         for (const key in entityCount) {
             const element = entityCount[key];
-            if (element.total >= 3) {
+            if (element.total >= totalMerge) {
                 canMerge = true;
                 break;
             }
@@ -300,13 +308,14 @@ export default class LoadoutContainer extends MainScreenModal {
                 break;
         }
 
+        this.autoMergeAll.updateBackTexture(UIUtils.baseButtonTexture + '_0005')
         if (!this.findMerge(false)) {
             this.mergeSectionButton.text.alpha = 0.65;
-            this.mergeSectionButton.updateBackTexture(UIUtils.baseTabTexture + '_0002')
+            this.mergeSectionButton.updateBackTexture(UIUtils.baseButtonTexture + '_0006')
             this.mergeSectionButton.warningIcon.visible = false;
         } else {
             this.mergeSectionButton.text.alpha = 1;
-            this.mergeSectionButton.updateBackTexture(UIUtils.baseTabTexture + '_0003')
+            this.mergeSectionButton.updateBackTexture(UIUtils.baseButtonTexture + '_0005')
             this.mergeSectionButton.warningIcon.visible = true;
         }
 
@@ -664,12 +673,12 @@ export default class LoadoutContainer extends MainScreenModal {
         //this.slotsListInGame.scale.set(Utils.scaleToFit(this.slotsListInGame, Game.Borders.height / 2 - 150))
         this.slotsList.x = this.weaponsScroller.rect.w + this.weaponsScroller.x - this.slotsList.w * this.slotsList.scale.x
         this.slotsList.y = Game.Borders.height / 2 - this.slotsList.h * this.slotsList.scale.y
-        this.mergeSectionButton.x = this.weaponsScroller.x
+        this.mergeSectionButton.x = this.weaponsScroller.x + 10
 
 
-        this.mergeSectionButton.y = this.weaponsScroller.y - this.autoMergeAll.height + 13
+        this.mergeSectionButton.y = this.weaponsScroller.y - 65//+ 13
         this.autoMergeAll.x = this.weaponsScroller.x + this.weaponsScroller.rect.w
-        this.autoMergeAll.y = this.weaponsScroller.y - this.autoMergeAll.height + 10
+        this.autoMergeAll.y = this.mergeSectionButton.y
 
 
         //this.mergeContainer.scale.set(Math.max(1, this.slotsList.scale.y))

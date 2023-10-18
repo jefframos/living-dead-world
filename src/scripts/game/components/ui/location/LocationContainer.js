@@ -33,8 +33,8 @@ export default class LocationContainer extends MainScreenModal {
             if(index >= 0){
                 this.mapList.addElement(element)
             }
-            element.onStageSelected.add(()=>{
-                this.onRedirectToGame.dispatch(this.levelDataList[index])
+            element.onStageSelected.add((element, level)=>{
+                this.onRedirectToGame.dispatch(this.levelDataList[index], level)
             })
             this.levelDataList.push({ view: element, id: index })
 

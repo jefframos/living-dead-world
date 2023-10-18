@@ -113,7 +113,7 @@
                         "height": 400,
                         "radius": 350,
                         "total": 1000,
-                        "maxActive": 40,
+                        "maxActive": 15,
                         "entity": "ZOMBIE_KAREN",
                         "levels": [
                             0
