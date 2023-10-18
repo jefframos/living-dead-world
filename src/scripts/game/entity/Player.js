@@ -110,7 +110,7 @@ export default class Player extends GameAgent {
         this.sensor.build(250)
         this.sensor.onTrigger.add(this.onSensorTrigger.bind(this))
         this.addChild(this.sensor)
-        this.buildCircle(0, 0, 15);
+        this.buildCircle(0, 0, 10);
 
 
         this.lifeBar = this.engine.poolGameObject(EntityLifebar)
@@ -462,7 +462,7 @@ export default class Player extends GameAgent {
             if (element.timer <= 0 && this.invencibleTimer <= 0) {
                 //console.log('=>=',this.attributes.rawHealth , element.entity.attributes.power2)
                 let dead = this.damage(Math.round(this.attributes.rawHealth * element.entity.attributes.power2));
-                this.invencibleTimer = 0.1;
+                this.invencibleTimer = 0.3;
                 if (dead) {
                     return
                 }

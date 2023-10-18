@@ -30,6 +30,12 @@ export default class Utils {
     static scaleToFit(element, size) {
         return Math.min(size / element.width * element.scale.x, size / element.height * element.scale.y)
     }
+    static scaleToFitIfMax(element, size) {
+        if(element.width * element.scale.x < size &&  element.height * element.scale.y < size){
+            return element.scale.x
+        }
+        return Math.min(size / element.width * element.scale.x, size / element.height * element.scale.y)
+    }
     static angleLerp(a0, a1, t) {
         return a0 + Utils.shortAngleDist(a0, a1) * t;
     }
@@ -119,6 +125,15 @@ export default class Utils {
     static centerObject(target, parent) {
         target.x = parent.width / 2 - target.width * 0.5;
         target.y = parent.height / 2 - target.height * 0.5;
+    }
+    static floatToTimeSeconds(value) {
+        if (value <= 0) {
+            return "00"
+        }
+        let hours = Math.floor(value / 60);
+        let minutes = value % 60;
+
+        return (hours < 10 ? "0" + hours : hours) + ":" + (minutes < 10 ? "0" + minutes : minutes);
     }
     static floatToTime(value) {
         if (value <= 0) {

@@ -20,12 +20,12 @@ const assets = [
 	"url":"assets/json\\localization_ES.json"
 	},
 	{
-	"id":"localization_IT",
-	"url":"assets/json\\localization_IT.json"
-	},
-	{
 	"id":"localization_FR",
 	"url":"assets/json\\localization_FR.json"
+	},
+	{
+	"id":"localization_IT",
+	"url":"assets/json\\localization_IT.json"
 	},
 	{
 	"id":"localization_JA",
@@ -116,6 +116,18 @@ const assets = [
 	"url":"assets/json\\enemy-waves\\wavesBkp.json"
 	},
 	{
+	"id":"companions",
+	"url":"assets/json\\entity\\companions.json"
+	},
+	{
+	"id":"enemies",
+	"url":"assets/json\\entity\\enemies.json"
+	},
+	{
+	"id":"player",
+	"url":"assets/json\\entity\\player.json"
+	},
+	{
 	"id":"level-1",
 	"url":"assets/json\\environment\\level-1.json"
 	},
@@ -134,6 +146,22 @@ const assets = [
 	{
 	"id":"level-tutorial",
 	"url":"assets/json\\environment\\level-tutorial.json"
+	},
+	{
+	"id":"acessories",
+	"url":"assets/json\\misc\\acessories.json"
+	},
+	{
+	"id":"attachments",
+	"url":"assets/json\\misc\\attachments.json"
+	},
+	{
+	"id":"attribute-modifiers",
+	"url":"assets/json\\misc\\attribute-modifiers.json"
+	},
+	{
+	"id":"buff-debuff",
+	"url":"assets/json\\misc\\buff-debuff.json"
 	},
 	{
 	"id":"general-vfx",
@@ -156,22 +184,6 @@ const assets = [
 	"url":"assets/json\\vfx\\weapon-vfx.json"
 	},
 	{
-	"id":"acessories",
-	"url":"assets/json\\misc\\acessories.json"
-	},
-	{
-	"id":"attachments",
-	"url":"assets/json\\misc\\attachments.json"
-	},
-	{
-	"id":"attribute-modifiers",
-	"url":"assets/json\\misc\\attribute-modifiers.json"
-	},
-	{
-	"id":"buff-debuff",
-	"url":"assets/json\\misc\\buff-debuff.json"
-	},
-	{
 	"id":"main-weapons",
 	"url":"assets/json\\weapons\\main-weapons.json"
 	},
@@ -182,18 +194,6 @@ const assets = [
 	{
 	"id":"weapon-view-overriders",
 	"url":"assets/json\\weapons\\weapon-view-overriders.json"
-	},
-	{
-	"id":"companions",
-	"url":"assets/json\\entity\\companions.json"
-	},
-	{
-	"id":"enemies",
-	"url":"assets/json\\entity\\enemies.json"
-	},
-	{
-	"id":"player",
-	"url":"assets/json\\entity\\player.json"
 	}
 ];
 

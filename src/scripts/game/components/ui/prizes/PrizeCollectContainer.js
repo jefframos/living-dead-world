@@ -2,6 +2,7 @@ import * as PIXI from 'pixi.js';
 
 import AcessoryData from '../../../data/AcessoryData';
 import CharacterCustomizationContainer from '../customization/CharacterCustomizationContainer';
+import ConfettiContainer from '../ConfettiContainer';
 import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import GameData from '../../../data/GameData';
@@ -23,6 +24,8 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
 
 
+        this.confetti = new ConfettiContainer()
+        this.addChildAt(this.confetti,0);
         this.topBlocker = new PIXI.Sprite.from('base-gradient');
         //this.topBlocker = new PIXI.Sprite.from('square_button_0001');
         //this.topBlocker.tint = 0x851F88;
@@ -33,6 +36,7 @@ export default class PrizeCollectContainer extends MainScreenModal {
 
         this.blocker.alpha = 1;
         this.blocker.tint = 0;
+
         //this.blocker.tint = 0x00ffbf;
         this.prizesContainer = new PIXI.Container();
         this.container.addChild(this.prizesContainer);
@@ -282,7 +286,9 @@ export default class PrizeCollectContainer extends MainScreenModal {
             return;
         }
         super.update(delta)
-
+        this.confetti.update(delta);
+        this.confetti.x = Game.Borders.width / 2
+        this.confetti.y = 0
         this.prizesContainer.x = Utils.lerp(this.prizesContainer.x, this.infoBackContainer.width / 2 - this.prizesContainer.width / 2, 0.2);
         this.prizesContainer.y = Utils.lerp(this.prizesContainer.y, this.prizeBox.y + this.prizeBox.height / 2 - this.prizesContainer.height / 2, 0.9);
 

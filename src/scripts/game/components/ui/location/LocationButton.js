@@ -74,11 +74,13 @@ export default class LocationButton extends PIXI.Container {
         this.easy = new DifficultyButton(1)
         this.medium = new DifficultyButton(2)
         this.hard = new DifficultyButton(3)
+        this.master = new DifficultyButton(4)
         this.bottomList.addElement(this.easy)
         this.bottomList.addElement(this.medium)
         this.bottomList.addElement(this.hard)
+        this.bottomList.addElement(this.master)
 
-        this.levelsButton = [this.easy, this.medium, this.hard]
+        this.levelsButton = [this.easy, this.medium, this.hard, this.master]
 
         this.easy.onClick.add(() => {
             this.onStageSelected.dispatch(this, 0);
@@ -92,7 +94,9 @@ export default class LocationButton extends PIXI.Container {
         this.hard.onClick.add(() => {
             this.onStageSelected.dispatch(this, 2);
         })
-
+        this.master.onClick.add(() => {
+            this.onStageSelected.dispatch(this, 3);
+        })
 
         this.currentHighscore = UIUtils.getPrimaryLabel("Highscore: 0")
         //this.bottomList.addElement(new PIXI.Container())
@@ -243,10 +247,21 @@ export default class LocationButton extends PIXI.Container {
 
     }
     updateData() {
+        let unlocked = 0
         for (let index = 0; index < this.levelsButton.length; index++) {
             const highScore = CookieManager.instance.getLevelComplete(this.fullData.views.id, index)
             const element = this.levelsButton[index];
             element.setStatus(highScore)
+            if(highScore >= 0){
+                unlocked ++
+            }
+            element.unlock();
+        }
+        
+        if(unlocked >= 3){
+            this.levelsButton[3].unlock();
+        }else{
+            this.levelsButton[3].lock();
 
         }
         // if (highScore > 0) {

@@ -1,5 +1,6 @@
 import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
 import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
+import ConfettiContainer from "../ConfettiContainer";
 import EntityBuilder from "../../../screen/EntityBuilder";
 import Game from "../../../../Game";
 import GameData from "../../../data/GameData";
@@ -46,6 +47,9 @@ export default class GameOverView extends GameObject {
         this.backShape.tint = 0
         this.backShape.alpha = 0.8
 
+
+        this.confetti = new ConfettiContainer();
+        this.container.addChild(this.confetti);
         this.contentContainer = new PIXI.Container();
         this.container.addChild(this.contentContainer);
 
@@ -58,25 +62,7 @@ export default class GameOverView extends GameObject {
         this.sizeShape.width = 600;
         this.sizeShape.height = 500;
 
-        this.confettis = [];
-        this.confettiContainer = new PIXI.ParticleContainer();
-        this.contentContainer.addChild(this.confettiContainer);
 
-        for (let index = 0; index < 120; index++) {
-            const element = new PIXI.Sprite.from('tile');
-            element.width = 10
-            element.height = 20
-            element.anchor.set(0.5)
-            element.rotSpeed = Math.random() * 0.3
-            element.rotation = Math.random() * Math.PI * 2
-            element.scaleSpeed = Math.random() * 0.3
-            element.tint = UIUtils.colorset.rarity[Math.floor(Math.random() * UIUtils.colorset.rarity.length)]
-            const ang = Math.random() * Math.PI * 2
-            const dist = Math.random() * 1200;
-            element.x = Math.cos(ang) * dist
-            element.y = Math.sin(ang) * dist
-            this.confettiContainer.addChild(element)
-        }
 
 
         this.prizeBox = new PIXI.Container()//new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0006'), 20, 20, 20, 20);
@@ -226,7 +212,7 @@ export default class GameOverView extends GameObject {
         this.uiEndStatsList = new UIList();
         this.uiEndStatsList.h = 300;
         this.uiEndStatsList.w = 10;
-        this.uiEndStatsList.x = this.infoBackContainer.width/2;
+        this.uiEndStatsList.x = this.infoBackContainer.width / 2;
         this.enemyCountBox.addChild(this.uiEndStatsList)
 
 
@@ -237,46 +223,46 @@ export default class GameOverView extends GameObject {
         //this.uiEndStatsList.addElement(deathIcon,,{align:0} { fitHeight: 0.8, align: 1 })
 
         this.enemyCounnt = UIUtils.getSecondaryLabel('32659', { fontSize: 32 })
-        
+
         this.enemyCounnt.addChild(deathIcon)
 
         const coinIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('softCurrency'))
         coinIcon.scale.set(Utils.scaleToFit(coinIcon, sizeIcons))
         coinIcon.anchor.set(1.1, 0)
         //this.uiEndStatsList.addElement(coinIcon,,{align:0} { fitHeight: 0.8, align: 1 })
-        
+
         this.coinsCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        
+
         this.coinsCount.addChild(coinIcon)
-        
-        
+
+
         const hardIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('hardCurrency'))
         hardIcon.scale.set(Utils.scaleToFit(hardIcon, sizeIcons))
         hardIcon.anchor.set(1.1, 0)
         //this.uiEndStatsList.addElement(hardIcon,,{align:0} { fitHeight: 0.8, align: 1 })
-        
+
         this.hardCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        
+
         this.hardCount.addChild(hardIcon)
-        
+
         const specialIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('highscore'))
         specialIcon.scale.set(Utils.scaleToFit(specialIcon, sizeIcons))
         specialIcon.anchor.set(1.1, 0)
         //this.uiEndStatsList.addElement(specialIcon,,{align:0} { fitHeight: 0.8, align: 1 })
-        
+
         this.specialCount = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
         this.specialCount.addChild(specialIcon)
-        
+
         const timeIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('ingame-timer'))
         timeIcon.scale.set(Utils.scaleToFit(timeIcon, sizeIcons))
         timeIcon.anchor.set(1.1, 0)
         this.finalTimeLabel = UIUtils.getSecondaryLabel('0', { fontSize: 32 })
-        
-        this.uiEndStatsList.addElement(this.finalTimeLabel,{align:0})
-        this.uiEndStatsList.addElement(this.hardCount,{align:0})
-        this.uiEndStatsList.addElement(this.specialCount,{align:0})
-        this.uiEndStatsList.addElement(this.enemyCounnt,{align:0})
-        this.uiEndStatsList.addElement(this.coinsCount,{align:0})
+
+        this.uiEndStatsList.addElement(this.finalTimeLabel, { align: 0 })
+        this.uiEndStatsList.addElement(this.hardCount, { align: 0 })
+        this.uiEndStatsList.addElement(this.specialCount, { align: 0 })
+        this.uiEndStatsList.addElement(this.enemyCounnt, { align: 0 })
+        this.uiEndStatsList.addElement(this.coinsCount, { align: 0 })
         this.finalTimeLabel.addChild(timeIcon)
 
 
@@ -367,14 +353,69 @@ export default class GameOverView extends GameObject {
             this.reviveButton.visible = false;
 
             this.collectButton.visible = true;
+
+            this.confetti.visible = true;
+
+            this.victoryLabel.scale.set(0.5, 1.5)
+            TweenLite.to(this.victoryLabel.scale, 0.75, { x: 1, y: 1, ease: Elastic.easeOut })
+
+            this.congratulationsLabel.scale.set(0, 1.5)
+            TweenLite.to(this.congratulationsLabel.scale, 0.75, {delay:0.5, x: 1, y: 1, ease: Elastic.easeOut })
+
             this.collectButton.interactive = false;
             TweenLite.killTweensOf(this.collectButton)
             this.collectButton.alpha = 0;
-            TweenLite.to(this.collectButton, 0.5, {
-                delay: 0.5, alpha: 1, onStart: () => {
+            TweenLite.to(this.collectButton, 0.25, {
+                delay: 2.5, alpha: 1, onStart: () => {
                     this.collectButton.interactive = true;
                 }
             })
+
+
+            TweenLite.to(this.finalTimeLabel, 0.5, {
+                delay: 0.5, alpha: 1
+            })
+
+            let pointsList = [
+                {
+                    label: this.hardCount,
+                    currentValue: 0,
+                    targetLabel: hardCurrency
+                },
+                {
+                    label: this.specialCount,
+                    currentValue: 0,
+                    targetLabel: this.endGameData.points
+                },
+                {
+                    label: this.enemyCounnt,
+                    currentValue: 0,
+                    targetLabel: this.endGameData.enemiesKilled
+                },
+                {
+                    label: this.coinsCount,
+                    currentValue: 0,
+                    targetLabel: this.endGameData.coins
+                }
+
+            ]
+            for (let index = 0; index < pointsList.length; index++) {
+                const element = pointsList[index];
+                element.label.alpha = 0;
+                element.label.text = 0;
+                TweenLite.to(element.label, 0.2, { alpha: 1, delay: index * 0.5 + 0.5 })
+                TweenLite.to(element, 0.5, {
+                    delay: index * 0.5 + 0.5, currentValue: element.targetLabel, onUpdate: () => {
+                        element.label.text = Math.ceil(element.currentValue);
+                    }
+                })
+
+            }
+            this.enemyCounnt.text = this.endGameData.enemiesKilled
+            this.finalTimeLabel.text = Utils.floatToTime(Math.floor(Math.max(0, this.endGameData.time)));
+            this.coinsCount.text = this.endGameData.coins;
+            this.specialCount.text = this.endGameData.points
+
 
             this.hardCount.text = hardCurrency * 2
 
@@ -382,6 +423,8 @@ export default class GameOverView extends GameObject {
             GameData.instance.addSpecialCurrency(this.endGameData.special)
 
         } else {
+            this.confetti.visible = false;
+
             this.hardCount.text = hardCurrency
             if (!hasGameOverToken) {
                 this.showGameOverPrizes(0)
@@ -456,6 +499,9 @@ export default class GameOverView extends GameObject {
 
         }
 
+        this.confetti.update(unscaledDelta);
+        this.confetti.x = Game.Borders.width / 2
+        this.confetti.y = 0
         this.contentContainer.x = Game.Borders.width / 2 - this.contentContainer.width / 2
         this.contentContainer.y = Utils.lerp(this.contentContainer.y, Game.Borders.height / 2 - this.contentContainer.height / 2 + 20, 0.5);
         this.infoBackContainer.y = 50

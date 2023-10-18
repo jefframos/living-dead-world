@@ -20,25 +20,37 @@ export default class DifficultyButton extends PIXI.Container {
 
         } else if (difficulty == 2) {
             tex = UIUtils.baseButtonTexture + '_0002'
-            label = 'Medium'
+            label = 'Standard'
 
-        } else {
+        } else if (difficulty == 3) {
             tex = UIUtils.baseButtonTexture + '_0004'
             label = 'Hard'
 
+        } else {
+            tex = UIUtils.baseButtonTexture + '_0005'
+            label = 'Expert'
+
         }
-        this.button = new BaseButton(tex, 130, 120)
+        let w = 95
+        this.button = new BaseButton(tex, w, 120)
         this.addChild(this.button)
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(tex), 20, 20, 20, 20);
-        this.containerBackground.width = 130
+        this.containerBackground.width = w
         this.containerBackground.height = 120
-        //this.addChild(this.containerBackground)
+
+
+        this.locker = new PIXI.NineSlicePlane(PIXI.Texture.from(UIUtils.baseButtonTexture + '_0007'), 20, 20, 20, 20);
+        this.locker.width = w
+        this.locker.height = 120
+        this.addChild(this.locker)
 
         this.description = UIUtils.getPrimaryLabel(label)
-        this.description.scale.set(0.75)
+        this.description.scale.set(Utils.scaleToFitIfMax(this.description, 120))
+        this.description.style.fontSize = 18
         this.description.anchor.x = 0.5
+        this.description.anchor.y = 0.5
         this.description.x = 0.5 * this.containerBackground.width
-        this.description.y = 10
+        this.description.y = 30
         this.addChild(this.description)
 
         this.badge = new PIXI.Sprite.from('achievmentl')
@@ -47,13 +59,33 @@ export default class DifficultyButton extends PIXI.Container {
         this.badge.anchor.set(0.5)
         this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
 
-        this.badge.x = this.containerBackground.width - 30
-        this.badge.y = this.containerBackground.height - 35
+        this.badge.x = this.containerBackground.width / 2
+        this.badge.y = this.containerBackground.height / 2 + 10
 
         this.onClick = new signals.Signal();
         this.button.onButtonClicked.add(() => {
+            //alert(this.isLock)
+            if(this.isLock){
+                return;
+            }
             this.onClick.dispatch();
         })
+    }
+    lock() {
+        this.isLock = true;
+        this.locker.visible = true;
+
+        this.badge.texture = new PIXI.Texture.from('results_lock')
+
+        this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
+    }
+    unlock(){
+        this.isLock = false;
+        this.locker.visible = false;
+
+        this.badge.texture = new PIXI.Texture.from('achievmentl')
+
+        this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
     }
     setStatus(status) {
         //console.log(status)

@@ -873,7 +873,7 @@ console.log(params)
 
                             CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore, params.levelEndStats.levelStruct.difficulty)
                         }
-                        PrizeManager.instance.getEndOfLevelPrizes(params.levelEndStats.levelStruct.waves.difficulty, params.fromWin)
+                        PrizeManager.instance.getEndOfLevelPrizes(params.levelEndStats.levelStruct.waves.difficulty, params.fromWin, params.levelEndStats.levelStruct.difficulty)
                  
                     }
 

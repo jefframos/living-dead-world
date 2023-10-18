@@ -94,32 +94,32 @@ export default class PrizeManager {
             {
                 types:[0,2,3],
                 level:1,
-                total:3
+                total:1
             },
             {
                 types:[0,1,2,3],
                 level:1,
-                total:3
+                total:1
             },
             {
                 types:[0,1,2,3],
                 level:2,
-                total:3
+                total:1
             },
             {
                 types:[0,1,2,3],
                 level:2,
-                total:5
+                total:2
             },
             {
                 types:[0,1,2,3],
                 level:3,
-                total:5
+                total:2
             },
             {
                 types:[0,1,2,3],
                 level:3,
-                total:7
+                total:2
             }
         ]
     }
@@ -129,12 +129,12 @@ export default class PrizeManager {
     get cassinoPrizeList() {
         return this.cassinoList;
     }
-    getEndOfLevelPrizes(diff, fromWin){
+    getEndOfLevelPrizes(diff, fromWin, extraDifficult = 0){
 
         const prizePool = this.endLevelPrizePool[Math.min(diff, this.endLevelPrizePool.length - 1)]
         
         if(fromWin){
-            this.getMetaPrize(prizePool.types, prizePool.level, prizePool.total)
+            this.getMetaPrize(prizePool.types, prizePool.level, prizePool.total + extraDifficult)
         }else{
             this.getMetaPrize([0, 2, 3], 1, 2)
 
@@ -156,8 +156,7 @@ export default class PrizeManager {
     // }
     getFtuePrize() {
         let itemPrizeList = []
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,1))
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,1))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,0))
         itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0,0))
         const types = [];
         itemPrizeList.forEach(element => {
