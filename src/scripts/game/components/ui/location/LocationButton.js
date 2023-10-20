@@ -21,9 +21,7 @@ export default class LocationButton extends PIXI.Container {
         super();
         this.margin = 20
 
-        this.containerBackground = new PIXI.TilingSprite(PIXI.Texture.from('floor_5'), 256, 256);
-        this.containerBackground.width = 170
-        this.containerBackground.height = 200
+        this.containerBackground = new PIXI.Sprite.from('floor_5')
 
         //this.addChild(this.containerBackground)
 
@@ -35,7 +33,7 @@ export default class LocationButton extends PIXI.Container {
         this.shade.width = 20
         this.shade.height = 20
         this.shade.tint = 0
-        this.shade.alpha = 0.5
+        this.shade.alpha = 0.75
         this.addChild(this.shade)
 
 
@@ -47,13 +45,41 @@ export default class LocationButton extends PIXI.Container {
 
         this.bottomList = new UIList();
         this.addChild(this.bottomList)
+        
+        this.levelNameContainer = new PIXI.Container();
+        this.addChild(this.levelNameContainer)
 
         this.levelName = UIUtils.getPrimaryLabel("Name")
-        this.uiList.addElement(this.levelName)
-        this.levelName.style.wordWrap = 120
-        this.levelName.style.fontSize = 22
+        this.uiList.addElement(this.levelNameContainer)
+        this.levelName.anchor.set(0.5)
+        
+        
+        this.nameBorder = new PIXI.Sprite.from('back-maskk')
+        this.levelNameContainer.addChild(this.nameBorder)
+        this.nameBorder.x = -4
+        this.nameBorder.y = -4
+        
+        this.nameMask = new PIXI.Sprite.from('maskk')
+        this.levelNameContainer.addChild(this.nameMask)
+        this.levelNameContainer.x = 20
+        this.levelNameContainer.y = 20
+        this.levelNameContainer.addChild(this.containerBackground)
+        this.levelNameContainer.addChild(this.levelName)
+        this.containerBackground.mask = this.nameMask
 
+        this.levelName.style.wordWrap = 340
+        this.levelName.style.fontSize = 32
+
+        this.levelNameContainer.scale.set(Utils.scaleToFit(this.levelNameContainer, 200))
         this.levelTime = UIUtils.getPrimaryLabel("Name")
+        this.levelNameContainer.addChild(this.levelTime)
+        this.levelTime.anchor.set(0.5)
+        this.levelTime.style.fontSize = 48
+
+        this.timeIcon = new PIXI.Sprite.from(UIUtils.getIconUIIcon('ingame-timer'))
+        this.timeIcon.anchor.set(1.2, 0.5)
+        this.levelTime.addChild(this.timeIcon)
+        this.timeIcon.x = -80
         this.uiList.addElement(new PIXI.Container())
 
         this.levelNameDescription = UIUtils.getPrimaryLabel("")
@@ -68,7 +94,6 @@ export default class LocationButton extends PIXI.Container {
         this.dificultyDescription = UIUtils.getPrimaryLabel("Difficulty")
         this.descriptionList.addElement(this.dificultyDescription)
         this.dificultyDescription.style.fontSize = 18
-
 
 
         this.easy = new DifficultyButton(1)
@@ -170,8 +195,18 @@ export default class LocationButton extends PIXI.Container {
         //this.addChild(this.border)
     }
     setData(data, isLock) {
-        this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture, data.views.groundWidth, data.views.groundWidth)
-        this.levelName.text = data.views.levelName + '\n' + Utils.floatToTime(data.waves.lenght)
+        this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture)
+
+        this.containerBackground.scale.set(Utils.scaleToFit(this.containerBackground, 400))
+        this.levelName.text = data.views.levelName
+        this.levelTime.text = Utils.floatToTime(data.waves.lenght)
+        this.levelName.x = this.nameMask.width / 2
+        this.levelName.y = this.nameMask.height / 2
+
+        this.levelTime.x = this.nameMask.width / 2
+        this.levelTime.y = this.nameMask.height + this.levelTime.height / 2 + 20
+
+
         this.fullData = data;
         //this.levelTime.text = Utils.floatToTime(data.waves.lenght)
         this.uiList.updateHorizontalList()
@@ -291,22 +326,29 @@ export default class LocationButton extends PIXI.Container {
         this.shade.y = height / 2 - this.shade.height / 2;
 
         this.baseButton.resize(width - this.margin * 2, height - this.margin * 2)
-        this.containerBackground.width = width - this.margin * 2 - this.margin
-        this.containerBackground.height = height - this.margin * 2
 
-        this.containerBackground.x = this.margin * 2
-        this.containerBackground.y = this.margin
+        let w = width - this.margin * 2 - this.margin
+        let h = height - this.margin * 2
 
-        this.border.x = this.containerBackground.x
+        let x = this.margin * 2
+        let y = this.margin
+
+        // this.containerBackground.width = width - this.margin * 2 - this.margin
+        // this.containerBackground.height = height - this.margin * 2
+
+        // this.containerBackground.x = this.margin * 2
+        // this.containerBackground.y = this.margin
+
+        this.border.x = x
         this.border.y = this.containerBackground.y
-        this.border.width = this.containerBackground.width
-        this.border.height = this.containerBackground.height
+        this.border.width = w
+        this.border.height = height
 
-        this.baseButton.x = this.containerBackground.x
+        this.baseButton.x = x
         this.baseButton.y = this.containerBackground.y
 
-        this.uiList.w = this.containerBackground.width
-        this.uiList.h = this.containerBackground.height - 20
+        this.uiList.w = w
+        this.uiList.h = height - 20
         this.uiList.updateHorizontalList()
 
         this.descriptionList.w = this.uiList.w
@@ -316,8 +358,8 @@ export default class LocationButton extends PIXI.Container {
 
         this.bottomList.w = this.uiList.w * 0.66
         this.bottomList.x = this.uiList.w * 0.4
-        this.bottomList.h = this.uiList.h / 2
-        this.bottomList.y = this.uiList.h / 2
+        this.bottomList.h = this.uiList.h / 2 - 10
+        this.bottomList.y = this.uiList.h / 2 - 30
         this.bottomList.updateHorizontalList()
 
 
@@ -326,7 +368,7 @@ export default class LocationButton extends PIXI.Container {
 
         this.lockIcon.x = this.lockSprite.width / 2
         this.lockIcon.y = this.lockSprite.height / 2
-        this.lockContainer.x = this.containerBackground.x
+        this.lockContainer.x = x
         this.lockContainer.y = this.containerBackground.y
 
 

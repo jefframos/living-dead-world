@@ -27,10 +27,11 @@ export default class LocationContainer extends MainScreenModal {
         this.mapList.w = 500
         this.mapList.h = 800
 
+        this.levelSkip = 1
         this.levelDataList = [];
         for (let index = 0; index < GameStaticData.instance.totalLevels; index++) {
             const element = new LocationButton();
-            if(index >= 0){
+            if(index >= this.levelSkip){
                 this.mapList.addElement(element)
             }
             element.onStageSelected.add((element, level)=>{

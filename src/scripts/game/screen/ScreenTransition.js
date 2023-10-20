@@ -34,7 +34,7 @@ export default class ScreenTransition extends PIXI.Container {
             stripe.y = stripe.pivot.y;
             stripe.x = this.baseRect.width / this.totalStripes * i;
             stripe.interactive = true;
-            stripe.tint = 0x272822
+            stripe.tint = 0x151513
             this.strips.push(stripe);
             this.container.addChild(stripe)
         }

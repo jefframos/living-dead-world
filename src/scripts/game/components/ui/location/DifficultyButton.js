@@ -12,23 +12,35 @@ export default class DifficultyButton extends PIXI.Container {
 
         let tex = 'floor_5'
         let label = ''
-
+        let icon = 'play-level-icon-easy'
+        this.medal = 'medals0001'
+        this.medalBack = 'back-medal'
+        
         if (difficulty == 1) {
-
+            
             tex = UIUtils.baseButtonTexture + '_0001'
+            icon = 'play-level-icon-easy'
             label = 'Easy'
-
+            this.medal = 'medals0001'
+            
         } else if (difficulty == 2) {
             tex = UIUtils.baseButtonTexture + '_0002'
+            icon = 'play-level-icon-normal'
             label = 'Standard'
-
+            this.medal = 'medals0002'
+            
         } else if (difficulty == 3) {
             tex = UIUtils.baseButtonTexture + '_0004'
+            icon = 'play-level-icon-hard'
             label = 'Hard'
-
+            this.medal = 'medals0003'
+            
         } else {
             tex = UIUtils.baseButtonTexture + '_0005'
+            icon = 'play-level-icon-master'
             label = 'Expert'
+            this.medal = 'master-crown'
+            this.medalBack = 'crown-shadow'
 
         }
         let w = 95
@@ -46,7 +58,7 @@ export default class DifficultyButton extends PIXI.Container {
         //this.addChild(this.locker)
 
        
-        this.levelIcon = new PIXI.Sprite.from('play-level-icon')
+        this.levelIcon = new PIXI.Sprite.from(icon)
         this.addChild(this.levelIcon)
 
         this.levelIcon.anchor.set(0.5)
@@ -55,7 +67,7 @@ export default class DifficultyButton extends PIXI.Container {
         this.levelIcon.x = this.containerBackground.width / 2
         this.levelIcon.y = this.containerBackground.height / 2
 
-        this.badge = new PIXI.Sprite.from('achievmentl')
+        this.badge = new PIXI.Sprite.from(this.medal)
         this.addChild(this.badge)
 
         this.badge.anchor.set(0.5)
@@ -82,12 +94,14 @@ export default class DifficultyButton extends PIXI.Container {
             }
             this.onClick.dispatch();
         })
+
+        this.finished = false
     }
     lock() {
         this.isLock = true;
         this.locker.visible = true;
 
-        this.badge.texture = new PIXI.Texture.from('results_lock')
+        this.badge.texture = new PIXI.Texture.from('locker')
 
         this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
     }
@@ -95,19 +109,27 @@ export default class DifficultyButton extends PIXI.Container {
         this.isLock = false;
         this.locker.visible = false;
 
-        this.badge.texture = new PIXI.Texture.from('achievmentl')
-
+        this.badge.texture = new PIXI.Texture.from(this.finished ? this.medal : this.medalBack)
+        
         this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
+
+        console.log('unlock', this.finished)
+
     }
     setStatus(status) {
-        //console.log(status)
         if (status >= 0) {
-            this.badge.tint = 0xFFFFFF
-            this.badge.alpha = 1
+            this.badge.texture = new PIXI.Texture.from(this.medal)
+            // this.badge.tint = 0xFFFFFF
+            // this.badge.alpha = 1
+            this.finished = true
         } else {
-            this.badge.tint = 0
-            this.badge.alpha = 0.7
+            this.badge.texture = new PIXI.Texture.from(this.medalBack) 
+            this.finished = false
+            //this.badge.tint = 0
+            //this.badge.alpha = 0.7
 
         }
+
+        console.log('finish', this.finished)
     }
 }

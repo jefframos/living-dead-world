@@ -92,32 +92,32 @@ export default class PrizeManager {
         this.mainPrizePoolNoWearable = [0, 1, 2, 3, 4]
         this.endLevelPrizePool =[
             {
-                types:[0,2,3],
+                types:[0,2,3,6],
                 level:1,
                 total:1
             },
             {
-                types:[0,1,2,3],
+                types:[0,1,2,3,6],
                 level:1,
                 total:1
             },
             {
-                types:[0,1,2,3],
+                types:[0,1,2,3,6],
                 level:2,
                 total:1
             },
             {
-                types:[0,1,2,3],
+                types:[0,1,2,3,6],
                 level:2,
                 total:2
             },
             {
-                types:[0,1,2,3],
+                types:[0,1,2,3,6],
                 level:3,
                 total:2
             },
             {
-                types:[0,1,2,3],
+                types:[0,1,2,3,6],
                 level:3,
                 total:2
             }
@@ -132,7 +132,9 @@ export default class PrizeManager {
     getEndOfLevelPrizes(diff, fromWin, extraDifficult = 0){
 
         const prizePool = this.endLevelPrizePool[Math.min(diff, this.endLevelPrizePool.length - 1)]
-        
+        if(extraDifficult >= 2){
+            extraDifficult ++
+        }
         if(fromWin){
             this.getMetaPrize(prizePool.types, prizePool.level, prizePool.total + extraDifficult)
         }else{
