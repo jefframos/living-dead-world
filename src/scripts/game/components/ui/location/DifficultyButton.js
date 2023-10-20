@@ -44,9 +44,9 @@ export default class DifficultyButton extends PIXI.Container {
 
         }
         let w = 95
-        this.button = new BaseButton(tex, w, 120)
+        this.button = new BaseButton(tex, w, 130)
         this.addChild(this.button)
-        this.button.alpha = 0
+        this.button.alpha = 1
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(tex), 20, 20, 20, 20);
         this.containerBackground.width = w
         this.containerBackground.height = 120
@@ -113,7 +113,6 @@ export default class DifficultyButton extends PIXI.Container {
         
         this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
 
-        console.log('unlock', this.finished)
 
     }
     setStatus(status) {
@@ -129,7 +128,5 @@ export default class DifficultyButton extends PIXI.Container {
             //this.badge.alpha = 0.7
 
         }
-
-        console.log('finish', this.finished)
     }
 }

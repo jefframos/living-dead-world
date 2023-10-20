@@ -104,6 +104,8 @@ export default class LocationContainer extends MainScreenModal {
         this.resize()
         super.show();
 
+        this.scroller.resetPosition()
+
         for (let index = 0; index < this.levelDataList.length; index++) {
             const element = this.levelDataList[index].view;
             element.updateData()

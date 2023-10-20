@@ -55,6 +55,7 @@ export default class LocationButton extends PIXI.Container {
         
         
         this.nameBorder = new PIXI.Sprite.from('back-maskk')
+        this.nameBorder.alpha = 0
         this.levelNameContainer.addChild(this.nameBorder)
         this.nameBorder.x = -4
         this.nameBorder.y = -4
