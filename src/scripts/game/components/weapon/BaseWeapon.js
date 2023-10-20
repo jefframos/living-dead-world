@@ -5,6 +5,7 @@ import EffectsManager from "../../manager/EffectsManager";
 import EntityAttributes from "../../data/EntityAttributes";
 import EntityMultipliers from "../../data/EntityMultipliers";
 import EntityViewData from "../../data/EntityViewData";
+import Game from "../../../Game";
 import GameManager from "../../manager/LevelManager";
 import GameView from "../../core/view/GameView";
 import Layer from "../../core/Layer";
@@ -17,7 +18,6 @@ import Vector3 from "../../core/gameObject/Vector3";
 import WeaponAttributes from "../../data/WeaponAttributes";
 import WeaponData from "../../data/WeaponData";
 import WeaponInGameView from "./WeaponInGameView";
-import Game from "../../../Game";
 
 export default class BaseWeapon extends PhysicsEntity {
     constructor() {
@@ -163,7 +163,7 @@ export default class BaseWeapon extends PhysicsEntity {
         this.resetBrust();
 
 
-        this.currentShootTimer = this.shootFrequency * 0.5;
+        this.currentShootTimer = 0.1//this.shootFrequency * 0.5;
         this.realShootTimer = this.currentShootTimer;
         this.buildCircle(0, 0, this.weaponData.weaponAttributes.detectionZone)
         //this.setDebug(this.weaponData.weaponAttributes.detectionZone)

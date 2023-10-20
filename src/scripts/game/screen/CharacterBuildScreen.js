@@ -159,9 +159,22 @@ export default class CharacterBuildScreen extends Screen {
         this.addPopUp(this.prizeCollect)
 
         this.prizeCollect.onClothesRedirect.add(() => {
+
+            this.modalList.forEach(element => {
+                if (element.isOpen&& element != this.charCustomizationContainer) {
+                    element.hide();
+                }
+            });
+
             this.openModal(this.charCustomizationContainer)
         })
         this.prizeCollect.onLoadoutRedirect.add(() => {
+            this.modalList.forEach(element => {
+                if (element.isOpen && element != this.loadoutContainer) {
+                    element.hide();
+                }
+            });
+
             this.openModal(this.loadoutContainer)
         })
 
@@ -866,7 +879,7 @@ export default class CharacterBuildScreen extends Screen {
                     CookieManager.instance.ftueDone();
                 } else {
 
-console.log(params)
+                    //console.log(params)
                     if (params && !params.fromQuit) {
 
                         if (params.levelEndStats && params.fromWin) {
@@ -874,7 +887,7 @@ console.log(params)
                             CookieManager.instance.saveLevelComplete(params.levelEndStats.levelStruct.views.id, params.levelEndStats.levelStruct.finalScore, params.levelEndStats.levelStruct.difficulty)
                         }
                         PrizeManager.instance.getEndOfLevelPrizes(params.levelEndStats.levelStruct.waves.difficulty, params.fromWin, params.levelEndStats.levelStruct.difficulty)
-                 
+
                     }
 
                 }

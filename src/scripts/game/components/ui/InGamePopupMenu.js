@@ -35,7 +35,7 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.blackout.alpha = 0.75
         //this.addChildAt(this.blackout, 0);
 
-        this.backContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0008'), 20,20,20,20)
+        this.backContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('StatBack'), 20,20,20,20)
         this.container.addChild(this.backContainer);
         this.backContainer.width = 400
         this.backContainer.height = 560

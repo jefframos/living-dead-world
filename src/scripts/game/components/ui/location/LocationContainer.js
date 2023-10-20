@@ -53,6 +53,7 @@ export default class LocationContainer extends MainScreenModal {
     addBackgroundShape() {
         this.modalTexture = 'modal_container0002';
         super.addBackgroundShape();
+        this.infoBackContainer.alpha = 0
 
     }
     resize(res, newRes) {

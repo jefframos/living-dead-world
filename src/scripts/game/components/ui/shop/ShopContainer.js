@@ -1,20 +1,20 @@
 import * as PIXI from 'pixi.js';
 
+import EntityBuilder from '../../../screen/EntityBuilder';
 import Game from '../../../../Game';
 import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
+import ListScroller from '../../../ui/uiElements/ListScroller';
+import LocalizationManager from '../../../LocalizationManager';
 import MainScreenModal from '../MainScreenModal';
 import PrizeManager from '../../../data/PrizeManager';
+import RandomGenerator from '../../../core/utils/RandomGenerator';
 import RewardsManager from '../../../data/RewardsManager';
 import ShopCard from './ShopCard';
+import TimedAction from '../../../data/TimedAction';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
 import ViewDatabase from '../../../data/ViewDatabase';
-import TimedAction from '../../../data/TimedAction';
-import ListScroller from '../../../ui/uiElements/ListScroller';
-import EntityBuilder from '../../../screen/EntityBuilder';
-import RandomGenerator from '../../../core/utils/RandomGenerator';
-import LocalizationManager from '../../../LocalizationManager';
 
 export default class ShopContainer extends MainScreenModal {
     constructor() {
@@ -406,7 +406,7 @@ export default class ShopContainer extends MainScreenModal {
     }
     addBackgroundShape() {
         this.infoBackContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0002'), 20, 20, 20, 20);
-        this.container.addChild(this.infoBackContainer);
+       // this.container.addChild(this.infoBackContainer);
     }
     show() {
         this.resize()

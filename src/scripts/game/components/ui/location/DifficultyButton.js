@@ -34,24 +34,26 @@ export default class DifficultyButton extends PIXI.Container {
         let w = 95
         this.button = new BaseButton(tex, w, 120)
         this.addChild(this.button)
+        this.button.alpha = 0
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(tex), 20, 20, 20, 20);
         this.containerBackground.width = w
         this.containerBackground.height = 120
-
+        this.containerBackground.alpha = 0
 
         this.locker = new PIXI.NineSlicePlane(PIXI.Texture.from(UIUtils.baseButtonTexture + '_0007'), 20, 20, 20, 20);
         this.locker.width = w
         this.locker.height = 120
-        this.addChild(this.locker)
+        //this.addChild(this.locker)
 
-        this.description = UIUtils.getPrimaryLabel(label)
-        this.description.scale.set(Utils.scaleToFitIfMax(this.description, 120))
-        this.description.style.fontSize = 18
-        this.description.anchor.x = 0.5
-        this.description.anchor.y = 0.5
-        this.description.x = 0.5 * this.containerBackground.width
-        this.description.y = 30
-        this.addChild(this.description)
+       
+        this.levelIcon = new PIXI.Sprite.from('play-level-icon')
+        this.addChild(this.levelIcon)
+
+        this.levelIcon.anchor.set(0.5)
+        this.levelIcon.scale.set(Utils.scaleToFit(this.levelIcon, this.containerBackground.width - 20))
+
+        this.levelIcon.x = this.containerBackground.width / 2
+        this.levelIcon.y = this.containerBackground.height / 2
 
         this.badge = new PIXI.Sprite.from('achievmentl')
         this.addChild(this.badge)
@@ -59,8 +61,18 @@ export default class DifficultyButton extends PIXI.Container {
         this.badge.anchor.set(0.5)
         this.badge.scale.set(Utils.scaleToFit(this.badge, 40))
 
-        this.badge.x = this.containerBackground.width / 2
-        this.badge.y = this.containerBackground.height / 2 + 10
+        this.badge.x = this.containerBackground.width -20
+        this.badge.y = this.containerBackground.height -20// 2 + 10
+
+        this.description = UIUtils.getPrimaryLabel(label)
+        this.description.scale.set(Utils.scaleToFitIfMax(this.description, 150))
+        this.description.style.fontSize = 16
+        this.description.anchor.x = 0.5
+        this.description.anchor.y = 1
+        this.description.x = 0.5 * this.containerBackground.width
+        this.description.y = 20
+        this.addChild(this.description)
+
 
         this.onClick = new signals.Signal();
         this.button.onButtonClicked.add(() => {

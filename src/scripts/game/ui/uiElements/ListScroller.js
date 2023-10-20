@@ -12,7 +12,7 @@ export default class ListScroller extends PIXI.Container {
         this.container = new PIXI.Container();
         this.listContainer = new PIXI.Container();
 
-        this.modalTexture = 'modal_container0006'
+        this.modalTexture = 'StatBack'
 
         this.containerBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(this.modalTexture), 20, 20, 20, 20);
         this.containerBackground.width = rect.w

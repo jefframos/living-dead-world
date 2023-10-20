@@ -25,7 +25,7 @@ export default class LocationButton extends PIXI.Container {
         this.containerBackground.width = 170
         this.containerBackground.height = 200
 
-        this.addChild(this.containerBackground)
+        //this.addChild(this.containerBackground)
 
         this.enemiesContainer = new PIXI.Container();
         //this.addChild(this.enemiesContainer)
@@ -35,7 +35,7 @@ export default class LocationButton extends PIXI.Container {
         this.shade.width = 20
         this.shade.height = 20
         this.shade.tint = 0
-        this.shade.alpha = 0.2
+        this.shade.alpha = 0.5
         this.addChild(this.shade)
 
 
@@ -167,7 +167,7 @@ export default class LocationButton extends PIXI.Container {
         this.enemiesContainer.mask = this.maskShape;
 
         this.border = new PIXI.NineSlicePlane(PIXI.Texture.from('wire-box'), 20, 20, 20, 20);
-        this.addChild(this.border)
+        //this.addChild(this.border)
     }
     setData(data, isLock) {
         this.containerBackground.texture = PIXI.Texture.from(data.views.groundTexture, data.views.groundWidth, data.views.groundWidth)
