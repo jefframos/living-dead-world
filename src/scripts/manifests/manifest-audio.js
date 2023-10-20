@@ -68,10 +68,6 @@ const assets = [
 	"url":"assets/audio\\pop2.mp3"
 	},
 	{
-	"id":"slot-machine",
-	"url":"assets/audio\\slot-machine.mp3"
-	},
-	{
 	"id":"shoosh",
 	"url":"assets/audio\\shoosh.mp3"
 	},
@@ -80,16 +76,20 @@ const assets = [
 	"url":"assets/audio\\squash1.mp3"
 	},
 	{
+	"id":"slot-machine",
+	"url":"assets/audio\\slot-machine.mp3"
+	},
+	{
+	"id":"teleport",
+	"url":"assets/audio\\teleport.mp3"
+	},
+	{
 	"id":"Synth-Appear-01",
 	"url":"assets/audio\\Synth-Appear-01.mp3"
 	},
 	{
 	"id":"Tap-01",
 	"url":"assets/audio\\Tap-01.mp3"
-	},
-	{
-	"id":"teleport",
-	"url":"assets/audio\\teleport.mp3"
 	}
 ];
 

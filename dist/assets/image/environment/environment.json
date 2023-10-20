@@ -639,11 +639,11 @@
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.1",
+	"version": "1.0",
 	"image": "environment.png",
 	"format": "RGBA8888",
 	"size": {"w":967,"h":1686},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:e975ca97f483836a045e548c6d82c95e:6af1747001bbcca7adf00ea7e6ca3b85:7abea815e3107eecbafa95ee71efdc50$"
+	"smartupdate": "$TexturePacker:SmartUpdate:e681f0a93c61a11e999503ad80d27295:6af1747001bbcca7adf00ea7e6ca3b85:7abea815e3107eecbafa95ee71efdc50$"
 }
 }
