@@ -1,9 +1,7 @@
-import CookieManager from "../CookieManager";
-import EntityAttributes from "./EntityAttributes";
-import EntityBuilder from "../screen/EntityBuilder";
-import GameStaticData from "./GameStaticData";
-import Utils from "../core/utils/Utils";
 import signals from "signals";
+import CookieManager from "../CookieManager";
+import Utils from "../core/utils/Utils";
+import GameStaticData from "./GameStaticData";
 
 export default class ViewDatabase {
     static _instance;
@@ -67,7 +65,7 @@ export default class ViewDatabase {
 
         return toReturn;
     }
-    canGetPiece(){
+    canGetPiece() {
         return ViewDatabase.instance.findAvailablePiece().area != null;
     }
     saveWardrobePiece(area, id) {

@@ -1,8 +1,10 @@
-import CookieManager from "../CookieManager";
-import EntityAttributes from "./EntityAttributes";
-import EntityBuilder from "../screen/EntityBuilder";
-import GameStaticData from "./GameStaticData";
 import signals from "signals";
+import CookieManager from "../CookieManager";
+import PlayerViewStructure from "../entity/PlayerViewStructure";
+import EntityBuilder from "../screen/EntityBuilder";
+import EntityAttributes from "./EntityAttributes";
+import GameStaticData from "./GameStaticData";
+import ViewDatabase from "./ViewDatabase";
 
 export default class GameData {
     static _instance;
@@ -101,6 +103,115 @@ export default class GameData {
     getPlayer(id) {
         return CookieManager.instance.getPlayer(id)
     }
+    savePlayer3() {
+        const playerViewDataStructure = this.getPlayer3Preview()
+
+        ViewDatabase.instance.saveWardrobePiece('head', playerViewDataStructure.head)
+        ViewDatabase.instance.saveWardrobePiece('chest', playerViewDataStructure.chest)
+        ViewDatabase.instance.saveWardrobePiece('topHead', playerViewDataStructure.topHead)
+        ViewDatabase.instance.saveWardrobePiece('face', playerViewDataStructure.face)
+        ViewDatabase.instance.saveWardrobePiece('leg', playerViewDataStructure.leg)
+        ViewDatabase.instance.saveWardrobePiece('sleeves', playerViewDataStructure.sleeves)
+        this.addToInventory('weapons', { id: 'PLAYER_MULTISHOT', level: 1, type: 'weapons' })
+        this.addToInventory('companions', { id: 'DOG-2', level: 1, type: 'companions' })
+        this.changeMainWeapon('PLAYER_MULTISHOT', 1)
+        this.changeCompanion('DOG-1', 1)
+
+        CookieManager.instance.savePlayer(0, playerViewDataStructure)
+    }
+    savePlayer2() {
+        const playerViewDataStructure = this.getPlayer2Preview()
+
+        ViewDatabase.instance.saveWardrobePiece('head', playerViewDataStructure.head)
+        ViewDatabase.instance.saveWardrobePiece('chest', playerViewDataStructure.chest)
+        ViewDatabase.instance.saveWardrobePiece('topHead', playerViewDataStructure.topHead)
+        ViewDatabase.instance.saveWardrobePiece('face', playerViewDataStructure.face)
+        ViewDatabase.instance.saveWardrobePiece('frontFace', playerViewDataStructure.frontFace)
+        ViewDatabase.instance.saveWardrobePiece('leg', playerViewDataStructure.leg)
+        ViewDatabase.instance.saveWardrobePiece('sleeves', playerViewDataStructure.sleeves)
+        ViewDatabase.instance.saveWardrobePiece('ears', playerViewDataStructure.ears)
+        ViewDatabase.instance.saveWardrobePiece('mouth', playerViewDataStructure.mouth)
+        ViewDatabase.instance.saveWardrobePiece('hairColor', playerViewDataStructure.hairColor)
+        ViewDatabase.instance.saveWardrobePiece('skinColor', playerViewDataStructure.skinColor)
+        ViewDatabase.instance.saveWardrobePiece('eyes', playerViewDataStructure.eyes)
+
+        this.addToInventory('weapons', { id: 'SUB_MACHINE_GUN_01', level: 1, type: 'weapons' })
+        this.addToInventory('companions', { id: 'FISH-1', level: 1, type: 'companions' })
+        this.changeMainWeapon('SUB_MACHINE_GUN_01', 1)
+        this.changeCompanion('FISH-1', 1)
+
+        CookieManager.instance.savePlayer(0, playerViewDataStructure)
+    }
+    savePlayer1() {
+        const playerViewDataStructure = this.getPlayer1Preview();
+        ViewDatabase.instance.saveWardrobePiece('head', playerViewDataStructure.head)
+        ViewDatabase.instance.saveWardrobePiece('chest', playerViewDataStructure.chest)
+        ViewDatabase.instance.saveWardrobePiece('topHead', playerViewDataStructure.topHead)
+        ViewDatabase.instance.saveWardrobePiece('face', playerViewDataStructure.face)
+        ViewDatabase.instance.saveWardrobePiece('frontFace', playerViewDataStructure.frontFace)
+        ViewDatabase.instance.saveWardrobePiece('leg', playerViewDataStructure.leg)
+        ViewDatabase.instance.saveWardrobePiece('hat', playerViewDataStructure.hat)
+        ViewDatabase.instance.saveWardrobePiece('sleeves', playerViewDataStructure.sleeves)
+        ViewDatabase.instance.saveWardrobePiece('ears', playerViewDataStructure.ears)
+        ViewDatabase.instance.saveWardrobePiece('eyes', playerViewDataStructure.eyes)
+        ViewDatabase.instance.saveWardrobePiece('mouth', playerViewDataStructure.mouth)
+        ViewDatabase.instance.saveWardrobePiece('hairColor', playerViewDataStructure.hairColor)
+        ViewDatabase.instance.saveWardrobePiece('skinColor', playerViewDataStructure.skinColor)
+        ViewDatabase.instance.saveWardrobePiece('faceHairColor', playerViewDataStructure.faceHairColor)
+
+        this.addToInventory('weapons', { id: 'PISTOL_01', level: 1, type: 'weapons' })
+        this.addToInventory('companions', { id: 'CAT-1', level: 1, type: 'companions' })
+        this.changeMainWeapon('PISTOL_01', 1)
+        this.changeCompanion('CAT-1', 1)
+
+        CookieManager.instance.savePlayer(0, playerViewDataStructure)
+
+        return playerViewDataStructure
+    }
+    getPlayer3Preview() {
+        const playerViewDataStructure = new PlayerViewStructure();
+        playerViewDataStructure.head = 4
+        playerViewDataStructure.chest = 11
+        playerViewDataStructure.topHead = 10
+        playerViewDataStructure.face = 1
+        playerViewDataStructure.leg = 5
+        playerViewDataStructure.sleeves = 11
+        return playerViewDataStructure
+    }
+    getPlayer2Preview() {
+        const playerViewDataStructure = new PlayerViewStructure();
+        playerViewDataStructure.head = 5
+        playerViewDataStructure.chest = 20
+        playerViewDataStructure.topHead = 20
+        playerViewDataStructure.face = 1
+        playerViewDataStructure.frontFace = 5
+        playerViewDataStructure.leg = 11
+        playerViewDataStructure.sleeves = 20
+        playerViewDataStructure.ears = 7
+        playerViewDataStructure.mouth = 12
+        playerViewDataStructure.hairColor = 15473250
+        playerViewDataStructure.skinColor = 6143977
+        playerViewDataStructure.eyes = 18
+        return playerViewDataStructure
+    }
+    getPlayer1Preview() {
+        const playerViewDataStructure = new PlayerViewStructure();
+        playerViewDataStructure.head = 1
+        playerViewDataStructure.chest = 21
+        playerViewDataStructure.topHead = 20
+        playerViewDataStructure.face = 1
+        playerViewDataStructure.frontFace = 1
+        playerViewDataStructure.leg = 4
+        playerViewDataStructure.hat = 9
+        playerViewDataStructure.sleeves = 21
+        playerViewDataStructure.ears = 2
+        playerViewDataStructure.eyes = 14
+        playerViewDataStructure.mouth = 1
+        playerViewDataStructure.hairColor = 15473250
+        playerViewDataStructure.skinColor = 12287850
+        playerViewDataStructure.faceHairColor = 3947580
+        return playerViewDataStructure
+    }
     savePlayer(id, structure) {
         CookieManager.instance.savePlayer(id, structure)
     }
@@ -127,7 +238,7 @@ export default class GameData {
         this.onUpdateEquipment.dispatch('trinket', id, level)
     }
     addToInventory(type, item) {
-        //console.log('addToInventory', type, item)
+        console.log('\naddToInventory', type, item, '\n')
 
         CookieManager.instance.saveEquipsPiece(type, item.id)
         CookieManager.instance.addToInventory(type, item)

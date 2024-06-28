@@ -1,32 +1,31 @@
-import AgentBlur from "./AgentBlur";
-import Clouds from "../components/Clouds";
-import Companion from "./Companion";
-import CookieManager from "../CookieManager";
-import EffectsManager from "../manager/EffectsManager";
-import EntityBuilder from "../screen/EntityBuilder";
-import EntityData from "../data/EntityData";
-import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
+import signals from "signals";
 import Game from "../../Game";
-import GameAgent from "./GameAgent";
+import config from "../../config";
+import CookieManager from "../CookieManager";
+import Clouds from "../components/Clouds";
+import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
+import SpriteJump from "../components/SpriteJump";
+import EntityLifebar from "../components/ui/progressBar/EntityLifebar";
+import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
+import Shadow from "../components/view/Shadow";
+import Layer from "../core/Layer";
+import Vector3 from "../core/gameObject/Vector3";
+import InputModule from "../core/modules/InputModule";
+import PhysicsModule from "../core/modules/PhysicsModule";
+import RenderModule from "../core/modules/RenderModule";
+import Sensor from "../core/utils/Sensor";
+import Utils from "../core/utils/Utils";
+import EntityData from "../data/EntityData";
 import GameData from "../data/GameData";
 import GameStaticData from "../data/GameStaticData";
 import InGameWeapon from "../data/InGameWeapon";
-import InputModule from "../core/modules/InputModule";
-import Layer from "../core/Layer";
+import EffectsManager from "../manager/EffectsManager";
 import LevelManager from "../manager/LevelManager";
-import PhysicsModule from "../core/modules/PhysicsModule";
-import PlayerGameViewSpriteSheet from "../components/PlayerGameViewSpriteSheet";
+import { default as EntityBuilder, default as WeaponBuilder } from "../screen/EntityBuilder";
+import AgentBlur from "./AgentBlur";
+import Companion from "./Companion";
+import GameAgent from "./GameAgent";
 import PlayerHalo from "./PlayerHalo";
-import RenderModule from "../core/modules/RenderModule";
-import Sensor from "../core/utils/Sensor";
-import Shadow from "../components/view/Shadow";
-import SpriteJump from "../components/SpriteJump";
-import Utils from "../core/utils/Utils";
-import Vector3 from "../core/gameObject/Vector3";
-import WeaponBuilder from "../screen/EntityBuilder";
-import WeaponLoadingBar from "../components/ui/progressBar/WeaponLoadingBar";
-import config from "../../config";
-import signals from "signals";
 
 export default class Player extends GameAgent {
     static MainPlayer = this;
@@ -79,12 +78,10 @@ export default class Player extends GameAgent {
             playerData = GameStaticData.instance.getEntityByIndex('player', Math.floor(Math.random() * 7))
         }
 
+        this.staticData = playerData;
         this.invencibleTimer = 0;
         this.loadoutAttributes = GameData.instance.getLoadoutAttributes();
         this.baseMainWeaponLevel = GameData.instance.currentEquippedWeapon.level;
-        this.staticData = playerData;
-
-        console.log(playerData.attributes, this.loadoutAttributes)
         this.attributes.reset(this.loadoutAttributes);
         this.attributes.baseCollectionRadius = playerData.attributes.baseRadius;
         //this.attributes.sumAttributes(this.loadoutAttributes)
@@ -171,6 +168,14 @@ export default class Player extends GameAgent {
 
 
     }
+    hidePlayerUi() {
+        this.weaponShootBar.gameView.view.visible = false;
+        this.lifeBar.gameView.view.visible = false;
+    }
+    showPlayerUi() {
+        this.weaponShootBar.gameView.view.visible = true;
+        this.lifeBar.gameView.view.visible = true;
+    }
     afterBuild() {
         super.afterBuild()
 
@@ -200,7 +205,7 @@ export default class Player extends GameAgent {
             });
         }, 2000);
 
-     
+
 
     }
     sessionStarted() {
@@ -410,7 +415,7 @@ export default class Player extends GameAgent {
 
         let def = value - this.attributes.defense;
         def = Math.floor(Math.max(def, 1));
-        if(Game.Debug.autoplay){
+        if (Game.Debug.autoplay) {
             def = 0
         }
         super.damage(def);

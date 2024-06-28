@@ -1,24 +1,26 @@
 import * as PIXI from 'pixi.js';
 
-import CookieManager from './game/CookieManager';
-import Game from './Game';
-import GameStaticData from './game/data/GameStaticData';
-import LocalizationManager from './game/LocalizationManager';
-import MainScreenManager from './game/screen/MainScreenManager';
-import RewardsManager from './game/data/RewardsManager';
-import SoundManager from './soundManager/SoundManager'
-import Utils from './game/core/utils/Utils';
-import ViewDatabase from './game/data/ViewDatabase';
-import audioManifest from './manifests/manifest-audio'
-import globals from './globals';
-import jsonManifest from './manifests/manifest-json'
-import plugins from './plugins';
 import signals from 'signals';
-import spritesheetManifest from './manifests/manifest'
+import Game from './Game';
+import config from './config';
+import CookieManager from './game/CookieManager';
+import LocalizationManager from './game/LocalizationManager';
+import Utils from './game/core/utils/Utils';
+import GameStaticData from './game/data/GameStaticData';
+import RewardsManager from './game/data/RewardsManager';
+import ViewDatabase from './game/data/ViewDatabase';
+import MainScreenManager from './game/screen/MainScreenManager';
+import globals from './globals';
+import spritesheetManifest from './manifests/manifest';
+import audioManifest from './manifests/manifest-audio';
+import jsonManifest from './manifests/manifest-json';
+import plugins from './plugins';
+import SoundManager from './soundManager/SoundManager';
 
 window.PIXI = PIXI;
-
-
+console.log(plugins)
+console.log(globals)
+console.log(config)
 //Utils.easeOutQuad
 // getValues(10, 60, 'floor', 'easeOutQuad', 1, 5)
 // getValues(10, 40, 'floor', 'easeOutQuad', 1, 5)
@@ -46,10 +48,10 @@ window.PIXI = PIXI;
 //   getValues(10, 120, 'floor', 'easeOutQuad', 0.8,5)
 
 //   getValues(2, 10, 'floor', 'easeOutQuad', 0.8,5)
- //getValues(0.4, 0.12, null, 'easeOutCubic', 0.8, 10)
+//getValues(0.4, 0.12, null, 'easeOutCubic', 0.8, 10)
 // getValues(0.025, 0.2, null, 'easeOutCubic', 0.8, 5)
 // getValues(0.12, 0.35, null, 'easeOutCubic', 0.8, 5)
- getValues(0.3, 0.8, null, 'easeOutCubic', 0.8, 5)
+getValues(0.3, 0.8, null, 'easeOutCubic', 0.8, 5)
 // getValues(4, 8, null, 'easeOutQuad', 1, 5)
 // getValues(55, 380, 'floor', 'easeOutQuad', 1, 5)
 
@@ -58,7 +60,7 @@ window.PIXI = PIXI;
 // getValues(50, 120, 'floor', 'easeOutCubic', 1, 5, 0.8)
 
 
- //getValues(30, 50, 'floor', 'easeOutQuad', 1, 10)
+//getValues(30, 50, 'floor', 'easeOutQuad', 1, 10)
 // getValues(15, 300, 'floor', 'easeOutQuad', 1, 10)
 // getValues(40, 400, 'floor', 'easeOutQuad', 1, 10)
 // getValues(100, 500, 'floor', 'easeOutQuad', 1, 10)
@@ -115,7 +117,7 @@ if (!window.isMobile) {
 
 window.noPoki = false;
 
-if(window.STAND_ALONE){
+if (window.STAND_ALONE) {
     window.noPoki = true
 }
 
@@ -290,7 +292,7 @@ function configGame(evt) {
         game.resize();
     }, 100);
 
-    if(CookieManager.instance.isMute){
+    if (CookieManager.instance.isMute) {
         SOUND_MANAGER.mute();
     }
 }
@@ -309,7 +311,7 @@ function myFocusFunction() {
     // }
     if (!CookieManager.instance.getSettings().isMute) {
         SOUND_MANAGER.unmute();
-    }else{
+    } else {
         SOUND_MANAGER.mute(false);
     }
 }
@@ -319,7 +321,7 @@ function myBlurFunction() {
     // TweenLite.to(screenManager, 0.5, {
     //     timeScale: 0
     // })
-   
+
     if (CookieManager.instance.getSettings().isMute) {
         SOUND_MANAGER.mute(false);
     }

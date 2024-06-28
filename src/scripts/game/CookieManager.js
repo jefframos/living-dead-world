@@ -1,6 +1,6 @@
+import Signals from 'signals';
 import Game from '../Game';
 import PlayerViewStructure from './entity/PlayerViewStructure';
-import Signals from 'signals';
 
 export default class CookieManager {
 	static _instance;
@@ -178,7 +178,7 @@ export default class CookieManager {
 	}
 	updateMute(value) {
 		const data = this.getChunck('settings')
-		data.isMute = value;
+		data.isMute = false;
 		this.saveChunk('settings', data)
 	}
 	allNewWardrobeDiscover() {
@@ -380,7 +380,7 @@ export default class CookieManager {
 	get items() {
 		return this.getChunck('items');
 	}
-	getLevelComplete(levelId, difficulty = 0){
+	getLevelComplete(levelId, difficulty = 0) {
 		const data = this.getChunck('levelProgression')
 
 		let found = -1;
@@ -405,9 +405,9 @@ export default class CookieManager {
 			}
 		});
 		if (!found) {
-			let scores = [-1,-1,-1,-1,-1]
+			let scores = [-1, -1, -1, -1, -1]
 			scores[difficulty] = score
-			data.levelComplete.push({levelId,score:scores})
+			data.levelComplete.push({ levelId, score: scores })
 		}
 		this.saveChunk('levelProgression', data)
 

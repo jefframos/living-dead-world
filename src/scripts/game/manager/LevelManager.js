@@ -1,27 +1,25 @@
-import BaseEnemy from "../entity/BaseEnemy";
+import signals from "signals";
+import Game from "../../Game";
+import CookieManager from "../CookieManager";
+import LocalizationManager from "../LocalizationManager";
+import GameOverView from "../components/ui/gameOver/GameOverView";
 import Camera from "../core/Camera";
+import Eugine from "../core/Eugine";
+import Layer from "../core/Layer";
+import Vector3 from "../core/gameObject/Vector3";
+import Pool from "../core/utils/Pool";
+import Utils from "../core/utils/Utils";
+import GameData from "../data/GameData";
+import GameStaticData from "../data/GameStaticData";
 import Collectable from "../entity/Collectable";
 import Consumable from "../entity/Consumable";
-import CookieManager from "../CookieManager";
 import DirectionPin from "../entity/DirectionPin";
+import InGameChest from "../entity/InGameChest";
+import Player from "../entity/Player";
 import EffectsManager from "./EffectsManager";
 import EnemyGlobalSpawner from "./EnemyGlobalSpawner";
-import Eugine from "../core/Eugine";
-import Game from "../../Game";
-import GameData from "../data/GameData";
-import GameOverView from "../components/ui/gameOver/GameOverView";
-import GameStaticData from "../data/GameStaticData";
 import GameplaySessionController from "./GameplaySessionController";
-import InGameChest from "../entity/InGameChest";
-import Layer from "../core/Layer";
-import LocalizationManager from "../LocalizationManager";
-import Player from "../entity/Player";
-import PlayerSessionData from "../data/PlayerSessionData";
-import Pool from "../core/utils/Pool";
 import SessionSpawner from "./spawn/SessionSpawner";
-import Utils from "../core/utils/Utils";
-import Vector3 from "../core/gameObject/Vector3";
-import signals from "signals";
 
 export default class LevelManager {
     static _instance;
@@ -60,6 +58,7 @@ export default class LevelManager {
 
         this.onPlayerDie = new signals.Signal();
         this.onConfirmGameOver = new signals.Signal();
+        this.onStartGameAfterChoose = new signals.Signal();
 
         this.currentPhase = 0;
         this.init = false;
@@ -67,7 +66,7 @@ export default class LevelManager {
         this.matchStats = {
             enemiesKilled: 0,
             time: 0,
-            points:0
+            points: 0
         }
 
         this.timeLimit = 8 * 60;
@@ -99,9 +98,9 @@ export default class LevelManager {
         if (Game.Debug.customChar) {
             Game.Debug.customChar = parseInt(Game.Debug.customChar)
         }
+
+
         const firstPlayer = GameData.instance.currentPlayer;
-
-
         const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : 0)
         playerBuildParams.customViewData = firstPlayer;
         playerBuildParams.mainWeapon = GameData.instance.currentEquippedWeapon;
@@ -115,13 +114,35 @@ export default class LevelManager {
         console.log('ADD XP AMOUNT ON ENTITY DATA');
         return this.player;
     }
+    refreshPlayer() {
+
+        this.setup()
+        // this.player.destroy();
+        this.gameSessionController.playerReady()
+        this.player.refreshEquipment()
+        this.player.gameReady();
+
+        // const firstPlayer = GameData.instance.currentPlayer;
+        // const playerBuildParams = GameStaticData.instance.getEntityByIndex('player', Game.Debug.customChar !== undefined ? Game.Debug.customChar : 0)
+        // playerBuildParams.customViewData = firstPlayer;
+        // playerBuildParams.mainWeapon = GameData.instance.currentEquippedWeapon;
+
+        // console.log("playerBuildParams.mainWeapon", playerBuildParams.mainWeapon)
+        // this.player = this.addEntity(Player, playerBuildParams)
+
+
+        // this.player.onDie.add(() => {
+        //     this.playerDie();
+        // })
+
+    }
     confirmGameOver(fromWin = false) {
         this.confirmPlayerDeath();
         this.currentLevelStruct.finalScore = this.matchStats.points;
-        this.onConfirmGameOver.dispatch(fromWin, false, {levelStruct:this.currentLevelStruct});
+        this.onConfirmGameOver.dispatch(fromWin, false, { levelStruct: this.currentLevelStruct });
     }
     quitGame(fromWin = false) {
-        this.onConfirmGameOver.dispatch(false, true, {levelStruct:this.currentLevelStruct});
+        this.onConfirmGameOver.dispatch(false, true, { levelStruct: this.currentLevelStruct });
     }
     levelWin() {
         this.gameOverOverlay.setActive(true)
@@ -209,7 +230,9 @@ export default class LevelManager {
         this.player.setPositionXZ(0, 0)
 
         this.gameSessionController = this.gameEngine.poolGameObject(GameplaySessionController, true);
-
+        this.gameSessionController.onPlayerChoose.add((chosen) => {
+            this.onStartGameAfterChoose.dispatch(chosen);
+        })
         this.gameOverOverlay = this.addEntity(GameOverView);
         this.gameOverOverlay.setActive(false)
         this.gameOverOverlay.onConfirmGameOver.add((fromWin) => {
@@ -229,7 +252,7 @@ export default class LevelManager {
 
     }
     showSessionInfo() {
-        this.gameSessionController.setLabelInfo(LocalizationManager.instance.getLabel('SURVIVE_FOR') +' '+ Utils.floatToTime(this.timeLimit), 10)
+        this.gameSessionController.setLabelInfo(LocalizationManager.instance.getLabel('SURVIVE_FOR') + ' ' + Utils.floatToTime(this.timeLimit), 10)
     }
     destroy() {
         this.gameSessionController.destroy();
@@ -253,7 +276,7 @@ export default class LevelManager {
         this.consumables = [];
         this.activeEnemies = [];
     }
-    onCollectXp(amount){
+    onCollectXp(amount) {
         this.matchStats.points += amount;
     }
     onPlayerLevelUp(xpData) {
@@ -305,7 +328,7 @@ export default class LevelManager {
             time: 0,
             coins: 0,
             special: 0,
-            points:0
+            points: 0
         }
         this.destroyDistanceV2 = {
             x: 0, y: 0
@@ -516,7 +539,7 @@ export default class LevelManager {
             }
         }
 
-        if(tierId == 0){
+        if (tierId == 0) {
             return null
         }
         return this.entitiesByTier[tierId][closest];
@@ -563,7 +586,7 @@ export default class LevelManager {
         }
 
         this.inverseGameplayTime = this.timeLimit - this.gameplayTime;
-        
+
         if (this.textTriggers.currentTrigger >= 0 && this.textTriggers.currentTrigger < this.textTriggers.phases.length) {
             const textTriggerData = this.textTriggers.phases[this.textTriggers.currentTrigger]
             if (textTriggerData.startAt <= this.gameplayTime) {
@@ -616,7 +639,7 @@ export default class LevelManager {
         if (!this.init) {
             return;
         }
-        if(!delta) return;
+        if (!delta) return;
         this.gameplayTime += unscaledDelta;
         this.gameManagerStats.Time = this.gameplayTime
     }

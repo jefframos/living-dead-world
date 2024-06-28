@@ -2038,11 +2038,11 @@
 },
 "meta": {
 	"app": "https://www.codeandweb.com/texturepacker",
-	"version": "1.0",
+	"version": "1.1",
 	"image": "body-parts.png",
 	"format": "RGBA8888",
 	"size": {"w":508,"h":2045},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:4eda3771783556bab258bd8900f5a1cd:f0566ab4968be6a9dab13880f28d2daf:7880fcb19a7cb457d5f05323b132ff00$"
+	"smartupdate": "$TexturePacker:SmartUpdate:9e6c8c6e8855815fdc495560cf08e24e:f0566ab4968be6a9dab13880f28d2daf:7880fcb19a7cb457d5f05323b132ff00$"
 }
 }

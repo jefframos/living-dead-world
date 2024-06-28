@@ -1,9 +1,7 @@
-import CookieManager from "../CookieManager";
+import signals from "signals";
 import EntityBuilder from "../screen/EntityBuilder";
 import GameData from "./GameData";
-import GameStaticData from "./GameStaticData";
 import ViewDatabase from "./ViewDatabase";
-import signals from "signals";
 
 export default class PrizeManager {
     static PrizeType = {
@@ -90,36 +88,36 @@ export default class PrizeManager {
 
         this.mainPrizePool = [0, 1, 2, 3, 4, 6]
         this.mainPrizePoolNoWearable = [0, 1, 2, 3, 4]
-        this.endLevelPrizePool =[
+        this.endLevelPrizePool = [
             {
-                types:[0,2,3,6],
-                level:1,
-                total:1
+                types: [0, 2, 3, 6],
+                level: 1,
+                total: 1
             },
             {
-                types:[0,1,2,3,6],
-                level:1,
-                total:1
+                types: [0, 1, 2, 3, 6],
+                level: 1,
+                total: 1
             },
             {
-                types:[0,1,2,3,6],
-                level:2,
-                total:1
+                types: [0, 1, 2, 3, 6],
+                level: 2,
+                total: 1
             },
             {
-                types:[0,1,2,3,6],
-                level:2,
-                total:2
+                types: [0, 1, 2, 3, 6],
+                level: 2,
+                total: 2
             },
             {
-                types:[0,1,2,3,6],
-                level:3,
-                total:2
+                types: [0, 1, 2, 3, 6],
+                level: 3,
+                total: 2
             },
             {
-                types:[0,1,2,3,6],
-                level:3,
-                total:2
+                types: [0, 1, 2, 3, 6],
+                level: 3,
+                total: 2
             }
         ]
     }
@@ -129,15 +127,15 @@ export default class PrizeManager {
     get cassinoPrizeList() {
         return this.cassinoList;
     }
-    getEndOfLevelPrizes(diff, fromWin, extraDifficult = 0){
+    getEndOfLevelPrizes(diff, fromWin, extraDifficult = 0) {
 
         const prizePool = this.endLevelPrizePool[Math.min(diff, this.endLevelPrizePool.length - 1)]
-        if(extraDifficult >= 2){
-            extraDifficult ++
+        if (extraDifficult >= 2) {
+            extraDifficult++
         }
-        if(fromWin){
+        if (fromWin) {
             this.getMetaPrize(prizePool.types, prizePool.level, prizePool.total + extraDifficult)
-        }else{
+        } else {
             this.getMetaPrize([0, 2, 3], 1, 2)
 
         }
@@ -158,8 +156,8 @@ export default class PrizeManager {
     // }
     getFtuePrize() {
         let itemPrizeList = []
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0,0))
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0,0))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0, 3))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0, 4))
         const types = [];
         itemPrizeList.forEach(element => {
             GameData.instance.addToInventory(element.type, element)

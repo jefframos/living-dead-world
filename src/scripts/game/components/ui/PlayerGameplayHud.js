@@ -1,17 +1,15 @@
 import * as PIXI from 'pixi.js';
 
-import CircleCounter from '../../ui/hudElements/CircleCounter';
+import signals from 'signals';
 import Game from '../../../Game';
-import InteractableView from '../../view/card/InteractableView';
-import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
 import Pool from '../../core/utils/Pool';
-import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
+import WeaponData from '../../data/WeaponData';
+import CircleCounter from '../../ui/hudElements/CircleCounter';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
-import Utils from '../../core/utils/Utils';
-import WeaponData from '../../data/WeaponData';
-import signals from 'signals';
-import utils from '../../../utils';
+import InteractableView from '../../view/card/InteractableView';
+import SpriteSheetAnimation from '../utils/SpriteSheetAnimation';
+import PlayerActiveEquipmentOnHud from './PlayerActiveEquipmentOnHud';
 
 export default class PlayerGameplayHud extends PIXI.Container {
     constructor() {
@@ -42,13 +40,13 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.equipmentListLine2.w = 0;
         this.equipmentListLine2.h = 50;
         this.equipmentListLine2.x = this.equipmentListLine1.x - 30
-        this.equipmentListLine2.y =  this.equipmentListLine1.y + 60
+        this.equipmentListLine2.y = this.equipmentListLine1.y + 60
         this.equipmentContainer.addChild(this.equipmentListLine2);
 
 
         this.lifeContainer.x = 80
         this.lifeContainer.y = 80
-        
+
         this.container.addChild(this.equipmentContainer);
         this.equipmentContainer.x = 130
         this.equipmentContainer.y = 80
@@ -66,7 +64,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.lifebarDetail.x = 2
         this.lifebarDetail.y = 2
 
-        this.levelupButton = UIUtils.getCloseButton(()=>{
+        this.levelupButton = UIUtils.getCloseButton(() => {
             this.player.sessionData.levelUpMainWeapon();
         })
         //this.container.addChild(this.levelupButton);
@@ -112,6 +110,13 @@ export default class PlayerGameplayHud extends PIXI.Container {
 
         this.gooSpritesheet.play('standard')
     }
+    refresh() {
+        this.updatePlayerEquip();
+        setTimeout(() => {
+            this.playerFace.texture = this.player.playerView.staticTexture
+            this.playerFace.x = this.playerFace.width / 2
+        }, 10);
+    }
     registerPlayer(player) {
         this.player = player;
         setTimeout(() => {
@@ -139,13 +144,13 @@ export default class PlayerGameplayHud extends PIXI.Container {
         this.player.sessionData.equipaments.forEach(element => {
 
             if (element) {
-                
+
                 let icon = Pool.instance.getElement(PlayerActiveEquipmentOnHud)//new PIXI.Sprite.from(element.item.entityData.icon)
                 icon.setItem(element.item, 60)
-                
-                if(element.item instanceof WeaponData){
+
+                if (element.item instanceof WeaponData) {
                     icon.setLevel(element.level - element.item.baseLevel)
-                }else{
+                } else {
 
                     icon.setLevel(element.level)
                 }
@@ -163,7 +168,7 @@ export default class PlayerGameplayHud extends PIXI.Container {
                     this.equipmentListLine2.addElement(icon)
                 }
 
-                totalElements ++;
+                totalElements++;
             }
         });
 

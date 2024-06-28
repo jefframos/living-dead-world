@@ -1,14 +1,9 @@
-import AnimationUtils from '../utils/AnimationUtils';
 import BaseComponent from '../core/gameObject/BaseComponent';
-import EntityBuilder from '../screen/EntityBuilder';
+import Utils from '../core/utils/Utils';
 import GameData from '../data/GameData';
 import PlayerViewStructure from '../entity/PlayerViewStructure';
-import Pool from '../core/utils/Pool';
-import Shaders from '../shader/Shaders';
-import SpriteSheetAnimation from './utils/SpriteSheetAnimation';
-import SpriteSheetBehaviour from './particleSystem/particleBehaviour/SpriteSheetBehaviour';
-import Utils from '../core/utils/Utils';
-import signals from 'signals';
+import EntityBuilder from '../screen/EntityBuilder';
+import AnimationUtils from '../utils/AnimationUtils';
 
 export default class PlayerGameViewSpriteSheet extends BaseComponent {
     static AnimationType = {
@@ -26,7 +21,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         super();
     }
     enable() {
-        
+
         super.enable()
         this.frame = 0;
         this.maxFrame = 8;
@@ -52,6 +47,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         return num;
     }
     setData(data) {
+        console.log("SET DATA", data)
         this.spriteData = data;
         this.playerContainer = new PIXI.Container();
         this.spriteLayersData = {};
@@ -60,10 +56,13 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.view = this.gameObject.gameView.view;
             this.view.texture = PIXI.Texture.EMPTY;
             this.buildSpritesheet();
+        } else {
+            this.view = new PIXI.Sprite()
         }
     }
     buildSpritesheet(baseData) {
 
+        this.currentFrame = 0
         if (baseData) {
             this.baseData = baseData
         } else {
@@ -72,6 +71,8 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         if (this.spriteData.customViewData) {
             this.baseData.parse(this.spriteData.customViewData)
         }
+
+        console.log("this.baseData", this.baseData)
         this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this))
         this.baseData.onColorUpdate.add(this.colorUpdate.bind(this))
         this.baseData.onSpriteUpdate.add(this.spriteUpdate.bind(this))
@@ -85,10 +86,10 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             { type: 'visuals', area: "backHead", src: "back-head-00{frame}", frame: Utils.formatNumber(this.baseData.topHead, 1), colorId: 'hairColor', color: this.baseData.hairColor, enabled: this.baseData.topHead > 0 && this.baseData.hat == 0 },
             // { type: 'visuals', area: "backLeg", src: "back-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             // { type: 'visuals', area: "backShoes", src: "back-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
-            { type: 'visuals', area: "backLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 },enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
-            { type: 'visuals', area: "backShoes", src: "dynamic-shoe-00{frame}", frame: Utils.formatNumber(this.baseData.shoe, 1),  offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.shoe > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
+            { type: 'visuals', area: "backLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
+            { type: 'visuals', area: "backShoes", src: "dynamic-shoe-00{frame}", frame: Utils.formatNumber(this.baseData.shoe, 1), offset: { x: 80, y: 150 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.shoe > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.backLegTimeline },
             { type: 'visuals', area: "bottom", src: "bottoms-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.PositionCos, animForce: 0.5 },
-            { type: 'visuals', area: "frontLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 45, y: 160 }, anchor: { x: 0.3, y: 0.75 },  enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.frontLegTimeline },
+            { type: 'visuals', area: "frontLeg", src: "front-leg1-dynamic-00{frame}", frame: Utils.formatNumber(this.baseData.leg, 1), offset: { x: 45, y: 160 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.leg > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.frontLegTimeline },
             { type: 'visuals', area: "frontShoes", src: "dynamic-shoe-00{frame}", frame: Utils.formatNumber(this.baseData.shoe, 1), offset: { x: 45, y: 160 }, anchor: { x: 0.3, y: 0.75 }, enabled: this.baseData.shoe > 0, animationType: PlayerGameViewSpriteSheet.AnimatingSequenceType.FrameList, animationFrames: AnimationUtils.frontLegTimeline },
             //{ type: 'visuals', area: "frontLeg", src: "front-leg{frame}-00", frame: this.baseData.leg, colorId: 'botomColor', color: this.baseData.botomColor, enabled: this.baseData.leg > 0, animate: true },
             //{ type: 'visuals', area: "frontShoes", src: "front-shoe{frame}00", frame: this.baseData.shoe, colorId: 'shoeColor', color: this.baseData.shoeColor, enabled: this.baseData.shoe > 0, animate: true },
@@ -188,7 +189,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
     }
 
-    generateNewTexture(){
+    generateNewTexture() {
         this.staticTexture = renderer.renderer.generateTexture(this.playerContainer);
     }
 
@@ -199,7 +200,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.baseData.trinketSprite = data.playerSpriteOverride
         } else if (area == 'mask') {
             this.baseData.maskSprite = data.playerSpriteOverride
-        }else if (area == 'shoe') {
+        } else if (area == 'shoe') {
             this.baseData.shoe = data.playerSpriteReference
 
         }
@@ -252,7 +253,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
                 break
             }
         }
-        
+
         if (id < 0) {
             return
         }

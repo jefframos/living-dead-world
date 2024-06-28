@@ -1,6 +1,16 @@
 [
     {
-        "weapons":[{ "id": "PISTOL_01", "level": 0 }],
-        "shoes":[{ "id": "SHOE_01", "level": 0 }]
+        "weapons": [
+            {
+                "id": "SHOTGUN_01",
+                "level": 1
+            }
+        ],
+        "shoes": [
+            {
+                "id": "SHOE_01",
+                "level": 1
+            }
+        ]
     }
 ]

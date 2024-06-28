@@ -1,39 +1,31 @@
 import * as PIXI from 'pixi.js';
 
-import AchievmentsContainer from '../components/ui/achievments/AchievmentsContainer';
+import Game from '../../Game';
+import Screen from '../../screenManager/Screen';
+import CookieManager from '../CookieManager';
+import LocalizationManager from '../LocalizationManager';
 import AudioControllerView from '../components/ui/AudioControllerView';
-import BaseButton from '../components/ui/BaseButton';
-import BodyPartsListScroller from '../ui/buildCharacter/BodyPartsListScroller';
-import CampfireScene from './scenes/CampfireScene';
+import OutGameUIProgression from '../components/ui/OutGameUIProgression';
+import PopUpGenericModal from '../components/ui/PopUpGenericModal';
+import AchievmentsContainer from '../components/ui/achievments/AchievmentsContainer';
 import CharacterBuildScreenCustomizationView from '../components/ui/customization/CharacterBuildScreenCustomizationView';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
-import CookieManager from '../CookieManager';
-import EntityBuilder from './EntityBuilder';
-import Game from '../../Game';
-import GameData from '../data/GameData';
-import GameStaticData from '../data/GameStaticData';
-import InteractableView from '../view/card/InteractableView';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
-import LocalizationManager from '../LocalizationManager';
 import LocationContainer from '../components/ui/location/LocationContainer';
-import MainScreenManager from './MainScreenManager';
 import NoMoneycontainer from '../components/ui/prizes/NoMoneycontainer';
-import OutGameUIProgression from '../components/ui/OutGameUIProgression';
-import PlayerGameViewSpriteSheet from '../components/PlayerGameViewSpriteSheet';
-import PlayerViewStructure from '../entity/PlayerViewStructure';
-import Pool from '../core/utils/Pool';
-import PopUpGenericModal from '../components/ui/PopUpGenericModal';
 import PrizeCollectContainer from '../components/ui/prizes/PrizeCollectContainer';
+import RouletteContainer from '../components/ui/roulette/RouletteContainer';
+import ShopContainer from '../components/ui/shop/ShopContainer';
+import Utils from '../core/utils/Utils';
+import GameData from '../data/GameData';
 import PrizeManager from '../data/PrizeManager';
 import RewardsManager from '../data/RewardsManager';
-import RouletteContainer from '../components/ui/roulette/RouletteContainer';
-import Screen from '../../screenManager/Screen';
-import ShopContainer from '../components/ui/shop/ShopContainer';
+import ViewDatabase from '../data/ViewDatabase';
 import UIList from '../ui/uiElements/UIList';
 import UIUtils from '../utils/UIUtils';
-import Utils from '../core/utils/Utils';
-import ViewDatabase from '../data/ViewDatabase';
-import signals from "signals";
+import EntityBuilder from './EntityBuilder';
+import MainScreenManager from './MainScreenManager';
+import CampfireScene from './scenes/CampfireScene';
 
 export default class CharacterBuildScreen extends Screen {
     static makeAssetSetup(data) {
@@ -161,7 +153,7 @@ export default class CharacterBuildScreen extends Screen {
         this.prizeCollect.onClothesRedirect.add(() => {
 
             this.modalList.forEach(element => {
-                if (element.isOpen&& element != this.charCustomizationContainer) {
+                if (element.isOpen && element != this.charCustomizationContainer) {
                     element.hide();
                 }
             });
@@ -255,6 +247,35 @@ export default class CharacterBuildScreen extends Screen {
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
     }
+    startMainScreen() {
+        console.log('startMainScreenstartMainScreenstartMainScreen')
+        this.activePlayersCustomization.forEach(element => {
+            this.sceneContainer.removeChild(element);
+            element.onUpdateCurrentPlayer.removeAll()
+        });
+        this.activePlayersCustomization = [];
+
+
+        for (let index = 0; index < GameData.instance.totalPlayers; index++) {
+            this.addCharacter(GameData.instance.getPlayer(index))
+        }
+
+        this.activePlayerId = Math.min(1, this.activePlayersCustomization.length - 1);
+        this.charCustomizationContainer.setPlayer(this.activePlayersCustomization[this.activePlayerId].playerViewDataStructure)
+
+    }
+    addCharacter(data) {
+
+        console.log('addCharacteraddCharacteraddCharacter')
+        let customizationView = new CharacterBuildScreenCustomizationView(data, this.activePlayersCustomization.length)
+        this.sceneContainer.addChild(customizationView);
+
+        customizationView.onUpdateCurrentPlayer.add((id) => {
+            this.updateCurrentPlayer(id)
+        })
+
+        this.activePlayersCustomization.push(customizationView);
+    }
     showAdBlockMessage() {
         this.genericPopUp.showInfo("You need to disable the adblock to access this")
         this.openModal(this.genericPopUp, true)
@@ -332,9 +353,7 @@ export default class CharacterBuildScreen extends Screen {
         });
 
         if (!modalOpen) {
-            console.log("THIS?")
             this.loadoutButton.addIcon(GameData.instance.currentEquippedWeaponData.entityData.icon, 80)
-
             //this.closeCustomization();
             //this.unSelectPlayer();
         }
@@ -480,17 +499,7 @@ export default class CharacterBuildScreen extends Screen {
         }, {}, false)
 
     }
-    addCharacter(data) {
 
-        let customizationView = new CharacterBuildScreenCustomizationView(data, this.activePlayersCustomization.length)
-        this.sceneContainer.addChild(customizationView);
-
-        customizationView.onUpdateCurrentPlayer.add((id) => {
-            this.updateCurrentPlayer(id)
-        })
-
-        this.activePlayersCustomization.push(customizationView);
-    }
     defaultZoom() {
 
         this.pivotOffset.x = 0
@@ -609,6 +618,9 @@ export default class CharacterBuildScreen extends Screen {
         this.customPlayerSprite.anchor.set(0, 0.7)
         this.customPlayerSprite.x = -this.customPlayerSprite.width / 2
 
+        //console.log(this.activePlayersCustomization)
+
+        //this.addChild(new PIXI.Sprite(this.activePlayersCustomization[this.activePlayerId].playerPreviewStructure.staticTexture))
         this.customPlayerSprite.y = 30
         this.customPlayerSpriteMask.y = 50
     }
@@ -866,7 +878,7 @@ export default class CharacterBuildScreen extends Screen {
         //LocalizationManager.instance.getLabel();
 
         //console.log(params)
-
+        this.startMainScreen();
 
 
         this.updateLoadoutNewItems();

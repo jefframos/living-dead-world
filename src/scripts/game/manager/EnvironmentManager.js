@@ -1,21 +1,16 @@
-import AmbientLightSystem from "../components/AmbientLightSystem";
-import BasicFloorRender from "./BasicFloorRender";
-import Camera from "../core/Camera";
-import Game from "../../Game";
-import GameObject from "../core/gameObject/GameObject";
-import GameStaticData from "../data/GameStaticData";
-import GameView from "../core/view/GameView";
-import LevelManager from "./LevelManager";
-import Player from "../entity/Player";
-import RandomGenerator from "../core/utils/RandomGenerator";
-import RenderModule from "../core/modules/RenderModule";
-import StaticPhysicObject from "../entity/StaticPhysicObject";
-import StaticViewObject from "../entity/StaticViewObject";
-import Trees from "../entity/Trees";
-import Utils from "../core/utils/Utils";
-import WorldManager from "./WorldManager";
 import alea from 'alea';
 import { createNoise2D } from 'simplex-noise';
+import Game from "../../Game";
+import AmbientLightSystem from "../components/AmbientLightSystem";
+import GameObject from "../core/gameObject/GameObject";
+import Vector3 from "../core/gameObject/Vector3";
+import RandomGenerator from "../core/utils/RandomGenerator";
+import GameStaticData from "../data/GameStaticData";
+import Player from "../entity/Player";
+import StaticViewObject from "../entity/StaticViewObject";
+import Trees from "../entity/Trees";
+import BasicFloorRender from "./BasicFloorRender";
+import LevelManager from "./LevelManager";
 
 export default class EnvironmentManager extends GameObject {
     static instance;
@@ -167,7 +162,7 @@ export default class EnvironmentManager extends GameObject {
                             break
                     }
                     if (compare) {
-                        const data = {layer:layer.layer,  x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] }
+                        const data = { layer: layer.layer, x: targetPosition.x, z: targetPosition.y, texture: layer.list[Math.floor(this.rnd.randomOffset(v + this.totalLayersDraw * layer.list.length) * layer.list.length)] }
                         data.width = layer.width;
                         data.height = layer.height;
                         const entity = this.levelManager.addEntity(EnvironmentManager.Constructors[layer.constructor], data)
@@ -180,9 +175,9 @@ export default class EnvironmentManager extends GameObject {
         this.totalLayersDraw += 2.15;
     }
     updatePlayerChunk() {
-
-        this.nextChunkId.i = Math.floor((this.player.transform.position.x + this.chunkSize.width / 2) / this.chunkSize.width)
-        this.nextChunkId.j = Math.floor((this.player.transform.position.z + this.chunkSize.height / 2) / this.chunkSize.height)
+        const playerPos = this.player ? this.player.transform.position : new Vector3()
+        this.nextChunkId.i = Math.floor((playerPos.x + this.chunkSize.width / 2) / this.chunkSize.width)
+        this.nextChunkId.j = Math.floor((playerPos.z + this.chunkSize.height / 2) / this.chunkSize.height)
 
         if (this.nextChunkId.i != this.currentChunkId.i || this.nextChunkId.j != this.currentChunkId.j) {
 

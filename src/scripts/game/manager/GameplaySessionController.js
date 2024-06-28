@@ -1,21 +1,19 @@
-import BuildingComponent from "../components/building/BuildingComponent";
+import signals from "signals";
+import Game from "../../Game";
+import config from "../../config";
 import CardPlacementSystem from "../components/deckBuilding/CardPlacementSystem";
 import CardPlacementView from "../components/deckBuilding/CardPlacementView";
-import EntityBuilder from "../screen/EntityBuilder";
-import Eugine from "../core/Eugine";
-import Game from "../../Game";
-import GameObject from "../core/gameObject/GameObject";
-import GameView from "../core/view/GameView";
+import SurvivorDeckController from "../components/deckBuilding/SurvivorDeckController";
 import HudButtons from "../components/ui/HudButtons";
+import Eugine from "../core/Eugine";
+import GameObject from "../core/gameObject/GameObject";
 import InputModule from "../core/modules/InputModule";
+import RenderModule from "../core/modules/RenderModule";
+import GameView from "../core/view/GameView";
+import PlayerSessionData from "../data/PlayerSessionData";
 import Player from "../entity/Player";
 import PlayerInventoryHud from "../inventory/view/PlayerInventoryHud";
-import PlayerSessionData from "../data/PlayerSessionData";
-import RenderModule from "../core/modules/RenderModule";
-import SurvivorDeckController from "../components/deckBuilding/SurvivorDeckController";
-import UIUtils from "../utils/UIUtils";
-import config from "../../config";
-import signals from "signals";
+import EntityBuilder from "../screen/EntityBuilder";
 
 export default class GameplaySessionController extends GameObject {
     static CurrentMode = 0;
@@ -38,6 +36,7 @@ export default class GameplaySessionController extends GameObject {
         this.onPlayerReady = new signals.Signal();
         this.onPlayerDead = new signals.Signal();
         this.onGameStart = new signals.Signal();
+        this.onPlayerChoose = new signals.Signal();
 
 
     }
@@ -45,7 +44,9 @@ export default class GameplaySessionController extends GameObject {
 
         this.playerInventoryHud = this.engine.poolGameObject(PlayerInventoryHud, true)
         this.addChild(this.playerInventoryHud)
-
+        this.playerInventoryHud.onPlayerSelect.add((playerId) => {
+            this.setPlayerAndStart(playerId)
+        })
 
         this.deckView = this.engine.poolGameObject(SurvivorDeckController, true)
         this.deckView.setActive(false);
@@ -78,18 +79,18 @@ export default class GameplaySessionController extends GameObject {
 
             });
         }
-
-
-       
     }
-    showFtue(){
+    setPlayerAndStart(playerId) {
+
+        this.playerInventoryHud.hideChoosePlayer();
         this.playerInventoryHud.showFtue();
+        this.onPlayerChoose.dispatch(playerId);
+    }
+    showFtue() {
+        this.playerInventoryHud.showChoosePlayer();
     }
     setLabelInfo(label, toHide = 0, type = 0) {
-
         this.playerInventoryHud.setLabelInfo(label, toHide, type)
-        
-
     }
     playerReady() {
 
@@ -101,9 +102,11 @@ export default class GameplaySessionController extends GameObject {
                 this.entityBuilder.addWeapons(this.player)
             }
 
+
             this.playerSessionData.reset();
             this.player.sessionData = this.playerSessionData;
 
+            console.log("\n\nplayerReady", this.playerSessionData)
             this.playerInventoryHud.registerPlayer(this.player)
 
             this.cardPlacementSystem.setPlayer(this.player);

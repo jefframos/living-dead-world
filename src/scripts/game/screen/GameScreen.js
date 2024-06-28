@@ -1,30 +1,28 @@
 import * as PIXI from 'pixi.js';
-import * as dat from 'dat.gui';
 
+import Game from '../../Game';
+import config from '../../config';
+import Screen from '../../screenManager/Screen';
 import AmbientLightSystem from '../components/AmbientLightSystem';
-import BaseEnemy from '../entity/BaseEnemy';
-import Bullet from '../components/weapon/bullets/Bullet';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
+import Bullet from '../components/weapon/bullets/Bullet';
+import Eugine from '../core/Eugine';
+import Layer from '../core/Layer';
+import PerspectiveCamera from '../core/PerspectiveCamera';
+import Vector3 from '../core/gameObject/Vector3';
+import InputModule from '../core/modules/InputModule';
+import RenderModule from '../core/modules/RenderModule';
+import TouchAxisInput from '../core/modules/TouchAxisInput';
+import Pool from '../core/utils/Pool';
+import GameData from '../data/GameData';
+import RewardsManager from '../data/RewardsManager';
+import BaseEnemy from '../entity/BaseEnemy';
 import EffectsManager from '../manager/EffectsManager';
 import EnvironmentManager from '../manager/EnvironmentManager';
-import Eugine from '../core/Eugine';
-import Game from '../../Game';
-import GameStaticData from '../data/GameStaticData';
-import InputModule from '../core/modules/InputModule';
-import Layer from '../core/Layer';
 import LevelManager from '../manager/LevelManager';
-import MainScreenManager from './MainScreenManager';
-import PerspectiveCamera from '../core/PerspectiveCamera';
-import Player from '../entity/Player';
-import Pool from '../core/utils/Pool';
-import RenderModule from '../core/modules/RenderModule';
-import RewardsManager from '../data/RewardsManager';
-import Screen from '../../screenManager/Screen'
-import TouchAxisInput from '../core/modules/TouchAxisInput';
 import UIButton1 from '../ui/UIButton1';
 import UIList from '../ui/uiElements/UIList';
-import Vector3 from '../core/gameObject/Vector3';
-import config from '../../config';
+import MainScreenManager from './MainScreenManager';
 
 export default class GameScreen extends Screen {
     constructor(label, targetContainer) {
@@ -81,6 +79,17 @@ export default class GameScreen extends Screen {
         this.camera.setFollowPoint(new Vector3())
 
         this.levelManager = new LevelManager(this.gameEngine);
+        this.levelManager.onStartGameAfterChoose.add((chosen) => {
+            if (chosen == 0) {
+                GameData.instance.savePlayer1()
+            } else if (chosen == 1) {
+                GameData.instance.savePlayer2()
+            } else {
+                GameData.instance.savePlayer3()
+            }
+            this.allSet();
+            this.levelManager.refreshPlayer()
+        })
         this.levelManager.onPlayerDie.add(this.playerDie.bind(this))
         this.levelManager.onConfirmGameOver.add(this.confirmGameOver.bind(this))
         this.debug = {
@@ -175,6 +184,7 @@ export default class GameScreen extends Screen {
         this.helperButtonList.x = config.width - 50
         this.helperButtonList.y = 80
 
+        this.waitingTimescale = 1;
         if (window.isMobile) {
 
             if (Game.Debug.debug) {
@@ -188,6 +198,8 @@ export default class GameScreen extends Screen {
 
         this.container.scale.set(1)
 
+
+        console.log('START SCREEN')
 
     }
 
@@ -250,26 +262,36 @@ export default class GameScreen extends Screen {
         this.gameEngine.start();
         this.spawnPlayer(); //SEND PLAYER PARAMETERS HERE
         this.worldRender = this.gameEngine.addGameObject(new EnvironmentManager());
+        if (this.currentLevelParams.level == 0) {
+            this.waitingTimescale = 0;
+            this.levelManager.player.hidePlayerUi()
+        } else {
+            this.waitingTimescale = 1;
+            this.levelManager.player.showPlayerUi();
+        }
+    }
+    allSet() {
+        this.waitingTimescale = 1
+        this.levelManager.player.showPlayerUi();
     }
     update(delta) {
-        const timeScale = 1.25
+        const timeScale = 1.25 * this.waitingTimescale;
         const debugTimeScale = Game.Debug.timeScale | 1
-        const scaledTime =  delta * debugTimeScale * timeScale;
+        const scaledTime = delta * debugTimeScale * timeScale;
         delta *= debugTimeScale;
-        this.levelManager.update(scaledTime * Eugine.TimeScale, delta* debugTimeScale)
-        this.gameEngine.update(scaledTime, delta* debugTimeScale)
-        this.levelManager.lateUpdate(scaledTime * Eugine.TimeScale, delta* debugTimeScale)
+        this.levelManager.update(scaledTime * Eugine.TimeScale, delta * debugTimeScale)
+        this.gameEngine.update(scaledTime, delta * debugTimeScale)
+        this.levelManager.lateUpdate(scaledTime * Eugine.TimeScale, delta * debugTimeScale)
 
         this.debug.enemiesPool = Pool.instance.getPool(BaseEnemy).length
         this.debug.bulletsPool = Pool.instance.getPool(Bullet).length
 
-        
 
         if (window.isMobile) {
 
             if (this.touchAxisInput.angle) {
             }
-            
+
             this.touchAxisInput.visible = Eugine.TimeScale > 0;
 
             if (!this.touchAxisInput.visible) {
@@ -277,7 +299,7 @@ export default class GameScreen extends Screen {
                 this.touchAxisInput.reset();
                 this.inputModule.touchAxisDown = false;
                 this.inputModule.mouseDown = false;
-                
+
             } else {
                 this.inputModule.touchAxisDown = this.touchAxisInput.dragging
                 this.inputModule.direction = this.touchAxisInput.angle
@@ -301,8 +323,8 @@ export default class GameScreen extends Screen {
         super.transitionOut(nextScreen, params, MainScreenManager.Transition.timeOut);
     }
     transitionIn(param) {
-        
-        console.log('transitionIn',param)
+
+        console.log('transitionIn', param)
         SOUND_MANAGER.playLoop('ancient', 0.5)
 
         RewardsManager.instance.gameplayStart(true);

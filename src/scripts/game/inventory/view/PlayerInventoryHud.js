@@ -1,23 +1,25 @@
 import * as PIXI from 'pixi.js';
 
-import AttributesContainer from '../../components/ui/loadout/AttributesContainer';
-import AudioControllerView from '../../components/ui/AudioControllerView';
-import Eugine from '../../core/Eugine';
+import signals from 'signals';
 import Game from '../../../Game';
-import GameObject from '../../core/gameObject/GameObject';
-import GameStaticData from "../../data/GameStaticData";
-import GameView from '../../core/view/GameView';
-import InGamePopupMenu from '../../components/ui/InGamePopupMenu';
-import InteractableView from '../../view/card/InteractableView';
-import LevelManager from '../../manager/LevelManager';
-import LevelUpBar from '../../components/ui/progressBar/LevelUpBar';
 import LocalizationManager from '../../LocalizationManager';
+import AudioControllerView from '../../components/ui/AudioControllerView';
+import InGamePopupMenu from '../../components/ui/InGamePopupMenu';
 import PlayerGameplayHud from '../../components/ui/PlayerGameplayHud';
-import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
+import AttributesContainer from '../../components/ui/loadout/AttributesContainer';
+import LevelUpBar from '../../components/ui/progressBar/LevelUpBar';
+import Eugine from '../../core/Eugine';
+import GameObject from '../../core/gameObject/GameObject';
 import RenderModule from '../../core/modules/RenderModule';
+import Utils from '../../core/utils/Utils';
+import GameView from '../../core/view/GameView';
+import GameStaticData from "../../data/GameStaticData";
+import LevelManager from '../../manager/LevelManager';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
-import Utils from '../../core/utils/Utils';
+import InteractableView from '../../view/card/InteractableView';
+import ChoosePlayer from './ChoosePlayer';
+import PlayerInventorySlotEquipView from './PlayerInventorySlotEquipView';
 
 export default class PlayerInventoryHud extends GameObject {
     constructor() {
@@ -109,6 +111,11 @@ export default class PlayerInventoryHud extends GameObject {
         this.enemyIcon.anchor.set(0.5)
         this.kills.addChild(this.enemyIcon)
 
+
+
+        // this.tubeContainer.visible = false;
+        // this.gamePoints.visible = false;
+        // this.coins.visible = false;
 
         this.coins = new PIXI.Text('9999', window.LABELS.LABEL1)
         this.gameView.view.addChild(this.coins)
@@ -255,13 +262,22 @@ export default class PlayerInventoryHud extends GameObject {
 
         //this.setBuildingMode();
         //this.toggleDeck();
+        console.log("FTUE HERE", this.ftuePrompt)
 
         this.ftuePrompt = new PIXI.Container()
         this.gameView.view.addChild(this.ftuePrompt)
 
         this.ftuePrompt.alpha = 0;
 
+        this.onPlayerSelect = new signals.Signal()
 
+        this.choosePlayer = new ChoosePlayer()
+        this.gameView.view.addChild(this.choosePlayer)
+
+        this.choosePlayer.onSelect.add((target) => {
+            this.playerSelected(target)
+        })
+        this.choosePlayer.visible = false;
         this.wireBox = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_blur'), 20, 20, 20, 20);
         this.ftuePrompt.addChild(this.wireBox);
         this.wireBox.width = 520
@@ -328,6 +344,41 @@ export default class PlayerInventoryHud extends GameObject {
         })
 
     }
+    playerSelected(playerId) {
+        //this.showFtue()
+        this.onPlayerSelect.dispatch(playerId)
+    }
+    hideChoosePlayer() {
+        this.levelInfoContainer.visible = true;
+        this.tubeContainer.visible = true;
+        this.goos.visible = true;
+        this.kills.visible = true
+        this.timer.visible = true;
+        this.uiButtonsList.visible = true;
+        this.baseBarView.visible = true;
+        this.playerHud.visible = true;
+        this.textLevel.visible = true;
+
+        this.choosePlayer.visible = false;
+
+        this.playerHud.refresh();
+
+    }
+    showChoosePlayer() {
+
+        this.levelInfoContainer.visible = false;
+        this.tubeContainer.visible = false;
+        this.goos.visible = false;
+        this.kills.visible = false
+        this.timer.visible = false;
+        this.uiButtonsList.visible = false;
+        this.baseBarView.visible = false;
+        this.playerHud.visible = false;
+        this.textLevel.visible = false;
+
+        this.choosePlayer.visible = true;
+        this.playerHud.visible = false;
+    }
     showFtue() {
         this.ftuePrompt.alpha = 1;
         TweenLite.to(this.ftuePrompt, 0.5, { delay: 5, alpha: 0 })
@@ -362,6 +413,8 @@ export default class PlayerInventoryHud extends GameObject {
         this.player.health.healthUpdated.add(this.updatePlayerHealth.bind(this))
         this.playerHud.registerPlayer(this.player)
         this.attributesView.updateAttributes(this.player.attributes, this.player.attributes)
+
+
 
         setTimeout(() => {
 
@@ -502,9 +555,13 @@ export default class PlayerInventoryHud extends GameObject {
         this.coins.text = LevelManager.instance.matchStats.coins
         this.gamePoints.text = LevelManager.instance.matchStats.points
 
-        this.kills.visible = false
+        //this.kills.visible = true
         this.coins.visible = false
         this.gamePoints.visible = false
+
+
+
+
 
         this.levelInfoContainer.x = Game.Borders.width / 2
         this.levelInfoContainer.y = 180//Game.Borders.height / 2 - 150
@@ -532,6 +589,8 @@ export default class PlayerInventoryHud extends GameObject {
         this.attributesView.scale.set(0.75)
         this.attributesView.y = Game.Borders.bottomRight.y - this.attributesView.height - 5
         this.attributesView.x = 5
+
+
 
 
         if (this.baseBarView.maxWidth != Game.Borders.width - 100) {
@@ -571,11 +630,13 @@ export default class PlayerInventoryHud extends GameObject {
         this.tubeContainer.x = this.timer.x
         this.tubeContainer.y = this.timer.y + this.timer.height + 5
 
-        this.gamePoints.x = this.tubeContainer.x
-        this.gamePoints.y = this.tubeContainer.y + this.tubeContainer.height + 5
+        this.kills.x = this.tubeContainer.x
+        this.kills.y = this.tubeContainer.y + this.tubeContainer.height + 5
 
-        this.kills.x = this.gamePoints.x
-        this.kills.y = this.gamePoints.y + this.gamePoints.height + 5
+
+        this.gamePoints.x = this.kills.x
+        this.gamePoints.y = this.kills.y + this.kills.height + 5
+
 
         this.coins.x = this.kills.x
         this.coins.y = this.kills.y + this.kills.height + 5
@@ -584,6 +645,8 @@ export default class PlayerInventoryHud extends GameObject {
         if (this.fingerPrompt.visible) {
             this.fingerPrompt.y = 100 + Math.sin(Game.Time * 10) * 10
         }
+
+
 
     }
     resize(res, newRes) {
@@ -598,6 +661,8 @@ export default class PlayerInventoryHud extends GameObject {
         }
 
         this.ftuePrompt.x = Game.Borders.width / 2
+
+        this.choosePlayer.update()
 
         this.inGamePopupMenu.resize(res, newRes)
         //this.attributesView.setSize(Math.min(1000, Game.Borders.width * Game.GlobalScale.x),50)

@@ -1,13 +1,13 @@
 import * as PIXI from 'pixi.js';
 
+import signals from 'signals';
 import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
+import PlayerViewStructure from '../../../entity/PlayerViewStructure';
+import UIList from '../../../ui/uiElements/UIList';
 import InteractableView from '../../../view/card/InteractableView';
 import PlayerGameViewSpriteSheet from '../../PlayerGameViewSpriteSheet';
-import PlayerViewStructure from '../../../entity/PlayerViewStructure';
 import SpriteSheetAnimation from '../../utils/SpriteSheetAnimation';
-import UIList from '../../../ui/uiElements/UIList';
-import signals from 'signals';
 
 export default class CharacterBuildScreenCustomizationView extends PIXI.Container {
     constructor(data, id) {
@@ -79,6 +79,12 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         this.companionSin = Math.random() * 3.14;
 
     }
+    refreshVisuals(data) {
+        if (data) {
+            this.playerViewDataStructure.parse(data)
+        }
+        this.playerPreviewStructure.buildSpritesheet(this.playerViewDataStructure)
+    }
     removeCompanion() {
         this.companion.texture = PIXI.Texture.EMPTY;
         this.hasCompanion = false;
@@ -108,6 +114,7 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         if (!this.hasCompanion) {
             return;
         }
+        console.log(delta)
         this.companionAnimation.update(delta)
         this.companion.texture = this.companionAnimation.currentTexture;
         this.companionSin += delta * 0.5;
@@ -115,10 +122,10 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         const convertedBaseScale = this.playerPreviewStructure.baseScale * this.companion.baseScale
         const cos = Math.cos(this.companionSin)
         const sin = Math.sin(this.companionSin)
-        this.companion.x = cos * 80*convertedBaseScale
-        this.companion.y = Math.sin(this.companionSin) * 50*convertedBaseScale
+        this.companion.x = cos * 80 * convertedBaseScale
+        this.companion.y = Math.sin(this.companionSin) * 50 * convertedBaseScale
 
-        this.companion.scale.set(sin > 0 ? convertedBaseScale * -1 :  convertedBaseScale,  convertedBaseScale)
+        this.companion.scale.set(sin > 0 ? convertedBaseScale * -1 : convertedBaseScale, convertedBaseScale)
 
 
         this.children.sort((a, b) => {
