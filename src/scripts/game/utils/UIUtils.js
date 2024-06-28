@@ -1,12 +1,12 @@
+import LocalizationManager from "../LocalizationManager";
 import BaseButton from "../components/ui/BaseButton";
 import BodyPartySlot from "../components/ui/BodyPartySlot";
 import ColorButton from "../components/ui/ColorButton";
 import ColorSlot from "../components/ui/ColorSlot";
-import InteractableView from "../view/card/InteractableView";
-import LocalizationManager from "../LocalizationManager";
 import Pool from "../core/utils/Pool";
-import UIList from "../ui/uiElements/UIList";
 import Utils from "../core/utils/Utils";
+import UIList from "../ui/uiElements/UIList";
+import InteractableView from "../view/card/InteractableView";
 
 export default class UIUtils {
     constructor() {
@@ -35,7 +35,17 @@ export default class UIUtils {
         button.scale.set(Utils.scaleToFit(button, 60))
         return button;
     }
-
+    static getQuitButton(callback, label, icon) {
+        const button = new BaseButton('transparent', 100, 100);
+        InteractableView.addMouseUp(button, () => { if (callback) callback() })
+        if (icon) {
+            button.addIcon(icon)
+        }
+        if (label) {
+            UIUtils.addLabel(button, label, { fontSize: 24 })
+        }
+        return button;
+    }
     static getPrimaryButton(callback, label, icon) {
         const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 100, 100);
         InteractableView.addMouseUp(button, () => { if (callback) callback() })
@@ -259,6 +269,29 @@ export default class UIUtils {
 
         return button;
     }
+    static getPrimaryShuffleButton(callback, label) {
+        const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 120, 65);
+        button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
+        InteractableView.addMouseUp(button, () => { if (callback) callback(button) })
+
+
+        const buttonList = new UIList();
+
+        buttonList.w = 120
+        buttonList.h = 65
+
+
+        const priceLabel = UIUtils.getPrimaryLabel(LocalizationManager.instance.getLabel('FREE'))
+        button.priceLabel = priceLabel;
+        buttonList.addElement(priceLabel, { align: 0.8, scaleContentMax: true, fitHeight: 0.8 })
+        buttonList.addElement(new PIXI.Sprite.from(UIUtils.getIconUIIcon('icon_reset')), { align: 0.2, scaleContentMax: true, fitHeight: 0.7, listScl: 0.4 })
+
+        button.addChild(buttonList)
+        button.buttonListContent = buttonList;
+
+        buttonList.updateHorizontalList()
+        return button;
+    }
     static getPrimaryVideoButton(callback, label) {
         const button = new BaseButton(UIUtils.baseButtonTexture + '_0001', 120, 65);
         button.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
@@ -414,7 +447,9 @@ export default class UIUtils {
         return 'icon-help'
     }
     static getIconUIIcon(type) {
-        switch (type) {            
+        switch (type) {
+            case 'icon_reset':
+                return 'icon_reset'
             case 'finish':
                 return 'finishFlag'
             case 'highscore':

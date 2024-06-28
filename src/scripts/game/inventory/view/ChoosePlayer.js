@@ -37,7 +37,7 @@ export default class ChoosePlayer extends PIXI.Container {
         this.buttonData = buttonData || [
             { texture: UIUtils.baseButtonTexture + '_0001', label: 'Button 1', images: [player1.staticTexture, 'pistol1-icon', 'pet-cat-10001'] },
             { texture: UIUtils.baseButtonTexture + '_0002', label: 'Button 2', images: [player2.staticTexture, 'multishot-gun-1-icon', 'pet-fish-10001'] },
-            { texture: UIUtils.baseButtonTexture + '_0004', label: 'Button 3', images: [player3.staticTexture, 'unicornLeg-icon', 'pet-dog-10001'] }
+            { texture: UIUtils.baseButtonTexture + '_0004', label: 'Button 3', images: [player3.staticTexture, 'zombie-hand-icon', 'pet-dog-10001'] }
         ];
         this.buttons = [];
         this.onSelect = new signals.Signal();
@@ -88,7 +88,7 @@ export default class ChoosePlayer extends PIXI.Container {
         const img2 = PIXI.Sprite.from(data.images[1]);
         img2.anchor.set(0.5, 0.5);
         img2.position.set(buttonBackground.width / 2 + 65, 70);
-        img2.scale.set(1.5)
+        img2.scale.set(1)
         button.addChild(img2);
 
         const img3 = PIXI.Sprite.from(data.images[2]);

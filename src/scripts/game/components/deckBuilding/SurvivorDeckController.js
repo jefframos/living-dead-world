@@ -1,29 +1,18 @@
-import BaseButton from "../ui/BaseButton";
-import CardInfo from "./CardInfo";
-import CardPlacementSystem from "./CardPlacementSystem";
-import CardView from "./CardView";
-import EntityBuilder from "../../screen/EntityBuilder";
-import EntityData from "../../data/EntityData";
+import signals from "signals";
 import Game from "../../../Game";
-import GameObject from "../../core/gameObject/GameObject";
-import GameStaticData from "../../data/GameStaticData";
-import GameView from "../../core/view/GameView";
-import GameplayItem from "../../data/GameplayItem";
-import GridInfoView from "./GridInfoView";
-import GridSlotView from "./grid/GridSlotView";
-import GridView from "./grid/GridView";
-import InputModule from "../../core/modules/InputModule";
-import InteractableView from "../../view/card/InteractableView";
 import LocalizationManager from "../../LocalizationManager";
-import Player from "../../entity/Player";
+import GameObject from "../../core/gameObject/GameObject";
+import InputModule from "../../core/modules/InputModule";
 import RenderModule from "../../core/modules/RenderModule";
+import Utils from "../../core/utils/Utils";
+import GameView from "../../core/view/GameView";
+import EntityData from "../../data/EntityData";
 import RewardsManager from "../../data/RewardsManager";
-import SpriteButton from "../ui/SpriteButton";
+import EntityBuilder from "../../screen/EntityBuilder";
 import UIList from "../../ui/uiElements/UIList";
 import UIUtils from "../../utils/UIUtils";
-import Utils from "../../core/utils/Utils";
-import conversionUtils from "../../../conversionUtils";
-import signals from "signals";
+import CardPlacementSystem from "./CardPlacementSystem";
+import CardView from "./CardView";
 
 export default class SurvivorDeckController extends GameObject {
     constructor() {
@@ -79,10 +68,10 @@ export default class SurvivorDeckController extends GameObject {
         this.pickAll.buttonListContent.x = 260 / 2 - this.pickAll.buttonListContent.w / 2
         this.pickAll.buttonListContent.y = 80 / 2 - this.pickAll.buttonListContent.h / 2
 
-        this.reshuffle = UIUtils.getPrimaryVideoButton(() => {
-            RewardsManager.instance.doReward(() => {
-                this.reshuffleDeck()
-            })
+        this.reshuffle = UIUtils.getPrimaryShuffleButton(() => {
+            this.reshuffleDeck()
+            // RewardsManager.instance.doReward(() => {
+            // })
         }, "Reshuffle")
 
         this.reshuffle.resize(220, 80)
@@ -242,17 +231,17 @@ export default class SurvivorDeckController extends GameObject {
 
 
         this.uiButtons.removeAllElements();
-        this.pickAll.visible = pickAll < 0.2 || Game.Debug.debug
+        this.pickAll.visible = true//pickAll < 0.2 || Game.Debug.debug
         this.reshuffle.visible = reshffleUses > 0 || Game.Debug.debug
 
-        if(window.STAND_ALONE){
-            this.pickAll.visible = false;
-        }
-        if (this.pickAll.visible) {
-            this.uiButtons.addElement(this.pickAll)
+        if (window.STAND_ALONE) {
+            this.pickAll.visible = true//false;
         }
         if (this.reshuffle.visible) {
             this.uiButtons.addElement(this.reshuffle)
+        }
+        if (this.pickAll.visible) {
+            this.uiButtons.addElement(this.pickAll)
         }
         this.reshuffle.priceLabel.text = LocalizationManager.instance.getLabel('RESHUFFLE') + "\n(" + reshffleUses + ")"
         this.reshuffle.buttonListContent.updateHorizontalList()

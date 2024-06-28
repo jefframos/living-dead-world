@@ -1,10 +1,10 @@
+import signals from "signals";
+import Utils from "../core/utils/Utils";
 import EntityAttributes from "./EntityAttributes";
 import EntityData from "./EntityData";
 import EntityMultipliers from "./EntityMultipliers";
 import GameStaticData from "./GameStaticData";
 import GameplayItem from "./GameplayItem";
-import Utils from "../core/utils/Utils";
-import signals from "signals";
 
 export default class PlayerSessionData {
     constructor() {
@@ -40,7 +40,7 @@ export default class PlayerSessionData {
         }
         this.levelBreaks = [0];
         for (var i = 0; i < 1000; i++) {
-            this.levelBreaks.push(10 + (i * (10 + i)) + Math.round(i*0.25));
+            this.levelBreaks.push(5 + (i * (10 + i)) + Math.round(i * 0.25));
         }
     }
     get equipaments() {
@@ -74,7 +74,7 @@ export default class PlayerSessionData {
         //this.xpData.normalUntilNext = 1 - this.xpData.untilNext / range;
 
         this.xpData.normalUntilNext = (this.xpData.xp - this.xpData.currentLevelXP) / this.xpData.levelsXpDiff
-        
+
         if (willLevelUp) {
             this.onLevelUp.dispatch(this.xpData);
         }
@@ -149,7 +149,7 @@ export default class PlayerSessionData {
         }
     }
 
-    openChest(){
+    openChest() {
         this.onOpenChest.dispatch();
     }
     addXp(amount) {

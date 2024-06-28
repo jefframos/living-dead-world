@@ -68,9 +68,9 @@ export default class CharacterBuildScreen extends Screen {
 
 
 
-        this.logo = new PIXI.Sprite.from('muta-logo');
-        //this.container.addChild(this.logo);
-        this.logo.anchor.x = 0.5;
+        // this.logo = new PIXI.Sprite.from('muta-logo');
+        // //this.container.addChild(this.logo);
+        // this.logo.anchor.x = 0.5;
 
 
 
@@ -248,6 +248,7 @@ export default class CharacterBuildScreen extends Screen {
         return this.activePlayersCustomization[this.activePlayerId]
     }
     startMainScreen() {
+        return
         console.log('startMainScreenstartMainScreenstartMainScreen')
         this.activePlayersCustomization.forEach(element => {
             this.sceneContainer.removeChild(element);
@@ -259,9 +260,9 @@ export default class CharacterBuildScreen extends Screen {
         for (let index = 0; index < GameData.instance.totalPlayers; index++) {
             this.addCharacter(GameData.instance.getPlayer(index))
         }
-
         this.activePlayerId = Math.min(1, this.activePlayersCustomization.length - 1);
         this.charCustomizationContainer.setPlayer(this.activePlayersCustomization[this.activePlayerId].playerViewDataStructure)
+
 
     }
     addCharacter(data) {
@@ -718,8 +719,8 @@ export default class CharacterBuildScreen extends Screen {
         this.playGameButton.x = Game.Borders.width / 2 - this.playGameButton.width / 2;
         this.playGameButton.y = Game.Borders.height - this.playGameButton.height - 60 + Math.sin(Game.Time) * 5
 
-        this.logo.x = Game.Borders.width / 2
-        this.logo.y = 40
+        // this.logo.x = Game.Borders.width / 2
+        // this.logo.y = 40
 
     }
 

@@ -1,7 +1,7 @@
 [
     {
         "id": "ARROW_BASE_01",
-        "viewData": "bullett",
+        "viewData": "green-round",
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": false,
@@ -9,7 +9,7 @@
             "y": -20
         },
         "maxWidth": 6,
-        "scale": 0.5
+        "scale": 1
     },
     {
         "id": "SPERM",
@@ -17,7 +17,10 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": true,
-        "frames": [1,3],
+        "frames": [
+            1,
+            3
+        ],
         "viewOffset": {
             "y": -20
         },
@@ -29,7 +32,10 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": true,
-        "frames": [1,3],
+        "frames": [
+            1,
+            3
+        ],
         "viewOffset": {
             "y": -20
         },
@@ -41,7 +47,10 @@
         "hasShadow": true,
         "rotationFacing": true,
         "hasAnimation": true,
-        "frames": [1,6],
+        "frames": [
+            1,
+            6
+        ],
         "anchor": {
             "x": 0.5,
             "y": 1
@@ -57,7 +66,10 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": true,
-        "frames": [1,4],
+        "frames": [
+            1,
+            4
+        ],
         "anchor": {
             "x": 0.5,
             "y": 1
@@ -72,7 +84,10 @@
         "hasShadow": true,
         "rotationFacing": false,
         "hasAnimation": true,
-        "frames": [1,5],
+        "frames": [
+            1,
+            5
+        ],
         "anchor": {
             "x": 0.5,
             "y": 0.7
@@ -82,7 +97,10 @@
         },
         "maxWidth": -1,
         "maxHeight": 80,
-        "rotationSpeed": [-5,5]
+        "rotationSpeed": [
+            -5,
+            5
+        ]
     },
     {
         "id": "PISTOL_BASE_02",
@@ -195,7 +213,10 @@
             "y": -20
         },
         "maxHeight": 80,
-        "rotationSpeed": [-10,10]
+        "rotationSpeed": [
+            -10,
+            10
+        ]
     },
     {
         "id": "NUKE_BASE_01",

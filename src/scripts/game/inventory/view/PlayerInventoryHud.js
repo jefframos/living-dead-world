@@ -41,6 +41,18 @@ export default class PlayerInventoryHud extends GameObject {
         this.statsVignette.tint = 0xFF0000
         this.statsVignette.alpha = 0;
 
+        this.warningVignette = new PIXI.NineSlicePlane(PIXI.Texture.from('border-blur'), 20, 20, 20, 20);
+        this.gameView.view.addChild(this.warningVignette)
+        this.warningVignette.tint = 0xFF0000
+        this.warningVignette.alpha = 0;
+        this.warningVignette.visible = false;
+
+        this.warningVignette2 = new PIXI.NineSlicePlane(PIXI.Texture.from('border-blur'), 20, 20, 20, 20);
+        this.gameView.view.addChild(this.warningVignette2)
+        this.warningVignette2.tint = 0x0000FF
+        this.warningVignette2.alpha = 0;
+        this.warningVignette2.visible = false;
+
         this.gameView.view.addChild(this.darkBlur)
         this.darkBlur.anchor.set(0.5)
         this.darkBlur.width = 500
@@ -389,6 +401,15 @@ export default class PlayerInventoryHud extends GameObject {
         this.infoLevelLabel.text = label;
         this.infoLevelLabel.style.fillColor = colors[type]
 
+        if (type == 1) {
+            this.warningVignette.visible = true
+            this.warningVignette2.visible = true
+            setTimeout(() => {
+                this.warningVignette.visible = false
+                this.warningVignette2.visible = false
+            }, 5000);
+        }
+
         TweenLite.killTweensOf(this.levelInfoContainer)
         TweenLite.killTweensOf(this.levelInfoContainer.scale)
 
@@ -581,6 +602,12 @@ export default class PlayerInventoryHud extends GameObject {
         this.statsVignette.width = Game.Borders.width + 4;
         this.statsVignette.height = Game.Borders.height + 4;
 
+
+        this.warningVignette.width = Game.Borders.width + 4;
+        this.warningVignette.height = Game.Borders.height + 4;
+        this.warningVignette2.width = Game.Borders.width + 4;
+        this.warningVignette2.height = Game.Borders.height + 4;
+
         this.infoShade.width = this.infoLevelLabel.width + 140
         this.infoShade.height = this.infoLevelLabel.height + 40
         this.infoShade.x = -this.infoShade.width / 2
@@ -619,6 +646,11 @@ export default class PlayerInventoryHud extends GameObject {
 
             }
         }
+
+        //this.warningVignette.visible = true
+        this.warningVignette.alpha = Math.abs(Math.sin(Eugine.Time * 5))
+        //this.warningVignette2.visible = true
+        this.warningVignette2.alpha = Math.abs(Math.cos(Eugine.Time * 5))
 
         //THIS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         var min = Math.min(Game.GlobalScale.min, 1)

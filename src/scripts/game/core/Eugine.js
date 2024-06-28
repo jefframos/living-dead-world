@@ -7,6 +7,7 @@ import Pool from './utils/Pool';
 export default class Eugine {
     static PhysicsTimeScale = 1;
     static TimeScale = 1;
+    static Time = 0;
     constructor() {
         this.entityAdded = new signals.Signal()
         this.gameObjects = []
@@ -37,9 +38,9 @@ export default class Eugine {
         }
     }
     callbackWhenAdding(constructor, callback) {
-        if(!this.callbacksWhenAdding[constructor.name]){
+        if (!this.callbacksWhenAdding[constructor.name]) {
             this.callbacksWhenAdding[constructor.name] = [callback];
-        }else{
+        } else {
             this.callbacksWhenAdding[constructor.name].push(callback);
         }
     }
@@ -90,7 +91,7 @@ export default class Eugine {
         gameObject.childAdded.addOnce(this.addGameObject.bind(this))
 
         this.gameObjects.push(gameObject);
-        if(!gameObject.parent){
+        if (!gameObject.parent) {
             this.parentGameObject.addChild(gameObject)
         }
 
@@ -105,18 +106,18 @@ export default class Eugine {
             gameObject.start()
         }
 
-        if(gameObject.resize){
+        if (gameObject.resize) {
             this.resizeableList.push(gameObject);
         }
         this.entityAdded.dispatch([gameObject])
 
-        if(this.callbacksWhenAdding && this.callbacksWhenAdding[gameObject.constructor.name]){
-            this.callbacksWhenAdding[gameObject.constructor.name].forEach(element => {                
+        if (this.callbacksWhenAdding && this.callbacksWhenAdding[gameObject.constructor.name]) {
+            this.callbacksWhenAdding[gameObject.constructor.name].forEach(element => {
                 element([gameObject]);
             });
-           this.callbacksWhenAdding[gameObject.constructor.name] = [];
+            this.callbacksWhenAdding[gameObject.constructor.name] = [];
         }
-        
+
         return gameObject;
     }
 
@@ -163,6 +164,7 @@ export default class Eugine {
     }
 
     update(delta) {
+        Eugine.Time += delta;
         if (!this.started) {
             return
         }

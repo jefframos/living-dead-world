@@ -112,9 +112,11 @@ export default class GameData {
         ViewDatabase.instance.saveWardrobePiece('face', playerViewDataStructure.face)
         ViewDatabase.instance.saveWardrobePiece('leg', playerViewDataStructure.leg)
         ViewDatabase.instance.saveWardrobePiece('sleeves', playerViewDataStructure.sleeves)
-        this.addToInventory('weapons', { id: 'PLAYER_MULTISHOT', level: 1, type: 'weapons' })
+
+        //PLAYER_MULTISHOT
+        this.addToInventory('weapons', { id: 'PLAYER_CROSS_SHOT', level: 1, type: 'weapons' })
         this.addToInventory('companions', { id: 'DOG-2', level: 1, type: 'companions' })
-        this.changeMainWeapon('PLAYER_MULTISHOT', 1)
+        this.changeMainWeapon('PLAYER_CROSS_SHOT', 1)
         this.changeCompanion('DOG-1', 1)
 
         CookieManager.instance.savePlayer(0, playerViewDataStructure)

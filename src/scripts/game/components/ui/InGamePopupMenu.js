@@ -1,11 +1,11 @@
 import * as PIXI from 'pixi.js';
 
+import signals from 'signals';
 import Game from '../../../Game';
 import LocalizationManager from '../../LocalizationManager';
-import MainScreenModal from './MainScreenModal';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
-import signals from 'signals';
+import MainScreenModal from './MainScreenModal';
 
 export default class InGamePopupMenu extends MainScreenModal {
     constructor() {
@@ -35,7 +35,7 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.blackout.alpha = 0.75
         //this.addChildAt(this.blackout, 0);
 
-        this.backContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('StatBack'), 20,20,20,20)
+        this.backContainer = new PIXI.NineSlicePlane(PIXI.Texture.from('modal_container0010'), 20, 20, 20, 20)
         this.container.addChild(this.backContainer);
         this.backContainer.width = 400
         this.backContainer.height = 560
@@ -56,7 +56,7 @@ export default class InGamePopupMenu extends MainScreenModal {
             },
             {
                 label: LocalizationManager.instance.getLabel('QUIT'),
-                texture: 'square_button_0011',
+                texture: 'button-transparent',
                 callback: () => {
                     this.hide()
                     this.onQuitGame.dispatch();
@@ -65,15 +65,18 @@ export default class InGamePopupMenu extends MainScreenModal {
             }
         ]
 
+        const btns = []
         buttonsData.forEach(element => {
 
-            const button = UIUtils.getPrimaryButton(element.callback, element.label)
+            const button = btns.length == 0 ? UIUtils.getPrimaryButton(element.callback, element.label) : UIUtils.getQuitButton(element.callback, element.label)
             button.updateBackTexture(element.texture)
             this.buttonList.addElement(button);
             button.buttonSound = element.sound
             button.resize(this.buttonList.w, 70)
+            btns.push(button)
 
         });
+        btns[1].text.style.fill = 0xc83434
 
         this.visible = false;
 
@@ -93,8 +96,8 @@ export default class InGamePopupMenu extends MainScreenModal {
         super.addBackgroundShape();
 
     }
-    updateAttributesLabel(label){
-        this.weaponAcessoriesLabel.text = 'STATS\n\n'+label
+    updateAttributesLabel(label) {
+        this.weaponAcessoriesLabel.text = 'STATS\n\n' + label
     }
     recenterContainer() {
         this.container.pivot.x = this.container.width / 2

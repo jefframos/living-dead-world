@@ -53,7 +53,7 @@
     },
     {
         "id": "PLAYER_CROSS_SHOT",
-        "ingameIcon": "pistol4",
+        "ingameIcon": "zombie-hand",
         "ingameBaseWidth": -1,
         "ingameAmountIconOverrider": -1,
         "inGameRotation": 0,

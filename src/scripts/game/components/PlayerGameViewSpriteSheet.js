@@ -273,7 +273,6 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
     }
     update(delta) {
         const forceWalk = false;
-
         if (this.gameObject) {
             if (this.gameObject.gameView.view) {
                 if (this.gameObject.physics.magnitude > 0) {
@@ -322,8 +321,10 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
 
         this.view.scale.set(this.direction * this.baseScale * (this.sin * 0.002 + 0.98), this.cos * 0.003 + 0.97 * this.baseScale);
 
-        const normal = (this.currentFrame + 1) / this.maxFrame;
+        //console.log(this.view.scale)
 
+
+        const normal = (this.currentFrame + 1) / this.maxFrame;
 
         this.bodyData.forEach(element => {
             const spriteElement = this.spriteLayersData[element.area];

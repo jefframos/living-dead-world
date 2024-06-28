@@ -1,25 +1,27 @@
 [
     {
-        "ignore":{
+        "ignore": {
             "startAt": 350,
             "textTrigger": "Enemy Horde Incoming",
-            "time":10
+            "time": 10
         },
-        "lenght": 60,
+        "lenght": 45,
         "environmentData": "level-tutorial",
-        "difficulty":1,
+        "difficulty": 1,
         "waves": [
             {
                 "startAt": 1,
                 "duration": 100,
-                "waves": [                    
+                "waves": [
                     {
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
                         "total": 1000,
                         "maxActive": 15,
-                        "entity": ["RAT_01"],
+                        "entity": [
+                            "RAT_01"
+                        ],
                         "levels": [
                             0
                         ]
@@ -27,9 +29,10 @@
                 ]
             },
             {
-                "startAt": 40,
+                "startAt": 30,
                 "duration": 100,
-                "waves": [                    
+                "alert": true,
+                "waves": [
                     {
                         "areaType": "arc",
                         "length": 250,
@@ -42,7 +45,7 @@
                         ]
                     }
                 ]
-            }            
+            }
         ]
     }
 ]
