@@ -1,14 +1,13 @@
 [
     {
-        "ignore":{
+        "ignore": {
             "startAt": 350,
             "textTrigger": "INCOMING_HORDE",
-            "time":10
+            "time": 10
         },
         "lenght": 300,
         "environmentData": "level-1",
-        "difficulty":2,
-
+        "difficulty": 2,
         "waves": [
             {
                 "startAt": 2,
@@ -39,10 +38,11 @@
                         ]
                     }
                 ]
-            },            
+            },
             {
                 "startAt": 60,
                 "duration": 60,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -100,11 +100,10 @@
                     }
                 ]
             },
-            
             {
                 "startAt": 180,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -124,6 +123,7 @@
             {
                 "startAt": 240,
                 "duration": 60,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",

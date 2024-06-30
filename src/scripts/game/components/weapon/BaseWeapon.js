@@ -1,22 +1,19 @@
-import AttributeData from "../../data/AttributeData";
-import Bullet from "./bullets/Bullet";
-import Companion from "../../entity/Companion";
-import EffectsManager from "../../manager/EffectsManager";
-import EntityAttributes from "../../data/EntityAttributes";
+import Game from "../../../Game";
+import Layer from "../../core/Layer";
+import Vector3 from "../../core/gameObject/Vector3";
+import PhysicsEntity from "../../core/physics/PhysicsEntity";
+import Utils from "../../core/utils/Utils";
+import GameView from "../../core/view/GameView";
 import EntityMultipliers from "../../data/EntityMultipliers";
 import EntityViewData from "../../data/EntityViewData";
-import Game from "../../../Game";
-import GameManager from "../../manager/LevelManager";
-import GameView from "../../core/view/GameView";
-import Layer from "../../core/Layer";
-import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
-import PhysicsEntity from "../../core/physics/PhysicsEntity";
-import Player from "../../entity/Player";
-import SpriteSheetGameView from "../SpriteSheetGameView";
-import Utils from "../../core/utils/Utils";
-import Vector3 from "../../core/gameObject/Vector3";
 import WeaponAttributes from "../../data/WeaponAttributes";
 import WeaponData from "../../data/WeaponData";
+import Companion from "../../entity/Companion";
+import Player from "../../entity/Player";
+import EffectsManager from "../../manager/EffectsManager";
+import GameManager from "../../manager/LevelManager";
+import SpriteSheetGameView from "../SpriteSheetGameView";
+import ParticleDescriptor from "../particleSystem/ParticleDescriptor";
 import WeaponInGameView from "./WeaponInGameView";
 
 export default class BaseWeapon extends PhysicsEntity {
@@ -126,11 +123,11 @@ export default class BaseWeapon extends PhysicsEntity {
             this.isPlayer = true;
             this.attributesMultiplier = this.parent.sessionData.attributesMultiplier;
             //this.parent.loadoutAttributes.frequency IS NEGATIVE
-            
+
             this.shootFrequency = this.weaponData.weaponAttributes.frequency + this.parent.loadoutAttributes.frequency
             this.shootFrequency = Math.max(0.05, this.shootFrequency)
 
-            if(Game.Debug.autoplay){
+            if (Game.Debug.autoplay) {
                 this.shootFrequency = 0.1
             }
 
@@ -205,8 +202,8 @@ export default class BaseWeapon extends PhysicsEntity {
             weapon = temp;
         }
 
-        if(this.isPlayer){
-        SOUND_MANAGER.play('place', 0.3, Math.random() * 0.2 + 0.9)
+        if (this.isPlayer) {
+            SOUND_MANAGER.playIf('pop2', 0.1, Math.random() * 0.3 + 0.7)
 
         }
         //SOUND_MANAGER.play('gun ('+Math.ceil(Math.random() * 3)+')', 0.1, Math.random() * 0.2 + 0.9)
@@ -232,7 +229,7 @@ export default class BaseWeapon extends PhysicsEntity {
 
         let total = weapon.weaponAttributes.amount;
 
-        
+
         let spawnedBullets = []
         for (let index = 0; index < total; index++) {
             let ang = Math.PI * 2 / total * index;
@@ -415,7 +412,7 @@ export default class BaseWeapon extends PhysicsEntity {
         if (bullet.weapon.perLevelOverrider) {
             let bullets = this.shoot(bullet.weapon.perLevelOverrider, bullet)
         }
-        if(bullet.weapon.onFixedDestroyWeapon){
+        if (bullet.weapon.onFixedDestroyWeapon) {
             bullet.weapon.onFixedDestroyWeapon.forEach(element => {
                 element.level = this.weaponData.level
             });

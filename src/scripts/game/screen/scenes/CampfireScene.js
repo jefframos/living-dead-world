@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
-import BaseScene from './BaseScene';
 import Game from '../../../Game';
+import BaseScene from './BaseScene';
 
 export default class CampfireScene extends BaseScene {
     constructor() {
@@ -22,13 +22,13 @@ export default class CampfireScene extends BaseScene {
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 260, y: -400 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -380, y: -390 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.8, y: 0.8 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 80, y: -395 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
-            BaseScene.makeAssetSetup({ src: 'bushgreen',onUpdate: this.treeCallback.bind(this), position: { x: -210, y: -400 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
-            BaseScene.makeAssetSetup({ src: 'bushgreen',onUpdate: this.treeCallback.bind(this), position: { x: -290, y: -390 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.4, y: 0.4 }, tint: 0xffffff }),
+            BaseScene.makeAssetSetup({ src: 'bushgreen', onUpdate: this.treeCallback.bind(this), position: { x: -210, y: -400 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
+            BaseScene.makeAssetSetup({ src: 'bushgreen', onUpdate: this.treeCallback.bind(this), position: { x: -290, y: -390 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.4, y: 0.4 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -390 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }),
 
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -80, y: -375 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -80, y: -375 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
-            BaseScene.makeAssetSetup({ src: 'bushgreen',onUpdate: this.treeCallback.bind(this), position: { x: -310, y: -180 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
+            BaseScene.makeAssetSetup({ src: 'bushgreen', onUpdate: this.treeCallback.bind(this), position: { x: -310, y: -180 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 210, y: -275 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -650, y: -200 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1, y: 1 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 650, y: -220 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1, y: 1 }, tint: 0xffffff }),
@@ -36,10 +36,10 @@ export default class CampfireScene extends BaseScene {
             // BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint:0xAEBD6E }),
             BaseScene.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 30 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: -4, y: 4 } }),
             BaseScene.makeAssetSetup({ src: 'main-patch', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 0.5 }, tint: 0xAEBD6E, alpha: 0.1, scale: { x: 2, y: 2 } }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -200, y: -380 }, scale: { x: 10, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha:0.1 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this), position: { x: -200, y: -380 }, scale: { x: 10, y: 3.5 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.1 }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 0, y: -195 }, anchor: { x: 0.5, y: 1 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'container', position: { x: -200, y: -100 }, anchor: { x: 0.5, y: 1 } }),
-            BaseScene.makeAssetSetup({ src: 'log-sit', position: { x: -280, y: 0 }, anchor: { x: 0.5, y: 0.5 } }),
+            BaseScene.makeAssetSetup({ src: 'log-sit', position: { x: -280, y: -80 }, anchor: { x: 0.5, y: 0.5 } }),
             BaseScene.makeAssetSetup({ src: 'flag', position: { x: -450, y: -300 }, anchor: { x: 0.5, y: 0.5 } }),
             BaseScene.makeAssetSetup({ src: 'barrel1', position: { x: 0, y: 0 }, anchor: { x: 0.5, y: 1 } }),
             BaseScene.makeAssetSetup({ src: 'rocks0002', position: { x: -460, y: 0 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1, y: 1 } }),
@@ -58,11 +58,11 @@ export default class CampfireScene extends BaseScene {
                     end: 8
                 }
             }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopLeft.bind(this),position: { x: 500, y: -100 }, scale: { x: 5, y: 4 }, anchor: { x: 0.5, y: 0.5 }, alpha:0.3 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopLeft.bind(this), position: { x: 500, y: -100 }, scale: { x: 5, y: 4 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.3 }),
             BaseScene.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -170 }, anchor: { x: 0.5, y: 0.5 }, alpha: 0.75, tint: 0xF46F3C }),
             BaseScene.makeAssetSetup({ src: 'round-blur', position: { x: -5, y: -130 }, anchor: { x: 0.5, y: 0.5 }, scale: { x: 5, y: 4 }, alpha: 0.25, tint: 0xFF9768 }),
-            BaseScene.makeAssetSetup({ src: 'bushgreen',onUpdate: this.treeCallback.bind(this), position: { x: -180, y: 350 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
-            BaseScene.makeAssetSetup({ src: 'bushgreen',onUpdate: this.treeCallback.bind(this), position: { x: -100, y: 380 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.5, y: 0.5 }, tint: 0xffffff }),
+            BaseScene.makeAssetSetup({ src: 'bushgreen', onUpdate: this.treeCallback.bind(this), position: { x: -180, y: 350 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.7, y: 0.7 }, tint: 0xffffff }),
+            BaseScene.makeAssetSetup({ src: 'bushgreen', onUpdate: this.treeCallback.bind(this), position: { x: -100, y: 380 }, anchor: { x: 0.5, y: 1 }, scale: { x: 0.5, y: 0.5 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 380 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -400, y: 500 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: -690, y: 600 }, anchor: { x: 0.5, y: 1 }, scale: { x: -1.9, y: 1.9 }, tint: 0xffffff }),
@@ -70,21 +70,21 @@ export default class CampfireScene extends BaseScene {
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 380, y: 550 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.5, y: 1.5 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'dark-pine', onUpdate: this.treeCallback.bind(this), position: { x: 700, y: 330 }, anchor: { x: 0.5, y: 1 }, scale: { x: 1.7, y: 1.7 }, tint: 0xffffff }),
             BaseScene.makeAssetSetup({ src: 'base-gradient', position: { x: 0, y: 600 }, scale: { x: 20, y: 0.7 }, anchor: { x: 0.5, y: 1 }, tint: 0x16465B }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: -700, y: 200 }, scale: { x: 4, y:3.5 }, anchor: { x: 0.5, y: 1 }, alpha:0.3 }),
-            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this),position: { x: 0, y: 600 }, scale: { x: 8, y:12 }, anchor: { x: 0.5, y: 1 }, alpha:0.1 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this), position: { x: -700, y: 200 }, scale: { x: 4, y: 3.5 }, anchor: { x: 0.5, y: 1 }, alpha: 0.3 }),
+            BaseScene.makeAssetSetup({ src: 'cloud-fog', onUpdate: this.loopRight.bind(this), position: { x: 0, y: 600 }, scale: { x: 8, y: 12 }, anchor: { x: 0.5, y: 1 }, alpha: 0.1 }),
         ]
 
 
     }
     loopLeft(delta, tree) {
-        tree.sprite.x -= delta *5
-        if(tree.sprite.x < -1200){
+        tree.sprite.x -= delta * 5
+        if (tree.sprite.x < -1200) {
             tree.sprite.x = 1200
         }
     }
     loopRight(delta, tree) {
-        tree.sprite.x += delta *5
-        if(tree.sprite.x > 1200){
+        tree.sprite.x += delta * 5
+        if (tree.sprite.x > 1200) {
             tree.sprite.x = -1200
         }
     }

@@ -10,6 +10,7 @@ import PopUpGenericModal from '../components/ui/PopUpGenericModal';
 import AchievmentsContainer from '../components/ui/achievments/AchievmentsContainer';
 import CharacterBuildScreenCustomizationView from '../components/ui/customization/CharacterBuildScreenCustomizationView';
 import CharacterCustomizationContainer from '../components/ui/customization/CharacterCustomizationContainer';
+import MainScreenChest from '../components/ui/customization/MainScreenChest';
 import LoadoutContainer from '../components/ui/loadout/LoadoutContainer';
 import LocationContainer from '../components/ui/location/LocationContainer';
 import NoMoneycontainer from '../components/ui/prizes/NoMoneycontainer';
@@ -20,6 +21,7 @@ import Utils from '../core/utils/Utils';
 import GameData from '../data/GameData';
 import PrizeManager from '../data/PrizeManager';
 import RewardsManager from '../data/RewardsManager';
+import TimedAction from '../data/TimedAction';
 import ViewDatabase from '../data/ViewDatabase';
 import UIList from '../ui/uiElements/UIList';
 import UIUtils from '../utils/UIUtils';
@@ -60,6 +62,30 @@ export default class CharacterBuildScreen extends Screen {
 
         this.campfireScene = new CampfireScene();
         this.sceneContainer.addChild(this.campfireScene);
+
+        this.mainChest1 = new MainScreenChest('item-chest-0001', 'ready', () => {
+            this.openMainChest1()
+        }, false)
+        this.mainChest1.scale.set(0.85)
+        this.mainChest1.x = 110
+        this.mainChest1.y = -100
+
+        this.mainChest2 = new MainScreenChest('item-chest-0002', 'ready', () => {
+            this.openMainChest2()
+        })
+        this.mainChest2.scale.set(0.85)
+        this.mainChest2.x = -200
+        this.mainChest2.y = -100
+
+        this.main1Timed = new TimedAction("MAIN_1", 300, this.mainChest1.label, LocalizationManager.instance.getLabel("OPEN"))
+        this.main2Timed = new TimedAction("MAIN_2", 120, this.mainChest2.label, LocalizationManager.instance.getLabel("OPEN"))
+
+        this.campfireScene.addChild(this.mainChest1);
+        this.campfireScene.addChild(this.mainChest2);
+        this.chests = [
+            { timed: this.main1Timed, chest: this.mainChest1 },
+            { timed: this.main2Timed, chest: this.mainChest2 }]
+
 
         this.campfireScene.buildScene();
 
@@ -244,6 +270,20 @@ export default class CharacterBuildScreen extends Screen {
             }
         })
     }
+    openMainChest1() {
+        // RewardsManager.instance.doReward(() => {
+        // })
+        GameData.instance.openChest("MAIN_1");
+        PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 1, 1);
+        this.showMainUI()
+    }
+    openMainChest2() {
+        RewardsManager.instance.doReward(() => {
+            GameData.instance.openChest("MAIN_2");
+            PrizeManager.instance.getMetaPrize([0, 1, 2, 3], 3, 2);
+            this.showMainUI()
+        })
+    }
     get playerCustomization() {
         return this.activePlayersCustomization[this.activePlayerId]
     }
@@ -267,7 +307,7 @@ export default class CharacterBuildScreen extends Screen {
     }
     addCharacter(data) {
 
-        console.log('addCharacteraddCharacteraddCharacter')
+        console.log('addCharacteraddCharacteraddCharacter', data)
         let customizationView = new CharacterBuildScreenCustomizationView(data, this.activePlayersCustomization.length)
         this.sceneContainer.addChild(customizationView);
 
@@ -276,6 +316,9 @@ export default class CharacterBuildScreen extends Screen {
         })
 
         this.activePlayersCustomization.push(customizationView);
+    }
+    refreshCharacter() {
+        this.activePlayersCustomization[this.activePlayerId].refreshVisuals(GameData.instance.getPlayer(this.activePlayerId))
     }
     showAdBlockMessage() {
         this.genericPopUp.showInfo("You need to disable the adblock to access this")
@@ -781,6 +824,18 @@ export default class CharacterBuildScreen extends Screen {
             element.update(delta)
         }
 
+
+        this.date = new Date();
+        this.chests.forEach(element => {
+            element.timed.updateTime(this.date.getTime())
+            element.chest.setReady(element.timed.canUse)
+            element.chest.update(delta)
+            element.chest.updateNormal(1 - element.timed.normal)
+            element.chest.visible = this.bottomMenuRight.visible
+
+
+        });
+
         this.modalList.forEach(element => {
             element.update(delta)
         });
@@ -886,10 +941,12 @@ export default class CharacterBuildScreen extends Screen {
         SOUND_MANAGER.playLoop('FloatingCities', 0.5)
         if (this.screenManager.prevScreen == "GameScreen") {
             //console.log(params.levelEndStats.levelStruct.waves.difficulty)
+            this.refreshCharacter()
             setTimeout(() => {
                 if (CookieManager.instance.isFtue) {
                     PrizeManager.instance.getFtuePrize()
                     CookieManager.instance.ftueDone();
+                    CookieManager.instance.setPrize('comeback1')
                 } else {
 
                     //console.log(params)
@@ -910,10 +967,14 @@ export default class CharacterBuildScreen extends Screen {
         }
         setTimeout(() => {
             super.transitionIn();
+            if (!CookieManager.instance.isFtue && !CookieManager.instance.getPrize('comeback1')) {
+                PrizeManager.instance.getComebackPrize()
+                CookieManager.instance.setPrize('comeback1')
+                this.showMainUI()
+            }
             if (Game.Debug.test) {
                 setTimeout(() => {
                     this.unSelectPlayer();
-
                     PrizeManager.instance.getMetaPrize([0, 1, 2, 3, 6], 1, 8)
                 }, 10);
             }

@@ -1,14 +1,11 @@
-import * as PIXI from 'pixi.js';
 
+import signals from 'signals';
 import Game from '../../../../Game';
 import GameStaticData from '../../../data/GameStaticData';
-import InteractableView from '../../../view/card/InteractableView';
 import ListScroller from '../../../ui/uiElements/ListScroller';
-import LocationButton from './LocationButton';
-import MainScreenModal from '../MainScreenModal';
 import UIList from '../../../ui/uiElements/UIList';
-import UIUtils from '../../../utils/UIUtils';
-import signals from 'signals';
+import MainScreenModal from '../MainScreenModal';
+import LocationButton from './LocationButton';
 
 export default class LocationContainer extends MainScreenModal {
     constructor() {
@@ -17,7 +14,7 @@ export default class LocationContainer extends MainScreenModal {
         this.scroller = new ListScroller({ w: 500, h: 600 }, { width: 75, height: 75 }, { x: 0, y: 0 })
         this.scroller.itemHeight = 500
         this.scroller.y = 20;
-        
+
         this.onRedirectToGame = new signals.Signal();
 
         this.container.addChild(this.scroller)
@@ -31,10 +28,10 @@ export default class LocationContainer extends MainScreenModal {
         this.levelDataList = [];
         for (let index = 0; index < GameStaticData.instance.totalLevels; index++) {
             const element = new LocationButton();
-            if(index >= this.levelSkip){
+            if (index >= this.levelSkip) {
                 this.mapList.addElement(element)
             }
-            element.onStageSelected.add((element, level)=>{
+            element.onStageSelected.add((element, level) => {
                 this.onRedirectToGame.dispatch(this.levelDataList[index], level)
             })
             this.levelDataList.push({ view: element, id: index })
@@ -63,7 +60,7 @@ export default class LocationContainer extends MainScreenModal {
             this.infoBackContainer.width = Game.Borders.width - 80
             this.infoBackContainer.height = Game.Borders.height - 80
         } else {
-            if (Game.Borders.width / Game.Borders.height < 1.5) {
+            if (Game.Borders.width / Game.Borders.height < 1.75) {
 
                 this.infoBackContainer.width = Game.Borders.width * 0.75
                 this.infoBackContainer.height = Game.Borders.height - 80
@@ -77,10 +74,10 @@ export default class LocationContainer extends MainScreenModal {
         this.infoBackContainer.height = Game.Borders.height - this.container.y + 20//- 40
 
         this.mapList.w = this.infoBackContainer.width
-        this.mapList.h = (this.levelDataList.length - 0) * 180
+        this.mapList.h = (this.levelDataList.length - 0) * 160
         this.mapList.updateVerticalList();
 
-        this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height -20})
+        this.scroller.resize({ w: this.infoBackContainer.width, h: this.infoBackContainer.height }, { w: this.mapList.width, h: this.mapList.height - 20 })
         this.scroller.itemHeight = this.mapList.height + 80
         this.scroller.containerBackground.alpha = 0;
 

@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 import Game from '../../Game';
 import config from '../../config';
 import Screen from '../../screenManager/Screen';
+import CookieManager from '../CookieManager';
 import AmbientLightSystem from '../components/AmbientLightSystem';
 import CameraOcclusion2D from '../components/CameraOcclusion2D';
 import Bullet from '../components/weapon/bullets/Bullet';
@@ -325,9 +326,11 @@ export default class GameScreen extends Screen {
     transitionIn(param) {
 
         console.log('transitionIn', param)
-        SOUND_MANAGER.playLoop('ancient', 0.5)
+        SOUND_MANAGER.playLoop('Mummys-Rocking-Rumble', 0.15)
 
-        RewardsManager.instance.gameplayStart(true);
+        if (!CookieManager.instance.isFtue) {
+            RewardsManager.instance.gameplayStart(true);
+        }
 
 
         setTimeout(() => {

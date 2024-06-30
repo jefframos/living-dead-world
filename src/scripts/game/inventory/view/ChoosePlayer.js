@@ -3,6 +3,7 @@ import signals from 'signals';
 import Game from '../../../Game';
 import PlayerGameViewSpriteSheet from '../../components/PlayerGameViewSpriteSheet';
 import GameData from '../../data/GameData';
+import RewardsManager from '../../data/RewardsManager';
 import UIUtils from '../../utils/UIUtils';
 
 export default class ChoosePlayer extends PIXI.Container {
@@ -37,7 +38,7 @@ export default class ChoosePlayer extends PIXI.Container {
         this.buttonData = buttonData || [
             { texture: UIUtils.baseButtonTexture + '_0001', label: 'Button 1', images: [player1.staticTexture, 'pistol1-icon', 'pet-cat-10001'] },
             { texture: UIUtils.baseButtonTexture + '_0002', label: 'Button 2', images: [player2.staticTexture, 'multishot-gun-1-icon', 'pet-fish-10001'] },
-            { texture: UIUtils.baseButtonTexture + '_0004', label: 'Button 3', images: [player3.staticTexture, 'zombie-hand-icon', 'pet-dog-10001'] }
+            { texture: UIUtils.baseButtonTexture + '_0004', label: 'Button 3', images: [player3.staticTexture, 'shotgun-1-icon', 'pet-dog-10001'] }
         ];
         this.buttons = [];
         this.onSelect = new signals.Signal();
@@ -49,8 +50,30 @@ export default class ChoosePlayer extends PIXI.Container {
 
 
     createMessage() {
-        this.messageText = UIUtils.getPrimaryLabel(this.message, { fontSize: 48, wordWrapWidth: 800 });
-        this.messageText.anchor.set(0.5, 0.5);
+        const victoryStyle = new PIXI.TextStyle({
+            dropShadow: true,
+            dropShadowAngle: 1.5,
+            dropShadowBlur: 5,
+            fill: [
+                "#8cff00",
+                "#00ffbf"
+            ],
+            fontFamily: window.MAIN_FONT,
+            fontSize: 96,
+            fontVariant: "small-caps",
+            fontWeight: "bolder",
+            strokeThickness: 5
+        });
+
+        this.messageText = UIUtils.getSpecialLabel1(this.message, victoryStyle)
+        this.messageText.anchor.set(0.5)
+        this.messageText.style.fontSize = 64
+        this.messageText.style.fontWeight = 100
+        // this.messageText.style.fill = [
+        //     "#00ccff",
+        //     "#00ffbf"
+        // ],
+
         this.messageText.position.set(window.innerWidth / 2, window.innerHeight / 2 - 100);
         this.addChild(this.messageText);
     }
@@ -68,7 +91,7 @@ export default class ChoosePlayer extends PIXI.Container {
         const button = new PIXI.Container();
 
         const buttonBackground = new PIXI.NineSlicePlane(PIXI.Texture.from(data.texture), 30, 30, 30, 30);
-        buttonBackground.width = 250;
+        buttonBackground.width = 200;
         buttonBackground.height = 300;
         button.addChild(buttonBackground);
 
@@ -87,14 +110,14 @@ export default class ChoosePlayer extends PIXI.Container {
 
         const img2 = PIXI.Sprite.from(data.images[1]);
         img2.anchor.set(0.5, 0.5);
-        img2.position.set(buttonBackground.width / 2 + 65, 70);
+        img2.position.set(buttonBackground.width / 2 + 55, 90);
         img2.scale.set(1)
         button.addChild(img2);
 
         const img3 = PIXI.Sprite.from(data.images[2]);
         img3.anchor.set(0.5, 0.5);
         img3.scale.set(1.25)
-        img3.position.set(buttonBackground.width / 2 + 60, 190);
+        img3.position.set(buttonBackground.width / 2 + 50, 190);
         button.addChild(img3);
 
         return button;
@@ -102,17 +125,19 @@ export default class ChoosePlayer extends PIXI.Container {
 
     onButtonClick(index) {
         this.onSelect.dispatch(index);
+        RewardsManager.instance.gameplayStart(true);
+        SOUND_MANAGER.play('squash1', 0.8)
     }
 
     update() {
         const screenWidth = Game.Borders.width;
         const screenHeight = Game.Borders.height;
-        const buttonSpacing = 300;
+        const buttonSpacing = 220;
         const middleIndex = Math.floor(this.buttons.length / 2);
         const middleButtonX = screenWidth / 2;
 
         this.buttons.forEach((button, index) => {
-            button.position.set(middleButtonX + (index - middleIndex) * buttonSpacing - 250 / 2, screenHeight / 2 - 250);
+            button.position.set(middleButtonX + (index - middleIndex) * buttonSpacing - 200 / 2, screenHeight / 2 - 300);
         });
 
         this.messageText.position.set(screenWidth / 2, screenHeight / 2 + 100);

@@ -154,19 +154,28 @@ export default class PrizeManager {
     //     const prize = this.getItemPrize(PrizeManager.PrizeType.Wearable)
     //     this.onGetMetaPrize.dispatch(prize)
     // }
-    getFtuePrize() {
+    getComebackPrize() {
         let itemPrizeList = []
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0, 3))
-        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0, 4))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0, 7))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0, 6))
         const types = [];
         itemPrizeList.forEach(element => {
             GameData.instance.addToInventory(element.type, element)
             types.push(element.type)
         });
-
-
         const prizeData = { type: types, value: itemPrizeList }
-
+        this.onGetMetaPrize.dispatch(prizeData)
+    }
+    getFtuePrize() {
+        let itemPrizeList = []
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Weapon, 0, 7))
+        itemPrizeList.push(this.getItemPrize(PrizeManager.PrizeType.Companion, 0, 6))
+        const types = [];
+        itemPrizeList.forEach(element => {
+            GameData.instance.addToInventory(element.type, element)
+            types.push(element.type)
+        });
+        const prizeData = { type: types, value: itemPrizeList }
         this.onGetMetaPrize.dispatch(prizeData)
     }
     getMetaPrize(prizeId, maxLevel, total = 1, dispatch = true) {

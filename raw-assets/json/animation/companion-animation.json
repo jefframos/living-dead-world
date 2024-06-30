@@ -226,5 +226,43 @@
                 "addZero": true
             }
         }
+    },
+    {
+        "id": "CAT-2-IDLE",
+        "animationData": {
+            "spriteName": "pet-cat-200",
+            "params": {
+                "totalFramesRange": {
+                    "min": 1,
+                    "max": 6
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.08,
+                "loop": true,
+                "addZero": true
+            }
+        }
+    },
+    {
+        "id": "CAT-2-WALK",
+        "animationData": {
+            "spriteName": "pet-cat-200",
+            "params": {
+                "totalFramesRange": {
+                    "min": 7,
+                    "max": 22
+                },
+                "anchor": {
+                    "x": 0.5,
+                    "y": 1
+                },
+                "time": 0.05,
+                "loop": true,
+                "addZero": true
+            }
+        }
     }
 ]

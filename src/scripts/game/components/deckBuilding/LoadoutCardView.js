@@ -1,11 +1,10 @@
 import * as PIXI from 'pixi.js';
 
-import BaseButton from '../ui/BaseButton';
+import signals from 'signals';
+import Utils from '../../core/utils/Utils';
+import UIUtils from '../../utils/UIUtils';
 import InteractableView from '../../view/card/InteractableView';
 import LevelStars from '../ui/loadout/LevelStars';
-import UIUtils from '../../utils/UIUtils';
-import Utils from '../../core/utils/Utils';
-import signals from 'signals';
 
 export default class LoadoutCardView extends PIXI.Container {
     constructor(texture = UIUtils.baseButtonTexture + '_0006', width = 115, height = 150) {
@@ -21,7 +20,7 @@ export default class LoadoutCardView extends PIXI.Container {
         this.cardData = null;
         this.empty = UIUtils.baseButtonTexture + '_0006';
 
-        this.textures = [this.empty, UIUtils.baseButtonTexture + '_0001', UIUtils.baseButtonTexture + '_0002', UIUtils.baseButtonTexture + '_0003', UIUtils.baseButtonTexture + '_0004', UIUtils.baseButtonTexture + '_0005']
+        this.textures = [UIUtils.baseButtonTexture + '_0000', UIUtils.baseButtonTexture + '_0001', UIUtils.baseButtonTexture + '_0002', UIUtils.baseButtonTexture + '_0003', UIUtils.baseButtonTexture + '_0004', UIUtils.baseButtonTexture + '_0005']
 
         this.cardContainer = new PIXI.Container();
         this.addChild(this.cardContainer);
@@ -109,13 +108,21 @@ export default class LoadoutCardView extends PIXI.Container {
         this.valueLabel.x = width / 2
         this.valueLabel.y = height - 10
 
+        this.info2 = new PIXI.Sprite.from('info2');
+        this.info2.scale.set(Utils.scaleToFit(this.info2, 30))
+        this.info2.anchor.set(0.5)
+        this.info2.x = width - 20
+        this.info2.y = height - 20
+        this.info2.visible = false;
+        this.addChild(this.info2)
+
     }
     addWaredrobeButton() {
         this.equipButton = UIUtils.getPrimaryLabelButton(() => {
             this.onEquip.dispatch()
             TweenLite.killTweensOf(this.equipButton.scale)
-            this.equipButton.scale.set(1.2,0.8)
-            TweenLite.to(this.equipButton.scale, 0.5, {x:1, y:1, ease:Elastic.easeOut})
+            this.equipButton.scale.set(1.2, 0.8)
+            TweenLite.to(this.equipButton.scale, 0.5, { x: 1, y: 1, ease: Elastic.easeOut })
         }, 'View')
         this.equipButton.text.style.fontSize = 18
         this.equipButton.setActiveTexture(UIUtils.baseButtonTexture + '_0002')
@@ -128,8 +135,8 @@ export default class LoadoutCardView extends PIXI.Container {
         this.equipButton = UIUtils.getPrimaryLabelButton(() => {
             this.onEquip.dispatch()
             TweenLite.killTweensOf(this.equipButton.scale)
-            this.equipButton.scale.set(1.2,0.8)
-            TweenLite.to(this.equipButton.scale, 0.5, {x:1, y:1, ease:Elastic.easeOut})
+            this.equipButton.scale.set(1.2, 0.8)
+            TweenLite.to(this.equipButton.scale, 0.5, { x: 1, y: 1, ease: Elastic.easeOut })
         }, 'Equip')
         this.equipButton.text.style.fontSize = 18
         this.equipButton.resize(this.baseWidth, 40)
@@ -144,6 +151,7 @@ export default class LoadoutCardView extends PIXI.Container {
         this.warning.y = 20
         this.addChild(this.warning)
         this.warning.visible = false;
+        this.info2.visible = true;
     }
     remover() {
         this.levelLabel.text = '';

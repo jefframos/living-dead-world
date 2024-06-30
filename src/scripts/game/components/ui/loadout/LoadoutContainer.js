@@ -1,24 +1,23 @@
 import * as PIXI from 'pixi.js';
 
-import AttributesContainer from './AttributesContainer';
-import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
-import CookieManager from '../../../CookieManager';
-import EntityAttributes from '../../../data/EntityAttributes';
-import EntityBuilder from '../../../screen/EntityBuilder';
+import signals from 'signals';
 import Game from '../../../../Game';
+import CookieManager from '../../../CookieManager';
+import LocalizationManager from '../../../LocalizationManager';
+import Utils from '../../../core/utils/Utils';
+import EntityAttributes from '../../../data/EntityAttributes';
 import GameData from '../../../data/GameData';
 import GameStaticData from '../../../data/GameStaticData';
-import ItemMergeSystem from '../../merge/ItemMergeSystem';
-import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
-import LoadoutStatsView from './LoadoutStatsView';
-import LocalizationManager from '../../../LocalizationManager';
-import MainScreenModal from '../MainScreenModal';
-import MergeCardView from '../../merge/MergeCardView';
+import EntityBuilder from '../../../screen/EntityBuilder';
+import BodyPartsListScroller from '../../../ui/buildCharacter/BodyPartsListScroller';
 import UIList from '../../../ui/uiElements/UIList';
 import UIUtils from '../../../utils/UIUtils';
-import Utils from '../../../core/utils/Utils';
+import LoadoutCardView from '../../deckBuilding/LoadoutCardView';
+import ItemMergeSystem from '../../merge/ItemMergeSystem';
+import MainScreenModal from '../MainScreenModal';
+import AttributesContainer from './AttributesContainer';
+import LoadoutStatsView from './LoadoutStatsView';
 import WeaponLevelContainer from './WeaponLevelContainer';
-import signals from 'signals';
 
 export default class LoadoutContainer extends MainScreenModal {
     static Sections = {
@@ -177,6 +176,7 @@ export default class LoadoutContainer extends MainScreenModal {
         this.loadoutStatsView = new LoadoutStatsView();
         this.container.addChild(this.loadoutStatsView)
 
+
     }
     playSelectCategory() {
         SOUND_MANAGER.play('Pop-Tone', 0.2)
@@ -193,10 +193,23 @@ export default class LoadoutContainer extends MainScreenModal {
 
     }
     selectCard(card) {
+        if (this.currentSelectedCard != card) {
+
+            this.loadoutStatsView.visible = true
+        } else {
+
+            this.loadoutStatsView.visible = !this.loadoutStatsView.visible
+        }
         this.currentSelectedCard = card;
         card.selected();
 
         this.updateStatsView();
+
+        // if (this.loadoutStatsView.visible) {
+        //     this.loadoutStatsView.visible = false
+        // }
+        //this.loadoutStatsView.visible = false;
+
 
     }
     updateStatsView() {
@@ -521,6 +534,7 @@ export default class LoadoutContainer extends MainScreenModal {
         TweenLite.to(this.container, 0.25, { alpha: 1 })
         this.onShow.dispatch(this)
 
+
         const fullInventory = GameData.instance.inventory;
 
         const cards = GameStaticData.instance.getAllCards()
@@ -562,6 +576,9 @@ export default class LoadoutContainer extends MainScreenModal {
         this.selectCard(this.currentWeaponSlot)
 
         this.refreshAllNews();
+
+        this.loadoutStatsView.visible = false;
+
 
     }
     refreshAttributes() {

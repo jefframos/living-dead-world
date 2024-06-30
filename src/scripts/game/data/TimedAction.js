@@ -15,6 +15,9 @@ export default class TimedAction {
     get canUse() {
         return this.currentTime <= 0;
     }
+    get normal() {
+        return 1 - Math.min(1, Math.max(0, this.currentTime / this.timeInterval))
+    }
     updateTime(latestOpen) {
         this.currentTime = this.timeInterval + Math.round((GameData.instance.lastOpened(this.id) - latestOpen) / 1000)
         this.formatedTime = Utils.floatToTime(this.currentTime)

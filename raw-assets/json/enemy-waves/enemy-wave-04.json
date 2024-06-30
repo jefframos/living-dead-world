@@ -1,14 +1,13 @@
 [
     {
-        "ignore":{
+        "ignore": {
             "startAt": 350,
             "textTrigger": "INCOMING_HORDE",
-            "time":10
+            "time": 10
         },
         "lenght": 600,
         "environmentData": "level-4",
-        "difficulty":5,
-
+        "difficulty": 5,
         "waves": [
             {
                 "startAt": 2,
@@ -39,10 +38,11 @@
                         ]
                     }
                 ]
-            },            
+            },
             {
                 "startAt": 60,
                 "duration": 60,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -100,11 +100,10 @@
                     }
                 ]
             },
-            
             {
                 "startAt": 180,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -151,17 +150,17 @@
                         ]
                     }
                 ]
-            },            
+            },
             {
                 "startAt": 300,
                 "duration": 30,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
                         "length": 250,
                         "radius": 350,
-                        "total": 1,
+                        "total": 2,
                         "maxActive": 1,
                         "entity": "MAN_LEGS",
                         "levels": [
@@ -183,11 +182,11 @@
                         ]
                     }
                 ]
-            },           
+            },
             {
                 "startAt": 360,
                 "duration": 600,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -233,7 +232,7 @@
             {
                 "startAt": 420,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -250,7 +249,6 @@
                             6
                         ]
                     },
-                   
                     {
                         "areaType": "arc",
                         "length": 250,
@@ -264,7 +262,6 @@
                             8
                         ]
                     },
-                    
                     {
                         "areaType": "arc",
                         "length": 300,
@@ -281,7 +278,7 @@
             {
                 "startAt": 500,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -297,7 +294,7 @@
                         "levels": [
                             8
                         ]
-                    },                    
+                    },
                     {
                         "areaType": "arc",
                         "length": 300,
@@ -314,7 +311,7 @@
             {
                 "startAt": 530,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -331,7 +328,6 @@
                             6
                         ]
                     },
-                   
                     {
                         "areaType": "arc",
                         "length": 250,
@@ -345,7 +341,6 @@
                             8
                         ]
                     },
-                    
                     {
                         "areaType": "arc",
                         "length": 300,

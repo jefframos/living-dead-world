@@ -1,18 +1,14 @@
 import * as PIXI from 'pixi.js';
 
-import Collectable from './Collectable';
-import EffectsManager from '../manager/EffectsManager';
 import Game from '../../Game';
-import GameData from '../data/GameData';
-import GameObject from "../core/gameObject/GameObject";
-import GameView from "../core/view/GameView";
-import LevelManager from '../manager/LevelManager';
-import Player from './Player';
-import RenderModule from "../core/modules/RenderModule";
-import Shadow from '../components/view/Shadow';
-import UIUtils from '../utils/UIUtils';
-import Utils from '../core/utils/Utils';
 import Vector3 from '../core/gameObject/Vector3';
+import RenderModule from "../core/modules/RenderModule";
+import Utils from '../core/utils/Utils';
+import GameData from '../data/GameData';
+import EffectsManager from '../manager/EffectsManager';
+import LevelManager from '../manager/LevelManager';
+import UIUtils from '../utils/UIUtils';
+import Collectable from './Collectable';
 
 export default class Consumable extends Collectable {
     static Type = {
@@ -38,8 +34,6 @@ export default class Consumable extends Collectable {
         this.consumableSprite = new PIXI.Sprite.from('shine')
         this.gameView.view.addChild(this.consumableSprite)
         this.consumableSprite.anchor.set(0.5)
-
-        console.log("ADD AN EXP PLANT")
     }
     build(params) {
         super.build(params);
@@ -84,7 +78,7 @@ export default class Consumable extends Collectable {
     setCollectableTexture() {
     }
     collectCallback() {
-        SOUND_MANAGER.play('teleport', 0.2, Math.random() * 0.1 + 0.9)
+        SOUND_MANAGER.playIf('teleport', 0.2, Math.random() * 0.1 + 0.9)
         switch (this.type) {
             case Consumable.Type.Magnet:
                 LevelManager.instance.collectAllPickups();

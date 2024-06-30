@@ -10,6 +10,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         Idle: 'idle',
         Running: 'running'
     }
+    static ID = 0
     static AnimatingSequenceType = {
         RotationSin: 'RotationSin',
         RotationCos: 'RotationCos',
@@ -19,6 +20,8 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
     }
     constructor() {
         super();
+        PlayerGameViewSpriteSheet.ID++;
+        this.ID = PlayerGameViewSpriteSheet.ID
     }
     enable() {
 
@@ -47,7 +50,6 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
         return num;
     }
     setData(data) {
-        console.log("SET DATA", data)
         this.spriteData = data;
         this.playerContainer = new PIXI.Container();
         this.spriteLayersData = {};
@@ -72,7 +74,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
             this.baseData.parse(this.spriteData.customViewData)
         }
 
-        console.log("this.baseData", this.baseData)
+
         this.baseData.onStructureUpdate.add(this.structureUpdate.bind(this))
         this.baseData.onColorUpdate.add(this.colorUpdate.bind(this))
         this.baseData.onSpriteUpdate.add(this.spriteUpdate.bind(this))
@@ -247,6 +249,7 @@ export default class PlayerGameViewSpriteSheet extends BaseComponent {
     }
     structureUpdate(region, value) {
         let id = -1;
+
         for (var i = 0; i < this.bodyData.length; i++) {
             if (this.bodyData[i].area == region) {
                 id = i;

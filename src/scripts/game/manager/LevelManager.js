@@ -130,7 +130,9 @@ export default class LevelManager {
         // console.log("playerBuildParams.mainWeapon", playerBuildParams.mainWeapon)
         // this.player = this.addEntity(Player, playerBuildParams)
 
-
+        if (Game.Debug.dead) {
+            this.playerDie();
+        }
         // this.player.onDie.add(() => {
         //     this.playerDie();
         // })
@@ -206,7 +208,7 @@ export default class LevelManager {
 
                 if (element.alert) {
                     this.textTriggers.phases.push({
-                        startAt: element.startAt - 7,
+                        startAt: element.startAt - 5,
                         text: LocalizationManager.instance.getLabel('INCOMING_HORDE'),
                         time: 5,
                     })
@@ -453,7 +455,7 @@ export default class LevelManager {
     entityKilled(health, value) {
 
         this.matchStats.enemiesKilled++;
-        SOUND_MANAGER.play('squash1', 0.2, Math.random() * 0.3 + 0.7)
+        SOUND_MANAGER.playIf('squash1', 0.2, Math.random() * 0.3 + 0.7)
         const entity = health.gameObject
         //console.log(entity)
         if (entity && entity.staticData && entity.staticData.entityData) {

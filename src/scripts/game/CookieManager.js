@@ -36,7 +36,8 @@ export default class CookieManager {
 			latestClaim: -1,
 			latestClaimFreeMoney: -1,
 			ftue: true,
-			isInitialized: false
+			isInitialized: false,
+			prizes: {}
 		}
 		this.defaultPlayer = {
 			version: '0.0.1',
@@ -171,6 +172,16 @@ export default class CookieManager {
 	get isFtue() {
 		return this.getChunck('progression').ftue || Game.Debug.ftue
 	}
+	setPrize(prizeId) {
+		const data = this.getChunck('progression')
+		data.prizes[prizeId] = true
+		this.saveChunk('progression', data)
+	}
+	getPrize(prizeId) {
+		const data = this.getChunck('progression')
+		return data.prizes[prizeId]
+	}
+
 	ftueDone() {
 		const data = this.getChunck('progression')
 		data.ftue = false;

@@ -14,6 +14,7 @@ import RenderModule from '../../core/modules/RenderModule';
 import Utils from '../../core/utils/Utils';
 import GameView from '../../core/view/GameView';
 import GameStaticData from "../../data/GameStaticData";
+import RewardsManager from '../../data/RewardsManager';
 import LevelManager from '../../manager/LevelManager';
 import UIList from '../../ui/uiElements/UIList';
 import UIUtils from '../../utils/UIUtils';
@@ -90,6 +91,7 @@ export default class PlayerInventoryHud extends GameObject {
         this.pauseButton.scale.set(Utils.scaleToFit(this.pauseButton, 70))
         InteractableView.addMouseUp(this.pauseButton, () => {
             Eugine.TimeScale = 0;
+            RewardsManager.instance.gameplayStop();
             this.inGamePopupMenu.show()
 
         })
@@ -353,6 +355,8 @@ export default class PlayerInventoryHud extends GameObject {
         })
         this.inGamePopupMenu.onHide.add(() => {
             Eugine.TimeScale = 1;
+            RewardsManager.instance.gameplayStart();
+
         })
 
     }
@@ -404,6 +408,14 @@ export default class PlayerInventoryHud extends GameObject {
         if (type == 1) {
             this.warningVignette.visible = true
             this.warningVignette2.visible = true
+            SOUND_MANAGER.play('siren', 0.5)
+            SOUND_MANAGER.pitchLoop(1.25, 10, 12, 5)
+            setTimeout(() => {
+                SOUND_MANAGER.play('siren', 0.5)
+            }, 1700);
+            // setTimeout(() => {
+            //     SOUND_MANAGER.play('siren', 0.5)
+            // }, 3400);
             setTimeout(() => {
                 this.warningVignette.visible = false
                 this.warningVignette2.visible = false

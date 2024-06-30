@@ -1,5 +1,5 @@
-import UIUtils from "../utils/UIUtils"
 import signals from "signals"
+import UIUtils from "../utils/UIUtils"
 
 export default class PlayerViewStructure {
     static Colors = {
@@ -36,6 +36,34 @@ export default class PlayerViewStructure {
         this.onStructureUpdate = new signals.Signal();
         this.onColorUpdate = new signals.Signal();
         this.onSpriteUpdate = new signals.Signal();
+    }
+    copyTo(copyFrom) {
+        this.chest = copyFrom.chest;
+        this.head = copyFrom.head;
+        this.topHead = copyFrom.topHead;
+        this.face = copyFrom.face;
+        this.hat = copyFrom.hat;
+        this.leg = copyFrom.leg;
+        this.sleeves = copyFrom.sleeves;
+        this.backSleeves = copyFrom.backSleeves;
+        this.arms = copyFrom.arms;
+        this.shoe = copyFrom.shoe;
+        this.eyes = copyFrom.eyes;
+        this.ears = copyFrom.ears;
+        this.mouth = copyFrom.mouth;
+        this.mask = copyFrom.mask;
+        this.trinket = copyFrom.trinket;
+        this.frontFace = copyFrom.frontFace;
+        this.backHead = copyFrom.backHead;
+        this.trinketSprite = copyFrom.trinketSprite;
+        this.maskSprite = copyFrom.maskSprite;
+        this.skinColor = copyFrom.skinColor;
+        this.hairColor = copyFrom.hairColor;
+        this.topClothColor = copyFrom.topClothColor;
+        this.sleevesColor = copyFrom.sleevesColor;
+        this.faceHairColor = copyFrom.faceHairColor;
+        this.botomColor = copyFrom.botomColor;
+        this.shoeColor = copyFrom.shoeColor;
     }
     set trinketSprite(value) {
         this._trinketSprite = value;
@@ -159,7 +187,7 @@ export default class PlayerViewStructure {
     get topClothColor() { return this._topClothColor; }
     set sleevesColor(value) {
         this._sleevesColor = value;
-       // this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor)
+        // this.onColorUpdate.dispatch('sleevesColor', this._sleevesColor)
     }
     get sleevesColor() { return this._sleevesColor; }
     set botomColor(value) {
@@ -177,36 +205,35 @@ export default class PlayerViewStructure {
         this.onColorUpdate.dispatch('faceHairColor', this._faceHairColor)
     }
     get faceHairColor() { return this._faceHairColor; }
-    serialize(){
+    serialize() {
 
         const copy = {}
         for (const key in this) {
-            if(key[0] == '_'){
+            if (key[0] == '_') {
                 if (Object.hasOwnProperty.call(this, key)) {
                     copy[key] = this[key];
-                    
+
                 }
             }
         }
         return JSON.stringify(copy)
     }
-    parse(data){
+    parse(data) {
         const obj = JSON.parse(data)
 
         for (const key in obj) {
-            if(key[0] == '_'){
-
+            if (key[0] == '_') {
                 if (Object.hasOwnProperty.call(obj, key)) {
                     this[key] = obj[key];
                 }
             }
         }
     }
-    applyAll(){
+    applyAll() {
         for (const key in this) {
-            if(key[0] == '_'){
+            if (key[0] == '_') {
                 if (Object.hasOwnProperty.call(this, key)) {
-                    this[key.substring(1)] = this[key];                    
+                    this[key.substring(1)] = this[key];
                 }
             }
         }

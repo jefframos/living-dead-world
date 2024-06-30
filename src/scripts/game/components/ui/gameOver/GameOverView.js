@@ -1,21 +1,19 @@
-import CharacterBuildScreenCustomizationView from "../customization/CharacterBuildScreenCustomizationView";
-import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
-import ConfettiContainer from "../ConfettiContainer";
-import EntityBuilder from "../../../screen/EntityBuilder";
+import signals from "signals";
 import Game from "../../../../Game";
-import GameData from "../../../data/GameData";
-import GameObject from "../../../core/gameObject/GameObject";
-import GameView from "../../../core/view/GameView";
-import LoadoutCardView from "../../deckBuilding/LoadoutCardView";
 import LocalizationManager from "../../../LocalizationManager";
-import PrizeCollectContainer from "../prizes/PrizeCollectContainer";
-import PrizeManager from "../../../data/PrizeManager";
+import GameObject from "../../../core/gameObject/GameObject";
 import RenderModule from "../../../core/modules/RenderModule";
+import Utils from "../../../core/utils/Utils";
+import GameView from "../../../core/view/GameView";
+import GameData from "../../../data/GameData";
+import PrizeManager from "../../../data/PrizeManager";
 import RewardsManager from "../../../data/RewardsManager";
+import EntityBuilder from "../../../screen/EntityBuilder";
 import UIList from "../../../ui/uiElements/UIList";
 import UIUtils from "../../../utils/UIUtils";
-import Utils from "../../../core/utils/Utils";
-import signals from "signals";
+import LoadoutCardView from "../../deckBuilding/LoadoutCardView";
+import ConfettiContainer from "../ConfettiContainer";
+import CharacterCustomizationContainer from "../customization/CharacterCustomizationContainer";
 
 export default class GameOverView extends GameObject {
     constructor() {
@@ -201,7 +199,7 @@ export default class GameOverView extends GameObject {
         this.shine.y = this.congratulationsLabel.y
         this.roundBlur.y = this.congratulationsLabel.y
 
-        this.enemyCountBox = new PIXI.NineSlicePlane(PIXI.Texture.from('grid1'), 50, 0, 50, 0);
+        this.enemyCountBox = new PIXI.NineSlicePlane(PIXI.Texture.from('button-transparent'), 50, 0, 50, 0);
         this.enemyCountBox.width = this.infoBackContainer.width
         this.enemyCountBox.height = 350
         this.enemyCountBox.y = 150
@@ -268,15 +266,16 @@ export default class GameOverView extends GameObject {
 
         this.uiEndStatsList.updateVerticalList()
 
-        this.confirmButton = UIUtils.getPrimaryLargeLabelButton(() => {
+        this.confirmButton = UIUtils.getQuitButton(() => {
             if (this.gameOverWin) {
                 this.onConfirmGameOver.dispatch();
             } else {
                 //this.showGameOverPrizes();
                 this.redirect();
             }
-        }, LocalizationManager.instance.getLabel('CONTINUE'))
-        this.confirmButton.updateBackTexture('square_button_0005')
+        }, LocalizationManager.instance.getLabel('QUIT'))
+        this.confirmButton.text.style.fill = 0xc83434
+        this.confirmButton.updateBackTexture('button-transparent')
 
         this.contentContainer.addChild(this.confirmButton)
 
@@ -293,7 +292,7 @@ export default class GameOverView extends GameObject {
             }, {}, true)
 
         }, LocalizationManager.instance.getLabel('REVIVE'), UIUtils.getIconUIIcon('video'))
-        this.reviveButton.updateBackTexture('square_button_0004')
+        this.reviveButton.updateBackTexture('square_button_0005')
 
         this.prizesContainer.addChild(this.reviveButton)
 
@@ -349,6 +348,7 @@ export default class GameOverView extends GameObject {
             //const prizes = PrizeManager.instance.getMetaPrize([-1], 1, 3, false)
             //this.showPrize(prizes)
 
+            SOUND_MANAGER.play('Applause', 0.5)
             this.confirmButton.visible = false;
             this.reviveButton.visible = false;
 
@@ -360,7 +360,7 @@ export default class GameOverView extends GameObject {
             TweenLite.to(this.victoryLabel.scale, 0.75, { x: 1, y: 1, ease: Elastic.easeOut })
 
             this.congratulationsLabel.scale.set(0, 1.5)
-            TweenLite.to(this.congratulationsLabel.scale, 0.75, {delay:0.5, x: 1, y: 1, ease: Elastic.easeOut })
+            TweenLite.to(this.congratulationsLabel.scale, 0.75, { delay: 0.5, x: 1, y: 1, ease: Elastic.easeOut })
 
             this.collectButton.interactive = false;
             TweenLite.killTweensOf(this.collectButton)

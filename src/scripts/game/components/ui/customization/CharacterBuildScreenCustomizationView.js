@@ -35,6 +35,9 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         // this.debugs = new PIXI.Graphics().beginFill(0xFF0000).drawCircle(0, 0, 50)
         // this.addChild(this.debugs)
 
+
+
+
         this.playerViewDataStructure = new PlayerViewStructure();
 
         if (data) {
@@ -48,6 +51,7 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         this.playerViewDataStructure.onColorUpdate.add(() => {
             GameData.instance.savePlayer(this.id, this.playerViewDataStructure)
         })
+
 
         this.addChild(this.playerPreviewStructure.view);
         this.addChild(this.companion);
@@ -81,15 +85,15 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
 
         this.hasCompanion = false;
         this.companionSin = Math.random() * 3.14;
-
     }
-    refreshVisuals(data) {
-        if (data) {
-            this.playerViewDataStructure.parse(data)
-        }
-        this.playerPreviewStructure.buildSpritesheet(this.playerViewDataStructure)
-        this.addChild(this.playerPreviewSprite);
 
+    refreshVisuals(data) {
+        if (!data) {
+            return;
+        }
+        const newData = new PlayerViewStructure()
+        newData.parse(data)
+        this.playerViewDataStructure.copyTo(newData)
     }
     removeCompanion() {
         this.companion.texture = PIXI.Texture.EMPTY;
@@ -113,13 +117,14 @@ export default class CharacterBuildScreenCustomizationView extends PIXI.Containe
         })
         this.companionAnimation.play('standard')
         this.hasCompanion = true;
-
     }
     update(delta) {
         this.playerPreviewStructure.update(delta)
         if (!this.hasCompanion) {
             return;
         }
+
+
         //console.log(delta)
         this.companionAnimation.update(delta)
         this.companion.texture = this.companionAnimation.currentTexture;

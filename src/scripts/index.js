@@ -96,12 +96,12 @@ function getValues(value1, value2, math = null, ease = 'easeOutCubic', scale = 0
 }
 
 
-//(function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
+// (function () { var script = document.createElement('script'); script.onload = function () { var stats = new Stats(); document.body.appendChild(stats.dom); requestAnimationFrame(function loop() { stats.update(); requestAnimationFrame(loop) }); }; script.src = 'https://mrdoob.github.io/stats.js/build/stats.min.js'; document.head.appendChild(script); })()
 
 
 window.iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
 window.isMobile = navigator.userAgent.match(/(iPad)|(iPhone)|(iPod)|(android)|(webOS)/i);
-window.STAND_ALONE = true
+window.STAND_ALONE = false
 
 if (!window.isMobile) {
     config.width = config.desktopRes.width

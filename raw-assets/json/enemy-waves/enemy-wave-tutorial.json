@@ -5,7 +5,7 @@
             "textTrigger": "Enemy Horde Incoming",
             "time": 10
         },
-        "lenght": 45,
+        "lenght": 40,
         "environmentData": "level-tutorial",
         "difficulty": 1,
         "waves": [
@@ -18,7 +18,7 @@
                         "length": 250,
                         "radius": 350,
                         "total": 1000,
-                        "maxActive": 15,
+                        "maxActive": 10,
                         "entity": [
                             "RAT_01"
                         ],
@@ -38,8 +38,8 @@
                         "length": 250,
                         "radius": 350,
                         "total": 1000,
-                        "maxActive": 15,
-                        "entity": "ZOMBIE_01",
+                        "maxActive": 10,
+                        "entity": "ZOMBIE_01_TUT",
                         "levels": [
                             0
                         ]

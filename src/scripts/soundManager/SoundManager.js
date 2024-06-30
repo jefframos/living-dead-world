@@ -1,9 +1,8 @@
 import {
-Howl,
-Howler
-}
-    from 'howler';
-import AbstractSoundManager from './AbstractSoundManager'
+    Howl,
+    Howler
+} from 'howler';
+import AbstractSoundManager from './AbstractSoundManager';
 export default class SoundManager extends AbstractSoundManager {
     constructor() {
         super();
@@ -11,6 +10,10 @@ export default class SoundManager extends AbstractSoundManager {
         this.playingList = [];
 
         this.currentLoop = null;
+
+        this.loopPitcher = {
+            rate: 1
+        }
         Howler.volume(0.5);
     }
     getFileName(path) {
@@ -67,6 +70,33 @@ export default class SoundManager extends AbstractSoundManager {
         }
         this.playLoop(id, volume)
     }
+    pitchLoop(targetPitch, time, timeout, delay) {
+        if (!this.currentLoop) {
+            return
+        }
+        this.loopPitcher.rate = targetPitch;
+        TweenLite.killTweensOf(this.loopPitcher)
+        TweenLite.to(this.loopPitcher, time, {
+            delay,
+            rate: targetPitch,
+            onUpdate: () => {
+                if (this.currentLoop) {
+                    this.currentLoop.rate(this.loopPitcher.rate)
+                }
+            },
+            onComplete: () => {
+                TweenLite.to(this.loopPitcher, timeout, {
+                    rate: 1,
+                    onUpdate: () => {
+                        if (this.currentLoop) {
+                            this.currentLoop.rate(this.loopPitcher.rate)
+                        }
+                    }
+                })
+            }
+        })
+
+    }
     playLoop(id, volume = 1) {
 
         this.stopAll();
@@ -84,6 +114,12 @@ export default class SoundManager extends AbstractSoundManager {
                 hID: hid
             });
     }
+    playIf(id, volume = 1) {
+        if (this.audioList[id]) {
+            return
+        }
+        this.play(id, volume);
+    }
     playOnce(id, volume = 1) {
         this.audioList[id].stop();
         this.play(id, volume);
@@ -91,7 +127,7 @@ export default class SoundManager extends AbstractSoundManager {
     play(id, volume = 1, rate = 1) {
         this.audioList[id].loop(false);
         this.audioList[id].volume(volume);
-        let hid = this.audioList[id].play();        
+        let hid = this.audioList[id].play();
         this.audioList[id].rate(rate)
         this.playingList.push(
             {
@@ -100,7 +136,7 @@ export default class SoundManager extends AbstractSoundManager {
             });
     }
     stop(id) {
-        if(! this.audioList[id]){
+        if (!this.audioList[id]) {
             return;
         }
         this.audioList[id].stop();

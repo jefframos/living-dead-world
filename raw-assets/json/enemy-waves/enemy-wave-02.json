@@ -1,13 +1,13 @@
 [
     {
-        "ignore":{
+        "ignore": {
             "startAt": 350,
             "textTrigger": "INCOMING_HORDE",
-            "time":10
+            "time": 10
         },
         "lenght": 480,
         "environmentData": "level-2",
-        "difficulty":3,
+        "difficulty": 3,
         "waves": [
             {
                 "startAt": 2,
@@ -38,10 +38,11 @@
                         ]
                     }
                 ]
-            },            
+            },
             {
                 "startAt": 60,
                 "duration": 60,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -101,11 +102,10 @@
                     }
                 ]
             },
-            
             {
                 "startAt": 180,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -125,6 +125,7 @@
             {
                 "startAt": 240,
                 "duration": 60,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -152,11 +153,11 @@
                         ]
                     }
                 ]
-            },            
+            },
             {
                 "startAt": 300,
                 "duration": 30,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -184,11 +185,11 @@
                         ]
                     }
                 ]
-            },           
+            },
             {
                 "startAt": 360,
                 "duration": 600,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",
@@ -221,7 +222,7 @@
             {
                 "startAt": 420,
                 "duration": 60,
-                "alert":true,
+                "alert": true,
                 "waves": [
                     {
                         "areaType": "arc",

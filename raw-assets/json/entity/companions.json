@@ -190,5 +190,37 @@
             "idle": "BIRD-1-IDLE",
             "run": "BIRD-1-WALK"
         }
+    },
+    {
+        "id": "CAT-2",
+        "entityData": {
+            "name": "Spark Slinger",
+            "description": "A flying drone that zips around the battlefield and electrifies enemies below with its powerful shocks. With lightning-fast reflexes and pinpoint accuracy, this little bot is a force to be reckoned with.",
+            "ranking": 1,
+            "tier": 1,
+            "type": "Companion",
+            "icon": "cat2-icon"
+        },
+        "weapon": {
+            "id": "PLAYER_CROSS_SHOT"
+        },
+        "attributes": {
+            "basePower": 10,
+            "baseHealth": 80,
+            "baseMagicDefense": 2,
+            "baseMass": 1,
+            "baseDefense": 8,
+            "baseRadius": 10,
+            "baseSpeed": 40,
+            "baseDistance": 50
+        },
+        "view": {
+            "jumpHight": 1,
+            "scale": 1
+        },
+        "animationData": {
+            "idle": "CAT-2-IDLE",
+            "run": "CAT-2-WALK"
+        }
     }
 ]

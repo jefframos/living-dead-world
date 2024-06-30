@@ -1,7 +1,7 @@
 const assets = [
 	{
-	"id":"ancient",
-	"url":"assets/audio\\ancient.mp3"
+	"id":"Applause",
+	"url":"assets/audio\\Applause.mp3"
 	},
 	{
 	"id":"Cartoon-Mouth-Sound-20",
@@ -12,16 +12,28 @@ const assets = [
 	"url":"assets/audio\\dropTile.mp3"
 	},
 	{
-	"id":"FloatingCities",
-	"url":"assets/audio\\FloatingCities.mp3"
-	},
-	{
 	"id":"getstar",
 	"url":"assets/audio\\getstar.mp3"
 	},
 	{
+	"id":"FloatingCities",
+	"url":"assets/audio\\FloatingCities.mp3"
+	},
+	{
 	"id":"getThemAll",
 	"url":"assets/audio\\getThemAll.mp3"
+	},
+	{
+	"id":"GunShot2",
+	"url":"assets/audio\\GunShot2.mp3"
+	},
+	{
+	"id":"GunShot4",
+	"url":"assets/audio\\GunShot4.mp3"
+	},
+	{
+	"id":"HeavyWeapons19",
+	"url":"assets/audio\\HeavyWeapons19.mp3"
 	},
 	{
 	"id":"item",
@@ -32,8 +44,16 @@ const assets = [
 	"url":"assets/audio\\kill.mp3"
 	},
 	{
+	"id":"Laser4",
+	"url":"assets/audio\\Laser4.mp3"
+	},
+	{
 	"id":"magic",
 	"url":"assets/audio\\magic.mp3"
+	},
+	{
+	"id":"Mummys-Rocking-Rumble",
+	"url":"assets/audio\\Mummys-Rocking-Rumble.mp3"
 	},
 	{
 	"id":"Musical-Beep-Loop-02",
@@ -72,16 +92,16 @@ const assets = [
 	"url":"assets/audio\\shoosh.mp3"
 	},
 	{
-	"id":"squash1",
-	"url":"assets/audio\\squash1.mp3"
+	"id":"siren",
+	"url":"assets/audio\\siren.mp3"
 	},
 	{
 	"id":"slot-machine",
 	"url":"assets/audio\\slot-machine.mp3"
 	},
 	{
-	"id":"teleport",
-	"url":"assets/audio\\teleport.mp3"
+	"id":"squash1",
+	"url":"assets/audio\\squash1.mp3"
 	},
 	{
 	"id":"Synth-Appear-01",
@@ -90,6 +110,10 @@ const assets = [
 	{
 	"id":"Tap-01",
 	"url":"assets/audio\\Tap-01.mp3"
+	},
+	{
+	"id":"teleport",
+	"url":"assets/audio\\teleport.mp3"
 	}
 ];
 
