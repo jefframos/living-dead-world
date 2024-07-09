@@ -26263,17 +26263,17 @@ var _createClass2 = __webpack_require__(1);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _CookieManager = __webpack_require__(34);
+var _signals = __webpack_require__(8);
 
-var _CookieManager2 = _interopRequireDefault(_CookieManager);
+var _signals2 = _interopRequireDefault(_signals);
 
 var _Game = __webpack_require__(9);
 
 var _Game2 = _interopRequireDefault(_Game);
 
-var _signals = __webpack_require__(8);
+var _CookieManager = __webpack_require__(34);
 
-var _signals2 = _interopRequireDefault(_signals);
+var _CookieManager2 = _interopRequireDefault(_CookieManager);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -26299,6 +26299,7 @@ var RewardsManager = function () {
 
             this.usePoki = !usePoki;
             this.noPoki = usePoki;
+            this.rewardsPlaying = false;
             this.gameplayIsStopped = true;
             this.onAdds = new _signals2.default.Signal();
             this.onStopAdds = new _signals2.default.Signal();
@@ -26312,6 +26313,8 @@ var RewardsManager = function () {
                 return;
             }
 
+            console.debug('gameplayStop');
+
             this.gameplayIsStopped = true;
             PokiSDK.gameplayStop();
         }
@@ -26324,6 +26327,9 @@ var RewardsManager = function () {
             if (!this.gameplayIsStopped && !force) {
                 return;
             }
+
+            console.debug('gameplayStart');
+
             this.gameplayIsStopped = false;
             PokiSDK.gameplayStart();
         }
@@ -26350,8 +26356,11 @@ var RewardsManager = function () {
             }
             this.onAdds.dispatch();
             SOUND_MANAGER.mute();
+            console.debug('doComercial');
 
+            this.rewardsPlaying = true;
             PokiSDK.commercialBreak().then(function () {
+                _this.rewardsPlaying = false;
                 console.log("Commercial break finished, proceeding to game");
                 if (toGameplayStart) {
                     _this.gameplayStart();
@@ -26362,6 +26371,7 @@ var RewardsManager = function () {
                 if (callback) callback(params);
             }).catch(function () {
                 console.log("Initialized, but the user likely has adblock");
+                _this.rewardsPlaying = false;
                 if (toGameplayStart) {
                     _this.gameplayStart();
                 }
@@ -26380,6 +26390,8 @@ var RewardsManager = function () {
                 if (callback) callback(params);
                 return;
             }
+
+            console.debug('doReward');
             this.gameplayStop();
 
             if (this.isDebug) {
@@ -26390,9 +26402,13 @@ var RewardsManager = function () {
             }
 
             this.onAdds.dispatch();
+
+            this.rewardsPlaying = true;
+
             SOUND_MANAGER.mute();
             _CookieManager2.default.instance;
             PokiSDK.rewardedBreak().then(function (success) {
+                _this2.rewardsPlaying = false;
                 if (success) {
                     _this2.onStopAdds.dispatch();
                     _this2.sortOutSound();
@@ -89741,7 +89757,11 @@ var CharacterBuildScreen = function (_Screen) {
         });
 
         window.onSpacePressed.add(function () {
+            if (_RewardsManager2.default.instance.rewardsPlaying) {
+                return;
+            }
             if (_this.mainShow && _this.screenManager.currentScreen.label == 'CharacterBuild') {
+                _this.mainShow = false;
                 _this.screenManager.redirectToGame({ level: 1 });
             }
         });
@@ -95256,6 +95276,9 @@ var PlayerInventoryHud = function (_GameObject) {
                 });
                 _this.inGamePopupMenu.onHide.add(function () {
                         _Eugine2.default.TimeScale = 1;
+                });
+                _this.inGamePopupMenu.onContinueGame.add(function () {
+                        _Eugine2.default.TimeScale = 1;
                         _RewardsManager2.default.instance.gameplayStart();
                 });
 
@@ -95740,11 +95763,13 @@ var InGamePopupMenu = function (_MainScreenModal) {
                 _this.container.addChild(_this.buttonList);
 
                 _this.onQuitGame = new _signals2.default.Signal();
+                _this.onContinueGame = new _signals2.default.Signal();
                 var buttonsData = [{
                         label: _LocalizationManager2.default.instance.getLabel('CONTINUE'),
                         texture: 'square_button_0002',
                         callback: function callback() {
                                 _this.hide();
+                                _this.onContinueGame.dispatch();
                         },
                         sound: 'Synth-Appear-01'
                 }, {
@@ -109547,7 +109572,7 @@ window.LABELS.LABEL_DAMAGE = {
 /* 351 */
 /***/ (function(module, exports) {
 
-module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/icons/icons.json","image/ui-no-tiny/ui-no-tiny.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/particles/particles.json","image/characters/characters.json","image/vfx/vfx.json"]}
+module.exports = {"default":["image/terrain/terrain.json","image/texture/texture.json","image/hud/hud.json","image/guns/guns.json","image/ui-no-tiny/ui-no-tiny.json","image/icons/icons.json","image/environment/environment.json","image/ui/ui.json","image/body-parts/body-parts.json","image/particles/particles.json","image/characters/characters.json","image/vfx/vfx.json"]}
 
 /***/ }),
 /* 352 */
@@ -109569,11 +109594,11 @@ var assets = [{
 	"id": "dropTile",
 	"url": "assets/audio\\dropTile.mp3"
 }, {
-	"id": "getstar",
-	"url": "assets/audio\\getstar.mp3"
-}, {
 	"id": "FloatingCities",
 	"url": "assets/audio\\FloatingCities.mp3"
+}, {
+	"id": "getstar",
+	"url": "assets/audio\\getstar.mp3"
 }, {
 	"id": "getThemAll",
 	"url": "assets/audio\\getThemAll.mp3"
@@ -109590,11 +109615,11 @@ var assets = [{
 	"id": "item",
 	"url": "assets/audio\\item.mp3"
 }, {
-	"id": "kill",
-	"url": "assets/audio\\kill.mp3"
-}, {
 	"id": "Laser4",
 	"url": "assets/audio\\Laser4.mp3"
+}, {
+	"id": "kill",
+	"url": "assets/audio\\kill.mp3"
 }, {
 	"id": "magic",
 	"url": "assets/audio\\magic.mp3"
@@ -109617,11 +109642,11 @@ var assets = [{
 	"id": "Pop-Musical",
 	"url": "assets/audio\\Pop-Musical.mp3"
 }, {
-	"id": "Pop-Tone",
-	"url": "assets/audio\\Pop-Tone.mp3"
-}, {
 	"id": "pop",
 	"url": "assets/audio\\pop.mp3"
+}, {
+	"id": "Pop-Tone",
+	"url": "assets/audio\\Pop-Tone.mp3"
 }, {
 	"id": "pop2",
 	"url": "assets/audio\\pop2.mp3"
@@ -109629,17 +109654,17 @@ var assets = [{
 	"id": "shoosh",
 	"url": "assets/audio\\shoosh.mp3"
 }, {
-	"id": "siren",
-	"url": "assets/audio\\siren.mp3"
-}, {
 	"id": "slot-machine",
 	"url": "assets/audio\\slot-machine.mp3"
 }, {
-	"id": "squash1",
-	"url": "assets/audio\\squash1.mp3"
+	"id": "siren",
+	"url": "assets/audio\\siren.mp3"
 }, {
 	"id": "Synth-Appear-01",
 	"url": "assets/audio\\Synth-Appear-01.mp3"
+}, {
+	"id": "squash1",
+	"url": "assets/audio\\squash1.mp3"
 }, {
 	"id": "Tap-01",
 	"url": "assets/audio\\Tap-01.mp3"
@@ -109677,17 +109702,17 @@ var assets = [{
 	"id": "localization_ES",
 	"url": "assets/json\\localization_ES.json"
 }, {
-	"id": "localization_IT",
-	"url": "assets/json\\localization_IT.json"
-}, {
 	"id": "localization_FR",
 	"url": "assets/json\\localization_FR.json"
 }, {
-	"id": "localization_JA",
-	"url": "assets/json\\localization_JA.json"
+	"id": "localization_IT",
+	"url": "assets/json\\localization_IT.json"
 }, {
 	"id": "localization_KO",
 	"url": "assets/json\\localization_KO.json"
+}, {
+	"id": "localization_JA",
+	"url": "assets/json\\localization_JA.json"
 }, {
 	"id": "localization_PT",
 	"url": "assets/json\\localization_PT.json"
@@ -109719,14 +109744,14 @@ var assets = [{
 	"id": "cards",
 	"url": "assets/json\\cards\\cards.json"
 }, {
+	"id": "game-shop",
+	"url": "assets/json\\economy\\game-shop.json"
+}, {
 	"id": "body-parts",
 	"url": "assets/json\\database\\body-parts.json"
 }, {
 	"id": "starter-inventory",
 	"url": "assets/json\\database\\starter-inventory.json"
-}, {
-	"id": "game-shop",
-	"url": "assets/json\\economy\\game-shop.json"
 }, {
 	"id": "enemy-wave-001",
 	"url": "assets/json\\enemy-waves\\enemy-wave-001.json"
@@ -109734,11 +109759,11 @@ var assets = [{
 	"id": "enemy-wave-01",
 	"url": "assets/json\\enemy-waves\\enemy-wave-01.json"
 }, {
-	"id": "enemy-wave-02",
-	"url": "assets/json\\enemy-waves\\enemy-wave-02.json"
-}, {
 	"id": "enemy-wave-03",
 	"url": "assets/json\\enemy-waves\\enemy-wave-03.json"
+}, {
+	"id": "enemy-wave-02",
+	"url": "assets/json\\enemy-waves\\enemy-wave-02.json"
 }, {
 	"id": "enemy-wave-04",
 	"url": "assets/json\\enemy-waves\\enemy-wave-04.json"
@@ -109761,6 +109786,18 @@ var assets = [{
 	"id": "player",
 	"url": "assets/json\\entity\\player.json"
 }, {
+	"id": "acessories",
+	"url": "assets/json\\misc\\acessories.json"
+}, {
+	"id": "buff-debuff",
+	"url": "assets/json\\misc\\buff-debuff.json"
+}, {
+	"id": "attachments",
+	"url": "assets/json\\misc\\attachments.json"
+}, {
+	"id": "attribute-modifiers",
+	"url": "assets/json\\misc\\attribute-modifiers.json"
+}, {
 	"id": "level-001",
 	"url": "assets/json\\environment\\level-001.json"
 }, {
@@ -109770,41 +109807,14 @@ var assets = [{
 	"id": "level-2",
 	"url": "assets/json\\environment\\level-2.json"
 }, {
-	"id": "level-4",
-	"url": "assets/json\\environment\\level-4.json"
-}, {
 	"id": "level-3",
 	"url": "assets/json\\environment\\level-3.json"
 }, {
+	"id": "level-4",
+	"url": "assets/json\\environment\\level-4.json"
+}, {
 	"id": "level-tutorial",
 	"url": "assets/json\\environment\\level-tutorial.json"
-}, {
-	"id": "acessories",
-	"url": "assets/json\\misc\\acessories.json"
-}, {
-	"id": "attachments",
-	"url": "assets/json\\misc\\attachments.json"
-}, {
-	"id": "buff-debuff",
-	"url": "assets/json\\misc\\buff-debuff.json"
-}, {
-	"id": "attribute-modifiers",
-	"url": "assets/json\\misc\\attribute-modifiers.json"
-}, {
-	"id": "general-vfx",
-	"url": "assets/json\\vfx\\general-vfx.json"
-}, {
-	"id": "particle-behaviour",
-	"url": "assets/json\\vfx\\particle-behaviour.json"
-}, {
-	"id": "weapon-vfx-pack",
-	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
-}, {
-	"id": "weapon-vfx",
-	"url": "assets/json\\vfx\\weapon-vfx.json"
-}, {
-	"id": "particle-descriptors",
-	"url": "assets/json\\vfx\\particle-descriptors.json"
 }, {
 	"id": "main-weapons",
 	"url": "assets/json\\weapons\\main-weapons.json"
@@ -109814,6 +109824,21 @@ var assets = [{
 }, {
 	"id": "weapon-view-overriders",
 	"url": "assets/json\\weapons\\weapon-view-overriders.json"
+}, {
+	"id": "general-vfx",
+	"url": "assets/json\\vfx\\general-vfx.json"
+}, {
+	"id": "particle-behaviour",
+	"url": "assets/json\\vfx\\particle-behaviour.json"
+}, {
+	"id": "particle-descriptors",
+	"url": "assets/json\\vfx\\particle-descriptors.json"
+}, {
+	"id": "weapon-vfx",
+	"url": "assets/json\\vfx\\weapon-vfx.json"
+}, {
+	"id": "weapon-vfx-pack",
+	"url": "assets/json\\vfx\\weapon-vfx-pack.json"
 }];
 
 exports.default = assets;

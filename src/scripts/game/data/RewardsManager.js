@@ -1,6 +1,6 @@
-import CookieManager from "../CookieManager";
-import Game from "../../Game";
 import signals from "signals";
+import Game from "../../Game";
+import CookieManager from "../CookieManager";
 
 export default class RewardsManager {
     static _instance;
@@ -12,8 +12,9 @@ export default class RewardsManager {
     }
     constructor() { }
     initialize(usePoki = false) {
-        this.usePoki =! usePoki;
+        this.usePoki = !usePoki;
         this.noPoki = usePoki;
+        this.rewardsPlaying = false;
         this.gameplayIsStopped = true;
         this.onAdds = new signals.Signal();
         this.onStopAdds = new signals.Signal();
@@ -26,6 +27,8 @@ export default class RewardsManager {
             return
         }
 
+        console.debug('gameplayStop')
+
         this.gameplayIsStopped = true;
         PokiSDK.gameplayStop();
     }
@@ -34,6 +37,9 @@ export default class RewardsManager {
         if (!this.gameplayIsStopped && !force) {
             return
         }
+
+        console.debug('gameplayStart')
+
         this.gameplayIsStopped = false;
         PokiSDK.gameplayStart();
     }
@@ -56,9 +62,12 @@ export default class RewardsManager {
         }
         this.onAdds.dispatch();
         SOUND_MANAGER.mute();
+        console.debug('doComercial')
 
+        this.rewardsPlaying = true;
         PokiSDK.commercialBreak().then(
             () => {
+                this.rewardsPlaying = false;
                 console.log("Commercial break finished, proceeding to game");
                 if (toGameplayStart) {
                     this.gameplayStart()
@@ -71,6 +80,7 @@ export default class RewardsManager {
         ).catch(
             () => {
                 console.log("Initialized, but the user likely has adblock");
+                this.rewardsPlaying = false;
                 if (toGameplayStart) {
                     this.gameplayStart()
                 }
@@ -87,6 +97,8 @@ export default class RewardsManager {
             if (callback) callback(params)
             return;
         }
+
+        console.debug('doReward')
         this.gameplayStop()
 
         if (this.isDebug) {
@@ -96,11 +108,16 @@ export default class RewardsManager {
             return
         }
 
+
         this.onAdds.dispatch();
+
+        this.rewardsPlaying = true;
+
         SOUND_MANAGER.mute();
         CookieManager.instance
         PokiSDK.rewardedBreak().then(
             (success) => {
+                this.rewardsPlaying = false;
                 if (success) {
                     this.onStopAdds.dispatch();
                     this.sortOutSound();
@@ -114,7 +131,7 @@ export default class RewardsManager {
                     if (toGameplayStart) {
                         this.gameplayStart()
                     }
-                    if(Game.Debug.debug){
+                    if (Game.Debug.debug) {
                         if (callback) callback(params)
                     }
                     //this.onAddBlock.dispatch();
@@ -128,7 +145,7 @@ export default class RewardsManager {
                 if (toGameplayStart) {
                     this.gameplayStart()
                 }
-                if(Game.Debug.debug){
+                if (Game.Debug.debug) {
                     if (callback) callback(params)
                 }
                 //if (callback) callback(params)

@@ -45,12 +45,14 @@ export default class InGamePopupMenu extends MainScreenModal {
         this.container.addChild(this.buttonList);
 
         this.onQuitGame = new signals.Signal();
+        this.onContinueGame = new signals.Signal();
         const buttonsData = [
             {
                 label: LocalizationManager.instance.getLabel('CONTINUE'),
                 texture: 'square_button_0002',
                 callback: () => {
                     this.hide()
+                    this.onContinueGame.dispatch();
                 },
                 sound: 'Synth-Appear-01'
             },

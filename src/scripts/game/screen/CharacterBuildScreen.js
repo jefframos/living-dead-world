@@ -265,7 +265,11 @@ export default class CharacterBuildScreen extends Screen {
         })
 
         window.onSpacePressed.add(() => {
+            if (RewardsManager.instance.rewardsPlaying) {
+                return;
+            }
             if (this.mainShow && this.screenManager.currentScreen.label == 'CharacterBuild') {
+                this.mainShow = false
                 this.screenManager.redirectToGame({ level: 1 });
             }
         })

@@ -12,12 +12,12 @@ const assets = [
 	"url":"assets/audio\\dropTile.mp3"
 	},
 	{
-	"id":"getstar",
-	"url":"assets/audio\\getstar.mp3"
-	},
-	{
 	"id":"FloatingCities",
 	"url":"assets/audio\\FloatingCities.mp3"
+	},
+	{
+	"id":"getstar",
+	"url":"assets/audio\\getstar.mp3"
 	},
 	{
 	"id":"getThemAll",
@@ -40,12 +40,12 @@ const assets = [
 	"url":"assets/audio\\item.mp3"
 	},
 	{
-	"id":"kill",
-	"url":"assets/audio\\kill.mp3"
-	},
-	{
 	"id":"Laser4",
 	"url":"assets/audio\\Laser4.mp3"
+	},
+	{
+	"id":"kill",
+	"url":"assets/audio\\kill.mp3"
 	},
 	{
 	"id":"magic",
@@ -76,12 +76,12 @@ const assets = [
 	"url":"assets/audio\\Pop-Musical.mp3"
 	},
 	{
-	"id":"Pop-Tone",
-	"url":"assets/audio\\Pop-Tone.mp3"
-	},
-	{
 	"id":"pop",
 	"url":"assets/audio\\pop.mp3"
+	},
+	{
+	"id":"Pop-Tone",
+	"url":"assets/audio\\Pop-Tone.mp3"
 	},
 	{
 	"id":"pop2",
@@ -92,20 +92,20 @@ const assets = [
 	"url":"assets/audio\\shoosh.mp3"
 	},
 	{
-	"id":"siren",
-	"url":"assets/audio\\siren.mp3"
-	},
-	{
 	"id":"slot-machine",
 	"url":"assets/audio\\slot-machine.mp3"
 	},
 	{
-	"id":"squash1",
-	"url":"assets/audio\\squash1.mp3"
+	"id":"siren",
+	"url":"assets/audio\\siren.mp3"
 	},
 	{
 	"id":"Synth-Appear-01",
 	"url":"assets/audio\\Synth-Appear-01.mp3"
+	},
+	{
+	"id":"squash1",
+	"url":"assets/audio\\squash1.mp3"
 	},
 	{
 	"id":"Tap-01",

@@ -355,6 +355,10 @@ export default class PlayerInventoryHud extends GameObject {
         })
         this.inGamePopupMenu.onHide.add(() => {
             Eugine.TimeScale = 1;
+
+        })
+        this.inGamePopupMenu.onContinueGame.add(() => {
+            Eugine.TimeScale = 1;
             RewardsManager.instance.gameplayStart();
 
         })
